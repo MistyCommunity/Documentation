@@ -1,0 +1,51 @@
+<div class='header'>
+
+  <div class='left'>
+
+    <div class="toggle-nav">
+      <a href="#" class="subnav-link toggle-navigation">
+        <i class="ion-navicon" title="show/hide the navigation"></i>
+      </a>
+    </div>
+
+    <a href="/">
+      <img src="/assets/images/misty-logo.png" id="logo">
+    </a>
+
+    <div class="sections">
+      <a class="nav {{#contains path.href 'onboarding'}}active{{/contains}}" href="/onboarding">Onboarding</a>
+      <a class="nav {{#contains path.href 'apis'}}active{{/contains}}" href="/apis">API</a>
+    </div>
+
+    <div class="dropdown mobile-only">
+      <a id="dLabel" data-target="#" class="nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        {{top-level-category path.href}}
+        <i class="icon ion-chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dLabel">
+        <li><a href="/onboarding">Onboarding</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/apis">API</a></li>
+        <li><a href="/casestudies">Case Studies</a></li>
+        <li><a href="/tutorials">Tutorials</a></li>
+        <li><a href="/codesamples">Code Samples</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class='right'>
+
+    <div class="search">
+      <div class="search-input-wrapper">
+        <i class="ion-search"></i>
+        <input class="search-box" type="text" placeholder='Search' value=''/>
+      </div>
+      <div class="search-results">
+      </div>
+    </div>
+
+    <a href='{{edit-link branch path.href path.name}}' class="nav" target="_blank"><i class="ion-edit"></i>Edit</a>
+
+  </div>
+</div>

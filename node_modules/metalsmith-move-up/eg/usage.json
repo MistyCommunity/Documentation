@@ -1,0 +1,13 @@
+{
+  "source": "./src",
+  "destination": "./dest",
+  "plugins": {
+    "metalsmith-move-up": {
+      "opts": {"dot": "true"},
+      "transforms": [
+        {"pattern": "**", "by": "2"},
+        {"pattern": "posts/*", "by": "2", "opts": {"dot": "false"}}
+      ]
+    }
+  }
+}

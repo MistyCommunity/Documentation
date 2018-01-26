@@ -1,0 +1,12 @@
+{
+    "ecmaFeatures": {
+        "classes": true
+    },
+    "env": {
+        "node": true
+     },
+    "rules": {
+        "quotes": [0, "single"],
+        "strict": 0,
+    }
+}
