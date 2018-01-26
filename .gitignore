@@ -1,3 +1,8 @@
-
 .DS_Store
-/build
+node_modules
+build/
+build_*/
+npm-debug.log
+api-node
+api-service-libraries
+_pdf-datasheets-build/
