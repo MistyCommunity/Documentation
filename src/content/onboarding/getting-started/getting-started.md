@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Let's get started! ...
+Let's get started! ....
 
 How to start programming a robot:
 - Reference the Misty.API classes in your html: 
