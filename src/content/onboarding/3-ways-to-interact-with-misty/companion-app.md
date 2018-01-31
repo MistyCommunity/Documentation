@@ -1,8 +1,8 @@
 ---
-title: Mobile App Documentation
+title: Companion App
 layout: onboarding.hbs
 columns: two
-order: 4
+order: 2
 ---
 
 # {{title}}

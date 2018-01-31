@@ -174,9 +174,10 @@ exports.metalsmith = function() {
         sortBy: 'order',
         orderDynamicCollections: [
           'getting-started',
-          'support-and-forums',
-          'block-programming-documentation',
-          'mobile-app-documentation'
+          'handling-misty',
+          'getting-to-know-your-robot',
+          '3-ways-to-interact-with-misty',
+          'known-issues-and-help'
         ]
       },
       apis: {
