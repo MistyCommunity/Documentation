@@ -2,7 +2,7 @@
 title: Blockly
 layout: onboarding.hbs
 columns: two
-order: 3
+order: 6
 ---
 
 # {{title}}
@@ -29,6 +29,4 @@ Blockly is a block-based, visual programming language editor.
 * Interact with the LED
 * Train Misty to recognize faces (then use this training with the API)
 * Mapping (for details, see the “Mapping” section)
-
-
 

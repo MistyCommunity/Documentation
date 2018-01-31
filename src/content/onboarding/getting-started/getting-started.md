@@ -1,5 +1,5 @@
 ---
-title: Getting Started with Misty I
+title: Safety & Handling
 layout: onboarding.hbs
 columns: two
 order: 1
@@ -7,18 +7,31 @@ order: 1
 
 # {{title}}
 
-Let's get started! ....
+Let's get started!
 
-How to start programming a robot:
-- Reference the Misty.API classes in your html: 
-- MistyAjax.js - sends AJAX calls to robot
-- MistyAPI.js - maps one-to-one to Misty's API endpoints, constructs payloads to pass to MistyAJAX.js.  You can call it directly once you have created a new MistyRobot by inputting the robot's ip address, port, and verbose level
--MistyRobot.js  - builds the Server URL based on the robot you are attempting to interact with and provides a wider and more user-friendly range of commands than Misty.API
-- Run the SDK to see a sample of how to implement MistyRobot.js commands with buttons and inputs.  
-- SampleUI.js contains all of the event listeners linked to these buttons.
-- To get a map or a path, follow the SLAM instructions on the Index.html page.  In can be tricky at first, but you will get the hang of it.  
--Verbose Level (1-3) refers to the volume of console messages you would like to receive. Selecting 3 will give you a console message for the methods in all 3 classes, for example.  The console messages can be helpful when getting started but experiment with whichever level is most helpful to you. 
+**Please read these brief onboarding articles thoroughly prior to meeting Misty.**
+
+You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. You’ll be able to program Misty to do a range of activities, such as drive from one room to the next, issue sounds to speakers, capture images from the camera, and so on. More abilities will become available as they are developed by the Misty engineering team and by you, the Misty community. 
 
 Ask questions. 
 
 Share knowledge.
+
+## SAFETY WARNING
+
+Misty uses a laser sensor to see the world. It is located above her right eye. 
+**Never touch this sensor!
+Never look directly into the laser!**
+
+**Oils on your finger can cause the laser to disperse into your eyes and 
+CAUSE SEVERE PHYSICAL DAMAGE!**
+
+![Misty laser warning](../../../assets/images/do_not_touch.png)
+
+## Handling Misty
+
+While future versions of Misty will be much tougher, it’s important that you handle Misty I Developer Edition with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
+
+**Note: If you are powering up Misty on a table top, it’s a good idea to use the small cardboard box that came in Misty’s packaging as a stand.** Simply place the box under Misty, between her tracks. When Misty’s movement is activated, Misty’s tracks will move freely, but she will stay safely in place.
+
+
