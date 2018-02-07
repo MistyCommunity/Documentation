@@ -20,11 +20,12 @@ Share knowledge.
 ## SAFETY WARNING
 
 Misty uses a laser sensor to see the world. It is located above her right eye. 
-**Never touch this sensor!
-Never look directly into the laser!**
 
-**Oils on your finger can cause the laser to disperse into your eyes and 
-CAUSE SEVERE PHYSICAL DAMAGE!**
+**Never look directly into the laser!**
+
+**Do not directly touch this sensor or remove the protective cover over this sensor!**
+
+**Oils on your finger can cause the laser to disperse into your eyes and CAUSE SEVERE PHYSICAL DAMAGE!**
 
 ![Misty laser warning](../../../assets/images/do_not_touch.png)
 

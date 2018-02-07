@@ -13,7 +13,7 @@ When you are accepted into the Misty Developer Program, you will receive an invi
 
 The support channel is monitored for immediate response (5-10 minutes) from 7:00am-10:00pm MST on weekdays and from 7:00am-7:00pm MST on weekends.
 
-If you are in the Developer program and have not received an invitation to Misty Builders, please write us at: community @ mistyrobotics.com.
+If you are in the Developer program and have not received an invitation to Misty Builders, please write us at: **community @ mistyrobotics.com**.
 
 ## Forums
 
@@ -24,7 +24,7 @@ Join our top engineers and thought leaders in discussion about features you want
 ## Handy Links
 
 * help @ mistyrobotics.com (for help)
-* [Blockly Visual Editor](https://misty:MistyRocks!@blockly.mistyrobotics.io/)
-* [API Explorer](https://misty:MistyRocks!@api-client.mistyrobotics.io/)
+* [Blockly](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Blockly.zip)
+* [API Explorer](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Misty.API.zip)
 * [Misty Community Slack](http://misty-community.slack.com)
 * [Misty Forums](http://forums.mistyrobotics.com/)

@@ -176,7 +176,7 @@ exports.metalsmith = function() {
           'getting-started',
           'getting-to-know-your-robot',
           '3-ways-to-interact-with-misty',
-          'known-issues-and-help'
+          'tips-and-help'
         ]
       },
       apis: {

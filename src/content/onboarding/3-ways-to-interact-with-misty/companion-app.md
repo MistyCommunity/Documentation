@@ -5,9 +5,9 @@ columns: two
 order: 2
 ---
 
-# {{title}}
+# {{title}} 
 
-If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to help@mistyrobotics.com and let us know which app (iOS or Android) you’d like.
+If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you’d like.
 
 **Note: When using the companion app, you should connect Misty to both Bluetooth and Wi-Fi. Keep reading for connection instructions.**
 
@@ -36,9 +36,6 @@ Connection, logs, and commands can be found in the companion app’s More tab:
 2. Control the robot’s drive treads by moving one finger around the “joystick” control. Pressing at the points at the top and bottom of the circle drives Misty straight forward or backward. Pressing in the areas to the left and right of the circle (indicated with colored sections as seen at the right) rotates Misty.
 3. Control the drive speed with the slider at the top. 
 ![Companion App Drive Tab](../../../assets/images/drive.png)
-
-## Map with the Companion App
-For full details on mapping, see the “Mapping” section.
 
 ## Get Information from Misty
 Information on Misty’s Bluetooth and Wi-Fi connection status, IP address, SLAM sensors, and battery charge level are available from the Info tab. 
