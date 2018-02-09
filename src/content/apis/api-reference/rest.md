@@ -6,28 +6,29 @@ order: 1
 ---
 # {{title}}
 
-The Misty REST API allows one to send commands from a REST client or browser to control and obtain information about the robot.
+With the REST API, you can send commands from a REST client or browser to control and get information from Misty.
+
 ## POST Commands
 
-To send information to the robot, send using the http POST method via a REST client such as POSTMAN:
+Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
 
 ![POSTMAN example](..\..\..\assets\images\post-example.PNG)
 
 ## GET Commands
 
-To retrieve information about the robot, one can either send the command from a browser or use the http GET method in a REST client.
+To retrieve information from Misty, you can either send the HTTP GET command from a browser or use a REST client.
 
-Example of a GET command in the browser:
+An example of sending a GET method in the browser:
 
 ![GET example](..\..\..\assets\images\browser-get-example.PNG)
 
 If using POSTMAN for GET commands, make sure to remove content type from the header.
 
-![POSTMAN example](..\..\..\assets\images\content-type-instructions.PNG)
+![Content-Type in POSTMAN](..\..\..\assets\images\POSTMAN1.png)
 
 ## URL Format
 
-To interact with API commands through a rest client or browser, use the following URL format:
+To interact with API commands through a REST client or browser, use the following URL format:
 
 ```
 http://{robot-ip-address}:{port}/Api/{CommandName}
@@ -37,7 +38,7 @@ http://{robot-ip-address}:{port}/Api/{CommandName}
 
 ## Payload Format
 
-Misty uses JSON to format Rest API data. Use this format when creating the payload:
+Misty uses JSON to format REST API data. Use this format when creating the payload:
 
 ```json
 {
@@ -49,48 +50,37 @@ Misty uses JSON to format Rest API data. Use this format when creating the paylo
 
 ## Commands
 
-The commands are grouped into the following categories:
+Misty's REST commands are grouped into the following categories:
 
 - **Action**
-  - Display image files
+  - Drive Misty
+  - Perform mapping or tracking
   - Play sound files
-  - Manipulate LED screen
-  - Move robot
+  - Change the LED color
+  - Use face training and recognition
+  - Move Misty's arms or head
+  - Change the display
 
 
 - **Configuration**
-  - Save files to robot
-  - Obtain configuration information
-  - Connect robot to WiFi
+  - Save audio or image files to Misty
+  - Connect Misty to WiFi
+  - Get SLAM (simultaneous localization and mapping) data
 
 
 - **Information**  
-  - Obtain specifics of various assets in Misty
+  - Get asset, sensor, device, and battery data
   - Troubleshoot problems
+  - Obtain configuration information
 
 ------
 
 ### Action
 
-##### AnimateDisplayImage *(Not Fully Implemented)*
-
-Begin slideshow with photos that have been uploaded to the robot. Specify duration between images.
-
-Parameters
-
-- OrderedListOfFilenamesWithoutPaths - String - Series of photos to display on screen ( Valid image file types are .jpg, .jpeg, .gif, .png.  Maximum file size allowed is 3MB)
-- MillisecondsBtwImages - String - Number (in form of string) that sets the duration between images
-
-```json
-{
-  "OrderedListOfFilenamesWithoutPaths":"image.jpg, image2.jpg, image3.png",
-  "MillisecondsBtwImages":"500"
-}
-```
 
 ##### CancelFaceTraining
 
-Cancel training of the face.
+Cancels face training that is currently in progress.
 
 Parameters
 
@@ -98,11 +88,11 @@ Parameters
 
 ##### ChangeDisplayImage
 
-Change the image displayed on screen using uploaded image.
+Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Parameters
 
-- FilenameWithoutPath - String - Name of  uploaded file with image to display ( Valid image file types are .jpg, .jpeg, .gif, .png.  Maximum file size allowed is 3MB)
+- FilenameWithoutPath - String - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png.
 
 ```json
 {   
@@ -110,17 +100,15 @@ Parameters
 }
 ```
 
-##### ChangeEyes
+##### ChangeEyes (beta)
 
-Change the eyes displayed on robot by manipulating the robots affect.
+Changes the image displayed for Misty's eyes.
 
 Parameters
 
 - Valence - Double - Number indicating the Valence value of the affect (value range: -1 to 1)
 
-
 - Arousal - Double - Number indicating the Arousal value of the affect (value range: -1 to 1)
-
 
 - Dominance- Double - Number indicating the Dominance value of the affect (value range: -1 to 1)
 
@@ -132,31 +120,16 @@ Parameters
 }
 ```
 
-##### ChangeEyeSprite *(Not Fully Implemented)*
-
-Upload new image to change robot's eyes.
-
-Parameters
-
-- SpriteFilenameWithoutPath - String - Name referencing file to be displayed on screen
-- SpriteScale - Double - Number representing scale of image
-
-```json
-{
-  "SpriteFilenameWithoutPath":"example.jpg",
-  "SpriteScale":1
-}
-```
 
 ##### ChangeLED
 
-Change the color of LED screen on robot.
+Changes the color of the LED light behind the logo on Misty's torso.
 
 Parameters
 
-- Red (int) - the red rgb color value
-- Green (int) - the green rgb color value
-- Blue (int) - the blue rgb color value
+- Red (int) - the red RGB color value.
+- Green (int) - the green RGB color value.
+- Blue (int) - the blue RGB color value.
 
 ```json
 {
@@ -168,19 +141,17 @@ Parameters
 
 ##### DriveTime
 
-Drive robot forward or backward at a specific speed for a set amount of time.
+Drives Misty forward or backward at a specific speed for a set amount of time.
 
 Parameters
 
-- LinearVelocity - Double - Number that sets the speed value when robot is driving in a straight line (default value range: -1.222 to 1.042 ***Note: value range for linear velocity is hardware dependent***)
+- LinearVelocity - Double - Number that sets the speed value when Misty is driving in a straight line. Default value range: -1.222 to 1.042. ***Note: The value range for linear velocity is hardware dependent.***
 
+- AngularVelocity - Double - Number that sets the speed value when Misty is driving at an angle. Default value range: -8.19 to 8.19. ***Note: The value range for angular velocity is hardware dependent.***
 
-- AngularVelocity - Double - Number that sets the speed value when robot is driving at an angle (default value range: -8.19 to 8.19 ***Note: value range for angular velocity is hardware dependent***)
+- TimeMs - Integer - Number that sets duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
 
-
-- TimeMs - Integer - Number that sets duration of movement (value range: 0 to 1000 ms, able to increment by 500 ms)
-
-- Degree - Double - (optional) the degrees to turn, will recalculate linear velocity
+- Degree - Double - (optional) The number of degrees to turn. *Note: Supplying a `Degree` value recalculates linear velocity.*
 
 ```json
 {
@@ -190,43 +161,50 @@ Parameters
 }
 ```
 
-##### DriveToLocation
+##### DriveToLocation (beta)
 
-Drive robot to the locations sets that are provided.
+Drives Misty to a location you specify. To use `DriveToLocation`, you only need to provide Misty's destination. Misty determines the path she follows to arrive at the specified location.
 
 Parameters
 
-- Waypoints - List of Sets of Integers - List containing 1 to many sets of number pairs that represent X and Y coordinates (values based on previously generated map)
+- Waypoints - Integer pair - A pair of integers representing X and Y coordinates. You can obtain `Waypoint` values from a map that Misty has previously generated. *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 ```json
 {  
-  "Waypoints": "(10,20),(20,20),(20,10)"
+  "X":"20",
+  "Y":"30"
 }
 ```
 
 ##### FollowPath
 
-Drive robot in a set path based on specific coordinates.
+Drives Misty on a path defined by coordinates you specify.
 
 Parameters
 
-- Waypoints - List of Sets of Integers - List containing 1 to many sets of number pairs that represent X and Y coordinates (values based on previously generated map)
+- Waypoints - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Waypoint` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+
+Or:
+
+- Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 ```json
 {  
   "Waypoints": "(10,20),(20,20),(20,10)"
 }
+```
 
-OR
+Or:
 
+```json
 {
   "Path":"10:20,15:25,30:40"
 }
 ```
 
-##### GetLearnedFaces
+##### GetLearnedFaces (beta)
 
-Get a list of Face IDs that have already been saved on the robot.
+Obtains a list of face IDs that previously have been saved on Misty.
 
 Parameters
 
@@ -234,13 +212,13 @@ Parameters
 
 ##### LocomotionTrack
 
-Drive robot left, right, or forward depending on track speed specified for both left and right tracks.
+Drives Misty left, right, or forward depending on the track speed specified for both left and right tracks.
 
 Parameters
 
-- LeftTrackSpeed - Integer - Number that determines speed of left track (value range: -128 to 127)
+- LeftTrackSpeed - Integer - A value for the speed of the left track, range: -128 to 127.
 
-- RightTrackSpeed - Integer - Number that determines speed of right track (value range: -128 to 127)
+- RightTrackSpeed - Integer - A value for the speed of the right track, range: -128 to 127.
 
 ```json
 {   
@@ -249,19 +227,17 @@ Parameters
 }
 ```
 
-##### MoveArm
+##### MoveArm (beta)
 
-Move left or right arm at a specific speed to a chosen position.
+Move Misty's left or right arm at a specific speed to a chosen position.
 
 Parameters
 
-- Arm - String - Name that specifies which arm is to be moved (Left or Right)
+- Arm - String - "Left" or "Right" to indicate the arm Misty moves.
 
+- Position - Double - Number that controls the position of the arm. Value range: 0 (up) to 10 (down).
 
-- Position - Double - Number that controls the position of arm (value range: 0 (up) to 10 (down))
-
-
-- Velocity - Double - Number that controls the speed of arm movement (value range: 0 to 10)
+- Velocity - Double - Number that controls the speed of the arm movement. Value range: 0 to 10.
 
 ```json
 {
@@ -271,21 +247,19 @@ Parameters
 }
 ```
 
-##### MoveHead
+##### MoveHead (beta)
 
-Choose range of head movement on three different axes and specify speed at which movement occurs.
+Moves Misty's head in one of three axes (tilt, turn, or up-and-down).
 
 Parameters
 
-- Pitch - Double - Number that determines Misty's head movement on a side-to-side axis (head will move up and down) (value range: -5 to 5)
+- Pitch - Double - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
 
+- Roll - Double - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5.
 
-- Roll - Double - Number that determines Misty's head movement on a front-to-back axis (head will tilt left or right) (value range: -5 to 5)
+- Yaw - Double - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5.
 
-
-- Yaw - Double - Number that determines Misty's head movement on a vertical axis (head will turn left or right) (value range: -5 to 5)
-
-- Velocity - Double - Number that represents speed at which head movement occurs (value range: 0 to 10)
+- Velocity - Double - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
 
 ```json
 {
@@ -296,15 +270,15 @@ Parameters
 }
 ```
 
-##### MoveHeadToLocation
+##### MoveHeadToLocation (beta)
 
-Move the head to a basic location
+Move Misty's head to a specified up-down or left-right location.
 
 Parameters
 
-- Location - string - "left", "right", "down" or "up"
+- Location - string - "left", "right", "down" or "up".
 
-- Velocity - double - speed to move the head at (value range: 0 to 10)
+- Velocity - double - The speed at which to move the head. Value range: 0 to 10.
 
 ```json
 {
@@ -315,7 +289,7 @@ Parameters
 
 ##### PerformSystemUpdate
 
-Tell the robot to perform a system update if there are updates available.
+Performs a system update, if there are updates available.
 
 Parameters
 
@@ -323,11 +297,11 @@ Parameters
 
 ##### PlayAudioClip
 
-Play an audio clip that has been uploaded to Misty.
+Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
 Parameters    
 
-- AssetId - String - Name given to Audio Clip on file
+- AssetId - String - The name of the file to play.
 
 ```json
 {
@@ -337,47 +311,22 @@ Parameters
 
 ##### RevertDisplay
 
-Change the display to the previous image or eye affect
+Changes the display to the previous image or eye state.
 
 Parameters
 
 - None
 
-
-##### ScaleImageAsset
-
-Scale an image that has been uploaded to Misty.
-
-Parameters
-
-- ImageFilenameWithoutPath - String - Name given to Image file uploaded to misty ( Valid image file types are .jpg, .jpeg, .gif, .png.  Maximum file size allowed is 3MB)
-
-- ImageScale - Double - Number given to change size of an image
-
-```json
-{
-  "ImageFilenameWithoutPath": "example.jpg",
-  "ImageScale": " ",
-}
-```
-
-##### SetFaceId
-
-Set the face id.
-
-Parameters
-
-- None
 
 ##### SetHeadPosition
 
-Set the head position based upon an axis
+Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
 Parameters
 
-- Axis - string - the axis to change - "yaw", "pitch", or "roll"
-- Position - double - the position to update to (value range: -5 to 5)
-- Velocity - double - speed to move the head at (value range: 0 to 10)
+- Axis - string - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
+- Position - double - The position to move Misty's head along the given axis. Value range: -5 to 5.
+- Velocity - double - The speed of the head movement. Value range: 0 to 10.
 
 ```json
 {   
@@ -387,9 +336,50 @@ Parameters
 }
 ```
 
+
+##### SlamReset
+
+Resets the SLAM sensors.
+
+Parameters
+
+- None
+
+##### SlamStartMapping
+
+Starts Misty mapping an area.
+
+Parameters
+
+- None
+
+##### SlamStartTracking
+
+Starts Misty tracking her location.
+
+Parameters
+
+- None
+
+##### SlamStopMapping
+
+Stops Misty mapping an area.
+
+Parameters
+
+- None
+
+##### SlamStopTracking
+
+Stops Misty tracking her location.
+
+Parameters
+
+- None
+
 ##### StartFaceDetection
 
-Start the process where the robot will detect faces in it's line of vision. This will assign each face that is detected a random id.
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 Parameters
 
@@ -397,7 +387,7 @@ Parameters
 
 ##### StartFaceRecognition
 
-Start the process where the robot will recognize individuals that it has detected (during StartFaceDetection) with stored face ids in the robot's memory.
+Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `StartFaceDetection` command to detect and store face IDs in Misty's memory.
 
 Parameters
 
@@ -405,11 +395,11 @@ Parameters
 
 ##### StartFaceTraining
 
-Start the process where the robot will learn a face and the user can give the face an unique face id.  This process should take less than 15 seconds.
+Starts Misty learning a face and assigns a user-specified ID to that face. This process should take less than 15 seconds.
 
 Parameters
 
-- FaceId - string - a unique string of 30 characters or less that represents what this face should be referenced as.  Only Alphabet, Numeric, -, and _ are valid characters.
+- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
 
 ```json
 {
@@ -419,7 +409,7 @@ Parameters
 
 ##### Stop
 
-A quick way to stops the robot movement.
+Stops Misty's movement.
 
 Parameters
 
@@ -427,7 +417,7 @@ Parameters
 
 ##### StopFaceDetection
 
-Stop the process where the robot will detect faces.
+Stops Misty's detection of faces in her line of vision.
 
 Parameters
 
@@ -435,7 +425,7 @@ Parameters
 
 ##### StopFaceRecognition
 
-Stop the process where the robot will recognize individuals.
+Stop the process of Misty recognizing a face she sees.
 
 Parameters
 
@@ -446,34 +436,15 @@ Parameters
 
 ### Configuration
 
-##### AddAudioClip
-
-Add audio clip to Misty so it can be accessed later.
-
-Parameters
-
-- Id - String - Id name given to represent audio file
-
-- FileName - String - Name of audio file that has been uploaded  (all audio file format types accepted - system currently cannot play ogg files)
-
-- Data - Byte[] - Array  -  Array that represents audio data in bytes.
-
-```json
-{
-  "Id": "AudioId",
-  "FileName": "AudioFile.wav",
-  "Data": "[38,168,12,24,...]"
-}
-```
 
 #####  ConnectWiFi
 
-Connect Misty to WiFi.
+Connects Misty to a specified WiFi source.
 
 Parameters
 
-- NetworkName - String - Name of WiFi network
-- Password - String -  Name of WiFi security string
+- NetworkName - String - Name of a WiFi network.
+- Password - String -  Name of a WiFi security string.
 
 ```json
 {
@@ -482,9 +453,9 @@ Parameters
 }
 ```
 
-##### GetListOfEyeSprites
+##### GetListOfEyeSprites (beta)
 
-Returns a list of eye sprites.
+Obtains a list of the eye sprites stored on Misty.
 
 Parameters
 
@@ -492,60 +463,25 @@ Parameters
 
 ##### GetListOfImages
 
-Returns a list of images.
+Obtains a list of the images stored on Misty.
 
 Parameters
 
 - None
 
-##### HallucinateObject
-
-A way to add object into the world for testing purposes. ?????
-
-Parameters
-
-- Id - Integer - an unique id of the object in the world.
-- Valence - Double - Number indicating the Valence value of the appraised affect of the object (value range: -1 to 1)
-
-
-- Arousal - Double - Number indicating the Arousal value of the appraised affect of the object(value range: -1 to 1)
-
-
-- Dominance- Double - Number indicating the Dominance value of the appraised affect of the object (value range: -1 to 1)
-- Bearing- Double - Number indicating the bearing of the object in meters
-
-
-- Elevation- Double - Number indicating the elevation of the object in meters
-
-
-- Distance- Double - Number indicating the distance of the object in meters
-
-```json
-{
-  "Id": 1337,
-  "Valence": 0.5,
-  "Arousal": 0.3,
-  "Dominance": 0.7,
-  "Bearing": 34.0,
-  "Elevation": 5280.1,
-  "Distance": 3.14159
-}
-```
-
 ##### SaveAudioAssetToRobot
 
-Save an audio file to Misty.
+Saves an audio file to Misty.
 
 Parameters
 
-- FilenameWithoutPath - String - Name of audio file uploaded to Misty (Accepts all audio format types - system currently cannot play ogg files)
+- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play ogg files.
 
+- DataAsByteArrayString - String - The audio data, passed as a String containing a byte array.
 
-- DataAsByteArrayString - String - Series of numbers that represent audio data in bytes
+- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately plays the uploaded audio file.
 
-- ImmediatelyApply - Boolean - True or False used to indicate whether audio file will be immediately updated to audio list.
-
-- OverwriteExisting - Boolean - True or False used to indicate whether the file should be overwritten if it exists.
+- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
 ```json
 {
@@ -556,22 +492,20 @@ Parameters
 }
 ```
 
-##### SaveEyeSpriteToRobot
-Save eye image to Misty to be accessed later when changing eye sprite.
+##### SaveEyeSpriteToRobot (beta)
+Saves an eye image to Misty.
 
-- FilenameWithoutPath - String - Name of image file uploaded to Misty
+- FilenameWithoutPath - String - Name of the eye sprite file to upload.
 
+- DataAsByteArrayString - String -  The eye sprite data, passed as a String containing a byte array.
 
-- DataAsByteArrayString - String -  Series of numbers that represent image data in bytes
+- Width - Integer - The width of the image in pixels.
 
+- Height - Integer - The height of the image in pixels.
 
-- Width - Integer - Number indicating width of image
+- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded eye sprite file.
 
-- Height - Integer - Number indicating height of image
-
-- ImmediatelyApply - Boolean - True or False statement that determines whether Eye Sprite will immediately display on screen after saved
-
-- OverwriteExisting - Boolean - True or False used to indicate whether the file should be overwritten if it exists.
+- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
 ```json
 {
@@ -584,42 +518,23 @@ Save eye image to Misty to be accessed later when changing eye sprite.
 }
 ```
 
-##### SaveFileToFolder
-
-Save a file to a folder in Misty.
-
-Parameters
-
-- FilenameWithoutPath - String - Name of file uploaded to Misty
-
-- DataAsByteArrayString - String - Indicating file data in bytes
-
-- OverwriteExisting - Boolean - True or False used to indicate whether the file should be overwritten if it exists.
-
-```json
-{
-  "FilenameWithoutPath": "example.txt",
-  "DataAsByteArrayString": "30,60,78,189,...",
-  "OverwriteExisting": true
-}
-```
 
 ##### SaveImageAssetToRobot
-Save an image file to Misty.
+Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size allowed is 3MB.
 
 Parameters
 
-- FilenameWithoutPath - String - Name of file that has been uploaded to misty
+- FilenameWithoutPath - String - The name of image file to upload.
 
-- DataAsByteArrayString - String - Series of numbers that represent image data in bytes
+- DataAsByteArrayString - String - The image data, passed as a String containing a byte array. 
 
-- Width - Integer - Number indicating width of image
+- Width - Integer - The width of the image in pixels.
 
-- Height - Integer - Number indicating height of image
+- Height - Integer - The height of the image in pixels.
 
-- ImmediatelyApply - Boolean - True or False statement that determines if image file will be immediately applied to Misty.
+- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded image file.
 
-- OverwriteExisting - Boolean - True or False used to indicate whether the file should be overwritten if it exists.
+- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
 ```json
 {
@@ -632,27 +547,10 @@ Parameters
 }
 ```
 
-##### SetAffectState
-
-Choose the affect state of Misty based on three different variables.
-
-Parameters
-
-- Valence - Double - Number indicating the Valence value of the affect (value range: -1 to 1)
-- Arousal - Double - Number indicating the Arousal value of the affect (value range: -1 to 1)
-- Dominance- Double - Number indicating the Dominance value of the affect (value range: -1 to 1)
-
-```json
-{
-  "Valence": 0.4,
-  "Arousal": 0.5,
-  "Dominance": 0.6
-}
-```
 
 ##### SlamGetMap
 
-Obtain map generated by robot.
+Obtains the current map Misty has generated.
 
 Parameters
 
@@ -660,12 +558,12 @@ Parameters
 
 ##### SlamGetPath
 
-Obtain a map from the robot's location to the X,Y coordinates provided. Obtain robot's path after submitting destination of desired path.
+Obtains a path for Misty to travel to the specified destination. *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 Parameters
 
-- X - Integer - x coordinate value.
-- Y - Integer - y coordinate value.
+- X - Integer - The X-coordinate value for the destination.
+- Y - Integer - Y-coordinate value for the destination.
 
 ```json
 {
@@ -676,17 +574,16 @@ Parameters
 
 ##### SlamGetStatus
 
-Obtain two Values
+Obtains values representing Misty's current activity and sensor status.
 
-- Value 1 represents the general state of the system as an integer value where each bit can be toggled to indicate a different mode of operation:
+- Value 1 is an integer value where each bit is set to represent a different activity mode:
   1 - Exploring
   2 - Tracking
   3 - Recording
 
-  (i.e. If the system is exploring and recording then bits 1 and 3 would be true => 00000101 => Status = 5)
+Example: If Misty is both exploring and recording, then bits 1 and 3 would be true => 00000101 => Status = 5.
 
-- Value 2 is an integer value that represents the sensor status using the following enumerable:
-  ​
+- Value 2 is an integer value representing the status of Mistys' sensors, using the following enumerable:
 
 ```c#
 public enum SlamSensorStatus
@@ -709,45 +606,6 @@ Parameters
 
 - None
 
-##### SlamReset
-
-Reset Slam sensors.
-
-Parameters
-
-- None
-
-##### SlamStartMapping
-
-Tell robot to start/stop mapping an area. User should move robot so mapping can take place.
-
-Parameters
-
-- None
-
-##### SlamStartTracking
-
-Tell robot to find it's location within it's surroundings.
-
-Parameters
-
-- None
-
-##### SlamStopMapping
-
-Terminate Slam mapping.
-
-Parameters
-
-- None
-
-##### SlamStopTracking
-
-Tell robot to stop tracking its location.
-
-Parameters
-
-- None
 
 ------
 
@@ -755,7 +613,7 @@ Parameters
 
 ##### GetBatteryLevel
 
-Obtain the robot's current battery level.
+Obtains Misty's current battery level.
 
 Parameters
 
@@ -763,7 +621,7 @@ Parameters
 
 ##### GetDeviceInformation
 
-Obtain a list of the robot's devices and their associated information.
+Obtains a list of Misty's devices and their associated information.
 
 Parameters
 
@@ -771,11 +629,11 @@ Parameters
 
 ##### GetHelp
 
-Send command to Misty to get help.  A call with no parameters will return a list of all the API commands that are available.
+Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Parameters
 
-- Command - String - the api command to get information about
+- Command - String - The name of the API command to get information about.
 
 ```json
 {
@@ -785,7 +643,7 @@ Parameters
 
 ##### GetListOfAudioClips
 
-Obtain a list of robot defined audio clips that are on Misty.
+Obtains a list of the default audio clips stored on Misty.
 
 Parameters
 
@@ -793,40 +651,27 @@ Parameters
 
 ##### GetListOfAudioFiles
 
-Obtain a list of audio files that are stored on the robot.
+Obtain a list of default and user-uploaded audio files currently stored on Misty.
 
 Parameters
 
 - None
 
-##### GetListOfVideoClips
-
-Obtain list of video clips that have been uploaded to Misty.
-
-Parameters
-
-- None
 
 ##### GetStoreUpdateAvailable
 
-Checks to see if there is an update available for the robot.
+Checks to see if there is an update available for Misty.
 
 Parameters
 
 - None
 
-##### GetStringSensorValues (NOT IMPLEMENTED)
+##### GetStringSensorValues
 
-The value that was written to the user input serial port.
+Obtains the value that was written to the user input serial port.
 
 Parameters
 
 - None
 
 
-
-
-
-
-
-####
