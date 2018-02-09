@@ -75,7 +75,7 @@ Misty's REST commands are grouped into the following categories:
 
 ------
 
-### Action
+### ACTION
 
 
 ##### CancelFaceTraining
@@ -229,7 +229,7 @@ Parameters
 
 ##### MoveArm (beta)
 
-Move Misty's left or right arm at a specific speed to a chosen position.
+Moves Misty's left or right arm at a specific speed to a chosen position.
 
 Parameters
 
@@ -272,7 +272,7 @@ Parameters
 
 ##### MoveHeadToLocation (beta)
 
-Move Misty's head to a specified up-down or left-right location.
+Moves Misty's head to a specified up-down or left-right location.
 
 Parameters
 
@@ -425,7 +425,7 @@ Parameters
 
 ##### StopFaceRecognition
 
-Stop the process of Misty recognizing a face she sees.
+Stops the process of Misty recognizing a face she sees.
 
 Parameters
 
@@ -434,7 +434,7 @@ Parameters
 ------
 
 
-### Configuration
+### CONFIGURATION
 
 
 #####  ConnectWiFi
@@ -609,7 +609,7 @@ Parameters
 
 ------
 
-### Information
+### INFORMATION
 
 ##### GetBatteryLevel
 
@@ -651,7 +651,7 @@ Parameters
 
 ##### GetListOfAudioFiles
 
-Obtain a list of default and user-uploaded audio files currently stored on Misty.
+Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
 Parameters
 
