@@ -49,7 +49,7 @@ To try face recognition, follow these steps:
 
 ## Mapping & Tracking with the API Explorer
 
-**Note: Mapping is alpha.** The software that runs the Occipital sensor is alpha. Experiment with mapping, but recognize that it is unreliable at this time. 
+**Note: Mapping is alpha.** The software that runs the Occipital sensor is alpha. Experiment with mapping, but recognize that it is unreliable at this time. For additional help, see [Mapping Tips](../../tips-and-help/mapping-tips).
 
 ### Mapping
 1. In the API Explorer, scroll down to the SLAM: Explore & Get a Map section.

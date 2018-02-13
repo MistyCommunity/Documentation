@@ -18,7 +18,7 @@ Some quick facts. She...
 * Uses a structured light sensor from Occipital to navigate.
 * Tolerates a “periscope-style” webcam mounted on her head (Misty 1 Beta version only).
 * Carries an Intrinsyc 820 dev kit board at her side (Misty 1 Beta version only).
-* Includes a Dragonboard 410-C development board.
+* Includes a Dragonboard 410-C development board (Mity 1 Beta version only).
 * Uses real-time and motor controllers.
 * Senses with 4 time-of-flight sensors (3 in front, 1 in rear).
 * Gets flashy with a multicolor LED behind her name plate in front

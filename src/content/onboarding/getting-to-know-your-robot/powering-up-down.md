@@ -20,7 +20,11 @@ order: 4
 
 ## Restarting Misty
 
-If you need to restart Misty, turn the power switch on Misty’s back off. Wait 10 seconds, then flip the switch on again.
+1. If you need to restart Misty, turn off the power switch on Misty’s back.
+2. Wait 10 seconds.
+3. Turn on the power switch on Misty's back again.
+4. Press the ON/OFF button on the 820 Dev Kit board.
+5. Once you see the blue LED light up again and Misty's eyes re-appear, you're ready.
 
 ## Turning Misty Off
 

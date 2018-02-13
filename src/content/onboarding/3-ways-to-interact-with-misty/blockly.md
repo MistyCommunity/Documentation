@@ -18,14 +18,15 @@ Blockly is a block-based, visual programming language editor.
 3. Enter the IP address of your robot from the Info tab in the companion app, and hit Return. The connection status field should become green. **Note: If the status field stays red, double-check that Misty and your computer are on the same network. If necessary, reload the page.**
 4. Select some programming Logic or Loops to use, then try adding in some blocks from the MISTY category on the left.
 5. Move blocks around. :) 
-6. Click Run and see how Misty reacts...
+6. Click Run and see how Misty reacts.
+7. For detailed information on Misty's Blockly commands, see the descriptions in [Blockly API](../../../../../apis/api-reference/blockly).
 
 ## Things You Can Do with Blockly
 
 * Drive
 * Play sounds
-* Change Misty’s eyes (or face)
+* Change Misty’s eyes or face
 * Move Misty’s head (Beta)
 * Interact with the LED
-* Train Misty to recognize faces (then use this training with the API)
-* Mapping (for details, see "Mapping & Tracking with the API Explorer" and "Mapping Tips")
+* Train Misty to recognize faces, then use this training with the API
+* Mapping - for details, see [Mapping & Tracking with the API Explorer](../../3-ways-to-interact-with-misty/api-explorer) and [Mapping Tips](../../tips-and-help/mapping-tips)
