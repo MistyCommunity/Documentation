@@ -15,7 +15,7 @@ order: 3
 
 The following section describes the command menu on the Misty blockly editor.
 
-![Blockly menu](../../../assets/images/menu_blockly.png)
+![Blockly menu](../../../assets/images/menu_blockly_1.png)
 
 * **Enter Robot IP Address**: user input for Misty robot IP address to communicate to
 * **Connection Status**: status indication whether blockly is able to successfully communicate to the robot (green means success and red means failure)
