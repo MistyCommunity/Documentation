@@ -9,543 +9,594 @@ order: 2
 
 ## Introduction
 
-The Command Line Interface (CLI) is a quick and comprehensive way to manipulate robot via text based terminal with a set of short, easy to remember commands.
+The Command Line Interface (CLI) is a quick and comprehensive way to manipulate Misty via a text-based terminal program.
 
 All commands follow the following format:
-~~~
-key_word <arg_1> ... <arg_n> [opt_arg_1] ... [opt_arg_n]
-~~~
+
+`key_word <arg_1> ... <arg_n> [opt_arg_1] ... [opt_arg_n]`
 
 Where:
 
-* Key_word is a command name/abbreviation,
-* <arg_...> is a required argument,
-* [opt_arg_..] is an optional argument.
+* `key_word` is a command name/abbreviation
+* `<arg_n>` is a required argument
+* `[opt_arg_n]` is an optional argument
 
-To simplify parsing we are relying on arguments order. Therefore optional arguments must tail required.
+The order of the arguments are significant. Any required arguments are first, followed by any optional arguments.
 
-## CLI Commands
+## Action Commands ##
 
-### Action ###
-These commands require robot to perform physical (mechanical, audible or visual) action
-##### arm or a (Move arm)
-Move left or right arm to a specified position at a specified speed
+
+### arm | a (Move arm) (beta)
+Moves Misty's left or right arm at a given speed to a specified position.
+
 ###### Format:
-arm \<side> \<position> [speed]
+`arm \<side> \<position> [speed]`
+
 ###### Parameters:
-
-|Argument|Values|Required?|Description
----|:---:|:---:|---
-side|l or r|Y|Selection of left (l) or right (r) arm to move.
-position|-90 to 90|Y|Arm position; -90 means "down" position and 90 means "up" position.
-speed|0 to 255|N|Speed; 0 means stand still and 255 means max speed.  Default value is 127.
-###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
-
-###### Example:
-
-* **arm l 90 255** - Raise left arm up with max speed
-* **arm r 0 127** - Raise right arm up to horizontal position with ~ half the max speed.
-------------
-##### ce or eyes (Move arm)
-The command changes robot's screen to show eyes image, defined by image_id (string). Image must be uploaded and defined beforehand.
-###### Format:
-ce \<valence> \<arousal> \<dominance>
-###### Parameters:
-
-|Argument|Values|Required?|Description
----|:---:|:---:|---
-valence|-0.5, 0 or 0.5|Y|Valence value that corresponds to the eye asset
-arousal|-0.5, 0 or 0.5|Y|Arousal value that corresponds to the eye asset
-dominance|-0.5, 0 or 0.5|Y|Dominance value that corresponds to the eye asset
+Argument | Values | Required? | Description
+--- | --- | --- | ---
+side|l or r|Y| specifies whether to move the left (l) or right (r) arm
+position|-90 to 90|Y|arm position; -90 equals fully down and 90 equals fully up
+speed|0 to 255|N|speed; 0 equals no movement and 255 equals maximum speed;  default value is 127
 
 ###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Examples:
+`arm l 90 255`  
+Raise left arm up at maximum speed.
 
-###### Example:
-Below are the valid parameters mapping to eye asset image.
-~~~
-Sad = "Valence": -0.5, "Arousal": -0.5, "Dominance": -0.5
-Angry = "Valence": -0.5, "Arousal": 0.5, "Dominance": 0.5
-Tired = "Valence": 0, "Arousal": -0.5, "Dominance": -0.5
-Curious = "Valence": 0, "Arousal": 0, "Dominance": -0.5
-Content = "Valence": 0, "Arousal": 0, "Dominance": 0.5
-Surprise = "Valence": 0, Arousal": 0.5, "Dominance": 0
-Calm = "Valence": 0.5, "Arousal": -0.5, "Dominance": -0.5
-Jubilation = "Valence": 0.5, "Arousal": 0.5, "Dominance": -0.5
-~~~
-* **ce -0.5 -0.5 -0.5** - Change to display sad eye image
+`arm r 0 127`  
+Raise right arm up to horizontal position at approximately half maximum speed.
+
 
 ------------
-##### ci, di or img (Change display image)
-The command changes robot's screen to show an image, defined by image_name (string). Image must be uploaded and defined beforehand.
-###### Format:
-ce \<image>
-###### Parameters:
+### ce | eyes (Change eyes)
+Changes the image displayed for Misty's eyes.
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`ce \<valence> \<arousal> \<dominance>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
+valence|-0.5, 0 or 0.5|Y|The valence value for the eye asset
+arousal|-0.5, 0 or 0.5|Y|The arousal value for the eye asset
+dominance|-0.5, 0 or 0.5|Y|The dominance value for the eye asset
+
+Below are the values that correspond to Misty's default eye images for a given "feeling":
+
+Feeling | Valence | Arousal | Dominance
+--- | --- | --- | ---
+Sad | -0.5 | -0.5 | -0.5
+Angry | -0.5 | 0.5 | 0.5
+Tired | 0 | -0.5| -0.5
+Curious | 0 | 0 | -0.5
+Content | 0 | 0 | 0.5
+Surprise | 0 | 0.5 | 0
+Calm | 0.5 | -0.5 | -0.5
+Jubilation | 0.5 | 0.5 | -0.5
+
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
+
+###### Example:
+`ce -0.5 -0.5 -0.5`  
+Change to display sad eye image.
+
+
+------------
+### ci | di | img (Change display image)
+Sets the current image being displayed on Misty's screen. The image must be previously uploaded to Misty.
+
+###### Format:
+`ce \<image>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 image|name string|Y|String, which represents an ID - unique name for an image file, usually filename w/o extension
 
-
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **ci MistyLogo** - Changes image to "MistyLogo" image
+`ci MistyLogo`  
+Changes image to "MistyLogo" image
+
 
 ------------
-
-##### d (Drive)
+### d (Drive)
 The command drives robot backward or forward with linear_velocity (-255..255), turning left or right with angular_velocity (-255 .. 255)
-###### Format:
-d \<linear_velocity> \<angular_velocity>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`d \<linear_velocity> \<angular_velocity>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 linear_velocity|-255 to 255|Y|Speed value for going straight.  Negative value represents backward movement and positive value represents forward movement.
 angular_velocity |-255 to 255|Y|Speed value for turning.  Negative value represents counter clockwise movement and positive value represents clockwise movement.
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **d 255 0** - Drive forward with max speed
-* **d -127 0**  - Drive backwards with half speed
+`d 255 0`  
+Drive forward with max speed
+
+`d -127 0`  
+Drive backwards with half speed
+
 
 ------------
-##### dt (Drive Time)
+### dt (Drive time)
 The command drives robot with linear_velocity in either backward or forward direction as well as turning left or right with angular_velocity for a given duration
 ###### Format:
-dt \<linear_velocity> \<angular_velocity> \<duration>
-###### Parameters:
+`dt \<linear_velocity> \<angular_velocity> \<duration>`
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 linear_velocity|-255 to 255|Y|Speed value for going straight.  Negative value represents backward movement and positive value represents forward movement.
 angular_velocity |-255 to 255|Y|Speed value for turning.  Negative value represents counter clockwise movement and positive value represents clockwise movement.
 duration |0 to 30000|Y|Duration for driving in milliseconds.  Maximum is 30 seconds.
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **dt 255 0 5000** - Drive forward at max speed for 5 seconds
+`dt 255 0 5000`  
+Drive forward at max speed for 5 seconds
+
 
 ------------
-##### fp (Follow Path)
+### fp (Follow path)
 The command tells the robot to move following the given path.  The command requires that the SLAM system is active and running and the robot has already obtained a map of the area of interest.
-###### Format:
-fp \<waypoints>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`fp \<waypoints>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 waypoints |string coordinates|Y|A string in JSON format containg (x,y) coordinates obtained from the map
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **fp "[{\"X\": 10, \"Y\": 10}, {\"X\": 7, \"Y\": 5}, {\"X\": 1, \"Y\": 0}]"** - Commands robot to follow the path defined by these waypoints.
+`fp "[{\"X\": 10, \"Y\": 10}, {\"X\": 7, \"Y\": 5}, {\"X\": 1, \"Y\": 0}]"`  
+Commands robot to follow the path defined by these waypoints.
+
 
 ------------
-##### head (Move Head)
+### head (Move head)
 The command tells the robot to move its head in all three axis (yaw, pitch, roll) at the given speed.
-###### Format:
-head \<pitch> \<roll> \<yaw> \<speed>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`head \<pitch> \<roll> \<yaw> \<speed>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 pitch |-90 to 90|Y|Angle value around the axis
 roll |-90 to 90|Y|Angle value around the axis
 yaw |-90 to 90|Y|Angle value around the axis
 speed |0 to 255|Y|Speed that the head will move
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **head -90 0 0 127** - Commands robot to move the head up
+`head -90 0 0 127`  
+Commands robot to move the head up
+
 
 ------------
-
-##### s (Stop locomotion)
+### s (Stop locomotion)
 The command tells the robot to stop locomotion action.
-###### Format:
-s
-###### Parameters:
 
+###### Format:
+`s`
+
+###### Parameters:
 None
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **s** - Commands robot to stop moving
+`s`  
+Commands robot to stop moving
+
 
 -------------------
-##### lt (Locomotion Track)
+### lt (Locomotion track)
 The command tells the robot to move its locomotion tracks.
-###### Format:
-lt \<left> \<right>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`lt \<left> \<right>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 left |-255 to 255|Y|Speed value for the left track.  Positive means forward and negative means backward.
 right |-255 to 255|Y|Speed value for the right track.  Positive means forward and negative means backward.
 
-
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **lt -200 100** - Commands robot to turn right
-* **lt 150 150** - Commands robot to move straight forward
+`lt -200 100`  
+Commands robot to turn right
+
+`lt 150 150`  
+Commands robot to move straight forward
+
+
 -------------------
-
-##### led (Change LED state)
+### led (Change LED state)
 The command changes the chest LED state on the robot.
-###### Format:
-led \<red> \<green> \<blue>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`led \<red> \<green> \<blue>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 red |-0 to 255|Y|Red value for the LED color.
 green |-0 to 255|Y|Green value for the LED color.
 blue |-0 to 255|Y|Blue value for the LED color.
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **led 66 134 244** - Change chest LED on the robot to blue color.
+`led 66 134 244`  
+Change chest LED on the robot to blue color.
+
 
 -------------------
+### pac (Play audio clip)
+The command play an audio clip stored on the robot.  Note that the file must have been previously uploaded onto Misty.
 
-##### pac (Play Audio Clip)
-The command play an audio clip stored on the robot.  Note that the file needs to be uploaded onto the robot before hand.
 ###### Format:
-pac \<sound>
-###### Parameters:
+`pac \<sound>`
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 sound |String|Y|Name of the audio file without path.
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **pac Meow** - Play Meow sound file on the robot.
+`pac Meow`  
+Play Meow sound file on the robot.
+
 
 -------------------
-
-##### sli (SLAM Initialize)
+### sli (SLAM initialize)
 The command initializes the SLAM system.
+
 ###### Format:
-sli
+`sli`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **sli** - Initialize SLAM system.
+`sli`  
+Initialize SLAM system.
+
 
 ----------------------------
-##### sls (SLAM Shutdown)
+### sls (SLAM shutdown)
 The command shutdowns the SLAM system.
+
 ###### Format:
-sls
+`sls`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **sls** - Shutdown SLAM system.
+`sls`  
+Shutdown SLAM system.
+
 
 ----------------------------
-##### slbm (SLAM Begin Mapping)
+### slbm (SLAM begin mapping)
 The command starts mapping using the SLAM system.
+
 ###### Format:
-slbm
+`slbm`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **slbm** - Start mapping
+`slbm`  
+Start mapping
+
 
 ----------------------------
-##### slsm (SLAM Stop Mapping)
+### slsm (SLAM stop mapping)
 The command stops mapping on the SLAM system.
+
 ###### Format:
-slsm
+`slsm`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **slsm** - Stop mapping.
+`slsm`  
+Stop mapping.
+
 
 ----------------------------
-##### slbt (SLAM Beginning Tracking)
+### slbt (SLAM begin tracking)
 The command start tracking on the SLAM system.
+
 ###### Format:
-slbt
+`slbt`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **slbt** - Start tracking.
+`slbt`  
+Start tracking.
+
 
 ----------------------------
-##### slst (SLAM Stop Tracking)
+### slst (SLAM stop tracking)
 The command stop tracking on the SLAM system.
+
 ###### Format:
-slst
+`slst`
+
 ###### Parameters:
-
 None
-###### Response:
 
+###### Response:
 **OK or FAIL** - Boolean value represents whether the command was executed
 
 ###### Example:
-* **slst** - Stop tracking.
+`slst`  
+Stop tracking.
+
 
 ----------------------------
-##### slgm (SLAM Get Map)
+### slgm (SLAM get map)
 The command gets map from the SLAM system.
+
 ###### Format:
-slgm
+`slgm`
+
 ###### Parameters:
-
 None
-###### Response:
 
+###### Response:
 **Occupancy Grid** - Essentially a grid cell containing width, height and state value in each cell indicating occupied status.
 
 ###### Example:
-* **slgm** - Get map.
+`slgm`  
+Get map.
+
 
 ----------------------------
-##### slgp (SLAM Get Path)
+### slgp (SLAM get path)
 The command gets path to the specified destination (indicated by the x,y coordinate in the map obtained) from the SLAM system.
+
 ###### Format:
-slgp \<x> \<y>
+`slgp \<x> \<y>`
+
 ###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 x |0 to 0xFFFFFFFF|Y|Integer value of the x position in the map
 y |0 to 0xFFFFFFFF|Y|Integer value of the y position in the map
 
 ###### Response:
+A string representing an array of (x,y) coordinates indicating the path to the destination.
 
-**"[{\"X\": 10, \"Y\": 10}, {\"X\": 7, \"Y\": 5}, {\"X\": 1, \"Y\": 0}]"** - A string representing an array of (x,y) coordinates indicating the path to the destination
+###### Example Command:
+`slgp 25 100`  
+Get path to the destination (25,100) on the map.
 
-###### Example:
-* **slgp 25 100** - Get path to the destination (25,100) on the map.
+###### Example Response:
+`"[{\"X\": 10, \"Y\": 10}, {\"X\": 7, \"Y\": 5}, {\"X\": 1, \"Y\": 0}]"`  
 
 ----------------------------
-
-##### sas (Set Affect State)
+### sas (Set affect state)
 The command changes affect state on the robot.
-###### Format:
-sas \<valence> \<arousal> \<dominance>
-###### Parameters:
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Format:
+`sas \<valence> \<arousal> \<dominance>`
+
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 valence|-1 to 1|Y|Valence value to be set
 arousal|-1 to 1|Y|Arousal value to be set
 dominance|-1 to 1|Y|Dominance value to be set
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **sas 0 0.5 0** - Set the affect state on the robot to be high arousal ex. surprise emotion
+`sas 0 0.5 0`  
+Set the affect state on the robot to be high arousal, e.g. surprise.
 
 
 ----------------------------
+## Configuration Commands ##
 
-##### wifi (Set WiFi)
-The command set WiFi network on the robot.
+
+### wifi (Set WiFi)
+Connects Misty to a specified WiFi source.
+
 ###### Format:
-wifi \<ssid> \<password>
-###### Parameters:
+`wifi \<ssid> \<password>`
 
-|Argument|Values|Required?|Description
----|:---:|:---:|---
+###### Parameters:
+Argument | Values | Required? | Description
+--- | --- | --- | ---
 ssid|String|Y|WiFi network name
 password|String|Y|WiFi network password
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **wifi testnetwork default** - Set the robot on testnetwork WiFi network which has default as password
+`wifi testnetwork default`  
+Sets Misty on the "testnetwork" WiFi network, which has "default" as a password.
 
 
 ----------------------------
-### Configuration ###
-These commands accept new values or settings to be saved and/or used on the robot
+
+## Information Commands ##
 
 
+### b (Get battery)
+Obtains Misty's current battery level.
 
-### Information ###
-These commands return information about the robot
-##### b (Get Battery)
-Read the robot's current battery level
 ###### Format:
-b
+`b`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**0 to 100** - Percent of battery charge value
+###### Response:
+**0 to 100** - The percentage that Misty's battery is currently charged.
+
 
 -----------------
+### gal | gacl (Get audio [clips] list)
+Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
-##### gal or gacl (Get Audio [Clips] List)
-The command returns a list of audio clip assets stored in the robot's memory. Audio clip must be uploaded and defined beforehand.
 ###### Format:
-gal
-###### Parameters:
+`gal`
 
+###### Parameters:
 None
 
 ###### Response:
-
-**[audioAssetName1, audioAssetName2, .. audioAssetNameN]** - A list of stored audio clip assets on the robot
+`[audioAssetName1, audioAssetName2, .. audioAssetNameN]`  - A list of stored audio assets.
 
 ###### Example:
-* **gal** - Returns currently defined(stored in robot) audio assets.
+`gal`  
+Obtains a list of the audio assets currently stored on Misty.
+
 
 -----------------
+### gdi (Get device information)
+Obtains a list of Misty's devices and their associated information.
 
-##### gdi (Get Device Information)
-The command returns information about the robot.
 ###### Format:
-gdi
-###### Parameters:
+`gdi`
 
+###### Parameters:
 None
 
 ###### Response:
-
-**** -
+**** - 
 
 ###### Example:
-* **gdi** - Returns robot's information
+`gdi`  
+Obtains device information from Misty.
+
 
 -----------------
+### gil (Get image list)
+Obtains a list of the image assets currently stored on Misty.
 
-##### gil (Get Image List)
-The command returns a list of image assets stored in robot's memory. Images must be uploaded and defined beforehand.
 ###### Format:
-gil
-###### Parameters:
+`gil`
 
+###### Parameters:
 None
 
 ###### Response:
-
-**[imageAssetName1, imageAssetName2, .. imageAssetNameN]** - A list of stored image assets
+`[imageAssetName1, imageAssetName2, .. imageAssetNameN]`  - A list of stored image assets.
 
 ###### Example:
-* **gil** - Returns current image assets.
+`gil`  
+Obtains the current image assets.
+
 
 -----------------
+### gel (Get eyes image list)
+Obtains a list of the eye image assets currently stored on Misty.
 
-##### gel (Get Eyes Image List)
-The command returns a list of eye image assets stored in robot's memory. Eyes sets must be uploaded and defined beforehand.
 ###### Format:
-gel
-###### Parameters:
+`gel`
 
+###### Parameters:
 None
 
 ###### Response:
-
-**[eyesAssetName1, eyesAssetName2, .. eyesAssetNameN]** - A list of stored eye sets assets
+`[eyesAssetName1, eyesAssetName2, .. eyesAssetNameN]`  - A list of stored eye assets.
 
 ###### Example:
-* **gel** - Returns current eye set assets.
+`gel`  
+Obtains the current eye image assets.
+
 
 ------------
-##### gs (Get Sensor value)
-The command returns current value of the sensor defined by sensor_id.
-###### Format:
-gs \<sensor_id>
-###### Parameters:
+### gs (Get sensor value)
+Obtains the current value of the specified sensor.
 
+###### Format:
+`gs \<sensor_id>`
+
+###### Parameters:
 |Argument|Values|Required?|Description
 ---|:---:|:---:|---
-sensor_id |string|Y|String, which represents an ID - unique name for a robot's sensor
+sensor_id |string|Y|the unique name for a given sensor
 
 ###### Response:
-
-**OK or FAIL** - Boolean value represents whether the command was executed
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **gs ToF_0** - Gets Time of Flight sensor 0's current value.
+`gs ToF_0`  
+Obtains the current value for Time of Flight sensor 0.
+
 
 ------------
-##### h or help (Display Help Information)
-The command displays helpful information and detailed description of available CLI commands.
+### h | help (Display help information)
+Displays detailed descriptions of Misty's available CLI commands.
+
 ###### Format:
-help
+`help`
+
 ###### Parameters:
-
 None
-###### Response:
 
-**OK or FAIL** - Boolean value represents whether the command was executed
+###### Response:
+**OK or FAIL** - Boolean value indicating whether the command was executed.
 
 ###### Example:
-* **help** - Display help information.
+`help`  
+Displays detailed descriptions of Misty's available CLI commands.
 
-## Design Specs
-* Commands should be short and easy to type.
-* Commands should be comprehensive, i.e. easy to guess what it is for
-* All Command should be well documented, short help must be available via CLI itself.
-* Commands should have minimum required arguments and all optional arguments must have "default" values which have to be well documented.
-
-An API command-handling subsystem relies on API Channels to provide pipelines between HomeRobot App and external sources. The main Role of the Channel to receive a command, parse the command, convert it to ApiCommandCall, fire an onCommandReceived event, get a response from the robot app and send a response to the requesting external source. Therefore CLI API requires a separate specific ApiCommandChannel.

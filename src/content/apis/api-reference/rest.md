@@ -8,13 +8,12 @@ order: 1
 
 With the REST API, you can send commands from a REST client or browser to control and get information from Misty.
 
-## POST Commands
+## POST & GET Commands
 
 Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
 
 ![POSTMAN example](..\..\..\assets\images\post-example.PNG)
 
-## GET Commands
 
 To retrieve information from Misty, you can either send the HTTP GET command from a browser or use a REST client.
 
@@ -26,7 +25,7 @@ If using POSTMAN for GET commands, make sure to remove content type from the hea
 
 ![Content-Type in POSTMAN](..\..\..\assets\images\POSTMAN1.png)
 
-## URL Format
+## URL & Payload Formats
 
 To interact with API commands through a REST client or browser, use the following URL format:
 
@@ -34,9 +33,6 @@ To interact with API commands through a REST client or browser, use the followin
 http://{robot-ip-address}:{port}/Api/{CommandName}
 ```
 
-![rest_URL_example](..\..\..\assets\images\rest_URL_example.PNG)
-
-## Payload Format
 
 Misty uses JSON to format REST API data. Use this format when creating the payload:
 
@@ -48,34 +44,7 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
 }
 ```
 
-## Commands
-
-Misty's REST commands are grouped into the following categories:
-
-- **Action**
-  - Drive Misty
-  - Perform mapping or tracking
-  - Play sound files
-  - Change the LED color
-  - Use face training and recognition
-  - Move Misty's arms or head
-  - Change the display
-
-
-- **Configuration**
-  - Save audio or image files to Misty
-  - Connect Misty to WiFi
-  - Get SLAM (simultaneous localization and mapping) data
-
-
-- **Information**  
-  - Get asset, sensor, device, and battery data
-  - Troubleshoot problems
-  - Obtain configuration information
-
-------
-
-### ACTION
+## Action Commands
 
 
 ##### CancelFaceTraining
@@ -212,13 +181,13 @@ Parameters
 
 ##### LocomotionTrack
 
-Drives Misty left, right, or forward depending on the track speed specified for both left and right tracks.
+Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
 Parameters
 
-- LeftTrackSpeed - Integer - A value for the speed of the left track, range: -128 to 127.
+- LeftTrackSpeed - Integer - A value for the speed of the left track, range: -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
 
-- RightTrackSpeed - Integer - A value for the speed of the right track, range: -128 to 127.
+- RightTrackSpeed - Integer - A value for the speed of the right track, range: -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
 
 ```json
 {   
@@ -229,7 +198,7 @@ Parameters
 
 ##### MoveArm (beta)
 
-Moves Misty's left or right arm at a specific speed to a chosen position.
+Moves Misty's left or right arm at a given speed to a specified position.
 
 Parameters
 
@@ -434,7 +403,7 @@ Parameters
 ------
 
 
-### CONFIGURATION
+## Configuration Commands
 
 
 #####  ConnectWiFi
@@ -443,8 +412,8 @@ Connects Misty to a specified WiFi source.
 
 Parameters
 
-- NetworkName - String - Name of a WiFi network.
-- Password - String -  Name of a WiFi security string.
+- NetworkName - String - The WiFi network name (SSID).
+- Password - String - The WiFi network password.
 
 ```json
 {
@@ -453,25 +422,10 @@ Parameters
 }
 ```
 
-##### GetListOfEyeSprites (beta)
-
-Obtains a list of the eye sprites stored on Misty.
-
-Parameters
-
-- None
-
-##### GetListOfImages
-
-Obtains a list of the images stored on Misty.
-
-Parameters
-
-- None
 
 ##### SaveAudioAssetToRobot
 
-Saves an audio file to Misty.
+Saves an audio file to Misty. Maximum size is 2 MB.
 
 Parameters
 
@@ -495,7 +449,7 @@ Parameters
 ##### SaveEyeSpriteToRobot (beta)
 Saves an eye image to Misty.
 
-- FilenameWithoutPath - String - Name of the eye sprite file to upload.
+- FilenameWithoutPath - String - Name of the eye sprite file to upload. File can be in .jpg, .gif, or .png format.
 
 - DataAsByteArrayString - String -  The eye sprite data, passed as a String containing a byte array.
 
@@ -520,7 +474,7 @@ Saves an eye image to Misty.
 
 
 ##### SaveImageAssetToRobot
-Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size allowed is 3MB.
+Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
 
 Parameters
 
@@ -609,7 +563,7 @@ Parameters
 
 ------
 
-### INFORMATION
+## Information Commands
 
 ##### GetBatteryLevel
 
@@ -643,7 +597,7 @@ Parameters
 
 ##### GetListOfAudioClips
 
-Obtains a list of the default audio clips stored on Misty.
+Obtains a list of the default audio clips currently stored on Misty.
 
 Parameters
 
@@ -657,6 +611,21 @@ Parameters
 
 - None
 
+##### GetListOfEyeSprites (beta)
+
+Obtains a list of the eye sprites currently stored on Misty.
+
+Parameters
+
+- None
+
+##### GetListOfImages
+
+Obtains a list of the images currently stored on Misty.
+
+Parameters
+
+- None
 
 ##### GetStoreUpdateAvailable
 

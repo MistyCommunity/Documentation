@@ -29,23 +29,27 @@ Commands are sent via one or more transport protocols and are available through 
 - [BLE / Bluetooth Classic](../../Advanced/ble)
 
 ## API Command Types
-We have three type of commands:
-- Action
-- Configuration
-- Information
+Misty's commands are grouped into the following categories:
 
-Action commands are those which require the robot to perform physical (mechanical, audible, or visual) action. Information commands return information requested by the command. Configuration commands accept new values to be saved and/or used.
+- **Action**
+  - Drive Misty
+  - Perform mapping or tracking
+  - Play sound files
+  - Change the LED color
+  - Use face training and recognition
+  - Move Misty's arms or head
+  - Change the display
 
-All commands are derived from the `ApiCommand`<T> base class.
 
-To define a new API command:
+- **Configuration**
+  - Save audio or image files to Misty
+  - Connect Misty to WiFi
+  - Get SLAM (simultaneous localization and mapping) data
 
-1. Use the `ApiCommand`<T> abstract class to define new API commands.
-2. Make the new `ApiCommand` class public.
-3. Add an attribute `ApiCommand(ApiCommandGrouping.abc)` to the class.
-4. Set properties accordingly.
-5. Override the `GetResultAsync` abstract method to check Command Call arguments, confirm capabilities, get results, or prepare/call Action Command.
 
-If an exception occurs at any time in `GetResultAsync`, an automatic response, containing this exception, is sent to the requestor.
+- **Information**  
+  - Get asset, sensor, device, and battery data
+  - Troubleshoot problems
+  - Obtain configuration information
 
-Use type parameter `T` to define type of the response value you're going to send back to requestor. For action commands or commands that do not require a response, use the `bool` type to confirm acceptance or completion of the command call.
+Action commands are those which require the robot to perform physical (mechanical, audible, or visual) action. Configuration commands accept new values to be saved and/or used. Information commands return information requested by the command.
