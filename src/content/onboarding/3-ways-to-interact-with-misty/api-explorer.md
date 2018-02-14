@@ -7,7 +7,7 @@ order: 7
 
 # {{title}}
 
-Misty currently has 51 API endpoints. With the API Explorer, you can use these endpoints to try Misty out, without writing any code.
+Misty currently has 51 API endpoints. When you use the API Explorer in your browser, you can use these endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
 ![API Explorer](../../../assets/images/api_client.png)
 
 ## Programming Misty with the API Explorer 
@@ -49,7 +49,7 @@ To try face recognition, follow these steps:
 
 ## Mapping & Tracking with the API Explorer
 
-**Note: Mapping is alpha.** The software that runs the Occipital sensor is alpha. Experiment with mapping, but recognize that it is unreliable at this time. For additional help, see [Mapping Tips](../../tips-and-help/mapping-tips).
+**Note:** The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time. For additional help, see [Mapping Tips](../../tips-and-help/mapping-tips).
 
 ### Mapping
 1. In the API Explorer, scroll down to the SLAM: Explore & Get a Map section.

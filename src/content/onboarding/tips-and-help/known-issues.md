@@ -23,4 +23,6 @@ If your robot name doesn’t show up in the app, or if you lose the Wi-Fi or Blu
 * Facial recognition works best in a well-lit area. 
 * Nothing runs resident on Misty at this point. Everything runs through BLE or HTTP.
 * Mapping coordinates are currently inverted (X is vertical, Y is horizontal).
-* Updates of Misty’s software will occur automatically. We’ll provide release notes prior to each update.
+* Misty Robotics software updates will occur automatically. We’ll provide release notes prior to each update.
+* At this time, updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.
+* Currently, commands sent to Misty via Blockly can have a 2-3 second delay to initiate, with up to a 5-second delay between actions.

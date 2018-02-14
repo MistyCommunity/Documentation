@@ -425,11 +425,11 @@ Parameters
 
 ##### SaveAudioAssetToRobot
 
-Saves an audio file to Misty. Maximum size is 2 MB.
+Saves an audio file to Misty. Maximum size is 3 MB.
 
 Parameters
 
-- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play ogg files.
+- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
 
 - DataAsByteArrayString - String - The audio data, passed as a String containing a byte array.
 
@@ -446,7 +446,7 @@ Parameters
 }
 ```
 
-##### SaveEyeSpriteToRobot (beta)
+##### SaveEyeSpriteToRobot (alpha)
 Saves an eye image to Misty.
 
 - FilenameWithoutPath - String - Name of the eye sprite file to upload. File can be in .jpg, .gif, or .png format.
@@ -475,6 +475,8 @@ Saves an eye image to Misty.
 
 ##### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
+
+**Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
 Parameters
 

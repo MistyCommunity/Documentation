@@ -245,10 +245,10 @@ Arguments:
 
 
 ### SaveAudioAssetToRobot
-Saves an audio file to Misty. Maximum size is 2 MB.
+Saves an audio file to Misty. Maximum size is 3 MB.
 
 Arguments:
-* FilenameWithoutPath (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play ogg files.
+* FilenameWithoutPath (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
 * DataAsByteArrayString (string) - The audio data, passed as a String containing a byte array.
 * ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
 * OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
@@ -269,8 +269,10 @@ Arguments:
 ### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
+**Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
+
 Arguments:
-* FilenameWithoutPath (string) - The name of image file to upload. Files can be in .jpg, .gif, or .png format.
+* FilenameWithoutPath (string) - The name of image file to upload.
 * DataAsByteArrayString (string) - The image data, passed as a String containing a byte array. 
 * Width (integer) - The width of the image in pixels.
 * Height (integer) - The height of the image in pixels.
