@@ -22,11 +22,13 @@ Typically, each functional area has individual commands related to action (e.g. 
 
 ## API Protocol Types
 Commands are sent via one or more transport protocols and are available through various interfaces:
-- [Blockly](../../api-reference/blockly)
 - [JavaScript](../../api-reference/all-functions)
 - [CLI (Command Line Interface)](../../api-reference/cli)
 - [HTTP / REST](../../api-reference/rest)
 - [BLE / Bluetooth Classic](../../Advanced/ble)
+
+You can also test commands with [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly) and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
+
 
 ## API Command Types
 Misty's commands are grouped into the following categories:
