@@ -7,15 +7,7 @@ order: 1
 
 # {{title}}
 
-Let's get started!
-
-**Please read these brief onboarding articles thoroughly prior to meeting Misty.**
-
-You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. You’ll be able to program Misty to do a range of activities, such as drive from one room to the next, issue sounds to speakers, capture images from the camera, and so on. More abilities will become available as they are developed by the Misty engineering team and by you, the Misty community. 
-
-Ask questions. 
-
-Share knowledge.
+Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty.
 
 ## SAFETY WARNING
 
