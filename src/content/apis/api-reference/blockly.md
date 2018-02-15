@@ -31,7 +31,7 @@ The following controls are available on Misty's Blockly editor.
 
 ## API
 
-The following are descriptions of Blockly's Misty-specific blocks, along with their underlying HTTP requests and JSON payload.
+The following are descriptions of Blockly's Misty-specific blocks.
 
 **Note: After clicking Run with Blockly, there currently can be a 2-3 second delay before Misty reacts, and up to a 5-second delay between actions.**
 
@@ -48,14 +48,6 @@ Parameters
 * Speed: A value from 0 (stopped) to 10 (full speed).
 * Duration: A value in milliseconds, using 100 ms increments, with a maximum value of 10 seconds.
 
-HTTP/JSON data
-
-~~~json
-{   type: "perform_locomotion",
-    payload: "{"linear":2,"angular":0,"duration":"500"}"
-}
-~~~
-
 
 ### Turn at speed for duration ###
 Turns Misty left or right at a given speed for a duration specified in milliseconds.
@@ -67,14 +59,6 @@ Parameters
 * Speed: A value from 0 (stopped) to 5 (full speed).
 * Duration: A value in milliseconds, using 100 ms increments, with a maximum value of 10 seconds.
 
-HTTP/JSON data
-
-~~~json
-{   type: "perform_locomotion",
-    payload: "{"linear":0,"angular":2,"degree":45,"duration":"500"}"
-}
-~~~
-
 
 ### Pause for duration ###
 Pauses Misty for a duration specified in milliseconds.
@@ -83,14 +67,6 @@ Pauses Misty for a duration specified in milliseconds.
 
 Parameters
 * Duration: A value in milliseconds, using 100 ms increments, with a maximum value of 10 seconds.
-
-HTTP/JSON data
-
-~~~json
-{   type: "perform_locomotion",
-    payload: "{"linear":0,"angular":0,"duration":"500"}"
-}
-~~~
 
 
 ### Move arm to position (ALPHA) ###
@@ -103,14 +79,6 @@ Parameters
 * Position: A value ranging from 0 (fully up) to 10 (fully down).
 * Speed: A value from 0 (stopped) to 10 (full speed).
 
-HTTP/JSON data
-
-~~~json
-{   type: "perform_arm_movement",
-    payload: "{"arm":"Left","position":"0","velocity":"2"}"
-}
-~~~
-
 
 ### Move head to location ###
 Moves Misty's head to a given location.
@@ -120,14 +88,6 @@ Moves Misty's head to a given location.
 Parameters
 * location: Left, right, up, down, or center.
 * velocity: A value from 0 (stopped) to 10 (full speed).
-
-HTTP/JSON data
-
-~~~json
-{   type: "perform_head_movement",
-    payload: "{"location":"0","velocity":5}"
-}
-~~~
 
 
 ### Set head to position (ALPHA) ###
@@ -140,14 +100,6 @@ Parameters
 * Position: A value from -5 to 5 specifying the amount of movement.
 * Velocity: A value from 0 (stopped) to 10 (full speed).
 
-HTTP/JSON data
-
-~~~json
-{   type: "set_head_position",
-    payload: "{"axis":"Yaw","position":"0","velocity":"2"}"
-}
-~~~
-
 
 ### Change LED color ###
 Changes the color of the LED behind the logo on Misty's torso.
@@ -156,14 +108,6 @@ Changes the color of the LED behind the logo on Misty's torso.
 
 Parameters
 * Color: A color selected from the block's options.
-
-HTTP/JSON data
-
-~~~json
-{   type: "change_led_color",
-    payload: "{"color":{"red":255,"green":0,"blue":0}}"
-}
-~~~
 
 
 ### Get string sensor readings (ALPHA) ###
@@ -174,14 +118,6 @@ Obtains sensor readings in string format.
 Parameters
 * None
 
-HTTP/JSON data
-
-~~~json
-{   type: "get_string_sensor_readings",
-    payload: "{}"
-}
-~~~
-
 
 ### Start / Stop mapping ###
 Starts or stops Misty's mapping of an area.
@@ -190,18 +126,6 @@ Starts or stops Misty's mapping of an area.
 
 Parameters
 * None
-
-HTTP/JSON data
-
-~~~json
-{   type: "start_mapping",
-    payload: "{}"
-}
-
-{   type: "stop_mapping",
-    payload: "{}"
-}
-~~~
 
 
 ### Start / Stop tracking ###
@@ -212,18 +136,6 @@ Starts or stops Misty tracking her location on a previously generated map.
 Parameters
 * None
 
-HTTP/JSON data
-
-~~~json
-{   type: "start_tracking",
-    payload: "{}"
-}
-
-{   type: "stop_tracking",
-    payload: "{}"
-}
-~~~
-
 
 ### Follow path ###
 Drives Misty on a specified path.
@@ -232,14 +144,6 @@ Drives Misty on a specified path.
 
 Parameters
 * Path: A string of (x,y) coordinates for the path to follow. These must be obtained from a previously generated map.
-
-HTTP/JSON data
-
-~~~json
-{   type: "follow_path",
-    payload: "{"path":"(10,20),(20,20),(20,10)"}"
-}
-~~~
 
 
 ### Set affect (ALPHA) ###
@@ -253,14 +157,6 @@ Changes the eye image Misty is displaying.
 
 Parameters
 * Eye: A pre-defined eye image.
-
-HTTP/JSON data
-
-~~~json
-{   type: "change_eye",
-    payload: "{"Valence":0.5,"Arousal":-0.5,"Dominance":-0.5}"
-}
-~~~
 
 
 ### Hallucinate object (ALPHA) ###
@@ -284,19 +180,6 @@ Lists the existing audio files on Misty.
 Parameters
 * File: An existing audio file stored on Misty.
 
-HTTP/JSON data
-
-~~~json
-Request:
-{   type: "update_audio_file_list", payload: "{}"
-}
-
-Response:
-{
-    Result: "brightlight.wav,hi__i_m_misty.wav"
-}
-~~~
-
 
 ### Play audio file ###
 Plays an audio file that has been previously uploaded to Misty.
@@ -305,14 +188,6 @@ Plays an audio file that has been previously uploaded to Misty.
 
 Parameters
 * File: The audio file to play. Connect this block to the "list audio files" block to play a selected audio file.
-
-HTTP/JSON data
-
-~~~json
-{   type: "perform_play_audio",
-    payload: "{"soundName":"brightlight.wav"}"
-}
-~~~
 
 
 ### Save audio file ###
@@ -323,18 +198,6 @@ Saves an audio file onto Misty. This block must **follow** the "browse for file"
 Parameters
 * File: The audio file to save to Misty from the "browse for file" block. This command accepts all audio format types, however Misty cannot currently play OGG files. The maximum file size is 3 MB.
 
-HTTP/JSON data
-
-~~~json
-{   type: "save_audio_asset_to_robot",
-    payload: "{"filenameWithoutPath":"hi.wav",
-                "dataAsByteArrayString": "82,73,70,70,144,122,0,0,87,65,...",
-                "widthIfImage":0,
-                "heightIfImage":0,
-                "immediatelyApply":false}"
-}
-~~~
-
 
 ### Save image file ###
 Saves an image file to Misty. This block must **follow** the "browse for file" block, to select the image file to be saved.
@@ -343,14 +206,6 @@ Saves an image file to Misty. This block must **follow** the "browse for file" b
 
 Parameters
 * File: The image file to save to Misty from the "browse for file" block. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
-
-HTTP/JSON data
-
-~~~json
-{   type: "save_image_asset_to_robot",
-    payload: "{"filenameWithoutPath":test.jpg,"dataAsByteArrayString":-0.5,"widthIfImage":-0.5,"heightIfImage":"","immediatelyApply":false}"
-}
-~~~
 
 
 ### Display image file ###
