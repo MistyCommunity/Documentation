@@ -1,5 +1,4 @@
 #logo {
-  height: 34px;
   display: block;
   padding: 10px 40px 8px 10px;
 }
@@ -64,7 +63,7 @@ a.nav {
 
 a.nav.active {
   color: #FFFFFF;
-  opacity: .7;
+  opacity: .8;
   border-bottom: 2px solid;
 }
 
@@ -91,6 +90,7 @@ a.nav-device {
 
 .header .right {
   float: right;
+  display: none; // TO-DO: turn this back on when wew get search and edit working again //
   @media (max-width: @medium-size) {
     padding-right: 8px;
     display: none;
@@ -100,6 +100,7 @@ a.nav-device {
 .header a.button {
   vertical-align: top;
   margin-top: 10px;
+  letter-spacing: 0.7px
 }
 
 @media (max-width: 768px) {
