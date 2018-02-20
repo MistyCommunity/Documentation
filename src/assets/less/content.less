@@ -681,7 +681,7 @@ code .comment {
 }
 
 .content img {
-  max-width: 320px;
+  max-width: 80%;
   //border: 1px solid #e7e7e7;
   position: relative;
   z-index: 1;
@@ -755,6 +755,14 @@ hr {
     background: @almost-white;
     padding: 10px;
     max-height: 375px !important;
+  }
+}
+
+.one-columns {
+  .content pre > code {
+    background: #272822;
+    border-radius: 2px;
+    padding: 10px;
   }
 }
 
@@ -857,7 +865,7 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
     body:not(.no-literate) .content img {
       max-width: 400px;
       display: block;
-      margin: 0 0 50px;
+      margin: 20px 0;
       padding: 5px;
       background: #ffffff;
       border: 1px solid #f2f2f2;
@@ -1018,7 +1026,7 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
 @media (min-width: 1340px) {
   body:not(.no-literate) .content img {
     display: block;
-    margin: 0 0 50px;
+    margin: 20px 0;
   }
 }
 
