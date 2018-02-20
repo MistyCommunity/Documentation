@@ -1,7 +1,7 @@
 ---
 title: Help & Support
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 4
 ---
 
@@ -13,11 +13,9 @@ When you are accepted into the Misty Developer Program, you will receive an invi
 
 The support channel is monitored for immediate response (5-10 minutes) from 7:00am-10:00pm MST on weekdays and from 7:00am-7:00pm MST on weekends.
 
-If you are in the Developer program and have not received an invitation to Misty Builders, please write us at: **community @ mistyrobotics.com**.
-
 ## Forums
 
-Our [Misty Forums](http://forums.mistyrobotics.com/) include FAQs and technical discussion about Misty, as well as spirited conversation on all things Robot.
+The [Misty Community](http://community.mistyrobotics.com/) include FAQs and technical discussion about Misty, as well as spirited conversation on all things robot.
 
 Join our top engineers and thought leaders in discussion about features you want to see in the Misty and where the rapidly-evolving industry is (or should be!) headed.
 
@@ -27,4 +25,4 @@ Join our top engineers and thought leaders in discussion about features you want
 * [Blockly](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Blockly.zip)
 * [API Explorer](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Misty.API.zip)
 * [Misty Community Slack](http://misty-community.slack.com)
-* [Misty Forums](http://forums.mistyrobotics.com/)
+* [Misty Community](http://community.mistyrobotics.com/)
