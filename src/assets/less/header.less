@@ -18,8 +18,8 @@
 .sections {
   display: block;
   float: right;
-  @media(max-width: @xlarge-size) {
-    display: none;
+  @media(max-width: @medium-size) {
+    display: inline; // To-do: if menu gets bigger - reinstate this //
   }
 }
 
@@ -131,8 +131,8 @@ a.nav-device {
   }
   &.mobile-only {
     display: none;
-    @media(max-width: @xlarge-size) {
-      display: inline-block;
+    @media(max-width: @medium-size) {
+      display: none;
     }
   }
 }
