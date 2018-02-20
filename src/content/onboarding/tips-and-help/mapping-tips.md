@@ -1,7 +1,7 @@
 ---
 title: Mapping Tips
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 2
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Command Line Interface
 layout: apis.hbs
-columns: two
+columns: one
 order: 2
 ---
 
@@ -272,7 +272,7 @@ Obtains a list of Misty's devices and their associated information.
 None
 
 ###### Response:
-**** - 
+**** -
 
 ###### Example:
 `gdi`  
@@ -447,5 +447,3 @@ waypoints |string coordinates|Y|A string in JSON format containg (x,y) coordinat
 ###### Example:
 `fp "[{\"X\": 10, \"Y\": 10}, {\"X\": 7, \"Y\": 5}, {\"X\": 1, \"Y\": 0}]"`  
 Commands robot to follow the path defined by these waypoints.
-
-

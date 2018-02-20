@@ -1,7 +1,7 @@
 ---
 title: Known Issues
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 3
 ---
 
@@ -17,10 +17,10 @@ If your robot name doesn’t show up in the app, or if you lose the Wi-Fi or Blu
 
 ## Other Known Issues & Tips
 
-* There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts she abruptly powers down. 
+* There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts she abruptly powers down.
 * Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
 * Get Path and Drive to Location do not function yet.
-* Facial recognition works best in a well-lit area. 
+* Facial recognition works best in a well-lit area.
 * Nothing runs resident on Misty at this point. Everything runs through BLE or HTTP.
 * Mapping coordinates are currently inverted (X is vertical, Y is horizontal).
 * Misty Robotics software updates will occur automatically. We’ll provide release notes prior to each update.

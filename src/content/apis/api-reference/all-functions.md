@@ -1,7 +1,7 @@
 ---
 title: JavaScript
 layout: apis.hbs
-columns: two
+columns: one
 order: 4
 ---
 
@@ -20,7 +20,7 @@ Arguments:
 Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Arguments:
-* FilenameWithoutPath (string) - The name of previously uploaded file containing the image to display. Do not include the file path. Valid image file types are .jpg, .jpeg, .gif, .png. 
+* FilenameWithoutPath (string) - The name of previously uploaded file containing the image to display. Do not include the file path. Valid image file types are .jpg, .jpeg, .gif, .png.
 
 
 ### ChangeLED
@@ -143,7 +143,7 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 
 Arguments:
 * FilenameWithoutPath (string) - The name of image file to upload.
-* DataAsByteArrayString (string) - The image data, passed as a String containing a byte array. 
+* DataAsByteArrayString (string) - The image data, passed as a String containing a byte array.
 * Width (integer) - The width of the image in pixels.
 * Height (integer) - The height of the image in pixels.
 * ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
@@ -259,4 +259,3 @@ Stops Misty tracking her location.
 
 Arguments:
 * None
-

@@ -1,7 +1,7 @@
 ---
 title: Blockly
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 6
 ---
 
@@ -31,7 +31,7 @@ The following controls are available on Misty's Blockly editor.
 * **Enable Locomotion**: Enable/disable locomotion blocks on the workspace. This is useful when you are testing a sequence of blocks and want to skip the blocks that would make Misty move away or off a table.
 
 
-## Set up Blockly 
+## Set up Blockly
 
 Follow the steps below to set up Blockly with Misty:
 
@@ -66,7 +66,7 @@ First:
 2. Add the "Browse for file" block. When you click on this block, you can select an image file on your computer to upload onto Misty. Valid image file types are .jpg, .jpeg, .gif, .png. and the maximum file size is 3 MB.
 3. Click Run.
 
-Then: 
+Then:
 1. Choose the "Display image file" block.
 2. Add the "List image files" block and select your file.
 3. Click Run.
@@ -81,7 +81,7 @@ First:
 2. Add the "Browse for file" block. When you click on this block, you can browse for an audio file on your computer to upload onto Misty. All audio file types are valid, however Misty cannot currently play OGG files. The maximum file size is 3 MB.
 3. Click Run.
 
-Then: 
+Then:
 1. Choose the "Play audio file" block.
 2. Add the "List audio files" block and select your file.
 3. Click Run.
@@ -280,5 +280,3 @@ Not currently recommended for use.
 
 ### Move arm to position - ALPHA
 Not currently recommended for use.
-
-

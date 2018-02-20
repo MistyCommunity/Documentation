@@ -1,7 +1,7 @@
 ---
 title: Skills Developed
 layout: casestudies.hbs
-columns: two
+columns: one
 order: 1
 ---
 

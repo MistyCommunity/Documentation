@@ -1,7 +1,7 @@
 ---
 title: API Explorer
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 7
 ---
 
@@ -10,7 +10,7 @@ order: 7
 Misty currently has 51 API endpoints. When you use the API Explorer in your browser, you can use these endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
 ![API Explorer](../../../assets/images/api_client.png)
 
-## Programming Misty with the API Explorer 
+## Programming Misty with the API Explorer
 
 As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth.
 
@@ -27,9 +27,9 @@ Ready for more?
 
 * Reference the `Misty.API` classes in your HTML:
     * `MistyAjax.js` - Sends AJAX calls to Misty.
-    * `MistyAPI.js` - Maps one-to-one to Misty's API endpoints and constructs payloads to pass to `MistyAJAX.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level. 
+    * `MistyAPI.js` - Maps one-to-one to Misty's API endpoints and constructs payloads to pass to `MistyAJAX.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level.
     * `MistyRobot.js` - Builds the server URL based on the robot you are attempting to interact with and provides a wider and more user-friendly range of commands than `MistyAPI.js`.
-* Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in index.html. For example, Select a mood or Change LED. 
+* Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in index.html. For example, Select a mood or Change LED.
 * To get a map or a path, follow the SLAM instructions at the bottom of the index.html page. For full details, see the “Mapping” section below.
 
 ## Face Recognition with the API Explorer
@@ -45,7 +45,7 @@ To try face recognition, follow these steps:
 8. Click the Open Websocket button. ![Open Websocket button](../../../assets/images/open_websocket.png)
 9. Select Start Face Recognition.
 10. Position the person’s face in front of the camera.
-11. Watch the browser console for face information to come through. 
+11. Watch the browser console for face information to come through.
 
 ## Mapping & Tracking with the API Explorer
 
@@ -64,4 +64,3 @@ To try face recognition, follow these steps:
 ### Tracking
 1. If you have successfully generated a map, try selecting the Start Tracking button. This should give you where you are on the map you generated.
 2. Select the Stop tracking button.
-

@@ -1,7 +1,7 @@
 ---
 title: API Introduction
 layout: apis.hbs
-columns: two
+columns: one
 order: 1
 ---
 

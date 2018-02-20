@@ -1,7 +1,7 @@
 ---
 title: Sample 2
 layout: codesamples.hbs
-columns: two
+columns: one
 order: 1
 ---
 

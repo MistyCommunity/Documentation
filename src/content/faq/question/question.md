@@ -1,7 +1,7 @@
 ---
 title: Frequently Asked Questions
 layout: faq.hbs
-columns: two
+columns: one
 order: 1
 ---
 

@@ -1,13 +1,13 @@
 ---
 title: Facts & Specs
 layout: onboarding.hbs
-columns: two
+columns: one
 order: 3
 ---
 
 # {{title}}
 
-Your Misty I Developer Edition robot has been lovingly hand-built by the Misty team. 
+Your Misty I Developer Edition robot has been lovingly hand-built by the Misty team.
 
 Some quick facts. She...
 * Stands about 14” tall.
@@ -23,7 +23,7 @@ Some quick facts. She...
 * Senses with 4 time-of-flight sensors (3 in front, 1 in rear).
 * Gets flashy with a multicolor LED behind her name plate in front
 * Is powered via a barrel connector charger jack in the back, as well as a 2200 milliamp hour lithium polymer battery (power adapter included).
-* Has a serial expansion port for, you know, serial devices. 
+* Has a serial expansion port for, you know, serial devices.
 * Ships with a small cardboard box that can be used as a stand. This prevents Misty from getting away and rolling off the table while you are working with her.
 
 ![Misty in full with callouts](../../../assets/images/misty_with_callouts.png)

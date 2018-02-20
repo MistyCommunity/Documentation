@@ -1,7 +1,7 @@
 ---
 title: REST API
 layout: apis.hbs
-columns: two
+columns: one
 order: 1
 ---
 # {{title}}
@@ -238,7 +238,7 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 
 Parameters
 - FilenameWithoutPath - String - The name of image file to upload.
-- DataAsByteArrayString - String - The image data, passed as a String containing a byte array. 
+- DataAsByteArrayString - String - The image data, passed as a String containing a byte array.
 - Width - Integer - The width of the image in pixels.
 - Height - Integer - The height of the image in pixels.
 - ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded image file.
@@ -445,5 +445,3 @@ Or:
   "Path":"10:20,15:25,30:40"
 }
 ```
-
-

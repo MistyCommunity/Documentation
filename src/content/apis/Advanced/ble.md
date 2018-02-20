@@ -1,7 +1,7 @@
 ---
 title: Bluetooth API
 layout: apis.hbs
-columns: two
+columns: one
 order: 2
 ---
 
