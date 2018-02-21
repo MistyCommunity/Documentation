@@ -34,33 +34,52 @@ Ready for more?
 
 ## Face Recognition with the API Explorer
 
-To try face recognition, follow these steps:
+To try face recognition, follow these steps.
+**Note: Facial recognition works best in a well-lit area.**
 1. Make sure the 820 Dev Kit board mounted on Misty’s right side is on.
 2. Make sure that the light on Misty’s HD camera (located above her eyes) is solid blue.
 3. Connect to Misty from the API Explorer.
 4. Enter a name in the Face Training input box. ![Face Training interface](../../../assets/images/face_training.png)
 5. Position the person’s face about a foot or two away from Misty’s camera.
-6. Select Start Face Training and wait a few seconds.
-7. Select Stop Face Training.
+6. Click Start Face Training and wait a few seconds.
+7. Click Stop Face Training.
 8. Click the Open Websocket button. ![Open Websocket button](../../../assets/images/open_websocket.png)
-9. Select Start Face Recognition.
+9. Click Start Face Recognition.
 10. Position the person’s face in front of the camera.
 11. Watch the browser console for face information to come through.
 
 ## Mapping & Tracking with the API Explorer
 
-**Note:** The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time. For additional help, see [Mapping Tips](../../tips-and-help/mapping-tips).
+For best control, we recommend that mapping be done at this time via the API Explorer instead of with Blockly or the companion app.
+
+**Note: The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
 ### Mapping
-1. In the API Explorer, scroll down to the SLAM: Explore & Get a Map section.
-2. Select the Open Websocket button.
-3. Select the Subscribe To Pose button. Note: You may not see the Current Pose fields (X, Y, and Last Pose) contain data until you start moving Misty.
-4. Select the Start Mapping button. Drive Misty slowly around a small space (start with an area no more than 20’ x 20’). The Current Pose fields should now contain data that updates as Misty moves.
-5. When done driving, select the Stop Mapping button.
-6. Select the Get Map button and scroll down and see the map your robot generated. The red dot on the map is Misty. The blue-green areas should reflect the driveable terrain for Misty. The white areas are obstacles.
+1. Click the Open Websocket button.
+2. Scroll down to the SLAM: Explore & Get a Map section and click the Get Status button.
+![SLAM controls](../../../assets/images/slam_controls.png)
+3. Verify that the status returns "ready". If the status does not return as ready, click the Reset button in the API Explorer and try again.
+4. Verify that the red light on the Occipital sensor (on Misty's forehead) is on. **Note: If after repeated tries, you cannot obtain a status of "ready" or if the Occipital light is not red, restart Misty and try again.**
+5. Click the Subscribe To Pose button. The Current Pose fields may not contain data until Misty starts moving.
+6. Click the Start Mapping button.
+7. Drive Misty SLOWLY around a small space (start with an area no more than 20’ x 20’). Verify that the Current Pose fields contain data that updates as Misty moves.
+8. When done driving, click the Stop Mapping button.
+9. Click the Get Map button and scroll down to see the map your robot generated. The red dot on the map is Misty. The blue-green areas should reflect the driveable terrain for Misty. The white areas are obstacles.
 
-**Note: Without going through the steps above you may not be certain to have pose. Having pose means you know the robot’s location and orientation on a map in the world—how is the robot positioned in the world X, Y, Z coordinates.**
+**Note: Without going through the steps above, Misty may not know her position in the world (her "pose"). Having pose means Misty knows her location and orientation on the map, in X,Y coordinates.**
+
+### Mapping Tips
+Having mapping issues? Try these tips:
+* Verify that the mapping sensors are working. The Occipital laser near Misty’s right eye should be glowing blue.
+* Drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness.
+* Make wider turns (in arcs) to improve mapping results.
+* If Misty loses pose after generating a map, she will need to generate a new map and start over.
+* Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
+* Mapping coordinates are currently inverted (X is vertical, Y is horizontal).
+* Confirm that Misty has not lost her Wi-Fi or Bluetooth connection while mapping. To do this, open Misty's companion app. If she has lost Bluetooth, the two dots disappear from the companion app’s Bluetooth icon. If she has lost her connection, close the companion app and restart it, then reconnect as before.
+
 
 ### Tracking
-1. If you have successfully generated a map, try selecting the Start Tracking button. This should give you where you are on the map you generated.
-2. Select the Stop tracking button.
+1. Once you have successfully generated a map, click the Start Tracking button and start driving Misty. Activating tracking should provide data in the Current Pose fields for where Misty is on the map you generated.
+2. Observe the Current Pose fields as Misty moves to ensure she is successfully tracking. If the Current Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
+3. Click the Stop Tracking button.

@@ -9,7 +9,7 @@ order: 6
 
 Blockly is a block-based, visual programming language editor that runs in your browser. We recommend the following browsers for running Blockly with Misty: Chrome, Safari, Firefox, and Microsoft Edge (latest versions). [Download Blockly for Misty here.](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Blockly.zip)
 
-Read on to set Blockly up with Misty, try a few simple Blockly programs, and get detailed information on Misty's Blockly commands.
+Read on to set Blockly up with Misty, try a few simple Blockly programs, and get detailed information on Misty's Blockly commands. 
 
 ![Blockly](../../../assets/images/blockly.png)
 
@@ -88,9 +88,9 @@ Then:
 
 
 ### Other Things to Try
-* Move Misty's head (beta)
-* Train Misty to recognize faces, then use this training with the API
-* Mapping - for details, see [Mapping & Tracking with the API Explorer](../../3-ways-to-interact-with-misty/api-explorer) and [Mapping Tips](../../tips-and-help/mapping-tips)
+* Move Misty's head (beta).
+* Train Misty to recognize faces, then use this training with the API.
+* Mapping - For best results at this time, we recommend you try mapping with the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer), rather than with Blockly or the Companion App.
 
 
 ## Blockly Commands

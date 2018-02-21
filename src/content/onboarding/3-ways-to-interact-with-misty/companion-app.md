@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you’d like.
+If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you’d like. 
 
 **Note: When using the companion app, you should connect Misty to both Bluetooth and Wi-Fi. Keep reading for connection instructions.**
 
@@ -18,7 +18,7 @@ If you haven’t already received an email from HockeyApp or TestFlight with ins
 ![Companion App Info tab](../../../assets/images/bluetooth_and_app.png)
 3. Select your robot’s name to connect to the robot. When connected, two dots will appear in the Bluetooth icon on your phone.
 
-**Note: If your robot name doesn’t show up in the app, or if you lose connection (indicated when the two dots disappear from your Bluetooth icon), close the app and restart it.**
+**Note: If your robot name doesn’t show up in the app, or if you lose the Wi-Fi or Bluetooth connection (indicated when the two dots disappear from the Bluetooth icon in the app), close the app and restart it. Reconnect as previously.**
 
 ## Connect Misty to Wi-Fi
 For now Misty’s Wi-Fi connections are limited to 2.4 GHz networks. It is important to note that **this can fail without error**, and you won’t know what’s going on. If you have a dual-band router, be sure to join the 2.4 GHz version of your network.

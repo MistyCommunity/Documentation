@@ -4,9 +4,9 @@ layout: onboarding.hbs
 ---
 ## Let's get started!
 
-Please read these brief onboarding articles thoroughly prior to meeting Misty.
+Please read these brief onboarding articles thoroughly prior to meeting Misty. 
 
-You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. Because she's hand-built, she'd appreciate your starting by reading [Safety & Handling](../../../../../onboarding/getting-started/getting-started).
+You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. Because she's hand-built, she'd appreciate that you start by reading [Safety & Handling](../../../../../onboarding/getting-started/getting-started).
 
 Once you [power Misty up](../../../../../onboarding/getting-to-know-your-robot/powering-up-down), you can quickly control Misty via her [companion app](../../../../../onboarding/3-ways-to-interact-with-misty/companion-app), [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly), and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
 
@@ -18,3 +18,7 @@ If you're interested in a deeper dive, check out Misty's API, available via thes
 - [CLI (Command Line)](../../../../../apis/api-reference/cli)
 - [BLE / Bluetooth Classic](../../../../../apis/Advanced/ble)
 
+More Help & Links:
+* help @ mistyrobotics.com
+* [Misty Community forum](http://community.mistyrobotics.com/)
+* [Misty Community Slack](http://misty-community.slack.com). When you're accepted into the Misty Developer Program, you receive an invitation to the Misty Community Slack channel. This channel serves as the first line of response for all issues and questions you may have with your robot. The support channel is monitored for immediate response (5-10 minutes) from 7:00am-10:00pm MST on weekdays and from 7:00am-7:00pm MST on weekends.

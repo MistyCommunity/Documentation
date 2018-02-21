@@ -7,9 +7,9 @@ order: 1
 
 # {{title}}
 
-Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty.
+Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty. 
 
-## SAFETY WARNING
+### SAFETY WARNING
 
 Misty uses a laser sensor to see the world. It is located above her right eye.
 
@@ -21,7 +21,7 @@ Misty uses a laser sensor to see the world. It is located above her right eye.
 
 ![Misty laser warning](../../../assets/images/do_not_touch.png)
 
-## Handling Misty
+### Handling Misty
 
 While future versions of Misty will be much tougher, it’s important that you handle Misty I Developer Edition with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
 

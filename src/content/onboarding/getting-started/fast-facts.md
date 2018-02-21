@@ -1,5 +1,5 @@
 ---
-title: Facts & Specs
+title: Misty Fast Facts
 layout: onboarding.hbs
 columns: one
 order: 3
@@ -7,7 +7,7 @@ order: 3
 
 # {{title}}
 
-Your Misty I Developer Edition robot has been lovingly hand-built by the Misty team.
+Your Misty I Developer Edition robot has been lovingly hand-built by the Misty team. 
 
 Some quick facts. She...
 * Stands about 14” tall.

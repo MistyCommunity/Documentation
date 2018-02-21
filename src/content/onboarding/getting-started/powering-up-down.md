@@ -29,3 +29,8 @@ order: 4
 ## Turning Misty Off
 
 Just flip the power switch on Misty’s back, and both systems will shut down.
+
+**Note: There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts she abruptly powers down.**
+
+**Note: At this time, updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.**
+
