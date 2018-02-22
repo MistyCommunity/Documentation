@@ -6,7 +6,7 @@ layout: onboarding.hbs
 
 Please read these brief onboarding articles thoroughly prior to meeting Misty. 
 
-You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. Because she's hand-built, she'd appreciate that you start by reading [Safety & Handling](../../../../../onboarding/getting-started/safety).
+You now have (or soon will) a hand-built Misty I robot from the Misty Robotics team. Because she's hand-built, she'd appreciate that you start by reading [Safety & Handling](../../../../../onboarding/getting-started/getting-started).
 
 Once you [power Misty up](../../../../../onboarding/getting-started/powering-up-down), you can quickly control Misty via her [companion app](../../../../../onboarding/3-ways-to-interact-with-misty/companion-app), [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly), and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
 
