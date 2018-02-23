@@ -8,7 +8,7 @@ order: 1
 
 With the REST API, you can send commands from a REST client or browser to control and get information from Misty.
 
-## POST & GET Commands
+## POST & GET Examples
 
 Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
 
@@ -44,7 +44,43 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
 }
 ```
 
-## Action Commands
+## Faces
+
+You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
+
+
+##### StartFaceDetection
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
+
+Parameters
+- None
+
+
+##### StartFaceTraining
+Trains Misty to recognize a specific face and applies a user-assigned ID to that face. This process should take less than 15 seconds.**
+
+Parameters
+- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+```json
+{
+  "FaceId":"Unique_Cat_Name-1337"
+}
+```
+
+
+##### StartFaceRecognition
+Directs Misty to recognize a face she sees, if it is among those she alerady knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
+
+Parameters
+- None
+
+
+##### StopFaceDetection
+Stops Misty's detection of faces in her line of vision.
+
+Parameters
+- None
 
 
 ##### CancelFaceTraining
@@ -54,17 +90,16 @@ Parameters
 - None
 
 
-##### ChangeDisplayImage
-Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
+##### StopFaceRecognition
+Stops the process of Misty recognizing a face she sees.
 
 Parameters
-- FilenameWithoutPath - String - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png.
+- None
 
-```json
-{   
-  "FilenameWithoutPath":"example.jpg"
-}
-```
+
+## Display & LED
+
+Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
 
 
 ##### ChangeLED
@@ -83,6 +118,113 @@ Parameters
 }
 ```
 
+
+##### ChangeDisplayImage
+Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
+
+Parameters
+- FilenameWithoutPath - String - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png.
+
+```json
+{   
+  "FilenameWithoutPath":"example.jpg"
+}
+```
+
+
+##### GetListOfImages
+Obtains a list of the images currently stored on Misty.
+
+Parameters
+- None
+
+
+##### RevertDisplay
+Displays the image that was shown prior to the current image.
+
+Parameters
+- None
+
+
+##### SaveImageAssetToRobot
+Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
+
+**Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
+
+Parameters
+- FilenameWithoutPath - String - The name of image file to upload.
+- DataAsByteArrayString - String - The image data, passed as a String containing a byte array.
+- Width - Integer - The width of the image in pixels.
+- Height - Integer - The height of the image in pixels.
+- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+```json
+{
+  "FilenameWithoutPath": "example.jpg",
+  "DataAsByteArrayString": "30,190,40,24,...",
+  "Width": "300",
+  "Height": "300",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
+}
+```
+
+
+## Audio
+
+Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
+
+
+##### PlayAudioClip
+Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
+
+Parameters    
+- AssetId - String - The name of the file to play.
+
+```json
+{
+  "AssetId":"ExampleSong"
+}
+```
+
+
+##### GetListOfAudioClips
+Obtains a list of the default audio clips currently stored on Misty.
+
+Parameters
+- None
+
+
+##### GetListOfAudioFiles
+Obtains a list of default and user-uploaded audio files currently stored on Misty.
+
+Parameters
+- None
+
+
+##### SaveAudioAssetToRobot
+Saves an audio file to Misty. Maximum size is 3 MB.
+
+Parameters
+- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- DataAsByteArrayString - String - The audio data, passed as a String containing a byte array.
+- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately plays the uploaded audio file.
+- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+```json
+{
+  "FilenameWithoutPath": "example.wav",
+  "DataAsByteArrayString": "34,88,90,49,56,...",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
+}
+```
+
+
+## Locomotion
+
+Experiment with driving Misty. She's eager to explore...
 
 ##### DriveTime
 Drives Misty forward or backward at a specific speed for a set amount of time.
@@ -117,60 +259,6 @@ Parameters
 ```
 
 
-##### PlayAudioClip
-Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
-
-Parameters    
-- AssetId - String - The name of the file to play.
-
-```json
-{
-  "AssetId":"ExampleSong"
-}
-```
-
-
-##### RevertDisplay
-Changes the display to the previous image or eye state.
-
-Parameters
-- None
-
-
-##### SlamReset
-Resets the SLAM sensors.
-
-Parameters
-- None
-
-
-##### StartFaceDetection
-Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
-
-Parameters
-- None
-
-
-##### StartFaceRecognition
-Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `StartFaceDetection` command to detect and store face IDs in Misty's memory.
-
-Parameters
-- None
-
-
-##### StartFaceTraining
-Starts Misty learning a face and assigns a user-specified ID to that face. This process should take less than 15 seconds.
-
-Parameters
-- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
-
-```json
-{
-  "FaceId":"Unique_Cat_Name-1337"
-}
-```
-
-
 ##### Stop
 Stops Misty's movement.
 
@@ -178,119 +266,7 @@ Parameters
 - None
 
 
-##### StopFaceDetection
-Stops Misty's detection of faces in her line of vision.
-
-Parameters
-- None
-
-
-##### StopFaceRecognition
-Stops the process of Misty recognizing a face she sees.
-
-Parameters
-- None
-
-------
-
-
-## Configuration Commands
-
-
-#####  ConnectWiFi
-Connects Misty to a specified WiFi source.
-
-Parameters
-- NetworkName - String - The WiFi network name (SSID).
-- Password - String - The WiFi network password.
-
-```json
-{
-  "NetworkName": "MistyWiFi",
-  "Password": "M!styR0x"
-}
-```
-
-
-##### SaveAudioAssetToRobot
-Saves an audio file to Misty. Maximum size is 3 MB.
-
-Parameters
-- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString - String - The audio data, passed as a String containing a byte array.
-- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately plays the uploaded audio file.
-- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
-
-```json
-{
-  "FilenameWithoutPath": "example.wav",
-  "DataAsByteArrayString": "34,88,90,49,56,...",
-  "ImmediatelyApply": false,
-  "OverwriteExisting": true
-}
-```
-
-
-##### SaveImageAssetToRobot
-Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
-
-**Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
-
-Parameters
-- FilenameWithoutPath - String - The name of image file to upload.
-- DataAsByteArrayString - String - The image data, passed as a String containing a byte array.
-- Width - Integer - The width of the image in pixels.
-- Height - Integer - The height of the image in pixels.
-- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded image file.
-- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
-
-```json
-{
-  "FilenameWithoutPath": "example.jpg",
-  "DataAsByteArrayString": "30,190,40,24,...",
-  "Width": "300",
-  "Height": "300",
-  "ImmediatelyApply": false,
-  "OverwriteExisting": true
-}
-```
-
-
-##### SlamGetStatus
-Obtains values representing Misty's current activity and sensor status.
-
-- Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Exploring
-  2 - Tracking
-  3 - Recording
-
-Example: If Misty is both exploring and recording, then bits 1 and 3 would be true => 00000101 => Status = 5.
-
-- Value 2 is an integer value representing the status of Mistys' sensors, using the following enumerable:
-
-```c#
-public enum SlamSensorStatus
-{
-  Connected = 0,
-  Ready = 1,
-  Booting = 2,
-  Disconnected = 3,
-  UsbError = 4,
-  Error = 5,
-  Unknown = 6,
-  ProdDataCorrupt = 7,
-  FWCorrupt = 8,
-  RecoveryMode = 9,
-  LowPowerMode = 10
-}
-```
-
-Parameters
-- None
-
-------
-
-## Information Commands
+## Information
 
 ##### GetBatteryLevel
 Obtains Misty's current battery level.
@@ -316,23 +292,22 @@ Parameters
 }
 ```
 
-##### GetListOfAudioClips
-Obtains a list of the default audio clips currently stored on Misty.
+
+## Configuration
+
+#####  ConnectWiFi
+Connects Misty to a specified WiFi source.
 
 Parameters
-- None
+- NetworkName - String - The WiFi network name (SSID).
+- Password - String - The WiFi network password.
 
-##### GetListOfAudioFiles
-Obtains a list of default and user-uploaded audio files currently stored on Misty.
-
-Parameters
-- None
-
-##### GetListOfImages
-Obtains a list of the images currently stored on Misty.
-
-Parameters
-- None
+```json
+{
+  "NetworkName": "MistyWiFi",
+  "Password": "M!styR0x"
+}
+```
 
 ##### GetStoreUpdateAvailable
 Checks to see if there is an update available for Misty.
@@ -341,8 +316,9 @@ Parameters
 - None
 
 
+## Beta - Head Movement
 
-## Beta/Experimental Commands
+Misty's ability to accurately position her head is currently under development.
 
 ##### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-and-down).
@@ -391,6 +367,50 @@ Parameters
   "Velocity": 6
 }
 ```
+
+
+## Beta - Mapping
+
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to know where they are on a given map in the world. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
+
+
+##### SlamGetStatus - BETA
+Obtains values representing Misty's current activity and sensor status.
+
+- Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Exploring
+  2 - Tracking
+  3 - Recording
+
+Example: If Misty is both exploring and recording, then bits 1 and 3 would be true => 00000101 => Status = 5.
+
+- Value 2 is an integer value representing the status of Mistys' sensors, using the following enumerable:
+
+```c#
+public enum SlamSensorStatus
+{
+  Connected = 0,
+  Ready = 1,
+  Booting = 2,
+  Disconnected = 3,
+  UsbError = 4,
+  Error = 5,
+  Unknown = 6,
+  ProdDataCorrupt = 7,
+  FWCorrupt = 8,
+  RecoveryMode = 9,
+  LowPowerMode = 10
+}
+```
+
+Parameters
+- None
+
+##### SlamReset - BETA
+Resets the SLAM sensors.
+
+Parameters
+- None
 
 ##### SlamStartMapping - BETA
 Starts Misty mapping an area.
