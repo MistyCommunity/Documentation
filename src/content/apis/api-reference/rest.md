@@ -10,20 +10,25 @@ With the REST API, you can send commands from a REST client or browser to contro
 
 ## POST & GET Examples
 
-Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
-
+<p class="img">
 ![POSTMAN example](..\..\..\assets\images\post-example.PNG)
+</p>
 
+Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
 
 To retrieve information from Misty, you can either send the HTTP GET command from a browser or use a REST client.
 
+<p class="img">
+![GET example](..\..\..\assets\images\browser-get-example.PNG)
+</p>
+
 An example of sending a GET method in the browser:
 
-![GET example](..\..\..\assets\images\browser-get-example.PNG)
+<p class="img">
+![Content-Type in POSTMAN](..\..\..\assets\images\POSTMAN1.png)
+</p>
 
 If using POSTMAN for GET commands, make sure to remove content type from the header.
-
-![Content-Type in POSTMAN](..\..\..\assets\images\POSTMAN1.png)
 
 ## URL & Payload Formats
 
