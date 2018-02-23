@@ -1,7 +1,7 @@
 ---
 title: REST API
 layout: apis.hbs
-columns: one
+columns: three
 order: 1
 ---
 # {{title}}
