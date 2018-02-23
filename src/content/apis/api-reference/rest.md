@@ -448,17 +448,16 @@ Drives Misty on a path defined by coordinates you specify.
 Parameters
 - Waypoints - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Waypoint` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
-Or:
-
-- Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
-
 ```json
 {  
   "Waypoints": "(10,20),(20,20),(20,10)"
 }
 ```
 
+
 Or:
+
+- Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 ```json
 {
