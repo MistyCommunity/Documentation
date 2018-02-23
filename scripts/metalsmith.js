@@ -182,8 +182,7 @@ exports.metalsmith = function() {
         sortBy: 'order',
         orderDynamicCollections: [
           'overview',
-          'api-reference',
-          'Advanced'
+          'api-reference'
         ]
       },
       casestudies: {

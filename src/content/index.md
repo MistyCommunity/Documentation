@@ -15,8 +15,6 @@ You can program Misty to do a range of activities, such as drive from one room t
 If you're interested in a deeper dive, check out Misty's API, available via these interfaces:
 - [JavaScript](../../../../../apis/api-reference/all-functions)
 - [HTTP / REST](../../../../../apis/api-reference/rest)
-- [CLI (Command Line)](../../../../../apis/api-reference/cli)
-- [BLE / Bluetooth Classic](../../../../../apis/Advanced/ble)
 
 More Help & Links:
 * help @ mistyrobotics.com
