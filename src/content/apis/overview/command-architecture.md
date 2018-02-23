@@ -7,29 +7,7 @@ order: 1
 
 # {{title}}
 
-## API Functional Areas
-The  Misty Robot API contains 40 discrete commands that allow you to interact with your robot programmatically. Commands allow you to get general device information (such as firmware version or battery level) and to control the main robot device components:
-
-- Drive Motors
-- Camera
-- Speakers
-- Display
-- Microphone
-- Sensor
-- General Information
-
-Typically, each functional area has individual commands related to action (e.g. `ChangeDisplayImage`), configuration (e.g. `SaveImageAssetToRobot`), or information (e.g `GetListofVideoClips`).
-
-## API Protocol Types
-Commands are sent via one or more transport protocols and are available through various interfaces:
-- [JavaScript](../../api-reference/all-functions)
-- [HTTP / REST](../../api-reference/rest)
-
-You can also test commands with [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly) and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
-
-
-## API Command Types
-Misty's commands are grouped into the following categories:
+Welcome to Misty's API! You can control Misty programmatically via [JavaScript](../../api-reference/all-functions) and [REST](../../api-reference/rest) endpoints in a variety of areas:
 
 - **Action**
   - Drive Misty
@@ -38,18 +16,19 @@ Misty's commands are grouped into the following categories:
   - Change the LED color
   - Use face training and recognition
   - Move Misty's arms or head
-  - Change the display
+  - Change Misty's display
 
 
 - **Configuration**
   - Save audio or image files to Misty
   - Connect Misty to WiFi
-  - Get SLAM (simultaneous localization and mapping) data
 
 
 - **Information**  
   - Get asset, sensor, device, and battery data
-  - Troubleshoot problems
-  - Obtain configuration information
+  - Obtain map data
 
-Action commands are those which require the robot to perform physical (mechanical, audible, or visual) action. Configuration commands accept new values to be saved and/or used. Information commands return information requested by the command.
+
+You can also test commands with [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly) and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
+
+**Note: Not all of Misty's API is equally complete. You may see some commands labeled "Beta", because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.**
