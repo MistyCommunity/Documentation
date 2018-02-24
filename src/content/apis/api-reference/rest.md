@@ -326,12 +326,12 @@ Parameters
 Misty's ability to accurately position her head is currently under development.
 
 ##### MoveHead - BETA
-Moves Misty's head in one of three axes (tilt, turn, or up-and-down).
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
 
 Parameters
 - Pitch - Double - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll - Double - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5.
-- Yaw - Double - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5.
+- Roll - Double - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Yaw - Double - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
 - Velocity - Double - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
 
 ```json
