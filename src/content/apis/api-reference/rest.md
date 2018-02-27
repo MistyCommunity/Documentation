@@ -49,58 +49,6 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
 }
 ```
 
-## Faces
-
-You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
-
-
-##### StartFaceDetection
-Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
-
-Parameters
-- None
-
-
-##### StartFaceTraining
-Trains Misty to recognize a specific face and applies a user-assigned ID to that face. This process should take less than 15 seconds.**
-
-Parameters
-- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
-
-```json
-{
-  "FaceId":"Unique_Cat_Name-1337"
-}
-```
-
-
-##### StartFaceRecognition
-Directs Misty to recognize a face she sees, if it is among those she alerady knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
-
-Parameters
-- None
-
-
-##### StopFaceDetection
-Stops Misty's detection of faces in her line of vision.
-
-Parameters
-- None
-
-
-##### CancelFaceTraining
-Cancels face training that is currently in progress.
-
-Parameters
-- None
-
-
-##### StopFaceRecognition
-Stops the process of Misty recognizing a face she sees.
-
-Parameters
-- None
-
 
 ## Display & LED
 
@@ -232,13 +180,21 @@ Parameters
 Experiment with driving Misty. She's eager to explore...
 
 ##### DriveTime
-Drives Misty forward or backward at a specific speed for a set amount of time.
+Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+
+When using the DriveTime command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
 Parameters
-- LinearVelocity - Double - Number that sets the speed value when Misty is driving in a straight line. Default value range: -1.222 to 1.042. ***Note: The value range for linear velocity is hardware dependent.***
-- AngularVelocity - Double - Number that sets the speed value when Misty is driving at an angle. Default value range: -8.19 to 8.19. ***Note: The value range for angular velocity is hardware dependent.***
-- TimeMs - Integer - Number that sets duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree - Double - (optional) The number of degrees to turn. *Note: Supplying a `Degree` value recalculates linear velocity.*
+- LinearVelocity - Double - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity - Double - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- TimeMs - Integer - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree - Double - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
 
 ```json
 {
@@ -321,6 +277,59 @@ Parameters
 - None
 
 
+## Beta - Faces
+
+You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
+
+
+##### StartFaceDetection - BETA
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
+
+Parameters
+- None
+
+
+##### StartFaceTraining - BETA
+Trains Misty to recognize a specific face and applies a user-assigned ID to that face. This process should take less than 15 seconds.**
+
+Parameters
+- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+```json
+{
+  "FaceId":"Unique_Cat_Name-1337"
+}
+```
+
+
+##### StartFaceRecognition - BETA
+Directs Misty to recognize a face she sees, if it is among those she alerady knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
+
+Parameters
+- None
+
+
+##### StopFaceDetection - BETA
+Stops Misty's detection of faces in her line of vision.
+
+Parameters
+- None
+
+
+##### CancelFaceTraining - BETA
+Cancels face training that is currently in progress.
+
+Parameters
+- None
+
+
+##### StopFaceRecognition - BETA
+Stops the process of Misty recognizing a face she sees.
+
+Parameters
+- None
+
+
 ## Beta - Head Movement
 
 Misty's ability to accurately position her head is currently under development.
@@ -374,12 +383,12 @@ Parameters
 ```
 
 
-## Beta - Mapping
+## Alpha - Mapping & Tracking
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to know where they are on a given map in the world. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
 
 
-##### SlamGetStatus - BETA
+##### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
 - Value 1 is an integer value where each bit is set to represent a different activity mode:
@@ -411,57 +420,46 @@ public enum SlamSensorStatus
 Parameters
 - None
 
-##### SlamReset - BETA
+##### SlamReset - ALPHA
 Resets the SLAM sensors.
 
 Parameters
 - None
 
-##### SlamStartMapping - BETA
+##### SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
 Parameters
 - None
 
-##### SlamStartTracking - BETA
+##### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
 Parameters
 - None
 
-##### SlamStopMapping - BETA
+##### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
 Parameters
 - None
 
-##### SlamStopTracking - BETA
+##### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
 Parameters
 - None
 
-##### SlamGetMap - BETA
+##### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
 
 Parameters
 - None
 
-##### FollowPath - BETA
+##### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
 Parameters
-- Waypoints - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Waypoint` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
-
-```json
-{  
-  "Waypoints": "(10,20),(20,20),(20,10)"
-}
-```
-
-
-Or:
-
 - Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 ```json

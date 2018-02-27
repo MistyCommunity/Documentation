@@ -87,9 +87,8 @@ Then:
 3. Click Run.
 
 
-### Other Things to Try
+### Other Things to Try...
 * Move Misty's head (beta).
-* Train Misty to recognize faces, then use this training with the API.
 * Mapping - For best results at this time, we recommend you try mapping with the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer), rather than with Blockly or the Companion App.
 
 
@@ -214,7 +213,7 @@ Parameters
 * None
 
 ----------
-## Beta/Experimental Commands
+## Beta Commands
 
 ### Move head to location - BETA
 Moves Misty's head to a given location.
@@ -236,7 +235,12 @@ Parameters
 * Velocity: A value from 0 (stopped) to 10 (full speed).
 
 
-### Start / Stop mapping - BETA
+
+----------
+## Alpha Commands
+
+
+### Start / Stop mapping - ALPHA
 Starts or stops Misty's mapping of an area.
 
 ![Mapping](../../../assets/images/mapping.png)
@@ -245,7 +249,7 @@ Parameters
 * None
 
 
-### Start / Stop tracking - BETA
+### Start / Stop tracking - ALPHA
 Starts or stops Misty tracking her location on a previously generated map.
 
 ![Tracking](../../../assets/images/tracking.png)
@@ -254,7 +258,7 @@ Parameters
 * None
 
 
-### Follow path - BETA
+### Follow path - ALPHA
 Drives Misty on a specified path.
 
 ![Followpath](../../../assets/images/followpath.png)
@@ -264,19 +268,19 @@ Parameters
 
 
 ----------
-## Alpha/Not Recommended Commands
+## Not Recommended Commands
 
-### Set affect - ALPHA
+### Set affect
 Not currently recommended for use.
 
-### Change the eye - ALPHA
+### Change the eye
 Not currently recommended for use. Use the "Display image file" block to change Misty's eyes.
 
-### Hallucinate object - ALPHA
+### Hallucinate object
 Not currently recommended for use.
 
-### Get string sensor readings - ALPHA
+### Get string sensor readings
 Not currently recommended for use.
 
-### Move arm to position - ALPHA
+### Move arm to position
 Not currently recommended for use.

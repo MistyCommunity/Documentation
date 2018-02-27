@@ -31,4 +31,4 @@ Welcome to Misty's API! You can control Misty programmatically via [JavaScript](
 
 You can also test commands with [Blockly](../../../../../onboarding/3-ways-to-interact-with-misty/blockly) and the [Misty API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
 
-**Note: Not all of Misty's API is equally complete. You may see some commands labeled "Beta", because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.**
+**Note: Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.**
