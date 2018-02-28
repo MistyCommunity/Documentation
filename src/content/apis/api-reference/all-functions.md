@@ -160,12 +160,6 @@ Arguments:
 * NetworkName (string) - The WiFi network name (SSID).
 * Password (string) - The WiFi network password.
 
-##### GetStoreUpdateAvailable
-Checks to see if there is an update available for Misty.
-
-Arguments:
-* None
-
 
 ## Beta - Faces
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area. 

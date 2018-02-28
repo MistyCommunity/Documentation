@@ -270,12 +270,6 @@ Parameters
 }
 ```
 
-##### GetStoreUpdateAvailable
-Checks to see if there is an update available for Misty.
-
-Parameters
-- None
-
 
 ## Beta - Faces
 
