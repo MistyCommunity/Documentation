@@ -168,12 +168,16 @@ You can have Misty detect any face she sees or train her to recognize people tha
 ##### StartFaceDetection - BETA
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
+When you are done having Misty detect faces, call StopFaceDetection.
+
 Arguments:
 * None
 
 
 ##### StartFaceTraining - BETA
-Starts Misty learning a face and assigns a user-specified ID to that face. This process should take less than 15 seconds.
+Starts Misty learning a face and assigns a user-specified ID to that face.
+
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
 Arguments:
 * FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
@@ -181,6 +185,8 @@ Arguments:
 
 ##### StartFaceRecognition - BETA
 Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `StartFaceDetection` command to detect and store face IDs in Misty's memory.
+
+When you are done having Misty recognize faces, call StopFaceRecognition.
 
 Arguments:
 * None
@@ -193,11 +199,10 @@ Arguments:
 * None
 
 ##### CancelFaceTraining - BETA
-Cancels face training that is currently in progress.
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
 Arguments:
 * None
-
 
 ##### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
