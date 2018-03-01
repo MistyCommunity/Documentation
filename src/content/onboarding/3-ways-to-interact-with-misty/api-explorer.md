@@ -7,69 +7,66 @@ order: 7
 
 # {{title}}
 
-Misty currently has 51 API endpoints. When you use the API Explorer in your browser, you can use these endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
+When you use the API Explorer in your browser, you can use Misty's API endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
 ![API Explorer](../../../assets/images/api_client.png)
 
-## Programming Misty with the API Explorer
+## Set up the API Explorer
 
 As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth.
 
 1. [Download the API Explorer](https://s3.amazonaws.com/docs.mistyrobotics.io/assets/files/Misty.API.zip). Unzip the download and open the index.html file into your browser. You should see the API Explorer looking like the screenshot above.
-2. Get the IP address of your robot from the Info tab of the companion app. Enter that IP address and hit the “Set up” button.
+2. Get the IP address of your robot from the Info tab of the companion app. Enter that IP address and hit the **Connect** button.
 3. Confirm the browser is connected to your robot via its IP address:
     * Open your browser’s JavaScript console. (How you do this will vary among browsers and platforms.)
-    * Click “Get Device Information” in the API Explorer.
+    * Click **Get Device Information** in the API Explorer.
     * You should see information relevant to your robot (such as the IP address) in the browser console. This confirms you’re connected.
-4. Select the amount of console messages you’ll receive by setting the Verbose Level (1-3). Selecting 3 will give you a console message for each method in all 3 classes, for example. The console messages can be really helpful when getting started.
-5. Experiment with setting Misty’s eyes, LED color, and movement.
+4. Select the amount of console messages you’ll receive by setting the console log level (0-3). Selecting 3 will give you a console message for each method in all 3 classes, for example. The console messages can be really helpful when getting started.
+5. Experiment with Misty’s eyes, LED color, sounds, and movement.
 
-Ready for more?
 
-* Reference the `Misty.API` classes in your HTML:
-    * `MistyAjax.js` - Sends AJAX calls to Misty.
-    * `MistyAPI.js` - Maps one-to-one to Misty's API endpoints and constructs payloads to pass to `MistyAJAX.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level.
-    * `MistyRobot.js` - Builds the server URL based on the robot you are attempting to interact with and provides a wider and more user-friendly range of commands than `MistyAPI.js`.
-* Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in index.html. For example, Select a mood or Change LED.
-* To get a map or a path, follow the SLAM instructions at the bottom of the index.html page. For full details, see the “Mapping” section below.
+## Face Recognition with the API Explorer - BETA
 
-## Face Recognition with the API Explorer
+Misty's ability to recognize faces is under development. To try face training and recognition, follow these steps.
 
-To try face recognition, follow these steps.
-**Note: Facial recognition works best in a well-lit area.**
-1. Make sure the 820 Dev Kit board mounted on Misty’s right side is on.
-2. Make sure that the light on Misty’s HD camera (located above her eyes) is solid blue.
-3. Connect to Misty from the API Explorer.
-4. Enter a name in the Face Training input box. ![Face Training interface](../../../assets/images/face_training.png)
-5. Position the person’s face about a foot or two away from Misty’s camera.
-6. Click Start Face Training and wait a few seconds.
-7. Click Stop Face Training.
-8. Click the Open Websocket button. ![Open Websocket button](../../../assets/images/open_websocket.png)
-9. Click Start Face Recognition.
-10. Position the person’s face in front of the camera.
-11. Watch the browser console for face information to come through.
+1. If you are using Misty 1 Beta version, make sure the 820 Dev Kit board mounted on Misty’s right side is on.
+2. Make sure that the light on Misty’s HD camera (located above her eyes on Misty I Beta) is solid blue.
+3. Connect to Misty from the API Explorer using the setup instructions above.
+4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
+5. In the **Misty Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
+6. Position the person’s face in a well-lit area about a foot or two away from Misty’s camera.
+7. Click **Start Face Training** and wait 10-15 seconds. (There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes.)
+8. Scroll up the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
+9. In the **Other Websockets** section, find the **Subscribe** controls. Under **Named Object**, select **FaceRecognition**, then click **Subscribe**. ![Other Websockets](../../../assets/images/other_websockets.png)
+10. Scroll back down to the **Computer Vision** section of the API Explorer and click **Start Face Recognition**. ![Face Training interface](../../../assets/images/computer_vision.png)
+11. Position the person’s face in a well-lit area front of the camera.
+12. Watch the browser console for face information to come through.
+13. When finished, scroll back up to the **Other Websockets** section and find the **Unsubscribe** controls. Enter "FaceRecognition" in the Event Name field and click **Unsubscribe**. ![Unsubscribe](../../../assets/images/unsubscribe.png)
 
-## Mapping & Tracking with the API Explorer
+
+## Mapping & Tracking with the API Explorer - ALPHA
 
 For best control, we recommend that mapping be done at this time via the API Explorer instead of with Blockly or the companion app.
 
 **Note: The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
 ### Mapping
-1. Click the Open Websocket button.
-2. Scroll down to the SLAM: Explore & Get a Map section and click the Get Status button.
-![SLAM controls](../../../assets/images/slam_controls.png)
-3. Verify that the status returns "ready". If the status does not return as ready, click the Reset button in the API Explorer and try again.
-4. Verify that the red light on the Occipital sensor (on Misty's forehead) is on. **Note: If after repeated tries, you cannot obtain a status of "ready" or if the Occipital light is not red, restart Misty and try again.**
-5. Click the Subscribe To Pose button. The Current Pose fields may not contain data until Misty starts moving.
-6. Click the Start Mapping button.
-7. Drive Misty SLOWLY around a small space (start with an area no more than 20’ x 20’). Verify that the Current Pose fields contain data that updates as Misty moves.
-8. When done driving, click the Stop Mapping button.
-9. Click the Get Map button and scroll down to see the map your robot generated. The red dot on the map is Misty. The blue-green areas should reflect the driveable terrain for Misty. The white areas are obstacles.
+1. If you are using Misty 1 Beta version, make sure the 820 Dev Kit board mounted on Misty’s right side is on.
+2. Connect to Misty from the API Explorer using the setup instructions above.
+3. Scroll down the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
+4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
+5. Scroll down to **Misty Alpha Commands** and find the **Mapping and Exploring** section. ![Mapping controls](../../../assets/images/slam_controls.png)
+6. Click **Get Status** and observe the bottom of the page for a status message to pop up. If Misty's status is other than ready, click **Reset**, then click **Get Status** again. If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, restart Misty, confirm the 820 board is on, and try again.
+7. Click **Start Mapping**. After a few seconds, the **Pose** light should turn green. Having pose means Misty knows her location and orientation on the map, in X,Y coordinates.
+8. Observe the **Pose X** and **Pose Y** fields for data. If you do not see pose updates, it is possible the lighting is too low for Misty. Note also that the Pose fields may not contain data until Misty starts moving.
+9. Select one of the drive options (**Turn in Circle**, etc.) or drive Misty yourself. When mapping, it is ideal if Misty moves SLOWLY around a small space (start with an area no more than 20’ x 20’). Verify that the Pose fields contain data that updates as Misty moves.
+10. When done driving, click **Stop Mapping**.
+11. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
 
-**Note: Without going through the steps above, Misty may not know her position in the world (her "pose"). Having pose means Misty knows her location and orientation on the map, in X,Y coordinates.**
 
 ### Mapping Tips
 Having mapping issues? Try these tips:
+
+* If you do not see pose data updating, it is possible the lighting is too low for Misty.
 * Verify that the mapping sensors are working. The Occipital laser near Misty’s right eye should be glowing blue.
 * Drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness.
 * Make wider turns (in arcs) to improve mapping results.
@@ -80,6 +77,14 @@ Having mapping issues? Try these tips:
 
 
 ### Tracking
-1. Once you have successfully generated a map, click the Start Tracking button and start driving Misty. Activating tracking should provide data in the Current Pose fields for where Misty is on the map you generated.
-2. Observe the Current Pose fields as Misty moves to ensure she is successfully tracking. If the Current Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
-3. Click the Stop Tracking button.
+1. Once you have successfully generated a map, click **Start Tracking** and begin driving Misty. Activating tracking should provide data in the Pose fields for where Misty is on the map you generated.
+2. Observe the Pose fields as Misty moves to ensure she is successfully tracking. If the Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
+3. Click **Stop Tracking**.
+
+
+## Ready for more?
+* Reference the `Misty.API` classes in your HTML:
+    * `MistyAjax.js` - Sends AJAX calls to Misty.
+    * `MistyAPI.js` - Maps one-to-one to Misty's API endpoints and constructs payloads to pass to `MistyAJAX.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level.
+    * `MistyRobot.js` - Builds the server URL based on the robot you are attempting to interact with and provides a wider and more user-friendly range of commands than `MistyAPI.js`.
+* Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in index.html. For example, Select a mood or Change LED.
