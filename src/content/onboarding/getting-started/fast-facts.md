@@ -15,12 +15,12 @@ Some quick facts. She...
 * Utilizes a track-based, differential drive system.
 * Moves her head via a servo for pitch articulation.
 * Includes a screen on the front of her head.
-* Uses a structured light sensor from Occipital to navigate.
-* Tolerates a “periscope-style” webcam mounted on her head (Misty 1 Beta version only).
-* Carries an Intrinsyc 820 dev kit board at her side (Misty 1 Beta version only).
-* Includes a Dragonboard 410-C development board (Mity 1 Beta version only).
+* Uses an Occipital Structure Core depth sensor to navigate.
+* Carries an Intrinsyc 820 dev kit board running Android at her side (Misty 1 Beta version only).
+* Includes a Dragonboard 410-C development board running Windows IoT Core (Misty 1 Beta version only).
 * Uses real-time and motor controllers.
 * Senses with 4 time-of-flight sensors (3 in front, 1 in rear).
+* Tolerates a “periscope-style” webcam mounted on her head (Misty 1 Beta version only).
 * Gets flashy with a multicolor LED behind her name plate in front
 * Is powered via a barrel connector charger jack in the back, as well as a 2200 milliamp hour lithium polymer battery (power adapter included).
 * Has a serial expansion port for, you know, serial devices.
