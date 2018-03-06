@@ -199,16 +199,16 @@ You can use the API Explorer to perform over-the-air (OTA) updates for Misty, in
 * Home Robot application (running on Windows IoT Core)
 * Sensory Services application (running on Android)
 
-**Important: Before attempting to update Misty, always make sure that she is plugged into a power source and is connected to the Internet.**
+**Important! Before attempting to update Misty, always make sure that she is plugged into a power source and is connected to the Internet.**
 
 To perform an update:
 1. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png)
 2. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended. ![I understand button](../../../assets/images/i_understand.png)
 3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
 4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. This may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
-5. After the update has successfully downloaded, a message asks whether you want to update and restart Misty. **Before clicking anything, plug in a USB mouse to the Dragonboard 410 device (See image) or connect to the Windows IoT Core remote server [how?]**
-6. Click **Okay**.
-7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.**
+5. After the update has successfully downloaded, a message appears on Misty's screen, asking whether you want to update and restart Misty. To click okay, plug a USB mouse into the Dragonboard 410 board as shown. Or, connect to the Windows IoT Core remote server. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
+6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_prompt.png)
+7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
 8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. Note: If the update fails, contact support or attempt to install the update manually.
 
 
