@@ -173,7 +173,7 @@ exports.metalsmith = function() {
         pattern: 'onboarding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'getting-started',
+          'get-started',
           '3-ways-to-interact-with-misty'
         ]
       },
