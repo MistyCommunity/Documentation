@@ -43,30 +43,20 @@ When using **Drive Time by Value**, it helps to understand how linear velocity (
 3. Use the **Duration (ms)** control to specify the amount of time Misty should drive.
 3. Click **Move Robot**. Misty stops driving automatically when the time is up.
 
-### Track Locomotion
-Using this command allows you to set the speed for wheels on one side of Misty independently from the other side. When Misty's left and right wheels are going at different speeds, she will drive in a curve.
-
-1. Set the **Left Track Velocity** control to the speed you want the wheels on her left side to go.
-2. Set the **Right Track Velocity** control to a speed for Misty's right side.
-3. Click **Move Robot**.
-4. Click **Stop**.
-
-### Event Chaining with Locomotion
-Click **Do Things!** to see a preprogrammed example of Misty performing several actions in a row.
 
 ### Manual Driving
 You can use these controls to drive Misty in a variety of directions.
 
 1. Click a directional button, and Misty will start driving.
 2. Adjust the **Velocity** level, if she is going too quickly or too slowly.
-3. The data in the **Linear Velocity** (straight line) and **Angular Velocity** (rotation) fields reflects how fast Misty is going and in what direction.
+3. Observe the **Current Velocity Values** data to see how fast Misty is going and in what direction. The fields include information for **Linear Velocity** (straight line) and **Angular Velocity** (rotation).
 3. Use the center control to stop driving.
 
 
 ## Opening a WebSocket
 Once you open a WebSocket, you can subscribe to real-time data from Misty, including:
 * Time-of-flight sensor data
-* Battery level
+* Battery voltage
 * Face detection
 * Face recognition
 * Driving (and stopping) commands
@@ -84,7 +74,7 @@ You can view a stream of data from Misty's four time-of-flight sensors in the AP
 ### Subscribing to Battery data
 
 1. In the **Sensor Reading WebSockets** area, find the **Battery Charge** controls and click **Subscribe**.
-2. You can see data from Misty's battery sensor in the **Battery Charge Percentage** field.
+2. You can see data from Misty's battery sensor in the **Battery Voltage** field.
 3. Click **Unsubscribe** when you are finished.
 
 ### Subscribing to Other WebSocket data
@@ -118,11 +108,11 @@ Misty's ability to recognize faces is under development. To try face training an
 
 ## Moving Misty's Head - BETA
 You can use the API Explorer to move Misty's head with the following controls:
-* Move Head
-* Set Head Position
-* Move Head to Location 
+* **Move Head**
+* **Set Head Position**
+* **Move Head to Location**
 
-**Note: Full control of Misty's head is currently under development. Setting the pitch (the up-down position) of Misty's head is all that is  possible with Misty I.**
+**Note: Full control of Misty's head is currently under development.**
 ![Head commands](../../../assets/images/head_commands.png)
 
 
@@ -142,20 +132,11 @@ For best control, we recommend that mapping be done at this time via the API Exp
 7. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
 8. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you do not see pose data updating, try turning up the lights; sometimes the lighting is too low for Misty._
 9. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns red AND if the pose data stops updating, try the following:_
-   * Click **stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
+   * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
    * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
 10. When done driving, click **Stop**.
 11. Click **Stop Mapping**.
 12. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
-
-
-### Mapping WebSockets
-
-The **Mapping and Exploring** section of the API Explorer also contains fields that update for specific driving commands. ![Mapping controls](../../../assets/images/slam_controls.png)
-
-* The **"LocomotionCommand" WebSocket** field contains data when a new command is sent to the board.
-
-* The **"HaltCommand Websocket** field contains data only if a Halt command is triggered.
 
 
 ### Additional Mapping Tips
