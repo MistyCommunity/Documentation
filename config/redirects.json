@@ -3,10 +3,10 @@
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
-	"/getstarted": "/onboarding/get-started/",
-	"/get-started": "/onboarding/get-started/",
-	"/gettingstarted": "/onboarding/get-started/",
-	"/getting-started": "/onboarding/get-started/",
-	"/onboarding": "/onboarding/get-started/",
+	"/getstarted": "/onboarding/get-started/safety-handling",
+	"/get-started": "/onboarding/get-started/safety-handling",
+	"/gettingstarted": "/onboarding/get-started/safety-handling",
+	"/getting-started": "/onboarding/get-started/safety-handling",
+	"/onboarding": "/onboarding/get-started/safety-handling",
 	"/tutorials": "/tutorials/quickstart/"
 }
