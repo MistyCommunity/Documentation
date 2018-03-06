@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty.
+Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty. 
 
 ## Safety Warning
 
