@@ -92,7 +92,7 @@ You can view a stream of data from Misty's four time-of-flight sensors in the AP
 ## Face Training & Recognition - BETA
 Misty's ability to recognize faces is under development. To try face training and recognition, follow these steps.
 
-1. If you are using Misty 1 Beta version, make sure the 820 Dev Kit board mounted on Misty’s right side is on.
+1. If you are using Misty 1 Beta version, make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.
 2. Make sure that the light on Misty’s HD camera (located above her eyes on Misty I Beta) is solid blue.
 3. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png)
 4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
@@ -121,7 +121,7 @@ For best control, we recommend that mapping be done at this time via the API Exp
 
 **Note: The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
-1. If you are using Misty 1 Beta version, make sure the 820 Dev Kit board mounted on Misty’s right side is on.
+1. If you are using Misty 1 Beta version, make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.
 2. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png)
 3. Scroll down the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
 4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
@@ -143,7 +143,7 @@ For best control, we recommend that mapping be done at this time via the API Exp
 Having mapping issues? Try these tips:
 
 * If you do not see pose data updating, it is possible the lighting is too low for Misty.
-* Verify that the mapping sensors are working. The Occipital laser near Misty’s right eye should be glowing blue.
+* Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
 * Drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness.
 * Make wider turns (in arcs) to improve mapping results.
 * If Misty loses pose after generating a map, she will need to generate a new map and start over.
@@ -187,10 +187,33 @@ To perform an update:
 2. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended. ![I understand button](../../../assets/images/i_understand.png)
 3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
 4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. This may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
-5. After the update has successfully downloaded, a message appears on Misty's screen, asking whether you want to update and restart Misty. To click okay, plug a USB mouse into the Dragonboard 410 board as shown. Or, connect to the Windows IoT Core remote server. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
+5. After the update has successfully downloaded, a message appears on Misty's screen, asking whether you want to update and restart Misty. To click okay, you need to do **one** of the following (instructions for both methods of completing an update follow below):
+   * **Open Misty up and plug a USB mouse into the DragonBoard 410c development board**. 
+   * **Connect to the Windows IoT Core remote server (Windows only)**. 
+
+### Completing a system update by plugging a mouse into the DragonBoard 410c development board
+
+
+1. First, carefully slide up Misty's front panel (the black plastic panel with the LED behind the logo). **Important! Never pull the panel forward! This may result in the front mount breaking.** ![Sliding up front panel](../../../assets/images/slide_up_front_panel.jpg)
+2. Fully remove the front panel. Misty should look like this: ![No front panel](../../../assets/images/removed_front_panel.jpg)
+3. Carefully slide up the black plastic panel on Misty's left side up. **Important: Pull up, not forward. Pulling the panel forward may break the panel.** ![Sliding up the side panel](../../../assets/images/slide_up_side_panel.jpg)
+4. Fully remove the side panel. This exposes the DragonBoard 410c development board. ![No side panel](../../../assets/images/removed_side_panel.jpg)
+5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
 6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_prompt.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. Note: If the update fails, contact support or attempt to install the update manually.
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
+
+
+### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
+
+1. Open your browser and navigate to the **Remote Settings** tab in the Windows IoT Core device portal at: ```http://<IP address of your robot>:8080/#Remote```
+2. Enter a username and password. The default administrator username is _administrator_. The default password is _p@ssw0rd_. **Note: You should change these credentials to improve the security of your Misty robot.**
+3. Click the **Enable Windows IoT Remote Server checkbox**. ![Enable Windows IoT Remote Server checkbox](../../../assets/images/enable_windows.png)
+4. [Download the Windows IoT Remote Client app](https://www.microsoft.com/store/apps/9nblggh5mnxz) and install it.
+5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
+6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_prompt.png)
+7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
 
 
 ## Exploring the JavaScript Code
