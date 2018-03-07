@@ -199,7 +199,7 @@ To perform an update:
 3. Carefully slide up the black plastic panel on Misty's left side up. **Important: Pull up, not forward. Pulling the panel forward may break the panel.** ![Sliding up the side panel](../../../assets/images/slide_up_side_panel.jpg)
 4. Fully remove the side panel. This exposes the DragonBoard 410c development board. ![No side panel](../../../assets/images/removed_side_panel.jpg)
 5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
-6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_prompt.png)
+6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
 8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
 
@@ -211,7 +211,7 @@ To perform an update:
 3. Click the **Enable Windows IoT Remote Server checkbox**. ![Enable Windows IoT Remote Server checkbox](../../../assets/images/enable_windows.png)
 4. [Download the Windows IoT Remote Client app](https://www.microsoft.com/store/apps/9nblggh5mnxz) and install it.
 5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
-6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_prompt.png)
+6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
 8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
 
