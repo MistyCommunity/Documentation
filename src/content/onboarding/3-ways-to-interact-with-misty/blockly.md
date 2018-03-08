@@ -136,6 +136,15 @@ Parameters
 * Color: A color selected from the block's options.
 
 
+### Change the eye
+Changes Misty's eyes to another of her default eye expressions.
+
+![Change Eyes block](../../../assets/images/change_eye.png)
+
+Parameters
+* Mood: One of the following: Angry, Concerned, Confused, Content, Groggy, Happy, Love, Sad, Unamused.
+
+
 ### Browse for file
 Browse for a file on your computer. Connect this with a "Save audio file" block or a "Save image file" block to select a file to upload to Misty.
 
@@ -216,26 +225,18 @@ Parameters
 ### Move head to location - BETA
 Moves Misty's head to a given location. **Note: Misty I can only move her head up, down, or to the center.**
 
-![Head1](../../../assets/images/head1.png)
+![Move Head block](../../../assets/images/move_head.png)
 
 Parameters
-* Location: Left, right, up, down, or center.
+* Location: Up, down, or center.
 
 
 ### Set head to position - BETA
 Moves Misty's head up or down to a given position.
 
-![Head2](../../../assets/images/head2.png)
+![Set Head block](../../../assets/images/set_head.png)
 
 Parameters
 * Position: A value from -5 to 5 specifying the amount of movement.
 * Velocity: A value from 0 (stopped) to 10 (full speed).
-
-
-----------
-## Not Recommended Commands
-
-### Change the eye
-Not currently recommended for use. Use the "Display image file" block to change Misty's eyes.
-
 
