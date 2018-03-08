@@ -9,11 +9,13 @@ order: 2
 
 If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you’d like. 
 
-**Note: When using the companion app, you should connect Misty to both Bluetooth and Wi-Fi. Keep reading for connection instructions.**
+**Note: It's not generally recommended for multiple users to each use a separate instance of the companion app to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
+
+**Important! When using the companion app, you should connect Misty to both Bluetooth and Wi-Fi. Keep reading for connection instructions.**
 
 ## Connect to Misty via Bluetooth
 
-1. Once you’ve downloaded and opened the app, make sure to turn on Bluetooth on your phone.
+1. Once you’ve downloaded and opened the app, make sure to turn on Bluetooth on your phone. 
 2. Select the Bluetooth icon in the upper right of the app. The app will search for nearby robots and list those it finds. Your robot’s name should appear in the app.
 ![Companion App Info tab](../../../assets/images/bluetooth_and_app.png)
 3. Select your robot’s name to connect to the robot. When connected, two dots will appear in the Bluetooth icon on your phone.

@@ -11,6 +11,8 @@ Blockly is a block-based, visual programming language editor that runs in your b
 
 Read on to set Blockly up with Misty, try a few simple Blockly programs, and get detailed information on Misty's Blockly commands. 
 
+**Note: It's not generally recommended for multiple users to each use a separate instance of Blockly to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
+
 ![Blockly](../../../assets/images/blockly.png)
 
 
@@ -87,18 +89,11 @@ Then:
 3. Click Run.
 
 
-### Other Things to Try...
-* Move Misty's head (beta).
-* Mapping - For best results at this time, we recommend you try mapping with the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer), rather than with Blockly or the Companion App.
-
-
 ## Blockly Commands
 
 The following are descriptions of the Misty-specific Blockly commands.
 
 **Note: When using Blockly, after clicking Run, there currently can be a 2-3 second delay before Misty reacts, and up to a 5-second delay between actions.**
-
-**Important: Commands noted as "Beta" may behave unpredictably. "Alpha" Commands may be partially or entirely non-functional at this time.**
 
 
 ### Move at speed for duration
@@ -150,13 +145,40 @@ Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. Valid image file types are .jpg, .jpeg, .gif, .png. All audio file types are valid, however Misty cannot currently play OGG files. Maximum file size is 3 MB.
 
 
-### List audio files
-Lists the existing audio files on Misty. Connect this block to a "Play audio file" block to select a sound to play.
+### Save image file
+Saves an image file to Misty. This block **must** connect with the "Browse for file" block, to select the image file to be saved.
 
-![Listaudio](../../../assets/images/listaudio.png)
+![Saveimage](../../../assets/images/saveimage.png)
 
 Parameters
-* File: An existing audio file stored on Misty.
+* File: The image file to save to Misty from the "Browse for file" block. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
+
+
+### Display image file
+Sets the current image being displayed on Misty's screen. This block **must** connect with the "List image files" block, to select the image file to display.
+
+Parameters
+* Filename: The name of the file containing the image to display, selected from the "List image files" block.
+
+![Display image](../../../assets/images/display_image.png)
+
+
+### List available images
+Obtains a list of the images currently stored on Misty. Connect this with a "Display image file" block to select a file to display on Misty's screen.
+
+![List image files](../../../assets/images/list_image.png)
+
+Parameters
+* None
+
+
+### Revert display image
+Changes Misty's screen to display the previous image.
+
+![Revert image](../../../assets/images/revert_image.png)
+
+Parameters
+* None
 
 
 ### Play audio file
@@ -177,46 +199,22 @@ Parameters
 * File: The audio file to save to Misty from the "Browse for file" block. This command accepts all audio format types, however Misty cannot currently play OGG files. The maximum file size is 3 MB.
 
 
-### Save image file
-Saves an image file to Misty. This block **must** connect with the "Browse for file" block, to select the image file to be saved.
+### List available audio files
+Lists the existing audio files on Misty. Connect this block to a "Play audio file" block to select a sound to play.
 
-![Saveimage](../../../assets/images/saveimage.png)
-
-Parameters
-* File: The image file to save to Misty from the "Browse for file" block. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
-
-
-### Display image file
-Sets the current image being displayed on Misty's screen. This block **must** connect with the "List image files" block, to select the image file to display.
+![Listaudio](../../../assets/images/listaudio.png)
 
 Parameters
-* Filename: The name of the file containing the image to display, selected from the "List image files" block.
+* File: An existing audio file stored on Misty.
 
-![Display image](../../../assets/images/display_image.png)
-
-
-### List image files
-Obtains a list of the images currently stored on Misty. Connect this with a "Display image file" block to select a file to display on Misty's screen.
-
-![List image files](../../../assets/images/list_image.png)
-
-Parameters
-* None
-
-
-### Revert display image
-Changes Misty's screen to display the previous image.
-
-![Revert image](../../../assets/images/revert_image.png)
-
-Parameters
-* None
 
 ----------
 ## Beta Commands
 
+**Important: Commands noted as "Beta" have limited functionality or may behave unpredictably at this time.**
+
 ### Move head to location - BETA
-Moves Misty's head to a given location.
+Moves Misty's head to a given location. **Note: Misty I can only move her head up, down, or to the center.**
 
 ![Head1](../../../assets/images/head1.png)
 
@@ -225,62 +223,19 @@ Parameters
 
 
 ### Set head to position - BETA
-Moves Misty's head in one of three axes (tilt, turn, or up-and-down).
+Moves Misty's head up or down to a given position.
 
 ![Head2](../../../assets/images/head2.png)
 
 Parameters
-* Axis: Yaw (turning left or right), pitch (moving up and down) or roll (tilting Misty's head toward her shoulder).
 * Position: A value from -5 to 5 specifying the amount of movement.
 * Velocity: A value from 0 (stopped) to 10 (full speed).
-
-
-
-----------
-## Alpha Commands
-
-
-### Start / Stop mapping - ALPHA
-Starts or stops Misty's mapping of an area.
-
-![Mapping](../../../assets/images/mapping.png)
-
-Parameters
-* None
-
-
-### Start / Stop tracking - ALPHA
-Starts or stops Misty tracking her location on a previously generated map.
-
-![Tracking](../../../assets/images/tracking.png)
-
-Parameters
-* None
-
-
-### Follow path - ALPHA
-Drives Misty on a specified path.
-
-![Followpath](../../../assets/images/followpath.png)
-
-Parameters
-* Path: A string of (x,y) coordinates for the path to follow. These must be obtained from a previously generated map.
 
 
 ----------
 ## Not Recommended Commands
 
-### Set affect
-Not currently recommended for use.
-
 ### Change the eye
 Not currently recommended for use. Use the "Display image file" block to change Misty's eyes.
 
-### Hallucinate object
-Not currently recommended for use.
 
-### Get string sensor readings
-Not currently recommended for use.
-
-### Move arm to position
-Not currently recommended for use.

@@ -9,6 +9,8 @@ order: 7
 
 When you use the API Explorer in your browser, you can use Misty's API endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
 
+**Note: It's not generally recommended for multiple users to each use a separate instance of the API Explorer to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
+
 ## Setting up the API Explorer
 As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
 
@@ -201,7 +203,7 @@ To perform an update:
 5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
 6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, do not hesitate to reach out for assistance on any of the Misty Robotics support channels. If the update experience has other issues or is not as described in these steps, we encourage you [to comment in this thread](https://community.mistyrobotics.com/t/report-system-upgrade-issues-here/355).**
 
 
 ### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
@@ -213,7 +215,7 @@ To perform an update:
 5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
 6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds. **Note: If the update fails, contact support.**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for 2 seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for seconds.  **Note: If the update fails, do not hesitate to reach out for assistance on any of the Misty Robotics support channels. If the update experience has other issues or is not as described in these steps, we encourage you [to comment in this thread](https://community.mistyrobotics.com/t/report-system-upgrade-issues-here/355).**
 
 
 ## Exploring the JavaScript Code
