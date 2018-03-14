@@ -8,39 +8,14 @@ order: 1
 
 With the REST API, you can send commands from a REST client or browser to control and get information from Misty.
 
-## POST & GET Examples
 
-<p class="img">
-![POSTMAN example](..\..\..\assets\images\post-example.PNG)
-</p>
+## URL & Message Formats
 
-Use the HTTP POST method via a REST client such as POSTMAN to send a command to Misty:
-
-To retrieve information from Misty, you can either send the HTTP GET command from a browser or use a REST client.
-
-<p class="img">
-![GET example](..\..\..\assets\images\browser-get-example.PNG)
-</p>
-
-An example of sending a GET method in the browser:
-
-<p class="img">
-![Content-Type in POSTMAN](..\..\..\assets\images\POSTMAN1.png)
-</p>
-
-If using POSTMAN for GET commands, make sure to remove content type from the header.
-
-## URL & Payload Formats
-
-To interact with API commands through a REST client or browser, use the following URL format:
-
+Use the following URL format when sending commands to the robot:
 ```
-http://{robot-ip-address}:{port}/Api/{CommandName}
+http://{robot-ip-address}/api/{Endpoint}
 ```
-
-
 Misty uses JSON to format REST API data. Use this format when creating the payload:
-
 ```json
 {
   "key0": "value0",
@@ -48,6 +23,17 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
   "key2": "value2"
 }
 ```
+All successful commands return a status and the result of the call:
+```
+[
+  {
+    "result":true,
+    "status":"Success"
+  }
+}
+
+```
+If there is an issue, Misty returns an HTTP error code and error message.
 
 
 ## Display & LED
@@ -58,10 +44,7 @@ Misty comes with a set of default "eyes" that display onscreen. But we encourage
 ##### ChangeLED
 Changes the color of the LED light behind the logo on Misty's torso.
 
-Parameters
-- Red (int) - the red RGB color value.
-- Green (int) - the green RGB color value.
-- Blue (int) - the blue RGB color value.
+Endpoint: POST api/led/change
 
 ```json
 {
@@ -71,32 +54,59 @@ Parameters
 }
 ```
 
+Parameters
+- Red (byte) - the red RGB color value (range 0 to 255).
+- Green (byte) - the green RGB color value (range 0 to 255).
+- Blue (byte) - the blue RGB color value (range 0 to 255).
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### ChangeDisplayImage
 Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
-Parameters
-- FilenameWithoutPath - String - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png.
+Endpoint: POST api/images/change
 
 ```json
 {   
-  "FilenameWithoutPath":"example.jpg"
+  "FileName":"example.jpg"
 }
 ```
+
+Parameters
+- FileName (String) - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB.
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### GetListOfImages
 Obtains a list of the images currently stored on Misty.
 
+Endpoint: GET api/images
+
 Parameters
 - None
+
+Return Values
+Result (Array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+* height (integer) - the height of the image file
+* location (string) - full location path of the file on the robot's file structure
+* name (string) - the name of the image file
+* width (integer) - the width of the image file
 
 
 ##### RevertDisplay
 Displays the image that was shown prior to the current image.
 
+Endpoint: POST api/images/revert
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SaveImageAssetToRobot
@@ -104,17 +114,11 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
-Parameters
-- FilenameWithoutPath - String - The name of image file to upload.
-- DataAsByteArrayString - String - The image data, passed as a String containing a byte array.
-- Width - Integer - The width of the image in pixels.
-- Height - Integer - The height of the image in pixels.
-- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately displays the uploaded image file.
-- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+Endpoint: POST api/images
 
 ```json
 {
-  "FilenameWithoutPath": "example.jpg",
+  "FileName": "example.jpg",
   "DataAsByteArrayString": "30,190,40,24,...",
   "Width": "300",
   "Height": "300",
@@ -122,6 +126,19 @@ Parameters
   "OverwriteExisting": true
 }
 ```
+
+Parameters
+- FileNme (String) - The name of image file to upload.
+- DataAsByteArrayString (String) - The image data, passed as a String containing a byte array.
+- Width (Integer) - The width of the image in pixels.
+- Height (Integer) - The height of the image in pixels.
+- ImmediatelyApply (Boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting (Boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Return Values
+Result (Array) - Returns an array of information about the image file, with the following fields:
+* Name (String) - The name of the file that was saved.
+* Location (String) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Audio
@@ -132,8 +149,7 @@ Want Misty to say something different or play a special tune when she recognizes
 ##### PlayAudioClip
 Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
-Parameters    
-- AssetId - String - The name of the file to play.
+Endpoint: POST api/audio/play
 
 ```json
 {
@@ -141,29 +157,33 @@ Parameters
 }
 ```
 
+Parameters    
+- AssetId (String) - The name of the file to play.
 
-##### GetListOfAudioClips
-Obtains a list of the default audio clips currently stored on Misty.
-
-Parameters
-- None
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### GetListOfAudioFiles
 Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
+Endpoint: GET api/audio
+
 Parameters
 - None
+
+Return Values
+Result (Array) - Returns an array of audio file information. Each item in the array contains the following:
+* Name (String) - The name of the audio file.
+* Location (String) - The location of the file in the file directory.
+* Duration (Double) - The length of time the audio file will play.
+* User Added Asset (Boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
 
 
 ##### SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
 
-Parameters
-- FilenameWithoutPath - String - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString - String - The audio data, passed as a String containing a byte array.
-- ImmediatelyApply - Boolean - True or False. Specifies whether Misty immediately plays the uploaded audio file.
-- OverwriteExisting - Boolean - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+Endpoint: POST api/audio
 
 ```json
 {
@@ -174,10 +194,50 @@ Parameters
 }
 ```
 
+Parameters
+- FileName (String) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- DataAsByteArrayString (String) - The audio data, passed as a String containing a byte array.
+- ImmediatelyApply (Boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
+- OverwriteExisting (Boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Return Values
+Result (Array) - Returns an array of information about the audio file, with the following fields:
+* Name (String) - The name of the file that was saved.
+* Location (String) - The full path of the location of where the file is located on the robot's file system.
+
 
 ## Locomotion
 
 Experiment with driving Misty. She's eager to explore...
+
+
+##### Drive
+Drives Misty forward or backward at a specific speed until cancelled.
+
+When using the Drive command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+Endpoint: POST api/drive
+
+```
+{
+  "LinearVelocity":20,
+  "AngularVelocity":15,
+}
+```
+
+Parameters
+- LinearVelocity (Double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (Double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### DriveTime
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
@@ -190,11 +250,7 @@ When using the DriveTime command, it helps to understand how linear velocity (sp
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-Parameters
-- LinearVelocity - Double - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity - Double - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
-- TimeMs - Integer - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree - Double - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+Endpoint: POST api/drive/time
 
 ```json
 {
@@ -204,13 +260,17 @@ Parameters
 }
 ```
 
+Parameters
+- LinearVelocity (Double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (Double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- TimeMs (Integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree (Double) - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+
 
 ##### LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
-Parameters
-- LeftTrackSpeed - Integer - A value for the speed of the left track, range: -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
-- RightTrackSpeed - Integer - A value for the speed of the right track, range: -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
+Endpoint: POST api/drive/track
 
 ```json
 {   
@@ -219,12 +279,21 @@ Parameters
 }
 ```
 
+Parameters
+- LeftTrackSpeed (SByte) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- RightTrackSpeed (SByte) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+
 
 ##### Stop
 Stops Misty's movement.
 
+Endpoint: POST api/drive/stop
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Information
@@ -232,26 +301,50 @@ Parameters
 ##### GetBatteryLevel
 Obtains Misty's current battery level.
 
+Endpoint: GET api/info/battery
+
 Parameters
 - None
+
+Return Values
+Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+
 
 ##### GetDeviceInformation
 Obtains a list of Misty's devices and their associated information.
 
+Endpoint: GET api/info/device
+
 Parameters
 - None
+
+Return Values
+Result (Set of Data) - returns a set of information about the device.
+* Windows OS Version (String) - The version of the OS of the robot.
+* Realtime Controller Hardware Version (String) - The hardware version for the realtime controller.
+* Realtime Controller Firmware Version (String) - The firmware version for the realtime controller.
+* IP Address (String) - The IP address of the device.
+* Output Capabilities (Array) - an array listing the output capabilities of the robot.
+* Sensor Capabilities (Array) - an array listing the sensor capabilities.
 
 ##### GetHelp
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
-Parameters
-- Command - String - The name of the API command to get information about.
+Endpoint:
+
+GET api/info/help for a list of commands and endpoints
+
+GET api/info/help?command=endpoint/path for information on a specific endpoint
 
 ```json
-{
-  "Command": "Api.GetListOfAudioClips"
-}
+api/info/help?command=audio/play
 ```
+
+Parameters
+- None
+
+Return Values
+Result (string) - A string containing the requested help information.
 
 
 ## Configuration
@@ -259,16 +352,18 @@ Parameters
 #####  ConnectWiFi
 Connects Misty to a specified WiFi source.
 
-Parameters
-- NetworkName - String - The WiFi network name (SSID).
-- Password - String - The WiFi network password.
+Endpoint: POST api/wifi
 
 ```json
 {
-  "NetworkName": "MistyWiFi",
-  "Password": "M!styR0x"
+  "NetworkName": "MyWiFi",
+  "Password": "superPassw0rd"
 }
 ```
+
+Parameters
+- NetworkName (String) - The WiFi network name (SSID).
+- Password (String) - The WiFi network password.
 
 
 ## Beta - Faces
@@ -281,8 +376,13 @@ Initiates Misty's detection of faces in her line of vision. This command assigns
 
 When you are done having Misty detect faces, call StopFaceDetection.
 
+Endpoint: POST api/faces/detection/start
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StartFaceTraining - BETA
@@ -290,14 +390,19 @@ Trains Misty to recognize a specific face and applies a user-assigned ID to that
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
-Parameters
-- FaceId - string - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+Endpoint: POST api/faces/training/start
 
 ```json
 {
-  "FaceId":"Unique_Cat_Name-1337"
+  "FaceId":"Joe_Smith"
 }
 ```
+
+Parameters
+- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StartFaceRecognition - BETA
@@ -305,29 +410,49 @@ Directs Misty to recognize a face she sees, if it is among those she alerady kno
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
+Endpoint: POST api/faces/recognition/start
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
+Endpoint: POST api/faces/detection/stop
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
+Endpoint: POST api/face/training/cancel
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
+Endpoint: POST api/faces/recognition/stop
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Beta - Head Movement
@@ -337,11 +462,7 @@ Misty's ability to accurately position her head is currently under development.
 ##### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
 
-Parameters
-- Pitch - Double - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll - Double - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw - Double - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Velocity - Double - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+Endpoint: POST api/head/move
 
 ```json
 {
@@ -352,12 +473,19 @@ Parameters
 }
 ```
 
+Parameters
+- Pitch (Double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
+- Roll (Double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Yaw (Double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Velocity (Double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 ##### MoveHeadToLocation - BETA
 Moves Misty's head to a specified up-down or left-right location.
 
-Parameters
-- Location - string - "left", "right", "down" or "up".
-- Velocity - double - The speed at which to move the head. Value range: 0 to 10.
+Endpoint: POST api/head/location
 
 ```json
 {
@@ -366,13 +494,18 @@ Parameters
 }
 ```
 
+Parameters
+- Location (string) - "left", "right", "down" or "up".
+- Velocity (double) - The speed at which to move the head. Value range: 0 to 10.
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
-Parameters
-- Axis - string - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
-- Position - double - The position to move Misty's head along the given axis. Value range: -5 to 5.
-- Velocity - double - The speed of the head movement. Value range: 0 to 10.
+Endpoint: POST api/head/position
 
 ```json
 {   
@@ -381,6 +514,14 @@ Parameters
   "Velocity": 6
 }
 ```
+
+Parameters
+- Axis (string) - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
+- Position (double) - The position to move Misty's head along the given axis. Value range: -5 to 5.
+- Velocity (double) - The speed of the head movement. Value range: 0 to 10.
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Alpha - Mapping & Tracking
@@ -391,79 +532,135 @@ Parameters
 ##### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
-- Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Exploring
-  2 - Tracking
-  3 - Recording
-
-Example: If Misty is both exploring and recording, then bits 1 and 3 would be true => 00000101 => Status = 5.
-
-- Value 2 is an integer value representing the status of Mistys' sensors, using the following enumerable:
+Endpoint: GET api/slam/status
 
 ```c#
 public enum SlamSensorStatus
 {
-  Connected = 0,
-  Ready = 1,
+  Unknown = 0,
+  Connected = 1,
   Booting = 2,
-  Disconnected = 3,
-  UsbError = 4,
+  Ready = 3,
+  Disconnected = 4,
   Error = 5,
-  Unknown = 6,
-  ProdDataCorrupt = 7,
-  FWCorrupt = 8,
-  RecoveryMode = 9,
-  LowPowerMode = 10
+  UsbError = 6,
+  LowPowerMode = 7,
+  RecoveryMode = 8,
+  ProdDataCorrupt = 9,
+  FWVersionMismatch = 10,
+  FWUpdate = 11,
+  FWUpdateComplete = 12,
+  FWCorrupt = 13
 }
 ```
 
 Parameters
 - None
 
+Return Values
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+
+
 ##### SlamReset - ALPHA
 Resets the SLAM sensors.
 
+Endpoint: POST api/slam/reset
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
+Endpoint: POST api/slam/map/start
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
+Endpoint: POST api/slam/track/start
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
+Endpoint: POST api/slam/map/stop
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
+Endpoint: POST api/slam/track/stop
+
 Parameters
 - None
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
 
+Endpoint: GET api/slam/map/smooth
+
 Parameters
 - None
+
+Return Values
+Result (Set of Elements) - returns the information about the slam map data.
+* grid (array) - a 2 dimensional array of values.
+* height (integer) - the height of the map
+* isValid (boolean) - weather or not the map is valid
+* metersPerCell (double) - the value that represents the number of meters that each cell reprecents in the grid array
+* width (integer) - the width of the map
+
 
 ##### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
-Parameters
-- Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+Endpoint: POST api/drive/path
 
 ```json
 {
   "Path":"10:20,15:25,30:40"
 }
 ```
+
+Parameters
+- Path (Comma-separated list of sets of Integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+
+Return Values
+Result (boolean) - Returns true if there are no errors related to this command.
+
