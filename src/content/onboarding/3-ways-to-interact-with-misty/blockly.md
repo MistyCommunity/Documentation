@@ -11,13 +11,13 @@ Blockly is a block-based, visual programming language editor that runs in your b
 
 **Note: We recommend the following browsers for running Blockly with Misty: Chrome, Safari, Firefox, and Microsoft Edge (latest versions).**
 
-![Blockly](../../../assets/images/blockly.png)
+![Blockly](../../../assets/images/blockly_1.png)
 
 ## Blockly Controls
 
 The following controls are available on Misty's Blockly editor.
 
-![Blockly menu](../../../assets/images/menu_blockly_1.png)
+![Blockly menu](../../../assets/images/menu_blockly_2.png)
 
 * **Enter Robot IP Address**: Misty's IP address; you can obtain this value from the Companion App.
 * **Connection Status**: Indicates whether Blockly can communicate with Misty (green is success, and red is failure).
