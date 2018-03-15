@@ -60,7 +60,7 @@ Parameters
 - Blue (byte) - the blue RGB color value (range 0 to 255).
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### ChangeDisplayImage
@@ -75,10 +75,10 @@ Endpoint: POST api/images/change
 ```
 
 Parameters
-- FileName (String) - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB.
+- FileName (string) - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### GetListOfImages
@@ -90,11 +90,11 @@ Parameters
 - None
 
 Return Values
-Result (Array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
-* height (integer) - the height of the image file
-* location (string) - full location path of the file on the robot's file structure
-* name (string) - the name of the image file
-* width (integer) - the width of the image file
+* Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+   * Height (integer) - the height of the image file
+   * Location (string) - full location path of the file on the robot's file structure
+   * Name (string) - the name of the image file
+   * Width (integer) - the width of the image file
 
 
 ##### RevertDisplay
@@ -106,7 +106,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SaveImageAssetToRobot
@@ -128,17 +128,17 @@ Endpoint: POST api/images
 ```
 
 Parameters
-- FileNme (String) - The name of image file to upload.
+- FileName (string) - The name of image file to upload.
 - DataAsByteArrayString (String) - The image data, passed as a String containing a byte array.
-- Width (Integer) - The width of the image in pixels.
-- Height (Integer) - The height of the image in pixels.
-- ImmediatelyApply (Boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
-- OverwriteExisting (Boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+- Width (integer) - The width of the image in pixels.
+- Height (integer) - The height of the image in pixels.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
 Return Values
-Result (Array) - Returns an array of information about the image file, with the following fields:
-* Name (String) - The name of the file that was saved.
-* Location (String) - The full path of the location of where the file is located on the robot's file system.
+* Result (array) - Returns an array of information about the image file, with the following fields:
+   * Name (string) - The name of the file that was saved.
+   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Audio
@@ -158,10 +158,10 @@ Endpoint: POST api/audio/play
 ```
 
 Parameters    
-- AssetId (String) - The name of the file to play.
+- AssetId (string) - The name of the file to play.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### GetListOfAudioFiles
@@ -173,11 +173,11 @@ Parameters
 - None
 
 Return Values
-Result (Array) - Returns an array of audio file information. Each item in the array contains the following:
-* Name (String) - The name of the audio file.
-* Location (String) - The location of the file in the file directory.
-* Duration (Double) - The length of time the audio file will play.
-* User Added Asset (Boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * Location (string) - The location of the file in the file directory.
+   * Duration (double) - The length of time the audio file will play.
+   * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
 
 
 ##### SaveAudioAssetToRobot
@@ -195,15 +195,15 @@ Endpoint: POST api/audio
 ```
 
 Parameters
-- FileName (String) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString (String) - The audio data, passed as a String containing a byte array.
-- ImmediatelyApply (Boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
-- OverwriteExisting (Boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+- FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- DataAsByteArrayString (string) - The audio data, passed as a String containing a byte array.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
 Return Values
-Result (Array) - Returns an array of information about the audio file, with the following fields:
-* Name (String) - The name of the file that was saved.
-* Location (String) - The full path of the location of where the file is located on the robot's file system.
+* Result (array) - Returns an array of information about the audio file, with the following fields:
+   * Name (string) - The name of the file that was saved.
+   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Locomotion
@@ -232,11 +232,11 @@ Endpoint: POST api/drive
 ```
 
 Parameters
-- LinearVelocity (Double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (Double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### DriveTime
@@ -261,10 +261,13 @@ Endpoint: POST api/drive/time
 ```
 
 Parameters
-- LinearVelocity (Double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (Double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
-- TimeMs (Integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree (Double) - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree (double) - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### LocomotionTrack
@@ -280,8 +283,11 @@ Endpoint: POST api/drive/track
 ```
 
 Parameters
-- LeftTrackSpeed (SByte) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
-- RightTrackSpeed (SByte) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### Stop
@@ -293,7 +299,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Information
@@ -307,7 +313,7 @@ Parameters
 - None
 
 Return Values
-Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
 
 
 ##### GetDeviceInformation
@@ -319,22 +325,20 @@ Parameters
 - None
 
 Return Values
-Result (Set of Data) - returns a set of information about the device.
-* Windows OS Version (String) - The version of the OS of the robot.
-* Realtime Controller Hardware Version (String) - The hardware version for the realtime controller.
-* Realtime Controller Firmware Version (String) - The firmware version for the realtime controller.
-* IP Address (String) - The IP address of the device.
-* Output Capabilities (Array) - an array listing the output capabilities of the robot.
-* Sensor Capabilities (Array) - an array listing the sensor capabilities.
+* Result (set of data) - returns a set of information about the device.
+   * Windows OS Version (string) - The version of the OS of the robot.
+   * Realtime Controller Hardware Version (string) - The hardware version for the realtime controller.
+   * Realtime Controller Firmware Version (string) - The firmware version for the realtime controller.
+   * IP Address (string) - The IP address of the device.
+   * Output Capabilities (array) - an array listing the output capabilities of the robot.
+   * Sensor Capabilities (array) - an array listing the sensor capabilities.
 
 ##### GetHelp
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Endpoint:
-
-GET api/info/help for a list of commands and endpoints
-
-GET api/info/help?command=endpoint/path for information on a specific endpoint
+* GET api/info/help for a list of commands and endpoints
+* GET api/info/help?command=endpoint/path for information on a specific endpoint
 
 ```json
 api/info/help?command=audio/play
@@ -344,7 +348,7 @@ Parameters
 - None
 
 Return Values
-Result (string) - A string containing the requested help information.
+* Result (string) - A string containing the requested help information.
 
 
 ## Configuration
@@ -362,8 +366,11 @@ Endpoint: POST api/wifi
 ```
 
 Parameters
-- NetworkName (String) - The WiFi network name (SSID).
-- Password (String) - The WiFi network password.
+- NetworkName (string) - The WiFi network name (SSID).
+- Password (string) - The WiFi network password.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Beta - Faces
@@ -382,7 +389,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StartFaceTraining - BETA
@@ -402,7 +409,7 @@ Parameters
 - FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StartFaceRecognition - BETA
@@ -416,7 +423,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StopFaceDetection - BETA
@@ -428,7 +435,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### CancelFaceTraining - BETA
@@ -440,7 +447,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StopFaceRecognition - BETA
@@ -452,7 +459,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Beta - Head Movement
@@ -474,13 +481,13 @@ Endpoint: POST api/head/move
 ```
 
 Parameters
-- Pitch (Double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll (Double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw (Double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Velocity (Double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
+- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 ##### MoveHeadToLocation - BETA
 Moves Misty's head to a specified up-down or left-right location.
@@ -499,7 +506,7 @@ Parameters
 - Velocity (double) - The speed at which to move the head. Value range: 0 to 10.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SetHeadPosition - BETA
@@ -521,7 +528,7 @@ Parameters
 - Velocity (double) - The speed of the head movement. Value range: 0 to 10.
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Alpha - Mapping & Tracking
@@ -579,7 +586,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStartMapping - ALPHA
@@ -591,7 +598,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStartTracking - ALPHA
@@ -603,7 +610,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStopMapping - ALPHA
@@ -615,7 +622,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStopTracking - ALPHA
@@ -627,7 +634,7 @@ Parameters
 - None
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamGetMap - ALPHA
@@ -639,12 +646,12 @@ Parameters
 - None
 
 Return Values
-Result (Set of Elements) - returns the information about the slam map data.
-* grid (array) - a 2 dimensional array of values.
-* height (integer) - the height of the map
-* isValid (boolean) - weather or not the map is valid
-* metersPerCell (double) - the value that represents the number of meters that each cell reprecents in the grid array
-* width (integer) - the width of the map
+* Result (set of elements) - returns the information about the slam map data.
+   * grid (array) - a 2 dimensional array of values.
+   * height (integer) - the height of the map
+   * isValid (boolean) - weather or not the map is valid
+   * metersPerCell (double) - the value that represents the number of meters that each cell reprecents in the grid array
+   * width (integer) - the width of the map
 
 
 ##### FollowPath - ALPHA
@@ -659,8 +666,8 @@ Endpoint: POST api/drive/path
 ```
 
 Parameters
-- Path (Comma-separated list of sets of Integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
 
 Return Values
-Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command.
 

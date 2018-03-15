@@ -17,16 +17,22 @@ Misty comes with a set of default "eyes" that display onscreen. But we encourage
 Changes the color of the LED light behind the logo on Misty's torso.
 
 Arguments:
-* Red (int) - the red RGB color value.
-* Green (int) - the green RGB color value.
-* Blue (int) - the blue RGB color value.
+* Red (byte) - A value between 0 and 255 specifying the red RGB color. 
+* Green (byte) - A value between 0 and 255 specifying the green RGB color.
+* Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
+
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ##### ChangeDisplayImage
 Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Arguments:
-* FilenameWithoutPath (string) - The name of previously uploaded file containing the image to display. Do not include the file path. Valid image file types are .jpg, .jpeg, .gif, .png.
+* FileName (string) - The name of previously uploaded file containing the image to display. Do not include the file path. Valid image file types are .jpg, .jpeg, .gif, .png.
+
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ##### GetListOfImages
@@ -35,12 +41,22 @@ Obtains a list of the images stored on Misty.
 Arguments:
 * None
 
+Returns:
+Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+* Height (integer) - the height of the image file
+* Location (string) - full location path of the file on the robot's file structure
+* Name (string) - the name of the image file
+* Width (integer) - the width of the image file
+
 
 ##### RevertDisplay
 Changes the display to the previous image or eye state.
 
 Arguments:
 * None
+
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ##### SaveImageAssetToRobot
@@ -49,12 +65,17 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
 Arguments:
-* FilenameWithoutPath (string) - The name of image file to upload.
+* FileName (string) - The name of image file to upload.
 * DataAsByteArrayString (string) - The image data, passed as a String containing a byte array.
 * Width (integer) - The width of the image in pixels.
 * Height (integer) - The height of the image in pixels.
 * ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
 * OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Returns:
+* Result (array) - Returns an array of information about the image file, with the following fields:
+   * Name (string) - The name of the file that was saved.
+   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Audio
@@ -67,12 +88,8 @@ Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAs
 Arguments:
 * AssetId (string) - The name of the file to play.
 
-
-##### GetListOfAudioClips
-Obtains a list of the default audio clips stored on Misty.
-
-Arguments:
-* None
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ##### GetListOfAudioFiles
@@ -81,20 +98,58 @@ Obtains a list of default and user-uploaded audio files currently stored on Mist
 Arguments:
 * None
 
+Return:
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * Location (string) - The location of the file in the file directory.
+   * Duration (double) - The length of time the audio file will play.
+   * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
+
 
 ##### SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Arguments:
-* FilenameWithoutPath (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+* FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
 * DataAsByteArrayString (string) - The audio data, passed as a String containing a byte array.
 * ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
 * OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Returns:
+* Result (array) - Returns an array of information about the audio file, with the following fields:
+   * Name (string) - The name of the file that was saved.
+   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Locomotion
 
 Experiment with driving Misty. She's eager to explore...
+
+
+##### Drive
+Drives Misty forward or backward at a specific speed until cancelled.
+
+When using the Drive command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+```
+{
+  "LinearVelocity":20,
+  "AngularVelocity":15,
+}
+```
+
+Arguments:
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### DriveTime
@@ -109,18 +164,24 @@ When using the DriveTime command, it helps to understand how linear velocity (sp
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
 Arguments:
-- LinearVelocity - Double - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity - Double - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
-- TimeMs - Integer - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree - Double - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree (double) - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
 Arguments:
-* LeftTrackSpeed (integer) - A value between -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
-* RightTrackSpeed (integer) - A value between -128 to 127. A negative value moves the track backward, and a positive value moves the track forward.
+- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### Stop
@@ -128,6 +189,9 @@ Stops Misty's movement.
 
 Arguments:
 * None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Information
@@ -138,17 +202,34 @@ Obtains Misty's current battery level.
 Arguments:
 * None
 
+Returns:
+* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+
+
 ##### GetDeviceInformation
 Obtains a list of Misty's devices and their associated information.
 
 Arguments:
 * None
 
+Returns:
+* Result (Set of Data) - returns a set of information about the device.
+   * Windows OS Version (String) - The version of the OS of the robot.
+   * Realtime Controller Hardware Version (String) - The hardware version for the realtime controller.
+   * Realtime Controller Firmware Version (String) - The firmware version for the realtime controller.
+   * IP Address (String) - The IP address of the device.
+   * Output Capabilities (Array) - an array listing the output capabilities of the robot.
+   * Sensor Capabilities (Array) - an array listing the sensor capabilities.
+
+
 ##### GetHelp
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Arguments:
 * Command in "Api.<CommandName>" format eg: "Api.GetListOfAudioClips"
+
+Returns:
+* Result (string) - A string containing the requested help information.
 
 
 ## Configuration
@@ -159,6 +240,9 @@ Connects Misty to a specified WiFi source.
 Arguments:
 * NetworkName (string) - The WiFi network name (SSID).
 * Password (string) - The WiFi network password.
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Beta - Faces
@@ -173,6 +257,9 @@ When you are done having Misty detect faces, call StopFaceDetection.
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### StartFaceTraining - BETA
 Starts Misty learning a face and assigns a user-specified ID to that face.
@@ -181,6 +268,9 @@ This process should take less than 15 seconds and will automatically stop when c
 
 Arguments:
 * FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### StartFaceRecognition - BETA
@@ -191,6 +281,9 @@ When you are done having Misty recognize faces, call StopFaceRecognition.
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
@@ -198,17 +291,28 @@ Stops Misty's detection of faces in her line of vision.
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
 Arguments:
 * None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Beta - Head Movement
@@ -224,12 +328,20 @@ Arguments:
 * Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
 * Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### MoveHeadToLocation - BETA
 Moves Misty's head to a specified up-down or left-right location.
 
 Arguments:
 * Location (string) - "left", "right", "down" or "up".
 * Velocity (double) - The speed at which to move the head. Value range: 0 to 10.
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
@@ -239,10 +351,61 @@ Arguments:
 * Position (double) - The position to move Misty's head along the given axis. Value range: -5 to 5.
 * Velocity (double) - The speed of the head movement. Value range: 0 to 10.
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ## Alpha - Mapping
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
+
+##### SlamGetStatus - ALPHA
+Obtains values representing Misty's current activity and sensor status.
+
+```c#
+public enum SlamSensorStatus
+{
+  Unknown = 0,
+  Connected = 1,
+  Booting = 2,
+  Ready = 3,
+  Disconnected = 4,
+  Error = 5,
+  UsbError = 6,
+  LowPowerMode = 7,
+  RecoveryMode = 8,
+  ProdDataCorrupt = 9,
+  FWVersionMismatch = 10,
+  FWUpdate = 11,
+  FWUpdateComplete = 12,
+  FWCorrupt = 13
+}
+```
+
+Parameters
+- None
+
+Returns:
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+
+
+##### SlamReset - ALPHA
+Resets the SLAM sensors.
+
+Arguments:
+* None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStartMapping - ALPHA
@@ -251,11 +414,18 @@ Starts Misty mapping an area.
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
 Arguments:
 * None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ##### SlamStopMapping - ALPHA
@@ -264,11 +434,19 @@ Stops Misty mapping an area.
 Arguments:
 * None
 
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ##### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
 Arguments:
 * None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
 
 ##### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
@@ -276,15 +454,23 @@ Obtains the current map Misty has generated.
 Arguments:
 * None
 
-##### SlamReset - ALPHA
-Resets the SLAM sensors.
+Returns:
+* Result (Set of Elements) - returns the information about the slam map data.
+   * grid (array) - a 2 dimensional array of values.
+   * height (integer) - the height of the map
+   * isValid (boolean) - weather or not the map is valid
+   * metersPerCell (double) - the value that represents the number of meters that each cell reprecents in the grid array
+   * width (integer) - the width of the map
 
-Arguments:
-* None
 
 ##### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
 Arguments:
 * Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 
