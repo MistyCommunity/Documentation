@@ -1,7 +1,7 @@
 ---
 title: JavaScript
 layout: apis.hbs
-columns: one
+columns: three
 order: 4
 ---
 
@@ -17,7 +17,7 @@ Misty comes with a set of default "eyes" that display onscreen. But we encourage
 Changes the color of the LED light behind the logo on Misty's torso.
 
 Arguments:
-* Red (byte) - A value between 0 and 255 specifying the red RGB color. 
+* Red (byte) - A value between 0 and 255 specifying the red RGB color.
 * Green (byte) - A value between 0 and 255 specifying the green RGB color.
 * Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
 
@@ -246,7 +246,7 @@ Returns:
 
 
 ## Beta - Faces
-You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area. 
+You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
 
 ##### StartFaceDetection - BETA
@@ -471,6 +471,3 @@ Arguments:
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
-
-
-
