@@ -106,7 +106,7 @@ Misty's ability to recognize faces is under development. To try face training an
 8. Scroll up the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
 9. Scroll back down to the **Computer Vision** section of the API Explorer and click **Start Face Recognition**. ![Face Training interface](../../../assets/images/computer_vision.png)
 10. Position the person’s face in a well-lit area front of the camera.
-11. Watch the browser console for face information to come through.
+11. Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 12. When finished, click **Stop Face Recognition**.
 
 

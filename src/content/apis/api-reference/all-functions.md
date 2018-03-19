@@ -42,11 +42,11 @@ Arguments:
 * None
 
 Returns:
-Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
-* Height (integer) - the height of the image file
-* Location (string) - full location path of the file on the robot's file structure
-* Name (string) - the name of the image file
-* Width (integer) - the width of the image file
+* Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+   * Height (integer) - the height of the image file
+   * Location (string) - full location path of the file on the robot's file structure
+   * Name (string) - the name of the image file
+   * Width (integer) - the width of the image file
 
 
 ##### RevertDisplay
