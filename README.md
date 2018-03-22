@@ -1,4 +1,4 @@
-# Contributing to the Misty Robotics Developer Documentation
+# Misty Robotics Developer Documentation
 
 This repo contains the Misty Robotics documentation viewable [here](docs.mistyrobotics.com).
 
