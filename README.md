@@ -23,7 +23,7 @@ The actual content is stored in the `Documentation-master/src/content` directory
 
 ## Fixing and Growing the Docs
 
-Found something small in the docs that you think should be changed? Create an issue here in the repo.
+Found something small in the docs that you think should be changed? Create an issue right here in the repo. Go to the **Issues** tab and click **New issue**.
 
 Want to contribute something to the docs bigger than a bug report?
 
