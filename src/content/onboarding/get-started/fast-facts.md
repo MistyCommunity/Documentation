@@ -15,11 +15,11 @@ Some quick facts. She...
 * Moves her head via a servo for pitch articulation.
 * Includes a screen on the front of her head.
 * Uses an Occipital Structure Core depth sensor to navigate.
-* Carries an Intrinsyc Open-Q 820 Development Kit board running Android 7 at her side (Misty 1 Beta version only).
-* Includes a DragonBoard 410c development board running Windows 10 IoT Core (Misty 1 Beta version only).
+* Carries an Intrinsyc Open-Q 820 Development Kit board running Android 7 at her side (Misty I Beta version only).
+* Includes a DragonBoard 410c development board running Windows 10 IoT Core (Misty I Beta version only).
 * Uses real-time and motor controllers.
 * Senses with 4 time-of-flight sensors (3 in front, 1 in rear).
-* Tolerates a “periscope-style” webcam mounted on her head (Misty 1 Beta version only).
+* Tolerates a “periscope-style” webcam mounted on her head (Misty I Beta version only).
 * Gets flashy with a multicolor LED behind her name plate in front
 * Is powered via a barrel connector charger jack in the back, as well as a 2200 milliamp hour lithium polymer battery (power adapter included).
 * Has a serial expansion port for, you know, serial devices.
