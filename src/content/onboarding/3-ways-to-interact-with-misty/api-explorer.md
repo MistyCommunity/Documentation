@@ -67,6 +67,8 @@ Once you open a WebSocket, you can subscribe to real-time data from Misty, inclu
 You can view the WebSocket data that you subscribe to in your browser's JavaScript console. (Note that how you open the console will vary among browsers and platforms.)
 ![Websocket controls](../../../assets/images/websockets.png)
 
+See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of using WebSocket data to create skills for Misty.
+
 ### Subscribing to Time of Flight data
 You can view a stream of data from Misty's four time-of-flight sensors in the API Explorer. To obtain time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
 
