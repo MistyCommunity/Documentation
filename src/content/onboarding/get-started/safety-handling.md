@@ -25,11 +25,11 @@ Misty uses a laser sensor located above her right eye to see the world.
 
 **IMPORTANT! For your safety, please note the following:**
 
-1. **Always** use the power supply (12-volt, 3 Amp, **center positive**) that came with Misty. Using a differently configured power supply creates a high risk of fire.
+1. **Always** use the power supply (12-volt, 3 Amp, **center positive**) that came with Misty. Using a differently configured power supply creates a **high risk of fire**.
 
 2. If you encounter any resistance or difficulty plugging the power supply into the jack on the back of Misty: STOP. Pull the plug out and try again, rotating the plug if necessary, until the plug inserts smoothly. It’s possible to catch the ground leaf spring on the bottom of the jack with the power supply plug and create a short. This renders Misty inoperative.
 
-3. **Never** unplug the power connectors inside Misty. These connectors can be reversed or otherwise improperly re-inserted and create a high risk of fire. 
+3. **Never** unplug the power connectors inside Misty. These connectors can be reversed or otherwise improperly re-inserted and create a **high risk of fire**. 
 
 ![Internal power connectors](../../../assets/images/internal_power_connectors.jpg)
 
