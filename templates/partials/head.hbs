@@ -19,6 +19,22 @@
 <!-- Google Site Verification -->
 <meta name="google-site-verification" content="xoBkwTJRCA1Uxlx-g3dDw3YeaXTTA5hXQJfmR1mL84s" />
 
+<script>
+  function toggleMobileMenu() {
+    var toggleIcon = document.querySelector('.header__nav__mobile__toggle');
+    var mobileMenu = document.querySelector('.header__nav__mobile');
+
+    toggleIcon.classList.toggle('header__nav__mobile__toggle--open');
+    mobileMenu.classList.toggle('header__nav__mobile--open');
+  }
+
+  function expandMobileSubmenu() {
+    var mobileMenu = document.querySelector('.header__nav__mobile');
+
+    mobileMenu.classList.toggle('header__nav__mobile--submenu-open');
+  }
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
