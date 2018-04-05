@@ -1,11 +1,7 @@
-#logo {
-  display: block;
-  padding: 14px 40px 0px 0px;
-}
 
-.header .left {
+.docs-header .left {
   float: left;
-  margin-left: 20px;
+  margin-left: 50px;
   a {
     display: inline-block;
     float: left;
@@ -43,7 +39,7 @@
 }
 
 a.nav {
-  margin-right: 20px;
+  margin-right: 50px;
   margin-top: 16px;
   text-transform: uppercase;
   font-size: 12px;
@@ -77,19 +73,19 @@ a.nav-device {
   color: @almost-white;
 }
 
-.header {
+.docs-header {
   background: #6602ED;
   zoom: 1;
   height: @headerHeight;
   border-bottom: solid 1px #dfe2e7;
   position: absolute;
-  top: 0;
+  top: 72px;
   left: 0;
   right: 0;
   z-index: @headerZindex;
 }
 
-.header .right {
+.docs-header .right {
   float: right;
   display: inline;
   @media (max-width: @medium-size) {
@@ -98,17 +94,17 @@ a.nav-device {
   }
 }
 
-.header a.button {
+.docs-header a.button {
   vertical-align: top;
   margin-top: 10px;
   letter-spacing: 0.7px
 }
 
 @media (max-width: 768px) {
-  .header .left a {
+  .docs-header .left a {
     margin-right: 5px;
   }
-  .header .left a.toggle-button {
+  .docs-header .left a.toggle-button {
     padding: 8px 0;
     margin-right: 0;
     width: 80px;
@@ -274,13 +270,13 @@ a.nav-device {
 }
 
 @media print {
-  .header {
+  .docs-header, .header {
     display: none;
   }
 }
 
 @media (max-width: @small-size) { // 452px to be precise
-  .header:not(.redirector-header) .left {
+  .docs-header:not(.redirector-header) .left {
     > a {
       display: none;
     }
@@ -290,5 +286,333 @@ a.nav-device {
         margin-right: 8px !important; // because of important in `.dropdown a` rule from line 126
       }
     }
+  }
+}
+
+
+/* =============== Misty Navigation CSS ================= */
+
+@font-face {
+  font-family: 'Basis-Grotesque-Bold';
+  src: url('https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/basis-grotesque-bold.eot#iefix') format('embedded-opentype'), url('https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/basis-grotesque-bold.woff2') format('woff2'), url('https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/basis-grotesque-bold.woff') format('woff'), url('https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/basis-grotesque-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'TheWNYC';
+  src: url("https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/TheWNYC-Regular-WebS.eot#iefix") format("embedded-opentype"), url("https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/TheWNYC-Regular-WebS.woff2") format("woff2"), url("https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/TheWNYC-Regular-WebS.woff") format("woff"), url("https://www.mistyrobotics.com/wp-content/themes/misty-robotics/static/fonts/TheWNYC-Regular-WebS.ttf") format("truetype")
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 70px;
+  width: 100%;
+  padding: 0px;
+  z-index: 10035;
+  position: fixed;
+  top: 0;
+  background-color: #6600ED;
+  transition: background-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+.header a, .header__nav__item {
+  color: #fff;
+}
+
+.header {
+  background-color: transparent;
+  padding: 0;
+}
+
+.header--fixed {
+  background-color: #6600ED;
+}
+
+.header--white {
+  color: #fff;
+  background: #6600ED;
+  padding-top:2px;
+}
+
+.header--white a.header__nav__item {
+  color: #fff;
+  transition: opacity 200ms ease-in-out, border 200ms ease-in-out;
+}
+
+.header--white .lnk\:underline\:blue {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  margin-right: 50px;
+  line-height: 1;
+}
+
+.header--white .lnk\:underline\:blue:hover {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  opacity: 0.7;
+}
+
+.header__nav__dropdown__item {
+  padding-bottom: 0px !important;
+  line-height: 1;
+}
+
+.header--white svg {
+  fill: #fff;
+}
+
+.header--white svg mask, .header--white svg path, .header--white svg polygon {
+  fill: #fff;
+}
+
+.header--white .header__nav__dropdown g {
+  stroke: #fff;
+}
+
+.header .header__nav__item {
+  padding: 10px 31px 10px 0;
+  display: inline-block;
+}
+
+.header .header__nav__item.lnk\:underline\:blue {
+  padding-right: 0;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  transition: padding 200ms ease, margin 200ms ease;
+}
+
+.header .header__nav__item.lnk\:underline\:blue:hover {
+  padding-bottom: 6px;
+  margin-bottom: 0;
+}
+
+.header .header__nav__dropdown {
+  cursor: pointer;
+  font-size:16px;
+}
+
+.header .header__nav__dropdown__items {
+  margin-top: 5px;
+  display: none;
+  border: 1px solid #e8e8e8;
+  position: absolute;
+}
+
+.header .header__nav__dropdown__items a {
+  padding: 20px 15px;
+  background-color: #fff;
+  color: #2B2B2B;
+  display: block;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.header .header__nav__dropdown__items a:hover {
+  background-color: #F5F5F5;
+}
+
+.header .header__nav__dropdown:hover .header__nav__dropdown__items {
+  display: block;
+}
+
+a.lnk\:blk {
+  color: #2b2b2b;
+  font-size: 16px;
+}
+
+.txt\:bld {
+  font-family: Basis-Grotesque-Bold, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.header .header__nav__item.lnk\:underline\:blue {
+  padding-right: 0;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  transition: padding .2s ease, margin .2s ease;
+}
+
+.header .header__nav__item.lnk\:underline\:blue:hover {
+  padding-bottom: 6px;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 992px) {
+  .header__nav {
+    display: initial;
+    padding-bottom:10px;
+  }
+  .header .header__logo svg {
+    margin-top: 0;
+    margin-left: 50px;
+    width: 285px;
+    height: auto;
+  }
+  .header--white a.header__nav__item:hover {
+  color: #fff;
+  opacity: 0.7;
+    }
+}
+
+/* =============== Misty Mobile Navigation CSS ================= */
+
+.header .header__nav__mobile__toggle path {
+  stroke: #FFF;
+}
+
+@media screen and (max-width: 991px) {
+  .header__nav {
+    display: none;
+  }
+  .header .header__logo svg {
+    margin-top: 0;
+    margin-left: 30px;
+    width: 225px;
+    height: auto;
+  }
+  .header--white a.header__nav__item {
+    color: #2b2b2b;
+  }
+  .header a, .header__nav__item {
+    color: #2b2b2b;
+  }
+  .header--white .header__nav__dropdown g {
+    stroke: #000;
+  }
+  a.lnk\:blk:hover {
+    color: #6600ed;
+    }
+}
+
+.header .header__nav__mobile {
+  position: fixed;
+  right: -380px;
+  top: 0;
+  height: 100%;
+  min-height: 100vh;
+  max-width: 375px;
+  width: 100vw;
+  opacity: 0;
+  transition: right 50ms ease-in-out 250ms, opacity 200ms ease-in-out;
+  background-color: #FFFFFF;
+  margin-top: 70px;
+  border-left: 1px solid #e8e8e8;
+}
+
+.header .header__nav__mobile--open {
+  transition: right 10ms ease-in-out 0ms, opacity 200ms ease-in-out;
+  right: 0;
+  opacity: 1;
+}
+
+.header .header__nav__mobile .header__nav__item {
+  display: block;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 23px 0 23px 30px;
+  line-height: 16px;
+}
+
+.header .header__nav__mobile .header__nav__item--sub {
+  background-color: #F5F5F5;
+  padding: 0;
+  height: 0;
+  opacity: 0;
+  transition: height 200ms ease-in-out, opacity 200ms ease-in-out, padding 200ms ease-in-out;
+}
+
+.header .header__nav__mobile .header__nav__item.b-top {
+  border-top: 1px solid #e8e8e8;
+  line-height: 16px;
+}
+
+.header .header__nav__mobile .join-us {
+  padding: 25px 30px 0 30px;
+  width: 100%;
+}
+
+.header .header__nav__mobile .join-us .button {
+  max-width: 234px;
+  width: 100%;
+}
+
+.header .header__nav__mobile .header__nav__dropdown svg {
+  position: absolute;
+  right: 30px;
+  margin-top: 6px;
+}
+
+.header .header__nav__mobile--submenu-open .header__nav__item--sub {
+  height: 16px;
+  padding: 23px 0 23px 40px;
+  opacity: 1;
+}
+
+.header .header__nav__mobile--submenu-open .header__nav__dropdown svg {
+  transform: rotate(180deg);
+}
+
+.header .header__nav__mobile__toggle {
+  display: initial;
+  padding-right: 5px;
+}
+
+.header .header__nav__mobile__toggle .burger {
+  height: 17px;
+  width: 20px;
+  opacity: 1;
+  cursor: pointer;
+  transition: height 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+.header .header__nav__mobile__toggle .close {
+  height: 0;
+  opacity: 0;
+  cursor: pointer;
+  transition: height 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+.header .header__nav__mobile__toggle--open .burger {
+  height: 0;
+  opacity: 0;
+}
+
+.header .header__nav__mobile__toggle--open .close {
+  height: 18px;
+  width: 20px;
+  opacity: 1;
+}
+
+.button--blue {
+  background: #6600ed;
+  color: #fff !important;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 100px;
+  font-size: 16px;
+  padding: 20px 40px 21px 40px;
+  border: 2px solid transparent;
+  transition: border .4s ease, background-color .4s ease, color .4s ease;
+  min-width: 160px;
+  text-align: center;
+  font-family: Basis-Grotesque-Bold, sans-serif;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 320px) {
+  .header .header__nav__mobile .join-us .button {
+    max-width: 179px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .header .header__nav__mobile__toggle {
+    display: none;
   }
 }
