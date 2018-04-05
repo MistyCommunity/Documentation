@@ -19,4 +19,5 @@ If you're interested in a deeper dive, check out Misty's API, available via thes
 More Help & Links:
 * help @ mistyrobotics.com
 * [Misty Community forum](http://community.mistyrobotics.com/)
+* [Misty GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills)
 * [Misty Community Slack](http://misty-community.slack.com). When you're accepted into the Misty Developer Program, you receive an invitation to the Misty Community Slack channel. This channel serves as the first line of response for all issues and questions you may have with your robot. The support channel is monitored for immediate response (5-10 minutes) from 7:00am-10:00pm MST on weekdays and from 7:00am-7:00pm MST on weekends.
