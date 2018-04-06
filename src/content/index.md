@@ -1,8 +1,11 @@
 ---
 title: Get started with Misty
 layout: onboarding.hbs
+columns: one
+order: 1
 ---
-## Let's get started!
+
+<h1>Let's get started!</h1>
 
 Please read these brief onboarding articles thoroughly prior to meeting Misty.
 
