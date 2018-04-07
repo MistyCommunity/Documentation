@@ -21,9 +21,16 @@
     transition: all @menuTransitionTime;
     left: -@menubarWidth;
   }
+  @media(max-width: @small-size) {
+    transition: all @menuTransitionTime;
+    left: -@menubarWidth;
+  }
 
   > ul {
-    padding: 10px 20px;
+    padding: 10px 20px 10px 20px;
+    @media(max-width: @large-size) {
+      padding: 10px 20px 10px 0px;
+    }
 
     p {
       font-weight: 700;

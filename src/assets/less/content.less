@@ -230,11 +230,20 @@ h1 .header-permalinks {
 }
 .content, .content-body {
   padding-top: 20px;
+  padding-right: 40px;
   padding-bottom: 20px;
   padding-left: 40px;
-  padding-right: 40px;
   zoom: 1;
   max-width: 700px;
+  @media(max-width: @medium-size) {
+    padding-left: 28px;
+  }
+  @media(max-width: @small-size) {
+    padding-left: 50px;
+  }
+  @media(max-width: @xsmall-size) {
+    padding-left: 40px;
+  }
 }
 @media screen {
   .content-inner {
