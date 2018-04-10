@@ -131,13 +131,7 @@ Parameters
 * None
 
 Returns
-* A set of data about your Misty robot. Open your browser's JavaScript console to view the results of this command.
-   * Windows OS Version (string) - The version of the OS of the robot.
-   * Realtime Controller Hardware Version (string) - The hardware version for the realtime controller.
-   * Realtime Controller Firmware Version (string) - The firmware version for the realtime controller.
-   * IP Address (string) - The IP address of the device.
-   * Output Capabilities (array) - an array listing the output capabilities of the robot.
-   * Sensor Capabilities (array) - an array listing the sensor capabilities.
+* A set of data about your Misty robot. Open your browser's JavaScript console to view the results of this command. Information includes Windows OS version, Real Time Controller hardware version, Real Time Controller firmware version, IP address, and sensor capabilities.
 
 
 ### GetHelp
