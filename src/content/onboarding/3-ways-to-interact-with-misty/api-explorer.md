@@ -210,7 +210,7 @@ To perform an update:
 5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
 6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. If the update experience has other issues or is not as described in these steps, we encourage you [to comment in this thread](https://community.mistyrobotics.com/t/report-system-upgrade-issues-here/355).**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels.**
 
 
 ### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
@@ -222,7 +222,7 @@ To perform an update:
 5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
 6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. If the update experience has other issues or is not as described in these steps, we encourage you [to comment in this thread](https://community.mistyrobotics.com/t/report-system-upgrade-issues-here/355).**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels.**
 
 
 ## Exploring the JavaScript Code

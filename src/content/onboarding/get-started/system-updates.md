@@ -7,7 +7,7 @@ order: 4
 
 # {{title}}
 
-Misty seeming a little tired lately? It may be time to perform an over-the-air (OTA) update. Updates can include:
+Misty seeming a little tired lately? It may be time to perform an update. Updates can include:
 
 * Image assets
 * Sound assets
@@ -25,7 +25,7 @@ Misty seeming a little tired lately? It may be time to perform an over-the-air (
 2. Plug in a Micro USB cable from your computer to Misty. Use the port labeled **USB2.0 (ADB)** on the Intrinsyc Open-Q 820 Development Kit board mounted on Misty's right side. ![Misty's Micro USB port](../../../assets/images/micro_usb_port.jpg)
 3. Turn on Misty’s main power switch on her back.
 4. Turn on the Intrinsyc Open-Q 820 Development Kit board by holding the power button until you see the green light briefly flash. ![820 Board ON/OFF button](../../../assets/images/820_board_arrow.jpg)
-5. Download the [update package zip file](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/Manual-Update.zip).
+5. Download the update package zip file.
 6. Open the zip file (`Manual-Update.zip`) and save the `Manual Update` directory to a location on your computer.
 7. Run the update package:
    * **Windows:** Right-click on `stage-firmware-update.ps1` and click **Run with Powershell**.
