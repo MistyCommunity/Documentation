@@ -141,6 +141,26 @@ Return Values
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
+##### DeleteImageAssetFromRobot
+Enables you to remove an image file from Misty that you have previously uploaded.
+
+**Note: You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.**
+
+Endpoint: POST api/images/delete
+
+```json
+    {
+      "FileName":"ExampleImage.png"
+    }
+    ```
+
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ## Audio
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
@@ -204,6 +224,26 @@ Return Values
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
+
+
+##### DeleteAudioAssetFromRobot
+Enables you to remove an audio file from Misty that you have previously uploaded.
+
+**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
+
+Endpoint: POST api/audio/delete
+
+```json
+    {
+      "FileName":"ExampleSong.wav"
+    }
+    ```
+
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Locomotion
@@ -529,6 +569,27 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
+
+
+## Beta - Information
+
+##### GetWebsocketHelp - BETA
+Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills). 
+
+Endpoint: GET api/beta/info/help/websocket
+
+Parameters
+- None
+
+Return Values
+* NestedProperties (array) - A list of WebSocket data classes to which you can subscribe. These include:
+   * Command information
+   * Sensor data
+   * Battery status
+   * Face detection/recognition information
+   * Position and orientation
+   * Movement updates
+   * Proximity data from time-of-flight sensors
 
 
 ## Alpha - Mapping & Tracking

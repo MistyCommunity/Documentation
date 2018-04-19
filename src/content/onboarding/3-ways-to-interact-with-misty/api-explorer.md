@@ -18,7 +18,55 @@ As with the companion app and Blockly, when using the API Explorer, make sure yo
 2. Enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the API Explorer window. **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/3-12-18-release-notes/307)
 ![Connection failed error message](../../../assets/images/explorer-error-message.png)
 3. Select the amount of console messages you’ll receive by setting the console log level (0-3). Selecting 3 will give you a console message for each method in all 3 classes, for example. The console messages can be really helpful when getting started.
-4. Experiment with changing Misty’s eyes, LED color, screen image, and sounds.
+4. Experiment with changing Misty’s eyes and LED color.
+
+
+## Managing Audio and Image Files
+Misty comes loaded with a number of default system image files that display on her screen, as well as default audio files that she can play. Still, after a while, you'd probably like to hear or see something new. With the API Explorer, you can add your own sounds and images to Misty's repertoire.
+
+**Note: The processes for working with audio and image files on Misty are the same.**
+![Asset management controls](../../../assets/images/explorer_asset_management.png)
+
+### Adding a custom audio or image file to Misty
+Would you like to have Misty sing a song or play a particular sound when her face recognition identifies someone in particular? What about giving her some custom eyes or other interesting images for her display?
+
+**Note:**
+* **For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).**
+* **For audio, you can upload all file format types, however Misty cannot currently play OGG files.**
+* **The maximum size for both audio and image files is 3 MB.**
+
+
+1. To select a file to upload to Misty, either drag a file into the white rectangle or click **Choose a file** and browse for the file on your computer.
+2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to upload. ![Upload asset confirmation checkbox](../../../assets/images/explorer_asset_checkbox.png)
+3. To save the file onto Misty, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
+4. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
+
+
+### Playing or displaying a file
+
+1. Click the **Populate Audio List** or **Populate Image List** button to get a list of the current files saved to your robot.
+2. Choose the listed file to play or display.
+3. Click the **Play Clip** or **Display Image** button. You should immediately hear Misty play the audio clip or see the image appear on her screen.
+
+
+### Deleting a custom audio or image file from Misty
+Misty getting a bit overloaded with custom files? It's easy to tidy her up again.
+
+1. Click **Populate Audio List** or **Populate Image List** to obtain a list of the audio or image files you've saved to Misty.
+2. Choose a listed file to delete. **Note: You can only delete audio or image files that you have previously uploaded to Misty. The API Explorer posts an error if you attempt to remove one of Misty's default system files.** ![Error for deleting a system file](../../../assets/images/explorer_delete_error.png)
+3. Click the **Delete Clip** button to delete the audio file, or the **Delete Image** button to delete an image file.
+4. Refresh your screen and reconnect API Explorer to your robot.
+5. Click the **Populate Audio List** or **Populate Image List** button. The file you deleted should no longer be included in the list.
+
+
+### Using the API Explorer to obtain byte array strings from audio or image file data 
+There is an option in the API explorer to convert audio or image file data to a byte array string and copy it to the clipboard. This is handy if you are using the REST or JavaScript commands `SaveAudioAssetToRobot` or `SaveImageAssetToRobot`, because these APIs require you to pass in raw file data.
+
+1. To select a file to convert, either drag a file into the white rectangle or click **Choose a file** and browse for the file on your computer.
+2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to convert.
+3. Click the **Copy to Clipboard** button. A message pops up to confirm that your file is being copied.
+
+
 
 ## Driving Misty
 There are a variety of ways to use the API Explorer to drive Misty.

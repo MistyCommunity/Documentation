@@ -7,7 +7,7 @@ order: 4
 
 # {{title}}
 
-Misty seeming a little tired lately? It may be time to perform an update. Updates can include:
+Misty seeming a little tired lately? It's probably time to perform an update. Updates can include:
 
 * Image assets
 * Sound assets
@@ -20,6 +20,7 @@ Misty seeming a little tired lately? It may be time to perform an update. Update
 **Note: Currently, for ease of use on different platforms, we recommend performing updates manually, following the steps below. If you have issues with the manual update process, you can try the instructions for updating Misty using [the API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates).**
 
 ## Manually Updating Misty
+You can follow along with these instructions while watching our [Manual Update Process video](https://www.youtube.com/watch?v=nXIJBvbnrtI).
 
 1. Plug Misty into the charger.
 2. Plug in a Micro USB cable from your computer to Misty. Use the port labeled **USB2.0 (ADB)** on the Intrinsyc Open-Q 820 Development Kit board mounted on Misty's right side. ![Misty's Micro USB port](../../../assets/images/micro_usb_port.jpg)

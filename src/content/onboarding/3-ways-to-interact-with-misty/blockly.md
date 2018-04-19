@@ -34,7 +34,7 @@ Follow the steps below to set up Blockly with Misty.
 **Note: It's not generally recommended for multiple users to each use a separate instance of Blockly to connect with and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
 
 1. Make sure Misty and your computer are on the same Wi-Fi network and that your computer has Bluetooth turned on.
-2. Download and unzip Blockly. If the version of HomeRobot app on your Misty is 1.0.3.0 or later, download the [latest version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/blockly.zip) You can also download [an earlier version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/legacy-blockly.zip)
+2. Download and unzip Blockly. If the version of HomeRobot app on your Misty is 1.0.3.0 or later, download the [latest version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/blockly.zip) You can also download [an earlier version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/legacy-blockly.zip) **Note: There are currently known issues with the latest version of Blockly running on Safari. Safari users are recommended to download the [legacy version of Blockly](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/legacy-blockly.zip).**
 3. Open the index.html file from the Blockly download in your browser.
 4. Enter the IP address of your robot in Blockly and click **Connect**. You can get Misty's IP address from the **Info** tab in the companion app. The **Connect** button should change to **Connected**. **Note: If you cannot connect, double-check that Misty and your computer are on the same WiFi network. If necessary, reload the page.**
 5. Open your browser's JavaScript console. Misty has some Blockly commands for which the results are shown in the console. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, then click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**. If the Blockly controls disappear when you open the JavaScript console, select the icon in the upper left side of the page to display them again. ![Blockly window showing hamburger menu and open JavaScript console](../../../assets/images/blockly_js_console.png)
@@ -172,7 +172,7 @@ Parameters
 
 
 ### ListFilesAvailable
-Lists the existing audio files on Misty. Connect this block to a "PlayAudioClip" block to select a sound to play.
+Lists the existing audio files on Misty. Connect this block to a "PlayAudioClip" block to select a sound to play. You can also connect this block to a "DeleteAudioAssetFromRobot" block to remove an audio file you've previously uploaded to Misty.
 
 Parameters
 * None
@@ -183,6 +183,13 @@ Allows you to browse for a file on your computer. Connect this with a "SaveFileT
 
 Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. All audio file types are valid, however Misty cannot currently play OGG files. Maximum file size is 3 MB.
+
+
+### DeleteAudioAssetFromRobot
+Enables you to remove an audio file from Misty that you have previously uploaded. Connect this with a "ListFilesAvailable" block to select a file to remove from Misty. **Note: You can only delete audio files that you have previously uploaded to Misty. Blockly posts an error if you attempt to remove one of Misty's default system audio files.**
+
+Parameters
+* The name of the audio file to remove, supplied by a connected "ListFilesAvailable" block.
 
 
 ## Display Commands
@@ -197,11 +204,13 @@ Saves an image file to Misty. This block **must** connect with the "BrowseToImag
 Parameters
 * File: The image file to save to Misty from the "BrowseToImageFile" block. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
 
+
 ### ChangeDisplayImage
 Sets the current image being displayed on Misty's screen. This block **must** connect with the "ListFilesAvailable" block or the BrowseToImageFile" block, to select the image file to display.
 
 Parameters
 * Filename: The name of the file containing the image to display, selected from the "BrowseToImageFile" block.
+
 
 ### ChangeEyes
 Changes Misty's eyes to another of her default eye expressions.
@@ -209,11 +218,13 @@ Changes Misty's eyes to another of her default eye expressions.
 Parameters
 * Mood: One of the following: Angry, Concerned, Confused, Content, Groggy, Happy, Love, Sad, Unamused.
 
+
 ### ChangeLEDColor
 Changes the color of the LED behind the logo on Misty's torso.
 
 Parameters
 * Color: A color selected from the block's options.
+
 
 ### RevertDisplay
 Changes Misty's screen to display the previous image. You can run RevertDisplay repeatedly to "step" backward through the images that Misty has displayed.
@@ -221,17 +232,27 @@ Changes Misty's screen to display the previous image. You can run RevertDisplay 
 Parameters
 * None
 
+
 ### ListFilesAvailable
 Obtains a list of the images currently stored on Misty. Connect this with a "ChangeDisplayImage" block to select a file to display on Misty's screen.
 
 Parameters
 * None
 
+
 ### BrowseToImageFile
 Browse for a file on your computer. Connect this with a "SaveFileToRobot" block to select a file to upload to Misty.
 
 Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. Valid image file types are .jpg, .jpeg, .gif, .png.
+
+
+### DeleteImageAssetFromRobot
+Enables you to remove an image file from Misty that you have previously uploaded. Connect this with a "ListFilesAvailable" block to select a file to remove from Misty. **Note: You can only delete image files that you have previously uploaded to Misty. Blockly posts an error if you attempt to remove one of Misty's default system image files.**
+
+Parameters
+* The name of the image file to remove, supplied by a connected "ListFilesAvailable" block.
+
 
 
 ## Locomotion Commands
