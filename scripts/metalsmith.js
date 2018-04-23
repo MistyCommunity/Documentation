@@ -174,7 +174,8 @@ exports.metalsmith = function() {
         sortBy: 'order',
         orderDynamicCollections: [
           'get-started',
-          '3-ways-to-interact-with-misty'
+          '3-ways-to-interact-with-misty',
+          'creating-skills'
         ]
       },
       apis: {
