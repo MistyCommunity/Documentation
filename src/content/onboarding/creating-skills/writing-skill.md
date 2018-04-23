@@ -9,7 +9,7 @@ order: 6
 
 Creating a skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty.
 
-You can send commands to Misty via the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs, which also allow you to obtain some limited data. To get full, live updating data streams from Misty, however, you'll need to use a WebSocket connection.
+You can send commands to Misty via the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get full, live updating data streams from Misty, you'll need to use a WebSocket connection.
 
 This document:
 * describes Misty's currently available WebSocket connections
