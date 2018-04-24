@@ -161,10 +161,10 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-```
+```JavaScript
 {
-  "LinearVelocity":20,
-  "AngularVelocity":15,
+  "LinearVelocity": 20,
+  "AngularVelocity": 15,
 }
 ```
 
@@ -382,7 +382,7 @@ Returns:
 ## Beta - Information
 
 ##### GetWebsocketHelp - BETA
-Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills). 
+Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills).
 
 Arguments:
 * None

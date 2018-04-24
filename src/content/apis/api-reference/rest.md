@@ -12,7 +12,7 @@ With the REST API, you can send commands from a REST client or browser to contro
 ## URL & Message Formats
 
 Use the following URL format when sending commands to the robot:
-```
+```markup
 http://{robot-ip-address}/api/{Endpoint}
 ```
 Misty uses JSON to format REST API data. Use this format when creating the payload:
@@ -24,14 +24,13 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
 }
 ```
 All successful commands return a status and the result of the call:
-```
+```json
 [
   {
-    "result":true,
-    "status":"Success"
+    "result": true,
+    "status": "Success"
   }
-}
-
+]
 ```
 If there is an issue, Misty returns an HTTP error code and error message.
 
@@ -48,9 +47,9 @@ Endpoint: POST api/led/change
 
 ```json
 {
-  "red":255,
-  "green":0,
-  "blue":0
+  "red": 255,
+  "green": 0,
+  "blue": 0
 }
 ```
 
@@ -70,7 +69,7 @@ Endpoint: POST api/images/change
 
 ```json
 {   
-  "FileName":"example.jpg"
+  "FileName": "example.jpg"
 }
 ```
 
@@ -150,9 +149,9 @@ Endpoint: POST api/images/delete
 
 ```json
     {
-      "FileName":"ExampleImage.png"
+      "FileName": "ExampleImage.png"
     }
-    ```
+```
 
 Parameters
 * FileName (string) - The name of the file to delete, including its file type extension.
@@ -173,7 +172,7 @@ Endpoint: POST api/audio/play
 
 ```json
 {
-  "AssetId":"ExampleSong"
+  "AssetId": "ExampleSong"
 }
 ```
 
@@ -235,9 +234,9 @@ Endpoint: POST api/audio/delete
 
 ```json
     {
-      "FileName":"ExampleSong.wav"
+      "FileName": "ExampleSong.wav"
     }
-    ```
+```
 
 Parameters
 * FileName (string) - The name of the file to delete, including its file type extension.
@@ -264,10 +263,10 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 
 Endpoint: POST api/drive
 
-```
+```json
 {
-  "LinearVelocity":20,
-  "AngularVelocity":15,
+  "LinearVelocity": 20,
+  "AngularVelocity": 15,
 }
 ```
 
@@ -294,9 +293,9 @@ Endpoint: POST api/drive/time
 
 ```json
 {
-  "LinearVelocity":1,
-  "AngularVelocity":4,
-  "TimeMS":500
+  "LinearVelocity": 1,
+  "AngularVelocity": 4,
+  "TimeMS": 500
 }
 ```
 
@@ -317,8 +316,8 @@ Endpoint: POST api/drive/track
 
 ```json
 {   
-  "LeftTrackSpeed":30,
-  "RightTrackSpeed":70
+  "LeftTrackSpeed": 30,
+  "RightTrackSpeed": 70
 }
 ```
 
@@ -380,7 +379,7 @@ Endpoint:
 * GET api/info/help for a list of commands and endpoints
 * GET api/info/help?command=endpoint/path for information on a specific endpoint
 
-```json
+```markup
 api/info/help?command=audio/play
 ```
 
@@ -441,7 +440,7 @@ Endpoint: POST api/faces/training/start
 
 ```json
 {
-  "FaceId":"Joe_Smith"
+  "FaceId": "Joe_Smith"
 }
 ```
 
@@ -513,8 +512,8 @@ Endpoint: POST api/head/move
 
 ```json
 {
-  "Pitch":3,
-  "Roll":3,
+  "Pitch": 3,
+  "Roll": 3,
   "Yaw": -2,
   "Velocity": 6
 }
@@ -536,7 +535,7 @@ Endpoint: POST api/head/location
 
 ```json
 {
-  "Location":"left",
+  "Location": "left",
   "Velocity": 6
 }
 ```
@@ -556,8 +555,8 @@ Endpoint: POST api/head/position
 
 ```json
 {   
-  "Axis ":"yaw",
-  "position":3,
+  "Axis ": "yaw",
+  "position": 3,
   "Velocity": 6
 }
 ```
@@ -574,7 +573,7 @@ Return Values
 ## Beta - Information
 
 ##### GetWebsocketHelp - BETA
-Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills). 
+Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills).
 
 Endpoint: GET api/beta/info/help/websocket
 
@@ -731,4 +730,3 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
-
