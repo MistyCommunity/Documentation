@@ -710,7 +710,7 @@ Return Values
    * grid (array) - a 2 dimensional array of values.
    * height (integer) - the height of the map
    * isValid (boolean) - weather or not the map is valid
-   * metersPerCell (double) - the value that represents the number of meters that each cell reprecents in the grid array
+   * metersPerCell (double) - the value that represents the number of meters that each cell represents in the grid array
    * width (integer) - the width of the map
 
 
