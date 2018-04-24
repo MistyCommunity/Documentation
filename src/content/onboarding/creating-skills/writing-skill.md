@@ -1,7 +1,7 @@
 ---
 title: Writing a Skill for Misty
 layout: onboarding.hbs
-columns: one
+columns: three
 order: 6
 ---
 
@@ -14,19 +14,19 @@ You can send commands to Misty via the [REST](/apis/api-reference/rest) and [Jav
 This document:
 * describes Misty's currently available WebSocket connections
 * provides examples of using simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) to call the API and connect to and register callbacks for Misty's WebSockets
-* presents Misty's API Explorer components as models for development 
+* presents Misty's API Explorer components as models for development
 
 
 ## API Commands
 
 To get Misty to perform an action, you call the REST and JavaScript APIs described [here](/apis/overview/command-architecture). These commands allow you to control a variety of Misty’s functionality, including:
 
-* Display 
-* Audio 
+* Display
+* Audio
 * Movement and driving
 * Face recognition
 * Mapping and tracking
-* Configuration 
+* Configuration
 
 
 ## WebSocket Connections
@@ -63,7 +63,7 @@ TimeOfFlight{
 
 ### FaceDetection (Beta)
 
-At this time, the ```FaceDetection``` WebSocket returns only raw face detection data. Currently, this sensory data is not aggregated with other face data, so there may be empty and ```null``` fields. 
+At this time, the ```FaceDetection``` WebSocket returns only raw face detection data. Currently, this sensory data is not aggregated with other face data, so there may be empty and ```null``` fields.
 
 The ```FaceDetection``` WebSocket data is sent only upon a sensory message trigger. It is not sent at timed intervals. The approximate transmission rate of ```FaceDetection``` data is 4x/second, but this timing can vary.
 
@@ -182,7 +182,7 @@ async function RunMe()
 		// Example Get call to get help
       	lightClient.GetCommand("info/help", function(data) { console.log(JSON.stringify(data)); });
 
-		// Example Post call to drive time, callback 
+		// Example Post call to drive time, callback
 		// will be called when driving is complete
         lightClient.PostCommand("drive/time", " {\"LinearVelocity\":0,\"AngularVelocity\":20, \"TimeMs\":100}",  function(data) { console.log(JSON.stringify(data)); });         
 }
@@ -198,22 +198,22 @@ Example call:
 RunMe();
 async function RunMe()
 {
-	// Create a new LightSocket object and 
+	// Create a new LightSocket object and
 	// connect to Misty's WebSockets.
 	var lightSocket = new LightSocket("10.0.1.216");
         lightSocket.Connect();
-    
+
 	// Give a time to connect until connection.
 	// Callback implemented in lightSocket.js
     	await sleep(5000);
-	
+
 	// Listen for TimeOfFlight data. 500ms debounce
 	// ensures data is not sent more than once every 500ms.
 	// Default is 250ms; can be set as frequently as 100ms.
 	lightSocket.Subscribe("TimeOfFlight", "TimeOfFlight", 500, null, null, null, null, function(data){console.log("New Time of Flight Event!", data)});
 
 	// Listen for MentalState Updates in the SelfState Object.
-	// This socket listens for SelfState (triggered every 100ms), 
+	// This socket listens for SelfState (triggered every 100ms),
 	// but returns the SelfState field MentalState every 2 seconds.
 	lightSocket.Subscribe("MentalState", "SelfState", 2000, null, null, null, "MentalState", function(data){ console.log("New Mental State Event!", data)});            
 
@@ -221,12 +221,12 @@ async function RunMe()
 	// data if the internal data of MentalState.Affect.Arousal == 0
 	// Returns at most, once every four seconds.
         lightSocket.Subscribe("Affect", "SelfState", 4000, "MentalState.Affect.Arousal", "==", 0, "MentalState.Affect", function(data){console.log("New Affect Event!", data)});            
-        
+
 	// Let it run for a while before unsusbscribing...            
         await sleep(30000);    
 
 	// Unsubscribe from the WebSocket connections by name.
-	// If no connection name was used in registration, the name 
+	// If no connection name was used in registration, the name
 	// is the actual named object name used for registration.
         lightSocket.Unsubscribe("MentalState");
         lightSocket.Unsubscribe("TimeOfFlight");
@@ -267,5 +267,3 @@ Wrapper for most of the available Misty API commands.
 ### MistyAjax.js
 
 Simple wrapper for Ajax ```Get``` and ```Post``` requests.
-
-
