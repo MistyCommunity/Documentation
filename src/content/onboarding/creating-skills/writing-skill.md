@@ -7,31 +7,19 @@ order: 6
 
 # {{title}}
 
-Creating a skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty.
+Misty's a pretty capable robot on her own, but the exciting part of working with Misty is seeing her run the skills you create for her. Check out the Misty Community [GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills (including a fun [Python-based skill](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python/samples/mistyvoice) that gives Misty a voice using the Google Text-to-Speech API).
 
-You can send commands to Misty via the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get full, live updating data streams from Misty, you'll need to use a WebSocket connection.
+To create your own skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty. To send commands to Misty, you call the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get live updating data streams from Misty, you'll need to use a WebSocket connection.
 
 This document:
-* describes Misty's currently available WebSocket connections
-* provides examples of using simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) to call the API and connect to and register callbacks for Misty's WebSockets
-* presents Misty's API Explorer components as models for development
-
-
-## API Commands
-
-To get Misty to perform an action, you call the REST and JavaScript APIs described [here](/apis/overview/command-architecture). These commands allow you to control a variety of Misty’s functionality, including:
-
-* Display
-* Audio
-* Movement and driving
-* Face recognition
-* Mapping and tracking
-* Configuration
+* describes the data sent by Misty's currently available [WebSocket connections](/onboarding/creating-skills/writing-skill/#websocket-connections)
+* provides [examples](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) of using simple JavaScript helpers to send commands and subscribe to Misty's WebSockets
+* presents Misty's API Explorer components as [models for development](/onboarding/creating-skills/writing-skill/#working-with-the-api-explorer-code)
 
 
 ## WebSocket Connections
 
-To get streams of live data back from Misty, you can register for and listen to one or more of Misty's available WebSocket connections. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
+To get streams of live data back from Misty, you can [programmatically subscribe](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to one or more of Misty's available WebSocket connections. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
 
 Misty’s WebSocket connections include:
 * ```TimeOfFlight```
@@ -42,6 +30,7 @@ Misty’s WebSocket connections include:
 * ```SelfState```
 * ```WorldState```
 
+You can directly observe Misty's WebSocket data in the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket).
 
 ### TimeOfFlight
 
@@ -163,11 +152,14 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 
 
-## Using JavaScript Helpers
+## Sending Commands and Subscribing to WebSockets
+
+While you can directly send REST commands to Misty to control her behavior, we also provide a JavaScript API for this purpose. (There are other [community-created wrappers](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers) for the REST API available, as well.)
+
 The following are examples of using simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) to call the Misty API and to connect to and register callbacks for Misty's WebSockets.
 
 
-### lightClient.js
+### Sending Commands to Misty
 
 The [```lightClient.js```](https://github.com/MistyCommunity/MistyI/tree/master/Skills) JavaScript helper lets you call API commands by passing in the command name and parameters. The example function below shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands:
 
@@ -188,7 +180,7 @@ async function RunMe()
 }
 ```
 
-### lightSocket.js
+### Subscribing to WebSocket Data from Misty
 
 The [```lightSocket.js```](https://github.com/MistyCommunity/MistyI/tree/master/Skills) JavaScript helper lets you register JavaScript callback functions for Misty's WebSocket connections. The example function below shows how you can use ```lightSocket.js``` to subscribe to and unsubscribe from specific data streams:
 
@@ -246,24 +238,31 @@ You can use the code and examples in the [API Explorer download package](https:/
 
 ### index.html & default.css
 
-Contains the UI and styles for the Misty API Explorer.
+These files contain the user interface and styles for the Misty API Explorer.
 
 ### SampleUI.js
 
-Contains the handlers for the ```index.html``` page events.
+This file defines the handlers for the ```index.html``` page events. Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in ```index.html```. For example, Select a mood or Change LED.
 
 ### MistyRobot.js
 
-Called by ```SampleUI.js``` to processes the user actions by sending commands through ```MistyAPI.js``` and ```MistyWebSocket.js```.
+This file builds the server URL based on the robot you're interacting with. It provides a wider and more user-friendly range of commands than `MistyAPI.js`.
 
-### MistyWebSocket.js
-
-Interface to subscribe to and unsubscribe from Misty's WebSockets.
+```SampleUI.js``` calls ```MistyRobot.js``` to processes user actions by sending commands through ```MistyAPI.js``` and ```MistyWebSocket.js```.
 
 ### MistyAPI.js
 
-Wrapper for most of the available Misty API commands.  
+This file is a one-to-one wrapper for most of Misty's API endpoints. It constructs payloads to pass to `MistyAjax.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level.
+
+### MistyWebSocket.js
+
+This file allows you to subscribe to and unsubscribe from Misty's WebSockets.
 
 ### MistyAjax.js
 
-Simple wrapper for Ajax ```Get``` and ```Post``` requests.
+A simple wrapper for Ajax ```Get``` and ```Post``` requests, this file sends Ajax calls to Misty.
+
+
+
+
+

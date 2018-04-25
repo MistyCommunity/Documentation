@@ -13,7 +13,7 @@ order: 4
 Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
 
 
-##### ChangeLED
+### ChangeLED
 Changes the color of the LED light behind the logo on Misty's torso.
 
 Arguments:
@@ -25,7 +25,7 @@ Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
-##### ChangeDisplayImage
+### ChangeDisplayImage
 Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Arguments:
@@ -35,7 +35,7 @@ Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
-##### GetListOfImages
+### GetListOfImages
 Obtains a list of the images stored on Misty.
 
 Arguments:
@@ -49,7 +49,7 @@ Returns:
    * Width (integer) - the width of the image file
 
 
-##### RevertDisplay
+### RevertDisplay
 Changes the display to the previous image or eye state.
 
 Arguments:
@@ -59,7 +59,7 @@ Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
-##### SaveImageAssetToRobot
+### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
@@ -78,7 +78,7 @@ Returns:
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
-##### DeleteImageAssetFromRobot
+### DeleteImageAssetFromRobot
 Enables you to remove an image file from Misty that you have previously uploaded.
 
 **Note: You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.**
@@ -94,7 +94,7 @@ Returns:
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-##### PlayAudioClip
+### PlayAudioClip
 Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
 Arguments:
@@ -104,7 +104,7 @@ Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
-##### GetListOfAudioFiles
+### GetListOfAudioFiles
 Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
 Arguments:
@@ -118,7 +118,7 @@ Return:
    * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
 
 
-##### SaveAudioAssetToRobot
+### SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Arguments:
@@ -133,7 +133,7 @@ Returns:
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
-##### DeleteAudioAssetFromRobot
+### DeleteAudioAssetFromRobot
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
 **Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
@@ -147,10 +147,11 @@ Returns:
 
 ## Locomotion
 
-Experiment with driving Misty. She's eager to explore...
+The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](/onboarding/3-ways-to-interact-with-misty/companion-app).
 
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](/onboarding/creating-skills/writing-skill/#websocket-connections). To directly observe this data, you can use the [API Explorer](/onboarding/3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket).
 
-##### Drive
+### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
 
 When using the Drive command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
@@ -176,7 +177,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### DriveTime
+### DriveTime
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
 
 When using the DriveTime command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
@@ -197,7 +198,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### LocomotionTrack
+### LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
 Arguments:
@@ -208,7 +209,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### Stop
+### Stop
 Stops Misty's movement.
 
 Arguments:
@@ -220,7 +221,7 @@ Returns:
 
 ## Information
 
-##### GetBatteryLevel
+### GetBatteryLevel
 Obtains Misty's current battery level.
 
 Arguments:
@@ -230,7 +231,7 @@ Returns:
 * Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
 
 
-##### GetDeviceInformation
+### GetDeviceInformation
 Obtains a list of Misty's devices and their associated information.
 
 Arguments:
@@ -246,7 +247,7 @@ Returns:
    * Sensor Capabilities (Array) - an array listing the sensor capabilities.
 
 
-##### GetHelp
+### GetHelp
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Arguments:
@@ -258,7 +259,7 @@ Returns:
 
 ## Configuration
 
-##### ConnectWiFi
+### ConnectWiFi
 Connects Misty to a specified WiFi source.
 
 Arguments:
@@ -272,8 +273,12 @@ Returns:
 ## Beta - Faces
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
+The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](/onboarding/3-ways-to-interact-with-misty/api-explorer/#face-training-amp-recognition-beta).
 
-##### StartFaceDetection - BETA
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to her FaceDetection and FaceRecognition [WebSockets](/onboarding/creating-skills/writing-skill/#websocket-connections). To directly observe this data, you can use the [API Explorer](/onboarding/3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket).
+
+
+### StartFaceDetection - BETA
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 When you are done having Misty detect faces, call StopFaceDetection.
@@ -285,7 +290,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### StartFaceTraining - BETA
+### StartFaceTraining - BETA
 Starts Misty learning a face and assigns a user-specified ID to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
@@ -297,7 +302,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### StartFaceRecognition - BETA
+### StartFaceRecognition - BETA
 Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `StartFaceDetection` command to detect and store face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
@@ -309,7 +314,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### StopFaceDetection - BETA
+### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
 Arguments:
@@ -319,7 +324,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### CancelFaceTraining - BETA
+### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
 Arguments:
@@ -329,7 +334,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### StopFaceRecognition - BETA
+### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
 Arguments:
@@ -343,7 +348,7 @@ Returns:
 
 Misty's ability to accurately position her head is currently under development.
 
-##### MoveHead - BETA
+### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-and-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
 
 Arguments:
@@ -356,7 +361,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### MoveHeadToLocation - BETA
+### MoveHeadToLocation - BETA
 Moves Misty's head to a specified up-down or left-right location.
 
 Arguments:
@@ -367,7 +372,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SetHeadPosition - BETA
+### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
 Arguments:
@@ -381,7 +386,7 @@ Returns:
 
 ## Beta - Information
 
-##### GetWebsocketHelp - BETA
+### GetWebsocketHelp - BETA
 Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills).
 
 Arguments:
@@ -403,7 +408,7 @@ Returns:
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
 
-##### SlamGetStatus - ALPHA
+### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
 ```c#
@@ -442,7 +447,7 @@ Example: If Misty is both exploring and recording, then bits 2 and 4 would be se
 * Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
 
 
-##### SlamReset - ALPHA
+### SlamReset - ALPHA
 Resets the SLAM sensors.
 
 Arguments:
@@ -452,7 +457,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SlamStartMapping - ALPHA
+### SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
 Arguments:
@@ -462,7 +467,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SlamStartTracking - ALPHA
+### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
 Arguments:
@@ -472,7 +477,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SlamStopMapping - ALPHA
+### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
 Arguments:
@@ -482,7 +487,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SlamStopTracking - ALPHA
+### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
 Arguments:
@@ -492,7 +497,7 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
-##### SlamGetMap - ALPHA
+### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
 
 Arguments:
@@ -507,7 +512,7 @@ Returns:
    * width (integer) - the width of the map
 
 
-##### FollowPath - ALPHA
+### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
 Arguments:

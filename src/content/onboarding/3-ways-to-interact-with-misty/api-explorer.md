@@ -14,8 +14,8 @@ When you use the API Explorer in your browser, you can use Misty's API endpoints
 ## Setting up the API Explorer
 As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
 
-1. [Download the latest version of the API Explorer](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/api-explorer.zip). Unzip the download and open the index.html file into your browser. The API Explorer should look like the screenshot above.
-2. Enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the API Explorer window. **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/3-12-18-release-notes/307)
+1. [Open up the API Explorer](http://api-explorer.mistyrobotics.com) in a browser window. The API Explorer should look like the screenshot above.
+2. Enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the API Explorer window. **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/4-19-18-release-notes/476)
 ![Connection failed error message](../../../assets/images/explorer-error-message.png)
 3. Select the amount of console messages you’ll receive by setting the console log level (0-3). Selecting 3 will give you a console message for each method in all 3 classes, for example. The console messages can be really helpful when getting started.
 4. Experiment with changing Misty’s eyes and LED color.
@@ -67,7 +67,6 @@ There is an option in the API explorer to convert audio or image file data to a 
 3. Click the **Copy to Clipboard** button. A message pops up to confirm that your file is being copied.
 
 
-
 ## Driving Misty
 There are a variety of ways to use the API Explorer to drive Misty.
  ![Driving controls](../../../assets/images/locomotion_controls.png)
@@ -105,20 +104,19 @@ You can use these controls to drive Misty in a variety of directions.
 
 
 ## Opening a WebSocket
-Once you open a WebSocket, you can subscribe to real-time data from Misty, including:
-* Time-of-flight sensor data
-* Battery voltage
-* Face detection
-* Face recognition
-* Driving (and stopping) commands
+Real-time data from Misty is sent via WebSocket connections and includes:
+* movement, location, and proximity information
+* battery status
+* face detection and recognition
 
-You can view the WebSocket data that you subscribe to in your browser's JavaScript console. (Note that how you open the console will vary among browsers and platforms.)
+The data that's sent over WebSocket connections is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of [programmatically subscribing](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to WebSocket data to [create skills](/onboarding/creating-skills/writing-skill) for Misty.
+
+When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (Note that how you open the console will vary among browsers and platforms.)
 ![Websocket controls](../../../assets/images/websockets.png)
 
-See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of using WebSocket data to create skills for Misty.
 
 ### Subscribing to Time of Flight data
-You can view a stream of data from Misty's four time-of-flight sensors in the API Explorer. To obtain time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
+You can view a stream of data from Misty's four time-of-flight sensors in the API Explorer. For an example of obtaining time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
 
 1. In the **Sensor Reading WebSockets** area, find the **Time of Flight** controls and click **Subscribe**.
 2. You can see the time of flight data in the **Distance (meters)** field.
@@ -158,6 +156,8 @@ Misty's ability to recognize faces is under development. To try face training an
 10. Position the person’s face in a well-lit area front of the camera.
 11. Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 12. When finished, click **Stop Face Recognition**.
+
+**Note: The face detection and recognition data that Misty sends is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections).**
 
 
 ## Moving Misty's Head - BETA
@@ -271,13 +271,3 @@ To perform an update:
 6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
 8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels.**
-
-
-## Exploring the JavaScript Code
-Check out the following files to see the JavaScript code that is used with the API Explorer.
-
-* Reference the `Misty.API` classes in your HTML:
-    * `MistyAjax.js` - Sends AJAX calls to Misty.
-    * `MistyAPI.js` - Maps one-to-one to Misty's API endpoints and constructs payloads to pass to `MistyAJAX.js`. You can call it directly once you have created a new `MistyRobot` by inputting the robot's IP address, port, and verbose level.
-    * `MistyRobot.js` - Builds the server URL based on the robot you are attempting to interact with and provides a wider and more user-friendly range of commands than `MistyAPI.js`.
-* Use `SampleUI.js` to see examples of all of the event listeners linked to the various buttons rendered in index.html. For example, Select a mood or Change LED.

@@ -34,19 +34,18 @@ Follow the steps below to set up Blockly with Misty.
 **Note: It's not generally recommended for multiple users to each use a separate instance of Blockly to connect with and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
 
 1. Make sure Misty and your computer are on the same Wi-Fi network and that your computer has Bluetooth turned on.
-2. Download and unzip Blockly. If the version of HomeRobot app on your Misty is 1.0.3.0 or later, download the [latest version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/blockly.zip) You can also download [an earlier version of Blockly.](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/legacy-blockly.zip) **Note: There are currently known issues with the latest version of Blockly running on Safari. Safari users are recommended to download the [legacy version of Blockly](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/legacy-blockly.zip).**
-3. Open the index.html file from the Blockly download in your browser.
-4. Enter the IP address of your robot in Blockly and click **Connect**. You can get Misty's IP address from the **Info** tab in the companion app. The **Connect** button should change to **Connected**. **Note: If you cannot connect, double-check that Misty and your computer are on the same WiFi network. If necessary, reload the page.**
-5. Open your browser's JavaScript console. Misty has some Blockly commands for which the results are shown in the console. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, then click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**. If the Blockly controls disappear when you open the JavaScript console, select the icon in the upper left side of the page to display them again. ![Blockly window showing hamburger menu and open JavaScript console](../../../assets/images/blockly_js_console.png)
-6. Select a simple Misty-specific block such as "ChangeEyes" (in the "Display" category).
-7. Test that Blockly is set up by clicking **Run** and seeing how Misty reacts. **Note: After clicking Run, there can be a 2-3 second delay before Misty reacts, and up to a 5-second delay between actions when there are several in a row.**
+2. [Open up Blockly](http://blockly.mistyrobotics.com) in a browser window. **Note: There are currently known issues with the latest version of Misty's Blockly running on Safari. At this time, we recommend that Safari users run the [legacy version of Blockly for Misty](http://blockly.mistyrobotics.com/legacy).**
+3. Enter the IP address of your robot in Blockly and click **Connect**. You can get Misty's IP address from the **Info** tab in the companion app. The **Connect** button should change to **Connected**. **Note: If you cannot connect, double-check that Misty and your computer are on the same WiFi network. If necessary, reload the page.**
+4. Open your browser's JavaScript console. Misty has some Blockly commands for which the results are shown in the console. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, then click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**. If the Blockly controls disappear when you open the JavaScript console, select the icon in the upper left side of the page to display them again. ![Blockly window showing hamburger menu and open JavaScript console](../../../assets/images/blockly_js_console.png)
+5. Select a simple Misty-specific block such as "ChangeEyes" (in the "Display" category).
+6. Test that Blockly is set up by clicking **Run** and seeing how Misty reacts. **Note: After clicking Run, there may be a short delay before Misty initially reacts. When multiple block commands are run in a row, by default there is no delay between commands. You can use the Pause block to add a delay between commands when running multiple commands in a row.**
 
 
 ## Experiment with Blockly
 
 Try the following quick "programs" to start controlling Misty with Blockly.
 
-**Note: When using Blockly, after clicking Run, there can be a 2-3 second delay before Misty reacts, and up to a 5-second delay between actions when there are several in a row.**
+**Note: After clicking Run, there may be a short delay before Misty initially reacts. When multiple block commands are run in a row, by default there is no delay between commands. You can use the Pause block to add a delay between commands when running multiple commands in a row.**
 
 
 ### Change the Color of Misty's LED
@@ -142,6 +141,21 @@ Parameters
 
 Returns
 * Information about a specific command or a list of all available commands. Open your browser's JavaScript console to view the results of this command.
+
+
+### PauseForDuration
+Inserts a pause between when Misty runs command blocks.
+
+Parameters
+* Duration: A value in milliseconds (ms) for the pause. Value range: 100ms - 10,000ms, in increments of 100ms.
+
+
+### MoveHead (BETA)
+Moves Misty's head to the left, right, up, or down.
+
+Parameters
+* Location: Left, Right, Up, or Down.
+* Speed: The speed at which Misty's head moves. Value range: 0 to 10.
 
 
 ## Speaker Commands
