@@ -156,12 +156,11 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 While you can directly send REST commands to Misty to control her behavior, we also provide a JavaScript API for this purpose. (There are other [community-created wrappers](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers) for the REST API available, as well.)
 
-The following are examples of using simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) to call the Misty API and to connect to and register callbacks for Misty's WebSockets.
-
+The following are examples of using the simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript) to call the Misty API and to connect to and register callbacks for Misty's WebSockets.
 
 ### Sending Commands to Misty
 
-The [```lightClient.js```](https://github.com/MistyCommunity/MistyI/tree/master/Skills) JavaScript helper lets you call API commands by passing in the command name and parameters. The example function below shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands:
+The ```lightClient.js``` JavaScript helper lets you call API commands by passing in the command name and parameters. The example function below shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands:
 
 Example call:
 
@@ -180,9 +179,11 @@ async function RunMe()
 }
 ```
 
+Get ```lightClient.js``` from [the Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
+
 ### Subscribing to WebSocket Data from Misty
 
-The [```lightSocket.js```](https://github.com/MistyCommunity/MistyI/tree/master/Skills) JavaScript helper lets you register JavaScript callback functions for Misty's WebSocket connections. The example function below shows how you can use ```lightSocket.js``` to subscribe to and unsubscribe from specific data streams:
+The ```lightSocket.js``` JavaScript helper lets you register JavaScript callback functions for Misty's WebSocket connections. The example function below shows how you can use ```lightSocket.js``` to subscribe to and unsubscribe from specific data streams:
 
 Example call:
 
@@ -231,6 +232,7 @@ function sleep(ms) {
 }
 ```
 
+Get ```lightSocket.js``` from [the Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
 
 ## Working with the API Explorer Code
 
