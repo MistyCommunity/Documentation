@@ -6,7 +6,9 @@ order: 1
 ---
 # {{title}}
 
-With the REST API, you can send commands from a REST client or browser to control and get information from Misty.
+With the REST API, you can send commands to Misty from a REST client or browser.
+
+To [create skills](/onboarding/creating-skills/writing-skill) for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST or JavaScript APIs. To get live updating data back from Misty, you'll need to use a [WebSocket connection](/onboarding/creating-skills/writing-skill/#websocket-connections). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
 
 
 ## URL & Message Formats
