@@ -12,14 +12,14 @@ Misty's a pretty capable robot on her own, but the exciting part of working with
 To create your own skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty. To send commands to Misty, you call the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get live updating data streams from Misty, you'll need to use a WebSocket connection.
 
 This document:
-* describes the data sent by Misty's currently available [WebSocket connections](/onboarding/creating-skills/writing-skill/#websocket-connections)
-* provides [examples](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) of using simple JavaScript helpers to send commands and subscribe to Misty's WebSockets
-* presents Misty's API Explorer components as [models for development](/onboarding/creating-skills/writing-skill/#working-with-the-api-explorer-code)
+* describes the data sent by Misty's currently available WebSocket connections
+* provides examples of using simple JavaScript helpers to send commands and subscribe to Misty's WebSockets
+* presents Misty's API Explorer components as models for development
 
 
 ## WebSocket Connections
 
-To get streams of live data back from Misty, you can [programmatically subscribe](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to one or more of Misty's available WebSocket connections. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
+To get streams of live data back from Misty, you can programmatically subscribe to one or more of Misty's available WebSocket connections. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
 
 Misty’s WebSocket connections include:
 * ```TimeOfFlight```

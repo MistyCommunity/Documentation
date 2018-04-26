@@ -10,13 +10,12 @@ order: 4
 ## Turning Misty On
 
 1. Use the small cardboard box (that came in her packaging) as a stand for Misty while you experiment. Place the box under Misty, between her tracks.
-2. Plug Misty in. Her battery will thank you.
-3. Flip the switch on Misty’s back.
+2. Plug the power adaptor into the back of Misty and into a power source.![power adaptor plug](../../../assets/images/power_adaptor_plug.png)
+3. Flip the power switch on Misty’s back (located directly above the power adaptor).
 4. The light on Misty’s chest should come on.
-5. Press the ON/OFF button located on the Intrinsyc Open-Q 820 Development Kit board. The board is mounted on Misty’s right side. The position of the ON/OFF button is as pictured. **Note: Both power sources must be on for Misty to function properly.**
-![820 Board ON/OFF button](../../../assets/images/820_board.jpg)
-6. A blue LED on the left side (as you face Misty) of the Occipital Structure Core depth sensor should come on.
-7. Say hello! You’ll know Misty is booted up when you see her eyes. This should take a little more than a minute.
+5. Turn on the Intrinsyc Open-Q 820 Development Kit board (mounted on Misty's right side) by holding the ON/OFF button until you see the green light briefly flash. **Note: Both power sources must be on for Misty to function properly.**![820 Board ON/OFF button](../../../assets/images/820_board_arrow.jpg)
+6. A blue LED connector light on the front-right side of Misty's head should come on. Standing on Misty's right side is the best way to see the light.![blue LED connector light](../../../assets/images/blue_light.jpg)
+7. You’ll know Misty is booted up when you see her eyes. This should take a little more than a minute.
 
 ## Restarting Misty
 
