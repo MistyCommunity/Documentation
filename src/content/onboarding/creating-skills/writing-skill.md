@@ -11,7 +11,7 @@ Misty's a pretty capable robot on her own, but the exciting part of working with
 
 To create your own skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty. To send commands to Misty, you call the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get live updating data streams from Misty, you'll need to use a WebSocket connection.
 
-This document:
+This topic:
 * describes the data sent by Misty's currently available WebSocket connections
 * provides examples of using simple JavaScript helpers to send commands and subscribe to Misty's WebSockets
 * presents Misty's API Explorer components as models for development
