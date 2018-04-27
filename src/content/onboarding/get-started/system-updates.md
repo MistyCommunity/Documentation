@@ -17,7 +17,8 @@ Misty seeming a little tired lately? It's probably time to perform an update. Up
 * Home Robot application (running on Windows IoT Core)
 * Sensory Services application (running on Android)
 
-**Note: Currently, for ease of use on different platforms, we recommend performing updates manually, following the steps below. If you have issues with the manual update process, you can try the instructions for updating Misty using [the API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates).**
+**Note: For ease of use, we recommend that you give your Misty robot [OTA (over the air) updates](../../3-ways-to-interact-with-misty/api-explorer/#system-updates) using the API Explorer. If you have issues with an OTA update, you can try the following manual update steps.**
+
 
 ## Manually Updating Misty
 You can follow along with these instructions while watching our [Manual Update Process video](https://www.youtube.com/watch?v=nXIJBvbnrtI).

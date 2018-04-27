@@ -235,8 +235,6 @@ You can use the API Explorer to perform over-the-air (OTA) updates for Misty, in
 * Home Robot application (running on Windows IoT Core)
 * Sensory Services application (running on Android)
 
-**Note: Currently, for ease of use on different platforms, we recommend performing updates manually, following [these steps](../../get-started/system-updates). If you have issues with the [manual update process](../../get-started/system-updates), you should then try the instructions that use the API Explorer below.**
-
 To perform an update:
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
 2. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png) **IMPORTANT: If you have a Misty I Beta version, you will see the following message. Ignore it and continue with the system update process.**
@@ -258,7 +256,7 @@ To perform an update:
 5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
 6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels.**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
 
 
 ### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
@@ -270,4 +268,5 @@ To perform an update:
 5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
 6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
 7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels.**
+8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
+
