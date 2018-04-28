@@ -5,7 +5,7 @@ This repo contains the Misty Robotics documentation viewable [here](docs.mistyro
 The Misty Robotics documentation is based on a design by [Particle](docs.particle.io), is built with [Metalsmith](http://www.metalsmith.io), and is formatted using [Markdown](https://daringfireball.net/projects/markdown/syntax).
 
 
-## Building Locally
+## Building This Documentation Locally
 
 Follow these steps to build the documentation locally:
 
