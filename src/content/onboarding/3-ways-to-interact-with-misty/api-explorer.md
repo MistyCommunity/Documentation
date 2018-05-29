@@ -15,14 +15,13 @@ When you use the API Explorer in your browser, you can use Misty's API endpoints
 As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
 
 1. [Open up the API Explorer](http://api-explorer.mistyrobotics.com) in a browser window. The API Explorer should look like the screenshot above.
-2. Enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the API Explorer window. **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/4-19-18-release-notes/476)
-![Connection failed error message](../../../assets/images/explorer-error-message.png)
-3. Select the amount of console messages you’ll receive by setting the console log level (0-3). Selecting 3 will give you a console message for each method in all 3 classes, for example. The console messages can be really helpful when getting started.
-4. Experiment with changing Misty’s eyes and LED color.
+2. Enter the IP address of your robot from the Info tab of the companion app and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
+3. Experiment with changing the color of the LED on Misty's chest or changing her eyes by selecting a different mood.
+4. To view data provided by the **Get Device Information** or **Get Log Information** buttons, open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.)
 
 
 ## Managing Audio and Image Files
-Misty comes loaded with a number of default system image files that display on her screen, as well as default audio files that she can play. Still, after a while, you'd probably like to hear or see something new. With the API Explorer, you can add your own sounds and images to Misty's repertoire.
+Misty comes with a number of default system image files that display on her screen, as well as default audio files that she can play. To add your own sounds and images to Misty, follow these steps.
 
 **Note: The processes for working with audio and image files on Misty are the same.**
 ![Asset management controls](../../../assets/images/explorer_asset_management.png)
@@ -36,8 +35,8 @@ Would you like to have Misty sing a song or play a particular sound when her fac
 * **The maximum size for both audio and image files is 3 MB.**
 
 
-1. To select a file to upload to Misty, either drag a file into the white rectangle or click **Choose a file** and browse for the file on your computer.
-2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to upload. ![Upload asset confirmation checkbox](../../../assets/images/explorer_asset_checkbox.png)
+1. To select a file to upload to Misty, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
+2. After you choose a file, a checkbox appears under the rectangle. Click that checkbox to confirm the file to upload. ![Upload asset checkbox](../../../assets/images/explorer_upload_checkbox.png)
 3. To save the file onto Misty, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
 4. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
 
@@ -62,7 +61,7 @@ Misty getting a bit overloaded with custom files? It's easy to tidy her up again
 ### Using the API Explorer to obtain byte array strings from audio or image file data 
 There is an option in the API explorer to convert audio or image file data to a byte array string and copy it to the clipboard. This is handy if you are using the REST or JavaScript commands `SaveAudioAssetToRobot` or `SaveImageAssetToRobot`, because these APIs require you to pass in raw file data.
 
-1. To select a file to convert, either drag a file into the white rectangle or click **Choose a file** and browse for the file on your computer.
+1. To select a file to convert, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
 2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to convert.
 3. Click the **Copy to Clipboard** button. A message pops up to confirm that your file is being copied.
 
@@ -99,7 +98,6 @@ You can use these controls to drive Misty in a variety of directions.
 
 1. Click a directional button, and Misty will start driving.
 2. Adjust the **Velocity** level, if she is going too quickly or too slowly.
-3. Observe the **Current Velocity Values** data to see how fast Misty is going and in what direction. The fields include information for **Linear Velocity** (straight line) and **Angular Velocity** (rotation).
 3. Use the center control to stop driving.
 
 
@@ -143,19 +141,14 @@ You can view a stream of data from Misty's four time-of-flight sensors in the AP
 ## Face Training & Recognition - BETA
 Misty's ability to recognize faces is under development. To try face training and recognition, follow these steps.
 
-1. If you are using Misty 1 Beta version, make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.
-2. Make sure that the light on Misty’s HD camera (located above her eyes on Misty I Beta) is solid blue.
-3. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png) **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/3-12-18-release-notes/307)
-![Connection failed error message](../../../assets/images/explorer-error-message.png)
-4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
-5. In the **Misty Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
-6. Position the person’s face in a well-lit area about a foot or two away from Misty’s camera.
-7. Click **Start Face Training** and wait 10-15 seconds. (There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes.)
-8. Scroll up the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
-9. Scroll back down to the **Computer Vision** section of the API Explorer and click **Start Face Recognition**. ![Face Training interface](../../../assets/images/computer_vision.png)
-10. Position the person’s face in a well-lit area front of the camera.
-11. Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
-12. When finished, click **Stop Face Recognition**.
+1. Make sure that your robot is connected to the API Explorer and that the light on Misty’s HD camera (located above her eyes on Misty I) is solid blue.
+2. In the **Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
+3. Position the person’s face in a well-lit area about a foot or two away from Misty’s camera.
+4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes.
+5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
+6. Position the person’s face in a well-lit area front of the camera.
+7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
+8. When finished, click **Stop Face Recognition**.
 
 **Note: The face detection and recognition data that Misty sends is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections).**
 
@@ -166,7 +159,7 @@ You can use the API Explorer to move Misty's head with the following controls:
 * **Set Head Position**
 * **Move Head to Location**
 
-**Note: Full control of Misty's head is currently under development.**
+**Note: Misty I only provides movement along one axis: pitch. This means that up and down motions are all that can be controlled for Misty I.**
 ![Head commands](../../../assets/images/head_commands.png)
 
 
@@ -175,23 +168,22 @@ For best control, we recommend that mapping be done at this time via the API Exp
 
 **Note: The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
-1. If you are using Misty 1 Beta version, make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.
-2. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png) **IMPORTANT: If you have a Misty I Beta version and see the following message, please confirm that you have installed** [**this or a later system update.**](https://community.mistyrobotics.com/t/3-12-18-release-notes/307)
-![Connection failed error message](../../../assets/images/explorer-error-message.png)
-3. Scroll down the API Explorer page to the **Websockets** section and click the **Open Websocket** button. ![Open Websocket button](../../../assets/images/open_websocket.png)
-4. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended.  ![I understand button](../../../assets/images/i_understand.png)
-5. Scroll down to **Misty Alpha Commands** and find the **Mapping and Exploring** section. ![Mapping controls](../../../assets/images/slam_controls.png)
-6. Click **Start Mapping**. After a few seconds, the **Pose** light should turn green. Having pose means Misty knows her location and orientation on the map, in X,Y coordinates. _If the **Pose** light STAYS red, try the following:_
+**Important: If you are using the Misty 1 Beta version (also known as "Misty 0.7"), before mapping make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.**
+
+
+1. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
+2. Scroll down to **Alpha** and find the **Mapping** section. ![Mapping controls](../../../assets/images/slam_controls.png)
+3. Click **Start Mapping**. After a few seconds, the **Pose** light should turn green. Having pose means Misty knows her location and orientation on the map, in X,Y coordinates. _If the **Pose** light STAYS red, try the following:_
    * Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you do this will vary among browsers and platforms). 
    * If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, [restart Misty](../../get-started/powering-up-down/#restarting-misty) and start these instructions over._
-7. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
-8. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you do not see pose data updating, try turning up the lights; sometimes the lighting is too low for Misty._
-9. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns red AND if the pose data stops updating, try the following:_
+4. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
+5. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you do not see pose data updating, try turning up the lights; sometimes the lighting is too low for Misty._
+6. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns red AND if the pose data stops updating, try the following:_
    * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
    * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
-10. When done driving, click **Stop**.
-11. Click **Stop Mapping**.
-12. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
+7. When done driving, click **Stop**.
+8. Click **Stop Mapping**.
+9. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
 
 
 ### Additional Mapping Tips
@@ -237,26 +229,20 @@ You can use the API Explorer to perform over-the-air (OTA) updates for Misty, in
 
 To perform an update:
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
-2. At the top of the API Explorer window, enter either the IP address of your robot (from the Info tab of the companion app) or its name and click the **Connect** button. The message "Connected successfully" should appear at the bottom of the window. ![Connect button](../../../assets/images/connect_button.png) **IMPORTANT: If you have a Misty I Beta version, you will see the following message. Ignore it and continue with the system update process.**
-![Connection failed error message](../../../assets/images/explorer-error-message.png)
-3. Scroll down to the **Misty Alpha & Beta Commands** section of the API Explorer and click **I understand...** if you have not already done so. Clicking "I understand..." indicates that you are aware that Misty's Alpha and Beta features are currently not complete and may not function as intended. ![I understand button](../../../assets/images/i_understand.png)
-4. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
+2. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
+3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
 5. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. This may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
 6. After the update has successfully downloaded, a message appears on Misty's screen, asking whether you want to update and restart Misty. To click okay, you need to do **one** of the following (instructions for both methods of completing an update follow below):
-   * **Open Misty up and plug a USB mouse into the DragonBoard 410c development board**. 
-   * **Connect to the Windows IoT Core remote server (Windows only)**. 
+   * **Plug a USB mouse into the USB port on the "backpack" of Misty I.**
+   * **Connect to the Windows IoT Core remote server (Windows only).** 
 
 
-### Completing a system update by plugging a mouse into the DragonBoard 410c development board
+### Completing a system update by plugging a USB mouse into the Misty I backpack USB port
 
-1. First, carefully slide up Misty's front panel (the black plastic panel with the LED behind the logo). **Important! Never pull the panel forward! This may result in the front mount breaking.** ![Sliding up front panel](../../../assets/images/slide_up_front_panel.jpg)
-2. Fully remove the front panel. Misty should look like this: ![No front panel](../../../assets/images/removed_front_panel.jpg)
-3. Carefully slide up the black plastic panel on Misty's left side up. **Important: Pull up, not forward. Pulling the panel forward may break the panel.** ![Sliding up the side panel](../../../assets/images/slide_up_side_panel.jpg)
-4. Fully remove the side panel. This exposes the DragonBoard 410c development board. ![No side panel](../../../assets/images/removed_side_panel.jpg)
-5. Plug a USB mouse directly into the board as shown. ![Plugging USB into the 410 board](../../../assets/images/410_plug.jpg)
-6. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
-7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
+1. Plug a USB mouse directly into the "backpack" area on Misty I.
+2. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
+3. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
+4. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
 
 
 ### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
