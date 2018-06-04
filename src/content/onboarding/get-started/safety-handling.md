@@ -7,18 +7,18 @@ order: 1
 
 # {{title}}
 
-Welcome! Your Misty I robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling Misty. 
+Welcome! Your Misty I Developer Edition Prototype robot has been hand-built by the Misty Robotics team. Please start here for some quick words of advice on handling her. 
 
 
 ## Laser Safety
 
 Misty uses a laser sensor located above her right eye to see the world.
 
-**IMPORTANT! Never look directly into the laser!**
+**IMPORTANT! Never look directly into a laser!**
 
-**Do not directly touch this sensor or remove the protective cover over this sensor. Oils on your finger can cause the laser to disperse into your eyes and CAUSE SEVERE PHYSICAL DAMAGE!**
+**Do not directly touch the laser or remove the protective cover over this sensor. Oils on your finger can cause the laser to disperse into your eyes and CAUSE SEVERE PHYSICAL DAMAGE!**
 
-![Misty laser warning](../../../assets/images/do_not_touch.png)
+![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
 
 ## Fire Safety
@@ -36,6 +36,6 @@ Misty uses a laser sensor located above her right eye to see the world.
 
 ## Handling Misty
 
-While future versions of Misty will be much tougher, it’s important that you handle your Misty I Developer Edition robot with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
+While future versions of Misty will be much tougher, it’s important that you handle your Misty I Developer Edition Prototype robot with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
 
 **Note: If you are powering up Misty on a table top, it’s a good idea to use the small cardboard box that came in Misty’s packaging as a stand.** Simply place the box under Misty, between her tracks. When Misty’s movement is activated, Misty’s tracks will move freely, but she will stay safely in place.
