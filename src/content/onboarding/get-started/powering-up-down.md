@@ -28,5 +28,5 @@ Just turn off the power switch on Misty’s back.
 
 **Note: There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts she abruptly powers down.**
 
-**Note: At this time, updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.**
+**Note: At this time, critical updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.**
 
