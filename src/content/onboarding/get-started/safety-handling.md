@@ -14,9 +14,7 @@ Welcome! Your Misty I Developer Edition Prototype robot has been hand-built by t
 
 Misty uses a laser sensor located above her right eye to see the world.
 
-**IMPORTANT! Never look directly into a laser!**
-
-**Do not directly touch the laser or remove the protective cover over this sensor. Oils on your finger can cause the laser to disperse into your eyes and CAUSE SEVERE PHYSICAL DAMAGE!**
+Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage.
 
 ![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
