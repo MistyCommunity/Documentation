@@ -36,7 +36,7 @@ The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi co
 ## Updating Misty
 The **Settings** screen provides a way for you to easily start an update to Misty's system software.
 
-Alternately, you can use the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates) to start a system update or you can perform a [manual update](../../get-started/system-updates). **Note: The manual update process is not typically recommended, but is available if needed.**
+Alternately, you can use the [API Explorer](../api-explorer/#system-updates) to start a system update or you can perform a [manual update](../../get-started/system-updates). **Note: The manual update process is not typically recommended, but is available if needed.**
 
 1. Before updating Misty, make sure your robot is plugged into a power source.
 2. To update Misty, select the **Settings** icon from the bottom of the **Home** screen. ![Companion App home screen](../../../assets/images/companion_app_home.png)
