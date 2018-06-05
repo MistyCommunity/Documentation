@@ -16,7 +16,7 @@ The Misty Companion app allows you to set up Bluetooth and Wi-Fi connections to 
 ## Connecting Misty to Bluetooth and Wi-Fi
 The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi. Note that Misty supports both 2.4 GHz and 5 GHz Wi-Fi networks.
 
-1. Power up your Misty robot and wait for her eyes to appear.
+1. [Power up](/onboarding/get-started/powering-up-down) your Misty robot and wait for her eyes to appear.
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.
 3. Download the Misty Companion app. If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you prefer.
 4. Open the Misty Companion app and log in or sign up for a new account.  ![Companion App signup screen](../../../assets/images/companion_app_signup.png)
@@ -36,7 +36,7 @@ The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi co
 ## Updating Misty
 The **Settings** screen provides a way for you to easily start an update to Misty's system software.
 
-Alternately, you can use the API Explorer to start a system update or you can perform a manual update. **Note: The manual update process is not typically recommended, but is available if needed.**
+Alternately, you can use the API Explorer to start an over-the-air (OTA) system update or you can perform a manual update. **Note: The manual update process is not typically recommended, but is available if needed.**
 
 1. Before updating Misty, make sure your robot is plugged into a power source.
 2. To update Misty, select the **Settings** icon from the bottom of the **Home** screen. ![Companion App home screen](../../../assets/images/companion_app_home_3.png)
