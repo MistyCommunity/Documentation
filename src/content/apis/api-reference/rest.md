@@ -168,7 +168,7 @@ Want Misty to say something different or play a special tune when she recognizes
 
 
 ### PlayAudioClip
-Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
+Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
 Endpoint: POST api/audio/play
 
@@ -185,6 +185,21 @@ Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
+### GetListOfAudioClips
+Obtains a list of the default system audio clips currently stored on Misty.
+
+Endpoint: GET api/audio/clips
+
+Parameters
+- None
+
+Return Values
+* Result (array) - Returns an array of audio clip information. Each item in the array contains the following:
+   * Name (string) - The name of the audio clip.
+   * Duration (double) - The length of time the audio clip plays.
+   * Location (string) - The location of the clip in the file directory.
+
+
 ### GetListOfAudioFiles
 Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
@@ -196,8 +211,8 @@ Parameters
 Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
+   * Duration (double) - The length of time the audio file plays.
    * Location (string) - The location of the file in the file directory.
-   * Duration (double) - The length of time the audio file will play.
    * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
 
 
@@ -225,26 +240,6 @@ Return Values
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
-
-
-### DeleteAudioAssetFromRobot
-Enables you to remove an audio file from Misty that you have previously uploaded.
-
-**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
-
-Endpoint: POST api/audio/delete
-
-```json
-    {
-      "FileName": "ExampleSong.wav"
-    }
-```
-
-Parameters
-* FileName (string) - The name of the file to delete, including its file type extension.
-
-Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Locomotion
@@ -346,6 +341,21 @@ Return Values
 
 ## Information
 
+### GetAvailableWifiNetworks
+Obtains a list of local WiFi networks and basic information regarding each.
+
+Endpoint: GET api/info/wifi
+
+Parameters
+- None
+
+Return Values
+* Result (array) - An array containing one element for each WiFi network discovered. Each element contains the following:
+   * Name (string) - The name of the WiFi network.
+   * SignalStrength (integer) - A numeric value for the strength of the network.
+   * IsSecure (boolean) - True if the network is secure. Otherwise, false.
+
+
 ### GetBatteryLevel
 Obtains Misty's current battery level.
 
@@ -355,7 +365,7 @@ Parameters
 - None
 
 Return Values
-* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+* Result (double) - A value between 0 and 100 corresponding to the current battery level.
 
 
 ### GetDeviceInformation
@@ -375,6 +385,7 @@ Return Values
    * Output Capabilities (array) - an array listing the output capabilities of the robot.
    * Sensor Capabilities (array) - an array listing the sensor capabilities.
 
+
 ### GetHelp
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
@@ -393,9 +404,21 @@ Return Values
 * Result (string) - A string containing the requested help information.
 
 
+### GetLogFile
+Obtains the content of the robot's available log files for the last 7 days.
+
+Endpoint: GET api/info/logs
+
+Parameters
+- None
+
+Return Values
+* Result (array) - An array of log data, containing one item for each log found. Each item in the array contains the log name, its content, and its file path.
+
+
 ## Configuration
 
-###  ConnectWiFi
+###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
 Endpoint: POST api/wifi
@@ -415,6 +438,28 @@ Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
+## Beta - Audio
+
+### DeleteAudioAssetFromRobot
+Enables you to remove an audio file from Misty that you have previously uploaded.
+
+**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
+
+Endpoint: POST api/beta/audio/delete
+
+```json
+    {
+      "FileName": "ExampleSong.wav"
+    }
+```
+
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ## Beta - Faces
 
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
@@ -429,7 +474,7 @@ Initiates Misty's detection of faces in her line of vision. This command assigns
 
 When you are done having Misty detect faces, call StopFaceDetection.
 
-Endpoint: POST api/faces/detection/start
+Endpoint: POST api/beta/faces/detection/start
 
 Parameters
 - None
@@ -443,7 +488,7 @@ Trains Misty to recognize a specific face and applies a user-assigned ID to that
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
-Endpoint: POST api/faces/training/start
+Endpoint: POST api/beta/faces/training/start
 
 ```json
 {
@@ -463,7 +508,7 @@ Directs Misty to recognize a face she sees, if it is among those she alerady kno
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
-Endpoint: POST api/faces/recognition/start
+Endpoint: POST api/beta/faces/recognition/start
 
 Parameters
 - None
@@ -475,7 +520,7 @@ Return Values
 ### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
-Endpoint: POST api/faces/detection/stop
+Endpoint: POST api/beta/faces/detection/stop
 
 Parameters
 - None
@@ -487,7 +532,7 @@ Return Values
 ### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
-Endpoint: POST api/face/training/cancel
+Endpoint: POST api/beta/faces/training/cancel
 
 Parameters
 - None
@@ -499,7 +544,7 @@ Return Values
 ### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
-Endpoint: POST api/faces/recognition/stop
+Endpoint: POST api/beta/faces/recognition/stop
 
 Parameters
 - None
@@ -515,7 +560,7 @@ Misty's ability to accurately position her head is currently under development.
 ### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
 
-Endpoint: POST api/head/move
+Endpoint: POST api/beta/head/move
 
 ```json
 {
@@ -535,30 +580,10 @@ Parameters
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
 
-### MoveHeadToLocation - BETA
-Moves Misty's head to a specified up-down or left-right location.
-
-Endpoint: POST api/head/location
-
-```json
-{
-  "Location": "left",
-  "Velocity": 6
-}
-```
-
-Parameters
-- Location (string) - "left", "right", "down" or "up".
-- Velocity (double) - The speed at which to move the head. Value range: 0 to 10.
-
-Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
-
-
 ### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
-Endpoint: POST api/head/position
+Endpoint: POST api/beta/head/position
 
 ```json
 {   
@@ -606,7 +631,7 @@ Return Values
 ### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
-Endpoint: GET api/slam/status
+Endpoint: GET api/alpha/slam/status
 
 ```c#
 public enum SlamSensorStatus
@@ -647,7 +672,7 @@ Example: If Misty is both exploring and recording, then bits 2 and 4 would be se
 ### SlamReset - ALPHA
 Resets the SLAM sensors.
 
-Endpoint: POST api/slam/reset
+Endpoint: POST api/alpha/slam/reset
 
 Parameters
 - None
@@ -659,7 +684,7 @@ Return Values
 ### SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
-Endpoint: POST api/slam/map/start
+Endpoint: POST api/alpha/slam/map/start
 
 Parameters
 - None
@@ -671,7 +696,7 @@ Return Values
 ### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
-Endpoint: POST api/slam/track/start
+Endpoint: POST api/alpha/slam/track/start
 
 Parameters
 - None
@@ -683,7 +708,7 @@ Return Values
 ### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
-Endpoint: POST api/slam/map/stop
+Endpoint: POST api/alpha/slam/map/stop
 
 Parameters
 - None
@@ -695,7 +720,7 @@ Return Values
 ### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
-Endpoint: POST api/slam/track/stop
+Endpoint: POST api/alpha/slam/track/stop
 
 Parameters
 - None
@@ -707,7 +732,7 @@ Return Values
 ### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
 
-Endpoint: GET api/slam/map/smooth
+Endpoint: GET api/alpha/slam/map/smooth
 
 Parameters
 - None
@@ -724,7 +749,7 @@ Return Values
 ### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
-Endpoint: POST api/drive/path
+Endpoint: POST api/alpha/drive/path
 
 ```json
 {

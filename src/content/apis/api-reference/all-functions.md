@@ -108,17 +108,30 @@ Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
+### GetListOfAudioClips
+Obtains a list of the default system audio clips currently stored on Misty.
+
+Arguments:
+* None
+
+Returns:
+* Result (array) - Returns an array of audio clip information. Each item in the array contains the following:
+   * Name (string) - The name of the audio clip.
+   * Duration (double) - The length of time the audio clip plays.
+   * Location (string) - The location of the clip in the file directory.
+
+
 ### GetListOfAudioFiles
 Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
 Arguments:
 * None
 
-Return:
+Returns:
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * Location (string) - The location of the file in the file directory.
    * Duration (double) - The length of time the audio file will play.
+   * Location (string) - The location of the file in the file directory.
    * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
 
 
@@ -135,18 +148,6 @@ Returns:
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * Location (string) - The full path of the location of where the file is located on the robot's file system.
-
-
-### DeleteAudioAssetFromRobot
-Enables you to remove an audio file from Misty that you have previously uploaded.
-
-**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
-
-Arguments:
-* FileName (string) - The name of the file to delete, including its file type extension.
-
-Returns:
-* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ## Locomotion
@@ -225,6 +226,19 @@ Returns:
 
 ## Information
 
+### GetAvailableWifiNetworks
+Obtains a list of local WiFi networks and basic information regarding each.
+
+Arguments:
+* None
+
+Returns:
+* Result (array) - An array containing one element for each WiFi network discovered. Each element contains the following:
+   * Name (string) - The name of the WiFi network.
+   * SignalStrength (integer) - A numeric value for the strength of the network.
+   * IsSecure (boolean) - True if the network is secure. Otherwise, false.
+
+
 ### GetBatteryLevel
 Obtains Misty's current battery level.
 
@@ -263,7 +277,7 @@ Returns:
 
 ## Configuration
 
-### ConnectWiFi
+### SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
 Arguments:
@@ -272,6 +286,20 @@ Arguments:
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
+
+
+## Beta - Audio
+
+### DeleteAudioAssetFromRobot - BETA
+Enables you to remove an audio file from Misty that you have previously uploaded.
+
+**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
+
+Arguments:
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ## Beta - Faces
@@ -360,17 +388,6 @@ Arguments:
 * Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
 * Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
 * Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
-
-Returns:
-* Result (boolean) - Returns true if there are no errors related to this command.
-
-
-### MoveHeadToLocation - BETA
-Moves Misty's head to a specified up-down or left-right location.
-
-Arguments:
-* Location (string) - "left", "right", "down" or "up".
-* Velocity (double) - The speed at which to move the head. Value range: 0 to 10.
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
