@@ -1,12 +1,9 @@
 .search {
   display: inline-block;
-  width: 290px;
+  width: 330px;
   position: relative;
-  border-right: 1px solid @light-gray;
-  margin-right: 11px;
-  margin-top: 10px;
+  margin-right: 10px;
   vertical-align: top;
-  padding-right: 22px;
   @media(max-width: @medium-size) {
     display: none;
   }
@@ -18,7 +15,6 @@
   }
   .search-input-wrapper {
     position: relative;
-    display: none; // TO-DO: turn this back on when wew get search working again //
   }
   input {
     -webkit-border-radius: 4px;
@@ -178,4 +174,19 @@
       margin-left: -8px;
     }
   }
+}
+.gsc-control-cse {
+    font-family: Basis-Grotesque-Regular,sans-serif !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
+input.gsc-input {
+    font-size: 14px !important;
+    font-family: Basis-Grotesque-Regular,sans-serif !important;
+}
+.gsst_a {
+    display: none !important;
+}
+.gsc-results-wrapper-overlay {
+    top: 70px !important;
 }

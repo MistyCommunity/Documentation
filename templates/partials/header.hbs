@@ -55,14 +55,14 @@
   </div>
 
   <div class="header__nav font-bgr">
-    <a href="https://www.mistyrobotics.com/misty-and-you/" class="header__nav__item lnk:blk txt:bld">Misty &amp; You</a>
+    <a href="https://www.mistyrobotics.com/" class="header__nav__item lnk:blk txt:bld">Misty &amp; You</a>
     <div class="header__nav__dropdown header__nav__item">
       <a href="https://www.mistyrobotics.com/robots" class="header__nav__item header__nav__dropdown__item lnk:blk txt:bld" style="padding-right: 0">Robots</a>
       <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20"><g id="Nav" transform="translate(47.000000, 29.000000)"><g id="Arrow-white" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)"><polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline></g></g></g></g></svg>
       <div class="header__nav__dropdown__items">
         <a class="txt:bld" href="https://www.mistyrobotics.com/robots/">Overview</a>
         <a class="txt:bld" href="https://www.mistyrobotics.com/robots/misty-ii">Misty II</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/robots/misty-developer-edition-robot">Misty I</a>
+        <a class="txt:bld" href="https://www.mistyrobotics.com/robots/tools">Misty I</a>
         <a class="txt:bld" href="https://www.mistyrobotics.com/robots/roadmap">Feature Roadmap</a>
       </div>
     </div>
@@ -71,14 +71,14 @@
       <a href="https://www.mistyrobotics.com/develop/" class="header__nav__item header__nav__dropdown__item lnk:blk txt:bld" style="padding-right: 0">Develop</a>
       <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20"><g id="Nav" transform="translate(47.000000, 29.000000)"><g id="Arrow-white" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)"><polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline></g></g></g></g></svg>
       <div class="header__nav__dropdown__items">
-        <a class="txt:bld" href="https://www.mistyrobotics.com/develop/">Overview</a>
+        <a class="txt:bld" href="https://www.mistyrobotics.com/developers/">Overview</a>
         <a class="txt:bld" href="https://docs.mistyrobotics.com">Documentation</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/develop/tools">Tools</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/develop/apply">Developer Program</a>
+        <a class="txt:bld" href="https://www.mistyrobotics.com/developers/tools">Tools</a>
+        <a class="txt:bld" href="https://www.mistyrobotics.com/developers/apply">Developer Program</a>
       </div>
     </div>
     <a href="https://www.mistyrobotics.com/about" class="header__nav__item lnk:blk txt:bld">Story</a>
-    <a href="https://www.mistyrobotics.com/join-us/" class="header__nav__item lnk:underline:blue lnk:blk txt:bld">Join Us</a>
+    <a class="button button--white" href="https://www.mistyrobotics.com/#get-misty">Buy Misty II</a>
   </div>
 
   <div class="header__nav__mobile__toggle" onclick="toggleMobileMenu();">
@@ -108,21 +108,33 @@
 
   <div class="header__nav__mobile font-bgr">
     <div class="header__nav__mobile__items">
-      <a href="https://www.mistyrobotics.com/" class="header__nav__item b-top lnk:blk txt:bld">Misty &amp; You</a>
-      <a href="https://www.mistyrobotics.com/robots" class="header__nav__item lnk:blk txt:bld">Robots</a>
-      <a href="https://community.mistyrobotics.com" class="header__nav__item lnk:blk txt:bld">Community</a>
-      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onclick="expandMobileSubmenu();">
-        Developers
+      <a href="/misty-and-you" class="header__nav__item lnk:blk txt:bld">Misty &amp; You</a>
+
+      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onClick="expandMobileSubmenu(this);">
+        Robots
         <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20"><g id="Nav" transform="translate(47.000000, 29.000000)"><g id="Arrow-black" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)"><polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline></g></g></g></g></svg>
       </div>
-      <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/developers/">Overview</a>
-      <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://docs.mistyrobotics.com">Documentation</a>
-      <!--<a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/developers/tools">Tools</a>-->
-      <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/developers/apply">Developer Program</a>
+      <div>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/robots">Overview</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/robots/misty-ii">Misty II</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/robots/misty-developer-edition-robot">Misty I</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/robots/roadmap">Feature Roadmap</a>
+      </div>
+      <a href="https://community.mistyrobotics.com/" class="header__nav__item lnk:blk txt:bld">Community</a>
+      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onClick="expandMobileSubmenu(this);">
+        Develop
+        <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20"><g id="Nav" transform="translate(47.000000, 29.000000)"><g id="Arrow-black" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)"><polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline></g></g></g></g></svg>
+      </div>
+      <div>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/develop">Overview</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://docs.mistyrobotics.com/">Documentation</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/develop/tools">Tools</a>
+        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="/develop/apply">Developer Program</a>
+      </div>
     </div>
-    <a href="https://www.mistyrobotics.com/about" class="header__nav__item lnk:blk txt:bld">Story</a>
+    <a href="/about" class="header__nav__item lnk:blk txt:bld">Story</a>
     <div class="join-us">
-      <a href="https://www.mistyrobotics.com/join-us/" class="button button--blue">Join Us</a>
+      <a class="button button--blue" href="/#get-misty">Buy Misty II</a>
     </div>
   </div>
 </div>
@@ -163,12 +175,18 @@
   <div class='right'>
 
     <div class="search">
-      <div class="search-input-wrapper">
-        <i class="ion-search"></i>
-        <input class="search-box" type="text" placeholder='Search' value=''/>
-      </div>
-      <div class="search-results">
-      </div>
+    <script>
+    (function() {
+    var cx = '014945497241124034294:fhxe4nbka_w';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+    })();
+    </script>
+    <gcse:search></gcse:search>
     </div>
 
     <a href='{{edit-link branch path.href path.name}}' class="nav" target="_blank"><i class="ion-edit"></i>Edit</a>

@@ -345,7 +345,7 @@ a.nav-device {
 .header--white {
   color: #fff;
   background: #6600ED;
-  padding-top:2px;
+  padding-top:1px;
 }
 
 .header--white a.header__nav__item {
@@ -384,7 +384,7 @@ a.nav-device {
 }
 
 .header .header__nav__item {
-  padding: 10px 31px 10px 0;
+  padding: 10px 30.5px 10px 0;
   display: inline-block;
 }
 
@@ -456,6 +456,7 @@ a.lnk\:blk {
   .header__nav {
     display: initial;
     padding-bottom:10px;
+    padding-top:3px;
   }
   .header .header__logo svg {
     margin-top: 0;
@@ -598,8 +599,18 @@ a.lnk\:blk {
 }
 
 .button--blue {
-  background: #6600ed;
+  background: #6600ed !important;
   color: #fff !important;
+  text-transform:none;
+  font-weight:400;
+  letter-spacing: 0;
+  padding: 15px 3.5px 16px !important;
+  transition: border 400ms ease, background-color 400ms ease, color 400ms ease;
+}
+.header .button--blue:hover {
+    background: #fff !important;
+    color: #6600ed !important;
+    border: 2px solid #6600ed !important;
 }
 
 .button {
@@ -607,7 +618,7 @@ a.lnk\:blk {
   border-radius: 100px;
   font-size: 16px;
   padding: 20px 40px 21px 40px;
-  border: 2px solid transparent;
+  border: 2px solid transparent !important;
   transition: border .4s ease, background-color .4s ease, color .4s ease;
   min-width: 160px;
   text-align: center;
@@ -615,6 +626,21 @@ a.lnk\:blk {
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.header .button--white {
+    background: #fff !important;
+    color: #6600ED;
+    text-transform:none;
+    font-weight:400;
+    letter-spacing: 0;
+    padding: 15px 3.5px 16px;
+    margin-right: 50px;
+    transition: border 400ms ease, background-color 400ms ease, color 400ms ease;
+}
+.header .button--white:hover {
+    background: #6600ED !important;
+    color: #fff;
+    border: 2px solid #fff !important;
 }
 
 @media screen and (max-width: 320px) {
