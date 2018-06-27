@@ -12,7 +12,7 @@ When you use the API Explorer in your browser, you can use Misty's API endpoints
 **Note: It's not generally recommended for multiple users to each use a separate instance of the API Explorer to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
 
 ## Setting up the API Explorer
-As with the companion app and Blockly, when using the API Explorer, make sure your computer and Misty are on the same Wi-Fi network and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
+As with the companion app and Blockly, when using the API Explorer, **make sure your computer and Misty are on the same Wi-Fi network** and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
 
 1. [Open up the API Explorer](http://api-explorer.mistyrobotics.com) in a browser window. The API Explorer should look like the screenshot above.
 2. Enter the IP address of your robot from the Info tab of the companion app and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
@@ -163,61 +163,68 @@ You can use the API Explorer to move Misty's head with the following controls:
 ![Head commands](../../../assets/images/head_commands.png)
 
 
-## Mapping - ALPHA
-For best control, we recommend that mapping be done at this time via the API Explorer instead of with Blockly or the companion app.
+## Mapping & Tracking - ALPHA
 
-**Note: The software that runs the Occipital sensor for mapping is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
+Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
 
-**Important: If you are using the Misty 1 Beta version (also known as "Misty 0.7"), before mapping make sure the Intrinsyc Open-Q 820 Development Kit board mounted on Misty’s right side is on.**
+**Note: The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
+**Note: Misty's coordinate system is currently inverted (X is vertical, Y is horizontal).**
+
+
+### Obtaining Pose
+Before attempting to map or track, you must obtain pose.
 
 1. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
-2. Scroll down to **Alpha** and find the **Mapping** section. ![Mapping controls](../../../assets/images/slam_controls.png)
-3. Click **Start Mapping**. After a few seconds, the **Pose** light should turn green. Having pose means Misty knows her location and orientation on the map, in X,Y coordinates. _If the **Pose** light STAYS red, try the following:_
-   * Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you do this will vary among browsers and platforms). 
-   * If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, [restart Misty](../../get-started/powering-up-down/#restarting-misty) and start these instructions over._
-4. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
-5. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you do not see pose data updating, try turning up the lights; sometimes the lighting is too low for Misty._
-6. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns red AND if the pose data stops updating, try the following:_
-   * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
-   * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
-7. When done driving, click **Stop**.
-8. Click **Stop Mapping**.
-9. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
+2. Ensure Misty is in a well-lit (not dark) environment.
+3. Scroll down to **Alpha** and find the **Mapping and Exploring** section. ![Mapping controls](../../../assets/images/slam_controls.png)
+4. Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you open the console varies among browsers and platforms). 
+5. If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, [restart Misty](../../get-started/powering-up-down/#restarting-misty) and start these instructions over._
+6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
+  * Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
+  * Increase the lighting.
+  * Confirm that Misty has not lost her Wi-Fi or Bluetooth connection. To do this, open Misty's companion app. If she has lost Bluetooth, the app will ask you to reconnect.
 
 
-### Additional Mapping Tips
-Having mapping issues? Try these tips:
+### Mapping
+When mapping, drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness. When possible, making wider turns also improves mapping results.
 
-* If you do not see pose data updating, it is possible the lighting is too low for Misty.
-* Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
-* Drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness.
-* Make wider turns (in arcs) to improve mapping results.
-* If Misty loses pose after generating a map, she will need to generate a new map and start over.
-* Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
-* Mapping coordinates are currently inverted (X is vertical, Y is horizontal).
-* Confirm that Misty has not lost her Wi-Fi or Bluetooth connection while mapping. To do this, open Misty's companion app. If she has lost Bluetooth, the two dots disappear from the companion app’s Bluetooth icon. If she has lost her connection, close the companion app and restart it, then reconnect as before.
+**Note: Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.**
+
+**Note: If Misty loses pose after generating a map, she will need to generate a new map and start over.**
+
+1. Follow the above instructions to obtain pose.
+2. Click **Start Mapping**. After a few seconds, the **Pose** light should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
+3. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
+4. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you have pose, but do not see pose data updating, try turning up the lights._
+5. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red AND if the pose data stops updating, try the following:_
+    * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
+    * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
+6. When done driving, click **Stop**.
+7. Click **Stop Mapping**.
+8. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
 
 
-## Tracking & Following a Path - ALPHA
-Once you've generated a map, you can:
-* Try out Misty's ability to track where she is on the map.
-* Have Misty follow a path from X,Y coordinates on the map.
- ![Tracking and Path controls](../../../assets/images/track_path.png)
+### Tracking & Following a Path - ALPHA
+You can have Misty track where she is on a map that she has already created or track without a map.
 
-### Tracking
-1. Once you have successfully generated a map, click **Start Tracking** and begin driving Misty. Activating tracking should provide data in the Pose fields for where Misty is on the map you generated.
-2. Observe the Pose fields as Misty moves to ensure she is successfully tracking. If the Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
-3. Click **Stop Tracking**.
+You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated. ![Tracking and Path controls](../../../assets/images/track_path.png)
 
-### Following a Path
-You can have Misty follow a set path by giving her X,Y map data from a map she has previously generated.
-* You can supply X,Y values and click the **Add Waypoint** button to add individual waypoints to a path.
-* Use the field above the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**.
+To track:
+1. Follow the above instructions to obtain pose.
+2. Click **Start Tracking** and begin driving Misty. Activating tracking should provide data in the Pose fields for where Misty is on the map you generated. If you have not previously generated a map, Misty sets her beginning tracking position as 0,0.
+3. Observe the Pose fields as Misty moves to ensure she is successfully tracking. If the Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
+4. Click **Stop Tracking**.
+
+To follow a path on a map:
+1. Ensure that Misty still has pose.
+2. Either:
+  * Supply X,Y values and click the **Add Waypoint** button to add individual waypoints to a path.
+  * Use the field next to the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**.
 
 
 ## System Updates
-You can use the API Explorer to perform over-the-air (OTA) updates for Misty, including:
+You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. Updates can include:
 
 * Image assets
 * Sound assets
@@ -231,28 +238,6 @@ To perform an update:
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
 2. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
 3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
-5. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. This may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
-6. After the update has successfully downloaded, a message appears on Misty's screen, asking whether you want to update and restart Misty. To click okay, you need to do **one** of the following (instructions for both methods of completing an update follow below):
-   * **Plug a USB mouse into the USB port on the "backpack" of Misty I.**
-   * **Connect to the Windows IoT Core remote server (Windows only).** 
-
-
-### Completing a system update by plugging a USB mouse into the Misty I backpack USB port
-
-1. Plug a USB mouse directly into the "backpack" area on Misty I.
-2. Once you have connected the mouse to Misty, click **Okay** on the message on her screen that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
-3. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-4. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds. **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
-
-
-### Completing a system update by connecting to the Windows IoT Core remote server (Windows only)
-
-1. Open your browser and navigate to the **Remote Settings** tab in the Windows IoT Core device portal at: ```http://<IP address of your robot>:8080/#Remote```
-2. Enter a username and password. The default administrator username is _administrator_. The default password is _p@ssw0rd_. **Note: You should change these credentials to improve the security of your Misty robot.**
-3. Click the **Enable Windows IoT Remote Server checkbox**. ![Enable Windows IoT Remote Server checkbox](../../../assets/images/enable_windows.png)
-4. [Download the Windows IoT Remote Client app](https://www.microsoft.com/store/apps/9nblggh5mnxz) and install it.
-5. Open up the Windows IoT Remote Client app, enter the IP address of your robot, and click **Connect**. ![Windows IoT connection dialog](../../../assets/images/connect_iot.png)
-6. You should now see the same content that is visible on Misty’s screen.  Click **Okay** on the message that asks you to update and restart. ![Update message](../../../assets/images/update_message.png)
-7. Misty will restart, and the Misty Robotics logo will appear. Misty's eyes may briefly display before they are replaced by an **Updating...** image. **Note: The update process may take up to a half hour.** ![Updating screen](../../../assets/images/updating.png)
-8. If the update is successful, Misty will play a cheerful sound and her eyes will appear happy for two seconds, before changing back to their default appearance. If the update failed, Misty plays a sad sound and her eyes appear sad for two seconds.  **Note: If the update fails, please reach out for assistance on any of the Misty Robotics support channels. You can also try to perform an update [manually](../../get-started/system-updates).**
+4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
+5. The update process may take up to a half hour total, during which time Misty restarts _twice_. **The update process is not complete until you see Misty's happy eyes appear.**  ![Happy eyes](../../../assets/images/happy.png)
 

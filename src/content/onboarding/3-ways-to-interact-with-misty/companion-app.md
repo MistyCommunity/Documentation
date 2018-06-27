@@ -10,7 +10,7 @@ The Misty Companion app allows you to set up Bluetooth and Wi-Fi connections to 
  
 **Note:** It's not generally recommended for multiple users to each use a separate instance of the Misty Companion app to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, they will need to take turns sending commands, or Misty may appear to respond unpredictably.
 
-**Important!** When using the companion app, you should connect Misty to **both** Bluetooth and Wi-Fi. Keep reading for connection instructions.
+**Important!** When using the companion app, **make sure your phone and Misty are on the same Wi-Fi network**.
 
 
 ## Connecting Misty to Bluetooth and Wi-Fi
@@ -21,7 +21,7 @@ The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi. 
 3. Download the Misty Companion app. If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you prefer.
 4. Open the Misty Companion app and log in or sign up for a new account.  ![Companion App signup screen](../../../assets/images/companion_app_signup.png)
 5. Once you've logged in, connect the app to Misty via Bluetooth by gently tapping or holding your device close to Misty when this screen appears. ![Companion App Bluetooth connection screen](../../../assets/images/companion_app_bluetooth.png)
-6. If the Bluetooth connection succeeds, the app displays a list of Wi-Fi networks. Select the same network for Misty that your phone is currently connected to, enter the password, and hit **Return**. ![Companion App Wifi connection screen](../../../assets/images/companion_app_wifi.png)
+6. If the Bluetooth connection succeeds, the app displays a list of Wi-Fi networks. Select **the same network for Misty that your phone is connected to**, enter the password, and hit **Return**. ![Companion App Wifi connection screen](../../../assets/images/companion_app_wifi.png)
 7. If the Bluetooth or Wi-Fi connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. ![Companion App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
 8. Once the Wi-Fi connection succeeds, you should see the Misty Companion app **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. **Note: You will need the IP address to use Misty with Blockly and the API Explorer.** ![Companion App home screen](../../../assets/images/companion_app_home_1.png)
 
@@ -34,15 +34,22 @@ The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi co
 
 
 ## Updating Misty
-The **Settings** screen provides a way for you to easily start an update to Misty's system software.
+The **Settings** screen provides a way for you to easily start an update to Misty's system software. We recommend you check for updates weekly. Updates can include:
 
-Alternately, you can use the [API Explorer](/onboarding/3-ways-to-interact-with-misty/api-explorer/#system-updates) to start an over-the-air (OTA) system update or you can perform a [manual update](/onboarding/get-started/system-updates). **Note: The manual update process is not typically recommended, but is available if needed.**
+* Image assets
+* Sound assets
+* Motor controller firmware
+* Real-time controller firmware 
+* Occipital Structure Core depth sensor firmware
+* Home Robot application (running on Windows IoT Core)
+* Sensory Services application (running on Android)
 
 1. Before updating Misty, make sure your robot is plugged into a power source.
 2. To update Misty, select the **Settings** icon from the bottom of the **Home** screen. ![Companion App home screen](../../../assets/images/companion_app_home_3.png)
 3. Press the words **Software Update** to start the update process. ![Companion App Settings screen](../../../assets/images/companion_app_settings.jpg)
 4. Because downloading and installing a system update may take from several minutes to an hour, you must confirm that you want to start the update process at this time. Press **Yes** to start the update process. **Note: During the download and update, Misty is still functional, however driving Misty is NOT recommended during this process.** ![Companion App confirm update notification](../../../assets/images/companion_app_update_confirmation.jpg)
-5. Because updating Misty causes her to lose her Bluetooth connection, you will need to reconnect Misty to Bluetooth when her update is complete.
+5. During the update process, Misty restarts _twice_. **The update is not complete until you see Misty's happy eyes appear.**  ![Happy eyes](../../../assets/images/happy.png)
+6. Because updating Misty causes her to lose her Bluetooth connection, you must reconnect Misty to Bluetooth when her update is complete.
 
 
 ## Driving Misty with the Companion App
