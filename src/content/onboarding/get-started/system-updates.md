@@ -7,7 +7,7 @@ order: 4
 
 # {{title}}
 
-You can perform OTA (over the air) updates for Misty by using the [Misty Companion app](../../3-ways-to-interact-with-misty/companion-app/#updating-misty) or [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates).
+Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the [Misty Companion app](../../3-ways-to-interact-with-misty/companion-app/#updating-misty) or [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates).
 
 Updates can include:
 

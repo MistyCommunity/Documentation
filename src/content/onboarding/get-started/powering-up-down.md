@@ -17,7 +17,7 @@ order: 4
 6. Plug the white connectors together. ![white battery connectors](../../../assets/images/5_white_connectors.jpg)
 7. Gently make sure the battery and connectors are inserted into Misty. ![reinserting the battery](../../../assets/images/6_push_battery.jpg)
 8. Replace the right plastic wing and reattach Misty's chest plate.
-9. Plug the power adaptor into the back of Misty and into a power source. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
+9. Plug the power adaptor into the back of Misty and into a power source. If the number on the battery charge indicator does not increase, unplug and replug the adaptor from Misty's power port. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
 
 
 ## Turning Misty On
@@ -34,6 +34,9 @@ order: 4
 2. Wait 10 seconds.
 3. Turn on the power switch on Misty's back again.
 4. Once you see the blue LED light and Misty's eyes fully re-open, you're ready.
+
+**Note: If Misty is charging during a restart, after she has fully restarted you must unplug the adaptor from the power port on her back, then plug it back in again for charging to continue.**
+
 
 ## Turning Misty Off
 
