@@ -9,22 +9,20 @@ order: 6
 
 Misty's a pretty capable robot on her own, but the exciting part of working with Misty is seeing her run the skills you create for her. Check out the Misty Community [GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills (including a fun [Python-based skill](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python/samples/mistyvoice) that gives Misty a voice using the Google Text-to-Speech API).
 
-Creating your own skill for Misty typically involves two things: sending commands to Misty using her API and getting data back from Misty via WebSocket connections. This topic walks you through both sides of this process.
+Creating your own skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
 
-## Using WebSocket Connections
+## Getting Data from Misty
 
 A WebSocket connection provides a live, continuously updating stream of data from Misty. When you subscribe to a WebSocket, you can get data for your robot ranging from distance information to face detection events to movement and more.
 
-The easiest way to see WebSocket data directly is with the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket). When you connect the API Explorer to your robot and subscribe to a WebSocket, you can see the data in your browser's JavaScript console.
-
-To use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight).
+You can directly observe WebSocket data in your browser's JavaScript console, by connecting your robot to the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket), but to use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight).
 
 To subscribe to a WebSocket data stream, you must first open the WebSocket, then send a message to specify the exact data you want to receive. For some WebSocket data, you must also send a REST command to the robot so it starts generating the data. For the time-of-flight sensor data that the `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) uses, sending a REST command is not required, because Misty's time-of-flight sensors are always on.
 
 
 ### Subscribing & Unsubscribing to a WebSocket
 
-The first thing the sample does is to construct the message that subscribes to the exact data we want. The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
+The first thing the `tofApp.js` sample does is to construct the message that subscribes to the exact WebSocket data we want. The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
 * ```TimeOfFlight```
 * ```FaceDetection```
 * ```FaceRecognition```
@@ -37,7 +35,7 @@ The optional `DebounceMs` value specifies how frequently the data is sent. If yo
 
 The `EventName` property is a name you specify for how your code will refer to this particular WebSocket instance. `Message` and `ReturnProperty` are also optional values. 
 
-For time-of-flight subscriptions, you must also include `EventConditions`. These specify the location of the time of flight sensor being accessed by changing `Value` to "Right", "Center", "Left", or “Back”. This sample code subscribes to the center time-of-flight sensor only.
+For time-of-flight subscriptions, you must also include `EventConditions`. These specify the location of the time of flight sensor being accessed by changing `Value` to `Right`, `Center`, `Left`, or `Back`. This sample code subscribes to the center time-of-flight sensor only.
 
 After creating the `subscribe` message, the sample also creates an `unsubscribe` message. When it's no longer needed, unsubscribing from a WebSocket data stream is a good practice to avoid creating performance issues. The `unsubscribe` message will be sent when the skill is done using the data.
 
@@ -75,9 +73,9 @@ var unsubMsg = JSON.stringify(unsubscribeMsg);
 
 After constructing the messages, they are formatted as JSON objects, so they are ready to send once the WebSocket is open.
 
-### Opening a WebSocket
+### Opening & Closing a WebSocket
 
-The `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted “subscribe” message.
+Having constucted the `subscribe` and `unsubscribe` messages, the `tofApp.js` sample next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted “subscribe” message.
 
 Once you've successfully subscribed to a data stream, you can use the `socket.onmessage` function to handle the data received back from the robot. In this example, we simply log the received data to the console. For a real skill, you could instead parse the event data and write a conditional function based on a particular property value to do something when a condition is met.
 
@@ -125,9 +123,9 @@ function startTimeOfFlight() {
 
 ```
 
-## WebSocket Types & Sample Data
+### WebSocket Types & Sample Data
 
-You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
+The following are Misty's available WebSocket data stream types. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
 
 ### TimeOfFlight
 
@@ -252,11 +250,24 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 ## Sending Commands to Misty
 
-While you can use a REST client such as Postman and directly send [REST](/apis/api-reference/rest) commands to Misty, we also provide a [JavaScript API](/apis/api-reference/all-functions) for this purpose.
+To send API commands to Misty in a skill, you can use the [JavaScript API](/apis/api-reference/all-functions) or this community-created [Python wrapper](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python). To experiment with the API, you can also use a REST client such as Postman and send [GET and POST](/apis/api-reference/rest) commands to Misty directly.
 
-The ```lightClient.js``` sample is a JavaScript helper [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). It lets you call  Misty's API commands simply by passing in the command name and parameters. The example function `RunMe` shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands.
+Misty's API includes commands for:
+* Display and light control
+* Audio control
+* Face detection, training, and recognition
+* Locomotion
+* Mapping
+* Head movement
+* Configuration and information
 
-The [Misty I repo](https://github.com/MistyCommunity/MistyI) contains a variety of sample skills that you can use to test and adapt into your own custom uses.
+The [Misty I GitHub repo](https://github.com/MistyCommunity/MistyI) contains a variety of sample skills that you can use to test and adapt into your own custom uses.
+
+### Calling the REST API Programmatically
+
+The ```lightClient.js``` sample is a JavaScript helper [available at the Misty I GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). It lets you call Misty's REST API simply by passing in the command name and parameters.
+
+The example function `RunMe` uses ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` API commands.
 
 ```javascript
 RunMe();
@@ -304,6 +315,6 @@ This file allows you to subscribe to and unsubscribe from Misty's WebSockets.
 
 ### MistyAjax.js
 
-A simple wrapper for Ajax ```Get``` and ```Post``` requests, this file sends Ajax calls to Misty.
+A simple wrapper for Ajax ```GET``` and ```POST``` requests, this file sends Ajax calls to Misty.
 
 
