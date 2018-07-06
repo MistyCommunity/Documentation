@@ -9,19 +9,22 @@ order: 6
 
 Misty's a pretty capable robot on her own, but the exciting part of working with Misty is seeing her run the skills you create for her. Check out the Misty Community [GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills (including a fun [Python-based skill](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python/samples/mistyvoice) that gives Misty a voice using the Google Text-to-Speech API).
 
-To create your own skill for Misty typically involves two things: sending commands to Misty and getting data back from Misty. To send commands to Misty, you call the [REST](/apis/api-reference/rest) and [JavaScript](/apis/api-reference/all-functions) APIs. To get live updating data streams from Misty, you'll need to use a WebSocket connection.
+Creating your own skill for Misty typically involves two things: sending commands to Misty using her API and getting data back from Misty via WebSocket connections. This topic walks you through both sides of this process.
 
-This topic:
-* describes the data sent by Misty's currently available WebSocket connections
-* provides examples of using simple JavaScript helpers to send commands and subscribe to Misty's WebSockets
-* presents Misty's API Explorer components as models for development
+## Using WebSocket Connections
+
+A WebSocket connection provides a live, continuously updating stream of data from Misty. When you subscribe to a WebSocket, you can get data for your robot ranging from distance information to face detection events to movement and more.
+
+The easiest way to see WebSocket data directly is with the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket). When you connect the API Explorer to your robot and subscribe to a WebSocket, you can see the data in your browser's JavaScript console.
+
+To use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight).
+
+To subscribe to a WebSocket data stream, you must first open the WebSocket, then send a message to specify the exact data you want to receive. For some WebSocket data, you must also send a REST command to the robot so it starts generating the data. For the time-of-flight sensor data that the `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) uses, sending a REST command is not required, because Misty's time-of-flight sensors are always on.
 
 
-## WebSocket Connections
+### Subscribing & Unsubscribing to a WebSocket
 
-To get streams of live data back from Misty, you can programmatically subscribe to one or more of Misty's available WebSocket connections. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
-
-Misty’s WebSocket connections include:
+The first thing the sample does is to construct the message that subscribes to the exact data we want. The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
 * ```TimeOfFlight```
 * ```FaceDetection```
 * ```FaceRecognition```
@@ -30,12 +33,107 @@ Misty’s WebSocket connections include:
 * ```SelfState```
 * ```WorldState```
 
-You can directly observe Misty's WebSocket data in the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket).
+The optional `DebounceMs` value specifies how frequently the data is sent. If you don't specify a value, by default the data is sent every 250ms. In this case, we've set it to be sent every 100ms.
+
+The `EventName` property is a name you specify for how your code will refer to this particular WebSocket instance. `Message` and `ReturnProperty` are also optional values. 
+
+For time-of-flight subscriptions, you must also include `EventConditions`. These specify the location of the time of flight sensor being accessed by changing `Value` to "Right", "Center", "Left", or “Back”. This sample code subscribes to the center time-of-flight sensor only.
+
+After creating the `subscribe` message, the sample also creates an `unsubscribe` message. When it's no longer needed, unsubscribing from a WebSocket data stream is a good practice to avoid creating performance issues. The `unsubscribe` message will be sent when the skill is done using the data.
+
+```javascript
+//Use this variable to hold the IP address for the robot.
+var ip = "00.0.0.000";
+
+//Create a message to subscribe to the desired WebSocket data.
+var subscribeMsg = {
+  "Operation": "subscribe",
+  "Type": "TimeOfFlight",
+  "DebounceMs": 100,
+	"EventName": "CenterTimeOfFlight",
+  "Message": "",
+  "ReturnProperty": null,
+  "EventConditions":
+  {
+    "Property": "SensorPosition",
+    "Inequality": "=",
+    "Value": "Center"
+  }
+};
+
+//Create a message to unsubscribe to the data when done.
+var unsubscribeMsg = {
+  "Operation": "unsubscribe",
+  "EventName": CenterTimeOfFlight,
+  "Message": ""
+};
+
+//Format the messages as JSON objects.
+var subMsg = JSON.stringify(subscribeMsg);
+var unsubMsg = JSON.stringify(unsubscribeMsg);
+```
+
+After constructing the messages, they are formatted as JSON objects, so they are ready to send once the WebSocket is open.
+
+### Opening a WebSocket
+
+The `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted “subscribe” message.
+
+Once you've successfully subscribed to a data stream, you can use the `socket.onmessage` function to handle the data received back from the robot. In this example, we simply log the received data to the console. For a real skill, you could instead parse the event data and write a conditional function based on a particular property value to do something when a condition is met.
+
+In the sample, after a specified number of messages are received, we unsubscribe to the data stream and close the WebSocket connection. Alternately, because a given WebSocket could be used for multiple data subscriptions, you could keep the WebSocket open after unsubscribing and only close it when you are done entirely.
+
+```javascript
+//Set the initial WebSocket message count to 0, as we're
+//only keeping this WebSocket open for 10 messages total.
+var messageCount = 0;
+
+var socket;
+function startTimeOfFlight() {
+    //Create a new WebSocket connection to the robot.
+    socket = new WebSocket("ws://" + ip + "/pubsub");
+
+    //When the WebSocket's open, send the subscribe message.
+    socket.onopen = function(event) {
+      console.log("WebSocket opened.");
+      socket.send(message);
+    };
+
+    //Handle the WebSocket data from the server.
+    //Send the unsubscribe message when we're done,
+    //then close the socket.
+    socket.onmessage = function(event) {
+      var message = JSON.parse(event.data).message;
+      messageCount += 1;
+      console.log(message);
+      if (messageCount == 10) {
+     	socket.send(unsubMsg);
+        socket.close();
+      }
+    };
+
+    //Handle any errors that occur.
+    socket.onerror = function(error) {
+      console.log("WebSocket Error: " + error);
+    };
+
+    //Do something when the WebSocket is closed.
+    socket.onclose = function(event) {
+      console.log("WebSocket closed.");
+    };
+};
+
+```
+
+## WebSocket Types & Sample Data
+
+You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
 
 ### TimeOfFlight
 
 Misty has four time-of-flight sensors that provide raw proximity data (in meters) in a single stream. The ```TimeOfFlight``` WebSocket sends this data any time a time-of-flight sensor is triggered. It is possible for proximity data to be sent as frequently as every 70 milliseconds, though it can be significantly slower. It is not sent at timed intervals.
 
+Sample time-of-flight sensor data:
 ```javascript
 TimeOfFlight{
 	"eventName":"TimeOfFlight",
@@ -56,6 +154,7 @@ At this time, the ```FaceDetection``` WebSocket returns only raw face detection 
 
 The ```FaceDetection``` WebSocket data is sent only upon a sensory message trigger. It is not sent at timed intervals. The approximate transmission rate of ```FaceDetection``` data is 4x/second, but this timing can vary.
 
+Sample face detection data:
 ```javascript
 FaceDetection{
 	"eventName":"FaceDetection",
@@ -79,6 +178,7 @@ At this time, the ```FaceRecognition``` WebSocket returns only raw face recognit
 
 The ```FaceRecognition``` WebSocket data is sent only upon a sensory message trigger. It is not sent at timed intervals. The approximate transmission rate of ```FaceRecognition``` data is 1x/second, but this timing can vary.
 
+Sample face recognition data:
 ```javascript
 FaceRecognition{
 	"eventName":"FaceRecognition",
@@ -100,6 +200,7 @@ FaceRecognition{
 
 ```LocomotionCommand``` WebSocket data is sent every time the linear or angular velocity of the robot changes. It is not sent at timed intervals.
 
+Sample locomotion data:
 ```javascript
 LocomotionCommand{
 	"eventName":"LocomotionCommand",
@@ -119,7 +220,6 @@ LocomotionCommand{
 ### HaltCommand
 
 ```HaltCommand``` WebSocket data is sent every time the robot stops and contains the date and time of the event. It is not sent at timed intervals.
-
 
 ### SelfState
 
@@ -141,7 +241,6 @@ The ```SelfState``` WebSocket can provide a large amount of data about Misty’s
 
 ```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the sample below that uses the ```lightSocket.js``` JavaScript helper.
 
-
 ### WorldState
 
 The ```WorldState``` WebSocket sends data about the environment Misty is perceiving, including:
@@ -151,88 +250,31 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 ```WorldState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```WorldState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the sample below that uses the ```lightSocket.js``` JavaScript helper.
 
 
+## Sending Commands to Misty
 
-## Sending Commands and Subscribing to WebSockets
+While you can use a REST client such as Postman and directly send [REST](/apis/api-reference/rest) commands to Misty, we also provide a [JavaScript API](/apis/api-reference/all-functions) for this purpose.
 
-While you can directly send REST commands to Misty to control her behavior, we also provide a JavaScript API for this purpose. (There are other [community-created wrappers](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers) for the REST API available, as well.)
+The ```lightClient.js``` sample is a JavaScript helper [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). It lets you call  Misty's API commands simply by passing in the command name and parameters. The example function `RunMe` shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands.
 
-The following are examples of using the simple JavaScript helpers [available at our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript) to call the Misty API and to connect to and register callbacks for Misty's WebSockets.
-
-### Sending Commands to Misty
-
-The ```lightClient.js``` JavaScript helper lets you call API commands by passing in the command name and parameters. The example function below shows how you can use ```lightClient.js``` to call the ```GetHelp``` and ```DriveTime``` commands:
-
-Example call:
+The [Misty I repo](https://github.com/MistyCommunity/MistyI) contains a variety of sample skills that you can use to test and adapt into your own custom uses.
 
 ```javascript
 RunMe();
 async function RunMe()
 {
-	var lightClient = new LightClient("10.0.1.1", 10000); //Set IP and ajax timeout in ms
+	//Create a client instance for this robot, using its IP address.
+	//Ajax timeout is specified in ms.
+	var lightClient = new LightClient("10.0.1.1", 10000); 
 
-		// Example Get call to get help
+		// Example Get call to GetHelp command.
       	lightClient.GetCommand("info/help", function(data) { console.log(JSON.stringify(data)); });
 
-		// Example Post call to drive time, callback
-		// will be called when driving is complete
+		// Example Post call to DriveTime command.
+		// Callback is called when driving is complete.
         lightClient.PostCommand("drive/time", " {\"LinearVelocity\":0,\"AngularVelocity\":20, \"TimeMs\":100}",  function(data) { console.log(JSON.stringify(data)); });         
 }
 ```
 
-Get ```lightClient.js``` from [the Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
-
-### Subscribing to WebSocket Data from Misty
-
-The ```lightSocket.js``` JavaScript helper lets you register JavaScript callback functions for Misty's WebSocket connections. The example function below shows how you can use ```lightSocket.js``` to subscribe to and unsubscribe from specific data streams:
-
-Example call:
-
-```javascript
-RunMe();
-async function RunMe()
-{
-	// Create a new LightSocket object and
-	// connect to Misty's WebSockets.
-	var lightSocket = new LightSocket("10.0.1.216");
-        lightSocket.Connect();
-
-	// Give a time to connect until connection.
-	// Callback implemented in lightSocket.js
-    	await sleep(5000);
-
-	// Listen for TimeOfFlight data. 500ms debounce
-	// ensures data is not sent more than once every 500ms.
-	// Default is 250ms; can be set as frequently as 100ms.
-	lightSocket.Subscribe("TimeOfFlight", "TimeOfFlight", 500, null, null, null, null, function(data){console.log("New Time of Flight Event!", data)});
-
-	// Listen for MentalState Updates in the SelfState Object.
-	// This socket listens for SelfState (triggered every 100ms),
-	// but returns the SelfState field MentalState every 2 seconds.
-	lightSocket.Subscribe("MentalState", "SelfState", 2000, null, null, null, "MentalState", function(data){ console.log("New Mental State Event!", data)});            
-
-	// Listen on SelfState, but only return MentalState.Affect
-	// data if the internal data of MentalState.Affect.Arousal == 0
-	// Returns at most, once every four seconds.
-        lightSocket.Subscribe("Affect", "SelfState", 4000, "MentalState.Affect.Arousal", "==", 0, "MentalState.Affect", function(data){console.log("New Affect Event!", data)});            
-
-	// Let it run for a while before unsusbscribing...            
-        await sleep(30000);    
-
-	// Unsubscribe from the WebSocket connections by name.
-	// If no connection name was used in registration, the name
-	// is the actual named object name used for registration.
-        lightSocket.Unsubscribe("MentalState");
-        lightSocket.Unsubscribe("TimeOfFlight");
-        lightSocket.Unsubscribe("Affect");
-        lightSocket.Disconnect();
-}
-
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-```
-
-Get ```lightSocket.js``` from [the Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
 
 ## Working with the API Explorer Code
 
@@ -263,8 +305,5 @@ This file allows you to subscribe to and unsubscribe from Misty's WebSockets.
 ### MistyAjax.js
 
 A simple wrapper for Ajax ```Get``` and ```Post``` requests, this file sends Ajax calls to Misty.
-
-
-
 
 
