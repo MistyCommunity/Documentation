@@ -45,7 +45,7 @@ Misty comes with a set of default "eyes" that display onscreen. But we encourage
 ### ChangeLED
 Changes the color of the LED light behind the logo on Misty's torso.
 
-Endpoint: POST api/led/change
+Endpoint: POST {robot-ip-address}/api/led/change
 
 ```json
 {
@@ -67,7 +67,7 @@ Return Values
 ### ChangeDisplayImage
 Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
 
-Endpoint: POST api/images/change
+Endpoint: POST {robot-ip-address}/api/images/change
 
 ```json
 {   
@@ -85,7 +85,7 @@ Return Values
 ### GetListOfImages
 Obtains a list of the images currently stored on Misty.
 
-Endpoint: GET api/images
+Endpoint: GET {robot-ip-address}/api/images
 
 Parameters
 - None
@@ -101,7 +101,7 @@ Return Values
 ### RevertDisplay
 Displays the image that was shown prior to the current image.
 
-Endpoint: POST api/images/revert
+Endpoint: POST {robot-ip-address}/api/images/revert
 
 Parameters
 - None
@@ -115,7 +115,7 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
-Endpoint: POST api/images
+Endpoint: POST {robot-ip-address}/api/images
 
 ```json
 {
@@ -147,7 +147,7 @@ Enables you to remove an image file from Misty that you have previously uploaded
 
 **Note: You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.**
 
-Endpoint: POST api/images/delete
+Endpoint: POST {robot-ip-address}/api/images/delete
 
 ```json
     {
@@ -170,7 +170,7 @@ Want Misty to say something different or play a special tune when she recognizes
 ### PlayAudioClip
 Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
-Endpoint: POST api/audio/play
+Endpoint: POST {robot-ip-address}/api/audio/play
 
 ```json
 {
@@ -188,7 +188,7 @@ Return Values
 ### GetListOfAudioClips
 Obtains a list of the default system audio clips currently stored on Misty.
 
-Endpoint: GET api/audio/clips
+Endpoint: GET {robot-ip-address}/api/audio/clips
 
 Parameters
 - None
@@ -203,7 +203,7 @@ Return Values
 ### GetListOfAudioFiles
 Obtains a list of default and user-uploaded audio files currently stored on Misty.
 
-Endpoint: GET api/audio
+Endpoint: GET {robot-ip-address}/api/audio
 
 Parameters
 - None
@@ -219,7 +219,7 @@ Return Values
 ### SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
 
-Endpoint: POST api/audio
+Endpoint: POST {robot-ip-address}/api/audio
 
 ```json
 {
@@ -259,7 +259,7 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-Endpoint: POST api/drive
+Endpoint: POST {robot-ip-address}/api/drive
 
 ```json
 {
@@ -287,7 +287,7 @@ When using the DriveTime command, it helps to understand how linear velocity (sp
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-Endpoint: POST api/drive/time
+Endpoint: POST {robot-ip-address}/api/drive/time
 
 ```json
 {
@@ -310,7 +310,7 @@ Return Values
 ### LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
-Endpoint: POST api/drive/track
+Endpoint: POST {robot-ip-address}/api/drive/track
 
 ```json
 {   
@@ -330,7 +330,7 @@ Return Values
 ### Stop
 Stops Misty's movement.
 
-Endpoint: POST api/drive/stop
+Endpoint: POST {robot-ip-address}/api/drive/stop
 
 Parameters
 - None
@@ -344,7 +344,7 @@ Return Values
 ### GetAvailableWifiNetworks
 Obtains a list of local WiFi networks and basic information regarding each.
 
-Endpoint: GET api/info/wifi
+Endpoint: GET {robot-ip-address}/api/info/wifi
 
 Parameters
 - None
@@ -359,7 +359,7 @@ Return Values
 ### GetBatteryLevel
 Obtains Misty's current battery level.
 
-Endpoint: GET api/info/battery
+Endpoint: GET {robot-ip-address}/api/info/battery
 
 Parameters
 - None
@@ -371,7 +371,7 @@ Return Values
 ### GetDeviceInformation
 Obtains a list of Misty's devices and their associated information.
 
-Endpoint: GET api/info/device
+Endpoint: GET {robot-ip-address}/api/info/device
 
 Parameters
 - None
@@ -390,11 +390,11 @@ Return Values
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Endpoint:
-* GET api/info/help for a list of commands and endpoints
-* GET api/info/help?command=endpoint/path for information on a specific endpoint
+* GET {robot-ip-address}/api/info/help for a list of commands and endpoints
+* GET {robot-ip-address}/api/info/help?command=endpoint/path for information on a specific endpoint
 
 ```markup
-api/info/help?command=audio/play
+{robot-ip-address}/api/info/help?command=audio/play
 ```
 
 Parameters
@@ -405,15 +405,20 @@ Return Values
 
 
 ### GetLogFile
-Obtains the content of the robot's available log files for the last 7 days.
+Obtains one day's content from the robot's recent log files. Log file data is stored for 7 days.
 
-Endpoint: GET api/info/logs
+Endpoint:
+GET {robot ip address}/api/info/logs/?date={date string}
+
+```markup
+{robot ip address}/api/info/logs?date=June%207,%202018
+```
 
 Parameters
-- None
+- Date (string) - A date within the last 7 days. Dates must be formatted as: ```MonthName%20Date,%20FourDigitYear```, including the comma after the date and using ```%20``` instead of empty spaces. Example: ```June%207,%202018```
 
 Return Values
-* Result (array) - An array of log data, containing one item for each log found. Each item in the array contains the log name, its content, and its file path.
+* Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
 
 ## Configuration
@@ -421,7 +426,7 @@ Return Values
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
-Endpoint: POST api/wifi
+Endpoint: POST {robot-ip-address}/api/wifi
 
 ```json
 {
@@ -440,12 +445,36 @@ Return Values
 
 ## Beta - Audio
 
-### DeleteAudioAssetFromRobot
+### StartRecordingAudio - BETA
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+
+Endpoint: POST {robot-ip-address}/api/beta/audio/startrecord
+
+Parameters
+* FileName (string) - The name to assign to the audio recording.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
+### StopRecordingAudio - BETA
+Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+
+Endpoint: POST {robot-ip-address}/api/beta/audio/stoprecord
+
+Parameters
+* None
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
+### DeleteAudioAssetFromRobot - BETA
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
 **Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
 
-Endpoint: POST api/beta/audio/delete
+Endpoint: POST {robot-ip-address}/api/beta/audio/delete
 
 ```json
     {
@@ -474,7 +503,7 @@ Initiates Misty's detection of faces in her line of vision. This command assigns
 
 When you are done having Misty detect faces, call StopFaceDetection.
 
-Endpoint: POST api/beta/faces/detection/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/detection/start
 
 Parameters
 - None
@@ -488,7 +517,7 @@ Trains Misty to recognize a specific face and applies a user-assigned ID to that
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
-Endpoint: POST api/beta/faces/training/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/training/start
 
 ```json
 {
@@ -508,7 +537,7 @@ Directs Misty to recognize a face she sees, if it is among those she alerady kno
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
-Endpoint: POST api/beta/faces/recognition/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/recognition/start
 
 Parameters
 - None
@@ -520,7 +549,7 @@ Return Values
 ### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
-Endpoint: POST api/beta/faces/detection/stop
+Endpoint: POST {robot-ip-address}/api/beta/faces/detection/stop
 
 Parameters
 - None
@@ -532,7 +561,7 @@ Return Values
 ### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
-Endpoint: POST api/beta/faces/training/cancel
+Endpoint: POST {robot-ip-address}/api/beta/faces/training/cancel
 
 Parameters
 - None
@@ -544,7 +573,31 @@ Return Values
 ### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
-Endpoint: POST api/beta/faces/recognition/stop
+Endpoint: POST {robot-ip-address}/api/beta/faces/recognition/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
+### GetLearnedFaces - BETA
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+Endpoint: GET {robot-ip-address}/api/beta/faces
+
+Parameters
+- None
+
+Return Values
+* Result (string) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+
+
+### ClearLearnedFaces - BETA
+Removes records of previously trained faces from Misty's memory.
+
+Endpoint: POST {robot-ip-address}/api/beta/faces/clearall
 
 Parameters
 - None
@@ -560,7 +613,7 @@ Misty's ability to accurately position her head is currently under development.
 ### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
 
-Endpoint: POST api/beta/head/move
+Endpoint: POST {robot-ip-address}/api/beta/head/move
 
 ```json
 {
@@ -583,7 +636,7 @@ Return Values
 ### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
-Endpoint: POST api/beta/head/position
+Endpoint: POST {robot-ip-address}/api/beta/head/position
 
 ```json
 {   
@@ -607,7 +660,7 @@ Return Values
 ### GetWebsocketHelp - BETA
 Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills).
 
-Endpoint: GET api/beta/info/help/websocket
+Endpoint: GET {robot-ip-address}/api/beta/info/help/websocket
 
 Parameters
 - None
@@ -623,6 +676,25 @@ Return Values
    * Proximity data from time-of-flight sensors
 
 
+### GetBetaHelp - BETA
+Obtains information about a specified beta API command. Calling `GetBetaHelp` with no parameters returns a list of all the beta API commands that are available.
+
+Endpoint:
+* GET {robot-ip-address}/api/beta/info/help for a list of beta commands and endpoints
+* GET {robot-ip-address}/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint
+
+```markup
+{robot-ip-address}/api/beta/info/help?command=head/position
+```
+
+Parameters
+- None
+
+Return Values
+* Result (string) - A string containing the requested help information.
+
+
+
 ## Alpha - Mapping & Tracking
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../../../onboarding/3-ways-to-interact-with-misty/api-explorer).
@@ -631,7 +703,7 @@ Return Values
 ### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
-Endpoint: GET api/alpha/slam/status
+Endpoint: GET {robot-ip-address}/api/alpha/slam/status
 
 ```c#
 public enum SlamSensorStatus
@@ -672,7 +744,7 @@ Example: If Misty is both exploring and recording, then bits 2 and 4 would be se
 ### SlamReset - ALPHA
 Resets the SLAM sensors.
 
-Endpoint: POST api/alpha/slam/reset
+Endpoint: POST {robot-ip-address}/api/alpha/slam/reset
 
 Parameters
 - None
@@ -684,7 +756,7 @@ Return Values
 ### SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
-Endpoint: POST api/alpha/slam/map/start
+Endpoint: POST {robot-ip-address}/api/alpha/slam/map/start
 
 Parameters
 - None
@@ -696,7 +768,7 @@ Return Values
 ### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
-Endpoint: POST api/alpha/slam/track/start
+Endpoint: POST {robot-ip-address}/api/alpha/slam/track/start
 
 Parameters
 - None
@@ -708,7 +780,7 @@ Return Values
 ### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
-Endpoint: POST api/alpha/slam/map/stop
+Endpoint: POST {robot-ip-address}/api/alpha/slam/map/stop
 
 Parameters
 - None
@@ -720,7 +792,7 @@ Return Values
 ### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
-Endpoint: POST api/alpha/slam/track/stop
+Endpoint: POST {robot-ip-address}/api/alpha/slam/track/stop
 
 Parameters
 - None
@@ -732,7 +804,7 @@ Return Values
 ### SlamGetMap - ALPHA
 Obtains the current map Misty has generated.
 
-Endpoint: GET api/alpha/slam/map/smooth
+Endpoint: GET {robot-ip-address}/api/alpha/slam/map/smooth
 
 Parameters
 - None
@@ -749,7 +821,7 @@ Return Values
 ### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify.
 
-Endpoint: POST api/alpha/drive/path
+Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 
 ```json
 {

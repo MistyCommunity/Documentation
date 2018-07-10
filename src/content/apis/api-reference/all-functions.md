@@ -275,6 +275,16 @@ Returns:
 * Result (string) - A string containing the requested help information.
 
 
+### GetLogFile
+Obtains one day's content from the robot's recent log files. Log file data is stored for 7 days.
+
+Arguments:
+* Date (string) - A date within the last 7 days. Dates must be formatted as: ```MonthName%20Date,%20FourDigitYear```, including the comma after the date and using ```%20``` instead of empty spaces. Example: ```June%207,%202018```
+
+Returns:
+* Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
+
+
 ## Configuration
 
 ### SetNetworkConnection
@@ -290,6 +300,26 @@ Returns:
 
 ## Beta - Audio
 
+### StartRecordingAudio - BETA
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+
+Arguments:
+* FileName (string) - The name to assign to the audio recording.
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
+### StopRecordingAudio - BETA
+Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+
+Arguments:
+* None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ### DeleteAudioAssetFromRobot - BETA
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
@@ -299,7 +329,7 @@ Arguments:
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 Returns:
-* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
+* Result (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ## Beta - Faces
@@ -376,6 +406,26 @@ Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
+### GetLearnedFaces - BETA
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+Arguments:
+* None
+
+Returns:
+* Result (string) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+
+
+### ClearLearnedFaces - BETA
+Removes records of previously trained faces from Misty's memory.
+
+Arguments:
+* None
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ## Beta - Head Movement
 
 Misty's ability to accurately position her head is currently under development.
@@ -423,6 +473,15 @@ Returns:
    * Movement updates
    * Proximity data from time-of-flight sensors
 
+
+### GetBetaHelp - BETA
+Obtains information about a specified beta API command. Calling `GetBetaHelp` with no parameters returns a list of all the beta API commands that are available.
+
+Arguments:
+* A beta command name in "Api.<CommandName>" format, e.g.: "Api.SetHeadPosition". If no command name is specified, `GetBetaHelp` returns a list of all the beta API commands.
+
+Returns:
+* Result (string) - A string containing the requested help information.
 
 
 ## Alpha - Mapping

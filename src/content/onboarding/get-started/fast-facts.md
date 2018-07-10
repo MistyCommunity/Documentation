@@ -18,7 +18,7 @@ Some quick facts. She...
 * Uses an Occipital Structure Core depth sensor to navigate.
 * Has 2 Qualcomm Snapdragon processors: one running Windows 10 IoT Core and one running Android 7.
 * Uses real-time and motor controllers.
-* Senses with 4 time-of-flight sensors (3 front, 1 rear).
+* Avoids obstacles with 4 time-of-flight sensors (3 front, 1 rear).
 * Gets flashy with a multicolor LED behind her name plate in front
 * Is powered via a barrel connector charger jack in the back, as well as a 2200 milliamp hour lithium polymer battery (power adapter included).
 * Has USB and serial expansion ports for easy hardware expandability.
