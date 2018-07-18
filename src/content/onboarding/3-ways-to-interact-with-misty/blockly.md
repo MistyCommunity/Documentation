@@ -240,13 +240,6 @@ Parameters
 * Color: A color selected from the block's options.
 
 
-### RevertDisplay
-Changes Misty's screen to display the previous image. You can run RevertDisplay repeatedly to "step" backward through the images that Misty has displayed.
-
-Parameters
-* None
-
-
 ### ListFilesAvailable
 Obtains a list of the images currently stored on Misty. Connect this with a "ChangeDisplayImage" block to select a file to display on Misty's screen.
 

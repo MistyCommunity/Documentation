@@ -53,16 +53,6 @@ Returns:
    * Width (integer) - the width of the image file
 
 
-### RevertDisplay
-Changes the display to the previous image or eye state.
-
-Arguments:
-* None
-
-Returns:
-* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
-
-
 ### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 

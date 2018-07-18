@@ -98,18 +98,6 @@ Return Values
    * Width (integer) - the width of the image file
 
 
-### RevertDisplay
-Displays the image that was shown prior to the current image.
-
-Endpoint: POST {robot-ip-address}/api/images/revert
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
-
-
 ### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
 
