@@ -7,18 +7,6 @@ order: 4
 
 # {{title}}
 
-## When Misty Arrives: Plugging in the Battery
-
-1. Set Misty on the floor or use the small cardboard box (that came in her packaging) as a stand for Misty. Place the box under Misty, between her tracks.
-2. Undo the two screws that attach the plastic plate to the front of Misty's chest. Remove the plate and set it and the screws aside. ![removing the chest plate](../../../assets/images/1_remove_chestplate.jpg)
-3. Gently lift upward the plastic "wing" on Misty's right side. Remove it and set it aside. ![removing the wing](../../../assets/images/2_remove_wing.jpg)
-4. You will see Misty's battery and two sets of connecting plugs. ![disconnected battery plugs](../../../assets/images/3_arrival_state.jpg)
-5. Plug the yellow connectors together. ![yellow battery connectors](../../../assets/images/4_yellow_connectors.jpg)
-6. Plug the white connectors together. ![white battery connectors](../../../assets/images/5_white_connectors.jpg)
-7. Gently make sure the battery and connectors are inserted into Misty. ![reinserting the battery](../../../assets/images/6_push_battery.jpg)
-8. Replace the right plastic wing and reattach Misty's chest plate.
-9. Plug the power adaptor into the back of Misty and into a power source. If the number on the battery charge indicator does not increase, unplug and replug the adaptor from Misty's power port. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
-
 
 ## Turning Misty On
 

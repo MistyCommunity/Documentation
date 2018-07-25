@@ -3,10 +3,10 @@
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
-	"/getstarted": "/onboarding/get-started/safety-handling",
-	"/get-started": "/onboarding/get-started/safety-handling",
-	"/gettingstarted": "/onboarding/get-started/safety-handling",
-	"/getting-started": "/onboarding/get-started/safety-handling",
-	"/onboarding": "/onboarding/get-started/safety-handling",
+	"/getstarted": "/onboarding/get-started/setting-up-misty",
+	"/get-started": "/onboarding/get-started/setting-up-misty",
+	"/gettingstarted": "/onboarding/get-started/setting-up-misty",
+	"/getting-started": "/onboarding/get-started/setting-up-misty",
+	"/onboarding": "/onboarding/get-started/setting-up-misty",
 	"/tutorials": "/tutorials/quickstart/"
 }
