@@ -37,10 +37,10 @@ To connect Misty's battery:
 ## Assembling Misty's Case
 Now that the battery is connected, you can put together the finishing pieces of Misty's case:
 
-1. Undo the two screws that attach the plastic plate to the front of Misty's chest. Remove the plate and set it and the screws aside. ![removing the chest plate](../../../assets/images/faceplate_removal.jpg)
+1. Undo the two small bolts that attach the plastic logo plate to the front of Misty's chest. Remove the plate and set it and the bolts aside. ![removing the logo plate](../../../assets/images/faceplate_removal.jpg)
 2. Find the two plastic side panels that shipped with your robot, underneath Misty in the packaging. ![loose side panels](../../../assets/images/side_panels_loose.jpg)
 3. Align the slots and gently attach each panel to one of Misty's sides. ![attaching side panels](../../../assets/images/side_panel_replacing.jpg) Each panel should easily drop into the slots as shown. ![panel after being attached](../../../assets/images/panel_on.jpg)
-4. Once both side panels are attached, reattach Misty's chest plate.
+4. Once both side panels are attached, reattach Misty's logo plate.
 
 
 ## Connecting the Occipital Structure Core Depth Sensor

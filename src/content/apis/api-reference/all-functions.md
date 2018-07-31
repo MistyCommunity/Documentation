@@ -30,10 +30,14 @@ Returns:
 
 
 ### ChangeDisplayImage
-Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
+Displays an image on Misty's screen. Optionally, `ChangeDisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImageAssetToRobot` to upload images to Misty.
+
+Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
 Arguments:
-* FileName (string) - The name of previously uploaded file containing the image to display. Do not include the file path. Valid image file types are .jpg, .jpeg, .gif, .png.
+* FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
+* TimeOutSeconds (double) - Optional value that determines the length of time in seconds that Misty displays the specified image. When this time elapses, Misty's eyes again display onscreen.
+* Alpha (double) - Optional value that sets the alpha (transparency) of the specified image. A value of 0 is completely transparent; 1 is completely opaque. Using this parameter to set transparency allows Misty's eyes to appear behind the specified image.
 
 Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
@@ -240,19 +244,25 @@ Returns:
 
 
 ### GetDeviceInformation
-Obtains a list of Misty's devices and their associated information.
+Obtains device-related information for the robot.
 
 Arguments:
 * None
 
 Returns:
-* Result (Set of Data) - returns a set of information about the device.
-   * Windows OS Version (String) - The version of the OS of the robot.
-   * Realtime Controller Hardware Version (String) - The hardware version for the realtime controller.
-   * Realtime Controller Firmware Version (String) - The firmware version for the realtime controller.
-   * IP Address (String) - The IP address of the device.
-   * Output Capabilities (Array) - an array listing the output capabilities of the robot.
-   * Sensor Capabilities (Array) - an array listing the sensor capabilities.
+* Result (object) - An object containing information about the robot, with the following fields.
+   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * currentProfileName - The name of the network that the robot is on.
+   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * ipAddress - The IP address of the robot.
+   * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * outputCapabilities - An array listing the output capabilities for this robot.
+   * robotId - The robot's unique ID, if set. Default value is all zeros.
+   * robotVersion - The version number for the HomeRobot app running on the robot.
+   * sensorCapabilities - An array listing the sensor capabilities for this robot.
+   * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
+   * serialNumber - The unique serial number for the robot.
+   * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
 
 ### GetHelp

@@ -56,27 +56,33 @@ Endpoint: POST {robot-ip-address}/api/led/change
 ```
 
 Parameters
-- Red (byte) - the red RGB color value (range 0 to 255).
-- Green (byte) - the green RGB color value (range 0 to 255).
-- Blue (byte) - the blue RGB color value (range 0 to 255).
+- Red (byte) - The red RGB color value (range 0 to 255).
+- Green (byte) - The green RGB color value (range 0 to 255).
+- Blue (byte) - The blue RGB color value (range 0 to 255).
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ### ChangeDisplayImage
-Sets the current image being displayed on Misty's screen. Use `SaveImageAssetToRobot` to upload images to Misty.
+Displays an image on Misty's screen. Optionally, `ChangeDisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImageAssetToRobot` to upload images to Misty.
+
+Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
 Endpoint: POST {robot-ip-address}/api/images/change
 
 ```json
 {   
-  "FileName": "example.jpg"
+  "FileName": "pink_sunset.jpg",
+  "TimeOutSeconds": 5,
+  "Alpha": 0
 }
 ```
 
 Parameters
-- FileName (string) - Name of previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB.
+- FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
+- TimeOutSeconds (double) - Optional value that determines the length of time in seconds that Misty displays the specified image. When this time elapses, Misty's eyes again display onscreen.
+- Alpha (double) - Optional value that sets the alpha (transparency) of the specified image. A value of 0 is completely transparent; 1 is completely opaque. Using this parameter to set transparency allows Misty's eyes to appear behind the specified image.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -357,7 +363,7 @@ Return Values
 
 
 ### GetDeviceInformation
-Obtains a list of Misty's devices and their associated information.
+Obtains device-related information for the robot.
 
 Endpoint: GET {robot-ip-address}/api/info/device
 
@@ -365,13 +371,19 @@ Parameters
 - None
 
 Return Values
-* Result (set of data) - returns a set of information about the device.
-   * Windows OS Version (string) - The version of the OS of the robot.
-   * Realtime Controller Hardware Version (string) - The hardware version for the realtime controller.
-   * Realtime Controller Firmware Version (string) - The firmware version for the realtime controller.
-   * IP Address (string) - The IP address of the device.
-   * Output Capabilities (array) - an array listing the output capabilities of the robot.
-   * Sensor Capabilities (array) - an array listing the sensor capabilities.
+* Result (object) - An object containing information about the robot, with the following fields.
+   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * currentProfileName - The name of the network that the robot is on.
+   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * ipAddress - The IP address of the robot.
+   * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * outputCapabilities - An array listing the output capabilities for this robot.
+   * robotId - The robot's unique ID, if set. Default value is all zeros.
+   * robotVersion - The version number for the HomeRobot app running on the robot.
+   * sensorCapabilities - An array listing the sensor capabilities for this robot.
+   * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
+   * serialNumber - The unique serial number for the robot.
+   * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
 
 ### GetHelp
@@ -379,11 +391,7 @@ Obtains information about a specified API command. Calling `GetHelp` with no par
 
 Endpoint:
 * GET {robot-ip-address}/api/info/help for a list of commands and endpoints
-* GET {robot-ip-address}/api/info/help?command=endpoint/path for information on a specific endpoint
-
-```markup
-{robot-ip-address}/api/info/help?command=audio/play
-```
+* GET {robot-ip-address}/api/info/help?command=endpoint/path for information on a specific endpoint. Example: `{robot-ip-address}/api/info/help?command=audio/play`
 
 Parameters
 - None
@@ -397,10 +405,8 @@ Obtains one day's content from the robot's recent log files. Log file data is st
 
 Endpoint:
 GET {robot ip address}/api/info/logs/?date={date string}
-
-```markup
-{robot ip address}/api/info/logs?date=June%207,%202018
-```
+Example:
+`{robot ip address}/api/info/logs?date=June%207,%202018`
 
 Parameters
 - Date (string) - A date within the last 7 days. Dates must be formatted as: ```MonthName%20Date,%20FourDigitYear```, including the comma after the date and using ```%20``` instead of empty spaces. Example: ```June%207,%202018```
@@ -669,11 +675,7 @@ Obtains information about a specified beta API command. Calling `GetBetaHelp` wi
 
 Endpoint:
 * GET {robot-ip-address}/api/beta/info/help for a list of beta commands and endpoints
-* GET {robot-ip-address}/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint
-
-```markup
-{robot-ip-address}/api/beta/info/help?command=head/position
-```
+* GET {robot-ip-address}/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint. Example: `{robot-ip-address}/api/beta/info/help?command=head/position`
 
 Parameters
 - None

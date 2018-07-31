@@ -16,7 +16,9 @@ You should receive an email inviting you to download the current version of the 
 
 
 ## Connecting Misty to Bluetooth and Wi-Fi
-The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi. Note that Misty supports both 2.4 GHz and 5 GHz Wi-Fi networks.
+The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
+
+**Note: You can only connect Misty to Wi-Fi networks that have password protection.** Misty cannot be connected to open networks at this time. Misty does support both 2.4 GHz and 5 GHz Wi-Fi networks.
 
 1. [Power up](/onboarding/get-started/powering-up-down/#turning-misty-on) your Misty robot and wait for her eyes to appear fully open.
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.

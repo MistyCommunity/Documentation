@@ -267,7 +267,7 @@ Use these commands to drive Misty forward and backward, straight or in a curve, 
 
 **Note: Before using any locomotion commands, have Misty on a flat surface with plenty of room to move. It's also a good idea to experiment with small velocity values before getting her going at full speed.**
 
-![Misty Blockly - locomotion commands](../../../assets/images/blockly_locomotion_commands.png)
+![Misty Blockly - locomotion commands](../../../assets/images/blockly_locomotion_commands2.png)
 
 
 ### Drive
@@ -283,7 +283,6 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 Parameters
 * LinearVelocity: A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
 * AngularVelocity: A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, first experiment with using small positive and negative values to observe the effect on Misty's movement.**
-* UsePid: 
 
 
 ### Move
@@ -291,7 +290,7 @@ Drives Misty forward or backward at a given speed for a duration specified in mi
 
 Parameters
 * Direction: Forward or backward.
-* Speed: A value from -100 to 100. -100 is full speed reverse, 0 is stopped, 100 is full speed forward.
+* Speed: A value from 0 (stopped) to 100 (full speed).
 * Duration: A value in milliseconds, using 100 ms increments, with a maximum value of 10,000 ms (10 seconds).
 
 ### LocomotionTrack
