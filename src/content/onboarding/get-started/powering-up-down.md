@@ -7,6 +7,8 @@ order: 4
 
 # {{title}}
 
+We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, considering placing either a couple of books underneath her, between her wheels, or 3D printing this handy [stand for Misty I](https://github.com/MistyCommunity/assets/blob/master/M1_Robot_Stand.STL) and using that to keep her wheels safely raised.
+
 
 ## Turning Misty On
 

@@ -9,11 +9,11 @@ order: 1
 
 Welcome! Your Misty I Developer Edition Prototype robot has been hand-built by the Misty Robotics team.
 
-For safety and care during shipping, your robot arrives with a couple of items disconnected and with the final pieces of the case removed. Please start here for some quick words of advice on setting her up. 
+For safety and care during shipping, your robot arrives with a couple of items disconnected and with the final pieces of the case removed. Please start here for some quick words of advice on setting her up. You can also [watch this video](https://youtu.be/ROqzzQRf2qI) to see the setup process directly.
 
-**Note:** While future versions of Misty will be much tougher, it’s important that you handle your Misty I Developer Edition Prototype robot with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
+**Important:** While future versions of Misty will be much tougher, it’s important that you handle your Misty I Developer Edition Prototype robot with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
 
-Also, we recommend powering up Misty on the floor, if possible. When Misty is powered up on a table top, it's possible to forget and drive her off the edge. Trust us, we've done it.
+**Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with the robot on the floor or temporarily elevating the wheels so the robot cannot drive. To do this, you can either place a couple of books underneath Misty between the wheels or use this handy [stand for Misty I](https://github.com/MistyCommunity/assets/blob/master/M1_Robot_Stand.STL) that you can 3D print.
 
 
 ## Connecting the Battery
@@ -33,6 +33,8 @@ To connect Misty's battery:
 5. Gently make sure the battery and connectors are inserted into Misty. ![reinserting the battery](../../../assets/images/6_push_battery.jpg)
 6. You can now plug the power adaptor into the back of Misty and into a power source. If the number on the battery charge indicator does not increase, unplug and replug the adaptor from Misty's power port. When Misty is fully charged, you should see values above 8 on the charge indicator. Note that Misty continues to use some power even when switched off, so her battery levels will drop even when she is powered down. A charge level lower than 7 may cause Misty to power down without warning. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
 
+Once you've plugged in the battery, you can assemble Misty's case and connect the Occipital Structure Core depth sensor.
+
 
 ## Assembling Misty's Case
 Now that the battery is connected, you can put together the finishing pieces of Misty's case:
@@ -40,7 +42,7 @@ Now that the battery is connected, you can put together the finishing pieces of 
 1. Undo the two small bolts that attach the plastic logo plate to the front of Misty's chest. Remove the plate and set it and the bolts aside. ![removing the logo plate](../../../assets/images/faceplate_removal.jpg)
 2. Find the two plastic side panels that shipped with your robot, underneath Misty in the packaging. ![loose side panels](../../../assets/images/side_panels_loose.jpg)
 3. Align the slots and gently attach each panel to one of Misty's sides. ![attaching side panels](../../../assets/images/side_panel_replacing.jpg) Each panel should easily drop into the slots as shown. ![panel after being attached](../../../assets/images/panel_on.jpg)
-4. Once both side panels are attached, reattach Misty's logo plate.
+4. Once both side panels are attached, reattach Misty's logo plate, gently hand-tightening the bolts.
 
 
 ## Connecting the Occipital Structure Core Depth Sensor
