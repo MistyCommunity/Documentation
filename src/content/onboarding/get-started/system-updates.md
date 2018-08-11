@@ -20,3 +20,5 @@ Updates can include:
 * OS updates
 
 We recommend you check for updates on a weekly basis.
+
+**Important:** Please keep Misty **plugged in** for the entire duration of the update and **do not attempt to send commands** to her during this time.

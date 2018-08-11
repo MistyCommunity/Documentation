@@ -180,7 +180,9 @@ Return Values
 
 
 ### GetListOfAudioClips
-Obtains a list of the default system audio clips currently stored on Misty.
+Lists the default system audio files currently stored on Misty.
+
+Note that you can use the `GetListOfAudioFiles` command to list all audio files on the robot (system files and user uploads).
 
 Endpoint: GET {robot-ip-address}/api/audio/clips
 
@@ -188,14 +190,13 @@ Parameters
 - None
 
 Return Values
-* Result (array) - Returns an array of audio clip information. Each item in the array contains the following:
-   * Name (string) - The name of the audio clip.
-   * Duration (double) - The length of time the audio clip plays.
-   * Location (string) - The location of the clip in the file directory.
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * userAddedAsset (boolean) - If true, the audio file was added by the user. If false, the file is one of Misty's default audio files. **Note:** `GetListOfAudioClips` should always return false.
 
 
 ### GetListOfAudioFiles
-Obtains a list of default and user-uploaded audio files currently stored on Misty.
+Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
 Endpoint: GET {robot-ip-address}/api/audio
 
@@ -205,9 +206,7 @@ Parameters
 Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * Duration (double) - The length of time the audio file plays.
-   * Location (string) - The location of the file in the file directory.
-   * User Added Asset (boolean) - True or false. If true, the file was added by the user. If false, the file is one of Misty's default audio files.
+   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system audio files.
 
 
 ### SaveAudioAssetToRobot

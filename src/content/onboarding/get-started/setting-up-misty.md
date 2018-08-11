@@ -15,6 +15,8 @@ For safety and care during shipping, your robot arrives with a couple of items d
 
 **Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with the robot on the floor or temporarily elevating the wheels so the robot cannot drive. To do this, you can either place a couple of books underneath Misty between the wheels or use this handy [stand for Misty I](https://github.com/MistyCommunity/assets/blob/master/M1_Robot_Stand.STL) that you can 3D print.
 
+**Note:** Please keep all the original packaging for Misty. In case you need to ship her in the future, this packaging has been specially designed to protect these hand-built prototypes.
+
 
 ## Connecting the Battery
 While Misty's case is open is the ideal time to connect up your robot's battery. **Before doing so, please read the following important notes:**

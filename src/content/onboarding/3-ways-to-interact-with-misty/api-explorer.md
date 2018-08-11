@@ -234,6 +234,8 @@ You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We
 * Home Robot application (running on Windows IoT Core)
 * Sensory Services application (running on Android)
 
+**Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
+
 To perform an update:
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
 2. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)

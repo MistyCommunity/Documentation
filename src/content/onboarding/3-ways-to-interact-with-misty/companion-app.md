@@ -48,7 +48,9 @@ The **Settings** screen provides a way for you to easily start an update to Mist
 * Home Robot application (running on Windows IoT Core)
 * Sensory Services application (running on Android)
 
-1. Before updating Misty, make sure your robot is plugged into a power source.
+**Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
+
+1. Before updating Misty, make sure your robot is plugged into a power source. Your robot should stay connected to her charger until the update is complete.
 2. To update Misty, select the **Settings** icon from the bottom of the **Home** screen. ![Companion App home screen](../../../assets/images/companion_app_home_3.png)
 3. Press the words **Software Update** to start the update process. ![Companion App Settings screen](../../../assets/images/companion_app_settings.jpg)
 4. Because downloading and installing a system update may take from several minutes to an hour, you must confirm that you want to start the update process at this time. Press **Yes** to start the update process. **Note: During the download and update, Misty is still functional, however driving Misty is NOT recommended during this process.** ![Companion App confirm update notification](../../../assets/images/companion_app_update_confirmation.jpg)
