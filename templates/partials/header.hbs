@@ -175,18 +175,12 @@
   <div class='right'>
 
     <div class="search">
-    <script>
-    (function() {
-    var cx = '014945497241124034294:fhxe4nbka_w';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-    })();
-    </script>
-    <gcse:search></gcse:search>
+      <div class="search-input-wrapper">
+        <i class="ion-search"></i>
+        <input class="search-box" type="text" placeholder='Search' value=''/>
+      </div>
+      <div class="search-results">
+      </div>
     </div>
 
     <a href='{{edit-link branch path.href path.name}}' class="nav" target="_blank"><i class="ion-edit"></i>Edit</a>
