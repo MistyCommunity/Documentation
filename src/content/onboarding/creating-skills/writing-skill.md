@@ -62,7 +62,7 @@ var subscribeMsg = {
 //Create a message to unsubscribe to the data when done.
 var unsubscribeMsg = {
   "Operation": "unsubscribe",
-  "EventName": CenterTimeOfFlight,
+  "EventName": "CenterTimeOfFlight",
   "Message": ""
 };
 
