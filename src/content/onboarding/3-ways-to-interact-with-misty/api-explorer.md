@@ -224,15 +224,7 @@ To follow a path on a map:
 
 
 ## System Updates
-You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. Updates can include:
-
-* Image assets
-* Sound assets
-* Motor controller firmware
-* Real-time controller firmware 
-* Occipital Structure Core depth sensor firmware
-* Home Robot application (running on Windows IoT Core)
-* Sensory Services application (running on Android)
+You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development/misty-I). 
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 

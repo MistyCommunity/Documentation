@@ -19,10 +19,14 @@ You can directly observe WebSocket data in your browser's JavaScript console, by
 
 To subscribe to a WebSocket data stream, you must first open the WebSocket, then send a message to specify the exact data you want to receive. For some WebSocket data, you must also send a REST command to the robot so it starts generating the data. For the time-of-flight sensor data that the `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) uses, sending a REST command is not required, because Misty's time-of-flight sensors are always on.
 
+**IMPORTANT!** For the most current version of the `tofApp.js` sample code, always check our [GitHub repo](https://github.com/MistyCommunity/MistyI/blob/master/Sample%20Code/Time%20of%20Flight/tofApp.js).
+
 
 ### Subscribing & Unsubscribing to a WebSocket
 
-The first thing the `tofApp.js` sample does is to construct the message that subscribes to the exact WebSocket data we want. The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
+The first thing the `tofApp.js` sample does is to construct the message that subscribes to the exact WebSocket data we want.
+
+The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
 * ```TimeOfFlight```
 * ```FaceDetection```
 * ```FaceRecognition```
@@ -48,7 +52,7 @@ var subscribeMsg = {
   "Operation": "subscribe",
   "Type": "TimeOfFlight",
   "DebounceMs": 100,
-	"EventName": "CenterTimeOfFlight",
+  "EventName": "CenterTimeOfFlight",
   "Message": "",
   "ReturnProperty": null,
   "EventConditions":
@@ -87,6 +91,7 @@ In the sample, after a specified number of messages are received, we unsubscribe
 var messageCount = 0;
 
 var socket;
+
 function startTimeOfFlight() {
     //Create a new WebSocket connection to the robot.
     socket = new WebSocket("ws://" + ip + "/pubsub");
@@ -94,7 +99,7 @@ function startTimeOfFlight() {
     //When the WebSocket's open, send the subscribe message.
     socket.onopen = function(event) {
       console.log("WebSocket opened.");
-      socket.send(message);
+      socket.send(subMsg);
     };
 
     //Handle the WebSocket data from the server.

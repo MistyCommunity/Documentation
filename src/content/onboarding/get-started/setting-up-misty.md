@@ -47,7 +47,7 @@ To connect Misty's battery:
 
 Once you've plugged in the battery, you can assemble Misty's case and connect the Occipital Structure Core depth sensor.
 
-**Note:** If you want to charge the robot while it’s turned on, you’ll need to **first** turn the robot on, **then** plug the power adaptor into the robot’s back.
+**Note:** If you want to charge the robot while it’s turned on, you’ll need to **first** let the robot fully boot up, **then** plug the power adaptor into the robot’s back.
 
 
 ## Assembling Misty's Case
@@ -65,14 +65,9 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 1. Tucked behind Misty's faceplate, find the black USB cable with a loose end. ![loose Occipital cable](../../../assets/images/occipital_cable_loose.jpg)
 2. Connect the loose end of the cable into the sensor's open USB port on Misty's right side. Make sure you feel a click when inserting the cable, to ensure it is fully seated. ![Occipital cable attached](../../../assets/images/occipital_cable_attached.jpg)
 
+**Important!** There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen. Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage. ![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
-## Laser Awareness
-
-There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen.
-
-Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage.
-
-![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
+Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../3-ways-to-interact-with-misty/companion-app/).
 
 
 ## Cleaning the Time-of-Flight Sensors
