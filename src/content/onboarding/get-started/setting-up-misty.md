@@ -65,6 +65,8 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 1. Tucked behind Misty's faceplate, find the black USB cable with a loose end. ![loose Occipital cable](../../../assets/images/occipital_cable_loose.jpg)
 2. Connect the loose end of the cable into the sensor's open USB port on Misty's right side. Make sure you feel a click when inserting the cable, to ensure it is fully seated. ![Occipital cable attached](../../../assets/images/occipital_cable_attached.jpg)
 
+**Note**: When the Occipital Structure Core depth sensor is starting up, the LED in the depth sensor will flash blue and red for up to 10 seconds. Once the depth sensor is fully online, the LED should be solid blue. When the depth sensor's firmware is updating, the LED will flash red and blue for about a minute then reboot. If the depth sensor LED appears solid red, there is an error. If the LED remains red after restarting the robot, please contact support for assistance.
+
 **Important!** There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen. Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage. ![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
 Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../3-ways-to-interact-with-misty/companion-app/).

@@ -36,9 +36,8 @@ Would you like to have Misty sing a song or play a particular sound when her fac
 
 
 1. To select a file to upload to Misty, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
-2. After you choose a file, a checkbox appears under the rectangle. Click that checkbox to confirm the file to upload. ![Upload asset checkbox](../../../assets/images/explorer_upload_checkbox.png)
-3. To save the file onto Misty, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
-4. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
+2. After you choose a file, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
+3. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
 
 
 ### Playing or displaying a file
@@ -143,8 +142,8 @@ Misty's ability to recognize faces is under development. To try face training an
 
 1. Make sure that your robot is connected to the API Explorer and that the light on Misty’s HD camera (located above her eyes on Misty I) is solid blue.
 2. In the **Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
-3. Position the person’s face in a well-lit area about a foot or two away from Misty’s camera.
-4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes.
+3. Position a single person’s face in a well-lit area 1-6 feet from Misty’s camera. Do not attempt to train Misty to recognize more than one person at the same time.
+4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes. You can observe the main API Explorer browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
 5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
 6. Position the person’s face in a well-lit area front of the camera.
 7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.

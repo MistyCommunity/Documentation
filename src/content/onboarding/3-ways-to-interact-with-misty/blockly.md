@@ -179,12 +179,7 @@ Plays an audio file that has been previously uploaded to Misty. This block **mus
 Parameters
 * File: The audio file to play. Connect the "ListFilesAvailable" or "GetListOfAudioClips" block to this block in order to select an audio file.
 
-
-### GetListOfAudioClips
-Lists the existing audio files on Misty. Connect this block to a "PlayAudioClip" block to select a sound to play.
-
-Parameters
-* None
+* Volume: A value between 0 (silent) and 100 (full volume) that determines how loudly Misty plays the audio clip.
 
 
 ### ListFilesAvailable
@@ -201,6 +196,13 @@ Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. All audio file types are valid, however Misty cannot currently play OGG files. Maximum file size is 3 MB.
 
 
+### GetListOfAudioClips
+Lists the existing audio files on Misty. Connect this block to a "PlayAudioClip" block to select a sound to play.
+
+Parameters
+* None
+
+
 ### DeleteAudioAssetFromRobot
 Enables you to remove an audio file from Misty that you have previously uploaded. Connect this with a "ListFilesAvailable" block to select a file to remove from Misty. **Note:** You can only delete audio files that you have previously uploaded to Misty. Blockly posts an error if you attempt to remove one of Misty's default system audio files.
 
@@ -214,6 +216,13 @@ These commands direct Misty to display different images and allow you to upload 
 ![Misty Blockly - display commands](../../../assets/images/blockly_display_commands.png)
 
 
+### DeleteImageAssetFromRobot
+Enables you to remove an image file from Misty that you have previously uploaded. Connect this with a "ListFilesAvailable" block to select a file to remove from Misty. **Note:** You can only delete image files that you have previously uploaded to Misty. Blockly posts an error if you attempt to remove one of Misty's default system image files.
+
+Parameters
+* The name of the image file to remove, supplied by a connected "ListFilesAvailable" block.
+
+
 ### SaveFileToRobot
 Saves an image file to Misty. This block **must** connect with the "BrowseToImageFile" block, to select the image file to be saved.
 
@@ -222,17 +231,16 @@ Parameters
 
 
 ### ChangeDisplayImage
-Sets the current image being displayed on Misty's screen. This block **must** connect with the "ListFilesAvailable" block or the BrowseToImageFile" block, to select the image file to display.
+Displays an image on Misty's screen. This block **must** connect with the "ListFilesAvailable" block or the "BrowseToImageFile" block, to select the image file to display.
+
+You can optionally use "ChangeDisplayImage" to display an image for a specific length of time and/or overlay an image on Misty's eyes.
 
 Parameters
-* Filename: The name of the file containing the image to display, selected from the "BrowseToImageFile" block.
+* Filename: The name of the file containing the image to display, selected from the "BrowseToImageFile" block or the "ListFilesAvailable" block. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB.
 
+* Seconds: Optional. The length of time to display the specified image.
 
-### ChangeEyes
-Changes Misty's eyes to another of her default eye expressions.
-
-Parameters
-* Mood: One of the following: Angry, Concerned, Confused, Content, Groggy, Happy, Love, Sad, Unamused.
+* Alpha: Optional. A decimal value for the transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
 
 
 ### ChangeLEDColor
@@ -254,13 +262,6 @@ Browse for a file on your computer. Connect this with a "SaveFileToRobot" block 
 
 Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. Valid image file types are .jpg, .jpeg, .gif, .png.
-
-
-### DeleteImageAssetFromRobot
-Enables you to remove an image file from Misty that you have previously uploaded. Connect this with a "ListFilesAvailable" block to select a file to remove from Misty. **Note:** You can only delete image files that you have previously uploaded to Misty. Blockly posts an error if you attempt to remove one of Misty's default system image files.
-
-Parameters
-* The name of the image file to remove, supplied by a connected "ListFilesAvailable" block.
 
 
 

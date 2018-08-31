@@ -75,14 +75,14 @@ Endpoint: POST {robot-ip-address}/api/images/change
 {   
   "FileName": "pink_sunset.jpg",
   "TimeOutSeconds": 5,
-  "Alpha": 0
+  "Alpha": 0.5
 }
 ```
 
 Parameters
 - FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-- TimeOutSeconds (double) - Optional value that determines the length of time in seconds that Misty displays the specified image. When this time elapses, Misty's eyes again display onscreen.
-- Alpha (double) - Optional value that sets the alpha (transparency) of the specified image. A value of 0 is completely transparent; 1 is completely opaque. Using this parameter to set transparency allows Misty's eyes to appear behind the specified image.
+- TimeOutSeconds (double) - Optional. The length of time to display the specified image.
+- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -173,10 +173,12 @@ Endpoint: POST {robot-ip-address}/api/audio/play
 ```
 
 Parameters    
-- AssetId (string) - The name of the file to play.
+- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- Volume (int) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (string) - Returns a string with any errors related to this command.
 
 
 ### GetListOfAudioClips
@@ -681,6 +683,22 @@ Parameters
 
 Return Values
 * Result (string) - A string containing the requested help information.
+
+
+
+## Alpha - Audio
+
+
+### SetDefaultVolume - ALPHA
+Sets the default loudness of Misty's speakers for audio playback.
+
+Endpoint: POST {robot-ip-address}/api/alpha/audio/volume
+
+Parameters
+- Volume (int): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 
