@@ -240,8 +240,8 @@ While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.
-  * On Apple/Unix, open a command-line tool, enter ifconfig, and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under System Preferences > Network.
-  * On Windows, open the command prompt, enter ipconfig, and find the Ethernet adapter and its IP address in the list of results.
+  * On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under **System Preferences > Network**.
+  * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
 3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
 4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
 5. Scroll down to the bottom of the API Explorer page to the **Connect WiFi** section. Enter your WiFi network credentials here and click **Connect to WiFi.** The process can take a few minutes. ![Connect WiFi UI](../../../assets/images/connect_wifi.png)
