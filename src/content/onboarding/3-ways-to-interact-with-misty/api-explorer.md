@@ -234,3 +234,20 @@ To perform an update:
 4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
 5. The update process may take up to a half hour total, during which time Misty restarts _twice_. **The update process is not complete until you see Misty's happy eyes appear.**  ![Happy eyes](../../../assets/images/happy.png)
 
+
+## Connecting WiFi
+While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways-to-interact-with-misty/companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+
+1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
+2. Use the command line to find the IP address of the adapter.
+  * On Apple/Unix, open a command-line tool, enter ifconfig, and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under System Preferences > Network.
+  * On Windows, open the command prompt, enter ipconfig, and find the Ethernet adapter and its IP address in the list of results.
+3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
+4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
+5. Scroll down to the bottom of the API Explorer page to the **Connect WiFi** section. Enter your WiFi network credentials here and click **Connect to WiFi.** The process can take a few minutes. ![Connect WiFi UI](../../../assets/images/connect_wifi.png)
+
+**Note**: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:
+  * Apple/Unix: `arp -a | grep <MAC ADDRESS>`
+  * Windows (in a Powershell window): `arp -a | select-string <MAC ADDRESS>`
+
+
