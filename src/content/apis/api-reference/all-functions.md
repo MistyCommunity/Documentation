@@ -36,8 +36,8 @@ Note that it's not possible for a custom image to overlay another custom image. 
 
 Arguments:
 * FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-* TimeOutSeconds (double) - Optional value that determines the length of time in seconds that Misty displays the specified image. When this time elapses, Misty's eyes again display onscreen.
-* Alpha (double) - Optional value that sets the alpha (transparency) of the specified image. A value of 0 is completely transparent; 1 is completely opaque. Using this parameter to set transparency allows Misty's eyes to appear behind the specified image.
+* TimeOutSeconds (double) - Optional. The length of time to display the specified image.
+* Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
 
 Returns:
 * Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
@@ -96,10 +96,12 @@ Want Misty to say something different or play a special tune when she recognizes
 Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
 Arguments:
-* AssetId (string) - The name of the file to play.
+* AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+* FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+* Volume (int) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Returns:
-* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
+* Result (string) - Returns a string with any errors related to this command.
 
 
 ### GetListOfAudioClips
@@ -481,6 +483,20 @@ Arguments:
 
 Returns:
 * Result (string) - A string containing the requested help information.
+
+
+
+## Alpha - Audio
+
+
+### SetDefaultVolume - ALPHA
+Sets the default loudness of Misty's speakers for audio playback.
+
+Arguments:
+* Volume (int): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
+Returns:
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ## Alpha - Mapping

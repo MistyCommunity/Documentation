@@ -23,11 +23,13 @@ The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
 1. [Power up](/onboarding/get-started/powering-up-down/#turning-misty-on) your Misty robot and wait for her eyes to appear fully open.
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.
 3. Download the Misty Companion app. If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you prefer.
-4. Open the Misty Companion app and log in or sign up for a new account.  ![Companion App signup screen](../../../assets/images/companion_app_signup.png)
+4. Open the Misty Companion app. Previous users may be asked to log in. New users will be asked to sign up for a new account.  ![Companion App signup screen](../../../assets/images/companion_app_signup.png)
 5. Once you've logged in, connect the app to Misty via Bluetooth by gently tapping or holding your device close to Misty when this screen appears. ![Companion App Bluetooth connection screen](../../../assets/images/companion_app_bluetooth.png)
-6. If the Bluetooth connection succeeds, the app displays a list of Wi-Fi networks. Select **the same network for Misty that your phone is connected to**, enter the password, and hit **Return**. ![Companion App Wifi connection screen](../../../assets/images/companion_app_wifi.png)
-7. If the Bluetooth or Wi-Fi connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. ![Companion App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
+6. If the Bluetooth connection succeeds, the app displays a list of Wi-Fi networks. Select **the same network for Misty that your phone is connected to**, enter the password, and hit **Return**. You can only connect Misty to Wi-Fi networks that have password protection. ![Companion App Wifi connection screen](../../../assets/images/companion_app_wifi.png)
+7. If the Bluetooth or Wi-Fi connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. If you cannot successfully connect Misty to Wi-Fi, check for and install any updates to the Companion App. ![Companion App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
 8. Once the Wi-Fi connection succeeds, you should see the Misty Companion app **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. **Note: You will need the IP address to use Misty with Blockly and the API Explorer.** ![Companion App home screen](../../../assets/images/companion_app_home_1.png)
+
+**Important!** While it’s usually easiest to use the Companion App to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the [API Explorer](/onboarding/3-ways-to-interact-with-misty/api-explorer/#connecting-wifi) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 
 ## Getting Information about Misty
@@ -38,15 +40,7 @@ The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi co
 
 
 ## Updating Misty
-The **Settings** screen provides a way for you to easily start an update to Misty's system software. We recommend you check for updates weekly. Updates can include:
-
-* Image assets
-* Sound assets
-* Motor controller firmware
-* Real-time controller firmware 
-* Occipital Structure Core depth sensor firmware
-* Home Robot application (running on Windows IoT Core)
-* Sensory Services application (running on Android)
+The **Settings** screen provides a way for you to easily start an update to Misty's system software. If you want to find the version information for your robot's currently installed system software, use the **My Misty** screen as described above. To find out the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development/misty-I). 
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 

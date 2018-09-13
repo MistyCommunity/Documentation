@@ -36,9 +36,8 @@ Would you like to have Misty sing a song or play a particular sound when her fac
 
 
 1. To select a file to upload to Misty, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
-2. After you choose a file, a checkbox appears under the rectangle. Click that checkbox to confirm the file to upload. ![Upload asset checkbox](../../../assets/images/explorer_upload_checkbox.png)
-3. To save the file onto Misty, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
-4. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
+2. After you choose a file, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
+3. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
 
 
 ### Playing or displaying a file
@@ -143,8 +142,8 @@ Misty's ability to recognize faces is under development. To try face training an
 
 1. Make sure that your robot is connected to the API Explorer and that the light on Misty’s HD camera (located above her eyes on Misty I) is solid blue.
 2. In the **Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
-3. Position the person’s face in a well-lit area about a foot or two away from Misty’s camera.
-4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes.
+3. Position a single person’s face in a well-lit area 1-6 feet from Misty’s camera. Do not attempt to train Misty to recognize more than one person at the same time.
+4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes. You can observe the main API Explorer browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
 5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
 6. Position the person’s face in a well-lit area front of the camera.
 7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
@@ -224,15 +223,7 @@ To follow a path on a map:
 
 
 ## System Updates
-You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. Updates can include:
-
-* Image assets
-* Sound assets
-* Motor controller firmware
-* Real-time controller firmware 
-* Occipital Structure Core depth sensor firmware
-* Home Robot application (running on Windows IoT Core)
-* Sensory Services application (running on Android)
+You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development/misty-I). 
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 
@@ -242,4 +233,21 @@ To perform an update:
 3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
 4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
 5. The update process may take up to a half hour total, during which time Misty restarts _twice_. **The update process is not complete until you see Misty's happy eyes appear.**  ![Happy eyes](../../../assets/images/happy.png)
+
+
+## Connecting WiFi
+While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways-to-interact-with-misty/companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+
+1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
+2. Use the command line to find the IP address of the adapter.
+  * On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under **System Preferences > Network**.
+  * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
+3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
+4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
+5. Scroll down to the bottom of the API Explorer page to the **Connect WiFi** section. Enter your WiFi network credentials here and click **Connect to WiFi.** The process can take a few minutes. ![Connect WiFi UI](../../../assets/images/connect_wifi.png)
+
+**Note**: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:
+  * Apple/Unix: `arp -a | grep <MAC ADDRESS>`
+  * Windows (in a Powershell window): `arp -a | select-string <MAC ADDRESS>`
+
 
