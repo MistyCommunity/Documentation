@@ -36,29 +36,39 @@ Get both tools [at the Misty I GitHub repo](https://github.com/MistyCommunity/Mi
 
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
 
-`<script src=”tools/lightClient.js”></script>`
-`<script src=”tools/lightSocket.js”></script>`
-`<script src=”app.js”></script>`
+```javascript
+<script src=”tools/lightClient.js”></script>
+<script src=”tools/lightSocket.js”></script>
+<script src=”app.js”></script>
+```
 
 The first step to creating an external skill is to create an instance of the LightClient class, passing in your robot's IP address and the amount of time in ms you want your program to wait before timing out if no response is detected (the default is 30 seconds). 
 
-`let client = new LightClient("[robot IP address]", 10000);`
+```javascript
+let client = new LightClient("[robot IP address]", 10000);
+```
 
 Once you create an instance of LightClient, it's simple to send requests to Misty’s REST endpoints. Most of the URL for Misty’s REST commands are built into LightClient: 
 
-`http://{ipAddress}/api/`
+```javascript
+http://{ipAddress}/api/
+```
 
 In order to use a specific endpoint, just pass in the rest of the URL. For example, you can do the following to send a GET request to the `GetDeviceInformation()` command:
 
-`client.GetCommand("info/device", function(data) {
+```javascript
+client.GetCommand("info/device", function(data) {
     console.log(data);
-});`
+});
+```
 
 Here’s another example of using LightClient to send a GET request to Misty, this time to obtain a list of the images currently stored on the robot:
 
-`client.GetCommand("images", function(data) {
+```javascript
+client.GetCommand("images", function(data) {
     console.log(data);
-});`
+});
+```
 
 You will also want to send POST requests to the robot. For a POST command, in order to send data along with the request, just pass it to `lightClient.PostCommand` as the second argument. Be sure to use the `JSON.stringify()` method first, in order to convert the JavaScript value(s) to a JSON string.
 
@@ -66,48 +76,62 @@ For example, we can send a POST request to the `ChangeLED()` endpoint to change 
 
 Specify the RGB values and convert the data to a JSON string:
 
-`let data = {
+```javascript
+let data = {
     "red": 0,
     "green": 0,
     "blue": 255
 };
-payload = JSON.stringify(data);`
+payload = JSON.stringify(data);
+```
 
 Send the request, including the data:
 
-`client.PostCommand("led/change", payload, function(result) {
+```javascript
+client.PostCommand("led/change", payload, function(result) {
     if(result) {
         console.log("Request Successful")
     }
-});`
+});
+```
 
 
 ### Using the LightSocket JS Helper
 
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
 
-`<script src=”tools/lightClient.js”></script>`
-`<script src=”tools/lightSocket.js”></script>`
-`<script src=”app.js”></script>`
+```javascript
+<script src=”tools/lightClient.js”></script>
+<script src=”tools/lightSocket.js”></script>
+<script src=”app.js”></script>
+```
 
 As we did for LightClient, the first step in using `lightSocket.js` is to create an instance of the LightSocket class, passing in your robot's IP address. Then, you call the `Connect()` method to open a WebSocket connection.
 
-`let socket = new LightSocket(ip);
-socket.Connect();`
+```javascript
+let socket = new LightSocket(ip);
+socket.Connect();
+```
 
 In order to subscribe to a WebSocket using LightSocket, simply call the `Subscribe()` method. The arguments passed to the function correspond to the properties of `subscribeMsg` described in "Getting Data from Misty." See the function below for reference: 
 
-`socket.Subscribe = function (eventName, msgType, debounceMs, property, inequality, value, returnProperty, eventCallback)`
+```javascript
+socket.Subscribe = function (eventName, msgType, debounceMs, property, inequality, value, returnProperty, eventCallback)
+```
 
 Here we create a `TimeOfFlight` WebSocket subscription for the center time-of-flight sensor, and log the data as we receive it:
 
-`socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "=", "Center", null, function(data) {
+```javascript
+socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "=", "Center", null, function(data) {
     console.log(data);
-});`
+});
+```
 
 It's always best practice to unsubscribe to the WebSocket connection after use, so at the end of your script, be sure to call the `Unsubscribe()` method:
 
-`socket.Unsubscribe("CenterTimeOfFlight");`
+```javascript
+socket.Unsubscribe("CenterTimeOfFlight");
+```
 
 
 ## Getting Data from Misty
