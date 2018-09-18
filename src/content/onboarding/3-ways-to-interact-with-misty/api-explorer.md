@@ -129,13 +129,6 @@ You can view a stream of distance data from Misty I's four time-of-flight sensor
 3. You can see data from Misty's battery sensor in the **Battery Voltage** field.
 
 
-### Subscribing to Head Position Actuator data
-
-1. In the **Sensor Data** area, find the **Actuator Position** controls.
-2. Toggle the **Head Pitch** switch on.
-3. You can see data from the actuator sensor in the **Position (radians)** field.
-
-
 ### Subscribing to Other WebSocket data
 
 1. Find the **Other WebSockets** controls in the API Explorer. ![Other Websockets](../../../assets/images/other_websockets.png)
