@@ -18,7 +18,7 @@ You should receive an email inviting you to download the current version of the 
 ## Connecting Misty to Bluetooth and Wi-Fi
 The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
 
-**Note: You can only connect Misty to Wi-Fi networks that have password protection.** Misty cannot be connected to open networks at this time. Misty does support both 2.4 GHz and 5 GHz Wi-Fi networks.
+**Note: You can only connect Misty to Wi-Fi networks that have password protection.** Misty cannot be connected to open networks at this time. Misty does support both 2.4 GHz and 5 GHz Wi-Fi networks. If you are using a network without password protection or one that requires additional layers of authentication, see [this support thread](https://community.mistyrobotics.com/t/nontraditional-network-wifi-ideas/861) or contact us for help.
 
 1. [Power up](/onboarding/get-started/powering-up-down/#turning-misty-on) your Misty robot and wait for her eyes to appear fully open.
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.
@@ -35,7 +35,7 @@ The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
 ## Getting Information about Misty
 The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi connections, her IP address, software versions, and more.
 
-1. From the bottom of the **Home** screen, select the **My Misty** icon. ![Companion App home screen](../../../assets/images/companion_app_home_2.png)
+1. From the bottom of the **Home** screen, select the **My Misty** icon. **Important!** There is currently a known issue that can occur when initially connecting Misty and the Companion App. Even if the Companion App says it's connected to Misty, the robot's IP address and battery % may not display initially. Closing the app and repeating the connection process allows the app to display that data. ![Companion App home screen](../../../assets/images/companion_app_home_2.png)
 2. The **My Misty** screen allows you to view connectivity, software, and hardware information. ![Companion App My Misty screen](../../../assets/images/companion_app_my_misty.png)
 
 

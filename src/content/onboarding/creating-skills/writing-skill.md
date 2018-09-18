@@ -256,6 +256,8 @@ function startTimeOfFlight() {
 
 The following are Misty's available WebSocket data stream types. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
 
+**Note**: All of Misty's WebSocket data structures are subject to change.
+
 ### TimeOfFlight
 
 Misty has four time-of-flight sensors that provide raw proximity data (in meters) in a single stream. The ```TimeOfFlight``` WebSocket sends this data any time a time-of-flight sensor is triggered. It is possible for proximity data to be sent as frequently as every 70 milliseconds, though it can be significantly slower. It is not sent at timed intervals.
@@ -383,11 +385,12 @@ LocomotionCommand{
 
 ### SelfState
 
-The ```SelfState``` WebSocket can provide a large amount of data about Misty’s current internal state, including:
+The ```SelfState``` WebSocket provides a variety of data about Misty’s current internal state, including:
 
 * battery charge, voltage, and charging status
+* IP address
 * affect
-* position and orientation
+* position and orientation ("pose")
 * SLAM status
 * sensor messages
 
@@ -399,7 +402,184 @@ The ```SelfState``` WebSocket can provide a large amount of data about Misty’s
 * ```Personality```
 * ```PhysiologicalBehavior```
 
-```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the sample below that uses the ```lightSocket.js``` JavaScript helper.
+```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
+
+Sample SelfState data:
+```javascript
+SelfState {
+    "eventName": "SelfState",
+    "message": {
+        "acceleration": null,
+        "batteryChargePercent": 0,
+        "batteryVoltage": 0,
+        "bumpedState": {
+            "disengagedSensorIds": [],
+            "disengagedSensorNames": [],
+            "disengagedSensors": [],
+            "engagedSensorIds": [],
+            "engagedSensorNames": [],
+            "engagedSensors": []
+        },
+        "currentGoal": {
+            "animation": null,
+            "animationId": null,
+            "directedMotion": null,
+            "directedMotionBehavior": "SupersedeAll",
+            "haltActionSequence": false,
+            "haltAnimation": false
+        },
+        "isCharging": false,
+        "localIPAddress": "10.0.1.160",
+        "location": {
+            "bearing": 2.1161846957231862,
+            "bearingThreshold": {
+                "lowerBound": 0,
+                "upperBound": 0
+            },
+            "distance": 0.049783250606253104,
+            "distanceThreshold": {
+                "lowerBound": 0,
+                "upperBound": 0
+            },
+            "elevation": -0.009038750542528028,
+            "elevationThreshold": {
+                "lowerBound": 0,
+                "upperBound": 0
+            },
+            "pose": {
+                "bearing": 2.1161846957231862,
+                "created": "2018-09-17T21:01:35.7312016Z",
+                "distance": 0.049783250606253104,
+                "elevation": -0.009038750542528028,
+                "frameId": "WorldOrigin",
+                "framesProvider": {
+                    "rootFrame": {
+                        "created": "2018-09-17T18:21:22.8435331Z",
+                        "id": "RobotBaseCenter",
+                        "isStatic": true,
+                        "linkFromParent": {
+                            "isStatic": true,
+                            "parentFrameId": "",
+                            "transformFromParent": {
+                                "bearing": 0,
+                                "distance": 0,
+                                "elevation": 0,
+                                "pitch": 0,
+                                "quaternion": {
+                                    "isIdentity": true,
+                                    "w": 1,
+                                    "x": 0,
+                                    "y": 0,
+                                    "z": 0
+                                },
+                                "roll": 0,
+                                "x": 0,
+                                "y": 0,
+                                "yaw": 0,
+                                "z": 0
+                            },
+                            "transformToParent": {
+                                "bearing": 3.141592653589793,
+                                "distance": 0,
+                                "elevation": 0,
+                                "pitch": 0,
+                                "quaternion": {
+                                    "isIdentity": true,
+                                    "w": 1,
+                                    "x": 0,
+                                    "y": 0,
+                                    "z": 0
+                                },
+                                "roll": 0,
+                                "x": 0,
+                                "y": 0,
+                                "yaw": 0,
+                                "z": 0
+                            }
+                        }
+                    }
+                },
+                "homogeneousCoordinates": {
+                    "bearing": 2.1161846957231862,
+                    "distance": 0.049783250606253104,
+                    "elevation": -0.009038750542528028,
+                    "pitch": -0.18708743155002594,
+                    "quaternion": {
+                        "isIdentity": false,
+                        "w": 0.99558717,
+                        "x": -0.008987884,
+                        "y": -0.09339719,
+                        "z": -0.0015491969
+                    },
+                    "roll": -0.017920719552386073,
+                    "x": -0.025824014097452164,
+                    "y": 0.04255925118923187,
+                    "yaw": -0.001430802591800146,
+                    "z": 0.00044997225631959736
+                },
+                "pitch": -0.18708743155002594,
+                "roll": -0.017920719552386073,
+                "x": -0.025824014097452164,
+                "y": 0.04255925118923187,
+                "yaw": -0.001430802591800146,
+                "z": 0.00044997225631959736
+            },
+            "unitOfMeasure": "None"
+        },
+        "mentalState": {
+            "affect": {
+                "arousal": 0,
+                "dominance": 0,
+                "valence": 0
+            },
+            "created": "2018-09-17T21:01:35.7312016Z",
+            "personality": {
+                "agreeableness": 0,
+                "conscientiousness": 0,
+                "extraversion": 0,
+                "neuroticism": 0,
+                "openness": 0
+            },
+            "physiologicalBehavior": {
+                "hunger": {
+                    "isEating": false,
+                    "level": 0
+                },
+                "sleepiness": {
+                    "isSleeping": false,
+                    "level": 0
+                }
+            }
+        },
+        "occupancyGridCell": {
+            "x": 0,
+            "y": 0
+        },
+        "occupancyGridCellMeters": 0,
+        "orientation": {
+            "pitch": -0.18708743155002594,
+            "roll": -0.017920719552386073,
+            "yaw": -0.001430802591800146
+        },
+        "position": {
+            "x": -0.025824014097452164,
+            "y": 0.04255925118923187,
+            "z": -0.025824014097452164
+        },
+        "slamStatus": {
+            "runMode": "Exploring",
+            "sensorStatus": "Ready",
+            "status": 132
+        },
+        "stringMessages": null,
+        "touchedState": {
+            "disengagedSensors": [],
+            "engagedSensors": []
+        }
+    },
+    "type": "SelfState"
+}
+```
 
 ### WorldState
 
@@ -407,8 +587,7 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 * the locations of perceived objects
 * the times they were perceived
 
-```WorldState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```WorldState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the sample below that uses the ```lightSocket.js``` JavaScript helper.
-
+```WorldState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```WorldState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
 
 
 ## Working with the API Explorer Code

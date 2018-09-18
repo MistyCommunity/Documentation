@@ -52,9 +52,9 @@ Arguments:
 Returns:
 * Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
    * Height (integer) - the height of the image file
-   * Location (string) - full location path of the file on the robot's file structure
    * Name (string) - the name of the image file
    * Width (integer) - the width of the image file
+   * UserAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system image files.
 
 
 ### SaveImageAssetToRobot
@@ -73,7 +73,6 @@ Arguments:
 Returns:
 * Result (array) - Returns an array of information about the image file, with the following fields:
    * Name (string) - The name of the file that was saved.
-   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ### DeleteImageAssetFromRobot
@@ -142,7 +141,6 @@ Arguments:
 Returns:
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
-   * Location (string) - The full path of the location of where the file is located on the robot's file system.
 
 
 ## Locomotion

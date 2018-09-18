@@ -108,22 +108,33 @@ Real-time data from Misty is sent via WebSocket connections and includes:
 
 The data that's sent over WebSocket connections is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of [programmatically subscribing](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to WebSocket data to [create skills](/onboarding/creating-skills/writing-skill) for Misty.
 
-When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (Note that how you open the console will vary among browsers and platforms.)
+When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (How you open the console will vary among browsers and platforms.)
+
+Select **Show Sensors** to view the available sensor websockets.
 ![Websocket controls](../../../assets/images/websockets.png)
 
 
 ### Subscribing to Time of Flight data
-You can view a stream of data from Misty's four time-of-flight sensors in the API Explorer. For an example of obtaining time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
+You can view a stream of distance data from Misty I's four time-of-flight sensors in the API Explorer. For an example of obtaining time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
 
-1. In the **Sensor Reading WebSockets** area, find the **Time of Flight** controls and click **Subscribe**.
-2. You can see the time of flight data in the **Distance (meters)** field.
-3. Click **Unsubscribe** when you are finished.
+1. In the **Sensor Data** area, locate the **Time of Flight** controls.
+2. Toggle the switch on for the sensor position for which you want to view distance data.
+3. You can see the time-of-flight sensor's data in the corresponding **Distance (meters)** field.
+
 
 ### Subscribing to Battery data
 
-1. In the **Sensor Reading WebSockets** area, find the **Battery Charge** controls and click **Subscribe**.
-2. You can see data from Misty's battery sensor in the **Battery Voltage** field.
-3. Click **Unsubscribe** when you are finished.
+1. In the **Sensor Data** area, find the **Battery Voltage** controls.
+2. Toggle the **Battery** switch on.
+3. You can see data from Misty's battery sensor in the **Battery Voltage** field.
+
+
+### Subscribing to Head Position Actuator data
+
+1. In the **Sensor Data** area, find the **Actuator Position** controls.
+2. Toggle the **Head Pitch** switch on.
+3. You can see data from the actuator sensor in the **Position (radians)** field.
+
 
 ### Subscribing to Other WebSocket data
 
@@ -156,7 +167,6 @@ Misty's ability to recognize faces is under development. To try face training an
 You can use the API Explorer to move Misty's head with the following controls:
 * **Move Head**
 * **Set Head Position**
-* **Move Head to Location**
 
 **Note: Misty I only provides movement along one axis: pitch. This means that up and down motions are all that can be controlled for Misty I.**
 ![Head commands](../../../assets/images/head_commands.png)
@@ -168,7 +178,7 @@ Misty can generate a map of your home or office, track her location on a map, an
 
 **Note: The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
-**Note: Misty's coordinate system is currently inverted (X is vertical, Y is horizontal).**
+**Important! For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.**
 
 
 ### Obtaining Pose
@@ -176,7 +186,7 @@ Before attempting to map or track, you must obtain pose.
 
 1. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
 2. Ensure Misty is in a well-lit (not dark) environment.
-3. Scroll down to **Alpha** and find the **Mapping and Exploring** section. ![Mapping controls](../../../assets/images/slam_controls.png)
+3. Scroll down to **Alpha** and find the **Mapping** section. ![Mapping controls](../../../assets/images/slam_controls.png)
 4. Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you open the console varies among browsers and platforms). 
 5. If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, [restart Misty](../../get-started/powering-up-down/#restarting-misty) and start these instructions over._
 6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
@@ -195,31 +205,30 @@ When mapping, drive slowly to give the mapping system the best chance to fill in
 1. Follow the above instructions to obtain pose.
 2. Click **Start Mapping**. After a few seconds, the **Pose** light should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
 3. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
-4. Observe the **Pose X** and **Pose Y** fields for data. _Note: If you have pose, but do not see pose data updating, try turning up the lights._
-5. If **Pose** stays green and data keeps updating, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red AND if the pose data stops updating, try the following:_
+4. If **Pose** stays green, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red while you are mapping, try the following:_
     * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
     * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
-6. When done driving, click **Stop**.
-7. Click **Stop Mapping**.
-8. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
+5. When done driving, click **Stop**.
+6. Click **Stop Mapping**.
+7. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
 
 
 ### Tracking & Following a Path - ALPHA
-You can have Misty track where she is on a map that she has already created or track without a map.
+You can have Misty track where she is on a map that she has already created or track without a map. You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated.
 
-You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated. ![Tracking and Path controls](../../../assets/images/track_path.png)
+**Important! For Misty's maps, you read coordinates from the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.**
 
-To track:
+To track: ![Tracking controls](../../../assets/images/track.png)
 1. Follow the above instructions to obtain pose.
-2. Click **Start Tracking** and begin driving Misty. Activating tracking should provide data in the Pose fields for where Misty is on the map you generated. If you have not previously generated a map, Misty sets her beginning tracking position as 0,0.
-3. Observe the Pose fields as Misty moves to ensure she is successfully tracking. If the Pose data stops while Misty is moving, try backing Misty up for one second. Misty may find her way again.
+2. Click **Start Tracking** and begin driving Misty. Activating tracking provides pose data in the SelfState websocket for where Misty is on the map you previously generated. Or, if you have not previously generated a map, Misty sets her beginning tracking position as 0,0.
+3. If **Pose** turns from green to red while Misty is moving, try backing Misty up for a second and see if she gets pose again.
 4. Click **Stop Tracking**.
 
-To follow a path on a map:
+To follow a path on a map: ![Path following controls](../../../assets/images/path.png)
 1. Ensure that Misty still has pose.
 2. Either:
-  * Supply X,Y values and click the **Add Waypoint** button to add individual waypoints to a path.
-  * Use the field next to the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**.
+  * Supply individual X,Y value pairs and click the **Add Waypoint** button to add these individual waypoints to a path.
+  * Use the field next to the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**. A path of waypoints should be entered in the form of X1:Y1,X2:Y2,X3:Y3.
 
 
 ## System Updates
@@ -246,7 +255,7 @@ While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways
 4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
 5. Scroll down to the bottom of the API Explorer page to the **Connect WiFi** section. Enter your WiFi network credentials here and click **Connect to WiFi.** The process can take a few minutes. ![Connect WiFi UI](../../../assets/images/connect_wifi.png)
 
-**Note**: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:
+**Note: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:**
   * Apple/Unix: `arp -a | grep <MAC ADDRESS>`
   * Windows (in a Powershell window): `arp -a | select-string <MAC ADDRESS>`
 
