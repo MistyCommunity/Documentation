@@ -400,15 +400,23 @@ Return Values
 
 
 ### GetLogFile
-Obtains one day's content from the robot's recent log files. Log file data is stored for 7 days.
+Obtains the robot's recent log files. Log file data is stored for 7 days. Calling `GetLogFile` with no parameters returns all available log data.
 
 Endpoint:
-GET {robot ip address}/api/info/logs/?date={date string}
-Example:
-`{robot ip address}/api/info/logs?date=June%207,%202018`
+
+* GET {robot ip address}/api/info/logs for all data
+* GET {robot ip address}/api/info/logs/?date={date string} for a specific date
+
+Examples:
+
+`{robot ip address}/api/info/logs`
+
+`{robot ip address}/api/info/logs?date=2018/9/24`
+
+`{robot ip address}/api/info/logs?date=September/24/2018`
 
 Parameters
-- Date (string) - A date within the last 7 days. Dates must be formatted as: ```MonthName%20Date,%20FourDigitYear```, including the comma after the date and using ```%20``` instead of empty spaces. Example: ```June%207,%202018```
+- Date (string) - Optional. A date within the last 7 days. Dates must be formatted as: `MonthName/Date/FourDigitYear` or `FourDigitYear/MonthNumber/Date`.
 
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
