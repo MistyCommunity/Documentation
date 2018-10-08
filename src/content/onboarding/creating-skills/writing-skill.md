@@ -13,7 +13,7 @@ Creating your own skill for Misty typically involves two things: getting data fr
 
 ## Sending Commands to Misty
 
-To send API commands to Misty in a skill, you can use the [JavaScript API](/apis/api-reference/all-functions) or this community-created [Python wrapper](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python). To experiment with the API, you can also use a REST client such as Postman and send [GET and POST](/apis/api-reference/rest) commands to Misty directly.
+To send API commands to Misty in a skill, you can use the [JavaScript API](/apis/api-reference/all-functions) or this [Python wrapper](https://github.com/MistyCommunity/mistyPy). To experiment with the API, you can also use a REST client such as Postman and send [GET and POST](/apis/api-reference/rest) commands to Misty directly.
 
 Misty's API includes commands for:
 * Display and light control
