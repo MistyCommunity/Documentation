@@ -27,4 +27,4 @@ Want to contribute something to the documentation that's bigger than a bug repor
 
 First, before you invest too much time, reach out and let us know what you're thinking. It may be that we already know about the issue or are already creating new content. Reaching out could save you time and effort.
 
-Second, assuming we're not already making the changes, go ahead and fork the repo and make a pull request, as described [here](https://help.github.com/articles/working-with-forks/).
+Second, assuming we're not already making the changes, go ahead and fork the repo. After editing the source files, build the documentation locally and make a pull request, as described [here](https://help.github.com/articles/working-with-forks/).
