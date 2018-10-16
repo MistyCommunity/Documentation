@@ -832,7 +832,7 @@ Return Values
 
 
 ### FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify.
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
 
 Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 

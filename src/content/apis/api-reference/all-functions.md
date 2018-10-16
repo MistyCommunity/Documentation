@@ -606,7 +606,8 @@ Returns:
 
 
 ### FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify.
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
+
 
 Arguments:
 * Path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
