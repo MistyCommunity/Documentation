@@ -452,7 +452,7 @@ Directs Misty to initiate an audio recording and save it with the specified file
 Endpoint: POST {robot-ip-address}/api/beta/audio/startrecord
 
 Parameters
-* FileName (string) - The name to assign to the audio recording.
+* FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.

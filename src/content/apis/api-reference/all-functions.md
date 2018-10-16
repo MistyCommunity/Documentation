@@ -303,7 +303,7 @@ Returns:
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
 Arguments:
-* FileName (string) - The name to assign to the audio recording.
+* FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
