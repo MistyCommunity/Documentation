@@ -37,31 +37,9 @@ All successful commands return a status and the result of the call:
 If there is an issue, Misty returns an HTTP error code and error message.
 
 
-## Display & LED
+## Images & Display
 
 Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
-
-
-### ChangeLED
-Changes the color of the LED light behind the logo on Misty's torso.
-
-Endpoint: POST {robot-ip-address}/api/led/change
-
-```json
-{
-  "red": 255,
-  "green": 0,
-  "blue": 0
-}
-```
-
-Parameters
-- Red (byte) - The red RGB color value (range 0 to 255).
-- Green (byte) - The green RGB color value (range 0 to 255).
-- Blue (byte) - The blue RGB color value (range 0 to 255).
-
-Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
 
 
 ### ChangeDisplayImage
@@ -423,6 +401,27 @@ Return Values
 
 
 ## Configuration
+
+### ChangeLED
+Changes the color of the LED light behind the logo on Misty's torso.
+
+Endpoint: POST {robot-ip-address}/api/led/change
+
+Parameters
+- Red (byte) - The red RGB color value (range 0 to 255).
+- Green (byte) - The green RGB color value (range 0 to 255).
+- Blue (byte) - The blue RGB color value (range 0 to 255).
+
+```json
+{
+  "red": 255,
+  "green": 0,
+  "blue": 0
+}
+```
+
+Return Values
+* Result (boolean) - Returns true if there are no errors related to this command.
 
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.

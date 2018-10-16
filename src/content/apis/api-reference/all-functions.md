@@ -12,21 +12,9 @@ You can use Misty's JavaScript API to send commands to Misty and obtain some bas
 To [create skills](/onboarding/creating-skills/writing-skill) for Misty, you'll typically also need to get live updating data back from Misty. For that, you need to use a [WebSocket connection](/onboarding/creating-skills/writing-skill/#websocket-connections). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills in JavaScript and Python.
 
 
-## Display & LED
+## Images & Display
 
 Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
-
-
-### ChangeLED
-Changes the color of the LED light behind the logo on Misty's torso.
-
-Arguments:
-* Red (byte) - A value between 0 and 255 specifying the red RGB color.
-* Green (byte) - A value between 0 and 255 specifying the green RGB color.
-* Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
-
-Returns:
-* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 
 ### ChangeDisplayImage
@@ -285,6 +273,17 @@ Returns:
 
 
 ## Configuration
+
+### ChangeLED
+Changes the color of the LED light behind the logo on Misty's torso.
+
+Arguments:
+* Red (byte) - A value between 0 and 255 specifying the red RGB color.
+* Green (byte) - A value between 0 and 255 specifying the green RGB color.
+* Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
+
+Returns:
+* Success (boolean) - Returns true if there are no errors related to this call. Otherwise, false.
 
 ### SetNetworkConnection
 Connects Misty to a specified WiFi source.
