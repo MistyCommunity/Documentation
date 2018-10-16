@@ -592,7 +592,7 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 ## Working with the API Explorer Code
 
-You can use the code and examples in the [API Explorer download package](https://s3.amazonaws.com/misty-releases/Misty-0.7/latest/api-explorer.zip) to help you build skills.
+You can use the code and examples in the [API Explorer download package](https://s3.amazonaws.com/misty-releases/api-explorer/latest/api-explorer.zip) to help you build skills.
 
 ### index.html & default.css
 
