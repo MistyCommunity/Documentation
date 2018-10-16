@@ -79,7 +79,7 @@ Return Values
    * Height (integer) - the height of the image file
    * Name (string) - the name of the image file
    * Width (integer) - the width of the image file
-   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system image files.
+   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
 
 
 ### SaveImageAssetToRobot
@@ -113,10 +113,10 @@ Parameters
 
 Return Values
 - Result (array) - Returns an array of information about the image with the following fields:
-  - height (float) - The height of the image in pixels.
+  - height (integer) - The height of the image in pixels.
   - name (string) - The name of the saved file.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system  files.
-  - width (float) - The width of the image in pixels.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+  - width (integer) - The width of the image in pixels.
 
 #### Option 2
 
@@ -129,12 +129,12 @@ Parameters
 - ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
 - OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
-Return values
+Return Values
 - Result (array) - Returns an array of information about the image with the following fields:
-  - height (float) - The height of the image in pixels.
+  - height (integer) - The height of the image in pixels.
   - name (string) - The name of the saved file.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
-  - width (float) - The width of the image in pixels.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+  - width (integer) - The width of the image in pixels.
 
 
 
@@ -177,7 +177,7 @@ Endpoint: POST {robot-ip-address}/api/audio/play
 Parameters    
 - AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 - FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (int) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
@@ -210,7 +210,7 @@ Parameters
 Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system audio files.
+   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
 
 
 ### SaveAudioAssetToRobot
@@ -237,7 +237,7 @@ Parameters
 Return Values
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 #### Option 2
 **Note: To use this option, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).**
@@ -251,7 +251,7 @@ Parameters
 Return Values
 - Result (array) - An array of information about the audio file, with the following fields:
   - name (string) - The name of the file that was saved.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 
 ## Locomotion
@@ -766,9 +766,9 @@ Return Values
 - Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64. You can save the image by manually downloading it either from the browser or your REST client.
   - base64 (string) - A string containing the Base64-encoded image data.
   - format (string) - The type and format of the image returned.
-  - height (int) - The height of the image in pixels.
+  - height (integer) - The height of the image in pixels.
   - name (string) - The name of the image.
-  - width (int) - The width of the image in pixels.
+  - width (integer) - The width of the image in pixels.
 
 ```json
 {
@@ -787,15 +787,15 @@ Endpoint: GET {robot-ip-address}/api/alpha/camera?Base64={bool}
 
 Parameters  
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call [`SaveImageAssetToRobot`](http://localhost:8080/apis/api-reference/rest/#saveimageassettorobot) to upload and save the image to Misty.** 
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.** 
 
 Return Values
-- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by manually downloading it either from the browser or your REST client.
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it either from the browser or your REST client.
     - base64 (string) - A string containing the Base64-encoded image data.
     - format (string) - Indicates the type and format of the image returned.
-    - height (int) - The height of the picture in pixels.
+    - height (integer) - The height of the picture in pixels.
     - name (string) - The name of the picture. 
-    - width (int) - The width of the picture in pixels.
+    - width (integer) - The width of the picture in pixels.
 
 ```json
 {
@@ -819,12 +819,12 @@ Parameters
 - Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.**
 
 Return Values
-- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by manually downloading it either from the browser or your REST client.
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it either from the browser or your REST client.
     - base64 (string) - A string containing the Base64-encoded image data.
     - format (string) - The type and format of the image returned.
-    - height (int) - The height of the picture in pixels.
+    - height (integer) - The height of the picture in pixels.
     - name (string) - The name of the picture.
-    - width (int) - The width of the picture in pixels.
+    - width (integer) - The width of the picture in pixels.
 
 ```json
 {
@@ -848,9 +848,9 @@ Parameters
 
 Return Values
 - Result (object) - An object containing depth information about the image matrix, with the following fields.
-    - height (int) - The height of the matrix.
+    - height (integer) - The height of the matrix.
     - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around `2000`. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value would represent a smaller area.
-    - width (int) - The width of the matrix.
+    - width (integer) - The width of the matrix.
 
 ```json
 {
@@ -907,7 +907,7 @@ Sets the default loudness of Misty's speakers for audio playback.
 Endpoint: POST {robot-ip-address}/api/alpha/audio/volume
 
 Parameters
-- Volume (int): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+- Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.

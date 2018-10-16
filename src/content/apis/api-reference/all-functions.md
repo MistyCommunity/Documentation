@@ -42,7 +42,7 @@ Returns:
    * Height (integer) - the height of the image file
    * Name (string) - the name of the image file
    * Width (integer) - the width of the image file
-   * UserAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system image files.
+   * UserAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
 
 
 ### SaveImageAssetToRobot
@@ -50,9 +50,11 @@ Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png
 
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
+#### Option 1
+
 Arguments:
 * FileName (string) - The name of image file to upload.
-* DataAsByteArrayString (string) - The image data, passed as a String containing a byte array.
+* DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
 * Width (integer) - The width of the image in pixels.
 * Height (integer) - The height of the image in pixels.
 * ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
@@ -61,6 +63,22 @@ Arguments:
 Returns:
 * Result (array) - Returns an array of information about the image file, with the following fields:
    * Name (string) - The name of the file that was saved.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+#### Option 2
+
+Arguments
+- File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png.
+- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the image will be saved with the same name as the source file.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Return values
+- Result (array) - Returns an array of information about the image with the following fields:
+- integer (integer) - The height of the image in pixels.
+- name (string) - The name of the saved file.
+- userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+- width (integer) - The width of the image in pixels.
 
 
 ### DeleteImageAssetFromRobot
@@ -85,7 +103,7 @@ Plays an audio clip that has been previously uploaded to Misty. Use `SaveAudioAs
 Arguments:
 * AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 * FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-* Volume (int) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+* Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Returns:
 * Result (string) - Returns a string with any errors related to this command.
@@ -114,11 +132,13 @@ Arguments:
 Returns:
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system audio files.
+   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
 
 
 ### SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
+
+#### Option 1
 
 Arguments:
 * FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
@@ -129,6 +149,22 @@ Arguments:
 Returns:
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+#### Option 2
+
+Arguments
+- File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png.
+- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the image will be saved with the same name as the source file.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Returns
+- Result (array) - Returns an array of information about the image with the following fields:
+  - height (integer) - The height of the image in pixels.
+  - name (string) - The name of the saved file.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+  - width (integer) - The width of the image in pixels.
 
 
 ## Locomotion
@@ -294,6 +330,19 @@ Arguments:
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
+
+
+## Beta - Images & Display
+
+### ClearDisplayText - BETA
+Force-clears an error message from Misty’s display. **Note: This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.**
+
+Arguments
+- None
+
+Returns
+- Result (boolean) - Returns `true` if there are no errors related to this command.
+
 
 
 ## Beta - Audio
@@ -482,6 +531,91 @@ Returns:
 * Result (string) - A string containing the requested help information.
 
 
+## Alpha - Images & Display
+
+### GetImage - ALPHA
+Obtains a system or user-uploaded image file currently stored on Misty.
+
+Arguments  
+- FileName (string) - The name of the image file to get, including the file type extension.
+- Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser immediately after the image is taken. Default is `true`.
+
+Returns
+- Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it.
+  - base64 (string) - A string containing the Base64-encoded image data.
+  - format (string) - The type and format of the image returned.
+  - height (integer) - The height of the image in pixels.
+  - name (string) - The name of the image.
+  - width (integer) - The width of the image in pixels.
+
+### TakePicture - ALPHA
+Takes a photo with Misty's 4K camera.
+
+Arguments
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo immediately after it is taken. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.**
+
+Returns
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it.
+  - base64 (string) - A string containing the Base64-encoded image data.
+  - format (string) - The type and format of the image returned.
+  - height (integer) - The height of the picture in pixels.
+  - name (string) - The name of the picture.
+  - width (integer) - The width of the picture in pixels.
+
+
+### SlamGetVisibleImage - ALPHA
+Takes a photo using Misty’s Occipital Structure Core depth sensor.
+
+**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+
+Arguments
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo immediately after it is taken. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.**
+
+Returns
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it.
+  - base64 (string) - A string containing the Base64-encoded image data.
+  - format (string) - The type and format of the image returned.
+  - height (integer) - The height of the picture in pixels.
+  - name (string) - The name of the picture.
+  - width (integer) - The width of the picture in pixels.
+
+
+### SlamGetDepthImage - ALPHA
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
+
+**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+
+Arguments
+- None
+
+Return Values
+- Result (object) - An object containing depth information about the image matrix, with the following fields.
+  - height (integer) - The height of the matrix.
+  - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
+  - width (integer) - The width of the matrix.
+
+
+### SlamStartStreaming - ALPHA
+Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
+
+Arguments
+- None
+
+Returns
+- Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### SlamStopStreaming - ALPHA
+Closes the data stream from the Occipital Structure Core depth sensor. Use this command after using the `SlamStartStreaming` command.
+
+Arguments
+- None
+
+Returns
+-  Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+
 
 ## Alpha - Audio
 
@@ -490,7 +624,7 @@ Returns:
 Sets the default loudness of Misty's speakers for audio playback.
 
 Arguments:
-* Volume (int): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+* Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
