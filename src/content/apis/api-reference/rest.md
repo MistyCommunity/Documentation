@@ -83,13 +83,24 @@ Return Values
 
 
 ### SaveImageAssetToRobot
-Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. The maximum file size is 3 MB.
+Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
 **Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
 
 Endpoint: POST {robot-ip-address}/api/images
 
-```json
+#### Option 1
+
+Parameters
+- FileName (string) - The name of the image file to upload.
+- DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+- Width (integer) - The width of the image in pixels.
+- Height (integer) - The height of the image in pixels.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+
+ ```json
 {
   "FileName": "example.jpg",
   "DataAsByteArrayString": "30,190,40,24,...",
@@ -98,19 +109,33 @@ Endpoint: POST {robot-ip-address}/api/images
   "ImmediatelyApply": false,
   "OverwriteExisting": true
 }
-```
+  ```
+
+Return Values
+- Result (array) - Returns an array of information about the image with the following fields:
+  - height (float) - The height of the image in pixels.
+  - name (string) - The name of the saved file.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system  files.
+  - width (float) - The width of the image in pixels.
+
+#### Option 2
+
+**Note: To use this option, make sure to set the `content-type` in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).**
+
 
 Parameters
-- FileName (string) - The name of image file to upload.
-- DataAsByteArrayString (String) - The image data, passed as a String containing a byte array.
-- Width (integer) - The width of the image in pixels.
-- Height (integer) - The height of the image in pixels.
+- File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png.
+- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the image will be saved with the same name as the source file.
 - ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
 - OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
 
-Return Values
-* Result (array) - Returns an array of information about the image file, with the following fields:
-   * Name (string) - The name of the file that was saved.
+Return values
+- Result (array) - Returns an array of information about the image with the following fields:
+  - height (float) - The height of the image in pixels.
+  - name (string) - The name of the saved file.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
+  - width (float) - The width of the image in pixels.
+
 
 
 ### DeleteImageAssetFromRobot
@@ -193,6 +218,13 @@ Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST {robot-ip-address}/api/audio
 
+#### Option 1
+Parameters
+- FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
+- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
 ```json
 {
   "FilenameWithoutPath": "example.wav",
@@ -202,15 +234,24 @@ Endpoint: POST {robot-ip-address}/api/audio
 }
 ```
 
-Parameters
-- FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString (string) - The audio data, passed as a String containing a byte array.
-- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
-- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
-
 Return Values
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
+
+#### Option 2
+**Note: To use this option, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).**
+
+Parameters
+- File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
+- ImmediatelyApply (boolean) - Optional. True or False. Specifies whether Misty immediately plays the audio file.
+- OverwriteExisting (boolean) - Optional. True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+
+Return Values
+- Result (array) - An array of information about the audio file, with the following fields:
+  - name (string) - The name of the file that was saved.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system audio files.
 
 
 ## Locomotion
@@ -441,6 +482,20 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
+
+
+## Beta - Images & Display
+
+### ClearDisplayText - BETA
+Force-clears an error message from Misty’s display. **Note: This command is provided as a convenience. You should not typically need to call ClearDisplayText.**
+
+Endpoint: POST {robot-ip-address}/api/beta/text/clear
+
+Parameters
+- None
+
+Return Values
+- Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Beta - Audio
@@ -691,8 +746,160 @@ Return Values
 
 
 
+## Alpha - Images & Display
+
+### GetImage - ALPHA
+Obtains a system or user-uploaded image file currently stored on Misty
+
+Endpoint: GET {robot-ip-address}/api/alpha/image?FileName={name-of-image-file.extension}
+
+Parameters  
+**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
+- FileName (string) - The name of the image file to get, including the file type extension.
+- Base64 (boolean) - Optional. Stending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
+
+```markup
+http://{robot-ip-address}/api/alpha/image?FileName=Content.jpg&Base64=false
+```
+
+Return Values
+- Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64. You can save the image by manually downloading it either from the browser or your REST client.
+  - base64 (string) - A string containing the Base64-encoded image data.
+  - format (string) - The type and format of the image returned.
+  - height (int) - The height of the image in pixels.
+  - name (string) - The name of the image.
+  - width (int) - The width of the image in pixels.
+
+```json
+{
+  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
+  "format": "image/jpeg",
+  "height": 270.0,
+  "name": "ExampleFile.jpg",
+  "width": 450.0,
+}
+```
+
+### TakePicture - ALPHA
+Takes a photo with Misty's 4K camera.
+
+Endpoint: GET {robot-ip-address}/api/alpha/camera?Base64={bool}
+
+Parameters  
+**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call [`SaveImageAssetToRobot`](http://localhost:8080/apis/api-reference/rest/#saveimageassettorobot) to upload and save the image to Misty.** 
+
+Return Values
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by manually downloading it either from the browser or your REST client.
+    - base64 (string) - A string containing the Base64-encoded image data.
+    - format (string) - Indicates the type and format of the image returned.
+    - height (int) - The height of the picture in pixels.
+    - name (string) - The name of the picture. 
+    - width (int) - The width of the picture in pixels.
+
+```json
+{
+  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
+  "format": "image/jpeg",
+  "height": 1600.0,
+  "name": "MistyCamSnapshot",
+  "width": 1200.0,
+}
+```
+
+### SlamGetVisibleImage - ALPHA
+Takes a photo using Misty’s Occipital Structure Core depth sensor.
+
+**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+
+Endpoint: GET {robot-ip-address}/api/alpha/slam/visibleimage?Base64={bool}
+
+Parameters  
+**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.**
+
+Return Values
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by manually downloading it either from the browser or your REST client.
+    - base64 (string) - A string containing the Base64-encoded image data.
+    - format (string) - The type and format of the image returned.
+    - height (int) - The height of the picture in pixels.
+    - name (string) - The name of the picture.
+    - width (int) - The width of the picture in pixels.
+
+```json
+{
+  "base64": "data:image/png;base64,iVBORw0KG...",
+  "format": "image/png",
+  "height": 480.0,
+  "name": "OccipitalVisibleImage",
+  "width": 640.0,
+}
+```
+
+### SlamGetDepthImage - ALPHA
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
+
+**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+
+Endpoint: GET {robot-ip-address}/api/alpha/slam/depthimage
+
+Parameters
+- None
+
+Return Values
+- Result (object) - An object containing depth information about the image matrix, with the following fields.
+    - height (int) - The height of the matrix.
+    - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around `2000`. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value would represent a smaller area.
+    - width (int) - The width of the matrix.
+
+```json
+{
+    "height": 240,
+    "image": [857.2632,853.8426,847.1372...],
+    "width": 320
+}
+```
+
+### SlamStartStreaming - ALPHA
+Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
+
+Endpoint: POST {robot-ip-address}/api/alpha/slam/streaming/start
+
+Parameters 
+- None
+
+Return Values
+- Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### SlamStopStreaming - ALPHA
+Closes the data stream from the Occipital Structure Core depth sensor. Use this command after using the `SlamStartStreaming` command.
+
+Endpoint: POST {robot-ip-address}/api/alpha/slam/streaming/stop
+
+Parameters
+- None
+
+Return Values
+- Results (boolean) - Returns `true` if there are no errors related to this command.
+
+
 ## Alpha - Audio
 
+### GetAudioFile - ALPHA
+Obtains a system or user-uploaded audio file currently stored on Misty.
+
+Endpoint: GET {robot-ip-address}/api/alpha/audio/file?FileName={name-of-audio-file.extension}
+
+Parameters  
+**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
+- FileName (string): The name of the audio file to get, including its file type extension.
+
+```markup
+http://{robot-ip-address}/api/alpha/audio/file?FileName=ExampleAudio.mp3
+```
+
+Return Values
+- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### SetDefaultVolume - ALPHA
 Sets the default loudness of Misty's speakers for audio playback.
