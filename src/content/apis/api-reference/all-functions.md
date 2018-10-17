@@ -184,16 +184,16 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
+Arguments:
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+
 ```JavaScript
 {
   "LinearVelocity": 20,
   "AngularVelocity": 15,
 }
 ```
-
-Arguments:
-- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 
 Returns:
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -637,6 +637,21 @@ Returns:
 ### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
+Parameters
+- None
+
+Returns:
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+
 ```c#
 public enum SlamSensorStatus
 {
@@ -656,21 +671,6 @@ public enum SlamSensorStatus
   FWCorrupt = 13
 }
 ```
-
-Parameters
-- None
-
-Returns:
-* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Idle
-  2 - Exploring
-  3 - Tracking
-  4 - Recording
-  5 - Resetting
-
-Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-
-* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
 
 
 ### SlamReset - ALPHA
