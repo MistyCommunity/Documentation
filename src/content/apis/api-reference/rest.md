@@ -85,7 +85,7 @@ Return Values
 ### SaveImageAssetToRobot
 Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
-**Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.**
+**Note:** Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
 
 Endpoint: POST {robot-ip-address}/api/images
 
@@ -120,7 +120,7 @@ Return Values
 
 #### Option 2
 
-**Note: To use this option, make sure to set the `content-type` in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).**
+**Note:** To use this option, make sure to set the `content-type` in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
 
 Parameters
@@ -141,7 +141,7 @@ Return Values
 ### DeleteImageAssetFromRobot
 Enables you to remove an image file from Misty that you have previously uploaded.
 
-**Note: You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.**
+**Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
 
 Endpoint: POST {robot-ip-address}/api/images/delete
 
@@ -240,7 +240,7 @@ Return Values
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 #### Option 2
-**Note: To use this option, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).**
+**Note:** To use this option, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
 Parameters
 - File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
@@ -282,7 +282,7 @@ Endpoint: POST {robot-ip-address}/api/drive
 
 Parameters
 - LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -311,9 +311,9 @@ Endpoint: POST {robot-ip-address}/api/drive/time
 
 Parameters
 - LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 - TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree (double) - (optional) The number of degrees to turn. **Note: Supplying a `Degree` value recalculates linear velocity.**
+- Degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `Degree` value recalculates linear velocity.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -487,7 +487,7 @@ Return Values
 ## Beta - Images & Display
 
 ### ClearDisplayText - BETA
-Force-clears an error message from Misty’s display. **Note: This command is provided as a convenience. You should not typically need to call ClearDisplayText.**
+Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
 Endpoint: POST {robot-ip-address}/api/beta/text/clear
 
@@ -527,7 +527,7 @@ Return Values
 ### DeleteAudioAssetFromRobot - BETA
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
-**Note: You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.**
+**Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
 
 Endpoint: POST {robot-ip-address}/api/beta/audio/delete
 
@@ -666,7 +666,7 @@ Return Values
 Misty's ability to accurately position her head is currently under development.
 
 ### MoveHead - BETA
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note: For Misty I, the MoveHead command can only control the up-down movement of Misty's head.**
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
 
 Endpoint: POST {robot-ip-address}/api/beta/head/move
 
@@ -787,7 +787,7 @@ Endpoint: GET {robot-ip-address}/api/alpha/camera?Base64={bool}
 
 Parameters  
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.** 
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.
 
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it either from the browser or your REST client.
@@ -810,13 +810,13 @@ Return Values
 ### SlamGetVisibleImage - ALPHA
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
-**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+**Note:** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
 
 Endpoint: GET {robot-ip-address}/api/alpha/slam/visibleimage?Base64={bool}
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note: Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.**
+- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.
 
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. You can save the image by programmatically downloading it either from the browser or your REST client.
@@ -839,7 +839,7 @@ Return Values
 ### SlamGetDepthImage - ALPHA
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
 
-**Note: Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.**
+**Note:** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
 
 Endpoint: GET {robot-ip-address}/api/alpha/slam/depthimage
 
@@ -1049,7 +1049,7 @@ Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 ```
 
 Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note: X values specify directions forward and backward. Sideways directions are specified by Y values.*
+- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
