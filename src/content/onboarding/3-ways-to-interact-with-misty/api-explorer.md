@@ -23,7 +23,7 @@ As with the companion app and Blockly, when using the API Explorer, **make sure 
 ## Managing Audio and Image Files
 Misty comes with a number of default system image files that display on her screen, as well as default audio files that she can play. To add your own sounds and images to Misty, follow these steps.
 
-**Note: The processes for working with audio and image files on Misty are the same.**
+**Note: The processes for working with audio and image files on Misty are the same, with the exception that image files can be downloaded to your computer from the API Explorer.**
 ![Asset management controls](../../../assets/images/explorer_asset_management.png)
 
 ### Adding a custom audio or image file to Misty
@@ -39,12 +39,16 @@ Would you like to have Misty sing a song or play a particular sound when her fac
 2. After you choose a file, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
 3. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
 
+### Playing audio files
+1. Click the **Populate Audio List** button to get a list of the current audio files saved to your robot.
+2. Choose the listed file to play. 
+3. Click the **Play Clip** button to hear Misty play the clip, or click the **Play Clip in Browser** button to hear it in your browser.
 
-### Playing or displaying a file
-
-1. Click the **Populate Audio List** or **Populate Image List** button to get a list of the current files saved to your robot.
-2. Choose the listed file to play or display.
-3. Click the **Play Clip** or **Display Image** button. You should immediately hear Misty play the audio clip or see the image appear on her screen.
+### Displaying and downloading images
+1. Click the **Populate Image List** button to get a list of the current image files saved to your robot.
+2. Choose the listed file to display or download.
+3. Click the **Display Image on Robot** button to see the image appear on Misty's screen, or click the **Show Image Below** button to view the image in your browser.
+4. Click the **Download Image** button to download the chosen image to your computer.
 
 
 ### Deleting a custom audio or image file from Misty
@@ -67,7 +71,7 @@ There is an option in the API explorer to convert audio or image file data to a 
 
 ## Driving Misty
 There are a variety of ways to use the API Explorer to drive Misty.
- ![Driving controls](../../../assets/images/locomotion_controls.png)
+ ![Locomotion controls](../../../assets/images/locomotion_controls.png)
 
 ### Drive Time
 1. First, use **Select a motion** to select the driving motion you want Misty to perform.
@@ -94,6 +98,7 @@ When using **Drive Time by Value**, it helps to understand how linear velocity (
 
 ### Manual Driving
 You can use these controls to drive Misty in a variety of directions.
+ ![Manual driving controls](../../../assets/images/manual_driving_controls.png)
 
 1. Click a directional button, and Misty will start driving.
 2. Adjust the **Velocity** level, if she is going too quickly or too slowly.
@@ -163,6 +168,13 @@ You can use the API Explorer to move Misty's head with the following controls:
 
 **Note: Misty I only provides movement along one axis: pitch. This means that up and down motions are all that can be controlled for Misty I.**
 ![Head commands](../../../assets/images/head_commands.png)
+
+
+## Taking Pictures - ALPHA
+
+You can use the API Explorer to take pictures with Misty's 4K camera and her Occipital Structure Core depth sensor.
+
+![Camera controls](../../../assets/images/camera_controls.png)
 
 
 ## Mapping & Tracking - ALPHA
