@@ -184,7 +184,7 @@ Use the **Depth Sensor Data** controls to take a black-and-white photo with the 
 Follow these steps to take a photo with this camera:
 1. Click **Start Camera** to turn on the data stream from the depth sensor.
 2. Click **Take + Display Photo** to take a photo and display it in your browser, or click **Take + Download Photo** to download the photo directly to your computer.
-3. Click **Stop Camera** to turn off the data stream when you are finished taking pictures.
+3. Click **Stop Camera** to turn off the data stream when you are done using this camera.
 
 
 ## Mapping & Tracking - ALPHA
