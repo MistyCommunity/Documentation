@@ -172,18 +172,20 @@ You can use the API Explorer to move Misty's head with the following controls:
 
 ## Taking Pictures - ALPHA
 
-Misty can take pictures with her 4K camera as well as the ultra-wide vision camera on her Occipital Structure Core depth sensor.
+Misty can take pictures with her 4K camera as well as the ultra-wide vision camera on her Occipital Structure Core depth sensor. 
+
+**Note: Images captured with these cameras are not saved to Misty's memory. To save photos taken with one of these cameras to Misty, follow the directions below to download these photos to your computer, then use the **Asset Management** controls in the API Explorer to save them to your robot.**
 
 Use the **Camera** controls to take a picture with Misty's 4K camera.
 ![Camera controls](../../../assets/images/camera_controls.png)
 
-Click **Take Picture and Display** to take a picture and display it in your browser, or click **Take Picture and Download** to download the picture directly to your computer.
+Click **Take Picture and Display** to take a picture and display it in your browser, or click **Take Picture and Download** to download the picture to your computer.
 
 Use the **Depth Sensor Data** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
 ![Depth sensor camera controls](../../../assets/images/depth_sensor_camera_controls.png)
 Follow these steps to take a photo with this camera:
 1. Click **Start Camera** to turn on the data stream from the depth sensor.
-2. Click **Take + Display Photo** to take a photo and display it in your browser, or click **Take + Download Photo** to download the photo directly to your computer.
+2. Click **Take + Display Photo** to take a photo and display it in your browser, or click **Take + Download Photo** to download the photo to your computer.
 3. Click **Stop Camera** to turn off the data stream when you are done using this camera.
 
 
