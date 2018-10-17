@@ -49,6 +49,11 @@ Note that it's not possible for a custom image to overlay another custom image. 
 
 Endpoint: POST {robot-ip-address}/api/images/change
 
+Parameters
+- FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
+- TimeOutSeconds (double) - Optional. The length of time to display the specified image.
+- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
+
 ```json
 {   
   "FileName": "pink_sunset.jpg",
@@ -56,11 +61,6 @@ Endpoint: POST {robot-ip-address}/api/images/change
   "Alpha": 0.5
 }
 ```
-
-Parameters
-- FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-- TimeOutSeconds (double) - Optional. The length of time to display the specified image.
-- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -145,14 +145,14 @@ Enables you to remove an image file from Misty that you have previously uploaded
 
 Endpoint: POST {robot-ip-address}/api/images/delete
 
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
 ```json
     {
       "FileName": "ExampleImage.png"
     }
 ```
-
-Parameters
-* FileName (string) - The name of the file to delete, including its file type extension.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -168,16 +168,16 @@ Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAs
 
 Endpoint: POST {robot-ip-address}/api/audio/play
 
+Parameters    
+- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
 ```json
 {
   "AssetId": "ExampleSong"
 }
 ```
-
-Parameters    
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
@@ -273,16 +273,16 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 
 Endpoint: POST {robot-ip-address}/api/drive
 
+Parameters
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+
 ```json
 {
   "LinearVelocity": 20,
   "AngularVelocity": 15,
 }
 ```
-
-Parameters
-- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -301,6 +301,12 @@ When using the DriveTime command, it helps to understand how linear velocity (sp
 
 Endpoint: POST {robot-ip-address}/api/drive/time
 
+Parameters
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `Degree` value recalculates linear velocity.
+
 ```json
 {
   "LinearVelocity": 1,
@@ -308,12 +314,6 @@ Endpoint: POST {robot-ip-address}/api/drive/time
   "TimeMS": 500
 }
 ```
-
-Parameters
-- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
-- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `Degree` value recalculates linear velocity.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -324,16 +324,16 @@ Drives Misty left, right, forward, or backward, depending on the track speeds sp
 
 Endpoint: POST {robot-ip-address}/api/drive/track
 
+Parameters
+- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+
 ```json
 {   
   "LeftTrackSpeed": 30,
   "RightTrackSpeed": 70
 }
 ```
-
-Parameters
-- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
-- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -469,16 +469,16 @@ Connects Misty to a specified WiFi source.
 
 Endpoint: POST {robot-ip-address}/api/wifi
 
+Parameters
+- NetworkName (string) - The WiFi network name (SSID).
+- Password (string) - The WiFi network password.
+
 ```json
 {
   "NetworkName": "MyWiFi",
   "Password": "superPassw0rd"
 }
 ```
-
-Parameters
-- NetworkName (string) - The WiFi network name (SSID).
-- Password (string) - The WiFi network password.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -531,14 +531,14 @@ Enables you to remove an audio file from Misty that you have previously uploaded
 
 Endpoint: POST {robot-ip-address}/api/beta/audio/delete
 
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
 ```json
     {
       "FileName": "ExampleSong.wav"
     }
 ```
-
-Parameters
-* FileName (string) - The name of the file to delete, including its file type extension.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -574,14 +574,14 @@ This process should take less than 15 seconds and will automatically stop when c
 
 Endpoint: POST {robot-ip-address}/api/beta/faces/training/start
 
+Parameters
+- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
 ```json
 {
   "FaceId": "Joe_Smith"
 }
 ```
-
-Parameters
-- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -670,6 +670,12 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 
 Endpoint: POST {robot-ip-address}/api/beta/head/move
 
+Parameters
+- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
+- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+
 ```json
 {
   "Pitch": 3,
@@ -679,12 +685,6 @@ Endpoint: POST {robot-ip-address}/api/beta/head/move
 }
 ```
 
-Parameters
-- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
-
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
 
@@ -693,6 +693,11 @@ Moves Misty's head to a given position along one of three axes (tilt, turn, or u
 
 Endpoint: POST {robot-ip-address}/api/beta/head/position
 
+Parameters
+- Axis (string) - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
+- Position (double) - The position to move Misty's head along the given axis. Value range: -5 to 5.
+- Velocity (double) - The speed of the head movement. Value range: 0 to 10.
+
 ```json
 {   
   "Axis ": "yaw",
@@ -700,11 +705,6 @@ Endpoint: POST {robot-ip-address}/api/beta/head/position
   "Velocity": 6
 }
 ```
-
-Parameters
-- Axis (string) - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
-- Position (double) - The position to move Misty's head along the given axis. Value range: -5 to 5.
-- Velocity (double) - The speed of the head movement. Value range: 0 to 10.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
@@ -924,6 +924,21 @@ Obtains values representing Misty's current activity and sensor status.
 
 Endpoint: GET {robot-ip-address}/api/alpha/slam/status
 
+Parameters
+- None
+
+Return Values
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+
 ```c#
 public enum SlamSensorStatus
 {
@@ -943,21 +958,6 @@ public enum SlamSensorStatus
   FWCorrupt = 13
 }
 ```
-
-Parameters
-- None
-
-Return Values
-* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Idle
-  2 - Exploring
-  3 - Tracking
-  4 - Recording
-  5 - Resetting
-
-Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-
-* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
 
 
 ### SlamReset - ALPHA
@@ -1042,14 +1042,14 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 
 Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 
+Parameters
+- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
+
 ```json
 {
   "Path":"10:20,15:25,30:40"
 }
 ```
-
-Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
 
 Return Values
 * Result (boolean) - Returns true if there are no errors related to this command.
