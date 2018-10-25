@@ -51,7 +51,7 @@ The **Settings** screen provides a way for you to easily start an update to Mist
 5. The update process may take up to a half hour total. **The update is not complete until Misty restarts and her happy eyes re-appear.**  ![Happy eyes](../../../assets/images/happy.png)
 6. Because updating Misty causes her to lose her Bluetooth connection, you must reconnect Misty to Bluetooth when her update is complete.
 7. If your robot consistently fails to update, there may be a loose or faulty connection on Misty's headboard or real-time controller board. To check these connections, visually inspect the connectors on the headboard first, near the location indicated below. ![Headboard connectors](../../../assets/images/headboard_connectors.jpeg) Then check the connectors on the real-time controller board, indicated below. ![Real-time controller board connectors](../../../assets/images/realtime_controller_board_connectors.jpeg)
-Please contact Misty's support team if the connections on either of these boards seem loose or broken.
+Please contact Misty's support team if the connections on either of these boards appear loose or broken.
 
 
 ## Driving Misty with the Companion App
