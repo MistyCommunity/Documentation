@@ -594,13 +594,13 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 ### Part 1 - Changing Misty’s LED Display
 
-The Remote Command Tutorials describe how to write programs for Misty by using her REST API. REST API calls are sent to Misty from an external device (usually the web browser of a laptop or desktop) and can send commands or request data from your robot. These tutorials will teach you how to use HTML documents and inline JavaScript to write programs for Misty that can run in your web browser. In this tutorial, you will learn how to write a program that sends a REST command to change the color of Misty’s LED display.
+The Remote Command Tutorials describe how to write programs for Misty by using her REST API. REST API calls are sent to Misty from an external device (usually the web browser of a laptop or desktop) and can send commands or request data from your robot. These tutorials will teach you how to use .html documents and inline JavaScript to write programs for Misty that can run in your web browser. In this tutorial, you will learn how to write a program that sends a REST command to change the color of Misty’s LED display.
 
 #### Connecting Misty to your network
 In this tutorial we will write a program that sends commands to Misty over a local network connection. Before you get started, you’ll need to connect your robot to your local network. [Use the Companion App](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) to connect your robot to your Wi-Fi network, or [follow this guide](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, write down her IP address to use with REST API commands.
 
 #### Setting up your project
-This tutorial will use use Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new HTML document. To simplify the task of making `XMLHttpRequests` to Misty from the browser, we’ll use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a CDN for Axios inside `<script>` tags in the `<head>` section of your HTML file when you’re setting up your project. 
+This tutorial will use use Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` to Misty from the browser, we’ll use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a CDN for Axios inside `<script>` tags in the `<head>` section of your .html file when you’re setting up your project. 
 
 ```html
 <!DOCTYPE html>
@@ -620,7 +620,7 @@ This tutorial will use use Misty’s REST API to send a POST request that change
 Alternatively, you can download a compressed version of the Axios library to include in your project. Read more about Axios [here](https://github.com/axios/axios).
 
 #### Writing the Code
-Within `<script>` tags in the `<body>` of your HTML document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We’ll reference this variable throughout the program to send commands to Misty. 
+Within `<script>` tags in the `<body>` of your .html document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We’ll reference this variable throughout the program to send commands to Misty. 
 
 ```html
 <body>
@@ -726,11 +726,11 @@ We’ll chain a `catch()` method after `then()`, which triggers if the promise i
 ```
 
 Now we’re ready to run the program!
-1. Save your HTML document.
-2. Open the HTML file in a web browser.
+1. Save your .html document.
+2. Open the .html file in a web browser.
 3. Open the developer tools of your web browser to view the console. 
 
-When the script loads, a `ChangeLED` command is sent to Misty, and a message about the results of the command appears in the console. **Congratulations!** You have just written your first program using Misty’s remote command interface! See the full HTML document for reference.
+When the script loads, a `ChangeLED` command is sent to Misty, and a message about the results of the command appears in the console. **Congratulations!** You have just written your first program using Misty’s remote command interface! See the full .html document for reference.
 
 ```html
 <!DOCTYPE html>
@@ -787,7 +787,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 In addition to Axios, this project will use the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSockets. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save this `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
-To set up your project, create a new HTML document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We’ll write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
+To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We’ll write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
 ```html
 <!DOCTYPE html>
@@ -1439,13 +1439,13 @@ At the bottom of your script, call `socket.Connect()`. When the connection is es
 ```
 
 
-**Congratulations!** You’ve just written a set of remote commands for Misty. Save your HTML document and open it in a web browser to watch Misty go. When the document loads, the program will:
+**Congratulations!** You’ve just written a set of remote commands for Misty. Save your .html document and open it in a web browser to watch Misty go. When the document loads, the program will:
 * Connect with Misty.
 * Send a `DriveTime` command for Misty to drive forward for 5 seconds.
 * Subscribe to `TimeOfFlight` events to detect if an object is in Misty’s path and send a `Stop` command if so.
 * Subscribe to `LocomotionCommand` to detect when Misty has come to a stop and unsubscribe from the WebSockets.
 
-**See the full HTML document for reference.**
+**See the full .html document for reference.**
 ```html
 <!DOCTYPE html>
 <html>
