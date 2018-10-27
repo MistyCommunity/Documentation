@@ -877,7 +877,7 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 4. The fourth, fifth, and sixth parameters form a comparison statement that specifies event conditions to filter out unwanted messages. The `TimeOfFlight` WebSocket data stream can send data from all of Misty's TOF sensors, but we only need data from her front center sensor. Pass `"SensorPosition"` for the `property` parameter to specify we want data from a specific sensor.
 5. `inequality` is a string that sets a comparison operater to specify the conditions of events to recieve messages about. In this case we use `"=="`.
 6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `”Center”`. 
-7. `returnProperty` is an optional parameter. We don't need to pass an arguement for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
+7. `returnProperty` is an optional parameter. We don't need to pass an argument for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
 8. `eventCallback` is the callback function that triggers when WebSocket data is received. We’ll name this function `_centerTimeOfFlight` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
 
 
