@@ -592,7 +592,7 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 
 ## Tutorial 1: Changing Misty’s LED
 
-These tutorials describe how to write skills for Misty that use her REST API. REST API calls are sent to Misty from an external device (usually the web browser of a laptop or desktop) and can send commands or request data from your robot. These tutorials show how to use .html documents and inline JavaScript to write programs for Misty that run in your web browser. In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
+These tutorials describe how to write skills for Misty that use her REST API. With the REST API, we can send commands to Misty from an external device, like the web browser of a laptop or desktop. These tutorials show how to use .html documents and inline JavaScript to write programs for Misty that run in your web browser. In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
 Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) to connect your robot to your Wi-Fi network, or [follow this guide](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
@@ -623,16 +623,16 @@ Within `<script>` tags in the `<body>` of your .html document, declare a constan
 ```html
 <body>
     <script>
-        // Declare a constant variable and set its value 
-        to a string with your robot's IP address.
+        // Declare a constant variable and set its value to a string with your robot's IP address.
         const ip = "<robotipaddress>";
+
     </script>
 </body>
 ```
 
-When we send a command to change Misty’s LED color, we need to communicate what the new color should be. The REST API command to change Misty’s LED requires three parameters: `“red”`, `“green”`, and `“blue”`. These parameters represent the RGB values of the new color. 
+When we send a command to change Misty’s LED color, we need to communicate what the new color should be. The REST API command to change Misty’s LED requires three parameters: `“red”`, `“green”`, and `“blue”`. These parameters represent the [RGB values](https://developer.mozilla.org/en-US/docs/Glossary/RGB) of the new color. 
 
-Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s LED to a hot pink color.
+Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s chest LED to hot pink.
 
 ```html
 <body>
@@ -654,7 +654,7 @@ Now we’re ready to write the code to send the command to Misty. We do this by 
 * the URL of the request, and
 * the data to send with the request. 
 
-The REST API endpoint for changing Misty’s LED display is `http://<robotipaddress>/api/led/change`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
+The REST API endpoint for the `ChangeLED` command is `http://<robotipaddress>/api/led/change`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
 
 ```html
 <body>
@@ -688,9 +688,9 @@ Because Axios is promise based, we need to use a `then()` method after calling `
         };
 
         axios.post("http://" + ip + "/api/led/change", data)
-        // Chain then() after calling post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
+        // Use then() after calling post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
             .then(function (response) {
-        console.log(`ChangeLED was a ${response.data[0].status}`);
+                console.log(`ChangeLED was a ${response.data[0].status}`);
         })
 
     </script>
@@ -713,9 +713,9 @@ We use a `catch()` method after `then()`, which triggers if the promise is rejec
         axios.post("http://" + ip + "/api/led/change", data)
             .then(function (response) {
         console.log(`ChangeLED was a ${response.data[0].status}`)
-        // Chain a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
+        // Use a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
             .catch(function (error) {
-        console.log(`There was an error with the request ${error}`);
+                console.log(`There was an error with the request ${error}`);
             })
         })
 
@@ -728,7 +728,7 @@ Now we’re ready to run the program!
 2. Open the .html file in a web browser.
 3. Open the developer tools of your web browser to view the console. 
 
-When the script loads, a `ChangeLED` command is sent to Misty, and a message about the results of the command appears in the console. **Congratulations!** You have just written your first program using Misty’s remote command interface!
+When the page loads, it sends a `ChangeLED` command to Misty, and a message about the results of the command prints to the console. **Congratulations!** You have just written your first program using Misty’s REST API!
 
 ### Full Sample
 
@@ -758,12 +758,12 @@ See the full .html document for reference.
 
         // Call axios.post(), passing the URL of the ChangeLED endpoint as the first parameter, and the payload (the data object) as the second.
         axios.post("http://" + ip + "/api/led/change", data)
-            // Chain then() after calling post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
+            // Use then() after calling post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
 			.then(function (response) {
 				// log the result
 				console.log(`ChangeLED was a ${response.data[0].status}`);
             })
-            // Chain a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
+            // Use a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
 			.catch(function (error) {
 				// log the error
 				console.log(`There was an error with the request ${error}`);
@@ -777,10 +777,10 @@ See the full .html document for reference.
 
 ## Tutorial 2: Using Sensors, WebSockets, and Locomotion
 
-In this tutorial, we’ll write a skill that commands Misty to drive in a straight line for a designated period of time and stop if she encounters an object in her path. We’ll do this by combining Misty’s `DriveTime` locomotion command with information received from the `TimeOfFlight` and `LocomotionCommand` WebSocket data streams. In this tutorial, you’ll learn:
-* How to subscribe to data from Misty’s WebSockets
+In this tutorial, we write a skill that commands Misty to drive in a straight line for a designated period of time and stop if she encounters an object in her path. We do this by combining Misty’s `DriveTime` locomotion command with information received from the `TimeOfFlight` and `LocomotionCommand` WebSocket connections. In this tutorial, you’ll learn:
+* How to subscribe to data from Misty’s WebSocket connections
 * How to use the `lightSocket.js` helper tool
-* How to write callbacks that allow Misty to make decisions about what to do in different situations by using WebSocket data
+* How to write callbacks that use data from WebSocket connections to allow Misty to make decisions about what to do in different situations
 
 Before you write any code, connect Misty to your home network and make sure you know her IP address. You can see how to get this information in the first tutorial above.
 
@@ -861,7 +861,7 @@ Let's start by subscribing to Misty’s `TimeOfFlight` and `LocomotionCommand` W
 
 The `TimeOfFlight` WebSocket sends data from the time-of-flight (TOF) sensors around Misty’s base. These sensors tell Misty how far objects are away from her, or if she's about to drive off a ledge. For this program, we’re interested in receiving data from Misty’s front center TOF sensor. This sensor points straight forward in Misty’s direction of travel.
 
-The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscribe` method to subscribe to Misty’s WebSockets. The `Subscribe` method takes 8 parameters.
+The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscribe` method to subscribe to WebSocket connections. The `Subscribe` method takes 8 parameters.
 
 ```JavaScript
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
@@ -871,16 +871,15 @@ Note that many of these parameters correlate with the values required in `subscr
 
 To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` method on `socket`. Pass the following for each parameter:
 
-1. `eventName` is a string that designates the name you would like to give this event. This name should be unique, and should give a clue as to the function the event serves. Let’s call our event `"CenterTimeOfFlight"`.
-2. `msgType` is a string that specifies the WebSocket to subscribe to. We’re subscribing to Misty’s `"TimeOfFlight"` WebSocket.
-3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. (At the speed Misty will be traveling, this should be should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.)
-4. `property` is a string that specifies which property of the event to look at. We’ll be filtering by `“SensorPosition”`.
-5. `inequality` is a string that sets the comparison operator for your filter. We’ll use `"=="`.
-6. `value` is a string that defines the value of the property to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `”Center”`. 
-7. `returnProperty` is an optional parameter. We won’t need this; enter `null`.
-8. `eventCallback` is the callback function that triggers when WebSocket data is received. We’ll name this function `_centerTimeOfFlight`, which corresponds to the name we provided for this event. We’ll write the code for this function in the **Callbacks** section of this tutorial.
+1. `eventName` is a string that designates the name you would like to give this event. Choose a unique name that indicates the function the event serves. Let’s call our event `"CenterTimeOfFlight"`.
+2. `msgType` is a string that specifies the WebSocket data stream to subscribe to. We’re subscribing to Misty’s `"TimeOfFlight"` WebSocket.
+3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. At the speed Misty will be traveling, this should be should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.
+4. The fourth, fifth, and sixth parameters form a comparison statement that specifies event conditions to filter out unwanted messages. The `TimeOfFlight` WebSocket data stream can send data from all of Misty's TOF sensors, but we only need data from her front center sensor. Pass `"SensorPosition"` for the `property` parameter to specify we want data from a specific sensor.
+5. `inequality` is a string that sets a comparison operater to specify the conditions of events to recieve messages about. In this case we use `"=="`.
+6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `”Center”`. 
+7. `returnProperty` is an optional parameter. We don't need to pass an arguement for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
+8. `eventCallback` is the callback function that triggers when WebSocket data is received. We’ll name this function `_centerTimeOfFlight` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
 
-**Note:** The `property`, `inequality`, and `value` parameters describe a comparison statement. Use these to specify which data from the event to receive.
 
 ```html
 <body>
@@ -931,7 +930,7 @@ As with `TimeOfFlight`, we need to pass eight parameters to `socket.Subscribe()`
 #### Sending Commands
 
 After we’ve subscribed to these WebSockets, we issue the command for Misty to drive by using Axios to send a POST request to the `DriveTime` endpoint. This endpoint accepts values for three properties: `LinearVelocity`, `AngularVelocity`, and `TimeMS`. Inside the `OpenCallback` function, create a data `object` with the following key/value pairs to send with the REST command:
-* Set the `LinearVelocity` to `50` to tell Misty to drive forward at a moderate speed.
+* Set `LinearVelocity` to `50` to tell Misty to drive forward at a moderate speed.
 * Set `AngularVelocity` to `0`, so Misty drives straight without turning.
 * Set `TimeMS` to `5000` to specify that Misty should drive for five seconds. 
 
@@ -991,12 +990,12 @@ Pass the URL for the `DriveTime` command along with this `data` object to the `a
 
         // Use axios.post() to send the data to the DriveTime REST API endpoint.
         axios.post("http://" + ip + "/api/drive/time", data)
-            // Chain .then() to handle a successful response.
+            // Use .then() to handle a successful response.
             .then(function (response) {
                 // Print the results of the DriveTime command to the console.
                 console.log(`DriveTime was a ${response.data[0].status}`);
             })
-            // Chain .catch() to handle errors.
+            // Use .catch() to handle errors.
             .catch(function (error) {
                 // Print any errors related to the DriveTime command to the console.
                 console.log(`There was an error with the request ${error}`);
@@ -1008,11 +1007,11 @@ Pass the URL for the `DriveTime` command along with this `data` object to the `a
 ```
 
 #### Setting up Callbacks
-Now that we’ve written the code that subscribes to the WebSocket connections and send the `DriveTime` command, we’re ready to write the callback functions `_centerTimeOfFlight` and `_locomotionCommand`. These functions trigger when Misty sends data for the events we’ve subscribed to.
+Now that we’ve written the code to subscribe to the WebSocket connections and send the `DriveTime` command, we’re ready to write the callback functions `_centerTimeOfFlight` and `_locomotionCommand`. These functions trigger when Misty sends data for the events we’ve subscribed to.
 
-Let’s start with `_centerTimeOfFlight`, the callback function passed to `Subscribe()` for the `TimeOfFlight` WebSocket connection. We’ve subscribed to the `CenterTimeOfFlight` event in order to examine incoming data and tell Misty what to do when she detects an object in her path. Data from this WebSocket is passed directly into the `_centerTimeOfFlight` callback function. `_centerTimeOfFlight` should parse this data and send Misty a `Stop` command if an object is detected in her path.
+Start with `_centerTimeOfFlight`, the callback function passed to `Subscribe()` for the `TimeOfFlight` WebSocket connection. We subscribe to the `CenterTimeOfFlight` event in order to examine incoming data and tell Misty what to do when she detects an object in her path. Data from this WebSocket is passed directly into the `_centerTimeOfFlight` callback function. `_centerTimeOfFlight` should parse this data and send Misty a `Stop` command if an object is detected in her path.
 
-Let’s define our callbacks above the section where we’ve written our commands. Create a function called `_centerTimeOfFlight` with a single parameter called `data`. This parameter represents the data passed to Misty when the `CenterTimeOfFlight` event triggers.
+We define our callbacks above the section where we define our commands. Create a function called `_centerTimeOfFlight` with a single parameter called `data`. This parameter represents the data passed to Misty when the `CenterTimeOfFlight` event triggers.
 
 ```html
 <body>
@@ -1156,9 +1155,9 @@ Inside the `try` statement, instantiate a `distance` variable. `distance` stores
 </body>
 ```
 
-We only want Misty to stop when `distance` is a very small value, indicating she is very close to an object. To do this, write an `if` statement to check if `distance < 0.2`. The `if` statement does nothing if `distance` is not a value greater than `0.2` meters, and if `distance` is `undefined`, an exception occurs and is passed to the `catch` statement. This is the case when registration or error messages are received through the WebSocket. By using a `try` statement, our callback functions behave appropriately when the “right” messages come through, and continue execution if they cannot act on the data they receive.
+We only want Misty to stop when `distance` is a very small value, indicating she is very close to an object. To do this, write an `if` statement to check if `distance < 0.2`. Misty keeps driving if `distance` is greater than `0.2` meters. If `distance` is `undefined`, an exception occurs and is passed to the `catch` statement. This is the case when registration or error messages are received through the WebSocket. By using a `try` statement, our callback functions behave appropriately when the “right” messages come through, and continue execution if they cannot act on the data they receive.
 
-If `distance` is a value less than `0.2`, use Axios to issue a POST request to the endpoint for the `Stop` command: `"http://" + ip + "/api/drive/stop"`. This endpoint does not require parameters, so we can omit the second parameter of `axios.post()`. Chain `.then()` and `catch()` methods to log a successful response or catch any potential errors.
+If `distance` is a value less than `0.2`, use Axios to issue a POST request to the endpoint for the `Stop` command: `"http://" + ip + "/api/drive/stop"`. This endpoint does not require parameters, so we can omit the second parameter of `axios.post()`. Use `then()` and `catch()` to log successful responses and catch potential errors.
 
 ```html
 <body>
@@ -1222,12 +1221,12 @@ If `distance` is a value less than `0.2`, use Axios to issue a POST request to t
 
 The `_centerTimeOfFlight` callback triggers every time data from Misty’s front center sensor is received. If an object is detected close enough to the sensor, a `Stop` command is issued, and Misty stops before colliding with the object.
 
-The purpose of the `_locomotionCommand` callback function is to “clean up” our skill when the program stops executing. Whenever you subscribe to a WebSocket, you should unsubscribe when you are done with it, so Misty stops sending data. The program we're writing can end in two ways:
+The purpose of the `_locomotionCommand` callback function is to “clean up” our skill when the program stops executing. Whenever you subscribe to a WebSocket, you should unsubscribe when you are done with it, so Misty stops sending data. Our program can end in two ways:
 
 * Misty stops driving when she detects an object in her path.
 * Misty does not detect an object in her path and stops driving after five seconds.
 
-The `LocomotionCommand` event sends data whenever linear or angular velocity changes, including when Misty starts moving when the program starts. We want to unsubscribe from our WebSockets when Misty stops **and** the value of `LinearVelocity` is `0`. Declare a function called `_locomotionCommand`, and pass it a parameter for the `data` received in the `LocomotionCommand` data stream. We only want to unsubscribe when Misty stops, so we add the condition that `linearVelocity` should be `0` to an `if` statement. As with the `_centerTimeOfFlight` callback, place this condition inside a `try` statement, and place a `catch` statement to handle exceptions at the end of the function.
+The `LocomotionCommand` event sends data whenever linear or angular velocity changes, including when Misty starts moving when the program starts. We want to unsubscribe from WebSocket connections when Misty stops **and** the value of `LinearVelocity` is `0`. Declare a function called `_locomotionCommand`, and pass it a parameter for the `data` received by the `LocomotionCommand` WebSocket. We only want to unsubscribe when Misty stops, so we add the condition that `linearVelocity` should be `0` to an `if` statement. As with the `_centerTimeOfFlight` callback, place this condition inside a `try` statement, and place a `catch` statement to handle exceptions at the end of the function.
 
 ```html
 <body>
@@ -1296,7 +1295,7 @@ The `LocomotionCommand` event sends data whenever linear or angular velocity cha
 </body>
 ```
 
-If `data.message.linearVelocity === 0`, the program should unsubscribe from the WebSockets we’ve opened. Write commands to unsubscribe from the `DriveTime` and `LocomotionCommand` WebSockets, and log a message to the console so you can verify that this only happens when `linearVelocity` is indeed `0`.
+If `data.message.linearVelocity === 0`, the program should unsubscribe from the WebSocket connections we’ve opened. Write commands to unsubscribe from the `DriveTime` and `LocomotionCommand` WebSocket connections, and log a message to the console so you can verify that this only happens when `linearVelocity` is indeed `0`.
 
 ```html
 <body>
@@ -1369,7 +1368,7 @@ If `data.message.linearVelocity === 0`, the program should unsubscribe from the 
 
 ### Putting It All Together
 
-At the bottom of the script, call `socket.Connect()`. When the connection is established, the `OpenCallback` function executes to subscribe to WebSockets and send Misty a `DriveTime` command. Data received through these WebSockets is passed to the `_centerTimeOfFlight` and `_locomotionCommand` callback functions.
+At the bottom of the script, call `socket.Connect()`. When the connection is established, the `OpenCallback` function executes to subscribe to WebSocket connections and send Misty a `DriveTime` command. Data received through WebSocket connections is passed to the `_centerTimeOfFlight` and `_locomotionCommand` callback functions.
 
 ```html
 <body>
@@ -1446,7 +1445,7 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 * Connects with Misty.
 * Sends a `DriveTime` command for Misty to drive forward for 5 seconds.
 * Subscribes to `TimeOfFlight` events to detect if an object is in Misty’s path and sends a `Stop` command if so.
-* Subscribes to `LocomotionCommand` to detect when Misty has come to a stop and unsubscribes from the WebSocket connections.
+* Subscribes to `LocomotionCommand` to detect when Misty has come to a stop and unsubscribe from the WebSocket connections.
 
 ### Full Sample
 
