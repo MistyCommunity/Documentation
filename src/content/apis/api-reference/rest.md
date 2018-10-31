@@ -646,7 +646,7 @@ Parameters
 - None
 
 Return Values
-* Result (string) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+* Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
 
 ### ClearLearnedFaces - BETA
