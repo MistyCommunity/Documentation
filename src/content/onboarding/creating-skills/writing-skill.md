@@ -1365,7 +1365,9 @@ async function openCallback() {
 
 #### Commands
 
-Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
+Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. 
+
+This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
 ```JavaScript
 function startFaceRecognition() {
