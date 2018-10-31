@@ -598,7 +598,7 @@ These tutorials describe how to write skills for Misty that use her REST API. Wi
 Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) to connect your robot to your Wi-Fi network, or [follow this guide](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
 
 ### Setting Up Your Project
-This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` to Misty from the browser, we’ll use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a CDN for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
+This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` calls to Misty from the browser, we use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a content delivery network (CDN) for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
 
 ```html
 <!DOCTYPE html>
@@ -737,7 +737,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
-To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
+To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
 ```html
 <!DOCTYPE html>
@@ -807,12 +807,12 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 
 1. `eventName` is a string that designates the name you would like to give this event. Choose a unique name that indicates the function the event serves. Let’s call our event `"CenterTimeOfFlight"`.
 2. `msgType` is a string that specifies the WebSocket data stream to subscribe to. We’re subscribing to Misty’s `"TimeOfFlight"` WebSocket.
-3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. At the speed Misty will be traveling, this should be should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.
+3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. At the speed we command Misty to travel, this should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.
 4. The fourth, fifth, and sixth parameters form a comparison statement that specifies event conditions to filter out unwanted messages. The `TimeOfFlight` WebSocket data stream can send data from all of Misty's TOF sensors, but we only need data from her front center sensor. Pass `"SensorPosition"` for the `property` parameter to specify we want data from a specific sensor.
 5. `inequality` is a string that sets a comparison operater to specify the conditions of events to recieve messages about. In this case we use `"=="`.
 6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `”Center”`. 
 7. `returnProperty` is an optional parameter. We don't need to pass an argument for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
-8. `eventCallback` is the callback function that triggers when WebSocket data is received. We’ll name this function `_centerTimeOfFlight()` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
+8. The parameter `eventCallback` is for the callback function that triggers when WebSocket data is received. Name this function `_centerTimeOfFlight()` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
 
 
 ```JavaScript
@@ -903,7 +903,7 @@ We define our callbacks above the section where we define our commands. Create a
 ```JavaScript
 /* CALLBACKS */
 
-// Define the callback function that will be passed when we subscribe to the CenterTimeOfFlight event.
+// Define the callback function that is be passed when we subscribe to the CenterTimeOfFlight event.
 let _centerTimeOfFlight = function (data) {
 
 };
@@ -972,7 +972,7 @@ The purpose of the `_locomotionCommand()` callback function is to “clean up”
 The `LocomotionCommand` event sends data whenever linear or angular velocity changes, including when Misty starts moving when the program starts. We want to unsubscribe from WebSocket connections when Misty stops **and** the value of `LinearVelocity` is `0`. Declare a function called `_locomotionCommand()`, and pass it a parameter for the `data` received by the `LocomotionCommand` WebSocket. We only want to unsubscribe when Misty stops, so we add the condition that `linearVelocity` should be `0` to an `if` statement. As with the `_centerTimeOfFlight()` callback, place this condition inside a `try` statement, and place a `catch` statement to handle exceptions at the end of the function.
 
 ```JavaScript
-// Define the callback function that will be passed when we subscribe to the LocomotionCommand event.
+// Define the callback function that is passed when we subscribe to the LocomotionCommand event.
 let _locomotionCommand = function (data) {
     // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
     try {
@@ -1003,7 +1003,7 @@ let _locomotionCommand = function (data) {
 
 ### Putting It All Together
 
-At the bottom of the script, call `socket.Connect()`. When the connection is established, the `openCallback()` function executes to subscribe to WebSocket connections and send Misty a `DriveTime` command. Data received through WebSocket connections is passed to the `_centerTimeOfFlight` and `_locomotionCommand` callback functions.
+At the bottom of the script, call `socket.Connect()`. When the connection is established, the `openCallback()` function executes to subscribe to WebSocket connections and send Misty a `DriveTime` command. Data received through WebSocket connections is passed to the `_centerTimeOfFlight()` and `_locomotionCommand()` callback functions.
 
 ```JavaScript
 // Open the connection to your robot. When the connection is established, the openCallback function executes to subscribe to WebSockets and send Misty a DriveTime command. Data recieved through these WebSockets is passed to the _centerTimeOfFlight() and _locomotionCommand() callback functions.
@@ -1042,7 +1042,7 @@ See the full .html document for reference.
 
         /* CALLBACKS */
         
-        // Define the callback function that will be passed when we subscribe to the CenterTimeOfFlight event.
+        // Define the callback function that is passed when we subscribe to the CenterTimeOfFlight event.
 		let _centerTimeOfFlight = function (data) {
 
             // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
@@ -1070,7 +1070,7 @@ See the full .html document for reference.
 			}
         };
         
-        // Define the callback function that will be passed when we subscribe to the LocomotionCommand event.
+        // Define the callback function that is passed when we subscribe to the LocomotionCommand event.
 		let _locomotionCommand = function (data) {
             // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
 			try {
@@ -1094,10 +1094,10 @@ See the full .html document for reference.
             // Print a message to the console when the connection is established.
 			console.log("socket opened");
 
-            // Subscribe to a new event called "CenterTimeOfFlight" that returns data when "TimeOfFlight" events are triggered. Pass arguments to make sure this event returns data for the front center time-of-flight sensor every 100 milliseconds. Pass the callback function _centerTimeOfFlight as the final argument.
+            // Subscribe to a new event called "CenterTimeOfFlight" that returns data when "TimeOfFlight" events are triggered. Pass arguments to make sure this event returns data for the front center time-of-flight sensor every 100 milliseconds. Pass the callback function _centerTimeOfFlight() as the final argument.
 			socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
             
-            // Subscribe to a new event called "LocomotionCommand" that returns data when Misty's angular or linear velocity changes. Pass the callback function _locomotionCommand as the final argument.
+            // Subscribe to a new event called "LocomotionCommand" that returns data when Misty's angular or linear velocity changes. Pass the callback function _locomotionCommand() as the final argument.
             socket.Subscribe("LocomotionCommand", "LocomotionCommand", null, null, null, null, null, _locomotionCommand);
 
 			// Assemble the data to send with the DriveTime command.
@@ -1121,7 +1121,7 @@ See the full .html document for reference.
 				});
 		};
 
-        // Open the connection to your robot. When the connection is established, the openCallback function executes to subscribe to WebSockets and send Misty a  DriveTime command. Data recieved through these WebSockets is passed to the _centerTimeOfFlight and _locomotionCommand callback functions.
+        // Open the connection to your robot. When the connection is established, the openCallback function executes to subscribe to WebSockets and send Misty a  DriveTime command. Data recieved through these WebSockets is passed to the _centerTimeOfFlight() and _locomotionCommand() callback functions.
 		socket.Connect();
 	</script>
 </body>
@@ -1140,7 +1140,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can read more about these tools in the first and second tutorials above. 
 
-To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. Place the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
+To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. Place the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
 ```html
 <!DOCTYPE html>
@@ -1295,12 +1295,12 @@ At this point the program takes one of two paths. If `onList` becomes `true`, Mi
 ```JavaScript
 /* COMMANDS */
 
-// Define the function that will execute if the value stored in you is on Misty's list of known faces. 
+// Define the function that executes if the value stored in you is on Misty's list of known faces. 
 function startFaceRecognition() {
 
 };
 
-// Define the function that will execute to learn the user's face if the value stored in you is not on Misty's list of known faces.
+// Define the function that executes to learn the user's face if the value stored in you is not on Misty's list of known faces.
 async function startFaceTraining() {
 
 };
@@ -1364,7 +1364,7 @@ async function openCallback() {
 
 #### Commands
 
-Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://” + ip + “/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket will trigger as this data comes in. If the face is recognized, the name of the recognized person will be included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
+Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://” + ip + “/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
 ```JavaScript
 function startFaceRecognition() {
@@ -1417,7 +1417,7 @@ async function startFaceTraining() {
 Data sent through the `ComputerVision` event subscription is passed to the `_ComputerVision()` callback function. As discussed in previous tutorials, WebSocket connections sometimes send registration and error messages that do not contain event data. To handle messages unrelated to `ComputerVision` events, wrap the code for the `_ComputerVision()` callback inside `try` and `catch` statements. As seen in the example, you can print caught errors to the console by passing `e` to the `catch` statement, but this is not necessary for the program to execute successfully.
 
 ```JavaScript
-// Define the callback function that will be passed when we subscribe to ComputerVision events.
+// Define the callback function that is passed when we subscribe to ComputerVision events.
 function _ComputerVision(data) { 
     //  Wrap the code for the _ComputerVision callback inside try and catch statements to handle messages unrelated to ComputerVision events. 
     try { 
@@ -1555,7 +1555,7 @@ See the full .html document for reference.
 			});
         };
         
-        // Define the callback function that will be passed when we subscribe to ComputerVision events.
+        // Define the callback function that is passed when we subscribe to ComputerVision events.
 		function _ComputerVision(data) {
             //  Wrap the code for the _ComputerVision callback inside try and catch statements to handle messages unrelated to ComputerVision events. 
 			try {
@@ -1578,14 +1578,14 @@ See the full .html document for reference.
 
         /* COMMANDS */
 
-        // Define the function that will execute if the value stored in you is on Misty's list of known faces. 
+        // Define the function that executes if the value stored in you is on Misty's list of known faces. 
 		function startFaceRecognition() {
 			// Print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the StartFaceRecognition command.
 			console.log("starting face recognition");
 			axios.post("http://" + ip + "/api/beta/faces/recognition/start");
         };
         
-        // Define the function that will execute to learn the user's face if the value stored in you is not on Misty's list of known faces.
+        // Define the function that executes to learn the user's face if the value stored in you is not on Misty's list of known faces.
 		async function startFaceTraining() {
 			// Print a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the StartFaceTraining command.
 			console.log("starting face training");
