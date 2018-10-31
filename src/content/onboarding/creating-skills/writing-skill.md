@@ -37,9 +37,9 @@ Get both tools [at the Misty I GitHub repo](https://github.com/MistyCommunity/Mi
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
 
 ```javascript
-<script src=”tools/lightClient.js”></script>
-<script src=”tools/lightSocket.js”></script>
-<script src=”app.js”></script>
+<script src="tools/lightClient.js"></script>
+<script src="tools/lightSocket.js"></script>
+<script src="app.js"></script>
 ```
 
 The first step to creating an external skill is to create an instance of the LightClient class, passing in your robot's IP address and the amount of time in ms you want your program to wait before timing out if no response is detected (the default is 30 seconds). 
@@ -101,9 +101,9 @@ client.PostCommand("led/change", payload, function(result) {
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
 
 ```javascript
-<script src=”tools/lightClient.js”></script>
-<script src=”tools/lightSocket.js”></script>
-<script src=”app.js”></script>
+<script src="tools/lightClient.js"></script>
+<script src="tools/lightSocket.js"></script>
+<script src="app.js"></script>
 ```
 
 As we did for LightClient, the first step in using `lightSocket.js` is to create an instance of the LightSocket class, passing in your robot's IP address. Then, you call the `Connect()` method to open a WebSocket connection.
@@ -625,7 +625,8 @@ Within `<script>` tags in the `<body>` of your .html document, declare a constan
 const ip = "<robotipaddress>";
 ```
 
-When we send a command to change Misty’s LED color, we need to communicate what the new color should be. The REST API command to change Misty’s LED requires three parameters: `“red”`, `“green”`, and `“blue”`. These parameters represent the [RGB values](https://developer.mozilla.org/en-US/docs/Glossary/RGB) of the new color. 
+When we send a command to change Misty’s LED color, we need to communicate what the new color should be. The REST API command to change Misty’s LED requires three parameters: `"red"`, `"green"
+`, and `"blue"`. These parameters represent the [RGB values](https://developer.mozilla.org/en-US/docs/Glossary/RGB) of the new color. 
 
 Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s chest LED to hot pink.
 
@@ -810,7 +811,7 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. At the speed we command Misty to travel, this should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.
 4. The fourth, fifth, and sixth parameters form a comparison statement that specifies event conditions to filter out unwanted messages. The `TimeOfFlight` WebSocket data stream can send data from all of Misty's TOF sensors, but we only need data from her front center sensor. Pass `"SensorPosition"` for the `property` parameter to specify we want data from a specific sensor.
 5. `inequality` is a string that sets a comparison operater to specify the conditions of events to recieve messages about. In this case we use `"=="`.
-6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `”Center”`. 
+6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `"Center"`. 
 7. `returnProperty` is an optional parameter. We don't need to pass an argument for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
 8. The parameter `eventCallback` is for the callback function that triggers when WebSocket data is received. Name this function `_centerTimeOfFlight()` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
 
@@ -824,7 +825,7 @@ function openCallback() {
 
 The `LocomotionCommand` WebSocket sends data every time the robot’s linear or angular velocity changes (see the documentation [here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#websocket-types-amp-sample-data) for more information). We use this WebSocket to learn when Misty has stopped moving.
 
-As with `TimeOfFlight`, we need to pass eight parameters to `socket.Subscribe()` to receive data from `LocomotionCommand`. However, because we only want to know whether Misty’s movement has changed, we don’t need to filter our results to specific event properties. We only need to pass arguments for `eventName` (`“LocomotionCommand”`), the WebSocket name (also `”LocomotionCommand”`), and the `eventCallback` function, which we call `_locomotionCommand()`. Enter `null` for all of the other parameters.
+As with `TimeOfFlight`, we need to pass eight parameters to `socket.Subscribe()` to receive data from `LocomotionCommand`. However, because we only want to know whether Misty’s movement has changed, we don’t need to filter our results to specific event properties. We only need to pass arguments for `eventName` (`"LocomotionCommand"`), the WebSocket name (also `"LocomotionCommand"`), and the `eventCallback` function, which we call `_locomotionCommand()`. Enter `null` for all of the other parameters.
 
 ```JavaScript
 function openCallback() {
@@ -1208,7 +1209,7 @@ async function openCallback() {
 
 ```
 
-A subscription to the `ComputerVision` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `”ComputerVision"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `ComputerVision` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
+A subscription to the `ComputerVision` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"ComputerVision"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `ComputerVision` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
 
 ```JavaScript
 
@@ -1240,7 +1241,7 @@ async function openCallback() {
 
 ```
 
-Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetLearnedFaces`](https://docs.mistyrobotics.com/apis/api-reference/rest/#getlearnedfaces-beta) command: `"http://” + ip + “/api/beta/faces".`
+Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetLearnedFaces`](https://docs.mistyrobotics.com/apis/api-reference/rest/#getlearnedfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
 
 ```JavaScript
 async function openCallback() {
@@ -1306,7 +1307,7 @@ async function startFaceTraining() {
 };
 ```
 
-In either case, we need to subscribe to the [`ComputerVision`](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#computervision-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `“ComputerVision”` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_ComputerVision()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
+In either case, we need to subscribe to the [`ComputerVision`](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#computervision-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"ComputerVision"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_ComputerVision()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
 
 ```JavaScript
 async function openCallback() {
@@ -1323,7 +1324,7 @@ async function openCallback() {
             }
         }
 
-        // Subscribe to the ComputerVision WebSocket. Pass “ComputerVision” for the eventName and msgType parameters. Set debounceMs to 200, and pass a callback function named _ComputerVision for the callback parameter. There is no need to define event conditions for this data stream; pass null for all other arguments.
+        // Subscribe to the ComputerVision WebSocket. Pass "ComputerVision" for the eventName and msgType parameters. Set debounceMs to 200, and pass a callback function named _ComputerVision for the callback parameter. There is no need to define event conditions for this data stream; pass null for all other arguments.
         socket.Subscribe("ComputerVision", "ComputerVision", 200, null, null, null, null, _ComputerVision);
 
     });
@@ -1364,7 +1365,7 @@ async function openCallback() {
 
 #### Commands
 
-Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://” + ip + “/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
+Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
 ```JavaScript
 function startFaceRecognition() {
@@ -1374,7 +1375,7 @@ function startFaceRecognition() {
 };
 ```
 
-In `startFaceTraining()`, log a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the `StartFaceTraining` command: `”http://” + ip + “api/beta/faces/training/start”`. This command tells Misty to use her occipital camera to learn the user’s face and pair it with a `FaceID` so she can recognize it in the future. Send a data object along with the request that includes the key `FaceId` with the value `you` to attach the name stored in `you` to the learned face.  
+In `startFaceTraining()`, log a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the `StartFaceTraining` command: `"http://" + ip + "api/beta/faces/training/start"`. This command tells Misty to use her occipital camera to learn the user’s face and pair it with a `FaceID` so she can recognize it in the future. Send a data object along with the request that includes the key `FaceId` with the value `you` to attach the name stored in `you` to the learned face.  
 
 ```JavaScript
 async function startFaceTraining() {
@@ -1430,7 +1431,7 @@ function _ComputerVision(data) {
 }
 ```
 
-The `_ComputerVision()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `ComputerVision` WebSocket includes a `”personName”` property. If a detected face cannot be recognized, the value of `”personName”` is `“unknown person”`. If a message does not hold any face data, then `“personName”` doesn’t exist or is `undefined`. In the `_ComputerVision()` callback function, use an `if` statement to check that `“personName”` does not equal any of these values.
+The `_ComputerVision()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `ComputerVision` WebSocket includes a `"personName"` property. If a detected face cannot be recognized, the value of `"personName"` is `"unknown person"`. If a message does not hold any face data, then `"personName"` doesn’t exist or is `undefined`. In the `_ComputerVision()` callback function, use an `if` statement to check that `"personName"` does not equal any of these values.
 
 ```JavaScript
 function _ComputerVision(data) {
@@ -1448,7 +1449,7 @@ function _ComputerVision(data) {
 
 **Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `ComputerVision` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
 
-If a face is recognized, the value of the `“personName”` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `“ComputerVision”`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/beta/faces/recognition/stop"`.
+If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"ComputerVision"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/beta/faces/recognition/stop"`.
 
 ```JavaScript
 function _ComputerVision(data) {
@@ -1541,7 +1542,7 @@ See the full .html document for reference.
 					}
 				}
 
-				// Subscribe to the ComputerVision WebSocket. Pass “ComputerVision” for the eventName and msgType parameters. Set debounceMs to 200, and pass a callback function named _ComputerVision for the callback parameter. There is no need to define event conditions for this data stream; pass null for all other arguments.
+				// Subscribe to the ComputerVision WebSocket. Pass "ComputerVision" for the eventName and msgType parameters. Set debounceMs to 200, and pass a callback function named _ComputerVision for the callback parameter. There is no need to define event conditions for this data stream; pass null for all other arguments.
 				socket.Subscribe("ComputerVision", "ComputerVision", 200, null, null, null, null, _ComputerVision);
 
 				// Use an if...else statement to execute startFaceRecognition() if onList is true, and to execute startFaceTraining if onList is false.
@@ -1580,7 +1581,7 @@ See the full .html document for reference.
 
         // Define the function that executes if the value stored in you is on Misty's list of known faces. 
 		function startFaceRecognition() {
-			// Print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the StartFaceRecognition command.
+			// Print a message to the console that Misty is “starting face recognition". Then, use Axios to send a POST request to the endpoint for the StartFaceRecognition command.
 			console.log("starting face recognition");
 			axios.post("http://" + ip + "/api/beta/faces/recognition/start");
         };
