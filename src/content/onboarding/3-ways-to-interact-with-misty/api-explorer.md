@@ -181,6 +181,8 @@ Use the **Camera** controls to take a picture with Misty's 4K camera.
 
 Click **Take Picture and Display** to take a picture and display it in your browser, or click **Take Picture and Download** to download the picture to your computer.
 
+**Note: Misty's 4K camera may not work if the data stream from the Occipital Structure Core depth sensor is open. If you can't use Misty's camera to take and display or download a picture, click Stop Camera in the Depth Sensor Data controls, then try again.** 
+
 Use the **Depth Sensor Data** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
 ![Depth sensor camera controls](../../../assets/images/depth_sensor_camera_controls.png)
 Follow these steps to take a photo with this camera:
