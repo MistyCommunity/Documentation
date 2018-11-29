@@ -33,6 +33,8 @@ Follow the steps below to set up Blockly with Misty.
 
 **Note:** It's not generally recommended for multiple users to each use a separate instance of Blockly to connect with and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.
 
+**Important!** Blockly does not display the complete collection of Misty’s command blocks until after you establish a Wi-Fi connection between Blockly and your robot. If you notice missing command blocks, follow the steps below to make sure a connection exists between your robot and Blockly.
+
 1. Make sure Misty and your computer are on the same Wi-Fi network and that your computer has Bluetooth turned on.
 2. [Open up Blockly](http://blockly.mistyrobotics.com) in a browser window.
 3. Enter the IP address of your robot in Blockly and click **Connect**. You can get Misty's IP address from the **Info** tab in the companion app. The **Connect** button should change to **Connected**. **Note:** If you cannot connect, double-check that Misty and your computer are on the same WiFi network. If necessary, reload the page.
