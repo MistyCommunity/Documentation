@@ -1009,13 +1009,11 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 socket.Connect();
 ```
 
-### Putting It All Together
-
 **Congratulations!** You’ve just written another skill for Misty. Save your .html document and open it in a web browser to watch Misty go. When the document loads, the program:
-* Connects with Misty.
-* Sends a `DriveTime` command for Misty to drive forward for 5 seconds.
-* Subscribes to `TimeOfFlight` events to detect if an object is in Misty’s path and sends a `Stop` command if so.
-* Subscribes to `LocomotionCommand` to detect when Misty has come to a stop and unsubscribe from the WebSocket connections.
+* connects with Misty
+* sends a `DriveTime` command for Misty to drive forward for 5 seconds
+* subscribes to `TimeOfFlight` events to detect if an object is in Misty’s path and sends a `Stop` command if so
+* subscribes to `LocomotionCommand` to detect when Misty has come to a stop and unsubscribe from the WebSocket connections
 
 ### Full Sample
 
@@ -1130,9 +1128,9 @@ See the full .html document for reference.
 
 ## Tutorial 3: Exploring Computer Vision
 
-This tutorial teaches how to write a skill to have Misty detect, recognize, and learn faces. When this skill runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches:
-* How to use REST API commands for facial training and recognition
-* How to subscribe to and use data from Misty’s `ComputerVision` WebSocket connection
+This tutorial teaches how to write a skill to have Misty detect, recognize, and learn faces. When this skill runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches
+* how to use REST API commands for facial training and recognition
+* how to subscribe to and use data from Misty’s `ComputerVision` WebSocket connection
 
 Before you write any code, connect Misty to your home network and make sure you know her IP address. You can see how to get this information in the first tutorial above.
 
@@ -1478,13 +1476,11 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 socket.Connect();
 ```
 
-### Putting It All Together
-
 **Congratulations!** You have written another remote skill for Misty. When the document loads, the program:
-* Connects with Misty.
-* Sends a `GetLearnedFaces` command and checks whether your name is on the list of faces Misty already knows.
-* Subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition`. 
-* Recognizes and greets you if you are on the list of known faces, or sends a `StartFaceTraining` command to learn your face if you are not.
+* connects with Misty
+* sends a `GetLearnedFaces` command and checks whether your name is on the list of faces Misty already knows
+* subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
+* recognizes and greets you if you are on the list of known faces, or sends a `StartFaceTraining` command to learn your face if you are not
 
 ### Full Sample
 
@@ -1611,10 +1607,10 @@ See the full .html document for reference.
 
 ## Tutorial 4: Introduction to Mapping
 
-This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches:
-* How to use mapping REST API commands
-* How to subscribe to the data stream from the `SelfState` WebSocket connection
-* How to transform raw map data into a graphical map of Misty’s environment
+This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
+* how to use mapping REST API commands
+* how to subscribe to the data stream from the `SelfState` WebSocket connection
+* how to transform raw map data into a graphical map of Misty’s environment
 
 Note that many real-world applications of Misty’s mapping capabilities require her to create a map while independently exploring her environment. Programs like this can be very complex as they require mapping commands to run alongside code telling Misty where to drive and how to avoid obstacles. For simplicity, this project requires you to use the API Explorer to move Misty instead of programming an automated exploration process.
 
@@ -1672,7 +1668,7 @@ Create a function called `subscribeSelfState()`, and within that function call `
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-Pass `"SlamStatus"` for the `eventName` argument and `"SelfState"` for `msgType`. Pass `5000` for `debounceMS` to tell Misty to send a `SelfState` message every 5 seconds. Pass `null` for the `property`,`inequality`, and `value` arguments. For the `returnProperty` argument, enter the string `"slamStatus"` to trim the message to include only the desired SLAM status data. For `eventCallback`, pass `_SelfState` as the name of the callback function to run when you receive data from this subscription. 
+Pass `"SlamStatus"` for the `eventName` argument and `"SelfState"` for `msgType`. Pass `5000` for `debounceMS` to tell Misty to send a `SelfState` message every 5 seconds. Pass `null` for the `property`, `inequality`, and `value` arguments. For the `returnProperty` argument, enter the string `"slamStatus"` to trim the message to include only the desired SLAM status data. For `eventCallback`, pass `_SelfState` as the name of the callback function to run when you receive data from this subscription. 
 
 
 ```js
@@ -1680,7 +1676,7 @@ Pass `"SlamStatus"` for the `eventName` argument and `"SelfState"` for `msgType`
 
 // Create a function called subscribeSelfState() to subscribe to SelfState events.
 function subscribeSelfState() {
-    // Call socket.Subscribe(). Pass "SlamStatus" for the eventName argument and "SelfState" for msgType. Pass 5000 for debounceMS to tell Misty to send a SelfState message every 5 seconds. Pass null for the property,inequality, and value arguments. For the returnProperty argument, enter the string "slamStatus" to trim the message to include only the desired SLAM status data. For eventCallback, pass _SelfState as the name of the callback function to run when you receive data from this subscription.
+    // Call socket.Subscribe(). Pass "SlamStatus" for the eventName argument and "SelfState" for msgType. Pass 5000 for debounceMS to tell Misty to send a SelfState message every 5 seconds. Pass null for the property, inequality, and value arguments. For the returnProperty argument, enter the string "slamStatus" to trim the message to include only the desired SLAM status data. For eventCallback, pass _SelfState as the name of the callback function to run when you receive data from this subscription.
     socket.Subscribe("SlamStatus", "SelfState", 5000, null, null, null, "slamStatus", _SelfState);
 }
 ```
@@ -1745,7 +1741,7 @@ async function startMapping() {
 }
 ```
 
-The callback for our `SelfState` event sends an initial registration message once the event is subscribed to. When this happens, we want to update `subscribed` to `true` to break the  `while` loop in `startMapping()` and continue execution. Define the `_SelfState()` callback function beneath `openCallback()` and use an `if` statement to check if `subscribed` is `false` and, if so, set it to `true`.  
+The callback for our `SelfState` event sends an initial registration message once the event is subscribed to. When this happens, we want to update `subscribed` to `true` to break the  `while` loop in `startMapping()` and continue execution. Define the `_SelfState()` callback function beneath `openCallback()` and use an `if` statement to check if `subscribed` is `false`. If it is, set it to `true`.  
 
 ```js
 /* CALLBACKS */
@@ -2006,7 +2002,7 @@ function _SelfState(data) {
             }
         }
     }
-    catche (e) {
+     catch (e) {
     }
 }
 ```
@@ -2061,7 +2057,7 @@ async function getMap() {
 }
 ```
 
-Define `unsubscribeSelfState()` near the top of your program (near `subscribeSelfState()`). Call `socket.Unsubscribe()` within the function, passing the string `"SlamStatus"` (the name given the `SelfState` event).
+Define `unsubscribeSelfState()` near `subscribeSelfState` toward the top of your program. Call `socket.Unsubscribe()` within the function, passing the string `"SlamStatus"` (the name given the `SelfState` event).
 
 ```js
 /* WEBSOCKET SUBSCRIPTION FUNCTIONS */
@@ -2179,9 +2175,7 @@ At the bottom of the script, call `socket.Connect()`.When the connection is esta
 socket.connect()
 ```
 
-### Putting It All Together
-
-**Congratulations!** You’ve written a mapping program for Misty. When the document loads, the program
+**Congratulations!** You’ve written a mapping program for Misty. When the document loads, the program:
 * establishes a connection to your robot
 * subscribes to the data stream from the `SelfState` WebSocket connection
 * initiates the SLAM system to enable mapping
@@ -2523,10 +2517,10 @@ async function openCallback() {
 }
 ```
 
-Use the keyword `async` to define the `_ComputerVision()` callback that runs when a `ComputerVision` event triggers. This function takes a `data` argument, to hold  the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
+Use the keyword `async` to define the `_ComputerVision()` callback that runs when a `ComputerVision` event triggers. This function takes a `data` argument, which holds the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
 
 ```js
-// Use the keyword async to define the _ComputerVision() callback that runs when a ComputerVision event triggers. This function takes a data argument, to hold the data from the event message. 
+// Use the keyword async to define the _ComputerVision() callback that runs when a ComputerVision event triggers. This function takes a data argument, which holds the data from the event message. 
 async function _ComputerVision(data) {
     // Write code to print a message to the console each time the callback triggers, including the message response data.
     console.log("CV callback called: ", data);
@@ -2597,7 +2591,7 @@ async function _ComputerVision(data) {
 
 The rest of the callback function handles cases where relevant data comes through. This occurs whenever Misty detects a face in her field of vision. Because the program pauses each time a picture is taken, this section of the callback doesn’t execute more frequently than every 8 seconds. 
 
-To have Misty take a picture, use `axios.get()` to send a GET request to the endpoint for the `TakePicture`  command. This endpoint accepts values for parameters that specify whether the image data should be returned as a Base64 string, what name the image file should be given, what size the image should be, whether to display the image on Misty’s screen, and whether to overwrite an image with the same file name if one exists on your robot. [Read the documentation on this endpoint](https://docs.mistyrobotics.com/apis/api-reference/rest/#takepicture-alpha) for detailed descriptions of these parameters. When you call `axios.get()`, pass in the endpoint for the `TakePicture` command as the first argument. For the second argument, pass in a `params`object with the following key, value pairs:
+To have Misty take a picture, use `axios.get()` to send a GET request to the endpoint for the `TakePicture`  command. This endpoint accepts values for parameters that specify whether the image data should be returned as a Base64 string, what name the image file should be given, what size the image should be, whether to display the image on Misty’s screen, and whether to overwrite an image with the same file name if one exists on your robot. [Read the documentation on this endpoint](https://docs.mistyrobotics.com/apis/api-reference/rest/#takepicture-alpha) for detailed descriptions of these parameters. When you call `axios.get()`, pass in the endpoint for the `TakePicture` command as the first argument. For the second argument, pass in a `params` object with the following key, value pairs:
 * Set `Base64` to `null`. This tells Misty not to return the image data as a base64 string. 
 * Set `FileName` to the variable `fileName`. Declaring a value for this parameter tells Misty to save the photo to her file system. The photo is saved with a name that matches the value stored in the `fileName` variable, which is defined later in this project. 
 * Set `Width` and `Height` to `1200` and `1600`, respectively. These sizes match the resolution of the photo taken by the 4K camera. 
@@ -2751,9 +2745,12 @@ At the end of the program, call `socket.Connect()` to open the connection to the
 socket.Connect();
 ```
 
-### Putting It All Together
-
-**Congratulations!** You’ve written a program for Misty to take a photo whenever she detects a face. When the document loads, the program establishes a connection to the `ComputerVision` WebSocket. Misty starts face detection and, each time she sees a face, takes a photo with her 4K camera. These photos are saved to Misty’s local storage and given file names to indicate the date and time when the face was detected and the photo was taken. The flow of the program is managed by global variables indicating the status of the WebSocket subscription and whether Misty has already started face recognition. Each time a photo is taken, the program unsubscribes from the WebSocket, pauses for a few seconds, and then re-subscribes to the WebSocket connection to start the whole process over again.
+**Congratulations!** You’ve written a program for Misty to take a photo whenever she detects a face. 
+* When the document loads, the program establishes a connection to the `ComputerVision` WebSocket. 
+* Misty starts face detection and, each time she sees a face, takes a photo with her 4K camera. 
+* These photos are saved to Misty’s local storage and given file names to indicate the date and time when the face was detected and the photo was taken. 
+* The flow of the program is managed by global variables indicating the status of the WebSocket subscription and whether Misty has already started face recognition. 
+* Each time a photo is taken, the program unsubscribes from the WebSocket, pauses for a few seconds, and then re-subscribes to the WebSocket connection to start the whole process over again.
 
 ### Full Sample
 
