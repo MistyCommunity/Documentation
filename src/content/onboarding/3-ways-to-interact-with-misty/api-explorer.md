@@ -181,9 +181,9 @@ Use the **Camera** controls to take a picture with Misty's 4K camera.
 
 Click **Take Picture and Display** to take a picture and display it in your browser, or click **Take Picture and Download** to download the picture to your computer.
 
-**Note: Misty's 4K camera may not work if the data stream from the Occipital Structure Core depth sensor is open. If you can't use Misty's camera to take and display or download a picture, click** Stop Camera **in the** Depth Sensor Data **controls, then try again.** 
+**Note: Misty's 4K camera may not work if the data stream from the Occipital Structure Core depth sensor is open. If you can't use Misty's camera to take and display or download a picture, click** Stop Camera **in the** Ultra-Wide Vision Camera **controls, then try again.** 
 
-Use the **Depth Sensor Data** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
+Use the **Ultra-Wide Vision Camera** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
 ![Depth sensor camera controls](../../../assets/images/depth_sensor_camera_controls.png)
 Follow these steps to take a photo with this camera:
 1. Click **Start Camera** to turn on the data stream from the depth sensor.
@@ -264,6 +264,14 @@ To perform an update:
 6. If your robot consistently fails to update, there may be a loose or faulty connection on Misty's headboard or real-time controller board. To check these connections, visually inspect the connectors on the headboard first, near the location indicated below. ![Headboard connectors](../../../assets/images/headboard_connectors.jpeg) Then check the connectors on the real-time controller board, indicated below. ![real-time controller board connectors](../../../assets/images/realtime_controller_board_connectors.jpeg)
 Please contact Misty's support team if the connections on either of these boards appear loose or broken.
 
+### Targeted Updates
+If a full system update fails to update every component of your robot, you can perform a targeted update to update these components individually.  
+
+![Targeted update controls](../../../assets/images/targeted_update_controls.png)
+
+To peform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
+
+**Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **Easy Commands** section at the top of the API Explorer. 
 
 ## Connecting WiFi
 While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways-to-interact-with-misty/companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.

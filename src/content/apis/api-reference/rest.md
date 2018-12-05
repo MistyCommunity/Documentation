@@ -63,7 +63,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### GetListOfImages
@@ -79,28 +79,26 @@ Return Values
    * Height (integer) - the height of the image file
    * Name (string) - the name of the image file
    * Width (integer) - the width of the image file
-   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### SaveImageAssetToRobot (Byte Array String)
+Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
 
-### SaveImageAssetToRobot
-Saves an image file to Misty. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
+Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
-**Note:** Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
+**Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
 Endpoint: POST {robot-ip-address}/api/images
 
-#### Option 1
-
 Parameters
-- FileName (string) - The name of the image file to upload.
-- DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
-- Width (integer) - The width of the image in pixels.
-- Height (integer) - The height of the image in pixels.
-- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
-- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+* FileName (string) - The name of the image file to upload.
+* DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
-
- ```json
+```json
 {
   "FileName": "example.jpg",
   "DataAsByteArrayString": "30,190,40,24,...",
@@ -109,33 +107,36 @@ Parameters
   "ImmediatelyApply": false,
   "OverwriteExisting": true
 }
-  ```
+```
 
 Return Values
-- Result (array) - Returns an array of information about the image with the following fields:
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the saved file.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-  - width (integer) - The width of the image in pixels.
+* Result (array) - Returns an array of information about the image with the following fields:
+  * height (integer) - The height of the image in pixels.
+  * name (string) - The name of the saved file.
+  * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+  * width (integer) - The width of the image in pixels.
 
-#### Option 2
+### SaveImageAssetToRobot (Image File)
 
-**Note:** To use this option, make sure to set the `content-type` in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+Saves an image file to Misty. Optionally, proportionately reduces the size of the saved image.
 
+**Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+
+**Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
 Parameters
-- File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png.
-- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the image will be saved with the same name as the source file.
-- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately displays the uploaded image file.
-- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+* File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png. 
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). Important: To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 Return Values
-- Result (array) - Returns an array of information about the image with the following fields:
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the saved file.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-  - width (integer) - The width of the image in pixels.
-
+* Result (array) - Returns an array of information about the image with the following fields:
+* height (integer) - The height of the image in pixels.
+* name (string) - The name of the saved file.
+* userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+* width (integer) - The width of the image in pixels.
 
 
 ### DeleteImageAssetFromRobot
@@ -155,7 +156,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Audio
@@ -196,7 +197,7 @@ Parameters
 Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If true, the audio file was added by the user. If false, the file is one of Misty's default audio files. **Note:** `GetListOfAudioClips` should always return false.
+   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** `GetListOfAudioClips` should always return `false`.
 
 
 ### GetListOfAudioFiles
@@ -210,20 +211,18 @@ Parameters
 Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-
-### SaveAudioAssetToRobot
+### SaveAudioAssetToRobot (Byte Array String)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST {robot-ip-address}/api/audio
 
-#### Option 1
 Parameters
-- FileName (string) - Name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
 - DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
-- ImmediatelyApply (boolean) - True or False. Specifies whether Misty immediately plays the uploaded audio file.
-- OverwriteExisting (boolean) - True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -239,19 +238,25 @@ Return Values
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-#### Option 2
-**Note:** To use this option, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+
+### SaveAudioAssetToRobot (Audio File)
+Saves an audio file to Misty. Maximum size is 3 MB.
+
+Endpoint: POST {robot-ip-address}/api/audio
+
+**Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
 Parameters
 - File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
 - FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
-- ImmediatelyApply (boolean) - Optional. True or False. Specifies whether Misty immediately plays the audio file.
-- OverwriteExisting (boolean) - Optional. True or False. Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty.
+- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 Return Values
 - Result (array) - An array of information about the audio file, with the following fields:
   - name (string) - The name of the file that was saved.
   - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
 
 
 ## Locomotion
@@ -285,7 +290,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### DriveTime
@@ -316,7 +321,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### LocomotionTrack
@@ -336,7 +341,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### Stop
@@ -348,7 +353,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Information
@@ -365,7 +370,7 @@ Return Values
 * Result (array) - An array containing one element for each WiFi network discovered. Each element contains the following:
    * Name (string) - The name of the WiFi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
-   * IsSecure (boolean) - True if the network is secure. Otherwise, false.
+   * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
 
 ### GetBatteryLevel
@@ -462,7 +467,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
@@ -481,7 +486,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Beta - Images & Display
@@ -509,7 +514,7 @@ Parameters
 * FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### StopRecordingAudio - BETA
@@ -521,7 +526,7 @@ Parameters
 * None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### DeleteAudioAssetFromRobot - BETA
@@ -541,7 +546,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Beta - Faces
@@ -564,7 +569,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### StartFaceTraining - BETA
@@ -584,7 +589,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### StartFaceRecognition - BETA
@@ -598,7 +603,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### StopFaceDetection - BETA
@@ -610,7 +615,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### CancelFaceTraining - BETA
@@ -622,7 +627,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### StopFaceRecognition - BETA
@@ -634,7 +639,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### GetLearnedFaces - BETA
@@ -658,7 +663,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Beta - Head Movement
@@ -686,7 +691,7 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
@@ -707,29 +712,10 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Beta - Information
-
-### GetWebsocketHelp - BETA
-Provides a list of available WebSocket data from Misty to which you can subscribe. For examples of subscribing to WebSocket data, check out the sample skills in the [MistyCommunity GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills).
-
-Endpoint: GET {robot-ip-address}/api/beta/info/help/websocket
-
-Parameters
-- None
-
-Return Values
-* NestedProperties (array) - A list of WebSocket data classes to which you can subscribe. These include:
-   * Command information
-   * Sensor data
-   * Battery status
-   * Face detection/recognition information
-   * Position and orientation
-   * Movement updates
-   * Proximity data from time-of-flight sensors
-
 
 ### GetBetaHelp - BETA
 Obtains information about a specified beta API command. Calling `GetBetaHelp` with no parameters returns a list of all the beta API commands that are available.
@@ -753,13 +739,20 @@ Obtains a system or user-uploaded image file currently stored on Misty
 
 Endpoint: GET {robot-ip-address}/api/alpha/image?FileName={name-of-image-file.extension}
 
+Example:
+
+`http://{robot-ip-address}/api/alpha/image?FileName=Content.jpg&Base64=false`
+
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string) - The name of the image file to get, including the file type extension.
 - Base64 (boolean) - Optional. Stending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
 
-```markup
-http://{robot-ip-address}/api/alpha/image?FileName=Content.jpg&Base64=false
+```json
+{
+  "FileName": "Content.jpg",
+  "Base64": false
+}
 ```
 
 Return Values
@@ -781,31 +774,44 @@ Return Values
 ```
 
 ### TakePicture - ALPHA
-Takes a photo with Misty's 4K camera.
 
-Endpoint: GET {robot-ip-address}/api/alpha/camera?Base64={bool}
+Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
-Parameters  
-**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.
+Endpoint: GET {robot-ip-address}/api/camera
 
-Return Values
-- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
-    - base64 (string) - A string containing the Base64-encoded image data.
-    - format (string) - Indicates the type and format of the image returned.
-    - height (integer) - The height of the picture in pixels.
-    - name (string) - The name of the picture. 
-    - width (integer) - The width of the picture in pixels.
+Example:
+
+`http://{robot-ip-address}/api/alpha/camera?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
+
+Parameters
+
+* Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`.
+* FileName (string) - Optional. If specified, Misty saves the photo as an image asset with this name and adds the appropriate file type extension. If unspecified, Misty does not save the photo.
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
+* DisplayOnScreen (boolean) - Optional. If `true` **and** a `FileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `FileName` value is provided, does nothing.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
-  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
-  "format": "image/jpeg",
-  "height": 1600.0,
-  "name": "MistyCamSnapshot",
-  "width": 1200.0,
+  "Base64": true,
+  "FileName": "MyPicture",
+  "Width": 300,
+  "Height": 200,
+  "DisplayOnScreen": true,
+  "OverwriteExisting": true
 }
 ```
+
+Return Values
+
+* Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
+  * Base64 (string) - A string containing the Base64-encoded image data.
+  * Format (string) - The type and format of the image returned.
+  * Height (integer) - The height of the image in pixels.
+  * Name (string) - The name of the image.  
+  * Width (integer) - The width of the image in pixels. 
+
 
 ### SlamGetVisibleImage - ALPHA
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
@@ -816,7 +822,7 @@ Endpoint: GET {robot-ip-address}/api/alpha/slam/visibleimage?Base64={bool}
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.
+- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImageAssetToRobot` to upload and save the image to Misty.
 
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
@@ -914,9 +920,38 @@ Parameters
 - Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
+## Alpha - Locomotion
 
+### Halt - ALPHA
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+Endpoint: POST {robot-ip-address}/api/alpha/robot/halt
+
+Parameters
+* None
+
+Return Values
+* None
+
+## Alpha - Information
+
+### GetAlphaHelp - ALPHA
+
+Obtains information about a specified alpha API command. Calling `GetAlphaHelp` with no parameters returns a list of all available alpha API commands.
+
+Endpoint: 
+
+* GET {robot-ip-address}/api/alpha/info/help for a list of alpha commands and endpoints.
+* GET {robot-ip-address}/api/alpha/help?command=endpoint/path for information on a specific alpha endpoint. Example: `{robot-ip-address}/api/alpha/info/help?command=audio/file`
+
+Parameters
+* None
+
+Return Values
+* Result (string) - A string in JSON format containing the requested help information.
 
 ## Alpha - Mapping & Tracking
 
@@ -973,7 +1008,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### SlamStartMapping - ALPHA
@@ -985,7 +1020,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### SlamStartTracking - ALPHA
@@ -997,7 +1032,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### SlamStopMapping - ALPHA
@@ -1009,7 +1044,7 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### SlamStopTracking - ALPHA
@@ -1021,33 +1056,92 @@ Parameters
 - None
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### SlamGetMap - ALPHA
-Obtains the current map Misty has generated.
+### SlamGetRawMap - ALPHA
 
-Endpoint: GET {robot-ip-address}/api/alpha/slam/map/smooth
+Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `SlamGetRawMap`, Misty must first have successfully generated a map. 
+
+Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
+
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: “unknown", “open", “occupied", or “covered").
+
+Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `SlamGetPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+Endpoint: {robot-ip-address}/api/alpha/slam/map/raw 
+
+or 
+
+{robot-ip-address}/api/alpha/slam/map 
 
 Parameters
-- None
+ * None
 
 Return Values
-* Result (set of elements) - returns the information about the slam map data.
-   * grid (array) - a 2 dimensional array of values.
-   * height (integer) - the height of the map
-   * isValid (boolean) - weather or not the map is valid
-   * metersPerCell (double) - the value that represents the number of meters that each cell represents in the grid array
-   * width (integer) - the width of the map
+* Result (object) - An object containing the following key, value pairs:
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
+### SlamGetPath - ALPHA
+
+Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
+
+**Note:** `SlamGetRawMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+**Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+Endpoint: GET {robot-ip-address}/api/alpha/slam/path
+
+Parameters
+* X (integer) - The X coordinate of the destination.
+* Y (integer) - The Y coordinate of the destination.
+
+```json
+{
+  "X": 13,
+  "Y": 37
+}
+```
+
+Return Values
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
+
+
+### DriveToLocation - ALPHA
+
+Drives to a designated waypoint.
+
+**Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+Endpoint: POST {robot-ip-address}/api/alpha/drive/location
+
+Parameters
+* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `SlamGetRawMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+```json
+“Destination": “10:25"
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
 
+**Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the end of the path.
+
 Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 
 Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
+- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
 
 ```json
 {
@@ -1056,4 +1150,51 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+## Alpha - Configuration
+
+### GetStoreUpdateAvailable - ALPHA
+
+Checks whether a system update is available. 
+
+Endpoint: {robot-ip-address}/api/alpha/info/updates
+
+Parameters
+* None
+
+Return Values
+* Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
+
+### PerformSystemUpdate - ALPHA
+
+Downloads and installs a system update if one is available.
+
+Endpoint: POST {robot-ip-address}/api/alpha/system/update
+
+Parameters
+* None
+
+Return Values
+* Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
+
+### PerformTargetedUpdate - ALPHA
+
+Attempts to install updates for specified components of your robot. 
+
+**Note:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the `GetDeviceInformation` command. You can make sure individual components are up-to-date by comparing these version numbers to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site.
+
+Endpoint: POST {robot-ip-address}/api/alpha/system/update/target
+
+Parameters
+- Components (array) - A list of strings indicating the specific components to update. Use `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
+
+```json
+{
+    "Components": [ "MC", "RT", "SensoryServices" ]
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
