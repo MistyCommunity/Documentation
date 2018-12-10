@@ -56,7 +56,7 @@ Parameters
 
 ```json
 {   
-  "FileName": "pink_sunset.jpg",
+  "FileName": "content.jpg",
   "TimeOutSeconds": 5,
   "Alpha": 0.5
 }
