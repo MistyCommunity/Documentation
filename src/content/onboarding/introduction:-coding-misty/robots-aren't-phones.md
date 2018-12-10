@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Robots Aren't Phones
 layout: onboarding.hbs
 columns: one
 order: 1

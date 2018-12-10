@@ -6,7 +6,3 @@ order: 1
 ---
 
 # {{title}}
-
-## SDK Tools
-
-## Hello, World! (Tutorials)

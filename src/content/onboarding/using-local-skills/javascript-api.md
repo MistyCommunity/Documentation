@@ -2,7 +2,7 @@
 title: Javascript API
 layout: onboarding.hbs
 columns: one
-order: 2
+order: 4
 ---
 
 # {{title}}

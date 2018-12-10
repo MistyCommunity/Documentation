@@ -1,8 +1,8 @@
 ---
-title: System Architecture (Understanding How Misty Works with Your Code)
+title: Misty's Architecture
 layout: onboarding.hbs
 columns: one
-order: 1
+order: 2
 ---
 
 # {{title}}

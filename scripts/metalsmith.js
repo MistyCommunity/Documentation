@@ -173,9 +173,9 @@ exports.metalsmith = function() {
         pattern: 'onboarding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'coding-for-a-robot',
-          'writing-a-local-skill',
-          'remote-command-interface'
+          'introduction:-coding-misty',
+          'using-local-skills',
+          'using-remote-commands'
         ]
       },
       apis: {
