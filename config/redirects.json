@@ -1,12 +1,12 @@
 {
-	"/apis" : "/apis/overview/command-architecture",
+	"/apis" : "/apis/get-started/meet-misty",
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
-	"/getstarted": "/onboarding/get-started/setting-up-misty",
-	"/get-started": "/onboarding/get-started/setting-up-misty",
-	"/gettingstarted": "/onboarding/get-started/setting-up-misty",
-	"/getting-started": "/onboarding/get-started/setting-up-misty",
-	"/onboarding": "/onboarding/get-started/setting-up-misty",
+	"/getstarted": "/onboarding/get-started/setting-up-misty/",
+	"/get-started": "/onboarding/get-started/setting-up-misty/",
+	"/gettingstarted": "/onboarding/get-started/setting-up-misty/",
+	"/getting-started": "/onboarding/get-started/setting-up-misty/",
+	"/onboarding": "/onboarding/coding-for-a-robot/introduction/",
 	"/tutorials": "/tutorials/quickstart/"
 }
