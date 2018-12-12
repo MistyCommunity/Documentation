@@ -1,5 +1,5 @@
 ---
-title: SDK tools
+title: Tutorials
 layout: onboarding.hbs
 columns: one
 order: 2
@@ -7,4 +7,4 @@ order: 2
 
 # {{title}}
 
-fromt the SDK doc -- skillrunner & VSC extension
+All of the local skill tutorials

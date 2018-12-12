@@ -1,5 +1,5 @@
 ---
-title: API Explorer Source Code
+title: Tools
 layout: onboarding.hbs
 columns: one
 order: 5
@@ -7,4 +7,4 @@ order: 5
 
 # {{title}}
 
-walkthrough api explorer code
+Postman, API Explorer, lightSocket.js, lightClient.js

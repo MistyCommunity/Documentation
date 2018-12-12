@@ -183,7 +183,9 @@ exports.metalsmith = function() {
         sortBy: 'order',
         orderDynamicCollections: [
           'get-started',
-          '3-ways-to-interact-with-misty'
+          'companion-app',
+          'blockly',
+          'api-explorer'
         ]
       },
       casestudies: {

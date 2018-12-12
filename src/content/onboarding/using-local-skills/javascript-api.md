@@ -1,8 +1,10 @@
 ---
 title: Javascript API
 layout: onboarding.hbs
-columns: one
-order: 4
+columns: three
+order: 3
 ---
 
 # {{title}}
+
+All Misty JavaScript commands

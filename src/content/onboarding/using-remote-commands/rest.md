@@ -2,7 +2,7 @@
 title: REST API
 layout: onboarding.hbs
 columns: three
-order: 7
+order: 3
 ---
 
 # {{title}}

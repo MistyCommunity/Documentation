@@ -2,7 +2,7 @@
 title: API Explorer
 layout: apis.hbs
 columns: one
-order: 7
+order: 1
 ---
 
 # {{title}}
