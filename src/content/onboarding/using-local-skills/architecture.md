@@ -1,7 +1,7 @@
 ---
 title: Architecture
 layout: onboarding.hbs
-columns: one
+columns: three
 order: 1
 ---
 
@@ -204,7 +204,7 @@ misty.RegisterUserEvent(string eventName, string callbackMethod);
 
 You can also trigger an event by making a REST call to the event endpoint with a POST command:
 
-```
+```html
 POST {robot-ip-address}api/alpha/sdk/skills/event
 ```
 
@@ -262,7 +262,7 @@ Additional commands that operate on data across skills are described in the “H
 
 <!-- TODO: Add link to Helper Commands section -->
 
-## COMMAND TYPES
+## Command Types
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
@@ -303,6 +303,8 @@ The system provides some REST commands that you can use to control local skills 
 ## File Structure & Code Architecture
 There are two basic file types required for a local skill: a “meta” JSON file and a “code” JavaScript file. On the robot, these files are located in the following directory structure:
 
+<!-- TODO: cleanup the code samples below -->
+
 ```
 User Folders\Music\SDKAssets\Misty\Skills\Meta\[filename.json]
 User Folders\Music\SDKAssets\Misty\Skills\Code\[filename.js]
@@ -321,21 +323,21 @@ Every local skill must include a named meta file with a `.json` extension. This 
 
 ```json
 {
-	"Name": "sample_skill",
-	"UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
-	"Description": "My skill is amazing!",
-	"StartupRules": ["Manual", "Robot"],
-	"Language": "javascript",
-	"BroadcastMode": "verbose",
-	"TimeoutInSeconds": 300,
-	"CleanupOnCancel": false,
-	"WriteToLog": false,
-	"Parameters": {
-		"int":10,
-		"double":20.5,
-		"String":"twenty"
-		"foo": "bar"
-	}
+    "Name": "sample_skill",
+    "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
+    "Description": "My skill is amazing!",
+    "StartupRules": ["Manual", "Robot"],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": false,
+    "WriteToLog": false,
+    "Parameters": {
+        "int":10,
+        "double":20.5,
+        "String":"twenty"
+        "foo": "bar"
+    }
 }
 ```
 
@@ -370,7 +372,7 @@ misty.Debug("Starting my skill");
 // Issue POST commands to change LED and start DriveTime
 misty.ChangeLED(0, 255, 0); // green, GO!
 misty.DriveTime(50, 0, 10000);
-j
+
 // Register for TOF and add property tests
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
