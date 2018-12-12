@@ -1,7 +1,7 @@
 ---
 title: WebSocket Reference
 layout: onboarding.hbs
-columns: one
+columns: three
 order: 4
 ---
 
