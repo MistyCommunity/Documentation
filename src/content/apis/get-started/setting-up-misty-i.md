@@ -1,3 +1,4 @@
+
 ---
 title: Misty I
 layout: apis.hbs
@@ -6,8 +7,6 @@ order: 2
 ---
 
 # {{title}}
-
-## Setting Up Misty I
 
 Welcome! Your Misty I Developer Edition Prototype robot has been hand-built by the Misty Robotics team.
 
