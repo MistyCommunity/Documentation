@@ -11,7 +11,6 @@ With the REST API, you can send commands to Misty from a REST client or browser.
 
 To [create skills](/onboarding/creating-skills/writing-skill) for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST or JavaScript APIs. To get live updating data back from Misty, you'll need to use a [WebSocket connection](/onboarding/creating-skills/writing-skill/#websocket-connections). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
 
-
 ## URL & Message Formats
 
 Use the following URL format when sending commands to the robot:
@@ -44,6 +43,7 @@ Misty comes with a set of default "eyes" that display onscreen. But we encourage
 
 
 ### ChangeDisplayImage
+
 Displays an image on Misty's screen. Optionally, `ChangeDisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
@@ -62,6 +62,7 @@ Parameters
   "Alpha": 0.5
 }
 ```
+
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.

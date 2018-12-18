@@ -169,8 +169,8 @@ exports.metalsmith = function() {
           'dev-tools'
         ]
       },
-      onboarding: {
-        pattern: 'onboarding/:section/*.md',
+      coding: {
+        pattern: 'coding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
           'introduction:-coding-misty',
@@ -178,11 +178,11 @@ exports.metalsmith = function() {
           'using-remote-commands'
         ]
       },
-      apis: {
-        pattern: 'apis/:section/*.md',
+      using: {
+        pattern: 'using/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'get-started',
+          'setup',
           'companion-app',
           'blockly',
           'api-explorer'

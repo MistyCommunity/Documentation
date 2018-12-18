@@ -1,4 +1,3 @@
-
 ---
 title: Misty I
 layout: apis.hbs
@@ -17,7 +16,7 @@ For safety and care during shipping, your robot arrives with a couple of items d
 **Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with the robot on the floor or temporarily elevating the wheels so the robot cannot drive. To do this, you can either place a couple of books underneath Misty between the wheels or use this handy [stand for Misty I](https://github.com/MistyCommunity/assets/blob/master/M1_Robot_Stand.STL) that you can 3D print.
 
 
-### What's in the Box?
+## What's in the Box?
 Aside from Misty herself, there are a few things to look for in her packaging:
 
 * battery
@@ -29,7 +28,7 @@ Aside from Misty herself, there are a few things to look for in her packaging:
 **Note:** Please keep all the original packaging for Misty. In case you need to ship her in the future, this packaging has been specially designed to protect these hand-built prototypes.
 
 
-### Connecting the Battery
+## Connecting the Battery
 While Misty's case is open is the ideal time to connect up your robot's battery. **Before doing so, please read the following important notes:**
 
  * Always use the battery that came with Misty.
@@ -51,7 +50,7 @@ Once you've plugged in the battery, you can assemble Misty's case and connect th
 **Note:** If you want to charge the robot while it’s turned on, you’ll need to **first** let the robot fully boot up, **then** plug the power adaptor into the robot’s back.
 
 
-### Assembling Misty's Case
+## Assembling Misty's Case
 Now that the battery is connected, you can put together the finishing pieces of Misty's case:
 
 1. Undo the two small bolts that attach the plastic logo plate to the front of Misty's chest. Remove the plate and set it and the bolts aside. ![removing the logo plate](../../../assets/images/faceplate_removal.jpg)
@@ -60,7 +59,7 @@ Now that the battery is connected, you can put together the finishing pieces of 
 4. Once both side panels are attached, reattach Misty's logo plate, gently hand-tightening the bolts.
 
 
-### Connecting the Occipital Structure Core Depth Sensor
+## Connecting the Occipital Structure Core Depth Sensor
 The Occipital Structure Core depth sensor is your Misty robot's main way of mapping and seeing the world. The cable for this sensor is disconnected for shipping. It's simple to reattach as follows, but be sure to snap it in all the way. **You must feel a click when attaching the cable**, or it won't be seated fully and can't function.
 
 1. Tucked behind Misty's faceplate, find the black USB cable with a loose end. ![loose Occipital cable](../../../assets/images/occipital_cable_loose.jpg)
@@ -73,7 +72,7 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../3-ways-to-interact-with-misty/companion-app/).
 
 
-### Cleaning the Time-of-Flight Sensors
+## Cleaning the Time-of-Flight Sensors
 
 **Note**: This is **not** something you need to do with your robot on arrival or perhaps ever, but it's good to know about, just in case.
 

@@ -1,5 +1,5 @@
 ---
-title: Get started with Misty
+title: Get Started
 layout: apis.hbs
 columns: one
 order: 1

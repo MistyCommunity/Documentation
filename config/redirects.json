@@ -1,12 +1,13 @@
 {
-	"/apis" : "/apis/get-started/meet-misty",
+	"/using" : "/using/setup/get-started",
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
-	"/getstarted": "/onboarding/get-started/setting-up-misty/",
-	"/get-started": "/onboarding/get-started/setting-up-misty/",
-	"/gettingstarted": "/onboarding/get-started/setting-up-misty/",
-	"/getting-started": "/onboarding/get-started/setting-up-misty/",
-	"/onboarding": "/onboarding/introduction:-coding-misty/robots-aren't-phones/",
+	"/getstarted": "/coding/get-started/setting-up-misty/",
+	"/get-started": "/coding/get-started/setting-up-misty/",
+	"/gettingstarted": "/coding/get-started/setting-up-misty/",
+	"/getting-started": "/coding/get-started/setting-up-misty/",
+	"/onboarding": "/coding/introduction:-coding-misty/robots-aren't-phones/",
+	"/coding": "/coding/introduction:-coding-misty/robots-aren't-phones",
 	"/tutorials": "/tutorials/quickstart/"
 }
