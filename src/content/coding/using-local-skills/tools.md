@@ -2,7 +2,7 @@
 title: Tools
 layout: onboarding.hbs
 columns: one
-order: 6
+order: 5
 ---
 
 # {{title}}
@@ -10,15 +10,12 @@ order: 6
 ## Loading & Running a Local Skill
 
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
-* the Skill Runner tool (available as a ZIP archive; click `SkillRunner.html` to open), which provides a simple upload feature
-* a REST tool such as Postman that can send a `POST` request to a dedicated endpoint for skill deployment
-
-<!-- TODO: link to skill runner -->
+* the [Skill Runner](https://skill-runner.mistyrobotics.com) web page, which provides a simple upload feature
+* a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
 
 ### Using Skill Runner
 
 ![Skill runner home page](../../../assets/images/skill-runner.png)
-<!-- TODO: Insert image of Skill Runner here -->
 
 1. Compress and save your skill’s `Meta` and `Code` files into a .zip file with the same name as your skill.
 2. Open `SkillRunner.html` and connect to Misty using your robot’s IP address.

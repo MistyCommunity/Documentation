@@ -1,13 +1,11 @@
 ---
 title: Architecture
 layout: onboarding.hbs
-columns: one
+columns: three
 order: 1
 ---
 
 # {{title}}
-
-including concepts about websockets, how you send commands to and get data from misty
 
 Misty's a pretty capable robot on her own, but the exciting part of working with Misty is seeing her run the skills you create for her. Check out the Misty Community [GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills (including a fun [Python-based skill](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python/samples/mistyvoice) that gives Misty a voice using the Google Text-to-Speech API).
 

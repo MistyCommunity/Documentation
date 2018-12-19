@@ -1,5 +1,5 @@
 {
-	"/using" : "/using/setup/get-started",
+	"/meet_misty" : "/meet_misty/setup/get-started",
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
@@ -7,7 +7,7 @@
 	"/get-started": "/coding/get-started/setting-up-misty/",
 	"/gettingstarted": "/coding/get-started/setting-up-misty/",
 	"/getting-started": "/coding/get-started/setting-up-misty/",
-	"/onboarding": "/coding/introduction:-coding-misty/robots-aren't-phones/",
-	"/coding": "/coding/introduction:-coding-misty/robots-aren't-phones",
+	"/onboarding": "/coding/using-local-skills/architecture/",
+	"/coding": "/coding/using-local-skills/architecture",
 	"/tutorials": "/tutorials/quickstart/"
 }

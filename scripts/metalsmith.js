@@ -173,13 +173,12 @@ exports.metalsmith = function() {
         pattern: 'coding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'introduction:-coding-misty',
           'using-local-skills',
           'using-remote-commands'
         ]
       },
-      using: {
-        pattern: 'using/:section/*.md',
+      meet_misty: {
+        pattern: 'meet_misty/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
           'setup',
