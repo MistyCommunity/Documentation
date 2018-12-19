@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-In these tutorials you will learne verything you need to know to begin writing robust, intricate local skills for you rMisty robot. Each tutorial introuces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
+In these tutorials you will learn everything you need to know to begin writing robust, intricate local skills for your Misty robot. Each tutorial introuces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
 
 ## Driving Misty
 
@@ -105,7 +105,9 @@ misty.ChangeLED(255, 0, 0);
 misty.Debug("ending skill helloworld ");
 ```
 
-Congratulations! You have just written a local skill for Misty. See the documentation on using Skill Runner or the REST API to load your skill data onto Misty and run the skill from the browser. See the full contents of the `HelloWorld_TimeOfFlight.js` file here for reference:
+Congratulations! You have just written a local skill for Misty. Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+
+See the full contents of the `HelloWorld_TimeOfFlight.js` file here for reference.
 
 ```JavaScript
 // Print a message to indicate the skill has started
@@ -141,7 +143,7 @@ In this tutorial, we get the list of audio files stored on Misty and play one at
 
 ### Writing the Meta File
 
-In the meta file for this skill, set the value of `Name` to `"HelloWorld_PlayAudio`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_PlayAudio.json`.
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_PlayAudio`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_PlayAudio.json`.
 
 ```json
 {
@@ -195,7 +197,11 @@ Finally, we call another Misty command, `PlayAudioClip()`, and pass in the rando
 misty.PlayAudioClip(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetListOfAudioClips()` to ensure that it does not run until the audio list has been populated. See the complete `HelloWorld_PlayAudio.js` skill file here:
+Note: All of this logic needs to be contained within `_GetListOfAudioClips()` to ensure that it does not run until the audio list has been populated. 
+
+Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+
+See the complete `HelloWorld_PlayAudio.js` skill file here for reference.
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -206,20 +212,20 @@ misty.GetListOfAudioClips();
 
 // Callback to handle data returned by GetListOfAudioClips()
 function _GetListOfAudioClips(data) {
-	// Check if data was received
-	if (data) {
-		// Capture the array of files
-		let audioArr = data.Result;
+    // Check if data was received
+    if (data) {
+        // Capture the array of files
+        let audioArr = data.Result;
 
-		// Generate a random number and use it to choose a filename at 
-		// random from the list
+        // Generate a random number and use it to choose a filename at 
+        // random from the list
         let randNum = Math.floor(Math.random() * audioArr.length);
         let randSound = audioArr[randNum].Name;
         // Print the name of the file
         misty.Debug(randSound);
 
-		// Issue command to play the audio clip
-		misty.PlayAudioClip(randSound);
+        // Issue command to play the audio clip
+        misty.PlayAudioClip(randSound);
     }
 }
 ```
@@ -229,7 +235,7 @@ In this tutorial we learn how to record audio and play it back to the user. This
 
 ### Writing the Meta File
 
-In the meta file for this skill, set the value of `Name` to `"HelloWorld_RecordAudio`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_RecordAudio.json`.
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_RecordAudio`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_RecordAudio.json`.
 
 ```json
 {
@@ -244,6 +250,8 @@ In the meta file for this skill, set the value of `Name` to `"HelloWorld_RecordA
     "WriteToLog": false
 }
 ```
+
+### Writing the Code
 
 Start by calling `StartRecordingAudio()` to tell the microphone to start recording. Pass in the name you want to assign to the resulting audio clip. Use `Pause()` to establish a duration for how long you want the recording to last, then call `StopRecordingAudio()` to halt the recording process and save the clip. Call `Pause()` again for 2000ms to give Misty time to save the recording.
 
@@ -284,7 +292,9 @@ if (containsNewFile) {
 }
 ```
 
-See the complete `HelloWorld_RecordAudio.js` file below for reference.
+Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+
+See the complete `HelloWorld_RecordAudio.js` file here for reference.
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -306,27 +316,232 @@ misty.GetListOfAudioFiles();
 function _GetListOfAudioFiles(data) {
     // Get the array of audio files from the data returned 
     // by GetListOfAudioFiles()
-	let audioArr = data.Result;
+    let audioArr = data.Result;
 
     // Initialize a variable to tell us if the list contains 
     // the recorded audio file
-	let containsNewFile = false;
+    let containsNewFile = false;
     // Loop through list and compare file names to the
     // name specified for the recording
-	for (let i = 0; i < audioArr.length; i++) {
-		if (audioArr[i].Name === "RecordingExample.wav") {
+    for (let i = 0; i < audioArr.length; i++) {
+        if (audioArr[i].Name === "RecordingExample.wav") {
             // If there's a match, track it by updating
             // the value of containsNewFile to true
-			containsNewFile = true;
-		}
-	}
+            containsNewFile = true;
+        }
+    }
 
-	// If list contains recording, issue a command to play the recording
-	if (containsNewFile) {
-		misty.PlayAudioClip("RecordingExample.wav", 500, 500);
-	} else {
-		// If the list does not contain the recording, print an error message
-		misty.Debug("file was not found");
-	}
+    // If list contains recording, issue a command to play the recording
+    if (containsNewFile) {
+        misty.PlayAudioClip("RecordingExample.wav", 500, 500);
+    } else {
+        // If the list does not contain the recording, print an error message
+        misty.Debug("file was not found");
+    }
 }
 ```
+
+## Face Detection
+
+In this tutorial we learn how to use Misty's face detection abilities to trigger an event. If Misty detects a face she will play a sound, change her LED to white, and end the skill. If she does not detect a face within a reasonable amount of time, the LED will turn off, and the skill will end.
+
+### Writing the Meta File
+
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_FaceDetection`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_FaceDetection.json`.
+
+```json
+{
+    "Name": "HelloWorld_FaceDetection",
+    "UniqueId": "63b2cac5-4674-43ce-a048-670303a339ec",
+    "Description": "Local 'Hello, World!' tutorial series.",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": false,
+    "WriteToLog": false
+}
+```
+
+### Writing the Code
+
+In order to tell if Misty has detected a face, we register an event to receive data from computer vision events. Call `misty.RegisterEvent()` and pass in a name for the event (this example uses `"FaceDetection"` to keep it simple), the data stream we are subscribing to (`"ComputerVision"`), and a value specifying how frequently we want to receive data (in this case, every `250` milliseconds).
+
+```JavaScript
+misty.RegisterEvent("FaceDetection", "ComputerVision", 250);
+```
+
+Now that we have the event set up, we can send the command to start face detection. This command is different in that it initiates the process for Misty to start _looking_ for a face, while the event is only set up to trigger if a face is _detected_. Both parts are necessary to handle skills that include face detection.
+
+```JavaScript
+misty.StartFaceDetection();
+```
+
+Within the callback (automatically named `_FaceDetection()`) we should log a debug message to indicate that a face has been detected, send a command to play an audio clip, and another to change the LED. Then we can send a command to stop face detection. Once the code in this callback finishes, the skill will automatically end after 5 seconds of inactivity.
+
+```JavaScript
+function _FaceDetection() {
+   misty.Debug("Face detected!”);
+
+   misty.PlayAudioClip("005-OoAhhh.wav");
+   misty.ChangeLED(255, 255, 255); // white
+   misty.StopFaceDetection();
+};
+```
+
+With what we have so far, the skill will run indefinitely if no face is detected. To make the skill more complete, we need to write code to handle this “no face” situation. To accomplish this, let’s register for a timer event to trigger if no face was detected after 15 seconds. We register for this event just after we register for `"FaceDetection"` in our `misty.RegisterEvent()` method.
+
+```JavaScript
+misty.RegisterTimerEvent("FaceDetectionTimeout", 15000);
+```
+
+Then within the callback (again, automatically named `_FaceDetectionTimeout()`), we log a debug message to indicate the timeout was called, turn the LED off, and send the command to stop face detection. After this command has been issued, Misty will be inactive and the skill will automatically end after 5 seconds. 
+
+```JavaScript
+function _FaceDetectionTimeout() {
+   misty.Debug("face detection timeout called, it's taking too long...");
+
+   misty.ChangeLED(0, 0, 0); // black
+   misty.StopFaceDetection();
+};
+```
+
+Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+
+See the complete `HelloWorld_FaceDetection.js` file here for reference.
+
+```JavaScript
+// Debug message to indicate the skill has started
+misty.Debug("starting skill helloworld_facedetection");
+
+// Register for face detection events and for a timer event 
+// to cancel execution if no face is detected within 15 seconds
+misty.RegisterEvent("FaceDetection", "ComputerVision", 250);
+misty.RegisterTimerEvent("FaceDetectionTimeout", 15000);
+
+// Issue a command to start face detection
+misty.StartFaceDetection();
+
+// FaceDetection event callback
+function _FaceDetection() {
+    // Debug message to indicate a face was detecteed
+    misty.Debug("Face detected!");
+    // Play an audio clip, change the color of Misty's chest LED, and
+    // issue a command to stop face detection.
+    misty.PlayAudioClip("005-OoAhhh.wav");
+    misty.ChangeLED(255, 255, 255); // white
+    misty.StopFaceDetection();
+};
+
+
+// FaceDetectionTimeout callback
+function _FaceDetectionTimeout() {
+    // Debug message to indicate the timer event was triggered
+    misty.Debug("face detection timeout called, it's taking too long...");
+
+    // Change the color of Misty's chest LED and issue a command
+    // to stop face detection.
+    misty.ChangeLED(0, 0, 0); // black
+    misty.StopFaceDetection();
+};
+```
+
+## Timer Events
+
+In this tutorial we use timed events to trigger a change in Misty's LED every second. Timed events allow us to specify an amount of time to pass before an event occurs and the callback is triggered. In addition, we introduce global variables and demonstrate how they persist across new threads.
+
+### Writing the Meta File
+
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_TimerEvent"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_TimerEvent.json`.
+
+```json
+{
+    "Name": "HelloWorld_TimerEvent",
+    "UniqueId": "8a380289-2939-4e81-94d9-86d511b7a8ce",
+    "Description": "Local 'Hello, World!' tutorial series.",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": false,
+    "WriteToLog": false
+}
+```
+
+### Writing the Code
+
+When registering for a timed event use the `RegisterTimerEvent()` method, we pass in the name of the event we want to create, the amount of time (in ms) we want Misty to wait before triggering the callback function, and we set the `keepAlive` parameter to `true` in order to have the event trigger the callback automatically every 3 seconds until it is unregistered. After the line of code to register for the timer event, we send our first command to change Misty’s LED to white below the timer event. This will turn the LED on for the first 3 seconds our skill runs, before the first callback is fired.
+
+```JavaScript
+misty.RegisterTimerEvent("TimerEvent", 3000, true);
+misty.ChangeLED(255, 255, 255); // white
+```
+
+Define a global variable to track the amount of callbacks that have been triggered. In order for the data to persist across new threads created by callbacks, prefix the name of the variable with an underscore. Initialize the value of the variable as `0`. Declare it above the `RegisterTimerEvent()` method. **Note:** Do not include a type when creating global variables.
+
+```JavaScript
+_count = 0;
+```
+
+In the callback function (automatically named `_TimerEvent()`) start by checking if the value of `_count` is less than `5` using an `if...then` statement. If so, increment `_count` by one to keep track of the amount of times we are changing the LED. Then, generate three random values between `0` and `255` and pass them in to `misty.ChangeLED()` to trigger a change in Misty’s chest LED.
+
+```JavaScript
+if (_count < 5) {
+    _ count = _count + 1;
+
+    let value1 = Math.floor(Math.random() * (256));
+    let value2 = Math.floor(Math.random() * (256));
+    let value3 = Math.floor(Math.random() * (256));
+    misty.ChangeLED(value1, value2, value3);
+} else { }
+```
+
+The `else` statement will trigger once the value of `_count` has reached `5`. At this point, we want the skill to end. Start by unregistering for the timer event by calling `misty.UnregisterEvent()` and passing in the name designated for the event. Then turn the LED off by passing in zero values for `misty.ChangeLED()` and log a debug message.
+
+```JavaScript
+else {
+    misty.UnregisterEvent("TimerEvent");
+    misty.ChangeLED(0, 0, 0); // off
+    misty.Debug("ending skill helloworld_timerevent");
+}
+```
+
+Using timed events, we have told Misty to change her chest LED to a random color in three-second intervals. We have demonstrated how we can use global variables prefixed with an underscore to have data persist across threads that are created in our program as callbacks are triggered. This is a simple example of two powerful tools that you have at your disposal when writing local skills for Misty. 
+
+Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+
+See the complete `HelloWorld_TimerEvent.js` file here for reference.
+
+```JavaScript
+
+// Debug message to indicate the skill has started
+misty.Debug("starting skill helloworld_timerevent");
+
+// Set a global variable to track the amount of callbacks triggered
+_count = 0;
+
+// Register for the timer event, specifying the duration of the timer
+misty.RegisterTimerEvent("TimerEvent", 3000, true);
+
+// Callback specified for Timer event
+function _TimerEvent() {
+    // Check if the value of _count is less than 5
+    if (_count < 5) {
+        // Increment the value of _count by 1
+        _count = _count + 1;
+
+        // Specify random RGB values and issue command to change LED
+        let value1 = Math.floor(Math.random() * (256));
+        let value2 = Math.floor(Math.random() * (256));
+        let value3 = Math.floor(Math.random() * (256));
+        misty.ChangeLED(value1, value2, value3);
+    } else {
+        // Otherwise, turn off LED, unregister for the timer event and
+        // signal the end of the skill
+        misty.UnregisterEvent("TimerEvent");
+        misty.ChangeLED(0, 0, 0); // off
+        misty.Debug("ending skill helloworld_timerevent");
+    }
+}
+```
+

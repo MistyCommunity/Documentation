@@ -7,39 +7,31 @@ order: 1
 
 # {{title}}
 
-**Important!** Misty has supported remote skills for some time. Local skills are a pre-release, “alpha” technology and are subject to frequent change. Any local skills you create for Misty may need updates before release to reflect these changes in the local skill architecture and implementation.
+When you write a local skill, your code runs internally on Misty and takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
-**Note:** Because the language currently used for local skills is JavaScript, but because local skills do not run in a browser, it’s likely that local skill development will differ from standard browser-based JavaScript development. We don't yet know all this ways this might be the case, so we encourage you to let us know if you find issues and limitations with this implementation.
+**IMPORTANT! Local skills are a pre-release, “alpha” technology and are subject to frequent change.** Any local skills you create for Misty may need updates before release to reflect ongoing development of the local skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
 
-## Local Skill Architecture
+You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
-The following outline can help guide you through the local skill documentation for Misty.
-
-* **Command Syntax.** Local skill and remote skill commands share much of the same functionality, but they are called differently, and local skills sometimes use additional parameters.
+* **Command Syntax.** The local skill command syntax differs slightly from that of remote skill commands. 
 * **Data Handling: Events and Callbacks.** Both stored and live data from the robot are made available to a local skill via callback functions.
   * “Get” Data Callbacks
   * Sensor Event Callbacks
   * Timed or Triggered Event Callbacks
 * **Data Handling: Variables.** There are two ways to store persistent data with local skills: as a global variable or as “set” data.
-* **Command Type Reference.** There are several command types available to local skills, and there are some usage differences among them.
+* **Command Type Reference.** There are several command types available to local skills, with some usage differences among them.
   * Action Commands
   * Get Commands
   * Event Commands
   * Helper Commands
   * Skill Management Commands
-* **File Structure & Code Architecture.** This topic discusses the two required file types for a local skill: a “meta” JSON file and a “code” JavaScript file.
-  * Meta File
-  * Code File
-* **Sending an External Request.** The  `misty.SendExternalRequest()` command allows your local skill to use data from the Internet.
+* **File Structure & Code Architecture.** There are two required file types for a local skill: a “meta” JSON file and a “code” JavaScript file.
 * **Loading & Running a Local Skill.** There are currently two options for how you load and run skills.
 * **Starting & Stopping a Local Skill.** Currently, local skills running on Misty I must be triggered to start/stop from an external request.
-* **Using the Local Skill extension for Visual Studio Code.** We provide a simple extension to help when developing local skills.
 
 ## Command Syntax
 
-You may have already used Misty’s REST API if you’ve created a remote skill for her. When writing a local skill, you use similar JavaScript commands (with a few additions), however the syntax differs.
-
-In a local skill, the syntax for using a commands is:
+In a local skill, the syntax for using a command is:
 
 ```JavaScript
 misty.<COMMAND>(parameters);
@@ -124,7 +116,7 @@ misty.SlamGetMap("override", "9d50efbd-af53-4cd3-9659-c0faf648263d", 500, 10);
 ```
 
 ### Sensor Event Callbacks
-For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#subscribing-amp-unsubscribing-to-a-websocket).
+For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../using-remote-commands/websocket-reference).
 
 The `misty.RegisterEvent()` function has the following form:
 
@@ -270,9 +262,7 @@ Additional commands that operate on data across skills are described in the “H
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
-Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see ____LINK____.
-
-<!-- TODO: add ____LINK____ -->
+Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../javascript-api).
 
 ### Get Commands
 Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the “Get Data Callbacks” section above for more usage details.
@@ -288,15 +278,15 @@ All of the event command types require you to implement a callback to be notifie
 
 <!-- TODO: Add link to Timed or Triggered Event Callbacks section -->
 
-## Helper Commands
+### Helper Commands
 The system supplies the following types of helper commands to assist you in creating a local skill for Misty.
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `Set`, `Get`, `Remove`, `Keys`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
-* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the section “Sending an External Request” for an example of using this functionality. <!--TODO: Add link to sendexternalrequest section-->
-* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described ______LINK______. Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
+* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the tutorial Sending an External Request for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
+* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described in the [JavaScript API reference documentation](../javascript-api). Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
-The system provides some REST commands that you can use to control local skills from a remote device. For details on these, see ________LINK_______. <!--TODO:--> Add Link These include commands to:
+The system provides some REST commands that you can use to control local skills from a remote device. For details on these, see the [JavaScript REST API reference documentation](../javascript-api). <!--TODO:--> Add Link These include commands to:
 * Upload skills to the robot
 * Load, reload, or unload one or more skills
 * Run a skill
@@ -400,3 +390,82 @@ function _FrontTOF(data) {
 Note that when a skill starts, the code within the skill automatically starts running. When a skill has finished executing (or has been cancelled), normal cleanup automatically begins. Normal cleanup drops any pending callbacks, deletes cached code, etc.
 
 If `CleanupOnCancel` is set to true in the meta file, then when a skill is cancelled, additional commands are automatically issued to stop running processes that may have been started in the skill. These process might include facial detection / recognition / training, SLAM mapping / tracking / recording / streaming, and record audio. If `CleanupOnCancel` is set to `false`, then this additional cleanup does not occur when cancelled (`false` is currently the default value). Currently, this does not affect the behavior of the skill if it ends normally. These commands are not automatically issued in this case.
+
+## Loading & Running a Local Skill
+Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
+* the [Misty Skill Runner](https://skill-runner.mistyrobotics.com) web tool, which provides a simple upload feature
+* a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
+
+### Using Skill Runner 
+The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the Misty Skill Runner guide in the Tools seciton of these docs.
+
+### Using Postman
+There are many ways to send a `POST` request to the skill deployment endpoint, but here we’ll use Postman.
+
+1. Compress and save your skill’s `Meta` and `Code` files into a .zip file with the same name as your skill.
+2. To attach your skill .zip to the request, first navigate to the Headers section in Postman.
+3. For the header key, enter “Content-Type”.
+4. In the body section confirm that “form-data” is selected at the top.
+5. For the header value, enter “multipart/form-data”.
+6. For the body key, enter “skills”, then select “File” from the dropdown menu on the right.
+7. In the body value section, click “Choose Files” and select the .zip file for your skill.
+8. To add and load a skill onto the robot, send a POST request to `http://{your robot’s ip address}/api/alpha/sdk/skill/deploy` with the following parameters:
+   * `Skill` (byte array) - A zipped file containing the two skill files (Meta and Code).
+   * `ImmediatelyApply` (boolean) - `true` or `false`. Specifies whether the robot immediately runs the uploaded skill.
+   * `OverwriteExisting` (boolean) - `True` or `False`. Indicates whether the file should overwrite a file with the same name, if one currently exists on this robot.
+9. Look at the response to confirm the request was successful.
+10. Open `SkillRunner.html` and connect to Misty using your robot’s IP address.
+11. Open up your browser’s JavaScript console for the Skiller Runner page, so you can see what’s happening.
+12. Click **Reload Skills** at the top of the page. This ensures that your robot and latest code changes are in sync. Observe the JavaScript console for a log message verifying the skills have been loaded.
+13. To run your skill, enter the skill’s name under “Run Skill” and click **Run**. Continue observing the console; as events are triggered, you’ll see debug messages in the console.
+
+## Starting & Stopping a Local Skill
+Currently, local skills running on Misty I must be triggered to start/stop from an external command. This command can be sent via a REST client or as a JavaScript AJAX request.
+
+To start a skill, send the `RunSkill POST` command with the following syntax. Note that the `Skill` value must be the same as the `Name` value for the skill in its JSON `meta` file.
+
+```html
+<!-- Endpoint -->
+POST http://{robot-ip-address}/api/alpha/sdk/skill
+
+<!-- Payload -->
+{
+    "Skill": "SkillName"
+}
+```
+
+For example:
+
+```html
+<!-- Endpoint -->
+POST http://{robot-ip-address}/api/alpha/sdk/skill
+
+<!-- Payload -->
+{
+	"Skill": "Wander"
+}
+```
+
+To stop a skill, send the `CancelSkill POST` command to the following endpoint, again using the Name value for the skill from its JSON `meta` file:
+
+```html
+<!-- Endpoint -->
+POST http://{robot-ip-address}/api/alpha/sdk/cancel
+
+<!-- Payload -->
+{
+	"Skill": "Wander"
+}
+```
+
+To stop all running skills, send the same `POST` command with an empty payload (no skill name specified):
+
+```html
+<!-- Endpoint -->
+POST http://{robot-ip-address}/api/alpha/sdk/cancel
+
+<!-- Payload -->
+{}
+```
+
+**Important!** Local skills are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. This duration can be changed by providing a different `TimeoutInSeconds` value in the `meta` file. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
