@@ -7,4 +7,26 @@ order: 3
 
 # {{title}}
 
-All Misty JavaScript commands
+## Images & Display
+
+## Audio
+
+## Locomotion
+
+## Faces
+
+## Head Movement
+
+## Arm Movement
+
+## Mapping & Tracking
+
+## Information
+
+## LEDs
+
+## Events & Timing
+
+## Data
+
+## Debugging
