@@ -2,7 +2,7 @@
 title: Companion App
 layout: apis.hbs
 columns: one
-order: 1
+order: 2
 ---
 
 # {{title}}

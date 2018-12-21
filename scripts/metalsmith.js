@@ -181,10 +181,8 @@ exports.metalsmith = function() {
         pattern: 'meet_misty/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'setup',
-          'companion-app',
-          'blockly',
-          'api-explorer'
+          'robots',
+          'apps'
         ]
       },
       casestudies: {

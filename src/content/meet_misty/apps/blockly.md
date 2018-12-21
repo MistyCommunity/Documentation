@@ -2,7 +2,7 @@
 title: Blockly
 layout: apis.hbs
 columns: one
-order: 1
+order: 4
 ---
 
 # {{title}}
