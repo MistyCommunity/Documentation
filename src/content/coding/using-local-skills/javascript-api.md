@@ -1216,13 +1216,259 @@ misty.SlamStopTracking([int prePause], [int postPause]);
 Returns
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
-
-
-
-
 ## Events & Timing
 
+<!-- misty.AddPropertyTest -->
+### misty.AddPropertyTest
+Creates a property comparison test to specify which data the system sends for a registered event. Use property tests to filter unwanted data out of event messages.
+
+Arguments
+* eventName (string) - The name of the event to create a property comparison test for.
+* property (string) - The property of the event to compare. For the full list of properties for each event, see [WebSocket Reference](../../using-remote-commands/websocket-reference).
+* inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
+* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [WebSocket Reference](../../using-remote-commands/websocket-reference).
+* valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
+
+```JavaScript
+misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType);
+```
+
+<!-- misty.AddReturnProperty -->
+### misty.AddReturnProperty
+Adds an additional return property field for a registered event.
+
+Arguments
+* eventName (string) - The name of the event to add a return property field for.
+* eventProperty (string) - The additional property to return.
+
+```JavaScript
+misty.AddReturnProperty(string eventName, string eventProperty);
+```
+
+<!-- misty.CancelSkill --> 
+### misty.CancelSkill
+Cancel execution a specified skill.
+
+Arguments
+* uniqueID (string) - The unique GUID of the skill to cancel.
+
+```JavaScript
+misty.CancelSkill(string skillName)
+```
+
+<!-- misty.Pause -->
+### misty.Pause
+Pause skill execution for a specified number of milliseconds.
+
+Arguments
+* delay (integer) - The duration in milliseconds to pause skill execution.
+
+```JavaScript
+misty.Delay(int delay)
+```
+
+<!-- misty.RandomPause -->
+### misty.RandomPause
+Pause skill execution for a random duration.
+
+Arguments
+* minimumDelay (integer) - The minimum duration in milliseconds to pause skill execution.
+* maximumDelay (integer) - The maximum duration in milliseconds to pause skill execution. 
+
+```JavaScript
+misty.RandomPause(int minimumDelay, int maximumDelay)
+```
+
+
+<!-- misty.RegisterEvent -->
+### misty.RegisterEvent
+Register to receive messages with live event data from one of Misty's sensors. 
+
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
+
+Arguments
+* eventName (string) - Sets an event name (of your choice) for the registered event. The name of the callback function is set automatically to be the same as your event name, prefixed with an underscore (`_<eventName>`). 
+* messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed here.
+* debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
+* keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* skillToCallUniqueID (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+
+```JavaScript
+misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = “synchronous”], [string skillToCallUniqueId]);
+```
+
+Returns
+
+Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
+
+* Data sent by the registered event.
+
+<!-- misty.RegisterTimerEvent -->
+### misty.RegisterTimerEvent
+Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../tutorials/#timer-events).
+
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
+
+Arguments
+* eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
+* callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
+* keepAlive (boolean) -  By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `UnregisterEvent` function in your code.
+
+```JavaScript
+misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
+```
+
+Returns
+
+Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
+
+* Data sent by the timed event.
+
+<!-- misty.RegisterUserEvent -->
+### misty.RegisterUserEvent
+Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `api/alpha/sdk/skills/event` endpoint with the appropriate payload for the callback and/or skill.
+
+Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
+
+```http
+POST {robot-ip-address}/api/alpha/sdk/skills/event
+```
+
+With a JSON body similar to:
+```JSON
+{
+    "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
+    "EventName": "UserEventName",
+    "Payload": { "mydata": "two" }
+}
+```
+
+The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
+
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
+
+Arguments
+* eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
+* keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `UnregisterEvent` function in your code.
+* callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
+* skillToCall (string) - Optional. The unique ID of a skill to call when the event is triggered. Use this value if the callback function is not defined in the same skill as the user event is registered in.
+
+```JavaScript
+misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall])
+```
+
+Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
+
+* Data sent by the user event.
+
+### misty.UnregisterAllEvents
+Unregisters from all events for the skill in which this command is called.
+
+Arguments
+* None
+
+```JavaScript
+misty.UnregisterAllEvents()
+```
+
+<!-- misty.UnregisterEvent -->
+### misty.UnregisterEvent
+Unregisters from a specified event.
+
+Arguments
+* eventName (string) - The name of the event to unregister from.
+
+```JavaScript
+misty.UnregisterEvent(string eventName);
+```
+
 ## Data
+
+<!-- misty.Get -->
+### misty.Get
+Returns data saved to the robot using `misty.Set()`. 
+
+Arguments
+* key (string) - The key name of the data to return.
+
+```JavaScript
+misty.Get(string key);
+```
+
+Returns
+* value (string, boolean, integer, or double) - The data associated with the specified key.
+
+<!-- misty.Keys --> 
+### misty.Keys
+Returns a list of all the available persistent data stored on the robot. 
+
+Arguments
+* None
+
+```JavaScript
+misty.Keys();
+```
+
+Returns
+* keys (list) - A list of the keys and values for all available persistent data stored on the robot.
+
+
+<!-- misty.Remove --> 
+### misty.Remove
+Removes specified data that has been saved to the robot with `misty.Set()`. 
+
+Arguments
+* key (string) - The key name of the data to remove.
+
+```JavaScript
+misty.Remove(string key)
+```
+
+<!-- misty.SendExternalRequest --> 
+### misty.SendExternalRequest
+Sends an HTTP request from Misty to a specified external Uniform Resource Identifier (URI).
+
+**Note:** In most cases, the external servers response to this request must be passed into a callback function to be processed and made available for use in your skill. By default, the callback function for this commands is called  the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [Hello, World: External Requests](../tutorials/#hello-world-external-requests) tutorial.
+
+Arguments
+* method (string) - The HTTP request method indicating the action to perform for the external URI.
+* resource (string) - The full URI of an external resource.
+* authorization (string) - Indicates type of authentication required for authorization to access the resource at the specified URI, i.e. `“OAuth 1.0”`, `“OAuth 2.0”`, or `“Bearer Token”`.
+* token (string) - The authentication credentials required for authorization to access the resource at the specified URI.
+* arguments (string) - A string written in JSON format with key, value pairs for each parameter option to send to with the request.
+* returnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by the external resource is ready. If empty, the default callback function ( `_SendExternalRequest()`) is called.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SendExternalRequest(string method, string resource, string authorization, string token, string returnType, JSON args, [string callback,] [string callbackRule], [string skillToCall], [int prePause], [int postPause]);
+```
+
+Returns
+
+Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [Hello World: External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
+
+* Returns the external server's response to the request.
+
+<!-- misty.Set --> 
+### misty.Set
+Saves data that can be validly updated and used across threads or shared between skills. 
+
+**Important!** Data stored via the `misty.Set()` command **does not persist across a reboot** of the robot at this time.
+
+Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
+
+Arguments
+* key (string) - The key name for the data to save.
+* value (value ) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`
+
+```JavaScript 
+misty.Set(string key, string value);
+```
+
 
 ## Debugging
