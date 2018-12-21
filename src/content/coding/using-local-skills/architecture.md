@@ -282,7 +282,7 @@ All of the event command types require you to implement a callback to be notifie
 The system supplies the following types of helper commands to assist you in creating a local skill for Misty.
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `Set`, `Get`, `Remove`, `Keys`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
-* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the tutorial Sending an External Request for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
+* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [Hello, World: External Requests](../tutorials/#hello-world-external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
 * **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described in the [JavaScript API reference documentation](../javascript-api). Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
@@ -307,8 +307,8 @@ User Folders\Music\SDKAssets\Misty\Skills\Code\[filename.js]
 Each skill MUST have files of the same name in both the `Code` and `Meta` folders. For example:
 
 ```
-User Folders\Music\SDKAssets\Misty\Skills\Meta\Wander.json
-User Folders\Music\SDKAssets\Misty\Skills\Code\Wander.js
+User Folders\Music\SDKAssets\Misty\Skills\Meta\Roam.json
+User Folders\Music\SDKAssets\Misty\Skills\Code\Roam.js
 ```
 
 ### Meta File
@@ -442,7 +442,7 @@ POST http://{robot-ip-address}/api/alpha/sdk/skill
 
 <!-- Payload -->
 {
-	"Skill": "Wander"
+	"Skill": "Roam"
 }
 ```
 
@@ -454,7 +454,7 @@ POST http://{robot-ip-address}/api/alpha/sdk/cancel
 
 <!-- Payload -->
 {
-	"Skill": "Wander"
+	"Skill": "Roam"
 }
 ```
 

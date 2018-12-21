@@ -9,7 +9,7 @@ order: 2
 
 In these tutorials you will learn everything you need to know to begin writing robust, intricate local skills for your Misty robot. Each tutorial introuces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
 
-## Driving Misty
+## Hello, World: Time-of-Flight
 
 In this tutorial we create a simple skill that changes Misty’s chest LED, drives her forward for 10 seconds, and tells her to stop if she detects an object in her path. We go over how to send commands, subscribe to sensor events, and structure your skill data. Let’s get started!
 
@@ -47,7 +47,7 @@ Now let’s use the very simple `misty.ChangeLED()` function to control the colo
 misty.ChangeLED(0, 255, 0);
 ```
 
-Then, we issue one of Misty’s drive commands, `DriveTime()`. The `DriveTime()` command accepts three parameters: `l`inearVelocity`, `a`ngularVelocity`, and `time`. You can learn more about how these parameters will affect Misty’s movement in the documentation. In this case, we want Misty to drive forward slowly in a straight line for 10 seconds, so we set `linearVelocity` = 10, `angularVelocity` = 0, and `time` = 10000 (the unit of measure for this parameter is milliseconds). 
+Then, we issue one of Misty’s drive commands, `DriveTime()`. The `DriveTime()` command accepts three parameters: `linearVelocity`, `angularVelocity`, and `time`. You can learn more about how these parameters will affect Misty’s movement in the documentation. In this case, we want Misty to drive forward slowly in a straight line for 10 seconds, so we set `linearVelocity` = 10, `angularVelocity` = 0, and `time` = 10000 (the unit of measure for this parameter is milliseconds). 
 
 ```JavaScript
 misty.DriveTime(50, 0, 10000);
@@ -137,7 +137,7 @@ function _FrontTOF(data) {
 }
 ```
 
-## Playing Audio
+## Hello, World: Play Audio
 
 In this tutorial, we get the list of audio files stored on Misty and play one at random.
 
@@ -230,7 +230,7 @@ function _GetListOfAudioClips(data) {
 }
 ```
 
-## Recording Audio
+## Hello, World: Record Audio
 In this tutorial we learn how to record audio and play it back to the user. This involves two very simple commands: `StartRecordingAudio()` and `StopRecordingAudio()`. 
 
 ### Writing the Meta File
@@ -341,7 +341,7 @@ function _GetListOfAudioFiles(data) {
 }
 ```
 
-## Face Detection
+## Hello, World: Face Detection
 
 In this tutorial we learn how to use Misty's face detection abilities to trigger an event. If Misty detects a face she will play a sound, change her LED to white, and end the skill. If she does not detect a face within a reasonable amount of time, the LED will turn off, and the skill will end.
 
@@ -446,7 +446,7 @@ function _FaceDetectionTimeout() {
 };
 ```
 
-## Timer Events
+## Hello, World: Timer Events
 
 In this tutorial we use timed events to trigger a change in Misty's LED every second. Timed events allow us to specify an amount of time to pass before an event occurs and the callback is triggered. In addition, we introduce global variables and demonstrate how they persist across new threads.
 
@@ -544,4 +544,381 @@ function _TimerEvent() {
     }
 }
 ```
+
+## Hello, World: External Requests
+
+In this tutorial we learn how Misty can access external data from the internet and deliver it back to us. We write a skill that fetches the current temperature of a designated city, then sends it back through a debug message. To do this, we use the `misty.SendExternalRequest()` command to send a `GET` request to the APIXU API to obtain the data. 
+
+**Note:** In the current version of Misty's JavaScript API, JSON objects are the only data type that can be accessed via `misty.SendExternalRequest()`.
+
+### Writing the Meta File
+
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_ExternalRequest"`. Note that this skill makes use of the `"Parameters"` field to store a value for the skill to access during execution. In the `"Parameters"` object, create a key called `city` and associate it with the name of a metropolitan area (in this case, `"Denver"`). Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_ExternalRequest.json`.
+
+```JSON
+{
+    "Name": "HelloWorld_ExternalRequest",
+    "UniqueId": "523c7187-706e-4313-a657-0fa11d8bbdd4",
+    "Description": "Local 'Hello, World!' tutorial series.",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": false,
+    "WriteToLog": false,
+    "Parameters": {
+        "city": "Denver"
+    }
+}
+```
+
+### Writing the Code
+
+The code file is simple, focusing on the use of `misty.SendExternalRequest()`. The `misty.SendExternalRequest()` prototype is as follows:
+
+```JavaScript
+misty.SendExternalRequest(string method, string resource, string authorization, string token, string returnType, JSON args, [string callbackMethod,] [string callbackRule], [string skillToCall], [int prePause], [int postPause]);
+```
+
+Accessing the APIXU API requires an API key, which you can obtain by registering for an APIXU account. Copy this API key and assign it to a global constant (`APIkey`) in your skill. We use this variable to send our request.
+
+```JavaScript
+const APIkey = "<your api key here>"
+```
+
+Next we use `misty.SendExternalRequest()` to send a `GET` request to the APIXU API. Call `misty.SendExternalRequest()` and pass in the string `GET` for the first parameter. 
+
+For the second parameter, `misty.SendExternalRequest()` takes the entire URI of the resource. The URI for our request requires a base URL, an API method, and any parameters to send with the request (for more information, see [APIXU's documentation](https://www.apixu.com/doc/request.aspx)). The base URL for the APIXU API is `"http://api/apixu.com"`, and the API method for our request is  `/current.json`.
+
+
+In the case of our example, the rest of the URI for this endpoint is a bit complex. We’ll designate the city we want to get weather data for using a template literal, passing the value `_params.city` into the URL string. Using `_params` allows us to use the `Parameters` value from the meta file. In the meta file, we specified the key `city` to hold the city we want to use in the search. Therefore, here in the code file, `_params.city` holds the string `Denver`. In this example with APIXU, the URL will also typically include an API key. 
+
+The full URI to pass to `misty.SendExternalRequest()` looks like this:
+
+```JavaScript
+`http://api.apixu.com/v1/current.json?key=${APIkey}&q=${_params.city}`
+```
+
+ For some requests additional authorization may be necessary. This is where the fourth (`authorizationType`) and fifth (`token`) parameters come in to play. However, in the case of APIXU, the API key provided as part of `resource` is sufficient, so we can enter `null` for the third and fourth parameters.
+
+The fifth parameter (`returnType`) indicates the expected media type of the data the request returns. If the return type is provided by the external resource (as in the case of this tutorial), you can pass  `null` for this parameter.
+
+The sixth parameter (`args`) holds any data you want to send with your request. This is typically used when making `POST` requests. As we are sending a `GET` request, this parameter can also be set to `null`. 
+
+The optional seventh (`callbackMethod`), eighth (`callbackRule`), and ninth (`skillToCallOnCallback`) parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. You can read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../Architecture/#data-handling-events-amp-callbacks).
+In this tutorial, we don't specify an alternate callback function, so the callback is automatically set to be `_SendExternalRequest()`. 
+
+As with other local skill commands, `prePause` and `postPause` are optional.
+
+The final form of `misty.SendExternalRequest()` in this skill is:
+
+```JavaScript
+// Send GET request to APIXU API
+misty.SendExternalRequest("GET", `http://api.apixu.com/v1/current.json?key=${APIkey}&q=${_params.city}`, null, null, null, null);
+```
+
+Once Misty receives the data back from APIXU, the callback -- which is automatically set to `_SendExternalRequest()` -- will run:
+
+```JavaScript
+function _SendExternalRequest(data) {}
+```
+
+Once the data comes back from the request, we parse the data to find the searched-for city name and the current temperature of that city. We can assign those to variables as shown below:
+
+
+```JavaScript
+// Parse the result from the request (data.Result.Data)
+// in order to access its properties
+let result = JSON.parse(data.Result.Data);
+
+// Assign variables to hold the city name and current temperature
+let currentCity = result.location.name;
+let currentTemp = result.current.temp_f;
+```
+
+Use an `if, else` statement to check that valid data was returned by the request and, if so, to have Misty send us the data back through a debug message. If the values of `currentCity` or `currentTemp` are `null` or `undefined`, there was a problem with the request, and we can send a debug message about the failure. Finally, we finish by sending a debug message that skill execution is complete.
+
+```JavaScript
+// If the request was successful, log the temp to the console.
+// Otherwise, print a message that the request failed.
+    if(currentTemp !== null && currentTemp !== undefined){
+        misty.Debug(`The current temperature of ${currentCity} is ${currentTemp} degrees fahrenheit.`);
+    }
+    else{
+        misty.Debug("Request failed.");
+     }
+    misty.Debug("Successfully reached the end of skill!");
+```
+
+Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+
+See the full contents of the `HelloWorld_ExternalRequest.js` file here for reference.
+
+```JavaScript
+// Print a debug message to indicate the skill has started
+misty.Debug("starting skill helloworld_ExternalRequest");
+
+const APIkey = "<your API key here>";
+
+// Send GET request to weather API
+misty.SendExternalRequest("GET", `http://api.apixu.com/v1/current.json?key=${APIkey}&q=${_params.city}`, null, null, null, null);
+
+function _SendExternalRequest(data) {
+    // Parse the result from the request (data.Result.Data)
+    // in order to access its properties
+    let result = JSON.parse(data.Result.Data);
+
+    // Assign variables to hold the city name and current temperature
+    let currentCity = result.location.name;
+    let currentTemp = result.current.temp_f;
+
+    // If the request was successful, log the temp to the console.
+    // Otherwise, print a message that the request failed.
+    if(currentTemp !== null && currentTemp !== undefined){
+        misty.Debug(`The current temperature of ${currentCity} is ${currentTemp} degrees fahrenheit.`);
+    }
+    else{
+        misty.Debug("Request failed.");
+        }
+    misty.Debug("Successfully reached the end of skill!");
+}
+
+
+```
+
+## Hello World: Trigger Skill
+
+In this tutorial, we learn how a skill can trigger other skills. In this case, the first skill will trigger additional skills when the first skill receives certain external stimuli: face recognition and time-of-flight events. We register for two events and have them trigger two new skills.
+
+### Writing the Meta Files
+
+This tutorial covers a total of three skills, so there are a total of three `.js ` code files and three `.json` meta files. The three meta files used in the tutorial are shown here. Use the values in these example to fill out the parameters, and save each file with the names below:
+
+`HelloWorld_TriggerSkill1.json`:
+
+```JSON
+{
+    "Name": "HelloWorld_TriggerSkill1",
+    "UniqueId": "01190e52-3d72-4a9c-ba26-ea483fbdbdea",
+    "Description": "Local 'Hello, World!' tutorial series",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": true,
+    "WriteToLog": false
+}
+```
+
+`HelloWorld_TriggerSkill2.json`:
+
+
+```JSON
+{
+    "Name": "HelloWorld_TriggerSkill2",
+    "UniqueId": "28c7cb66-91d4-4c8f-a8af-bb667ce18099",
+    "Description": "Local 'Hello, World!' tutorial series",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": true,
+    "WriteToLog": false
+}
+```
+
+`HelloWorld_TriggerSkill3.json`:
+
+```JSON
+{
+    "Name": "HelloWorld_TriggerSkill3",
+    "UniqueId": "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5",
+    "Description": "Local 'Hello, World!' tutorial series",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": true,
+    "WriteToLog": false
+}
+```
+
+### Writing the Code
+
+The first skill file we’ll look at, `HelloWorld_TriggerSkill1.js`, acts as our “parent” skill. The purpose of this skill is to register for our `TimeOfFlight` and `FaceRecognition` events. As the “child” skills are triggered by these events, this skill then runs in the background. 
+
+We start by calling the `misty.RegisterEvent()` command. In it, we register for `FaceRecognition` events with an event name of `ComputerVision`. Set    `debounceMS` to `5000`, `keepAlive` to `true`, and the callback rule to `Synchronous`. This is all typical for event registration.
+
+The difference from normal event registration happens when we use an optional parameter (`skillToCall`) to designate which skill we want the `FaceRecognition` event to trigger. We do that by providing by the GUID of that skill. In this case the face recognition event is going to trigger the `HelloWorld_TriggerSkill2.js` skill, so we provide the GUID for _that_ skill here. In this case, it’s `28c7cb66-91d4-4c8f-a8af-bb667ce18099`.
+
+```JavaScript
+misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+```
+
+We also want to add a return property check above the registration call, to return just the property `PersonName` for use in our callback. Pass in the name of the event first, then the property we want.
+
+```JSON
+misty.AddReturnProperty("FaceRecognition", "PersonName");
+```
+
+Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `ComputerVision` event subscription).
+
+```JavaScript
+ misty.StartFaceRecognition();
+```
+
+Putting the pieces together, shown below is first half of the parent skill; the commands relating to face recognition.
+
+```JavaScript
+// Add a return property check to return just the property PersonName for use in our callback. Pass in the name of the event first, then the property we want.
+misty.AddReturnProperty("FaceRecognition", "PersonName");
+// Register for FaceRecognition events with an event name of ComputerVision. Set debounceMS to 5000, keepAlive to true, and the callback rule to Synchronous. Pass in the GUID for HelloWorld_TriggerSkill2.
+misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+// Send command to start face recognition
+misty.StartFaceRecognition();
+```
+
+Next, we want to register for another event, `BackTOF`. This event triggers whenever the rear time-of-flight sensor is activated and passes our property test. This in turn kicks off the third skill, `HelloWorld_TriggerSkill3.js`.
+
+Start by calling `RegisterEvent` and registering for `TimeOfFlight` as `BackTOF`. Pass in `5000` for `debounceMS`, set `keepAlive` to `true`, and specify the callback rule as `Synchronous`. Similar to our previous registration, pass in the GUID for our third skill for the last parameter (in our case, `f6cc6095-ae40-4507-a9ef-4c7638bf3ad5). Above our registration call, add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
+
+```JavaScript
+//  add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
+misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
+// register for TimeOfFlight as BackTOF. Pass in 5000 for debounceMS, set keepAlive to true, and specify the callback rule as Synchronous. Similar to our previous registration, pass in the GUID for HelloWorld_TriggerSkill3 for the last parameter.
+misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
+```
+
+With both of our event registrations finished, our “parent” skill is complete. Note that we don’t create callbacks for the events in the “parent” skill -- those are handled in the “child” skills.
+
+For reference, here is the entire skill file for `HelloWorld_TriggerSkill1.js`.
+
+```JavaScript
+// add a return property check to return just the property PersonName for use in our callback. Pass in the name of the event first, then the property we want.
+misty.AddReturnProperty("FaceRecognition", "PersonName");
+// register for FaceRecognition events with an event name of ComputerVision. Set debounceMS to 5000, keepAlive to true, and the callback rule to Synchronous. Pass in the GUID for HelloWorld_TriggerSkill2.
+misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+// send command to start face recognition
+misty.StartFaceRecognition();
+
+//  add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
+misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
+// register for TimeOfFlight as BackTOF. Pass in 5000 for debounceMS, set keepAlive to true, and specify the callback rule as Synchronous. Similar to our previous registration, pass in the GUID for HelloWorld_TriggerSkill3 for the last parameter.
+misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
+```
+
+As discussed above, the first “child” skill handles face recognition events. We start by defining a function for the callback (automatically named `_<Event>`) and passing in an argument to hold the data from the event. Within the callback, send a debug message to notify the user that the new skill has been triggered.
+
+```JavaScript
+function _FaceRecognition(data) {
+   misty.Debug(“TriggerSkill part 2 has been triggered.”);
+}
+```
+
+Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+
+Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
+
+```JavaScript
+// define a variable, personName to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within data.AdditionalResults. 
+let personName = data.AdditionalResults[0];
+```
+
+Then, use an if statement to check if `personName` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
+
+```JS
+if (personName == "unknown person") {
+    // if the person is not recognized, change the LED to red and print "I don't know you" to the console.
+    misty.ChangeLED(255, 0, 0); // red
+    misty.Debug("I don't know you...");
+} else {
+    // If the person is recognized, change the LED to green and greet the person in the console.
+    misty.ChangeLED(0, 255, 0); // green
+    misty.Debug("Hello there " + personName + "!");
+}
+```
+
+You’ll remember that earlier when we registered for our face recognition event, we set `debounceMS` to `5000`. The reason for this is that we need to give the triggered skill time to process the information, then automatically cancel before the callback is triggered again. The triggered skill can be triggered multiple times from the “parent” skill, _but only if it isn’t already running_. If the event callback is triggered while `HelloWorld_TriggerSkill2.js` is still running, it does not run again. _This is because you cannot have multiple instances of the same skill running at once._
+
+For reference, here is the entire skill file for `HelloWorld_TriggerSkill2.js`.
+
+```JavaScript
+// callback for face recognition event
+function _FaceRecognition(data) {
+	// send a debug message to notify the user that the new skill has been triggered.
+	misty.Debug("TriggerSkill part 2 has been triggered.");
+	// define a variable, personName to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within data.AdditionalResults. 
+	let personName = data.AdditionalResults[0];
+	// check if person was recognized
+	if (personName == "unknown person") {
+		// if the person is not recognized, change the LED to red and print "I don't know you" to the console.
+		misty.ChangeLED(255, 0, 0); // red
+		misty.Debug("I don't know you...");
+	} else {
+		// If the person is recognized, change the LED to green and greet the person in the console.
+		misty.ChangeLED(0, 255, 0); // green
+		misty.Debug("Hello there " + personName + "!");
+	}
+}
+```
+
+The third skill is designated for our time-of-flight event. Start by defining a function for the callback for `BackTOF`. Pass in an argument to access the data. Then, within the callback write a debug message indicating that skill number three has been triggered.
+
+```JS
+// callback for time of flight event
+function _BackTOF(data) {
+    // log a debug message indicating a new skill is triggered
+}
+```
+
+Define a variable `distance` to hold the value of the distance an object was detected. We can access this from our property test results (contained in the response). Dig into the results to locate the value we want.
+
+```JS
+// Define a variable distance to hold the value of the distance an object was detected. We can access this from our property test results (contained in data.PropertyTestResults[1].PropertyParent.DistanceInMeters)
+let distance = data.PropertyTestResults[1].PropertyParent.DistanceInMeters;
+```
+
+Then, use an `if` statement to check that the distance is less than `0.1m`. If so, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. Otherwise, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
+
+```JS
+if (distance < 0.1) {
+    // If an object is detected closer than 10 cm, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. 
+    misty.PlayAudioClip("002-Ahhh.wav", 100);
+    misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
+    misty.DriveTime(50, 0, 1000);
+} else {
+    // If no object is detected closer than 10 cm, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
+    misty.PlayAudioClip("004-WhaooooO.wav", 100);
+    misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
+}
+```
+
+Just like before in our second skill, we specified the callback to trigger once every 5000 ms to give the triggered skill time to cancel before being started again. 
+
+For reference, here is the entire skill file for `HelloWorld_TriggerSkill3.js`.
+
+```JS
+// callback for time of flight event
+function _BackTOF(data) {
+    // log a debug message indicating a new skill is triggered
+    misty.Debug("TriggerSkill part 3 has been triggered.");
+    // Define a variable distance to hold the value of the distance an object was detected. We can access this from our property test results (contained in data.PropertyTestResults[1].PropertyParent.DistanceInMeters)
+    let distance = data.PropertyTestResults[1].PropertyParent.DistanceInMeters;
+    // Check the value of distance
+    if (distance < 0.1) {
+        // If an object is detected closer than 10 cm, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. 
+        misty.PlayAudioClip("002-Ahhh.wav", 100);
+        misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
+        misty.DriveTime(50, 0, 1000);
+    } else {
+        // If no object is detected closer than 10 cm, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
+        misty.PlayAudioClip("004-WhaooooO.wav", 100);
+        misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
+    }
+}
+```
+
+Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 
