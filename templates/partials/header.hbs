@@ -151,8 +151,9 @@
 
     <div class="sections">
       <a class="nav" href="/">Docs Home</a>
-      <a class="nav {{#contains path.href 'onboarding'}}active{{/contains}}" href="/onboarding">Get Started</a>
-      <a class="nav {{#contains path.href 'apis'}}active{{/contains}}" href="/apis">API</a>
+      <a class="nav {{#contains path.href 'meet_misty'}}active{{/contains}}" href="/meet_misty">Meet Misty</a>
+      <a class="nav {{#contains path.href 'coding'}}active{{/contains}}" href="/coding">Coding Misty</a>
+      
     </div>
 
     <div class="dropdown mobile-only">
@@ -161,9 +162,9 @@
         <i class="icon ion-chevron-down"></i>
       </a>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li><a href="/onboarding">Get Started</a></li>
+        <li><a href="/onboarding">Programming Misty</a></li>
         <!-- <li><a href="/faq">FAQ</a></li> -->
-        <li><a href="/apis">API</a></li>
+        <li><a href="/apis">Setting Up Misty</a></li>
         <!-- <li><a href="/casestudies">Case Studies</a></li>
         <li><a href="/tutorials">Tutorials</a></li>
         <li><a href="/codesamples">Code Samples</a></li> -->
@@ -174,6 +175,7 @@
 
   <div class='right'>
 
+
     <div class="search">
       <div class="search-input-wrapper">
         <i class="ion-search"></i>
@@ -181,9 +183,11 @@
       </div>
       <div class="search-results">
       </div>
+      
     </div>
 
     <a href='{{edit-link branch path.href path.name}}' class="nav" target="_blank"><i class="ion-edit"></i>Edit</a>
+
 
   </div>
 </div>

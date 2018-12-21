@@ -169,21 +169,20 @@ exports.metalsmith = function() {
           'dev-tools'
         ]
       },
-      onboarding: {
-        pattern: 'onboarding/:section/*.md',
+      coding: {
+        pattern: 'coding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'get-started',
-          '3-ways-to-interact-with-misty',
-          'creating-skills'
+          'using-local-skills',
+          'using-remote-commands'
         ]
       },
-      apis: {
-        pattern: 'apis/:section/*.md',
+      meet_misty: {
+        pattern: 'meet_misty/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
-          'overview',
-          'api-reference'
+          'robots',
+          'apps'
         ]
       },
       casestudies: {
