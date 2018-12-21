@@ -956,7 +956,270 @@ Returns
 
 ## Arm Movement
 
+<!-- misty.MoveArmPosition -->
+### misty.MoveArmPosition
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified position.
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"Left"` or `"Right"`.
+* position (double) - The position to move the arm to. Value range: 0 - 10.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+
+```JavaScript
+misty.MoveArmPosition(string armToMove, double position, double velocity)
+```
+
+<!-- misty.MoveArmDegrees -->
+### misty.MoveArmDegrees
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified location in degrees.
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
+* degrees (double) - The location in degrees to move the arm to. Value range: 0 - 180.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+
+```JavaScript
+misty.MoveArmPosition(string armToMove, double degrees, double velocity)
+```
+
+<!-- misty.MoveArmRadians -->
+### misty.MoveArmRadians
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified location in radians.
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
+* radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+
+```JavaScript
+misty.MoveArmPosition(string armToMove, double radians, double velocity)
+```
+
 ## Mapping & Tracking
+
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the API Explorer.
+
+<!-- Mapping & Tracking - ALPHA>
+
+<!-- misty.FollowPath - ALPHA -->
+### misty.FollowPath - ALPHA
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
+
+**Important!** Make sure to call `misty.SlamStartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
+
+Arguments
+* path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.FollowPath(string path, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.SlamGetMap - ALPHA -->
+### misty.SlamGetMap - ALPHA
+
+Obtains occupancy grid data for the most recent map Misty has generated. 
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+**Note:** To obtain a valid response from `SlamGetRawMap`, Misty must first have successfully generated a map. 
+
+Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
+
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: “unknown", “open", “occupied", or “covered").
+
+Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.SlamGetPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamGetMap([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (object) - An object containing the following key, value pairs:
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
+<!-- misty.SlamGetPath - ALPHA -->
+### misty.SlamGetPath - ALPHA
+
+Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+**Important!** Make sure to call `misty.SlamStartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
+
+Arguments
+* X (double) - The X coordinate of the destination.
+* Y (double) - The Y coordinate of the destination.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamGetPath(double X location, double Y location, [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
+
+<!-- misty.SlamGetStatus -->
+### misty.SlamGetStatus - ALPHA
+Obtains values representing Misty's current activity and sensor status.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+
+```c#
+public enum SlamSensorStatus
+{
+  Unknown = 0,
+  Connected = 1,
+  Booting = 2,
+  Ready = 3,
+  Disconnected = 4,
+  Error = 5,
+  UsbError = 6,
+  LowPowerMode = 7,
+  RecoveryMode = 8,
+  ProdDataCorrupt = 9,
+  FWVersionMismatch = 10,
+  FWUpdate = 11,
+  FWUpdateComplete = 12,
+  FWCorrupt = 13
+}
+```
+
+<!-- misty.SlamReset - ALPHA -->
+### misty.SlamReset - ALPHA
+Resets Misty's SLAM sensors.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamReset([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.SlamStartMapping - ALPHA -->
+### misty.SlamStartMapping - ALPHA
+Starts Misty mapping an area.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamStartMapping([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.SlamStartTracking - ALPHA -->
+### misty.SlamStartTracking - ALPHA
+Starts Misty tracking her location.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamStartTracking([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### misty.SlamStopMapping - ALPHA
+Stops Misty mapping an area.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
+command, `postPause` is not used.
+
+```JavaScript
+misty.SlamStopMapping([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.SlamStopTracking - ALPHA -->
+### misty.SlamStopTracking - ALPHA
+Stops Misty tracking her location.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SlamStopTracking([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+
+
+
 
 ## Events & Timing
 
