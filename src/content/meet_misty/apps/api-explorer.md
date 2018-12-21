@@ -111,7 +111,7 @@ Real-time data from Misty is sent via WebSocket connections and includes:
 * battery status
 * face detection and recognition
 
-The data that's sent over WebSocket connections is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of [programmatically subscribing](/onboarding/creating-skills/writing-skill/#sending-commands-and-subscribing-to-websockets) to WebSocket data to [create skills](/onboarding/creating-skills/writing-skill) for Misty.
+The data that's sent over WebSocket connections is described in detail [here](../../../coding/using-remote-commands/architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
 
 When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (How you open the console will vary among browsers and platforms.)
 
@@ -158,7 +158,7 @@ Misty's ability to recognize faces is under development. To try face training an
 7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 8. When finished, click **Stop Face Recognition**.
 
-**Note: The face detection and recognition data that Misty sends is described in detail [here](/onboarding/creating-skills/writing-skill/#websocket-connections).**
+**Note: The face detection and recognition data that Misty sends is described in detail [here](../../../coding/using-remote-commands/websocket-reference).**
 
 
 ## Moving Misty's Head - BETA
@@ -207,7 +207,7 @@ Before attempting to map or track, you must obtain pose.
 2. Ensure Misty is in a well-lit (not dark) environment.
 3. Scroll down to **Alpha** and find the **Mapping** section. ![Mapping controls](../../../assets/images/slam_controls.png)
 4. Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you open the console varies among browsers and platforms). 
-5. If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, [restart Misty](../../get-started/powering-up-down/#restarting-misty) and start these instructions over._
+5. If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, restart Misty and start these instructions over._
 6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
   * Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
   * Increase the lighting.
@@ -274,7 +274,7 @@ To peform a targeted update, check the box next to each component to attempt to 
 **Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **Easy Commands** section at the top of the API Explorer. 
 
 ## Connecting WiFi
-While it’s usually easiest to use the [Misty Companion App](/onboarding/3-ways-to-interact-with-misty/companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty Companion App](../companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.

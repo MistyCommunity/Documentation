@@ -20,7 +20,7 @@ The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
 
 **Note: You can only connect Misty to Wi-Fi networks that have password protection.** Misty cannot be connected to open networks at this time. Misty does support both 2.4 GHz and 5 GHz Wi-Fi networks. If you are using a network without password protection or one that requires additional layers of authentication, see [this support thread](https://community.mistyrobotics.com/t/nontraditional-network-wifi-ideas/861) or contact us for help.
 
-1. [Power up](/onboarding/get-started/powering-up-down/#turning-misty-on) your Misty robot and wait for her eyes to appear fully open.
+1. Power up your Misty robot and wait for her eyes to appear fully open.
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.
 3. Download the Misty Companion app. If you haven’t already received an email from HockeyApp or TestFlight with instructions on how to download the mobile app, please send a note to **help @ mistyrobotics.com** and let us know which app (iOS or Android) you prefer.
 4. Open the Misty Companion app. Previous users may be asked to log in. New users will be asked to sign up for a new account.  ![Companion App signup screen](../../../assets/images/companion_app_signup.png)

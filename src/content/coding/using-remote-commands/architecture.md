@@ -7,13 +7,15 @@ order: 1
 
 # {{title}}
 
-Misty's a pretty capable robot on her own, but the exciting part of working with Misty is seeing her run the skills you create for her. Check out the Misty Community [GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills (including a fun [Python-based skill](https://github.com/MistyCommunity/MistyI/tree/master/API_Wrappers/Python/samples/mistyvoice) that gives Misty a voice using the Google Text-to-Speech API).
+There are two basic types of skill architecture: remote and local.
+
+When you send "remote commands" to Misty, your code is running on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. This is different from [local skills](../../../coding/using-local-skills/architecture), where you upload your code to the robot, and it runs internally on Misty.
+
+Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use [this Python wrapper](https://github.com/MistyCommunity/mistyPy) to send Misty commands or a REST client such as Postman.
 
 Creating your own skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
 
 ## Sending Commands to Misty
-
-To send API commands to Misty in a skill, you can use the [JavaScript API](/apis/api-reference/all-functions) or this [Python wrapper](https://github.com/MistyCommunity/mistyPy). To experiment with the API, you can also use a REST client such as Postman and send [GET and POST](/apis/api-reference/rest) commands to Misty directly.
 
 Misty's API includes commands for:
 * Display and light control
@@ -26,11 +28,122 @@ Misty's API includes commands for:
 
 The [Misty I GitHub repo](https://github.com/MistyCommunity/MistyI) contains a variety of sample skills that you can use to test and adapt into your own custom uses.
 
+We supply two helper tools that make it easy to develop JavaScript skills for Misty:
+* `lightClient.js` - The LightClient tool simplifies JavaScript access to the REST endpoints for sending commands to the robot
+* `lightSocket.js` - The LightSocket tool streamlines opening, connecting, and subscribing to a WebSocket to receive data back from the robot 
+
+Get both tools [at the Misty I GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
+
+You can also use the [API Explorer](http://api-explorer.mistyrobotics.com) source code as a JavaScript wrapper for Misty's REST API. Read how to work with the API Explorer code [here](../tools/#working-with-the-api-explorer-code). 
+
+
+You can also download the source code used in the API Explorer website to   
+
+### Using the LightClient JS Helper
+
+Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
+
+```javascript
+<script src="tools/lightClient.js"></script>
+<script src="tools/lightSocket.js"></script>
+<script src="app.js"></script>
+```
+
+The first step to creating an external skill is to create an instance of the LightClient class, passing in your robot's IP address and the amount of time in ms you want your program to wait before timing out if no response is detected (the default is 30 seconds). 
+
+```javascript
+let client = new LightClient("[robot IP address]", 10000);
+```
+
+Once you create an instance of LightClient, it's simple to send requests to Misty’s REST endpoints. Most of the URL for Misty’s REST commands are built into LightClient: 
+
+```javascript
+http://{ipAddress}/api/
+```
+
+In order to use a specific endpoint, just pass in the rest of the URL. For example, you can do the following to send a GET request to the `GetDeviceInformation()` command:
+
+```javascript
+client.GetCommand("info/device", function(data) {
+    console.log(data);
+});
+```
+
+Here’s another example of using LightClient to send a GET request to Misty, this time to obtain a list of the images currently stored on the robot:
+
+```javascript
+client.GetCommand("images", function(data) {
+    console.log(data);
+});
+```
+
+You will also want to send POST requests to the robot. For a POST command, in order to send data along with the request, just pass it to `lightClient.PostCommand` as the second argument. Be sure to use the `JSON.stringify()` method first, in order to convert the JavaScript value(s) to a JSON string.
+
+For example, we can send a POST request to the `ChangeLED()` endpoint to change the color of Misty's chest logo LED to blue. If there are no errors, the callback returns true, and we log a success message.
+
+Specify the RGB values and convert the data to a JSON string:
+
+```javascript
+let data = {
+    "red": 0,
+    "green": 0,
+    "blue": 255
+};
+payload = JSON.stringify(data);
+```
+
+Send the request, including the data:
+
+```javascript
+client.PostCommand("led/change", payload, function(result) {
+    if(result) {
+        console.log("Request Successful")
+    }
+});
+```
+
+### Using the LightSocket JS Helper
+
+Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
+
+```javascript
+<script src="tools/lightClient.js"></script>
+<script src="tools/lightSocket.js"></script>
+<script src="app.js"></script>
+```
+
+As we did for LightClient, the first step in using `lightSocket.js` is to create an instance of the LightSocket class, passing in your robot's IP address. Then, you call the `Connect()` method to open a WebSocket connection.
+
+```javascript
+let socket = new LightSocket(ip);
+socket.Connect();
+```
+
+In order to subscribe to a WebSocket using LightSocket, simply call the `Subscribe()` method. The arguments passed to the function correspond to the properties of `subscribeMsg` described in "Getting Data from Misty." See the function below for reference: 
+
+```javascript
+socket.Subscribe = function (eventName, msgType, debounceMs, property, inequality, value, returnProperty, eventCallback)
+```
+
+Here we create a `TimeOfFlight` WebSocket subscription for the center time-of-flight sensor, and log the data as we receive it:
+
+```javascript
+socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "=", "Center", null, function(data) {
+    console.log(data);
+});
+```
+
+It's always best practice to unsubscribe to the WebSocket connection after use, so at the end of your script, be sure to call the `Unsubscribe()` method:
+
+```javascript
+socket.Unsubscribe("CenterTimeOfFlight");
+```
+
 ## Getting Data from Misty
 
 A WebSocket connection provides a live, continuously updating stream of data from Misty. When you subscribe to a WebSocket, you can get data for your robot ranging from distance information to face detection events to movement and more.
 
-You can directly observe WebSocket data in your browser's JavaScript console, by connecting your robot to the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#opening-a-websocket), but to use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight).
+You can directly observe WebSocket data in your browser's JavaScript console, by connecting your robot to the [API Explorer](../../../meet_misty/apps/api-explorer), but to use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight).
 
 To subscribe to a WebSocket data stream, you must first open the WebSocket, then send a message to specify the exact data you want to receive. For some WebSocket data, you must also send a REST command to the robot so it starts generating the data. For the time-of-flight sensor data that the `tofApp.js` [sample](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Time%20of%20Flight) uses, sending a REST command is not required, because Misty's time-of-flight sensors are always on.
 

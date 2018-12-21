@@ -7,14 +7,12 @@ order: 2
 
 # {{title}}
 
-all of the remote tutorials, plus maybe the walkthrough of the api explorer code goes here?
-
-## Tutorial 1: Changing Misty’s LED
+## Changing Misty’s LED
 
 These tutorials describe how to write skills for Misty that use her REST API. With the REST API, we can send commands to Misty from an external device, like the web browser of a laptop or desktop. These tutorials show how to use .html documents and inline JavaScript to write programs for Misty that run in your web browser. In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
-Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) to connect your robot to your Wi-Fi network, or [follow this guide](https://docs.mistyrobotics.com/onboarding/3-ways-to-interact-with-misty/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
+Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../meet_misty/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../meet_misty/apps/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
 
 ### Setting Up Your Project
 This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` calls to Misty from the browser, we use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a content delivery network (CDN) for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
@@ -105,7 +103,7 @@ See the full .html document for reference.
 
 ```html
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
     <meta charset="utf-8" />
     <title>Remote Command Tutorial 1</title>
@@ -144,7 +142,7 @@ See the full .html document for reference.
 
 
 
-## Tutorial 2: Using Sensors, WebSockets, and Locomotion
+## Using Sensors, WebSockets, and Locomotion
 
 In this tutorial, we write a skill that commands Misty to drive in a straight line for a designated period of time and stop if she encounters an object in her path. We do this by combining Misty’s `DriveTime` locomotion command with information received from the `TimeOfFlight` and `LocomotionCommand` WebSocket connections. In this tutorial, you’ll learn:
 * How to subscribe to data from Misty’s WebSocket connections
@@ -221,7 +219,7 @@ The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscr
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#subscribing-amp-unsubscribing-to-a-websocket). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
+Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](../architecture#subscribing-amp-unsubscribing-to-a-websocket). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
 
 To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` method on `socket`. Pass the following for each parameter:
 
@@ -242,7 +240,7 @@ function openCallback() {
 }
 ```
 
-The `LocomotionCommand` WebSocket sends data every time the robot’s linear or angular velocity changes (see the documentation [here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#websocket-types-amp-sample-data) for more information). We use this WebSocket to learn when Misty has stopped moving.
+The `LocomotionCommand` WebSocket sends data every time the robot’s linear or angular velocity changes (see the documentation [here](../websocket-reference) for more information). We use this WebSocket to learn when Misty has stopped moving.
 
 As with `TimeOfFlight`, we need to pass eight parameters to `socket.Subscribe()` to receive data from `LocomotionCommand`. However, because we only want to know whether Misty’s movement has changed, we don’t need to filter our results to specific event properties. We only need to pass arguments for `eventName` (`"LocomotionCommand"`), the WebSocket name (also `"LocomotionCommand"`), and the `eventCallback` function, which we call `_locomotionCommand()`. Enter `null` for all of the other parameters.
 
@@ -545,7 +543,7 @@ See the full .html document for reference.
 </html>
 ```
 
-## Tutorial 3: Exploring Computer Vision
+## Exploring Computer Vision
 
 This tutorial teaches how to write a skill to have Misty detect, recognize, and learn faces. When this skill runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches
 * how to use REST API commands for facial training and recognition
@@ -657,7 +655,7 @@ async function openCallback() {
 
 ```
 
-Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetLearnedFaces`](https://docs.mistyrobotics.com/apis/api-reference/rest/#getlearnedfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
+Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetLearnedFaces`](../rest/#getlearnedfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
 
 ```JavaScript
 async function openCallback() {
@@ -723,7 +721,7 @@ async function startFaceTraining() {
 };
 ```
 
-In either case, we need to subscribe to the [`ComputerVision`](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#computervision-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"ComputerVision"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_ComputerVision()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
+In either case, we need to subscribe to the [`ComputerVision`](../websocket-reference/#computervision-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"ComputerVision"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_ComputerVision()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
 
 ```JavaScript
 async function openCallback() {
@@ -1024,7 +1022,7 @@ See the full .html document for reference.
 </html>
 ```
 
-## Tutorial 4: Introduction to Mapping
+## Introduction to Mapping
 
 This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
 * how to use mapping REST API commands
@@ -1081,7 +1079,7 @@ function openCallback() {
 
 Next, subscribe to the `SelfState` WebSocket data stream. `SelfState` provides data about Misty’s current internal state at regular intervals. This tutorial uses data related to the `"slamStatus"` property, which indicates the status of Misty’s SLAM sensor. Mapping commands only work if Misty’s SLAM system is ready to receive them, and we use the value of `"slamStatus"` to send Misty the right commands at the right times.
 
-Create a function called `subscribeSelfState()`, and within that function call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#using-the-lightsocket-js-helper).
+Create a function called `subscribeSelfState()`, and within that function call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../architecture/#using-the-lightsocket-js-helper).
 
 ```js
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
@@ -1179,7 +1177,7 @@ function _SelfState(data) {
 }
 ```
 
-The code within `startMapping()` continues to execute once the first message is received, `_SelfState()` is triggered, `subscribed` is updated to `true`, and our event is registered. After the `while` loop in `startMapping()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStartMapping`](https://docs.mistyrobotics.com/apis/api-reference/rest/#slamstartmapping-alpha) command. `SlamStartMapping` tells Misty to establish her current orientation and position and engages her depth sensor to obtain map data. We refer to Misty’s orientation and position on a map as pose. 
+The code within `startMapping()` continues to execute once the first message is received, `_SelfState()` is triggered, `subscribed` is updated to `true`, and our event is registered. After the `while` loop in `startMapping()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStartMapping`](../rest/#slamstartmapping-alpha) command. `SlamStartMapping` tells Misty to establish her current orientation and position and engages her depth sensor to obtain map data. We refer to Misty’s orientation and position on a map as pose. 
 
 ```js
 async function startMapping() {
@@ -1335,7 +1333,7 @@ async function getMap() {
 }
 ```
 
-Click **OK** after driving Misty around. At this point, Misty should have enough data to draw a map of her surroundings. Below the `alert` in `getMap()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStopMapping`](https://docs.mistyrobotics.com/apis/api-reference/rest/#slamstopmapping-alpha) command.
+Click **OK** after driving Misty around. At this point, Misty should have enough data to draw a map of her surroundings. Below the `alert` in `getMap()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStopMapping`](../rest/#slamstopmapping-alpha) command.
 
 ```js
 async function getMap() {
@@ -1802,7 +1800,7 @@ See the full .html document for reference.
 </html>
 ```
 
-## Tutorial 5: Taking Pictures
+## Taking Pictures
 
 This tutorial describes how to write a remote-running program for Misty that takes a photo with her 4K camera and saves it to her local storage when she detects a face in her field of vision. It teaches
 * how to subscribe to the `ComputerVision` WebSocket
@@ -1915,7 +1913,7 @@ async function openCallback() {
 }
 ```
 
-Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](https://docs.mistyrobotics.com/onboarding/creating-skills/writing-skill/#using-the-lightsocket-js-helper).
+Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../architecture/#using-the-lightsocket-js-helper).
 
 ```js
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
@@ -2010,7 +2008,7 @@ async function _ComputerVision(data) {
 
 The rest of the callback function handles cases where relevant data comes through. This occurs whenever Misty detects a face in her field of vision. Because the program pauses each time a picture is taken, this section of the callback doesn’t execute more frequently than every 8 seconds. 
 
-To have Misty take a picture, use `axios.get()` to send a GET request to the endpoint for the `TakePicture`  command. This endpoint accepts values for parameters that specify whether the image data should be returned as a Base64 string, what name the image file should be given, what size the image should be, whether to display the image on Misty’s screen, and whether to overwrite an image with the same file name if one exists on your robot. [Read the documentation on this endpoint](https://docs.mistyrobotics.com/apis/api-reference/rest/#takepicture-alpha) for detailed descriptions of these parameters. When you call `axios.get()`, pass in the endpoint for the `TakePicture` command as the first argument. For the second argument, pass in a `params` object with the following key, value pairs:
+To have Misty take a picture, use `axios.get()` to send a GET request to the endpoint for the `TakePicture`  command. This endpoint accepts values for parameters that specify whether the image data should be returned as a Base64 string, what name the image file should be given, what size the image should be, whether to display the image on Misty’s screen, and whether to overwrite an image with the same file name if one exists on your robot. [Read the documentation on this endpoint](../rest/#takepicture-alpha) for detailed descriptions of these parameters. When you call `axios.get()`, pass in the endpoint for the `TakePicture` command as the first argument. For the second argument, pass in a `params` object with the following key, value pairs:
 * Set `Base64` to `null`. This tells Misty not to return the image data as a base64 string. 
 * Set `FileName` to the variable `fileName`. Declaring a value for this parameter tells Misty to save the photo to her file system. The photo is saved with a name that matches the value stored in the `fileName` variable, which is defined later in this project. 
 * Set `Width` and `Height` to `1200` and `1600`, respectively. These sizes match the resolution of the photo taken by the 4K camera. 

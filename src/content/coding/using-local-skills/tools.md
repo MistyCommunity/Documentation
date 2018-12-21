@@ -21,13 +21,9 @@ order: 5
 
 **Note:** You can generate useable `meta` file content with the Generate Meta Template controls in Skill Runner.
 
-#
-
 ## Visual Studio Code Extension
 
-<!-- TODO: Download Link to VSC plugin -->
-
-To aid in local skill development, we provide the MistySkills extension for [Visual Studio **Code**](https://code.visualstudio.com/). This extension provides a list of the available methods for local skills: ![Visual Stuio Code Methods](../../../assets/images/vsc-extension-2.png)
+To aid in local skill development, we provide the MistySkills extension for [Visual Studio Code](https://code.visualstudio.com/). Download the extension [here](https://s3.amazonaws.com/docs-dev.mistyrobotics.io/VSC+Extension/mistyskills-0.0.1.vsix). This extension provides a list of the available methods for local skills: ![Visual Stuio Code Methods](../../../assets/images/vsc-extension-2.png)
 
 As well as auto-complete, tabbed parameter entry, and information about each method:![Visual Stuio Code Methods](../../../assets/images/vsc-extension-1.png)
 

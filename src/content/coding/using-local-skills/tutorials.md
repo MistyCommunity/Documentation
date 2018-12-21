@@ -9,7 +9,7 @@ order: 2
 
 In these tutorials you will learn everything you need to know to begin writing robust, intricate local skills for your Misty robot. Each tutorial introuces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
 
-## Hello, World: Time-of-Flight
+## Time-of-Flight
 
 In this tutorial we create a simple skill that changes Misty’s chest LED, drives her forward for 10 seconds, and tells her to stop if she detects an object in her path. We go over how to send commands, subscribe to sensor events, and structure your skill data. Let’s get started!
 
@@ -137,7 +137,7 @@ function _FrontTOF(data) {
 }
 ```
 
-## Hello, World: Play Audio
+## Play Audio
 
 In this tutorial, we get the list of audio files stored on Misty and play one at random.
 
@@ -230,7 +230,7 @@ function _GetListOfAudioClips(data) {
 }
 ```
 
-## Hello, World: Record Audio
+## Record Audio
 In this tutorial we learn how to record audio and play it back to the user. This involves two very simple commands: `StartRecordingAudio()` and `StopRecordingAudio()`. 
 
 ### Writing the Meta File
@@ -341,7 +341,7 @@ function _GetListOfAudioFiles(data) {
 }
 ```
 
-## Hello, World: Face Detection
+## Face Detection
 
 In this tutorial we learn how to use Misty's face detection abilities to trigger an event. If Misty detects a face she will play a sound, change her LED to white, and end the skill. If she does not detect a face within a reasonable amount of time, the LED will turn off, and the skill will end.
 
@@ -446,7 +446,7 @@ function _FaceDetectionTimeout() {
 };
 ```
 
-## Hello, World: Timer Events
+## Timer Events
 
 In this tutorial we use timed events to trigger a change in Misty's LED every second. Timed events allow us to specify an amount of time to pass before an event occurs and the callback is triggered. In addition, we introduce global variables and demonstrate how they persist across new threads.
 
@@ -545,7 +545,7 @@ function _TimerEvent() {
 }
 ```
 
-## Hello, World: External Requests
+## External Requests
 
 In this tutorial we learn how Misty can access external data from the internet and deliver it back to us. We write a skill that fetches the current temperature of a designated city, then sends it back through a debug message. To do this, we use the `misty.SendExternalRequest()` command to send a `GET` request to the APIXU API to obtain the data. 
 
@@ -686,7 +686,7 @@ function _SendExternalRequest(data) {
 
 ```
 
-## Hello World: Trigger Skill
+## Trigger Skill
 
 In this tutorial, we learn how a skill can trigger other skills. In this case, the first skill will trigger additional skills when the first skill receives certain external stimuli: face recognition and time-of-flight events. We register for two events and have them trigger two new skills.
 

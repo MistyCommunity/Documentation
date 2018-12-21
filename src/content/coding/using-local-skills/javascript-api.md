@@ -1395,7 +1395,7 @@ misty.Remove(string key)
 ### misty.SendExternalRequest
 Sends an HTTP request from Misty to a specified external Uniform Resource Identifier (URI).
 
-**Note:** In most cases, the external servers response to this request must be passed into a callback function to be processed and made available for use in your skill. By default, the callback function for this commands is called  the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [Hello, World: External Requests](../tutorials/#hello-world-external-requests) tutorial.
+**Note:** In most cases, the external servers response to this request must be passed into a callback function to be processed and made available for use in your skill. By default, the callback function for this commands is called  the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../tutorials/#hello-world-external-requests) tutorial.
 
 Arguments
 * method (string) - The HTTP request method indicating the action to perform for the external URI.
