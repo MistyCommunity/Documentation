@@ -70,9 +70,7 @@ misty.GetListOfImages([string callbackRule = “synchronous”], [string skillTo
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+* Result (array) - Returns an array containing one element for each image currently stored on Misty. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each element in the array contains the following:
    * Height (integer) - The height of the image file.
    * Name (string) - The name of the image file.
    * Width (integer) - The width of the image file.
@@ -140,9 +138,9 @@ misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = “
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-- Result (object) - An object containing image data and meta information. 
+
+- Result (object) - An object containing image data and meta information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
   - format (string) - The type and format of the image returned.
   - height (integer) - The height of the image in pixels.
@@ -170,9 +168,7 @@ misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = “synch
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-- Result (object) - An object containing depth information about the image matrix, with the following fields.
+- Result (object) - An object containing depth information about the image matrix, with the following fields. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   - height (integer) - The height of the matrix.
   - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
   - width (integer) - The width of the matrix.
@@ -199,9 +195,7 @@ misty.SlamGetVisibleImage([bool base64], [string callbackMethod], [string callba
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
+- Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
   - format (string) - The type and format of the image returned.
   - height (integer) - The height of the picture in pixels.
@@ -272,9 +266,7 @@ misty.TakePicture([bool base64], [string fileName], [int width], [int height], [
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (object) - An object containing image data and meta information. This object is only sent if you pass true for Base64.
+* Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
    * Base64 (string) - A string containing the Base64-encoded image data.
    * Format (string) - The type and format of the image returned.
    * Height (integer) - The height of the image in pixels.
@@ -309,11 +301,9 @@ misty.GetListOfAudioClips([string callbackRule = “synchronous”], [string ski
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
 <!-- TODO: test return values -->
 
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+* Result (array) - Returns an array of audio file information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** `misty.GetListOfAudioClips()` should always return false.
 
@@ -336,11 +326,9 @@ misty.GetListOfAudioFiles([string callbackRule = “synchronous”], [string ski
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
 <!-- TODO: review return values -->
 
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+* Result (array) - Returns an array of audio file information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
 
@@ -570,9 +558,7 @@ misty.GetAvailableWifiNetworks([string callbackRule = “synchronous”], [strin
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (array) - An array containing one element for each Wi-Fi network discovered. Each element contains the following:
+* Result (array) - An array containing one element for each Wi-Fi network discovered. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each element contains the following:
    * Name (string) - The name of the Wi-Fi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
@@ -595,9 +581,7 @@ misty.GetBatteryLevel([string callbackRule = “synchronous”], [string skillTo
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.GetDeviceInformation -->
 ### misty.GetDeviceInformation
@@ -617,9 +601,7 @@ misty.GetDeviceInformation([string callbackRule = “synchronous”], [string sk
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (object) - An object containing information about the robot, with the following fields.
+* Result (object) - An object containing information about the robot, with the following fields. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
    * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
    * currentProfileName - The name of the network that the robot is on.
    * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
@@ -653,9 +635,7 @@ misty.GetHelp([string endpointName],[string callbackRule = “synchronous”], [
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (string) - A string containing the requested help information.
+* Result (string) - A string containing the requested help information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- Information - BETA -->
 
@@ -678,9 +658,7 @@ misty.GetBetaHelp([string endpointName],[string callbackRule = “synchronous”
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (string) - A string containing the requested help information.
+* Result (string) - A string containing the requested help information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 ## LEDs
 
@@ -750,9 +728,7 @@ misty.GetLearnedFaces([string callbackRule = “synchronous”], [string skillTo
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (string) - A list of the names for faces that Misty has been trained to recognize.
+* Result (string) - A list of the names for faces that Misty has been trained to recognize. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.StartFaceDetection - BETA -->  
 ### misty.StartFaceDetection - BETA
@@ -1055,9 +1031,7 @@ misty.SlamGetMap([string callbackRule = “synchronous”], [string skillToCallU
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (object) - An object containing the following key, value pairs:
+* Result (object) - An object containing the following key, value pairs. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
   * height (integer) - The height of the occupancy grid matrix (in number of cells).
   * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
@@ -1090,9 +1064,7 @@ misty.SlamGetPath(double X location, double Y location, [string callbackRule = �
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
-* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.SlamGetStatus -->
 ### misty.SlamGetStatus - ALPHA
@@ -1300,9 +1272,7 @@ misty.RegisterEvent(string eventName, string messageType, int debounce, [bool ke
 
 Returns
 
-Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
-
-* Data sent by the registered event.
+* Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
 
 <!-- misty.RegisterTimerEvent -->
 ### misty.RegisterTimerEvent
@@ -1321,9 +1291,7 @@ misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive)
 
 Returns
 
-Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
-
-* Data sent by the timed event.
+* Data sent by the timed event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
 <!-- misty.RegisterUserEvent -->
 ### misty.RegisterUserEvent
@@ -1358,9 +1326,7 @@ Arguments
 misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall])
 ```
 
-Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
-
-* Data sent by the user event.
+* Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
 ### misty.UnregisterAllEvents
 Unregisters from all events for the skill in which this command is called.
@@ -1450,9 +1416,7 @@ misty.SendExternalRequest(string method, string resource, string authorization, 
 
 Returns
 
-Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [Hello World: External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
-
-* Returns the external server's response to the request.
+* Returns the external server's response to the request. Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [Hello World: External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
 
 <!-- misty.Set --> 
 ### misty.Set
@@ -1470,5 +1434,93 @@ Arguments
 misty.Set(string key, string value);
 ```
 
-
 ## Debugging
+
+<!-- misty.SetLogLevel -->
+### misty.SetLogLevel
+Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
+
+* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
+* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
+
+Arguments
+* level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SetLogLevel(string level,[int prePause], [int postPause]);
+```
+
+<!-- misty.GetLogFile -->
+### misty.GetLogFile
+
+Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days. Calling `GetLogFile` with no parameters returns all available log data.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* date (string) - Optional. A date within the last 7 days. Dates must be formatted as: `MonthName/Date/FourDigitYear` or `FourDigitYear/MonthNumber/Date`. Example: `September/24/2018` or `2018/9/24`.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetLogFile(string date, [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+* Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+<!-- misty.GetLogLevel -->
+### misty.GetLogLevel
+Obtains the current log level of the robot.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks). 
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetLogLevel([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+* level - The current log level of the robot. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+<!-- misty.Debug -->
+### misty.Debug
+Prints a message to the JavaScript console for the Skill Runner web page in your browser.
+
+When you use Skill Runner to run a skill, the `SkillData` WebSocket connection is established at the time you connect to your robot, and enables printing debug messages to the JavaScript console. You can use `misty.Debug()` to send your own messages to the console. **Note:** If `BroadcastMode` is set to `off` in the meta file for a skill, no debug messages are sent.
+
+Arguments
+* debugInfo (string) - The debug message to log to the console.
+
+```JavaScript
+misty.Debug(string debugInfo);
+```
+
+<!-- misty.Publish -->
+### misty.Publish
+Writes data to the robot's internal log.
+
+Note that `misty.Publish()` writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the API Explorer to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../using-remote-commands/rest/#getlogfile) command. 
+
+Arguments
+* name (string) - A name for the data data to write to the robot's log.
+* value (string, integer, double, or boolean) - The data to write to the robot's log. To write an object, you must serialize your data into a string using `JSON.stringify()`.
+
+```JavaScript
+misty.Publish(string name, string value)  
+```
+
+
