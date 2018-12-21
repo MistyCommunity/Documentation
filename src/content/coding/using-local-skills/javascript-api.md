@@ -18,7 +18,7 @@ Displays an image on Misty's screen. Optionally, `misty.ChangeDisplayImage()` ca
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
-Arguments:
+Arguments
 * fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
 * timeoutInSeconds (double) - Optional. The length of time to display the specified image.
 * alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to 1.
@@ -29,7 +29,7 @@ Arguments:
 misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
 ```
 
-Returns:
+Returns
 * Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
 
 <!-- misty.DeleteImageAssetFromRobot -->
@@ -39,7 +39,7 @@ Enables you to remove an image file from Misty that you have previously saved to
 
 **Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
 
-Arguments:
+Arguments
 * fileName (string) - The name of the file to delete, including its file type extension.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -48,7 +48,7 @@ Arguments:
 misty.DeleteImageAssetFromRobot(string filename, [int prePause], [int postPause]);
 ```
 
-Returns:
+Returns
 * Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
 
 <!-- misty.GetListOfImages -->
@@ -284,9 +284,9 @@ In a local skill, data returned by this command must be passed into a callback f
 
 ## Audio
 
-<!-- Audio - PRODUCTION>
+Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-<!-- misty.PlayAudioClip -->
+<!-- Audio - PRODUCTION>
 
 <!-- misty.GetListOfAudioClips -->
 ### misty.GetListOfAudioClips
@@ -349,7 +349,7 @@ In a local skill, data returned by this command must be passed into a callback f
 ### misty.PlayAudioClip
 Plays an audio clip that has been previously saved to Misty's storage.
 
-Arguments:
+Arguments
 * fileName (string) - The name of the file to play.
 * volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 command.
@@ -450,21 +450,400 @@ misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
 Returns
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
-
 ## Locomotion
 
+<!-- misty.Drive --> 
+### misty.Drive
+Drives Misty forward or backward at a specific speed until cancelled. Call `misty.Stop()` to cancel driving. 
+
+When using the `misty.Drive()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+Arguments
+* linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+* angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### misty.DriveTime
+Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+
+When using the `misty.DriveTime()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+Arguments
+- linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+- timeInMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `degree` value recalculates linear velocity.
+- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.DriveTime(double linearVelocity, double angularVelocity, int timeInMs, [double degree], [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.LocomotionTrack -->
+### misty.LocomotionTrack
+Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
+
+Arguments
+- leftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- rightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.LocomotionTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.Stop -->
+### misty.Stop
+Stops Misty's movement.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.Stop([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- Alpha - Locomotion -->
+
+### misty.Halt - ALPHA
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+Arguments
+* None
+
+```JavaScript
+misty.Halt()
+```
+
+You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
+
+## Information
+
+<!-- misty.GetAvailableWifiNetworks -->
+### misty.GetAvailableWifiNetworks
+Obtains a list of local WiFi networks and basic information regarding each.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetAvailableWifiNetworks([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (array) - An array containing one element for each Wi-Fi network discovered. Each element contains the following:
+   * Name (string) - The name of the Wi-Fi network.
+   * SignalStrength (integer) - A numeric value for the strength of the network.
+   * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
+
+<!-- misty.GetBatteryLevel -->
+### misty.GetBatteryLevel
+Obtains Misty's current battery level.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetBatteryLevel([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level.
+
+<!-- misty.GetDeviceInformation -->
+### misty.GetDeviceInformation
+Obtains device-related information for the robot.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetDeviceInformation([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (object) - An object containing information about the robot, with the following fields.
+   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * currentProfileName - The name of the network that the robot is on.
+   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * ipAddress - The IP address of the robot.
+   * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * outputCapabilities - An array listing the output capabilities for this robot.
+   * robotId - The robot's unique ID, if set. Default value is all zeros.
+   * robotVersion - The version number for the HomeRobot app running on the robot.
+   * sensorCapabilities - An array listing the sensor capabilities for this robot.
+   * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
+   * serialNumber - The unique serial number for the robot.
+   * windowsOSVersion - The version of Windows IoT Core running on the robot.
+
+
+<!-- misty.GetHelp -->
+### misty.GetHelp
+Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* endpointName (string) - Command in "Api.<COMMAND>" format eg: "Api.GetListOfAudioClips". If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetHelp([string endpointName],[string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (string) - A string containing the requested help information.
+
+<!-- Information - BETA -->
+
+<!-- misty.GetBetaHelp - BETA -->
+### misty.GetBetaHelp - BETA
+Obtains information about a specified beta API command. Calling `misty.GetBetaHelp()` with no parameters returns a list of all the beta API commands that are available.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* endpointName (string) - A beta command name in "Api.<COMMAND>" format, e.g.: "Api.SetHeadPosition". If no command name is specified, `GetBetaHelp` returns a list of all the beta API commands.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetBetaHelp([string endpointName],[string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (string) - A string containing the requested help information.
+
+## LEDs
+
+<!-- misty.ChangeLED --> 
+### misty.ChangeLED
+
+Changes the color of the LED light behind the logo on Misty's torso.
+
+Arguments
+* Red (byte) - A value between 0 and 255 specifying the red RGB color.
+* Green (byte) - A value between 0 and 255 specifying the green RGB color.
+* Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
+```
+Returns
+* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
+
 ## Faces
+
+<!-- Faces - BETA>
+
+<!-- misty.CancelFaceTraining - BETA -->
+### misty.CancelFaceTraining - BETA
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.CancelFaceTraining([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.ClearLearnedFaces - BETA -->
+### misty.ClearLearnedFaces - BETA
+Removes records of previously trained faces from Misty's memory.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.GetLearnedFaces - BETA --> 
+### misty.GetLearnedFaces - BETA
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetLearnedFaces([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+* Result (string) - A list of the names for faces that Misty has been trained to recognize.
+
+<!-- misty.StartFaceDetection - BETA -->  
+### misty.StartFaceDetection - BETA
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
+
+When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StartFaceDetection([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.StartFaceRecognition - BETA -->
+### misty.StartFaceRecognition - BETA
+Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `misty.StartFaceDetection()` command to detect and store face IDs in Misty's memory.
+
+When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StartFaceRecognition([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.StartFaceTraining - BETA -->
+### misty.StartFaceTraining - BETA
+Starts Misty learning a face and assigns a name to that face.
+
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
+
+Arguments
+* faceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.StopFaceDetection - BETA -->
+### misty.StopFaceDetection - BETA
+Stops Misty's detection of faces in her line of vision.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StopFaceDetection([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.StopFaceRecognition - BETA -->
+### misty.StopFaceRecognition - BETA
+Stops the process of Misty recognizing a face she sees.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StopFaceRecognition([int prePause], [int postPause])
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+
 
 ## Head Movement
 
 ## Arm Movement
 
 ## Mapping & Tracking
-
-## Information
-
-## LEDs
 
 ## Events & Timing
 
