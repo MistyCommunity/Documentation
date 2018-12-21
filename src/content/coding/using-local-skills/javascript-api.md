@@ -266,7 +266,6 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-
 ```JavaScript
 misty.TakePicture([bool base64], [string fileName], [int width], [int height], [bool DisplayOnScreen], [bool OverwiteExisting], [string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
@@ -284,6 +283,174 @@ In a local skill, data returned by this command must be passed into a callback f
 
 
 ## Audio
+
+<!-- Audio - PRODUCTION>
+
+<!-- misty.PlayAudioClip -->
+
+<!-- misty.GetListOfAudioClips -->
+### misty.GetListOfAudioClips
+
+Lists the default system audio files currently stored on Misty.
+
+Note that you can use the `misty.GetListOfAudioFiles()` command to list all audio files on the robot (system files and user uploads).
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetListOfAudioClips([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+<!-- TODO: test return values -->
+
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** `misty.GetListOfAudioClips()` should always return false.
+
+
+ <!-- misty.GetListOfAudioFiles -->
+### misty.GetListOfAudioFiles
+Lists all audio files (default system files and user-added files) currently stored on Misty.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+Arguments
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.GetListOfAudioFiles([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Returns
+
+In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
+<!-- TODO: review return values -->
+
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * userAddedAsset (boolean) - If true, the file was added by the user. If false, the file is one of Misty's system files.
+
+
+
+### misty.PlayAudioClip
+Plays an audio clip that has been previously saved to Misty's storage.
+
+Arguments:
+* fileName (string) - The name of the file to play.
+* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+command.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.PlayAudioClip(string FileName, [int volume], [int prePause], [int postPause]);
+```
+
+<!-- TODO: research return values>
+
+<!-- misty.SaveAudioAssetToRobot -->
+### misty.SaveAudioAssetToRobot
+Saves an audio file to Misty. Maximum size is 3 MB.
+
+Arguments
+* fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
+* dataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
+* overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SaveAudioAssetToRobot(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
+```
+
+<!-- TODO: research return values>
+
+<!-- Audio - BETA -->
+<!-- misty.DeleteAudioAssetFromRobot -->
+### misty.DeleteAudioAssetFromRobot - BETA
+
+Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
+
+Arguments
+* FileName (string) - The name of the file to delete, including its file type extension.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.DeleteAudioAssetFromRobot(string fileName, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
+
+<!-- misty.StartRecordingAudio - BETA -->
+### misty.StartRecordingAudio - BETA
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+
+Arguments
+* fileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- misty.StopRecordingAudio - BETA -->
+### misty.StopRecordingAudio - BETA
+Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()` You must use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.StopRecordingAudio([int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
+<!-- Audio - ALPHA -->
+
+<!-- TODO: ### misty.GetAudioFile - ALPHA -->
+
+<!-- misty.SetDefaultVolume - ALPHA -->
+### misty.SetDefaultVolume - ALPHA
+Sets the default loudness of Misty's speakers for audio playback.
+
+Arguments
+* volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
+```
+
+Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
 
 ## Locomotion
 

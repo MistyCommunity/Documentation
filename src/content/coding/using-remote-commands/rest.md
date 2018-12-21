@@ -338,26 +338,6 @@ Return Values
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
 
-### PlayAudioClip
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
-
-Endpoint: POST {robot-ip-address}/api/audio/play
-
-Parameters    
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-
-```json
-{
-  "AssetId": "ExampleSong"
-}
-```
-
-Return Values
-* Result (string) - Returns a string with any errors related to this command.
-
-
 ### GetListOfAudioClips
 Lists the default system audio files currently stored on Misty.
 
@@ -386,6 +366,25 @@ Return Values
 * Result (array) - Returns an array of audio file information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+### PlayAudioClip
+Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
+
+Endpoint: POST {robot-ip-address}/api/audio/play
+
+Parameters    
+- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
+```json
+{
+  "AssetId": "ExampleSong"
+}
+```
+
+Return Values
+* Result (string) - Returns a string with any errors related to this command.
 
 ### SaveAudioAssetToRobot (Byte Array String)
 Saves an audio file to Misty. Maximum size is 3 MB.
