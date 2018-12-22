@@ -13,7 +13,7 @@ The [Misty Skill Runner](https://skill-runner.mistyrobotics.com) web tool is a g
 
 ![Skill runner home page](../../../assets/images/skill-runner.png)
 
-To use Skill Runner to upload a skill to your robot, follow the steps below. 
+To use Skill Runner to upload and run a skill, follow the steps below. 
 
 1. Compress and save your skill’s `Meta` and `Code` files into a .zip file with the same name as your skill.
 2. Open `SkillRunner.html` and connect to Misty using your robot’s IP address.
