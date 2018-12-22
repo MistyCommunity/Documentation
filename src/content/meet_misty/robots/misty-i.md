@@ -69,7 +69,7 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 
 **Important!** There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen. Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage. ![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
-Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../3-ways-to-interact-with-misty/companion-app/).
+Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/).
 
 
 ## Cleaning the Time-of-Flight Sensors
@@ -80,7 +80,7 @@ A Misty I Developer Edition Prototype robot has a total of four time-of-flight s
 
 In some environments, the time-of-flight sensors may become dusty over time, which can cause them to return inaccurate distance data. If your robot has started running into objects that she would normally avoid, it's important to test the time-of-flight sensors to ensure they're functioning properly.
 
-1. Open up the [API Explorer](../../3-ways-to-interact-with-misty/api-explorer) in a browser and connect it to your robot.
+1. Open up the [API Explorer](../../apps/api-explorer) in a browser and connect it to your robot.
 2. In the API Explorer, scroll down to the **Websockets** section and find the **Sensor Reading Websockets**. ![Sensor reading websockets](../../../assets/images/sensor_websockets.png)
 3. Locate a ruler with centimeter markings and lay it so that the 0cm mark is even with one of Misty's time-of-flight sensors. (In the photo, we've started the test with the back sensor.) Place an object with a flat surface on the ruler facing the sensor at the 10cm mark. ![placing an object 10cm from the sensor](../../../assets/images/10_cm.jpg)
 4. Use the API Explorer to subscribe to the time-of-flight sensor you are testing (in this case, the back sensor). Confirm that the sensor reading is reasonably close to 0.1 meters (10cm). **Note: Because it's challenging to place objects exactly 10cm from a sensor, values between 0.08 meters (8cm) and 0.12 meters (12cm) are typically close enough.** ![sensor reads 0.1 meters](../../../assets/images/back_tof_check.png)
@@ -141,7 +141,7 @@ Just turn off the power switch on Misty’s back.
 
 ## System Updates
 
-Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the [Misty Companion app](../../3-ways-to-interact-with-misty/companion-app/#updating-misty) or [API Explorer](../../3-ways-to-interact-with-misty/api-explorer/#system-updates).
+Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the [Misty Companion app](../../apps/companion-app/#updating-misty) or [API Explorer](../../apps/api-explorer/#system-updates).
 
 Updates can include:
 

@@ -7,7 +7,9 @@ order: 1
 
 # {{title}}
 
-When you write a local skill, your code runs internally on Misty and takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
+Misty has two basic types of skill architecture: local and remote. When you write a local skill, you upload your code to the robot, and it runs internally on Misty. This differs from using "[remote commands](../../using-remote-commands/architecture)" with Misty, where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
+
+When you write a local skill, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
 **IMPORTANT! Local skills are a pre-release, “alpha” technology and are subject to frequent change.** Any local skills you create for Misty may need updates before release to reflect ongoing development of the local skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
 

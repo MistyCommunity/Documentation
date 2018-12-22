@@ -32,12 +32,14 @@ All successful commands return a status and the result of the call:
 ```
 If there is an issue, Misty returns an HTTP error code and error message.
 
+**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+
 ## Skill Management Commands
 
 <!-- SaveSkillToRobot -->
 
 <!--- GetSkills -->
-### GetSkills
+### GetSkills - ALPHA
 Obtains a list of the skills currently uploaded onto the robot.
 
 Endpoint: GET {robot-ip-address}/api/alpha/sdk/skills
@@ -49,7 +51,7 @@ Return Values
 * Result (array) - An array containing the names and meta file information for all of the skills on the robot.
 
 <!-- CancelSkill -->
-### CancelSkill
+### CancelSkill - ALPHA
 Stops a specified running skill (or all running skills if no name is specified).
 
 Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/cancel
@@ -69,7 +71,7 @@ Return Values
 
 
 <!-- LoadSkill -->
-### LoadSkill
+### LoadSkill - ALPHA
 Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
 
 Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/load
@@ -87,7 +89,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
 <!-- ReloadSkills --> 
-### ReloadSkills
+### ReloadSkills - ALPHA
 Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
 
 Endpoint: POST {robot-ip-address}/api/sdk/reload
@@ -99,7 +101,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request. 
 
 <!-- RunSkill -->
-### RunSkill
+### RunSkill - ALPHA
 Immediately runs a previously uploaded skill.
 
 Endpoint: POST {robot-ip-address}/api/alpha/sdk/skill
@@ -119,7 +121,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
 
-### SaveSkillToRobot
+### SaveSkillToRobot - ALPHA
 Uploads a skill to the robot and makes it immediately available for the robot to run.
 
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
@@ -143,7 +145,7 @@ Return Values
 * Result (array) - A list of key, value pairs with the names of the code and meta skill files saved to the robot.
 
 <!-- TriggerSkillEvent -->
-### TriggerSkillEvent
+### TriggerSkillEvent - ALPHA
 Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
 
 Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/event
@@ -165,7 +167,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
 <!-- UnloadSkill -->
-### UnloadSkill
+### UnloadSkill - ALPHA
 Makes a skill unavailable to be run which is currently onboard the robot, but does not remove the skill from the robot’s memory.
 
 Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unload
@@ -182,7 +184,7 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
-### UnloadAllSkills
+### UnloadAllSkills - ALPHA
 Makes all skills onboard the robot unavailable to be run, but does not remove the skills from the robot’s memory.
 
 Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unloadall

@@ -7,9 +7,9 @@ order: 1
 
 <h1>Docs Home</h1>
 
-When you code Misty, you can quickly build skills that make use of the unique characteristics of an autonomous, roaming robot with personality.
+When you write code for Misty, you can quickly build skills that make use of the unique characteristics of an autonomous, roaming robot with personality.
 
-What’s a skill? A skill is your JavaScript app, running on the robot. Like this:
+What’s a skill? A skill is your JavaScript app, running on the robot. When you write a skill, you:
 1. Take some of Misty’s sensory data (vision, audio, touch, distance, etc.).
 2. Process that data on the robot using Misty’s API or send it off to a cloud service.
 3. Have Misty do something in response:

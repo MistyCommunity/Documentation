@@ -47,6 +47,8 @@ We ship Misty with her battery disconnected. Follow the steps below to access th
     **Front-Facing Bump Sensor Cover Placement** ![Front-Facing bump sensor cover placement](../../../assets/images/mii-front-bump-sensor-cover-replacement.jpg)
     **Rear-Facing Bump Sensor Cover Placement** ![Rear-facing bump sensor cover placement](../../../assets/images/mii-rear-bump-sensor-cover-replacement.jpg)
 
+Now that you've connected your robot's battery, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/).
+
 ## Charging Misty II
 
 There are two ways to charge Misty II. You can use the wireless charging pad that comes with your robot, or you can plug the power supply directly into the power port on Misty's base.

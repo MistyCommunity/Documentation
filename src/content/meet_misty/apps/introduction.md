@@ -13,4 +13,4 @@ You can easily control Misty via her apps:
 * [Blockly](../blockly) is a beginner-friendly coding tool for Misty that is ideal for kids and classroom use.
 * Misty’s [API Explorer](../api-explorer) provides a graphic UX that allows you to experiment with Misty’s API commands before you write any code.
 
-Once you do get Misty on your network, you can also just skip straight on to [coding Misty](../../../coding/using-local-skills/architecture)
+Once you do get Misty on your network, you can also just skip straight on to [coding Misty](../../../coding/using-local-skills/architecture).

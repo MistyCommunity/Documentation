@@ -7,6 +7,10 @@ order: 3
 
 # {{title}}
 
+Use the JavaScript API to write skills for Misty that run locally on your robot. For more about local skills, see [Local Skill Architecture](../architecture).
+
+**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+
 ## Images & Display
 
 <!-- Images & Display - PRODUCTION>
@@ -1191,7 +1195,7 @@ Returns
 ## Events & Timing
 
 <!-- misty.AddPropertyTest -->
-### misty.AddPropertyTest
+### misty.AddPropertyTest - ALPHA
 Creates a property comparison test to specify which data the system sends for a registered event. Use property tests to filter unwanted data out of event messages.
 
 Arguments
@@ -1206,7 +1210,7 @@ misty.AddPropertyTest(string eventName, string property, string inequality, stri
 ```
 
 <!-- misty.AddReturnProperty -->
-### misty.AddReturnProperty
+### misty.AddReturnProperty - ALPHA
 Adds an additional return property field for a registered event.
 
 Arguments
@@ -1218,7 +1222,7 @@ misty.AddReturnProperty(string eventName, string eventProperty);
 ```
 
 <!-- misty.CancelSkill --> 
-### misty.CancelSkill
+### misty.CancelSkill - ALPHA
 Cancel execution a specified skill.
 
 Arguments
@@ -1229,7 +1233,7 @@ misty.CancelSkill(string skillName)
 ```
 
 <!-- misty.Pause -->
-### misty.Pause
+### misty.Pause - ALPHA
 Pause skill execution for a specified number of milliseconds.
 
 Arguments
@@ -1240,7 +1244,7 @@ misty.Delay(int delay)
 ```
 
 <!-- misty.RandomPause -->
-### misty.RandomPause
+### misty.RandomPause - ALPHA
 Pause skill execution for a random duration.
 
 Arguments
@@ -1253,7 +1257,7 @@ misty.RandomPause(int minimumDelay, int maximumDelay)
 
 
 <!-- misty.RegisterEvent -->
-### misty.RegisterEvent
+### misty.RegisterEvent - ALPHA
 Register to receive messages with live event data from one of Misty's sensors. 
 
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
@@ -1275,7 +1279,7 @@ Returns
 * Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
 
 <!-- misty.RegisterTimerEvent -->
-### misty.RegisterTimerEvent
+### misty.RegisterTimerEvent - ALPHA
 Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../tutorials/#timer-events).
 
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
@@ -1294,7 +1298,7 @@ Returns
 * Data sent by the timed event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
 <!-- misty.RegisterUserEvent -->
-### misty.RegisterUserEvent
+### misty.RegisterUserEvent - ALPHA
 Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `api/alpha/sdk/skills/event` endpoint with the appropriate payload for the callback and/or skill.
 
 Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
@@ -1328,7 +1332,7 @@ misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule
 
 * Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
-### misty.UnregisterAllEvents
+### misty.UnregisterAllEvents - ALPHA
 Unregisters from all events for the skill in which this command is called.
 
 Arguments
@@ -1339,7 +1343,7 @@ misty.UnregisterAllEvents()
 ```
 
 <!-- misty.UnregisterEvent -->
-### misty.UnregisterEvent
+### misty.UnregisterEvent - ALPHA
 Unregisters from a specified event.
 
 Arguments
@@ -1352,7 +1356,7 @@ misty.UnregisterEvent(string eventName);
 ## Data
 
 <!-- misty.Get -->
-### misty.Get
+### misty.Get - ALPHA
 Returns data saved to the robot using `misty.Set()`. 
 
 Arguments
@@ -1366,7 +1370,7 @@ Returns
 * value (string, boolean, integer, or double) - The data associated with the specified key.
 
 <!-- misty.Keys --> 
-### misty.Keys
+### misty.Keys - ALPHA
 Returns a list of all the available persistent data stored on the robot. 
 
 Arguments
@@ -1381,7 +1385,7 @@ Returns
 
 
 <!-- misty.Remove --> 
-### misty.Remove
+### misty.Remove - ALPHA
 Removes specified data that has been saved to the robot with `misty.Set()`. 
 
 Arguments
@@ -1392,7 +1396,7 @@ misty.Remove(string key)
 ```
 
 <!-- misty.SendExternalRequest --> 
-### misty.SendExternalRequest
+### misty.SendExternalRequest - ALPHA
 Sends an HTTP request from Misty to a specified external Uniform Resource Identifier (URI).
 
 **Note:** In most cases, the external servers response to this request must be passed into a callback function to be processed and made available for use in your skill. By default, the callback function for this commands is called  the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../tutorials/#hello-world-external-requests) tutorial.
@@ -1416,10 +1420,10 @@ misty.SendExternalRequest(string method, string resource, string authorization, 
 
 Returns
 
-* Returns the external server's response to the request. Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [Hello World: External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
+* Returns the external server's response to the request. Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
 
 <!-- misty.Set --> 
-### misty.Set
+### misty.Set - ALPHA
 Saves data that can be validly updated and used across threads or shared between skills. 
 
 **Important!** Data stored via the `misty.Set()` command **does not persist across a reboot** of the robot at this time.
@@ -1435,24 +1439,6 @@ misty.Set(string key, string value);
 ```
 
 ## Debugging
-
-<!-- misty.SetLogLevel -->
-### misty.SetLogLevel
-Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
-
-* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
-* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
-* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
-* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
-
-Arguments
-* level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-misty.SetLogLevel(string level,[int prePause], [int postPause]);
-```
 
 <!-- misty.GetLogFile -->
 ### misty.GetLogFile
@@ -1476,8 +1462,26 @@ Returns
 
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
+<!-- misty.SetLogLevel -->
+### misty.SetLogLevel - ALPHA
+Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
+
+* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
+* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
+
+Arguments
+* level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.SetLogLevel(string level,[int prePause], [int postPause]);
+```
+
 <!-- misty.GetLogLevel -->
-### misty.GetLogLevel
+### misty.GetLogLevel - ALPHA
 Obtains the current log level of the robot.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
@@ -1497,7 +1501,7 @@ Returns
 * level - The current log level of the robot. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.Debug -->
-### misty.Debug
+### misty.Debug - ALPHA
 Prints a message to the JavaScript console for the Skill Runner web page in your browser.
 
 When you use Skill Runner to run a skill, the `SkillData` WebSocket connection is established at the time you connect to your robot, and enables printing debug messages to the JavaScript console. You can use `misty.Debug()` to send your own messages to the console. **Note:** If `BroadcastMode` is set to `off` in the meta file for a skill, no debug messages are sent.
@@ -1510,7 +1514,7 @@ misty.Debug(string debugInfo);
 ```
 
 <!-- misty.Publish -->
-### misty.Publish
+### misty.Publish - ALPHA
 Writes data to the robot's internal log.
 
 Note that `misty.Publish()` writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the API Explorer to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../using-remote-commands/rest/#getlogfile) command. 

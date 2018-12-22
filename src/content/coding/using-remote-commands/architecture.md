@@ -36,9 +36,6 @@ Get both tools [at the Misty I GitHub repo](https://github.com/MistyCommunity/Mi
 
 You can also use the [API Explorer](http://api-explorer.mistyrobotics.com) source code as a JavaScript wrapper for Misty's REST API. Read how to work with the API Explorer code [here](../tools/#working-with-the-api-explorer-code). 
 
-
-You can also download the source code used in the API Explorer website to   
-
 ### Using the LightClient JS Helper
 
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
