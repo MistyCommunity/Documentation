@@ -33,9 +33,6 @@ Arguments
 misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
 ```
 
-Returns
-* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
-
 <!-- misty.DeleteImageAssetFromRobot -->
 
 ### misty.DeleteImageAssetFromRobot
