@@ -13,7 +13,7 @@ In these tutorials you will learn everything you need to know to begin writing l
 
 In this tutorial we create a simple skill that changes Misty’s chest LED, drives her forward for 10 seconds, and tells her to stop if she detects an object in her path. We go over how to send commands, subscribe to sensor events, and structure your skill data. Let’s get started!
 
-The code for local skills is comprised of two parts. The logic used to define how the skill functions is located in a `.js` file located in the `/Code` directory under `/Skills`. In addition to this, there is a corresponding `.json` file in the `/Meta` directory. These files must have the same name. Create a `.js` file and call it `HelloWorld_TimeOfFlight.js`. Then create a `.json` file and give it the same name. When the skill is complete, we use Skill Runner to upload these files to the directories specified above.
+The code for local skills is comprised of two parts. The logic used to define how the skill functions is located in a `.js` file located in the `/Code` directory under `/Skills`. In addition to this, there is a corresponding `.json` file in the `/Meta` directory. These files must have the same name. Create a `.js` file and call it `HelloWorld_TimeOfFlight.js`. Then create a `.json` file and give it the same name. When the skill is complete, we use [Skill Runner](https://skill-runner.mistyrobotics.com) to upload these files to the directories specified above.
 
 ### Writing the Meta File
 
@@ -105,7 +105,7 @@ misty.ChangeLED(255, 0, 0);
 misty.Debug("ending skill helloworld ");
 ```
 
-Congratulations! You have just written a local skill for Misty. Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+Congratulations! You have just written a local skill for Misty. Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
 
 See the full contents of the `HelloWorld_TimeOfFlight.js` file here for reference.
 
@@ -199,7 +199,7 @@ misty.PlayAudioClip(randSound);
 
 Note: All of this logic needs to be contained within `_GetListOfAudioClips()` to ensure that it does not run until the audio list has been populated. 
 
-Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 
 See the complete `HelloWorld_PlayAudio.js` skill file here for reference.
 
@@ -292,7 +292,7 @@ if (containsNewFile) {
 }
 ```
 
-Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 
 See the complete `HelloWorld_RecordAudio.js` file here for reference.
 
@@ -406,7 +406,7 @@ function _FaceDetectionTimeout() {
 };
 ```
 
-Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 
 See the complete `HelloWorld_FaceDetection.js` file here for reference.
 
@@ -508,7 +508,7 @@ else {
 
 Using timed events, we have told Misty to change her chest LED to a random color in three-second intervals. We have demonstrated how we can use global variables prefixed with an underscore to have data persist across threads that are created in our program as callbacks are triggered. This is a simple example of two powerful tools that you have at your disposal when writing local skills for Misty. 
 
-Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 
 See the complete `HelloWorld_TimerEvent.js` file here for reference.
 
@@ -650,7 +650,7 @@ Use an `if, else` statement to check that valid data was returned by the request
     misty.Debug("Successfully reached the end of skill!");
 ```
 
-Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
 
 See the full contents of the `HelloWorld_ExternalRequest.js` file here for reference.
 
@@ -920,5 +920,5 @@ function _BackTOF(data) {
 }
 ```
 
-Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using Misty Skill Runner or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
 

@@ -399,7 +399,7 @@ Once you’ve created the files for your skill, you must load them onto your rob
 * a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
 
 ### Using Skill Runner 
-The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the Misty Skill Runner guide in the Tools seciton of these docs.
+The [Misty Skill Runner](https://skill-runner.mistyrobotics.com) web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner](../tools/#misty-skill-runner) guide in the Tools seciton of these docs.
 
 ### Using Postman
 There are many ways to send a `POST` request to the skill deployment endpoint, but here we’ll use Postman.

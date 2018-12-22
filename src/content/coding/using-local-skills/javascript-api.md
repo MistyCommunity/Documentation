@@ -1,5 +1,5 @@
 ---
-title: Javascript API
+title: JavaScript API
 layout: onboarding.hbs
 columns: three
 order: 3

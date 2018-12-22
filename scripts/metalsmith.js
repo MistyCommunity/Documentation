@@ -177,8 +177,8 @@ exports.metalsmith = function() {
           'using-remote-commands'
         ]
       },
-      meet_misty: {
-        pattern: 'meet_misty/:section/*.md',
+      'onboarding': {
+        pattern: 'onboarding/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
           'robots',
