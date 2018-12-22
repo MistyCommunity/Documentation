@@ -1,6 +1,6 @@
 ---
 title: Misty I
-layout: apis.hbs
+layout: onboarding.hbs
 columns: one
 order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 title: Tutorials
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 2
 ---

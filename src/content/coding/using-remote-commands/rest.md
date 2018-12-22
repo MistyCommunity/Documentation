@@ -1,6 +1,6 @@
 ---
 title: REST API
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 3
 ---

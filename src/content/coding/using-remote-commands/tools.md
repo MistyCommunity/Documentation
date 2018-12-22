@@ -1,6 +1,6 @@
 ---
 title: Tools
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 5
 ---

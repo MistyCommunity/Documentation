@@ -1,6 +1,6 @@
 ---
 title: WebSocket Reference
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 4
 ---

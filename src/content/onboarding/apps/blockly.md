@@ -1,6 +1,6 @@
 ---
 title: Blockly
-layout: apis.hbs
+layout: onboarding.hbs
 columns: one
 order: 4
 ---

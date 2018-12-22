@@ -1,6 +1,6 @@
 ---
 title: Architecture
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 1
 ---

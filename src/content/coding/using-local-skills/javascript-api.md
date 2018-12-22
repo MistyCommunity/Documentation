@@ -1,6 +1,6 @@
 ---
 title: JavaScript API
-layout: onboarding.hbs
+layout: coding.hbs
 columns: three
 order: 3
 ---

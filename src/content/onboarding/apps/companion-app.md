@@ -1,6 +1,6 @@
 ---
 title: Companion App
-layout: apis.hbs
+layout: onboarding.hbs
 columns: one
 order: 2
 ---
