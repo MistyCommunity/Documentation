@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-In these tutorials you will learn everything you need to know to begin writing robust, intricate local skills for your Misty robot. Each tutorial introuces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
+In these tutorials you will learn everything you need to know to begin writing local skills for your Misty robot. Each tutorial introduces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
 
 ## Time-of-Flight
 
@@ -605,7 +605,7 @@ The fifth parameter (`returnType`) indicates the expected media type of the data
 
 The sixth parameter (`args`) holds any data you want to send with your request. This is typically used when making `POST` requests. As we are sending a `GET` request, this parameter can also be set to `null`. 
 
-The optional seventh (`callbackMethod`), eighth (`callbackRule`), and ninth (`skillToCallOnCallback`) parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. You can read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../Architecture/#data-handling-events-amp-callbacks).
+The optional seventh (`callbackMethod`), eighth (`callbackRule`), and ninth (`skillToCallOnCallback`) parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. You can read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../architecture/#data-handling-events-amp-callbacks).
 In this tutorial, we don't specify an alternate callback function, so the callback is automatically set to be `_SendExternalRequest()`. 
 
 As with other local skill commands, `prePause` and `postPause` are optional.

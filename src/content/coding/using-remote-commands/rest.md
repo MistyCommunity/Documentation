@@ -11,6 +11,8 @@ With the REST API, you can send commands to Misty from a REST client or browser.
 
 To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../architecture/#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
 
+**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+
 ## URL & Message Formats
 
 Use the following URL format when sending commands to the robot:
@@ -35,8 +37,6 @@ All successful commands return a status and the result of the call:
 ]
 ```
 If there is an issue, Misty returns an HTTP error code and error message.
-
-**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
 ## Images & Display
 

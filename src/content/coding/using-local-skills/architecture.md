@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Misty has two basic types of skill architecture: local and remote. When you write a local skill, you upload your code to the robot, and it runs internally on Misty. This differs from using "[remote commands](../../using-remote-commands/architecture)" with Misty, where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
+Misty has two basic types of skill architecture: local and remote. When you write a local skill, you upload your code to the robot, and it runs internally on Misty. This differs from using [remote commands](../../using-remote-commands/architecture) with Misty, where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
 
 When you write a local skill, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
@@ -15,21 +15,21 @@ When you write a local skill, your code takes advantage of Misty’s capabilitie
 
 You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
-* **Command Syntax.** The local skill command syntax differs slightly from that of remote skill commands. 
-* **Data Handling: Events and Callbacks.** Both stored and live data from the robot are made available to a local skill via callback functions.
+* Command Syntax. The local skill command syntax differs slightly from that of remote skill commands. 
+* Data Handling: Events and Callbacks.** Both stored and live data from the robot are made available to a local skill via callback functions.
   * “Get” Data Callbacks
   * Sensor Event Callbacks
   * Timed or Triggered Event Callbacks
-* **Data Handling: Variables.** There are two ways to store persistent data with local skills: as a global variable or as “set” data.
-* **Command Type Reference.** There are several command types available to local skills, with some usage differences among them.
+* Data Handling: Variables. There are two ways to store persistent data with local skills: as a global variable or as “set” data.
+* Command Type Reference. There are several command types available to local skills, with some usage differences among them.
   * Action Commands
   * Get Commands
   * Event Commands
   * Helper Commands
   * Skill Management Commands
-* **File Structure & Code Architecture.** There are two required file types for a local skill: a “meta” JSON file and a “code” JavaScript file.
-* **Loading & Running a Local Skill.** There are currently two options for how you load and run skills.
-* **Starting & Stopping a Local Skill.** Currently, local skills running on Misty I must be triggered to start/stop from an external request.
+* File Structure & Code Architecture. There are two required file types for a local skill: a “meta” JSON file and a “code” JavaScript file.
+* Loading & Running a Local Skill. There are currently two options for how you load and run skills.
+* Starting & Stopping a Local Skill. Currently, local skills running on Misty I must be triggered to start/stop from an external request.
 
 ## Command Syntax
 
