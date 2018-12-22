@@ -48,9 +48,9 @@ Arguments
 ```JavaScript
 misty.DeleteImageAssetFromRobot(string filename, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
+* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`. -->
 
 <!-- misty.GetListOfImages -->
 ### misty.GetListOfImages
@@ -86,8 +86,8 @@ Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. *
 Arguments
 * fileName (string) - The name of the image file to save.
 * dataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
-* width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). Important: To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
-* height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). Important: To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
+* width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
+* height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the saved file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the saved file should not overwrite any existing files on Misty.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -113,9 +113,9 @@ Arguments
 ```JavaScript
 misty.ClearDisplayText ([int prePause], [int postPause])
 ```
-
+<!-- 
 Returns
-- Result (boolean) - Returns `true` if there are no errors related to this command.
+- Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- Images & Display - ALPHA -->
 
@@ -138,8 +138,6 @@ misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = “
 ```
 
 Returns
-
-
 
 - Result (object) - An object containing image data and meta information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
@@ -207,7 +205,7 @@ Returns
 ### misty.SlamStartStreaming - ALPHA
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-Important! Always use `misty.SlamStopStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use `misty.SlamStopStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -217,14 +215,15 @@ command, `postPause` is not used.
 ```JavaScript
 misty.SlamStartStreaming([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
+
 <!-- misty.SlamStopStreaming - ALPHA -->
-### misty.SlamStartStreaming - ALPHA
+### misty.SlamStopStreaming - ALPHA
 Closes the data stream from the Occipital Structure Core depth sensor.
 
-Important! Always use this command to close the depth sensor data stream after using `misty.SlamStartStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use this command to close the depth sensor data stream after using `misty.SlamStartStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -232,11 +231,11 @@ Arguments
 command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamStartStreaming([int prePause], [int postPause]);
+misty.SlamStopStreaming([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.TakePicture - ALPHA -->
 
@@ -383,9 +382,9 @@ Arguments
 ```JavaScript
 misty.DeleteAudioAssetFromRobot(string fileName, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
+* Result (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`. -->
 
 <!-- misty.StartRecordingAudio - BETA -->
 ### misty.StartRecordingAudio - BETA
@@ -399,9 +398,9 @@ Arguments
 ```JavaScript
 misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StopRecordingAudio - BETA -->
 ### misty.StopRecordingAudio - BETA
@@ -414,9 +413,9 @@ Arguments
 ```JavaScript
 misty.StopRecordingAudio([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns true if there are no errors related to this command.
+* Result (boolean) - Returns true if there are no errors related to this command. -->
 
 
 <!-- Audio - ALPHA -->
@@ -435,9 +434,9 @@ Arguments
 ```JavaScript
 misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Locomotion
 
@@ -462,9 +461,9 @@ Arguments
 ```JavaScript
 misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.DriveTime
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
@@ -488,9 +487,9 @@ Arguments
 ```JavaScript
 misty.DriveTime(double linearVelocity, double angularVelocity, int timeInMs, [double degree], [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.LocomotionTrack -->
 ### misty.LocomotionTrack
@@ -505,9 +504,9 @@ Arguments
 ```JavaScript
 misty.LocomotionTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.Stop -->
 ### misty.Stop
@@ -520,9 +519,9 @@ Arguments
 ```JavaScript
 misty.Stop([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- Alpha - Locomotion -->
 
@@ -536,8 +535,6 @@ Arguments
 ```JavaScript
 misty.Halt()
 ```
-
-You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
 ## Information
 
@@ -678,10 +675,13 @@ Arguments
 ```JavaScript
 misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
 ```
-Returns
-* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`.
+<!-- Returns
+* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`. -->
 
 ## Faces
+
+
+You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
 <!-- Faces - BETA>
 
@@ -696,9 +696,9 @@ Arguments
 ```JavaScript
 misty.CancelFaceTraining([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.ClearLearnedFaces - BETA -->
 ### misty.ClearLearnedFaces - BETA
@@ -708,8 +708,8 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+<!-- Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.GetLearnedFaces - BETA --> 
 ### misty.GetLearnedFaces - BETA
@@ -744,9 +744,9 @@ Arguments
 ```JavaScript
 misty.StartFaceDetection([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StartFaceRecognition - BETA -->
 ### misty.StartFaceRecognition - BETA
@@ -761,9 +761,9 @@ Arguments
 ```JavaScript
 misty.StartFaceRecognition([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StartFaceTraining - BETA -->
 ### misty.StartFaceTraining - BETA
@@ -779,9 +779,9 @@ Arguments
 ```JavaScript
 misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StopFaceDetection - BETA -->
 ### misty.StopFaceDetection - BETA
@@ -794,9 +794,9 @@ Arguments
 ```JavaScript
 misty.StopFaceDetection([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StopFaceRecognition - BETA -->
 ### misty.StopFaceRecognition - BETA
@@ -809,9 +809,9 @@ Arguments
 ```JavaScript
 misty.StopFaceRecognition([int prePause], [int postPause])
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Head Movement
 
@@ -830,9 +830,9 @@ Arguments
 ```JavaScript
 misty.MoveHeadDegrees(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.MoveHeadPosition -->
 ### misty.MoveHeadPosition
@@ -850,9 +850,9 @@ Arguments
 ```JavaScript
 misty.MoveHeadPosition(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.MoveHeadRadians -->
 ### misty.MoveHeadRadians
@@ -871,9 +871,9 @@ Arguments
 ```JavaScript
 misty.MoveHeadRadians(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SetHeadDegrees -->
 ### misty.SetHeadDegrees
@@ -890,9 +890,9 @@ Arguments
 ```JavaScript
 misty.SetHeadDegrees(string axis, double position, [double velocity,] [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.SetHeadPosition
 
@@ -908,9 +908,9 @@ Arguments
 ```JavaScript
 misty.SetHeadPosition(string axis, double position, double velocity, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SetHeadRadians -->
 ### misty.SetHeadRadians
@@ -927,9 +927,9 @@ Arguments
 ```JavaScript
 misty.SetHeadRadians(string axis, double position, [double velocity,] [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Arm Movement
 
@@ -1001,9 +1001,9 @@ Arguments
 ```JavaScript
 misty.FollowPath(string path, [int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamGetMap - ALPHA -->
 ### misty.SlamGetMap - ALPHA
@@ -1081,8 +1081,6 @@ Arguments
 
 Returns
 
-In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-
 * Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
   1 - Idle
   2 - Exploring
@@ -1114,6 +1112,8 @@ public enum SlamSensorStatus
 }
 ```
 
+**Note:** In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+
 <!-- misty.SlamReset - ALPHA -->
 ### misty.SlamReset - ALPHA
 Resets Misty's SLAM sensors.
@@ -1126,8 +1126,8 @@ Arguments
 misty.SlamReset([int prePause], [int postPause]);
 ```
 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+<!-- Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamStartMapping - ALPHA -->
 ### misty.SlamStartMapping - ALPHA
@@ -1140,9 +1140,9 @@ Arguments
 ```JavaScript
 misty.SlamStartMapping([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamStartTracking - ALPHA -->
 ### misty.SlamStartTracking - ALPHA
@@ -1156,8 +1156,8 @@ Arguments
 misty.SlamStartTracking([int prePause], [int postPause]);
 ```
 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+<!-- Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.SlamStopMapping - ALPHA
 Stops Misty mapping an area.
@@ -1171,8 +1171,8 @@ command, `postPause` is not used.
 misty.SlamStopMapping([int prePause], [int postPause]);
 ```
 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+<!-- Returns
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamStopTracking - ALPHA -->
 ### misty.SlamStopTracking - ALPHA
@@ -1185,9 +1185,9 @@ Arguments
 ```JavaScript
 misty.SlamStopTracking([int prePause], [int postPause]);
 ```
-
+<!-- 
 Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Events & Timing
 
@@ -1326,6 +1326,8 @@ Arguments
 ```JavaScript
 misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall])
 ```
+
+Returns
 
 * Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
@@ -1495,7 +1497,7 @@ misty.GetLogLevel([string callbackRule = “synchronous”], [string skillToCall
 
 Returns
 
-* level - The current log level of the robot. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+* level (string) - The current log level of the robot. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.Debug -->
 ### misty.Debug - ALPHA
