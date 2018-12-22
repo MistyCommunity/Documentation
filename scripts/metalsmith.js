@@ -152,23 +152,6 @@ exports.metalsmith = function() {
     // This plugin is complex and buggy.
     // It causes the duplicate nav bar bug during development with livereload
     .use(collections({
-      guide: {
-        pattern: 'guide/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'getting-started',
-          'tools-and-features',
-          'how-to-build-a-product'
-        ]
-      },
-      reference: {
-        pattern: 'reference/*md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'sdks',
-          'dev-tools'
-        ]
-      },
       coding: {
         pattern: 'coding/:section/*.md',
         sortBy: 'order',
@@ -183,56 +166,6 @@ exports.metalsmith = function() {
         orderDynamicCollections: [
           'robots',
           'apps'
-        ]
-      },
-      casestudies: {
-        pattern: 'casestudies/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'skills-developed',
-          'skills-in-development'
-        ]
-      },
-      tutorials: {
-        pattern: 'tutorials/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'quickstart',
-          'tutorial1'
-        ]
-      },
-      codesamples: {
-        pattern: 'codesamples/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'quickstart',
-          'tutorial1'
-        ]
-      },
-      faq: {
-        pattern: 'faq/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'question'
-        ]
-      },
-      datasheet: {
-        pattern: 'datasheets/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'photon-(wifi)',
-          'electron-(cellular)',
-          'kits-and-accessories',
-          'discontinued-products'
-        ]
-      },
-      support: {
-        pattern: 'support/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'support-and-fulfillment',
-          'troubleshooting',
-          'inquiries'
         ]
       }
     }))//end of collections/sections

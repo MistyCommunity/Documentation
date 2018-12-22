@@ -35,7 +35,7 @@ The `.json` file includes fields that set certain specifications for your skill.
 
 ### Writing the Code
 
-To issue any command to Misty in the local environment, we call methods on the `misty` object. Start by writing a debug message so we’re notified when the skill is started. To do this, call `misty.Debug()` and pass in a meaningful message. These messages will show up in your browser’s JavaScript console if you’re using the [Skill Runner](https://www.skill-runner.mistyrobotics.com) tool to run the skill.
+To issue any command to Misty in the local environment, we call methods on the `misty` object. Start by writing a debug message so we’re notified when the skill is started. To do this, call `misty.Debug()` and pass in a meaningful message. These messages will show up in your browser’s JavaScript console if you’re using the [Skill Runner](https://skill-runner.mistyrobotics.com) tool to run the skill.
 
 ```JavaScript
 misty.Debug("starting skill helloworld_timeofflight");

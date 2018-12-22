@@ -1,6 +1,6 @@
 ---
 title: Docs Home
-layout: onboarding.hbs
+layout: coding.hbs
 columns: one
 order: 1
 ---
