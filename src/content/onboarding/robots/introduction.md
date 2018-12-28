@@ -13,6 +13,6 @@ Once you get your robot powered up, you can quickly control Misty via her [Compa
 
 More Help & Links:
 * help @ mistyrobotics.com
-* [Misty Community forum](https://github.com/MistyCommunity/MistyI/tree/master/Skills)
+* [Misty Community forum](https://community.mistyrobotics.com/)
 * [Misty GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills)
 * [Misty Community Slack](http://misty-community.slack.com/). When you're accepted into the Misty Developer Program, you receive an invitation to the Misty Community Slack channel. This channel serves as the first line of response for all issues and questions you may have with your robot. The support channel is monitored for immediate response (5-10 minutes) from 8am-9pm Mountain Time on weekdays and from 8am-6pm Mountain Time on weekends.
