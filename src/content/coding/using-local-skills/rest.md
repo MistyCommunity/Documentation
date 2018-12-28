@@ -142,7 +142,7 @@ Parameters
 ```
 
 Return Values
-* Result (array) - A list of key, value pairs with the names of the code and meta skill files saved to the robot.
+* Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
 
 <!-- TriggerSkillEvent -->
 ### TriggerSkillEvent - ALPHA

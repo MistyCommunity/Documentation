@@ -1032,7 +1032,7 @@ misty.SlamGetMap([string callbackRule = “synchronous”], [string skillToCallU
 
 Returns
 
-* Result (object) - An object containing the following key, value pairs. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+* Result (object) - An object containing the following key-value pairs. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
   * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
   * height (integer) - The height of the occupancy grid matrix (in number of cells).
   * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
@@ -1395,31 +1395,37 @@ misty.Remove(string key)
 ```
 
 <!-- misty.SendExternalRequest --> 
-### misty.SendExternalRequest - ALPHA
-Sends an HTTP request from Misty to a specified external Uniform Resource Identifier (URI).
 
-**Note:** In most cases, the external servers response to this request must be passed into a callback function to be processed and made available for use in your skill. By default, the callback function for this commands is called  the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../tutorials/#hello-world-external-requests) tutorial.
+### misty.SendExternalRequest - ALPHA
+Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+**Note:** In most cases, the external server's response to requests sent from the robot must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command is given the same name as the command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../tutorials/#external-requests) tutorial.
 
 Arguments
-* method (string) - The HTTP request method indicating the action to perform for the external URI.
-* resource (string) - The full URI of an external resource.
-* authorization (string) - Indicates type of authentication required for authorization to access the resource at the specified URI, i.e. `“OAuth 1.0”`, `“OAuth 2.0”`, or `“Bearer Token”`.
-* token (string) - The authentication credentials required for authorization to access the resource at the specified URI.
-* arguments (string) - A string written in JSON format with key, value pairs for each parameter option to send to with the request.
-* returnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response
-* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by the external resource is ready. If empty, the default callback function ( `_SendExternalRequest()`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* resourceURL (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* authorization (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* token (string) - The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* arguments (string) - The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* returnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response, i.e. `text/plain`.
+* saveAssetToRobot (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* applyAssetAfterSaving (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* fileNameWithExtension (string) - The name to give the saved file, including the appropriate file type extension.
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SendExternalRequest()`) is called.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SendExternalRequest(string method, string resource, string authorization, string token, string returnType, JSON args, [string callback,] [string callbackRule], [string skillToCall], [int prePause], [int postPause]);
+misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileNameWithExtension, [string callbackMethod], [string callbackRule], [string skillToCallOnCallback], [int prePause], [int postPause]);
+Returns
 ```
 
 Returns
 
-* Returns the external server's response to the request. Data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See the [External Requests](../tutorials/#hello-world-external-requests) tutorial for more information.
+* Data (object) - An object containing the external server's response to the request. In most cases, data returned by the `misty.SendExternalRequest()` command must be passed into a callback function to be processed and made available for use in your skills. See the [External Requests](../tutorials/external-requests) tutorial for more information.
+
 
 <!-- misty.Set --> 
 ### misty.Set - ALPHA
