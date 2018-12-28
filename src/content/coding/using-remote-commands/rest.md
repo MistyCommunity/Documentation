@@ -1020,6 +1020,28 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### MoveArms
+Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
+
+Endpoint: POST {robot-ip-address}/api/arms/set
+
+Parameters
+* LeftArmPosition (double) - Optional. A value from 0 to 10, specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* RightArmPosition (double) - Optional. A value from 0 to 10, specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+
+```JSON
+{
+  "LeftArmPosition": "10",
+  "RightArmPosition": "10",
+  "LeftArmVelocity": "50",
+  "RightArmvelocity": "5",
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Mapping & Tracking
