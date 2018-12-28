@@ -992,7 +992,7 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-## Arms
+## Arm Movement
 
 ### MoveArm
 
@@ -1039,7 +1039,7 @@ Parameters
   "LeftArmPosition": 10,
   "RightArmPosition": 10,
   "LeftArmVelocity": 50,
-  "RightArmvelocity": 5,
+  "RightArmVelocity": 5,
 }
 ```
 
