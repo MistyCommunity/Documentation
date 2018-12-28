@@ -992,6 +992,35 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+## Arms
+
+### MoveArm
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
+
+Endpoint: POST {robot-ip-address}/api/arms/move
+
+Parameters
+* Arm (string) - The arm to move. You must use either `left` or `right`.
+* Position (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to 10, specifying the direction the arm should point. A value of 0 points the arm straight down, a value of 5 points the arm forward, and 10 points the arm straight up. 
+* Degrees (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -180 specifying the direction the arm should point. 0 points the arm straight down, -90 points the arm forward, and -180 points the arm straight up.
+* Radians (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -3.14, specifying the direction the arm should point. 0 points the arm straight down, -1.57 points the arm forward, and -3.14 points the arm straight up.
+* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+
+```JSON
+{
+  "Arm": "left",
+  "Position": 10,
+  "Velocity": 100
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
 
 ## Mapping & Tracking
 

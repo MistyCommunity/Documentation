@@ -931,7 +931,7 @@ misty.SetHeadRadians(string axis, double position, [double velocity,] [int prePa
 Returns
 * Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-## Arm Movement
+## Arms
 
 <!-- misty.MoveArmPosition -->
 ### misty.MoveArmPosition
