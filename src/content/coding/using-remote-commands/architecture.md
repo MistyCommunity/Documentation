@@ -13,7 +13,7 @@ When you send "remote commands" to Misty, your code is running on an external de
 
 Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use [this Python wrapper](https://github.com/MistyCommunity/mistyPy) to send Misty commands or a REST client such as Postman.
 
-Creating your own skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
+Creating your own remote skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
 
 ## Sending Commands to Misty
 

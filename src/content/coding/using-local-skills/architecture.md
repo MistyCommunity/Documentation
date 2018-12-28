@@ -16,7 +16,7 @@ When you write a local skill, your code takes advantage of Misty’s capabilitie
 You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The local skill command syntax differs slightly from that of remote skill commands. 
-* Data Handling: Events and Callbacks.** Both stored and live data from the robot are made available to a local skill via callback functions.
+* Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to a local skill via callback functions.
   * “Get” Data Callbacks
   * Sensor Event Callbacks
   * Timed or Triggered Event Callbacks
