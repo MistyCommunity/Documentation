@@ -47,10 +47,11 @@ We ship Misty with her battery disconnected. Follow the steps below to access th
     **Front-Facing Bump Sensor Cover Placement** ![Front-Facing bump sensor cover placement](../../../assets/images/mii-front-bump-sensor-cover-replacement.jpg)
     **Rear-Facing Bump Sensor Cover Placement** ![Rear-facing bump sensor cover placement](../../../assets/images/mii-rear-bump-sensor-cover-replacement.jpg)
 
-Now that you've connected your robot's battery, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/).
+## Connecting to Wi-Fi
+
+Now that you've connected your robot's battery, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) or the [API Explorer](../../apps/api-explorer/#connecting-wifi).
 
 ## Charging Misty II
-
 There are two ways to charge Misty II. You can use the wireless charging pad that comes with your robot, or you can plug the power supply directly into the power port on Misty's base.
 
 Note that Misty does not need to be turned on during charging. Misty continues to use some power even when switched off, so her battery levels will drop even when she is powered down. 
@@ -127,3 +128,44 @@ Misty is packed with sophisticated hardware and software features that contribut
 * Android™ 7 (navigation/computer vision)
 
 ![Misty II Specs](../../../assets/images/mii-specs.png)
+
+## Powering Up & Powering Down
+
+We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, considering placing books or blocks between her treads to elevate them above the surface of the table.
+
+### Turning Misty On
+1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](../../../assets/images/mii-power.jpg)
+2. The Misty Robotics logo first appears on the screen. Then Misty’s eyes appear, beginning in a closed state. The eyes gradually open as Misty boots up.![Misty II eyes closed](../../../assets/images/mii-waking.jpg)
+3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. **Important!** If after a few minutes, Misty's eyes still do not appear fully open, contact technical support for assistance.![Misty II eyes open](../../../assets/images/mii-awake.png)
+
+### Restarting Misty
+If you need to restart Misty:
+1. Turn off the power switch on Misty's base.
+2. Wait 10 seconds.
+3. Turn on the power switch on Misty's base again. Misty has rebooted when her eyes are fully open.
+
+### Turning Misty Off
+To turn off your robot, turn off the power switch on Misty’s base.
+
+**Note:** There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts, she abruptly powers down.
+
+**Note:** At this time, critical updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.
+
+## System Updates
+Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the Misty Companion app or API Explorer.
+
+Updates can include:
+
+* Image and/or sound assets
+* Motor controller firmware
+* Real-time controller firmware
+* Occipital Structure Core depth sensor firmware
+* Home Robot application (running on Windows IoT Core)
+* Sensory Services application (running on Android)
+* OS updates
+
+We recommend you check for updates on a weekly basis.
+
+**Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
+
+

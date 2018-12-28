@@ -273,7 +273,7 @@ To peform a targeted update, check the box next to each component to attempt to 
 
 **Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **Easy Commands** section at the top of the API Explorer. 
 
-## Connecting WiFi
+## Connecting Wi-Fi
 While it’s usually easiest to use the [Misty Companion App](../companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
