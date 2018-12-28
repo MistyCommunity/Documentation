@@ -9,5 +9,6 @@
 	"/getting-started": "/coding/get-started/setting-up-misty/",
 	"/onboarding": "/onboarding/robots/introduction",
 	"/coding": "/coding/using-local-skills/architecture",
-	"/tutorials": "/tutorials/quickstart/"
+	"/tutorials": "/coding/using-local-skills/tutorials",
+	"/apis/api-reference/rest": "/coding/using-remote-commands/rest"
 }
