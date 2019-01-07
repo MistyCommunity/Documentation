@@ -311,7 +311,7 @@ Return Values
 ### SlamStartStreaming - ALPHA
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-**Important!** Always use `SlamStopStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use `SlamStopStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `SlamStopStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
 Endpoint: POST {robot-ip-address}/api/alpha/slam/streaming/start
 
@@ -322,7 +322,7 @@ Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### SlamStopStreaming - ALPHA
-Closes the data stream from the Occipital Structure Core depth sensor.
+Closes the data stream from the Occipital Structure Core depth sensor. This command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 **Important!** Always use this command to close the depth sensor data stream after using `SlamStartStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 

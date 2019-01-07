@@ -205,7 +205,7 @@ Returns
 ### misty.SlamStartStreaming - ALPHA
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-**Important!** Always use `misty.SlamStopStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use `misty.SlamStopStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.SlamStopStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -221,7 +221,7 @@ Returns
 
 <!-- misty.SlamStopStreaming - ALPHA -->
 ### misty.SlamStopStreaming - ALPHA
-Closes the data stream from the Occipital Structure Core depth sensor.
+Closes the data stream from the Occipital Structure Core depth sensor. Calling this command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 **Important!** Always use this command to close the depth sensor data stream after using `misty.SlamStartStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
