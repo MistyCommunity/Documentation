@@ -66,7 +66,7 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfImages([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.GetListOfImages([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Returns
@@ -290,13 +290,14 @@ Note that you can use the `misty.GetListOfAudioFiles()` command to list all audi
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfAudioClips([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -315,13 +316,14 @@ Lists all audio files (default system files and user-added files) currently stor
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfAudioFiles([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetListOfAudioFiles([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
