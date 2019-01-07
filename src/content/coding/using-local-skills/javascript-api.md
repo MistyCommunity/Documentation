@@ -59,14 +59,14 @@ Obtains a list of the images stored on Misty.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function ( `<_CommandName>`) is called. 
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfImages([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.GetListOfImages([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Returns
@@ -128,13 +128,13 @@ Obtains a system or user-uploaded image file currently stored on Misty.
 Arguments  
 * imageName (string) - The name of the image file to get, including its file type extension.
 * base64 (boolean) - Optional. Passing in `true` returns the image data as a Base64 string. Passing in `false` returns the image. Defaults to `true`. 
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -148,21 +148,21 @@ Returns
 
 <!-- misty.SlamGetDepthImage -->
 ### misty.SlamGetDepthImage - ALPHA
-Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
 **Note:** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function ( `_<COMMAND>`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -182,14 +182,14 @@ Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
 Arguments
 * Base64 (boolean) - True or False. Sending a request with `true` returns the image data as a Base64 string, while sending a request of `false` displays the photo immediately after it is taken. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, then pass the returned image data to `misty.SaveImageAssetToRobot()`.
-* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function ( `_<COMMAND>`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamGetVisibleImage([bool base64], [string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.SlamGetVisibleImage([bool base64], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Returns
@@ -254,14 +254,14 @@ Arguments
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * displayOnScreen (boolean) - Optional. If `true` and a `fileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `fileName` value is provided, does nothing.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of false indicates the file should not overwrite any existing files on Misty.
-* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function ( `_<COMMAND>`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.TakePicture([bool base64], [string fileName], [int width], [int height], [bool DisplayOnScreen], [bool OverwiteExisting], [string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.TakePicture([bool base64], [string fileName], [int width], [int height], [bool DisplayOnScreen], [bool OverwiteExisting], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -291,13 +291,13 @@ Note that you can use the `misty.GetListOfAudioFiles()` command to list all audi
 
 Arguments
 * callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -317,13 +317,13 @@ Lists all audio files (default system files and user-added files) currently stor
 
 Arguments
 * callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfAudioFiles([string callbackMethod], [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetListOfAudioFiles([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -547,13 +547,13 @@ Obtains a list of local WiFi networks and basic information regarding each.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetAvailableWifiNetworks([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetAvailableWifiNetworks([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -570,13 +570,13 @@ Obtains Misty's current battery level.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetBatteryLevel([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetBatteryLevel([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -590,13 +590,13 @@ Obtains device-related information for the robot.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetDeviceInformation([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetDeviceInformation([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -624,13 +624,13 @@ Obtains information about a specified API command. Calling `misty.GetHelp()` wit
 
 Arguments
 * endpointName (string) - Command in "Api.<COMMAND>" format eg: "Api.GetListOfAudioClips". If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetHelp([string endpointName],[string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetHelp([string endpointName],[string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -647,13 +647,13 @@ Obtains information about a specified beta API command. Calling `misty.GetBetaHe
 
 Arguments
 * endpointName (string) - A beta command name in "Api.<COMMAND>" format, e.g.: "Api.SetHeadPosition". If no command name is specified, `GetBetaHelp` returns a list of all the beta API commands.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetBetaHelp([string endpointName],[string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetBetaHelp([string endpointName],[string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -720,13 +720,13 @@ Obtains a list of the names of faces on which Misty has been successfully traine
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetLearnedFaces([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetLearnedFaces([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -823,7 +823,7 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 
 Arguments
 * pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from approximately -9.5 (fully up) to 34.9 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-* roll (double) - A value specifying the tilt (“ear” to “shoulder”) of Misty’s head. Misty’s head tilts to the left or right. Values range from -43.0 (fully left) to 43.0 (fully right). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
+* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Misty’s head tilts to the left or right. Values range from -43.0 (fully left) to 43.0 (fully right). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
 * yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
 * velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -843,7 +843,7 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 
 Arguments
 * pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from -5 (fully up) to 5 (fully down).
-* roll (double) - A value specifying the tilt (“ear” to “shoulder”) of Misty’s head. Values range from -5 (head tilted fully to the left shoulder) to 5 (head fully to the right shoulder). This value is ignored for Misty I.
+* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -5 (head tilted fully to the left shoulder) to 5 (head fully to the right shoulder). This value is ignored for Misty I.
 * yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -5 (fully right) to 5 (fully left). This value is ignored for Misty I.
 * velocity (double) - A value from 0 to 100 specifying the speed at which Misty moves her head.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -863,7 +863,7 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 
 Arguments
 * pitch (double) - A value in radians specifying the position of Misty’s head along the up-down axis. Values range from -0.1662 (fully up) to 0.6094 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-* roll (double) - A value in radians specifying the tilt (“ear” to “shoulder”) of Misty’s head. Values range from -0.75 (head tilted fully to the left shoulder) to 0.75 (head fully to the right shoulder). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
+* roll (double) - A value in radians specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -0.75 (head tilted fully to the left shoulder) to 0.75 (head fully to the right shoulder). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
 * yaw (double) - A value in radians specifying the turn to the left or right of Misty’s head. Values range from -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
  This value is ignored for Misty I.
 * velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
@@ -883,7 +883,7 @@ Returns
 Moves Misty’s head to a given degree along one of three axes (tilt, turn, or up-and-down).
 
 Arguments
-* axis (string) - The axis to change. Values are `”yaw”` (turn), `”pitch”` (up-and-down), or `”roll”` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.  
+* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.  
 * position (double) - Indicates the degree to move Misty’s head to along the given axis. The value range for pitch is -9.5 (fully up) to 35.0 (fully down); for roll, --43.0 (fully left) to 43.0 (fully right); for yaw, -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. 
 * velocity (double) - The speed of the head movement. Value range: 0 to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -901,7 +901,7 @@ Returns
 Moves Misty’s head to a given position along one of three axes (tilt, turn, or up-and-down).
 
 Arguments
-* axis (string) - The axis to change. Values are `”yaw”` (turn), `”pitch”` (up-and-down), or `”roll”` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.
+* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.
 * position (double) - Indicates the position to move Misty’s head to along the given axis. Value range is -5 to 5. For pitch, -5 is fully up and 5 is fully down. For roll, -5 is fully left and 5 is fully right. For yaw, -5 is fully right and 5 is fully left.
 * velocity (double) - The speed of the head movement. Value range: 0 to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -920,7 +920,7 @@ Returns
 Moves Misty’s head to a given radian along one of three axes (tilt, turn, or up-and-down).
 
 Arguments
-* axis (string) - The axis to change. Values are `”yaw”` (turn), `”pitch”` (up-and-down), or `”roll”` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.
+* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.
 * position (double) - Indicates the radian to move Misty’s head to along the given axis. The value range for pitch is -0.1662 (fully up) to 0.6094 (fully down); for roll, -0.75 (fully left) to 0.75 (fully right); for yaw, -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
 * velocity (double) - The speed of the head movement. Value range: 0 to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1018,24 +1018,24 @@ Obtains occupancy grid data for the most recent map Misty has generated.
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
-The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: “unknown", “open", “occupied", or “covered").
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.SlamGetPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamGetMap([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.SlamGetMap([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
 
 * Result (object) - An object containing the following key-value pairs. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
-  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
   * height (integer) - The height of the occupancy grid matrix (in number of cells).
   * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
   * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
@@ -1056,13 +1056,13 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 Arguments
 * X (double) - The X coordinate of the destination.
 * Y (double) - The Y coordinate of the destination.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamGetPath(double X location, double Y location, [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.SlamGetPath(double X location, double Y location, [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -1076,7 +1076,7 @@ Obtains values representing Misty's current activity and sensor status.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -1266,11 +1266,11 @@ Arguments
 * messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed here.
 * debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
 * keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`.
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueID (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 
 ```JavaScript
-misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = “synchronous”], [string skillToCallUniqueId]);
+misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = "synchronous"], [string skillToCallUniqueId]);
 ```
 
 Returns
@@ -1450,19 +1450,19 @@ misty.Set(string key, string value);
 <!-- misty.GetLogFile -->
 ### misty.GetLogFile
 
-Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days. Calling `GetLogFile` with no parameters returns all available log data.
+Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* date (string) - Optional. A date within the last 7 days. Dates must be formatted as: `MonthName/Date/FourDigitYear` or `FourDigitYear/MonthNumber/Date`. Example: `September/24/2018` or `2018/9/24`.
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+* callbackMethod (string) - Optional. Specifies the name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetLogFile(string date, [string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetLogFile([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -1494,13 +1494,13 @@ Obtains the current log level of the robot.
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 Arguments
-* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `”synchronous”`, `”override”`, and `”abort”`. Defaults to `”synchronous”`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks). 
+* callbackRule (string) - Optional. Designates the callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks). 
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetLogLevel([string callbackRule = “synchronous”], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetLogLevel([string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Returns
