@@ -82,7 +82,7 @@ Misty is packed with sophisticated hardware and software features that contribut
 * Weight: 2.7 kg / 6 lbs
 
 ### Processors
-* Qualcomm® Snapdragon 820™ mobile processor with X12 LTE
+* Qualcomm® Snapdragon 820™ mobile processor
 * Qualcomm® Snapdragon 410™ processor
 
 ### Computer Vision
