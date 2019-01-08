@@ -73,7 +73,7 @@ Before we register to the event in our code, we can add property comparison test
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
 ```
 
-The second property test checks ensures we are only looking at data where the distance to the object detected is less than 0.2m. We don’t want our skill to react to things further away than about 6 inches.
+The second property test ensures we are only looking at data where the distance to the object detected is less than 0.2m. We don’t want our skill to react to things further away than about 6 inches.
 
 ```JavaScript
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
@@ -887,4 +887,226 @@ function _BackTOF(data) {
 ```
 
 Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill).
+
+## Head & Arm Movement (Misty II)
+
+In this tutorial we write a skill that moves Misty's head and arms. There are a variety of movement commands we could use, each taking different types of values (`position`, `degrees`, or `radians`). In this tutorial, we’re using the set of Misty’s movement commands that use `position` values.
+
+**Note:** Because Misty I robots do not have arms, and because their heads can only move along a single axis (pitch), this skill only works with Misty II.
+
+### Writing the Meta File
+
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_HeadArms"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_HeadArms.json`.
+
+```json
+{
+    "Name": "HelloWorld_HeadArms",
+    "UniqueId": "3eb34dc8-14f6-4af3-872a-ce14f168211f",
+    "Description": "Local 'Hello, World!' tutorial series.",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": true,
+    "WriteToLog": false
+}
+```
+
+### Writing the Code File
+
+The code file for this skill is separated into two parts. In the first section, we write the logic describing how Misty should move her head. The second section describes how Misty should move her arms.
+
+#### Moving Misty's Head
+
+There are three axes of movement (also described as “three degrees of freedom”) with Misty’s neck:
+* pitch (up or down)
+* yaw (turning left or right)
+* roll (tilting left or right)
+
+When we move Misty’s head by position, we provide both the desired axis of movement and a value for the position of her head when the movement is complete. That position value ranges from `-5` to `5`, which maps to Misty’s full range of neck motion. Additionally, Misty can move along each axis at varying velocities, which we specify as a percentage of max speed.
+
+For our skill, we register to receive time-of-flight (distance) events and have Misty move her head in response these events. We start by calling `misty.RegisterEvent()`. Pass in the name to designate for the event (`"FrontTOF"`), and the name of the sensor data stream to subscribe to (`"TimeOfFlight"`). Pass in `100` for the third parameter (`debounce`) to receive data from `TimeOfFlight` events once every 100 milliseconds.
+
+```JavaScript
+misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100);
+```
+
+Above where we register to the event in our code, we can add property comparison tests to filter the data we receive. In this example, the first property test checks that we are only looking at data from front-facing time-of-flight sensors. The field we’re testing is `SensorPosition` and we’re checking that the data received is not coming from the time-of-flight sensors in the back of Misty’s base. Therefore, we only let through messages where `SensorPosition !== Back`.
+
+```JavaScript
+misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
+```
+
+The second property test ensures we are only looking at data where the distance to the object detected is less than 0.2m. We don’t want misty to move her head until she detects something closer than about 6 inches.
+
+```JavaScript
+misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
+```
+
+When we receive any of our specified time-of-flight events, the callback `_FrontTOF()` runs. It’s in `_FrontTOF()` that we’re going to perform the actual head movement. This function is triggered whenever messages are sent that pass the property tests. The callback is automatically given the name `_<event>`, so in this case, the callback name is set to `_FrontTOF()`. For more on events and callbacks, see [Data Handling: Events & Callbacks](../architecture/#data-handling-events-amp-callbacks).
+
+
+```JavaScript
+function _FrontTOF() {
+
+}
+```
+
+Inside the `_FrontTOF()` callback, we call `misty.MoveHeadPosition()` and pass in the axis, position, velocity, and optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`) at a moderate velocity (`60`). We specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
+
+```JavaScript
+misty.MoveHeadPosition("pitch", -5, 60, 0, 1500);
+```
+
+Within the `_FrontTOF()` callback, we actually call `misty.MoveHeadPosition()` multiple times with a variety of parameters, so we can move Misty’s head in different ways. To make things interesting, we can also add in commands to change the LED and make sounds in between the head movement commands.
+
+```JavaScript
+misty.ChangeLED(0, 255, 255); // aqua
+misty.PlayAudio("001-OooOooo.wav");
+
+// pitch
+misty.MoveHeadPosition("pitch", -5, 60, 0, 1500); // up
+misty.MoveHeadPosition("pitch", 5, 60, 0, 1500); // down
+misty.MoveHeadPosition("pitch", 0, 60, 0, 1500); // center
+
+misty.ChangeLED(255, 0, 255); // magenta
+misty.PlayAudio("004-WhaooooO.wav");
+
+// yaw
+misty.MoveHeadPosition("yaw", -5, 60, 0, 1500); // left
+misty.MoveHeadPosition("yaw", 5, 60, 0, 1500); // right
+misty.MoveHeadPosition("yaw", 0, 60, 0, 1500); // center
+
+misty.ChangeLED(255, 255, 0); // yellow
+misty.PlayAudio("004-EuuEuuuuu.wav");
+
+// roll
+misty.MoveHeadPosition("roll", -5, 60, 0, 1500); // side
+misty.MoveHeadPosition("roll", 5, 60, 0, 1500); // to side
+misty.MoveHeadPosition("roll", 0, 60, 0, 1500); // center
+
+misty.ChangeLED(0, 0, 0); // off
+misty.PlayAudio("010-Hummmmmm.wav");
+```
+
+#### Moving Misty's Arms
+
+Now that we’ve moved Misty’s head in response to sensing things in front of her, we can exercise arm movement. We want Misty to move her arms when she senses something at a given distance behind her. To do this, within the `_FrontTOF()` callback we register for back time-of-flight events.
+
+```JavaScript
+// register for back TOF and add property tests
+misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<=", 0.2, "double");
+misty.RegisterEvent("BackTOF", "TimeOfFlight", 100);
+```
+
+We register for `BackTOF` events by adding property tests checking that `SensorPosition` equals `Back` and the `DistanceInMeters` is less than or equal to `0.2`. We then call `misty.RegisterEvent()` and pass in the name for the event, `BackTOF`. When `BackTOF` is triggered, the callback runs. And it’s within the `_BackTOF()` callback that we send the actual commands to move Misty’s arms.
+
+Like head movement, arm movement can be controlled three ways, by position, radians, or degrees. In this example, we’ll use position via the `misty.MoveArmPosition()` command. With this command you can designate which arm to move (`Left` or `Right`), the position to move it to (a range from `0` to `10`), the velocity (a percentage of max speed), and provide optional `prePause` and `postPause` values (in ms). Here, we tell Misty to move her left arm up at a moderate speed to the limit of her motion.
+
+```JavaScript
+misty.MoveArmPosition("Left", 10, 60, 0, 1500);
+```
+
+As we did with head movement, within the callback we can call `misty.MoveArmPosition()` multiple times, with different parameters to move her arms in a variety of ways. And we can again include commands to change the LED and make sounds in between the arm movement commands. Once the movements are finished, we log a debug message indicating the skill is complete.
+
+```JavaScript
+function _BackTOF() {
+    misty.ChangeLED(0, 255, 0) // lime
+    misty.PlayAudio("006-Urhurra.wav");
+
+    // left
+    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
+    misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
+
+    misty.ChangeLED(128, 0, 0) // maroon
+    misty.PlayAudio("001-EeeeeeE.wav");
+
+    // right
+    misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
+    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
+
+    misty.ChangeLED(0, 0, 0); // off
+    misty.PlayAudio("010-Hummmmmm.wav");
+
+    misty.Debug("ending skill helloworld part7");
+}
+```
+
+When the skill runs, Misty registers for `FrontTOF` events. When an event is triggered that passes the specified property tests, she moves her head and registers for `BackTOF` events. When a `BackTOF` event occurs that passes the specified property tests, she moves 
+her arms and ends skill execution.
+
+Save the code file with the name `HelloWorld_HeadArms.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+
+See the complete `HelloWorld_HeadArms.js` file here for reference.
+
+```JavaScript
+// debug message to indicate the skill has started
+misty.Debug("starting skill helloworld part7");
+
+// register for front TOF and add property tests
+misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
+misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
+misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100);
+
+// front TOF callback, head
+function _FrontTOF() {
+    misty.ChangeLED(0, 255, 255); // aqua
+    misty.PlayAudio("001-OooOooo.wav");
+
+    // pitch
+    misty.MoveHeadPosition("pitch", -5, 60, 0, 1500); // up
+    misty.MoveHeadPosition("pitch", 5, 60, 0, 1500); // down
+    misty.MoveHeadPosition("pitch", 0, 60, 0, 1500); // center
+
+    misty.ChangeLED(255, 0, 255); // magenta
+    misty.PlayAudio("004-WhaooooO.wav");
+
+    // yaw
+    misty.MoveHeadPosition("yaw", -5, 60, 0, 1500); // left
+    misty.MoveHeadPosition("yaw", 5, 60, 0, 1500); // right
+    misty.MoveHeadPosition("yaw", 0, 60, 0, 1500); // center
+
+    misty.ChangeLED(255, 255, 0); // yellow
+    misty.PlayAudio("004-EuuEuuuuu.wav");
+
+    // roll
+    misty.MoveHeadPosition("roll", -5, 60, 0, 1500); // side
+    misty.MoveHeadPosition("roll", 5, 60, 0, 1500); // to side
+    misty.MoveHeadPosition("roll", 0, 60, 0, 1500); // center
+
+    misty.ChangeLED(0, 0, 0); // off
+    misty.PlayAudio("010-Hummmmmm.wav");
+
+    // register for back TOF and add property tests
+    misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+    misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<=", 0.2, "double");
+    misty.RegisterEvent("BackTOF", "TimeOfFlight", 100);
+}
+
+// back TOF callback, arms
+function _BackTOF() {
+    misty.ChangeLED(0, 255, 0) // lime
+    misty.PlayAudio("006-Urhurra.wav");
+
+    // left
+    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
+    misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
+
+    misty.ChangeLED(128, 0, 0) // maroon
+    misty.PlayAudio("001-EeeeeeE.wav");
+
+    // right
+    misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
+    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
+
+    misty.ChangeLED(0, 0, 0); // off
+    misty.PlayAudio("010-Hummmmmm.wav");
+
+    misty.Debug("ending skill helloworld part7");
+}
+```
+
+
+
 
