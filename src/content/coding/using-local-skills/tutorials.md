@@ -1107,3 +1107,231 @@ function _BackTOF() {
     misty.Debug("ending skill HelloWorld_HeadArms");
 }
 ```
+
+## Bump Sensors (Misty II)
+
+In this tutorial we learn how to interact with Misty’s bump sensors. We use a ["Get" type of command](../architecture/#get-commands) to fetch the list of audio clips on Misty's local storage, and we assign different audio files to unique global variables. We then register for bump sensor events and write logic to have Misty play a different audio clip when you press each of her bump sensors.
+
+**Note:** Because Misty I robots do not have bump sensors, this skill only works with Misty II.
+
+### Writing the Meta File
+
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_Bump Sensors"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_BumpSensors.json`.
+
+```json
+{
+    "Name": "HelloWorld_BumpSensors",
+    "UniqueId": "01190e52-3d72-4a9c-ba26-ea483fbdbdea",
+    "Description": "Local 'Hello, World!' tutorial series",
+    "StartupRules": [ "Manual", "Robot" ],
+    "Language": "javascript",
+    "BroadcastMode": "verbose",
+    "TimeoutInSeconds": 300,
+    "CleanupOnCancel": true,
+    "WriteToLog": false
+}
+```
+
+### Writing the Code File
+
+The code file consists of two main parts. In the first part, we retrieve the list of audio clips on Misty, assign four of these clips to global variables so we can use them throughout our skill, and register for bump sensor events. In the second part, we set up the bump sensor event callback function to have Misty play a different sound each time her bump sensors activate. 
+
+To begin, send a debug message to indicate the skill is running.
+
+```JavaScript
+misty.Debug("HelloWorld_BumpSensors is running")
+```
+
+Then call `misty.GetListOfAudioClips()` to fetch the list of audio clips on Misty's local storage. Data returned by "Get" type commands must be passed into a callback function to be used in your skill. For the first parameter of `misty.GetListOfAudioClips()`, designate a name for the callback function to run when the audio data is ready (`_GetListOfAudioClips`). Pass `"synchronous"` for the second parameter (`callbackRule`). 
+
+```
+misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
+```
+
+The `_GetListOfAudioClips()` callback triggers when the data from `misty.GetListOfAudioClips()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks)
+
+Next write the logic for the `_GetListOfAudioClips()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetListOfAudioClips()`.
+
+```JavaScript
+function _GetListOfAudioClips(data) {
+
+}
+```
+
+When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioClips()`, which contains an array of audio file data. **In local skills, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`**. 
+
+In the `_GetListOfAudioClips()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
+
+```JavaScript
+_audio1 = data.Result[0].Name;
+_audio2 = data.Result[1].Name;
+_audio3 = data.Result[2].Name;
+_audio4 = data.Result[3].Name;
+```
+
+Next we register for bump sensor events. Call `misty.RegisterEvent()` and pass in a name to designate for the event (for simplicity, we use `BumpSensor`). Next, pass in the message type to subscribe to (also `BumpSensor`), a small value for the `debounce` parameter (`200`), and `true` for `keepAlive` to ensure the event does not unregister when the callback is triggered.
+
+```JavaScript
+misty.RegisterEvent("BumpSensor", "BumpSensor", 200, true);
+```
+
+Above the registration command, use `misty.AddPropertyTest()` to check that `isContacted == true`. Bump sensor messages are sent both when a sensor is pressed **and** when it’s released. This property test filters out data sent when sensors are released, so the `_BumpSensor()` callback only triggers when a bump sensor is pressed. The value of `isContacted` is a boolean, so the fifth parameter we pass to `misty.AddPropertyTest()` must be `boolean`.
+
+```JavaScript
+misty.AddPropertyTest("BumpSensor", "isContacted", "==", true, "boolean");
+```
+
+The callback for our bump sensor event triggers when any of Misty's sensors are pressed. To determine which sensor is activated, we use the `sensorName` property sent with each bump sensor event message. To access this data in the `_BumpSensor()` callback, call `misty.AddReturnProperty()` above the event registration command. Pass in the name of the event (`BumpSensor`) and the property to return information about (`sensorName`).
+ 
+```JavaScript
+misty.AddReturnProperty("BumpSensor", "sensorName");
+```
+
+The full `_GetListOfAudioClips()` callback looks like this.
+
+```JavaScript
+function _GetListOfAudioClips(data) {
+   _audio1 = data.Result[0].Name;
+   _audio2 = data.Result[1].Name;
+   _audio3 = data.Result[2].Name;
+   _audio4 = data.Result[3].Name;
+
+   misty.AddPropertyTest("BumpSensor", "isContacted", "==", true, "boolean");
+   misty.AddReturnProperty("BumpSensor", "sensorName");
+   misty.RegisterEvent("BumpSensor", "BumpSensor", 200, true);
+}
+```
+
+Within the `_BumpSensor()` callback, dig into the response data to access the name of the activated sensor. Assign this value to a variable called `sensorName`. The name of any return properties we specify with `misty.AddReturnProperty()` are located in `data.AdditionalResults`.
+
+```JavaScript
+function _BumpSensor(data) {
+    let sensorName = data.AdditionalResults[0];
+}
+```
+
+We want to issue a `misty.PlayAudioClip()` command with a different audio file each time a bump sensor activates. To do this, write a `switch` statement and pass in the `sensorName` variable. The value of `sensorName` will be string indicating which of the four bump sensors was pressed: `"Bump_FrontRight"`, `"Bump_FrontLeft"`, `"Bump_RearRight"`, or `"Bump_RearLeft"`. Declare a case for each of these values. Within each case, send a debug message indicating which sensor was pressed. Then issue a `misty.PlayAudioClip()` command and pass in one of the global variables to which we assigned an audio file in the `_GetListOfAudioClips()` callback. For the second parameter (`volume`), pass an integer between 1 and 100.
+
+```JavaScript
+switch (sensorName) {
+    case "Bump_FrontRight":
+    misty.Debug("front right bump sensor was pressed")
+        misty.PlayAudioClip(_audio1, 75);
+        break
+
+    case "Bump_FrontLeft":
+    misty.Debug("front left bump sensor was pressed")
+        misty.PlayAudioClip(_audio2, 75);
+        break
+
+    case "Bump_RearRight":
+    misty.Debug("rear right bump sensor was pressed")
+        misty.PlayAudioClip(_audio3, 75);
+    break
+
+    case "Bump_RearLeft":
+    misty.Debug("rear left bump sensor was pressed")
+    misty.PlayAudioClip(_audio4, 75);
+    break
+}
+```
+
+The `_BumpSensor()` callback triggers when a bump sensor event passes our property comparison test. When this callback triggers, we determine which sensor was pressed and issue a command to play a specific audio file. The entire `_BumpSensor()` callback looks like this:
+
+```JavaScript
+function _BumpSensor(data) {
+   let sensorName = data.AdditionalResults[0];
+
+   switch (sensorName) {
+	case "Bump_FrontRight":
+		misty.PlayAudioClip(_audio1, 75);
+		break
+
+	case "Bump_FrontLeft":
+		misty.PlayAudioClip(_audio2, 75);
+		break
+
+	case "Bump_RearRight":
+		misty.PlayAudioClip(_audio3, 75);
+		break
+
+	case "Bump_RearLeft":
+		misty.PlayAudioClip(_audio4, 75);
+		break
+   }
+}
+```
+
+When this skill runs, Misty retrieves the list of audio clips in her local storage and associates the names of four audio files with unique global variables. She then registers for bump sensor events. Each time an event occurs, Misty determines which bump sensor was pressed and plays the sound associated with that sensor. 
+
+**Note:** By default local skills timeout after 300 seconds, so this skill automatically stops executing after 5 minutes. This duration can be changed by changing the value of the `TimeoutInSeconds` property in the meta file. 
+
+Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](https://skill-runner.mistyrobotics.com) or the REST API to [load your skill data onto Misty and run the skill from the browser](../architecture/#loading-amp-running-a-local-skill). 
+
+See the complete `HelloWorld_BumpSensor.js` file here for reference. 
+
+```JavaScript
+// Send a debug message to indicate the skill is running
+misty.Debug("HelloWorld_BumpSensors is running")
+
+// Fetch audio list and designate a callback 
+// to run when the data is available
+misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
+
+// Handle the data returned by misty.GetListOfAudioClips 
+function _GetListOfAudioClips(data) {
+   // Assign the names of audio files from the list to global variables
+   _audio1 = data.Result[0].Name;
+   _audio2 = data.Result[1].Name;
+   _audio3 = data.Result[2].Name;
+   _audio4 = data.Result[3].Name;
+
+   // Use a property test test to isolate bump sensor
+   // messages where isContacted is true
+   misty.AddPropertyTest("BumpSensor", "isContacted", "==", true, "boolean");
+   // Add the value for the sensorName property to the bump sensor
+   // data that can be accessed in the callback
+   misty.AddReturnProperty("BumpSensor", "sensorName");
+   // register for BumpSensor events
+   misty.RegisterEvent("BumpSensor", "BumpSensor", 200, true);
+}
+
+// Handle data sent by BumpSensor events
+function _BumpSensor(data) {
+    // Assign the value of the sensorName property to a variable
+    let sensorName = data.AdditionalResults[0];
+
+    // determine which sensor is pressed. Send a debug 
+    // message indicating the sensor location and play an audio
+    // clip command with an audio file name unique to each bump sensor
+    switch (sensorName) {
+        // If the front right sensor is pressed, play the audio clip 
+    // assigned to _audio1
+        case "Bump_FrontRight":
+        misty.Debug("front right bump sensor pressed")
+        misty.PlayAudioClip(_audio1, 75);
+        break
+    // If the FrontLeft sensor is pressed, play the audio clip
+    // assigned to _audio2 
+    case "Bump_FrontLeft":
+        misty.Debug("front left bump sensor pressed")
+        misty.PlayAudioClip(_audio2, 75);
+        break
+    // If the RearRight sensor is pressed, play the audio clip
+    // assigned to _audio3
+    case "Bump_RearRight":
+        misty.Debug("rear right bump sensor pressed")
+        misty.PlayAudioClip(_audio3, 75);
+        break
+    // If the RearLeft sensor is pressed, play the audio clip
+    // assigned to _audio4
+    case "Bump_RearLeft":
+        misty.Debug("rear left bump sensor pressed")
+        misty.PlayAudioClip(_audio4, 75);
+        break
+    }
+}
+```
+
+
+
