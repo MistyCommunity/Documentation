@@ -256,7 +256,7 @@ misty.Set(string key, string value);
 
 Data saved using `Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
-Additional commands that operate on data across skills are described in the “Helper Commands” section below. 
+Additional commands that operate on data across skills are described in the [Helper Commands](./#helper-commands) section. 
 
 <!-- TODO: Add link to Helper Commands section -->
 
@@ -267,16 +267,16 @@ The following briefly describe the categories of commands you have available to 
 Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../javascript-api).
 
 ### Get Commands
-Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the “Get Data Callbacks” section above for more usage details.
+Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-get-data-callbacks) section for more usage details.
 
 <!-- TODO: add link to GET DATA CALLBACKS section -->
 
 ### Event Commands
 All of the event command types require you to implement a callback to be notified when they return.
 
-* **Sensor Events.** These commands (such as `RegisterEvent` and `AddPropertyTest`) allow you to be notified when sensor data that meets your criteria is available from Misty. See the “Sensor Event Callbacks” section above for more usage details.
+* **Sensor Events.** These commands (such as `RegisterEvent` and `AddPropertyTest`) allow you to be notified when sensor data that meets your criteria is available from Misty. See the [Sensor Event Callbacks](./#sensor-event-callbacks) section for more usage details.
 * **Timed Events.** Using the `RegisterTimerEvent` command, you can create timed events that call back to the skill after a certain period of time.
-* **Triggered Events.** With the `RegisterUserEvent` command, you can also create a triggered event to call back to the skill when an specific command is called. See the “Timed or Triggered Event Callbacks” section above for more details on using user-defined event callbacks.
+* **Triggered Events.** With the `RegisterUserEvent` command, you can also create a triggered event to call back to the skill when an specific command is called. See the [Timed or Triggered Event Callbacks](./#timed-or-triggered-event-callbacks) section for more details on using user-defined event callbacks.
 
 <!-- TODO: Add link to Timed or Triggered Event Callbacks section -->
 

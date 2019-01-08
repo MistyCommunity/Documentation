@@ -1029,7 +1029,7 @@ function _BackTOF() {
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudio("010-Hummmmmm.wav");
 
-    misty.Debug("ending skill helloworld part7");
+    misty.Debug("ending skill HelloWorld_HeadArms");
 }
 ```
 
@@ -1042,7 +1042,7 @@ See the complete `HelloWorld_HeadArms.js` file here for reference.
 
 ```JavaScript
 // debug message to indicate the skill has started
-misty.Debug("starting skill helloworld part7");
+misty.Debug("starting skill HelloWorld_HeadArms");
 
 // register for front TOF and add property tests
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
@@ -1103,7 +1103,7 @@ function _BackTOF() {
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudio("010-Hummmmmm.wav");
 
-    misty.Debug("ending skill helloworld part7");
+    misty.Debug("ending skill HelloWorld_HeadArms");
 }
 ```
 
