@@ -952,7 +952,7 @@ function _FrontTOF() {
 }
 ```
 
-Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadPosition()`](../javascript-api/#misty-moveheadposition) and pass in a position value for each axis of movement (`pitch`, `roll`, and `yaw`), velocity, and optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
+Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadPosition()`](../javascript-api/#misty-moveheadposition). We pass in a position value for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
 
 ```JavaScript
 misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500);
@@ -1024,7 +1024,7 @@ function _BackTOF() {
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
+    misty.MoveArmPosition("Right", 10, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudioClip("010-Hummmmmm.wav");
@@ -1099,7 +1099,7 @@ function _BackTOF() {
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
+    misty.MoveArmPosition("Right", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudioClip("010-Hummmmmm.wav");
