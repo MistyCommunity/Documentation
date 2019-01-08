@@ -33,7 +33,7 @@ The `.json` file includes fields that set certain specifications for your skill.
 }
 ```
 
-### Writing the Code
+### Writing the Code File 
 
 To issue any command to Misty in the local environment, we call methods on the `misty` object. Start by writing a debug message so we’re notified when the skill is started. To do this, call `misty.Debug()` and pass in a meaningful message. These messages will show up in your browser’s JavaScript console if you’re using the [Skill Runner](https://skill-runner.mistyrobotics.com) tool to run the skill.
 
@@ -159,7 +159,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetListOfAudioClips()` method to fetch the list of audio files currently stored on the robot.
 
@@ -251,7 +251,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 Start by calling `StartRecordingAudio()` to tell the microphone to start recording. Pass in the name you want to assign to the resulting audio clip. Use `Pause()` to establish a duration for how long you want the recording to last, then call `StopRecordingAudio()` to halt the recording process and save the clip. Call `Pause()` again for 2000ms to give Misty time to save the recording.
 
@@ -363,7 +363,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 In order to tell if Misty has detected a face, we register an event to receive data from computer vision events. Call `misty.RegisterEvent()` and pass in a name for the event (this example uses `"FaceDetection"` to keep it simple), the data stream we are subscribing to (`"ComputerVision"`), and a value specifying how frequently we want to receive data (in this case, every `250` milliseconds).
 
@@ -468,7 +468,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 When registering for a timed event use the `RegisterTimerEvent()` method, we pass in the name of the event we want to create, the amount of time (in ms) we want Misty to wait before triggering the callback function, and we set the `keepAlive` parameter to `true` in order to have the event trigger the callback automatically every 3 seconds until it is unregistered. After the line of code to register for the timer event, we send our first command to change Misty’s LED to white below the timer event. This will turn the LED on for the first 3 seconds our skill runs, before the first callback is fired.
 
@@ -568,7 +568,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 The code file is simple, focusing on the use of `misty.SendExternalRequest()`. The `misty.SendExternalRequest()` prototype is as follows:
 
@@ -709,7 +709,7 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 }
 ```
 
-### Writing the Code
+### Writing the Code File
 
 The first skill file we’ll look at, `HelloWorld_TriggerSkill1.js`, acts as our “parent” skill. The purpose of this skill is to register for our `TimeOfFlight` and `FaceRecognition` events. As the “child” skills are triggered by these events, this skill then runs in the background. 
 
