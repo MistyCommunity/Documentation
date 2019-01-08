@@ -949,10 +949,12 @@ Moves one of Misty's arms to a specified position.
 Arguments
 * armToMove (string) - The arm to move. Pass `"Left"` or `"Right"`.
 * position (double) - The position to move the arm to. Value range: 0 - 10.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.MoveArmPosition(string armToMove, double position, double velocity)
+misty.MoveArmPosition(string armToMove, double position, double velocity, [int prePause], [int postPause])
 ```
 
 <!-- misty.MoveArmDegrees -->
@@ -965,10 +967,12 @@ Moves one of Misty's arms to a specified location in degrees.
 Arguments
 * armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
 * degrees (double) - The location in degrees to move the arm to. Value range: 0 - 180.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.MoveArmPosition(string armToMove, double degrees, double velocity)
+misty.MoveArmPosition(string armToMove, double degrees, double velocity, [int prePause], [int postPause])
 ```
 
 <!-- misty.MoveArmRadians -->
@@ -981,10 +985,12 @@ Moves one of Misty's arms to a specified location in radians.
 Arguments
 * armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
 * radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100. 
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used. 
 
 ```JavaScript
-misty.MoveArmPosition(string armToMove, double radians, double velocity)
+misty.MoveArmPosition(string armToMove, double radians, double velocity, [int prePause], [int postPause])
 ```
 
 ## Mapping & Tracking

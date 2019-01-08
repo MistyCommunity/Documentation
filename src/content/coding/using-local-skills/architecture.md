@@ -181,7 +181,7 @@ function RegisterEvents(goingForward) {
 
 Finally, when an event callback is triggered, note that by default it unregisters the callback to prevent more commands from overriding the initial call, which can become an issue with fast-triggering events. To handle this, you have two choices:
 * You can re-register the event in the event callback function.
-* To keep the event alive and not unregister on a callback, you can pass true for the keepAlive parameter when you register the event.
+* To keep the event alive and not unregister on a callback, you can pass `true` for the `keepAlive` parameter when you register the event.
 
 ### Timed or Triggered Event Callbacks
 Using the `RegisterTimerEvent()` function, you can create an event that sends a callback after a certain period of time:
@@ -190,9 +190,9 @@ Using the `RegisterTimerEvent()` function, you can create an event that sends a 
 misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
 ```
 
-By default, that event is triggered once and removed, but you can choose to have it call back until unregistered. To do this, you can specify true for the `keepAlive` parameter when registering for the timer event. This causes the event to automatically reset when the callback is triggered.
+By default, that event is triggered once and removed, but you can choose to have it call back until unregistered. To do this, you can specify `true` for the `keepAlive` parameter when registering for the timer event. This causes the event to automatically reset when the callback is triggered.
 
-For example, you can set the `callbackTimeInMs` parameter to 5 seconds and specify `keepAlive` to be true. Then, after the callback is triggered, the timer resets and the callback will be called again every 5 seconds until the timer event is unregistered with `UnregisterEvent` or is automatically unregistered when the skill ends.
+For example, you can set the `callbackTimeInMs` parameter to 5 seconds and specify `keepAlive` to be `true`. Then, after the callback is triggered, the timer resets and the callback will be called again every 5 seconds until the timer event is unregistered with `UnregisterEvent` or is automatically unregistered when the skill ends.
 
 You can also create a triggered event to call back to the skill when a specific command is called. That event is triggered once and removed, but you can immediately re-register as needed in the callback:
 
@@ -391,7 +391,7 @@ function _FrontTOF(data) {
 
 Note that when a skill starts, the code within the skill automatically starts running. When a skill has finished executing (or has been cancelled), normal cleanup automatically begins. Normal cleanup drops any pending callbacks, deletes cached code, etc.
 
-If `CleanupOnCancel` is set to true in the meta file, then when a skill is cancelled, additional commands are automatically issued to stop running processes that may have been started in the skill. These process might include facial detection / recognition / training, SLAM mapping / tracking / recording / streaming, and record audio. If `CleanupOnCancel` is set to `false`, then this additional cleanup does not occur when cancelled (`false` is currently the default value). Currently, this does not affect the behavior of the skill if it ends normally. These commands are not automatically issued in this case.
+If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is cancelled, additional commands are automatically issued to stop running processes that may have been started in the skill. These process might include facial detection / recognition / training, SLAM mapping / tracking / recording / streaming, and record audio. If `CleanupOnCancel` is set to `false`, then this additional cleanup does not occur when cancelled (`false` is currently the default value). Currently, this does not affect the behavior of the skill if it ends normally. These commands are not automatically issued in this case.
 
 ## Loading & Running a Local Skill
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:

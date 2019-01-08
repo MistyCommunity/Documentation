@@ -923,9 +923,9 @@ There are three axes of movement (also described as “three degrees of freedom�
 * yaw (turning left or right)
 * roll (tilting left or right)
 
-When we move Misty’s head by position, we provide both the desired axis of movement and a value for the position of her head when the movement is complete. That position value ranges from `-5` to `5`, which maps to Misty’s full range of neck motion. Additionally, Misty can move along each axis at varying velocities, which we specify as a percentage of max speed.
+When we move Misty’s head by position, we provide a value for the position of her head along each axis of movement when the movement is complete. That position value ranges from `-5` to `5`, which maps to Misty’s full range of neck motion. Additionally, Misty can move her head at varying velocities, which we specify as a percentage of max speed.
 
-For our skill, we register to receive time-of-flight (distance) events and have Misty move her head in response these events. We start by calling `misty.RegisterEvent()`. Pass in the name to designate for the event (`"FrontTOF"`), and the name of the sensor data stream to subscribe to (`"TimeOfFlight"`). Pass in `100` for the third parameter (`debounce`) to receive data from `TimeOfFlight` events once every 100 milliseconds.
+For our skill, we register to receive time-of-flight (distance) events and have Misty move her head in response these events. We start by calling `misty.RegisterEvent()`. We pass in the name we want to designate for the event (`"FrontTOF"`), and the name of the sensor data stream to subscribe to (`"TimeOfFlight"`). Pass in `100` for the third parameter (`debounce`) to receive data from `TimeOfFlight` events once every 100 milliseconds.
 
 ```JavaScript
 misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100);
@@ -937,7 +937,7 @@ Above where we register to the event in our code, we can add property comparison
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
 ```
 
-The second property test ensures we are only looking at data where the distance to the object detected is less than 0.2m. We don’t want misty to move her head until she detects something closer than about 6 inches.
+The second property test ensures we are only looking at data where the distance to the object detected is less than 0.2 meters. We don’t want Misty to move her head until she detects something closer than about 6 inches.
 
 ```JavaScript
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
@@ -952,41 +952,41 @@ function _FrontTOF() {
 }
 ```
 
-Inside the `_FrontTOF()` callback, we call `misty.MoveHeadPosition()` and pass in the axis, position, velocity, and optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`) at a moderate velocity (`60`). We specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
+Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadPosition()`](../javascript-api/#misty-moveheadposition) and pass in a position value for each axis of movement (`pitch`, `roll`, and `yaw`), velocity, and optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
 
 ```JavaScript
-misty.MoveHeadPosition("pitch", -5, 60, 0, 1500);
+misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500);
 ```
 
 Within the `_FrontTOF()` callback, we actually call `misty.MoveHeadPosition()` multiple times with a variety of parameters, so we can move Misty’s head in different ways. To make things interesting, we can also add in commands to change the LED and make sounds in between the head movement commands.
 
 ```JavaScript
 misty.ChangeLED(0, 255, 255); // aqua
-misty.PlayAudio("001-OooOooo.wav");
+misty.PlayAudioClip("001-OooOooo.wav");
 
 // pitch
-misty.MoveHeadPosition("pitch", -5, 60, 0, 1500); // up
-misty.MoveHeadPosition("pitch", 5, 60, 0, 1500); // down
-misty.MoveHeadPosition("pitch", 0, 60, 0, 1500); // center
+misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500); // pitch up
+misty.MoveHeadPosition(5, 0, 0, 60, 0, 1500); // pitch down
+misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // pitch center
 
 misty.ChangeLED(255, 0, 255); // magenta
-misty.PlayAudio("004-WhaooooO.wav");
+misty.PlayAudioClip("004-WhaooooO.wav");
 
 // yaw
-misty.MoveHeadPosition("yaw", -5, 60, 0, 1500); // left
-misty.MoveHeadPosition("yaw", 5, 60, 0, 1500); // right
-misty.MoveHeadPosition("yaw", 0, 60, 0, 1500); // center
+misty.MoveHeadPosition(0, 0, -5, 60, 0, 1500); // yaw left
+misty.MoveHeadPosition(0, 0, 5, 60, 0, 1500); // yaw right
+misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // yaw center
 
 misty.ChangeLED(255, 255, 0); // yellow
-misty.PlayAudio("004-EuuEuuuuu.wav");
+misty.PlayAudioClip("004-EuuEuuuuu.wav");
 
 // roll
-misty.MoveHeadPosition("roll", -5, 60, 0, 1500); // side
-misty.MoveHeadPosition("roll", 5, 60, 0, 1500); // to side
-misty.MoveHeadPosition("roll", 0, 60, 0, 1500); // center
+misty.MoveHeadPosition(0, -5, 0, 60, 0, 1500); // roll left
+misty.MoveHeadPosition(0, 5, 0, 60, 0, 1500); // roll right
+misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // roll center
 
 misty.ChangeLED(0, 0, 0); // off
-misty.PlayAudio("010-Hummmmmm.wav");
+misty.PlayAudioClip("010-Hummmmmm.wav");
 ```
 
 #### Moving Misty's Arms
@@ -1013,21 +1013,21 @@ As we did with head movement, within the callback we can call `misty.MoveArmPosi
 ```JavaScript
 function _BackTOF() {
     misty.ChangeLED(0, 255, 0) // lime
-    misty.PlayAudio("006-Urhurra.wav");
+    misty.PlayAudioClip("006-Urhurra.wav");
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
-    misty.PlayAudio("001-EeeeeeE.wav");
+    misty.PlayAudioClip("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudio("010-Hummmmmm.wav");
+    misty.PlayAudioClip("010-Hummmmmm.wav");
 
     misty.Debug("ending skill HelloWorld_HeadArms");
 }
@@ -1050,33 +1050,34 @@ misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
 misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100);
 
 // front TOF callback, head
-function _FrontTOF() {
+function _FrontTOF(data) {
+    misty.Debug(data);
     misty.ChangeLED(0, 255, 255); // aqua
-    misty.PlayAudio("001-OooOooo.wav");
+    misty.PlayAudioClip("001-OooOooo.wav");
 
     // pitch
-    misty.MoveHeadPosition("pitch", -5, 60, 0, 1500); // up
-    misty.MoveHeadPosition("pitch", 5, 60, 0, 1500); // down
-    misty.MoveHeadPosition("pitch", 0, 60, 0, 1500); // center
+    misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500); // pitch up
+    misty.MoveHeadPosition(5, 0, 0, 60, 0, 1500); // pitch down
+    misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // pitch center
 
     misty.ChangeLED(255, 0, 255); // magenta
-    misty.PlayAudio("004-WhaooooO.wav");
+    misty.PlayAudioClip("004-WhaooooO.wav");
 
     // yaw
-    misty.MoveHeadPosition("yaw", -5, 60, 0, 1500); // left
-    misty.MoveHeadPosition("yaw", 5, 60, 0, 1500); // right
-    misty.MoveHeadPosition("yaw", 0, 60, 0, 1500); // center
+    misty.MoveHeadPosition(0, 0, -5, 60, 0, 1500); // yaw left
+    misty.MoveHeadPosition(0, 0, 5, 60, 0, 1500); // yaw right
+    misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // yaw center
 
     misty.ChangeLED(255, 255, 0); // yellow
-    misty.PlayAudio("004-EuuEuuuuu.wav");
+    misty.PlayAudioClip("004-EuuEuuuuu.wav");
 
     // roll
-    misty.MoveHeadPosition("roll", -5, 60, 0, 1500); // side
-    misty.MoveHeadPosition("roll", 5, 60, 0, 1500); // to side
-    misty.MoveHeadPosition("roll", 0, 60, 0, 1500); // center
+    misty.MoveHeadPosition(0, -5, 0, 60, 0, 1500); // roll left
+    misty.MoveHeadPosition(0, 5, 0, 60, 0, 1500); // roll right
+    misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // roll center
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudio("010-Hummmmmm.wav");
+    misty.PlayAudioClip("010-Hummmmmm.wav");
 
     // register for back TOF and add property tests
     misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
@@ -1087,26 +1088,22 @@ function _FrontTOF() {
 // back TOF callback, arms
 function _BackTOF() {
     misty.ChangeLED(0, 255, 0) // lime
-    misty.PlayAudio("006-Urhurra.wav");
+    misty.PlayAudioClip("006-Urhurra.wav");
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
-    misty.PlayAudio("001-EeeeeeE.wav");
+    misty.PlayAudioClip("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudio("010-Hummmmmm.wav");
+    misty.PlayAudioClip("010-Hummmmmm.wav");
 
     misty.Debug("ending skill HelloWorld_HeadArms");
 }
 ```
-
-
-
-
