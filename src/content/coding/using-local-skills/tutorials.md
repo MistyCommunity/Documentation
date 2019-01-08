@@ -79,7 +79,7 @@ The second property test checks ensures we are only looking at data where the di
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
 ```
 
-Whenever we subscribe to an event, we receive the data back within a callback function. This function is triggered whenever messages are sent that pass the property tests. The callback is automatically given the name `_<event>`. So in this case, the callback name is automatically set to `_FrontTOF()`. The data is passed directly into the callback and can accessed through an argument passed into `_`FrontTOF()`, which we’ll call `data`.
+Whenever we subscribe to an event, we receive the data back within a callback function. This function is triggered whenever messages are sent that pass the property tests. The callback is automatically given the name `_<event>`. So in this case, the callback name is automatically set to `_FrontTOF()`. The data is passed directly into the callback and can accessed through an argument passed into `_FrontTOF()`, which we’ll call `data`.
 
 ```JavaScript
 function _FrontTOF(data) {
