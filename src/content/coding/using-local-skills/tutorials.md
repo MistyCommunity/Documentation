@@ -709,7 +709,7 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 }
 ```
 
-### Writing the Code File
+### Writing the Code Files
 
 The first skill file we’ll look at, `HelloWorld_TriggerSkill1.js`, acts as our “parent” skill. The purpose of this skill is to register for our `TimeOfFlight` and `FaceRecognition` events. As the “child” skills are triggered by these events, this skill then runs in the background. 
 
