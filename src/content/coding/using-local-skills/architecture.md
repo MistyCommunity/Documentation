@@ -288,7 +288,7 @@ The system supplies the following types of helper commands to assist you in crea
 * **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described in the [JavaScript API reference documentation](../javascript-api). Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
-The system provides some REST commands that you can use to control local skills from a remote device. For details on these, see the [JavaScript REST API reference documentation](../javascript-api). <!--TODO:--> Add Link These include commands to:
+The system provides some REST commands that you can use to control local skills from a remote device. For information about these commands, see the section on [REST API](../rest) commands for managing skills. These commands allow you to:
 * Upload skills to the robot
 * Load, reload, or unload one or more skills
 * Run a skill
