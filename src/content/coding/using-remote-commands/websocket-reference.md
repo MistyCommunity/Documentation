@@ -371,7 +371,7 @@ The `ActuatorPosition` data stream provides information about the position of th
 
 In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The value property holds a number indicating the position of the actuator (in radians).
 
-`Note:` When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from a local skill shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
+**Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from a local skill shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
 
 ```JavaScript
 // Register for ActuatorPosition data for the actuator for Misty's right arm
@@ -602,7 +602,7 @@ function _StringMessage(data) {
 }
 ```
 
-For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../using-local-skills/architecture/#data-handling-events-amp-callbacks) section of [Using Local Skills](../../../coding/using-local-skills/architecture/).
+For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../coding/using-local-skills/architecture/#data-handling-events-amp-callbacks) section of [Using Local Skills](../../../coding/using-local-skills/architecture/).
 
 ## TouchSensor
 **Available for Misty II only**
