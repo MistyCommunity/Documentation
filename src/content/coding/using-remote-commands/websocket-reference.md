@@ -369,7 +369,7 @@ BatteryCharge {
 
 The `ActuatorPosition` data stream provides information about the position of the actuators responsible for controlling the movement of Misty's head and arms. `ActuatorPosition` data is sent at timed intervals you define when you register for `ActuatorPosition` messages.
 
-In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The value property holds a number indicating the position of the actuator (in radians).
+In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in radians).
 
 **Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from a local skill shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
 
