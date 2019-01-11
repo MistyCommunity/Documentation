@@ -395,11 +395,11 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 
 ## Loading & Running a Local Skill
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
-* the [Misty Skill Runner](https://skill-runner.mistyrobotics.com) web tool, which provides a simple upload feature
+* the [Misty Skill Runner](../tools/#misty-skill-runner) web tool, which provides a simple upload feature
 * a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
 
 ### Using Skill Runner 
-The [Misty Skill Runner](https://skill-runner.mistyrobotics.com) web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../tools/#misty-skill-runner) in the Tools section of these docs.
+The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../tools/#misty-skill-runner).
 
 ### Using Postman
 There are many ways to send a `POST` request to the skill deployment endpoint, but here we’ll use Postman.
@@ -417,7 +417,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
    * `OverwriteExisting` (boolean) - `True` or `False`. Indicates whether the file should overwrite a file with the same name, if one currently exists on this robot.
 9. Look at the response to confirm the request was successful.
 10. Open `SkillRunner.html` and connect to Misty using your robot’s IP address.
-11. Open up your browser’s JavaScript console for the Skiller Runner page, so you can see what’s happening.
+11. Open up your browser’s JavaScript console for the Skill Runner page, so you can see what’s happening.
 12. Click **Reload Skills** at the top of the page. This ensures that your robot and latest code changes are in sync. Observe the JavaScript console for a log message verifying the skills have been loaded.
 13. To run your skill, enter the skill’s name under “Run Skill” and click **Run**. Continue observing the console; as events are triggered, you’ll see debug messages in the console.
 

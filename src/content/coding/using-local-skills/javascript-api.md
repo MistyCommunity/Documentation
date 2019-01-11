@@ -22,6 +22,11 @@ Displays an image on Misty's screen. Optionally, `misty.ChangeDisplayImage()` ca
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
+```JavaScript
+// Syntax
+misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
+```
+
 Arguments
 * fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
 * timeoutInSeconds (double) - Optional. The length of time to display the specified image. 
@@ -29,10 +34,6 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-```JavaScript
-// Syntax
-misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
-```
 ```JavaScript
 // Example
 misty.ChangeDisplayImage("Happy.png", 10, 0.5, 0, 0);
@@ -45,15 +46,16 @@ Enables you to remove an image file from Misty that you have previously saved to
 
 **Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
 
+```JavaScript
+// Syntax
+misty.DeleteImageAssetFromRobot(string filename, [int prePause], [int postPause]);
+```
+
 Arguments
 * fileName (string) - The name of the file to delete, including its file type extension.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-```JavaScript
-// Syntax
-misty.DeleteImageAssetFromRobot(string filename, [int prePause], [int postPause]);
-```
 ```JavaScript
 // Example
 misty.DeleteImageAssetFromRobot("DeleteMe.png", 0, 0);
@@ -65,6 +67,11 @@ Obtains a list of the images stored on Misty.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
+```JavaScript
+// Syntax
+misty.GetListOfImages([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
+```
+
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
 * callbackMethod (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
@@ -73,10 +80,13 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfImages([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
-```
-```JavaScript
+// Example
+misty.GetListOfImages();
 
+function _GetListOfImages(data) {
+    _imageList = JSON.stringify(data);
+    misty.Debug(_imageList)
+}
 ```
 
 Returns
@@ -107,7 +117,7 @@ Arguments
 misty.SaveImageAssetToRobot(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
 ```
 
-<!-- TODO: Check return values>
+<!-- TODO: Check return values and provide code sample>
 
 <!-- Images & Display - BETA>
 
