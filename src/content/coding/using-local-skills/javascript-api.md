@@ -28,6 +28,7 @@ misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alp
 ```
 
 Arguments
+
 * fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
 * timeoutInSeconds (double) - Optional. The length of time to display the specified image. 
 * alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to 1.
@@ -52,6 +53,7 @@ misty.DeleteImageAssetFromRobot(string filename, [int prePause], [int postPause]
 ```
 
 Arguments
+
 * fileName (string) - The name of the file to delete, including its file type extension.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -73,6 +75,7 @@ misty.GetListOfImages([string callbackMethod], [string callbackRule = "synchrono
 ```
 
 Arguments
+
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
 * callbackMethod (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
