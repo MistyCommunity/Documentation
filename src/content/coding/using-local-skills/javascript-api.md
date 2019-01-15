@@ -120,9 +120,9 @@ Arguments
 misty.SaveImageAssetToRobot(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
 ```
 
-<!-- TODO: Check return values and provide code sample>
+<!-- TODO: Check return values and provide code sample -->
 
-<!-- Images & Display - BETA>
+<!-- Images & Display - BETA -->
 
 <!-- misty.ClearDisplayText - BETA -->
 
