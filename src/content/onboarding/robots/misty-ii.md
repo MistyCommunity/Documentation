@@ -100,8 +100,8 @@ Misty is packed with sophisticated hardware and software features that contribut
 * 6 capacitive touch sensors on head and chin
 
 ### Distance and Obstacle Detection
-* 8 IR-based time-of-flight sensors (3 front, 1 rear, 4 edge/downward)
-* 6 Bump sensors (4 front, 2 rear)
+* 8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+* 10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
 
 ### Movement
 * Patent-pending 3-degree of freedom neck
