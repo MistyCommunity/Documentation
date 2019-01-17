@@ -1486,6 +1486,27 @@ Arguments
 misty.Set(string key, string value);
 ```
 
+### misty.WriteBackpackUart - ALPHA
+
+**Available for Misty II Only**
+
+Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
+
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../using-remote-commands/websocket-reference/#stringmessage) events.
+
+```JavaScript
+misty.WriteBackpackUart(string message, [int prePause], [int postPause])
+```
+
+Arguments
+* message (string) - The data Misty sends to the UART serial port, passed as a string value.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+misty.WriteBackpackUart("your-data");
+```
+
 ## Debugging
 
 <!-- misty.GetLogFile -->
