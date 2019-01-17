@@ -1245,3 +1245,29 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+## Data
+
+### WriteBackpackUart - ALPHA
+
+**Available for Misty II Only**
+
+Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
+
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../using-remote-commands/websocket-reference/#stringmessage) events.
+
+Endpoint: POST {robot-ip-address}/api/alpha/serialport
+
+Parameters
+
+* Message (string) - The data Misty sends to the UART serial port, passed as a string value.
+
+```json
+{
+  "Message": "your-data"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this request.
