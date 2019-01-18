@@ -1246,7 +1246,7 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-## Data
+## Backpack Communication
 
 ### WriteBackpackUart - ALPHA
 
