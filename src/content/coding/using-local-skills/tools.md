@@ -18,7 +18,7 @@ Access to Skill Runner is currently limited to a small group of field trial robo
 To use Skill Runner to upload and run a skill, follow the steps below. 
 
 1. Compress and save your skill’s `Meta` and `Code` files into a .zip file with the same name as your skill.
-2. Open [Skill Runner](https://skill-runner.mistyrobotics.com) and connect to Misty using your robot’s IP address.
+2. Open Skill Runner and connect to Misty using your robot’s IP address.
 3. Open up your browser’s JavaScript console for the Skill Runner page, so you can see what’s happening.
 4. Select **Upload Zip File** under “Save Skill to Robot.”![Upload Zip File](../../../assets/images/skill-runner-save-skill.png)
 5. Select the .zip file you just created. Observe the JavaScript console for a success message confirming that the upload request was received.
