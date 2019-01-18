@@ -14,12 +14,22 @@ Welcome! Your Misty II Field Trial robot has been designed and built by the Mist
 **Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with your robot on the floor or temporarily elevating the treads so the robot cannot drive. To do this, you can place books or blocks between Misty's treads.
 
 ## What's in the Box?
-Misty II arrives with her magnetic headpiece and “backpack” attached. In addition to Misty, your package arrives with the following items:
+Misty II arrives with her magnetic headpiece and "backpack" attached. In addition to Misty, your package arrives with the following items:
 * charging pad
 * power supply
 * Misty II Getting Started guide
 
 **Note:** Misty's packaging has been specially designed to protect your robot during shipping. Because you will need to return this Field Trial unit, please keep all original packaging for use in shipment.
+
+### Misty's Backpack
+
+Remove the magnetic "backpack" to reveal the ports on Misty's back. These include
+* 5v USB port
+* 3.3v universal asynchronous receiver-transmitter (UART) serial port
+
+You can use the USB port to power external hardware and to connect Misty to your local network with a USB-to-Ethernet adapter. The UART serial port enables communication between Misty and an external device, such as an Arduino.
+
+If you did not purchase Misty's Arduino backpack, the "backpack" shipped with your robot does not contain any hardware. Note that you can still use Misty's hardware expandability by connecting your own Arduino to her UART serial port. 
 
 ## Connecting the Battery
 You must connect Misty's battery before turning her on for the first time. Before you connect Misty's battery, please read the following important notes:
