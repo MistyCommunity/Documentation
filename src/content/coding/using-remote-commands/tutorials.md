@@ -38,7 +38,8 @@ Alternately, you can download a compressed version of the Axios library to inclu
 Within `<script>` tags in the `<body>` of your .html document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We’ll reference this variable throughout the program to send commands to Misty. 
 
 ```JavaScript
-// Declare a constant variable and set its value to a string with your robot's IP address.
+// Declare a constant variable.
+// Set its value to your robot's IP address.
 const ip = "<robotipaddress>";
 ```
 
@@ -48,7 +49,8 @@ When we send a command to change Misty’s LED color, we need to communicate wha
 Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s chest LED to hot pink.
 
 ```JavaScript
-// Assemble the data to send with your POST request. Set values for each RGB color property.
+// Create a data object to send with the POST request. 
+// Set values for each RGB color property.
 let data = {
     "red": 255,
     "green": 0,
@@ -63,31 +65,38 @@ Now we’re ready to write the code to send the command to Misty. We do this by 
 The REST API endpoint for the `ChangeLED` command is `http://<robotipaddress>/api/led/change`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
 
 ```JavaScript
-// Call axios.post(), passing the URL of the ChangeLED endpoint as the first parameter, and the payload (the data object) as the second.
+// Call axios.post(). Pass the URL of the ChangeLED 
+// endpoint as the first parameter and the data object 
+// as the second.
 axios.post("http://" + ip + "/api/led/change", data)
 ```
 
 Because Axios is promise based, we need to use a `then()` method after calling `axios.post()`. This method returns a promise and triggers a callback function if the promise is fulfilled. We pass a callback function to `then()` to interpret information from the return values of the POST call and print a message to the console about whether the request was a failure or success.
 
 ```JavaScript
+// Use a then() method after calling axios.post(). 
+// Pass in a callback function to interpret the return 
+// values of the call and to print a message to the console 
+// indicating the request's success.
 axios.post("http://" + ip + "/api/led/change", data)
-// Use then() after calling axios.post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
     .then(function (response) {
         console.log(`ChangeLED was a ${response.data[0].status}`);
-})
+    })
 ```
 
 We use a `catch()` method after `then()`, which triggers if the promise is rejected. Pass a callback function to `catch()` to print to the console any errors returned by the request.
 
 ```JavaScript
+// Use a catch() method after then(). catch() triggers 
+// if the promise is rejected. Pass a callback to catch() 
+// to print any errors to the console.
 axios.post("http://" + ip + "/api/led/change", data)
     .then(function (response) { 
-        console.log(`ChangeLED was a ${response.data[0].status}`)
-    // Use a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
+        console.log(`ChangeLED was a ${response.data[0].status}`);
+    })
     .catch(function (error) {
         console.log(`There was an error with the request ${error}`);
     })
-})
 ```
 
 Now we’re ready to run the program!
@@ -113,28 +122,38 @@ See the full .html document for reference.
 </head>
 <body>
     <script>
-        // Declare a constant variable and set its value to a string with your robot's IP address.
+        // Declare a constant variable.
+        // Set its value to your robot's IP address.
         const ip = "<robotipaddress>";
 
-        // Assemble the data to send with your POST request. Set values for each RGB color property.
+        // Create a data object to send with the POST request. 
+        // Set values for each RGB color property.
         let data = {
             "red": 255,
             "green": 0,
             "blue": 0
         };
 
-        // Call axios.post(), passing the URL of the ChangeLED endpoint as the first parameter, and the payload (the data object) as the second.
+        // Call axios.post(). Pass the URL of the ChangeLED 
+        // endpoint as the first parameter and the data object 
+        // as the second.
+        
+        // Use a then() method after calling axios.post(). 
+        // Pass in a callback function to interpret the return 
+        // values of the call and to print a message to the console 
+        // indicating the request's success.
+
+        // Use a catch() method after then(). catch() triggers 
+        // if the promise is rejected. Pass a callback to catch() 
+        // to print any errors to the console.
         axios.post("http://" + ip + "/api/led/change", data)
-            // Use then() after calling axios.post(). Pass a callback function to interpret the return values of the POST call and print a message to the console about whether the request was a failure or a success.
             .then(function (response) {
-                // log the result
                 console.log(`ChangeLED was a ${response.data[0].status}`);
             })
-            // Use a catch() method after then(). catch() triggers if the promise is rejected. Pass a callback to catch() to print any errors returned by the request to the console.
             .catch(function (error) {
-                // log the error
                 console.log(`There was an error with the request ${error}`);
-			});
+            });
+
     </script>
 </body>
 </html>
