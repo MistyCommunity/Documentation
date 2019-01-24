@@ -137,7 +137,7 @@ See the full .html document for reference.
         // Call axios.post(). Pass the URL of the ChangeLED 
         // endpoint as the first parameter and the data object 
         // as the second.
-        
+
         // Use a then() method after calling axios.post(). 
         // Pass in a callback function to interpret the return 
         // values of the call and to print a message to the console 
@@ -199,7 +199,8 @@ To set up your project, create a new .html document. Give it a title, and includ
 Within `<script>` tags in the `<body>` of your document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We use this variable to send commands to Misty.
 
 ```JavaScript
-// Declare a constant variable and set its value to a string with your robot’s IP address.
+// Declare a constant variable and set its 
+// value to a string with your robot’s IP address.
 const ip = "<robotipaddress>";
 ```
 
@@ -208,12 +209,17 @@ const ip = "<robotipaddress>";
 Create a new instance of `LightSocket`  called `socket`. The `socket` instance takes as parameters the IP address of your robot and two optional callback functions. The first callback triggers when a connection is opened, and the second triggers when it’s closed. Pass `ip` and a function called `openCallback()` to the new instance of `LightSocket`. Below these declarations, declare the `openCallback()` function.
 
 ```JavaScript
-// Create a new instance of LightSocket called socket. Pass as arguments the ip variable and a function named openCallback.
+// Create a new instance of LightSocket called 
+// socket. Pass as arguments the ip variable and 
+// a function named openCallback.
 let socket = new LightSocket(ip, openCallback);
 
 /* COMMANDS */
 
-// Define the function passed as the callback to the new instance of LightSocket. This is the code that executes when socket opens a connection to your robot.
+// Define the function passed as the callback 
+// to the new instance of LightSocket. This is 
+// the code that executes when socket opens a 
+// connection to your robot.
 function openCallback() {
 
 }
@@ -254,7 +260,16 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 
 ```JavaScript
 function openCallback() {
-    // Subscribe to a new event called "CenterTimeOfFlight" that returns data when "TimeOfFlight" events are triggered. Pass arguments to make sure this event returns data for the front center time-of-flight sensor every 100 milliseconds. Pass the callback function _centerTimeOfFlight() as the final argument.
+
+    // Print a message when the connection is opened.
+    console.log("socket opened");
+
+    // Subscribe to an event called CenterTimeOfFlight
+    // that returns TimeOfFlight data. Pass arguments 
+    // to make sure this event returns data for the 
+    // front center time-of-flight sensor every 100 
+    // milliseconds. Pass the callback function 
+    // _centerTimeOfFlight() as the final argument.
     socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
 }
 ```
@@ -268,7 +283,10 @@ function openCallback() {
 
     socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
 
-    // Subscribe to a new event called "LocomotionCommand" that returns data when Misty's angular or linear velocity changes. Pass the callback function _locomotionCommand() as the final argument.
+    // Subscribe to an event called LocomotionCommand
+    // that returns data when Misty's angular or linear 
+    // velocity changes. Pass the callback function 
+    // _locomotionCommand() as the final argument.
     socket.Subscribe("LocomotionCommand", "LocomotionCommand", null, null, null, null, null, _locomotionCommand);
 
 }
@@ -288,7 +306,7 @@ function openCallback() {
 
     socket.Subscribe("LocomotionCommand", "LocomotionCommand", null, null, null, null, null, _locomotionCommand);
 
-    // Assemble the data to send with the DriveTime command.
+    // Create a data object to send with the DriveTime command.
     let data = {
         LinearVelocity: 50,
         AngularVelocity: 0,
@@ -315,16 +333,17 @@ function openCallback() {
         TimeMS: 5000
     };
 
-    // Use axios.post() to send the data to the DriveTime REST API endpoint.
+    // Use axios.post() to send the data 
+    // to the endpoint for the DriveTime command.
     axios.post("http://" + ip + "/api/drive/time", data)
         // Use .then() to handle a successful response.
         .then(function (response) {
-            // Print the results of the DriveTime command to the console.
+            // Print the results
             console.log(`DriveTime was a ${response.data[0].status}`);
         })
-        // Use .catch() to handle errors.
+        // Use .catch() to handle errors
         .catch(function (error) {
-            // Print any errors related to the DriveTime command to the console.
+            // Print any errors
             console.log(`There was an error with the request ${error}`);
         });
 };
@@ -340,7 +359,8 @@ We define our callbacks above the section where we define our commands. Create a
 ```JavaScript
 /* CALLBACKS */
 
-// Define the callback function that is be passed when we subscribe to the CenterTimeOfFlight event.
+// Define the callback function for handling 
+// CenterTimeOfFlight event data
 let _centerTimeOfFlight = function (data) {
 
 };
@@ -350,11 +370,15 @@ When you subscribe to an event, some messages come through that don’t contain 
 
 ```JavaScript
 let _centerTimeOfFlight = function (data) {
-    // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
+    // Use try and catch statements to handle 
+    // exceptions and unimportant messages 
+    // from the WebSocket data stream.
     try {
 
     };
-    catch(e) { };
+    catch(e) { 
+
+    };
 };
 ```
 
@@ -363,9 +387,12 @@ Inside the `try` statement, instantiate a `distance` variable. `distance` stores
 ```JavaScript
 let _centerTimeOfFlight = function (data) {
     try {
-        // Instantiate a distance variable to store the value representing the distance from Misty in meters an object has been detected by her front center time-of-flight sensor. 
+        // Create a distance variable to store 
+        // the value representing the distance 
+        // from Misty in meters an object has been 
+        // detected by her front center time-of-flight sensor. 
         let distance = data.message.distanceInMeters;
-        // Log this distance to the console.
+        // Print this distance to the console.
         console.log(distance);
     };
     catch(e) { };
@@ -381,16 +408,18 @@ let _centerTimeOfFlight = function (data) {
     try {
         let distance = data.message.distanceInMeters;
         console.log(distance);
-        // Write an if statement to check if the distance is smaller than 0.2 meters.
+        // Write an if statement to check 
+        // if the distance is smaller than 0.2 meters.
         if (distance < 0.2) {
-            // If the distance is shorter than 
+            // If the istance is less than 0.2 meters, send
+            // a request to endpoint for the Stop command.  
             axios.post("http://" + ip + "/api/drive/stop")
                 .then(function (response) {
-                    // Print the results of the Stop command to the console.
+                    // Print the results
                     console.log(`Stop was a ${response.data[0].status}`);
                 })
                 .catch(function (error) {
-                    // Print errors related to the Stop command to the console.
+                    // Print any errors
                     console.log(`There was an error with the request ${error}`);
                 });
             }
@@ -409,15 +438,21 @@ The purpose of the `_locomotionCommand()` callback function is to “clean up”
 The `LocomotionCommand` event sends data whenever linear or angular velocity changes, including when Misty starts moving when the program starts. We want to unsubscribe from WebSocket connections when Misty stops **and** the value of `LinearVelocity` is `0`. Declare a function called `_locomotionCommand()`, and pass it a parameter for the `data` received by the `LocomotionCommand` WebSocket. We only want to unsubscribe when Misty stops, so we add the condition that `linearVelocity` should be `0` to an `if` statement. As with the `_centerTimeOfFlight()` callback, place this condition inside a `try` statement, and place a `catch` statement to handle exceptions at the end of the function.
 
 ```JavaScript
-// Define the callback function that is passed when we subscribe to the LocomotionCommand event.
+// Define the callback function passed in
+// the subscription to LocomotionCommand events
 let _locomotionCommand = function (data) {
-    // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
+    // Use try and catch statements to handle 
+    // exceptions and unimportant messages 
     try {
-        // Use an if statement to check if Misty has stopped moving
+        // Use an if statement to check
+        // whether Misty stopped moving
         if (data.message.linearVelocity === 0) {
+
         }
     }
-    catch(e) { }
+    catch(e) { 
+
+    }
 };
 ```
 
@@ -427,21 +462,30 @@ If `data.message.linearVelocity === 0`, the program should unsubscribe from the 
 let _locomotionCommand = function (data) {
     try {
         if (data.message.linearVelocity === 0) {
-            // Print a message to the console for debugging.
+            // Print a message to the console to aid in debugging
             console.log("LocomotionCommand received linear velocity as", data.message.linearVelocity);
-            // Unsubscribe from the CenterTimeOfFlight and LocomotionCommand events.
+            // Unsubscribe from the CenterTimeOfFlight 
+            // and LocomotionCommand events
             socket.Unsubscribe("CenterTimeOfFlight");
             socket.Unsubscribe("LocomotionCommand");                
         }
     }
-    catch(e) { }
+    catch(e) { 
+
+    }
 };
 ```
 
 At the bottom of the script, call `socket.Connect()`. When the connection is established, the `openCallback()` function executes to subscribe to WebSocket connections and send Misty a `DriveTime` command. Data received through WebSocket connections is passed to the `_centerTimeOfFlight()` and `_locomotionCommand()` callback functions.
 
 ```JavaScript
-// Open the connection to your robot. When the connection is established, the openCallback function executes to subscribe to WebSockets and send Misty a DriveTime command. Data recieved through these WebSockets is passed to the _centerTimeOfFlight() and _locomotionCommand() callback functions.
+// Open the connection to your robot. 
+// When the connection is established, 
+// the openCallback function executes 
+// to subscribe to WebSockets and send 
+// Misty a DriveTime command. Event data 
+// is passed to the _centerTimeOfFlight() and 
+// _locomotionCommand() callback functions.
 socket.Connect();
 ```
 
@@ -468,94 +512,131 @@ See the full .html document for reference.
 </head>
 <body>
 	<script>
-		// Declare a constant variable and set its value to a string with your robot’s IP address.
+		
+        // Declare a constant variable and set its 
+        // value to a string with your robot’s IP address.
 		const ip = "<robotipaddress>";
 
-        // Create a new instance of LightSocket called socket. Pass as arguments the ip variable and a function named openCallback.
+        // Create a new instance of LightSocket called 
+        // socket. Pass as arguments the ip variable and 
+        // a function named openCallback.
 		let socket = new LightSocket(ip, openCallback);
 
         /* CALLBACKS */
         
-        // Define the callback function that is passed when we subscribe to the CenterTimeOfFlight event.
+        // Define the callback function for handling 
+        // CenterTimeOfFlight event data
 		let _centerTimeOfFlight = function (data) {
 
-            // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
+            // Use try and catch statements to handle 
+            // exceptions and unimportant messages 
+            // from the WebSocket data stream.
 			try {
-                // Instantiate a distance variable to store the value representing the distance from Misty in meters an object has been detected by her front center time-of-flight sensor. 
+                // Create a distance variable to store 
+                // the value representing the distance 
+                // from Misty in meters an object has been 
+                // detected by her front center time-of-flight sensor. 
                 let distance = data.message.distanceInMeters;
-                // Log this distance to the console.
+                // Print this distance to the console.
                 console.log(distance);
                 
-                // Write an if statement to check if the distance is smaller than 0.2 meters.
+                // Write an if statement to check 
+                // if the distance is smaller than 0.2 meters.
 				if (distance < 0.2) {
-                    // If the distance is shorter than 
+                    // If the istance is less than 0.2 meters, send
+                    // a request to endpoint for the Stop command.  
 					axios.post("http://" + ip + "/api/drive/stop")
 						.then(function (response) {
-							// Print the results of the Stop command to the console.
+							// Print the results
 							console.log(`Stop was a ${response.data[0].status}`);
 						})
 						.catch(function (error) {
-							// Print errors related to the Stop command to the console.
+							// Print any errors
 							console.log(`There was an error with the request ${error}`);
 						});
 				}
             }
 			catch (e) {
+
 			}
         };
         
-        // Define the callback function that is passed when we subscribe to the LocomotionCommand event.
+        // Define the callback function passed in
+        // the subscription to LocomotionCommand events
 		let _locomotionCommand = function (data) {
-            // Use try and catch statements to handle exceptions and unimportant messages from the WebSocket data stream.
+            // Use try and catch statements to handle 
+            // exceptions and unimportant messages 
 			try {
-				// Use an if statement to check if Misty has stopped moving
+				// Use an if statement to check
+                // whether Misty stopped moving
 				if (data.message.linearVelocity === 0) {
-                    // Print a message to the console for debugging.
+                    // Print a message to the console to aid in debugging.
 					console.log("LocomotionCommand received linear velocity as", data.message.linearVelocity);
-                    // Unsubscribe from the CenterTimeOfFlight and LocomotionCommand events.
+                    // Unsubscribe from the CenterTimeOfFlight 
+                    // and LocomotionCommand events
                     socket.Unsubscribe("CenterTimeOfFlight");
 					socket.Unsubscribe("LocomotionCommand");
 				}
 			}
-			catch(e) { }
+			catch(e) { 
+
+            }
         };
         
         /* COMMANDS */
 
-        // Define the function passed as the callback to the new instance of LightSocket. This is the code that executes when socket opens a connection to your robot.
+        // Define the function passed as the callback 
+        // to the new instance of LightSocket. This is 
+        // the code that executes when socket opens a 
+        // connection to your robot.
 		function openCallback() {
 
-            // Print a message to the console when the connection is established.
-			console.log("socket opened");
-
-            // Subscribe to a new event called "CenterTimeOfFlight" that returns data when "TimeOfFlight" events are triggered. Pass arguments to make sure this event returns data for the front center time-of-flight sensor every 100 milliseconds. Pass the callback function _centerTimeOfFlight() as the final argument.
+            // Print a message when the connection is opened.
+            console.log("socket opened");
+            
+            // Subscribe to an event called CenterTimeOfFlight
+            // that returns TimeOfFlight data. Pass arguments 
+            // to make sure this event returns data for the 
+            // front center time-of-flight sensor every 100 
+            // milliseconds. Pass the callback function 
+            // _centerTimeOfFlight() as the final argument.
 			socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
             
-            // Subscribe to a new event called "LocomotionCommand" that returns data when Misty's angular or linear velocity changes. Pass the callback function _locomotionCommand() as the final argument.
+            // Subscribe to an event called LocomotionCommand
+            // that returns data when Misty's angular or linear 
+            // velocity changes. Pass the callback function 
+            // _locomotionCommand() as the final argument.
             socket.Subscribe("LocomotionCommand", "LocomotionCommand", null, null, null, null, null, _locomotionCommand);
 
-			// Assemble the data to send with the DriveTime command.
+            // Create a data object to send with the DriveTime command.
 			let data = {
 				LinearVelocity: 50,
 				AngularVelocity: 0,
 				TimeMS: 5000
 			};
 
-            // Use axios.post() to send the data to the DriveTime REST API endpoint.
+            // Use axios.post() to send the data 
+            // to the endpoint for the DriveTime command.
             axios.post("http://" + ip + "/api/drive/time", data)
-                // Chain .then() to handle a successful response.
+                // Use .then() to handle a successful response
 				.then(function (response) {
-					// Print the results of the DriveTime command to the console.
+					// Print the results
 					console.log(`DriveTime was a ${response.data[0].status}`);
                 })
-                // Chain .catch() to handle errors.
+                //  // Use .catch() to handle errors
 				.catch(function (error) {
-					// Print any errors related to the DriveTime command to the console.
+					// Print any errors
 					console.log(`There was an error with the request ${error}`);
 				});
 		};
 
-        // Open the connection to your robot. When the connection is established, the openCallback function executes to subscribe to WebSockets and send Misty a  DriveTime command. Data recieved through these WebSockets is passed to the _centerTimeOfFlight() and _locomotionCommand() callback functions.
+        // Open the connection to your robot. 
+        // When the connection is established, 
+        // the openCallback function executes 
+        // to subscribe to WebSockets and send 
+        // Misty a DriveTime command. Event data 
+        // is passed to the _centerTimeOfFlight() and 
+        // _locomotionCommand() callback functions.
 		socket.Connect();
 	</script>
 </body>
