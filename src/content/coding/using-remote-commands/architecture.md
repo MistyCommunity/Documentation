@@ -11,7 +11,7 @@ There are two basic types of skill architecture: remote and local.
 
 When you send "remote commands" to Misty, your code is running on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. This is different from [local skills](../../../coding/using-local-skills/architecture), where you upload your code to the robot, and it runs internally on Misty.
 
-Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use [this Python wrapper](https://github.com/MistyCommunity/mistyPy) to send Misty commands or a REST client such as Postman.
+Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/mistyPy) or a REST client such as Postman to send Misty commands.
 
 Creating your own remote skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
 
