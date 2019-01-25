@@ -370,7 +370,7 @@ command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.PlayAudioClip(string FileName, [int volume], [int prePause], [int postPause]);
+misty.PlayAudioClip(string fileName, [int volume], [int prePause], [int postPause]);
 ```
 
 <!-- TODO: research return values>
@@ -400,7 +400,7 @@ misty.SaveAudioAssetToRobot(string fileName, string dataAsByteArrayString, [bool
 Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
 
 Arguments
-* FileName (string) - The name of the file to delete, including its file type extension.
+* fileName (string) - The name of the file to delete, including its file type extension.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
