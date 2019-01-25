@@ -195,6 +195,13 @@ Follow these steps to take a photo with this camera:
 
 Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
 
+**Note: If you are mapping with a Misty I or Misty II prototype, please be aware of the following:**
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+
 **Note: The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
 
 **Important! For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.**
@@ -220,6 +227,8 @@ When mapping, drive slowly to give the mapping system the best chance to fill in
 **Note: Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.**
 
 **Note: If Misty loses pose after generating a map, she will need to generate a new map and start over.**
+
+**Note: It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the API Explorer, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.**
 
 1. Follow the above instructions to obtain pose.
 2. Click **Start Mapping**. After a few seconds, the **Pose** light should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
