@@ -64,6 +64,14 @@ Please contact Misty's support team if the connections on either of these boards
 
 ## Mapping with the Companion App
 
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](../api-explorer/#obtaining-pose). If you are unable to successfully map an area with the Companion App, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+
 1. From the **Home** screen, select the **Map/Drive** icon at the bottom of the screen. ![Companion App home screen](../../../assets/images/companion_app_home_5.png)
 2. You should see a screen with instructions on creating a map. From this screen, you can either start mapping or driving your Misty robot. To create a map, begin by pressing the **Start Mapping** button. ![Companion App mapping instructions screen](../../../assets/images/companion_app_map_instructions_2.png)
 3. The **Start Mapping** button should change to **Stop Mapping** on the instruction screen. Press the **Drive View** button at the bottom of the screen. ![Companion App stop mapping button](../../../assets/images/companion_app_stop_mapping_1.png)

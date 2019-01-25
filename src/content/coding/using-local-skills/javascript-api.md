@@ -1018,7 +1018,13 @@ misty.MoveArmPosition(string armToMove, double radians, double velocity, [int pr
 
 ## Mapping & Tracking
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the API Explorer.
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha).
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
 <!-- Mapping & Tracking - ALPHA>
 
@@ -1170,6 +1176,12 @@ misty.SlamReset([int prePause], [int postPause]);
 <!-- misty.SlamStartMapping - ALPHA -->
 ### misty.SlamStartMapping - ALPHA
 Starts Misty mapping an area.
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
