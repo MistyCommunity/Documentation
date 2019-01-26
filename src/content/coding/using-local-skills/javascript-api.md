@@ -796,27 +796,27 @@ misty.ChangeLED(0, 0, 0);
 
 ## Faces
 
-
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
-<!-- Faces - BETA>
+<!-- Faces - BETA -->
 
-<!-- misty.CancelFaceTraining - BETA -->
 ### misty.CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
+
+```JavaScript
+// Syntax
+misty.CancelFaceTraining([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.CancelFaceTraining([int prePause], [int postPause]);
+// Example
+misty.CancelFaceTraining();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.ClearLearnedFaces - BETA -->
 ### misty.ClearLearnedFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
