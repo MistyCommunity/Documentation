@@ -429,7 +429,7 @@ Returns
 
 <!-- misty.StopRecordingAudio - BETA -->
 ### misty.StopRecordingAudio - BETA
-Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()` You must use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
