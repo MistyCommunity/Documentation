@@ -1002,6 +1002,11 @@ misty.MoveHeadPosition(0, 0, 0, 0);
 
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `MoveHeadPosition` command can only control the up-down movement of Misty's head.
 
+```JavaScript
+// Syntax
+misty.MoveHeadRadians(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
+```
+
 Arguments
 * pitch (double) - A value in radians specifying the position of Misty’s head along the up-down axis. Values range from -0.1662 (fully up) to 0.6094 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
 * roll (double) - A value in radians specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -0.75 (head tilted fully to the left shoulder) to 0.75 (head fully to the right shoulder). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
@@ -1012,7 +1017,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.MoveHeadRadians(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
+// Example
+misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 0);
 ```
 
 <!-- misty.SetHeadDegrees -->
