@@ -35,7 +35,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.ChangeDisplayImage("Happy.png", 10, 0.5, 0, 0);
+misty.ChangeDisplayImage("Happy.png");
 ```
 
 <!-- misty.DeleteImageAssetFromRobot -->
@@ -96,7 +96,7 @@ Returns
 ### misty.SaveImageAssetToRobot
 Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
 
-Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
 ```JavaScript
 // Syntax
@@ -170,7 +170,6 @@ Returns
   - height (integer) - The height of the image in pixels.
   - name (string) - The name of the image.
   - width (integer) - The width of the image in pixels.
-
 
 <!-- misty.SlamGetDepthImage -->
 ### misty.SlamGetDepthImage - ALPHA
