@@ -118,30 +118,30 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-
 ```JavaScript
 // Example
 misty.SaveAudioAssetToRobot("Filename.wav", "137,80,78,71,13,1...", false, false);
 ```
-<!-- TODO: Check return values and provide code sample -->
 
 <!-- Images & Display - BETA -->
 
-<!-- misty.ClearDisplayText - BETA -->
-
 ### misty.ClearDisplayText - BETA
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
+
+```JavaScript
+// Syntax
+misty.ClearDisplayText ([int prePause], [int postPause])
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.ClearDisplayText ([int prePause], [int postPause])
+// Example
+misty.ClearDisplayText();
 ```
-<!-- 
-Returns
-- Result (boolean) - Returns `true` if there are no errors related to this command. -->
+
 
 <!-- Images & Display - ALPHA -->
 
