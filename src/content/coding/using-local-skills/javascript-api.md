@@ -13,9 +13,7 @@ Use the JavaScript API to write skills for Misty that run locally on your robot.
 
 ## Images & Display
 
-<!-- Images & Display - PRODUCTION>
-
-<!-- misty.ChangeDisplayImage -->
+<!-- Images & Display - PRODUCTION -->
 
 ### misty.ChangeDisplayImage
 Displays an image on Misty's screen. Optionally, `misty.ChangeDisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImageAssetToRobot`](../../using-remote-commands/rest/#saveimageassettorobot-byte-array-string-) command in Misty's REST API to upload images to Misty.
@@ -60,7 +58,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.DeleteImageAssetFromRobot("DeleteMe.png", 0, 0);
+misty.DeleteImageAssetFromRobot("DeleteMe.png");
 ```
 
 <!-- misty.GetListOfImages -->
@@ -100,11 +98,15 @@ Returns
    * Width (integer) - The width of the image file.
    * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-<!-- misty.SaveImageAssetToRobot -->
 ### misty.SaveImageAssetToRobot
 Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+
+```JavaScript
+// Syntax
+misty.SaveImageAssetToRobot(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
+```
 
 Arguments
 * fileName (string) - The name of the image file to save.
@@ -115,10 +117,6 @@ Arguments
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the saved file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the saved file should not overwrite any existing files on Misty.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-misty.SaveImageAssetToRobot(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
-```
 
 <!-- TODO: Check return values and provide code sample -->
 
@@ -832,11 +830,7 @@ Arguments
 ```JavaScript
 misty.StopFaceDetection([int prePause], [int postPause]);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.StopFaceRecognition - BETA -->
 ### misty.StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
@@ -847,13 +841,10 @@ Arguments
 ```JavaScript
 misty.StopFaceRecognition([int prePause], [int postPause])
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
+
 
 ## Head Movement
 
-<!-- misty.MoveHeadDegrees --> 
 ### misty.MoveHeadDegrees
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
 
@@ -868,11 +859,7 @@ Arguments
 ```JavaScript
 misty.MoveHeadDegrees(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.MoveHeadPosition -->
 ### misty.MoveHeadPosition
 
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `MoveHeadPosition` command can only control the up-down movement of Misty's head.
@@ -888,11 +875,7 @@ Arguments
 ```JavaScript
 misty.MoveHeadPosition(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.MoveHeadRadians -->
 ### misty.MoveHeadRadians
 
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `MoveHeadPosition` command can only control the up-down movement of Misty's head.
@@ -909,9 +892,6 @@ Arguments
 ```JavaScript
 misty.MoveHeadRadians(double pitch, double roll, double yaw, [double velocity], [int prePause], [int postPause]);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SetHeadDegrees -->
 ### misty.SetHeadDegrees
@@ -928,9 +908,6 @@ Arguments
 ```JavaScript
 misty.SetHeadDegrees(string axis, double position, [double velocity,] [int prePause], [int postPause]);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.SetHeadPosition
 
