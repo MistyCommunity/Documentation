@@ -619,11 +619,16 @@ misty.Halt();
 
 ## Information
 
-<!-- misty.GetAvailableWifiNetworks -->
 ### misty.GetAvailableWifiNetworks
 Obtains a list of local WiFi networks and basic information regarding each.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+
+```JavaScript
+// Syntax
+misty.GetAvailableWifiNetworks([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -633,13 +638,14 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetAvailableWifiNetworks([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetAvailableWifiNetworks();
 ```
 
 Returns
 
-* Result (array) - An array containing one element for each Wi-Fi network discovered. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each element contains the following:
-   * Name (string) - The name of the Wi-Fi network.
+* Result (array) - An array containing one element for each WiFi network discovered. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each element contains the following:
+   * Name (string) - The name of the WiFi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
 
