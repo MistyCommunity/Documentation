@@ -206,13 +206,13 @@ Returns
 ### misty.SlamGetVisibleImage - ALPHA
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
-**Note:** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+**Note:** Make sure to use `misty.SlamStartStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
 ```JavaScript
 // Syntax
-misty.SlamGetVisibleImage([bool base64], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.SlamGetVisibleImage([bool base64 = true], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Arguments
@@ -249,8 +249,7 @@ misty.SlamStartStreaming([int prePause], [int postPause]);
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
-command, `postPause` is not used.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
 // Example
@@ -277,8 +276,6 @@ command, `postPause` is not used.
 misty.SlamStopStreaming();
 ```
 
-<!-- TODO: Research & revise. -->
-
 ### misty.TakePicture - ALPHA
 
 Takes a photo with Misty’s 4K camera.
@@ -287,7 +284,7 @@ Takes a photo with Misty’s 4K camera.
 
 ```JavaScript
 // Syntax
-misty.TakePicture([bool base64], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.TakePicture([bool base64 = true], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Arguments
