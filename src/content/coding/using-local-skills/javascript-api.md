@@ -554,11 +554,18 @@ Returns
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
+```JavaScript
+// Syntax
+misty.Halt([int prePause], [int postPause])
+```
+
 Arguments
-* None
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Halt()
+// Example
+misty.Halt();
 ```
 
 ## Information
