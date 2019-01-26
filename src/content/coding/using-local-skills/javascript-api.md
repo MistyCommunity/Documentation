@@ -516,6 +516,11 @@ When using the `misty.Drive()` command, it helps to understand how linear veloci
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
+```JavaScript
+// Syntax
+misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
+```
+
 Arguments
 * linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
 * angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
@@ -523,11 +528,9 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
+// Example
+misty.Drive(0, 0);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.DriveTime
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
