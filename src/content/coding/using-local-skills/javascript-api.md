@@ -820,18 +820,29 @@ misty.CancelFaceTraining();
 ### misty.ClearLearnedFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
+```JavaScript
+// Syntax
+misty.ClearLearnedFaces([int prePause], [int postPause])
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-<!-- Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
+```JavaScript
+// Example
+misty.ClearLearnedFaces();
+```
 
-<!-- misty.GetLearnedFaces - BETA --> 
 ### misty.GetLearnedFaces - BETA
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetLearnedFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -841,7 +852,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetLearnedFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetLearnedFaces();
 ```
 
 Returns
