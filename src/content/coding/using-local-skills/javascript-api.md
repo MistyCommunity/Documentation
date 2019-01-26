@@ -1302,7 +1302,7 @@ Arguments
 * delay (integer) - The duration in milliseconds to pause skill execution.
 
 ```JavaScript
-misty.Delay(int delay)
+misty.Pause(int delay)
 ```
 
 <!-- misty.RandomPause -->
@@ -1468,7 +1468,7 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SetLogLevel(string level,[int prePause], [int postPause]);
+misty.SetLogLevel(string level, [int prePause], [int postPause]);
 ```
 
 <!-- misty.GetLogLevel -->
@@ -1590,7 +1590,7 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript 
-misty.Set(string key, string value);
+misty.Set(string key, string value, [int prePause], [int postPause]);
 ```
 
 ## External Server Communication
