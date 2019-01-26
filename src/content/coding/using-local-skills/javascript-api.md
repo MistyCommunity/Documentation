@@ -465,17 +465,19 @@ misty.StartRecordingAudio("RecordingExample.wav");
 ### misty.StopRecordingAudio - BETA
 Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
+```JavaScript
+// Syntax
+misty.StopRecordingAudio([int prePause], [int postPause]);
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StopRecordingAudio([int prePause], [int postPause]);
+// Example
+misty.StopRecordingAudio();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns true if there are no errors related to this command. -->
-
 
 <!-- Audio - ALPHA -->
 
@@ -485,17 +487,20 @@ Returns
 ### misty.SetDefaultVolume - ALPHA
 Sets the default loudness of Misty's speakers for audio playback.
 
+```JavaScript
+// Syntax
+misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
+```
+
 Arguments
 * volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
+// Example
+misty.SetDefaultVolume(100);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Locomotion
 
