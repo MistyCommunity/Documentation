@@ -879,22 +879,24 @@ Arguments
 misty.StartFaceDetection();
 ```
 
-<!-- misty.StartFaceRecognition - BETA -->
 ### misty.StartFaceRecognition - BETA
 Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `misty.StartFaceDetection()` command to detect and store face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
+
+```JavaScript
+// Syntax
+misty.StartFaceRecognition([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StartFaceRecognition([int prePause], [int postPause]);
+// Example
+misty.StartFaceRecognition();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StartFaceTraining - BETA -->
 ### misty.StartFaceTraining - BETA
@@ -902,19 +904,21 @@ Starts Misty learning a face and assigns a name to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
 
+```JavaScript
+// Syntax
+misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
+```
+
 Arguments
-* faceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+* faceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, `-`, and `_` are valid characters.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
+// Example
+misty.StartFaceTraining("My_Face");
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.StopFaceDetection - BETA -->
 ### misty.StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
