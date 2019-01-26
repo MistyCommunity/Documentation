@@ -860,22 +860,24 @@ Returns
 
 * Result (string) - A list of the names for faces that Misty has been trained to recognize. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-<!-- misty.StartFaceDetection - BETA -->  
 ### misty.StartFaceDetection - BETA
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
+
+```JavaScript
+// Syntax
+misty.StartFaceDetection([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StartFaceDetection([int prePause], [int postPause]);
+// Example
+misty.StartFaceDetection();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StartFaceRecognition - BETA -->
 ### misty.StartFaceRecognition - BETA
