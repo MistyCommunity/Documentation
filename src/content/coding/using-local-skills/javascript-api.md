@@ -399,11 +399,14 @@ Arguments
 misty.PlayAudioClip("Play.wav", 100);
 ```
 
-<!-- TODO: research return values>
-
 <!-- misty.SaveAudioAssetToRobot -->
 ### misty.SaveAudioAssetToRobot
 Saves an audio file to Misty. Maximum size is 3 MB.
+
+```JavaScript
+// Syntax
+misty.SaveAudioAssetToRobot(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
+```
 
 Arguments
 * fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
@@ -414,10 +417,9 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SaveAudioAssetToRobot(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
+// Example
+misty.SaveAudioAssetToRobot("Filename.wav", "137,80,78,71,13,1...", false, false);
 ```
-
-<!-- TODO: research return values>
 
 <!-- Audio - BETA -->
 <!-- misty.DeleteAudioAssetFromRobot -->
