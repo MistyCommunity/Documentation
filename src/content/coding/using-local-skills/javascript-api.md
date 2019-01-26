@@ -676,11 +676,15 @@ Returns
 
 * Result (double) - Returns a value between 0 and 100 corresponding to the current battery level. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-<!-- misty.GetDeviceInformation -->
 ### misty.GetDeviceInformation
 Obtains device-related information for the robot.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetDeviceInformation([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -690,7 +694,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetDeviceInformation([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetDeviceInformation();
 ```
 
 Returns
@@ -708,7 +713,6 @@ Returns
    * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
    * serialNumber - The unique serial number for the robot.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
-
 
 <!-- misty.GetHelp -->
 ### misty.GetHelp
