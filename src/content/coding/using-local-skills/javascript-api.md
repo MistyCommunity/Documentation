@@ -773,23 +773,26 @@ Returns
 
 ## LEDs
 
-<!-- misty.ChangeLED --> 
 ### misty.ChangeLED
 
 Changes the color of the LED light behind the logo on Misty's torso.
 
+```JavaScript
+// Syntax
+misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
+```
+
 Arguments
-* Red (byte) - A value between 0 and 255 specifying the red RGB color.
-* Green (byte) - A value between 0 and 255 specifying the green RGB color.
-* Blue (byte) - A value between 0 and 255 specifying the blue RGB color.
+* Red (integer) - A value between 0 and 255 specifying the red RGB color.
+* Green (integer) - A value between 0 and 255 specifying the green RGB color.
+* Blue (integer) - A value between 0 and 255 specifying the blue RGB color.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
+// Example
+misty.ChangeLED(0, 0, 0);
 ```
-<!-- Returns
-* Success (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`. -->
 
 ## Faces
 
