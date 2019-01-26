@@ -314,9 +314,8 @@ Returns
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-<!-- Audio - PRODUCTION>
+<!-- Audio - PRODUCTION -->
 
-<!-- misty.GetListOfAudioClips -->
 ### misty.GetListOfAudioClips
 
 Lists the default system audio files currently stored on Misty.
@@ -324,6 +323,11 @@ Lists the default system audio files currently stored on Misty.
 Note that you can use the `misty.GetListOfAudioFiles()` command to list all audio files on the robot (system files and user uploads).
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -333,17 +337,15 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetListOfAudioClips();
 ```
 
 Returns
 
-<!-- TODO: test return values -->
-
 * Result (array) - Returns an array of audio file information. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** `misty.GetListOfAudioClips()` should always return false.
-
+   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** Because `misty.GetListOfAudioClips()` only returns information for default audio files, the value of this property is `false` for all items in this list.
 
  <!-- misty.GetListOfAudioFiles -->
 ### misty.GetListOfAudioFiles
