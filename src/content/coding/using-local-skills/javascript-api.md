@@ -714,14 +714,18 @@ Returns
    * serialNumber - The unique serial number for the robot.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
-<!-- misty.GetHelp -->
 ### misty.GetHelp
 Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 
+```JavaScript
+// Syntax
+misty.GetHelp([string endpointName], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
 Arguments
-* endpointName (string) - Command in "Api.<COMMAND>" format eg: "Api.GetListOfAudioClips". If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
+* endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetListOfAudioClips"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -729,7 +733,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetHelp([string endpointName], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetHelp();
 ```
 
 Returns
