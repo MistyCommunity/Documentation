@@ -186,9 +186,14 @@ Returns
 ### misty.SlamGetDepthImage - ALPHA
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
-**Note:** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+**Note:** Make sure to use `misty.SlamStartStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
@@ -198,7 +203,26 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+
+// Use misty.SlamStartStreaming() to open the
+// data stream from Misty's depth sensor before
+// calling misty.SlamGetDepthImage()
+misty.SlamStartStreaming();
+
+misty.SlamGetDepthImage();
+
+// Callback function to call when data
+// from misty.SlamGetDepthImage is ready
+function _SlamGetDepthImage(data) {
+    _depthImageData = JSON.stringify(data);
+    misty.Debug(_depthImageData);
+}
+
+// Use misty.SlamStopStreaming() to close the
+// data stream from the depth sensor after
+// obtaining a depth image
+misty.SlamStopStreaming(20000);
 ```
 
 Returns
