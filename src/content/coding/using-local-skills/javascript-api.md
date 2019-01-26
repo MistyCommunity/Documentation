@@ -939,12 +939,18 @@ misty.StopFaceDetection();
 ### misty.StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
+```JavaScript
+// Syntax
+misty.StopFaceRecognition([int prePause], [int postPause])
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StopFaceRecognition([int prePause], [int postPause])
+// Example
+misty.StopFaceRecognition();
 ```
 
 
