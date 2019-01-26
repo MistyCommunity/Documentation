@@ -383,15 +383,20 @@ Returns
 ### misty.PlayAudioClip
 Plays an audio clip that has been previously saved to Misty's storage.
 
+```JavaScript
+// Syntax
+misty.PlayAudioClip(string fileName, [int volume], [int prePause], [int postPause]);
+```
+
 Arguments
 * fileName (string) - The name of the file to play.
 * volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-command.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.PlayAudioClip(string fileName, [int volume], [int prePause], [int postPause]);
+// Example
+misty.PlayAudioClip("Play.wav", 100);
 ```
 
 <!-- TODO: research return values>
