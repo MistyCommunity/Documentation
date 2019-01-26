@@ -446,17 +446,20 @@ misty.DeleteAudioAssetFromRobot("DeleteMe.wav");
 ### misty.StartRecordingAudio - BETA
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
+```JavaScript
+// Syntax
+misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
+```
+
 Arguments
 * fileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
+// Example
+misty.StartRecordingAudio("RecordingExample.wav");
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.StopRecordingAudio - BETA -->
 ### misty.StopRecordingAudio - BETA
