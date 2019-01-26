@@ -580,20 +580,22 @@ Arguments
 misty.LocomotionTrack(0, 0);
 ```
 
-<!-- misty.Stop -->
 ### misty.Stop
 Stops Misty's movement.
+
+```JavaScript
+// Syntax
+misty.Stop([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Stop([int prePause], [int postPause]);
+// Example
+misty.Stop();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- Alpha - Locomotion -->
 
