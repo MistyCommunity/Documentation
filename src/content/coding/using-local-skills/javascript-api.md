@@ -118,6 +118,11 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
+
+```JavaScript
+// Example
+misty.SaveAudioAssetToRobot("Filename.wav", "137,80,78,71,13,1...", false, false);
+```
 <!-- TODO: Check return values and provide code sample -->
 
 <!-- Images & Display - BETA -->
