@@ -922,12 +922,18 @@ misty.StartFaceTraining("My_Face");
 ### misty.StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
+```JavaScript
+// Syntax
+misty.StopFaceDetection([int prePause], [int postPause]);
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.StopFaceDetection([int prePause], [int postPause]);
+// Example
+misty.StopFaceDetection();
 ```
 
 ### misty.StopFaceRecognition - BETA
