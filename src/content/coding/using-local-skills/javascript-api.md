@@ -422,10 +422,15 @@ misty.SaveAudioAssetToRobot("Filename.wav", "137,80,78,71,13,1...", false, false
 ```
 
 <!-- Audio - BETA -->
-<!-- misty.DeleteAudioAssetFromRobot -->
+
 ### misty.DeleteAudioAssetFromRobot - BETA
 
 Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
+
+```JavaScript
+// Syntax
+misty.DeleteAudioAssetFromRobot(string fileName, [int prePause], [int postPause]);
+```
 
 Arguments
 * fileName (string) - The name of the file to delete, including its file type extension.
@@ -433,11 +438,9 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.DeleteAudioAssetFromRobot(string fileName, [int prePause], [int postPause]);
+// Example
+misty.DeleteAudioAssetFromRobot("DeleteMe.wav");
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this call. Otherwise, `false`. -->
 
 <!-- misty.StartRecordingAudio - BETA -->
 ### misty.StartRecordingAudio - BETA
