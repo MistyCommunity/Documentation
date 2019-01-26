@@ -142,7 +142,6 @@ Arguments
 misty.ClearDisplayText();
 ```
 
-
 <!-- Images & Display - ALPHA -->
 
 <!-- misty.GetImage - ALPHA -->
@@ -150,6 +149,10 @@ misty.ClearDisplayText();
 Obtains a system or user-uploaded image file currently stored on Misty.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments  
 * imageName (string) - The name of the image file to get, including its file type extension.
@@ -160,7 +163,13 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetImage(string imageName, [bool base64 = true] [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetImage("Angry.png", true);
+
+function _GetImage(data) {
+    _imageData = JSON.stringify(data);
+    misty.Debug(_imageData);
+}
 ```
 
 Returns
@@ -171,6 +180,7 @@ Returns
   - height (integer) - The height of the image in pixels.
   - name (string) - The name of the image.
   - width (integer) - The width of the image in pixels.
+
 
 <!-- misty.SlamGetDepthImage -->
 ### misty.SlamGetDepthImage - ALPHA
