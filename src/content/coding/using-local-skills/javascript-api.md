@@ -561,9 +561,13 @@ Arguments
 misty.DriveTime(0, 0, 0);
 ```
 
-<!-- misty.LocomotionTrack -->
 ### misty.LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
+
+```JavaScript
+// Syntax
+misty.LocomotionTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
+```
 
 Arguments
 - leftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
@@ -572,11 +576,9 @@ Arguments
 - postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.LocomotionTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
+// Example
+misty.LocomotionTrack(0, 0);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.Stop -->
 ### misty.Stop
