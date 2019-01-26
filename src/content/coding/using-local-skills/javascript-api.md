@@ -1260,9 +1260,11 @@ Arguments
 * inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
 * valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [WebSocket Reference](../../using-remote-commands/websocket-reference).
 * valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType);
+misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType, [int prePause], [int postPause]);
 ```
 
 <!-- misty.AddReturnProperty -->
@@ -1272,9 +1274,11 @@ Adds an additional return property field for a registered event.
 Arguments
 * eventName (string) - The name of the event to add a return property field for.
 * eventProperty (string) - The additional property to return.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.AddReturnProperty(string eventName, string eventProperty);
+misty.AddReturnProperty(string eventName, string eventProperty, [int prePause], [int postPause]);
 ```
 
 <!-- misty.CancelSkill --> 
@@ -1283,9 +1287,11 @@ Cancel execution a specified skill.
 
 Arguments
 * uniqueID (string) - The unique GUID of the skill to cancel.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.CancelSkill(string skillName)
+misty.CancelSkill(string skillName, [int prePause], [int postPause])
 ```
 
 <!-- misty.Pause -->
@@ -1347,9 +1353,13 @@ Arguments
 * eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
 * callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
 * keepAlive (boolean) -  By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `UnregisterEvent` function in your code.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCallUniqueID (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
+misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive, [string callbackRule], [string skillToCallUniqueID], [int prePause], [int postPause]);
 ```
 
 Returns
@@ -1399,10 +1409,11 @@ Returns
 Unregisters from all events for the skill in which this command is called.
 
 Arguments
-* None
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.UnregisterAllEvents()
+misty.UnregisterAllEvents([int prePause], [int postPause])
 ```
 
 <!-- misty.UnregisterEvent -->
@@ -1411,9 +1422,11 @@ Unregisters from a specified event.
 
 Arguments
 * eventName (string) - The name of the event to unregister from.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.UnregisterEvent(string eventName);
+misty.UnregisterEvent(string eventName, [int prePause], [int postPause]);
 ```
 
 ## Debugging
@@ -1483,13 +1496,21 @@ Returns
 ### misty.Debug - ALPHA
 Prints a message to the JavaScript console for the Skill Runner web page in your browser.
 
-When you use Skill Runner to run a skill, the `SkillData` WebSocket connection is established at the time you connect to your robot, and enables printing debug messages to the JavaScript console. You can use `misty.Debug()` to send your own messages to the console. **Note:** If `BroadcastMode` is set to `off` in the meta file for a skill, no debug messages are sent.
+When you use Skill Runner to run a skill, the `SkillData` WebSocket connection is established at the time you connect to your robot. This enables printing debug messages to the JavaScript console. You can use `misty.Debug()` to send your own messages to the console. **Note:** If `BroadcastMode` is set to `off` in the meta file for a skill, no debug messages are sent.
+
+```JavaScript
+// Syntax
+misty.Debug(string debugInfo, [int prePause], [int postPause]);
+```
 
 Arguments
 * debugInfo (string) - The debug message to log to the console.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Debug(string debugInfo);
+// Example
+misty.Debug("Hello, world!")
 ```
 
 <!-- misty.Publish -->
@@ -1514,23 +1535,27 @@ Returns data saved to the robot using `misty.Set()`.
 
 Arguments
 * key (string) - The key name of the data to return.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Get(string key);
+misty.Get(string key, [int prePause], [int postPause]);
 ```
 
 Returns
 * value (string, boolean, integer, or double) - The data associated with the specified key.
+
 
 <!-- misty.Keys --> 
 ### misty.Keys - ALPHA
 Returns a list of all the available persistent data stored on the robot. 
 
 Arguments
-* None
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Keys();
+misty.Keys([int prePause], [int postPause]);
 ```
 
 Returns
@@ -1543,9 +1568,11 @@ Removes specified data that has been saved to the robot with `misty.Set()`.
 
 Arguments
 * key (string) - The key name of the data to remove.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Remove(string key)
+misty.Remove(string key, [int prePause], [int postPause])
 ```
 
 <!-- misty.Set --> 
@@ -1559,6 +1586,8 @@ Currently, any data saved to the robot this way is not automatically deleted and
 Arguments
 * key (string) - The key name for the data to save.
 * value (value ) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript 
 misty.Set(string key, string value);
