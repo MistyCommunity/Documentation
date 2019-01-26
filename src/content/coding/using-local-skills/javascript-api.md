@@ -1021,20 +1021,25 @@ Arguments
 misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 0);
 ```
 
-<!-- misty.SetHeadDegrees -->
 ### misty.SetHeadDegrees
 
 Moves Misty’s head to a given degree along one of three axes (tilt, turn, or up-and-down).
 
+```JavaScript
+// Syntax
+misty.SetHeadDegrees(string axis, double degrees, double velocity, [int prePause], [int postPause]);
+```
+
 Arguments
 * axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.  
-* position (double) - Indicates the degree to move Misty’s head to along the given axis. The value range for pitch is -9.5 (fully up) to 35.0 (fully down); for roll, --43.0 (fully left) to 43.0 (fully right); for yaw, -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. 
+* degrees (double) - Indicates the degree to move Misty’s head to along the given axis. The value range for pitch is -9.5 (fully up) to 35.0 (fully down); for roll, -43.0 (fully left) to 43.0 (fully right); for yaw, -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. 
 * velocity (double) - The speed of the head movement. Value range: 0 to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SetHeadDegrees(string axis, double position, [double velocity,] [int prePause], [int postPause]);
+// Example
+misty.SetHeadDegrees("yaw", 90, 0);
 ```
 
 ### misty.SetHeadPosition
