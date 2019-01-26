@@ -83,11 +83,6 @@ Arguments
 ```JavaScript
 // Example
 misty.GetListOfImages();
-
-function _GetListOfImages(data) {
-    _imageList = JSON.stringify(data);
-    misty.Debug(_imageList)
-}
 ```
 
 Returns
@@ -165,11 +160,6 @@ Arguments
 ```JavaScript
 // Example
 misty.GetImage("Angry.png", true);
-
-function _GetImage(data) {
-    _imageData = JSON.stringify(data);
-    misty.Debug(_imageData);
-}
 ```
 
 Returns
@@ -204,25 +194,7 @@ Arguments
 
 ```JavaScript
 // Example
-
-// Use misty.SlamStartStreaming() to open the
-// data stream from Misty's depth sensor before
-// calling misty.SlamGetDepthImage()
-misty.SlamStartStreaming();
-
 misty.SlamGetDepthImage();
-
-// Callback function to call when data
-// from misty.SlamGetDepthImage is ready
-function _SlamGetDepthImage(data) {
-    _depthImageData = JSON.stringify(data);
-    misty.Debug(_depthImageData);
-}
-
-// Use misty.SlamStopStreaming() to close the
-// data stream from the depth sensor after
-// obtaining a depth image
-misty.SlamStopStreaming(20000);
 ```
 
 Returns
@@ -254,25 +226,7 @@ Arguments
 
 ```JavaScript
 // Example
-
-// Use misty.SlamStartStreaming() to open the
-// data stream from Misty's depth sensor before
-// calling misty.SlamGetVisibleImage()
-misty.SlamStartStreaming();
-
 misty.SlamGetVisibleImage(true);
-
-// Callback function to call when data
-// from misty.SlamGetVisibleImage is ready
-function _SlamGetVisibleImage(data) {
-    _visibleImageData = JSON.stringify(data);
-    misty.Debug(_visibleImageData);
-}
-
-// Use misty.SlamStopStreaming() to close the
-// data stream from the depth sensor after
-// obtaining a photo
-misty.SlamStopStreaming(20000);
 ```
 
 Returns
@@ -347,15 +301,7 @@ Arguments
 
 ```JavaScript
 // Example
-
 misty.TakePicture(true);
-
-// Callback function to call when data
-// from misty.TakePicture() is ready
-function _TakePicture(data) {
-    _pictureData = JSON.stringify(data);
-    misty.Debug(_pictureData);
-}
 ```
 
 Returns
