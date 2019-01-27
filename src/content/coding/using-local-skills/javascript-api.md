@@ -1602,12 +1602,18 @@ Returns
 ### misty.UnregisterAllEvents - ALPHA
 Unregisters from all events for the skill in which this command is called.
 
+```JavaScript
+// Syntax
+misty.UnregisterAllEvents([int prePause], [int postPause])
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.UnregisterAllEvents([int prePause], [int postPause])
+// Example
+misty.UnregisterAllEvents();
 ```
 
 <!-- misty.UnregisterEvent -->
