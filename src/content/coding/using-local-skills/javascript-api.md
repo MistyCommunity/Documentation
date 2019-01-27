@@ -1327,7 +1327,6 @@ Arguments
 misty.SlamReset();
 ```
 
-<!-- misty.SlamStartMapping - ALPHA -->
 ### misty.SlamStartMapping - ALPHA
 Starts Misty mapping an area.
 
@@ -1337,16 +1336,19 @@ Starts Misty mapping an area.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
+```JavaScript
+// Syntax
+misty.SlamStartMapping([int prePause], [int postPause]);
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamStartMapping([int prePause], [int postPause]);
+// Example
+misty.SlamStartMapping();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamStartTracking - ALPHA -->
 ### misty.SlamStartTracking - ALPHA
