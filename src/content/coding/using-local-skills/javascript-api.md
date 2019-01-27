@@ -1262,11 +1262,15 @@ Returns
 
 * Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-<!-- misty.SlamGetStatus -->
 ### misty.SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.SlamGetStatus([string callbackMethod], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int postPause])
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -1275,18 +1279,16 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
+```JavaScript
+// Example
+misty.SlamGetStatus();
+```
+
 Returns
-
-* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Idle
-  2 - Exploring
-  3 - Tracking
-  4 - Recording
-  5 - Resetting
-
-Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-
-* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+* Result (object) - A data object with the following key-value pairs. **Note:** In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+  * Status (integer) - An integer value where each bit is set to represent a different activity mode: 1 - Idle, 2 - Exploring, 3 - Tracking, 4 - Recording, 5 - Resetting. For example, if Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+  * SensorStatus (integer) - A number representing the status of Mistys' sensors, using the `SlamSensorStatus` enumerable.
+  * RunMode (integer) - A number representing the status of Misty's navigation.
 
 ```c#
 public enum SlamSensorStatus
@@ -1307,8 +1309,6 @@ public enum SlamSensorStatus
   FWCorrupt = 13
 }
 ```
-
-**Note:** In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.SlamReset - ALPHA -->
 ### misty.SlamReset - ALPHA
