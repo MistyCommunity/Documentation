@@ -1540,7 +1540,7 @@ misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive
 Arguments
 * eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
 * callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
-* keepAlive (boolean) -  Optional. By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `UnregisterEvent` function in your code.
+* keepAlive (boolean) -  Optional. By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `misty.UnregisterEvent()` function in your code.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueID (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1584,7 +1584,7 @@ misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule
 
 Arguments
 * eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
-* keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `UnregisterEvent` function in your code.
+* keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `misty.UnregisterEvent()` function in your code.
 * callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
 * skillToCall (string) - Optional. The unique ID of a skill to call when the event is triggered. Use this value if the callback function is not defined in the same skill as the user event is registered in.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1616,9 +1616,13 @@ Arguments
 misty.UnregisterAllEvents();
 ```
 
-<!-- misty.UnregisterEvent -->
 ### misty.UnregisterEvent - ALPHA
 Unregisters from a specified event.
+
+```JavaScript
+// Syntax
+misty.UnregisterEvent(string eventName, [int prePause], [int postPause]);
+```
 
 Arguments
 * eventName (string) - The name of the event to unregister from.
@@ -1626,7 +1630,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.UnregisterEvent(string eventName, [int prePause], [int postPause]);
+// Example
+misty.UnregisterEvent("EventName");
 ```
 
 ## Debugging
