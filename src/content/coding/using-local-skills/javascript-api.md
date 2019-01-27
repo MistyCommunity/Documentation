@@ -1086,22 +1086,27 @@ misty.SetHeadRadians("yaw", 1.5708, 0);
 
 ## Arm Movement
 
-<!-- misty.MoveArmPosition -->
 ### misty.MoveArmPosition
 
 **Available for Misty II Only**
 
 Moves one of Misty's arms to a specified position.
 
+```JavaScript
+// Syntax
+misty.MoveArmPosition(string armToMove, double position, double velocity, [int prePause], [int postPause])
+```
+
 Arguments
-* armToMove (string) - The arm to move. Pass `"Left"` or `"Right"`.
+* armToMove (string) - The arm to move. Pass `"seft"` or `"right"`.
 * position (double) - The position to move the arm to. Value range: 0 - 10.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.MoveArmPosition(string armToMove, double position, double velocity, [int prePause], [int postPause])
+// Example
+misty.MoveArmPosition("left", 0, 50);
 ```
 
 <!-- misty.MoveArmDegrees -->
