@@ -1388,16 +1388,19 @@ misty.SlamStopMapping();
 ### misty.SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
+```JavaScript
+// Syntax
+misty.SlamStopTracking([int prePause], [int postPause]);
+```
+
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamStopTracking([int prePause], [int postPause]);
+// Example
+misty.SlamStopTracking();
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ## Events & Timing
 
