@@ -1753,9 +1753,13 @@ misty.Publish("data-name", "data-value");
 
 ## Persistent Data
 
-<!-- misty.Get -->
 ### misty.Get - ALPHA
 Returns data saved to the robot using `misty.Set()`. 
+
+```JavaScript
+// Syntax
+misty.Get(string key, [int prePause], [int postPause]);
+```
 
 Arguments
 * key (string) - The key name of the data to return.
@@ -1763,7 +1767,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Get(string key, [int prePause], [int postPause]);
+// Example
+misty.Get("Key");
 ```
 
 Returns
