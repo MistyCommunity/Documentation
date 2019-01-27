@@ -1819,14 +1819,20 @@ Saves data that can be validly updated and used across threads or shared between
 
 Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
+```JavaScript
+// Syntax
+misty.Set(string key, string value, [int prePause], [int postPause]);
+```
+
 Arguments
 * key (string) - The key name for the data to save.
-* value (value ) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`
+* value (value) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-```JavaScript 
-misty.Set(string key, string value, [int prePause], [int postPause]);
+```JavaScript
+// Example
+misty.Set("Key", "Value");
 ```
 
 ## External Server Communication
