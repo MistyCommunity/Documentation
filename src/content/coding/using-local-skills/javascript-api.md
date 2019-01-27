@@ -1404,9 +1404,14 @@ misty.SlamStopTracking();
 
 ## Events & Timing
 
-<!-- misty.AddPropertyTest -->
 ### misty.AddPropertyTest - ALPHA
 Creates a property comparison test to specify which data the system sends for a registered event. Use property tests to filter unwanted data out of event messages.
+
+
+```JavaScript
+// Syntax
+misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType, [int prePause], [int postPause]);
+```
 
 Arguments
 * eventName (string) - The name of the event to create a property comparison test for.
@@ -1418,7 +1423,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType, [int prePause], [int postPause]);
+// Example
+misty.AddPropertyTest("EventName", "SensorPosition", "==", "Back", "string");
 ```
 
 <!-- misty.AddReturnProperty -->
