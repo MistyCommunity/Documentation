@@ -1446,17 +1446,23 @@ Arguments
 misty.AddReturnProperty("EventName", "DistanceInMeters");
 ```
 
-<!-- misty.CancelSkill --> 
 ### misty.CancelSkill - ALPHA
 Cancel execution a specified skill.
 
+
+```JavaScript
+// Syntax
+misty.CancelSkill(string uniqueId, [int prePause], [int postPause])
+```
+
 Arguments
-* uniqueID (string) - The unique GUID of the skill to cancel.
+* uniqueId (string) - The unique GUID of the skill to cancel.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.CancelSkill(string skillName, [int prePause], [int postPause])
+// Example
+misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
 ```
 
 <!-- misty.Pause -->
