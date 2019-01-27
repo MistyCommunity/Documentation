@@ -1465,15 +1465,20 @@ Arguments
 misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
 ```
 
-<!-- misty.Pause -->
 ### misty.Pause - ALPHA
 Pause skill execution for a specified number of milliseconds.
+
+```JavaScript
+// Syntax
+misty.Pause(int delay)
+```
 
 Arguments
 * delay (integer) - The duration in milliseconds to pause skill execution.
 
 ```JavaScript
-misty.Pause(int delay)
+// Example
+misty.Pause(1000);
 ```
 
 <!-- misty.RandomPause -->
