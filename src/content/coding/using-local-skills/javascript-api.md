@@ -1481,18 +1481,22 @@ Arguments
 misty.Pause(1000);
 ```
 
-<!-- misty.RandomPause -->
 ### misty.RandomPause - ALPHA
 Pause skill execution for a random duration.
+
+```JavaScript
+// Syntax
+misty.RandomPause(int minimumDelay, int maximumDelay)
+```
 
 Arguments
 * minimumDelay (integer) - The minimum duration in milliseconds to pause skill execution.
 * maximumDelay (integer) - The maximum duration in milliseconds to pause skill execution. 
 
 ```JavaScript
-misty.RandomPause(int minimumDelay, int maximumDelay)
+// Example
+misty.RandomPause(1000, 2000);
 ```
-
 
 <!-- misty.RegisterEvent -->
 ### misty.RegisterEvent - ALPHA
