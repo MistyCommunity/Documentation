@@ -1498,15 +1498,19 @@ Arguments
 misty.RandomPause(1000, 2000);
 ```
 
-<!-- misty.RegisterEvent -->
 ### misty.RegisterEvent - ALPHA
 Register to receive messages with live event data from one of Misty's sensors. 
 
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../architecture/#sensor-event-callbacks).
 
+```JavaScript
+// Syntax
+misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
 Arguments
 * eventName (string) - Sets an event name (of your choice) for the registered event. The name of the callback function is set automatically to be the same as your event name, prefixed with an underscore (`_<eventName>`). 
-* messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed here.
+* messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed [here](../../using-remote-commands/websocket-reference/).
 * debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
 * keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
@@ -1514,9 +1518,9 @@ Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
-
 ```JavaScript
-misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.RegisterEvent("EventName", "TimeOfFlight", 1000, false);
 ```
 
 Returns
