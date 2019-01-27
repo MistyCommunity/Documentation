@@ -1310,20 +1310,22 @@ public enum SlamSensorStatus
 }
 ```
 
-<!-- misty.SlamReset - ALPHA -->
 ### misty.SlamReset - ALPHA
 Resets Misty's SLAM sensors.
+
+```JavaScript
+// Syntax
+misty.SlamReset([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamReset([int prePause], [int postPause]);
+// Example
+misty.SlamReset();
 ```
-
-<!-- Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 <!-- misty.SlamStartMapping - ALPHA -->
 ### misty.SlamStartMapping - ALPHA
