@@ -1109,12 +1109,16 @@ Arguments
 misty.MoveArmPosition("left", 0, 50);
 ```
 
-<!-- misty.MoveArmDegrees -->
 ### misty.MoveArmDegrees
 
 **Available for Misty II Only**
 
 Moves one of Misty's arms to a specified location in degrees.
+
+```JavaScript
+// Syntax
+misty.MoveArmDegrees(string armToMove, double degrees, double velocity, [int prePause], [int postPause])
+```
 
 Arguments
 * armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
@@ -1124,7 +1128,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.MoveArmPosition(string armToMove, double degrees, double velocity, [int prePause], [int postPause])
+// Example
+misty.MoveArmDegrees("right", 90, 50);
 ```
 
 <!-- misty.MoveArmRadians -->
