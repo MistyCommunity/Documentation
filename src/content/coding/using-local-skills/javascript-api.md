@@ -1732,18 +1732,23 @@ Arguments
 misty.Debug("Message")
 ```
 
-<!-- misty.Publish -->
 ### misty.Publish - ALPHA
 Writes data to the robot's internal log.
 
 Note that `misty.Publish()` writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the API Explorer to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../using-remote-commands/rest/#getlogfile) command. 
 
+```JavaScript
+// Syntax
+misty.Publish(string name, string value)  
+```
+
 Arguments
-* name (string) - A name for the data data to write to the robot's log.
+* name (string) - A name for the data to write to the robot's log.
 * value (string, integer, double, or boolean) - The data to write to the robot's log. To write an object, you must serialize your data into a string using `JSON.stringify()`.
 
 ```JavaScript
-misty.Publish(string name, string value)  
+// Example
+misty.Publish("data-name", "data-value");
 ```
 
 ## Persistent Data
