@@ -1663,7 +1663,6 @@ Returns
 
 * Result (list) - Compiled log file data. Returns an error message if no log data is found. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-<!-- misty.SetLogLevel -->
 ### misty.SetLogLevel - ALPHA
 Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
 
@@ -1672,13 +1671,19 @@ Sets the log level of the robot. The log level specifies where to write differen
 * `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
 * `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
 
+```JavaScript
+// Syntax
+misty.SetLogLevel(string level, [int prePause], [int postPause]);
+```
+
 Arguments
 * level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SetLogLevel(string level, [int prePause], [int postPause]);
+// Example
+misty.SetLogLevel("Debug");
 ```
 
 <!-- misty.GetLogLevel -->
