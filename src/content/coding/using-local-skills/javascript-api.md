@@ -1427,9 +1427,13 @@ Arguments
 misty.AddPropertyTest("EventName", "SensorPosition", "==", "Back", "string");
 ```
 
-<!-- misty.AddReturnProperty -->
 ### misty.AddReturnProperty - ALPHA
 Adds an additional return property field for a registered event.
+
+```JavaScript
+// Syntax
+misty.AddReturnProperty(string eventName, string eventProperty, [int prePause], [int postPause]);
+```
 
 Arguments
 * eventName (string) - The name of the event to add a return property field for.
@@ -1438,7 +1442,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.AddReturnProperty(string eventName, string eventProperty, [int prePause], [int postPause]);
+// Example
+misty.AddReturnProperty("EventName", "DistanceInMeters");
 ```
 
 <!-- misty.CancelSkill --> 
