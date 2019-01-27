@@ -1712,7 +1712,6 @@ Returns
 
 * level (string) - The current log level of the robot. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
-<!-- misty.Debug -->
 ### misty.Debug - ALPHA
 Prints a message to the JavaScript console for the Skill Runner web page in your browser.
 
@@ -1730,7 +1729,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.Debug("Hello, world!")
+misty.Debug("Message")
 ```
 
 <!-- misty.Publish -->
