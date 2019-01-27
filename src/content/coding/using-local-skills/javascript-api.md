@@ -1794,10 +1794,13 @@ misty.Keys();
 Returns
 * keys (list) - A list of the keys and values for all available persistent data stored on the robot.
 
-
-<!-- misty.Remove --> 
 ### misty.Remove - ALPHA
-Removes specified data that has been saved to the robot with `misty.Set()`. 
+Removes data that has been saved to the robot under a specific key with `misty.Set()`. 
+
+```JavaScript
+// Syntax
+misty.Remove(string key, [int prePause], [int postPause])
+```
 
 Arguments
 * key (string) - The key name of the data to remove.
@@ -1805,10 +1808,10 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Remove(string key, [int prePause], [int postPause])
+// Example
+misty.Remove("Key");
 ```
 
-<!-- misty.Set --> 
 ### misty.Set - ALPHA
 Saves data that can be validly updated and used across threads or shared between skills. 
 
