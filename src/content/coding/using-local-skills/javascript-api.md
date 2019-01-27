@@ -1173,19 +1173,21 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 
 **Important!** Make sure to call `misty.SlamStartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
 
+```JavaScript
+// Syntax
+misty.FollowPath(string path, [int prePause], [int postPause]);
+```
+
 Arguments
-* path - List of sets of Integers - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  *Note:* X values specify directions forward and backward. Sideways directions are specified by Y values.
+* path (list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.FollowPath(string path, [int prePause], [int postPause]);
+// Example
+misty.FollowPath("100:250,125:275...");
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.SlamGetMap - ALPHA -->
 ### misty.SlamGetMap - ALPHA
 
 Obtains occupancy grid data for the most recent map Misty has generated. 
