@@ -1350,23 +1350,30 @@ Arguments
 misty.SlamStartMapping();
 ```
 
-<!-- misty.SlamStartTracking - ALPHA -->
 ### misty.SlamStartTracking - ALPHA
 Starts Misty tracking her location.
+
+```JavaScript
+// Syntax
+misty.SlamStartTracking([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamStartTracking([int prePause], [int postPause]);
+// Example
+misty.SlamStartTracking();
 ```
-
-<!-- Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
 ### misty.SlamStopMapping - ALPHA
 Stops Misty mapping an area.
+
+```JavaScript
+// Syntax
+misty.SlamStopMapping([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1374,13 +1381,10 @@ Arguments
 command, `postPause` is not used.
 
 ```JavaScript
-misty.SlamStopMapping([int prePause], [int postPause]);
+// Example
+misty.SlamStopMapping();
 ```
 
-<!-- Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
-
-<!-- misty.SlamStopTracking - ALPHA -->
 ### misty.SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
