@@ -1774,17 +1774,21 @@ misty.Get("Key");
 Returns
 * value (string, boolean, integer, or double) - The data associated with the specified key.
 
-
-<!-- misty.Keys --> 
 ### misty.Keys - ALPHA
 Returns a list of all the available persistent data stored on the robot. 
+
+```JavaScript
+// Syntax
+misty.Keys([int prePause], [int postPause]);
+```
 
 Arguments
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.Keys([int prePause], [int postPause]);
+// Example
+misty.Keys();
 ```
 
 Returns
