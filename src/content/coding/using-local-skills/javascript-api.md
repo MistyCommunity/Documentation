@@ -1636,12 +1636,16 @@ misty.UnregisterEvent("EventName");
 
 ## Debugging
 
-<!-- misty.GetLogFile -->
 ### misty.GetLogFile
 
 Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days.
 
 **Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../architecture/#-get-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetLogFile([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
 
 Arguments
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
@@ -1651,12 +1655,13 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.GetLogFile([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+// Example
+misty.GetLogFile();
 ```
 
 Returns
 
-* Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
+* Result (list) - Compiled log file data. Returns an error message if no log data is found. In a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../architecture/#-get-data-callbacks) for more information.
 
 <!-- misty.SetLogLevel -->
 ### misty.SetLogLevel - ALPHA
