@@ -1534,13 +1534,13 @@ Creates an event that calls a callback function after a specified period of time
 
 ```JavaScript
 // Syntax
-misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive, [string callbackRule], [string skillToCallUniqueID], [int prePause], [int postPause]);
+misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive], [string callbackRule], [string skillToCallUniqueID], [int prePause], [int postPause]);
 ```
 
 Arguments
 * eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
 * callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
-* keepAlive (boolean) -  By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `UnregisterEvent` function in your code.
+* keepAlive (boolean) -  Optional. By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `UnregisterEvent` function in your code.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCallUniqueID (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1555,9 +1555,8 @@ Returns
 
 * Data sent by the timed event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
-<!-- misty.RegisterUserEvent -->
 ### misty.RegisterUserEvent - ALPHA
-Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `api/alpha/sdk/skills/event` endpoint with the appropriate payload for the callback and/or skill.
+Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `<robot-ip-address>/api/alpha/sdk/skills/event` endpoint with the appropriate payload for the callback and/or skill.
 
 Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
 
@@ -1578,6 +1577,11 @@ The `UniqueId` and `EventName` values are required and must match the ID of the 
 
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../architecture/#timed-or-triggered-event-callbacks).
 
+```JavaScript
+// Syntax
+misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePause], [int postPause])
+```
+
 Arguments
 * eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
 * keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `UnregisterEvent` function in your code.
@@ -1587,7 +1591,8 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePause], [int postPause])
+// Example
+misty.RegisterUserEvent("EventName", false);
 ```
 
 Returns
