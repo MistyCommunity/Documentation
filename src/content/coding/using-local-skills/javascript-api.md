@@ -973,7 +973,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.MoveHeadDegrees(10, 10, 10, 0);
+misty.MoveHeadDegrees(10, 10, 10, 100);
 ```
 
 ### misty.MoveHeadPosition
@@ -995,7 +995,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.MoveHeadPosition(0, 0, 0, 0);
+misty.MoveHeadPosition(0, 0, 0, 100);
 ```
 
 ### misty.MoveHeadRadians
@@ -1018,7 +1018,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 0);
+misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 100);
 ```
 
 ### misty.SetHeadDegrees
@@ -1039,12 +1039,17 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SetHeadDegrees("yaw", 90, 0);
+misty.SetHeadDegrees("yaw", 90, 100);
 ```
 
 ### misty.SetHeadPosition
 
 Moves Misty’s head to a given position along one of three axes (tilt, turn, or up-and-down).
+
+```JavaScript
+// Syntax
+misty.SetHeadPosition(string axis, double position, double velocity, [int prePause], [int postPause]);
+```
 
 Arguments
 * axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a local skill running on Misty I robots does nothing.
@@ -1054,13 +1059,10 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
-misty.SetHeadPosition(string axis, double position, double velocity, [int prePause], [int postPause]);
+// Example
+misty.SetHeadPosition("pitch", 0, 100);
 ```
-<!-- 
-Returns
-* Result (boolean) - Returns `true` if there are no errors related to this command. -->
 
-<!-- misty.SetHeadRadians -->
 ### misty.SetHeadRadians
 
 Moves Misty’s head to a given radian along one of three axes (tilt, turn, or up-and-down).
