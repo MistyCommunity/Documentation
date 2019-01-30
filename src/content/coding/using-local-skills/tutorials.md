@@ -1,5 +1,5 @@
 ---
-title: Tutorials
+title: Local Skill Tutorials
 layout: coding.hbs
 columns: three
 order: 2
