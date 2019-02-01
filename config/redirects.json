@@ -1,5 +1,4 @@
 {
-	"/meet_misty" : "/docs/robots/introduction",
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
@@ -8,7 +7,5 @@
 	"/gettingstarted": "/",
 	"/getting-started": "/",
 	"/onboarding": "/docs/robots/introduction",
-	"/coding": "/docs/using-local-skills/architecture",
-	"/tutorials": "/docs/using-local-skills/tutorials",
-	"/apis/api-reference/rest": "/docs/using-remote-commands/rest"
+	"/coding": "/docs/skills/introduction"
 }

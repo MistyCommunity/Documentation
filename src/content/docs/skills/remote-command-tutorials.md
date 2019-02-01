@@ -7,12 +7,13 @@ order: 5
 
 # {{title}}
 
-## Changing Misty’s LED
+The tutorials in this section describe how to write skills for Misty that use her REST API. You can use the REST API to send Misty commands from an external device. These tutorials show how to use .html files and in-line JavaScript to write programs for Misty that run in your web browser.
 
-These tutorials describe how to write skills for Misty that use her REST API. With the REST API, we can send commands to Misty from an external device, like the web browser of a laptop or desktop. These tutorials show how to use .html documents and inline JavaScript to write programs for Misty that run in your web browser. In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
+## Changing Misty’s LED
+In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
-Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../docs/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/api-explorer/#connecting-wifi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
+Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../docs/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/api-explorer/#connecting-wi-fi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
 
 ### Setting Up Your Project
 This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` calls to Misty from the browser, we use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a content delivery network (CDN) for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
