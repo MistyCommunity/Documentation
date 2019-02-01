@@ -1,19 +1,17 @@
 ---
-title: Architecture
+title: Local Skill Architecture
 layout: coding.hbs
 columns: three
-order: 1
+order: 2
 ---
 
 # {{title}}
-
-Misty has two basic types of skill architecture: local and remote. When you write a local skill, you upload your code to the robot, and it runs internally on Misty. This differs from using [remote commands](../../using-remote-commands/architecture) with Misty, where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
 
 When you write a local skill, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
 **IMPORTANT! Local skills are a pre-release, “alpha” technology and are subject to frequent change.** Any local skills you create for Misty may need updates before release to reflect ongoing development of the local skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
 
-You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../tutorials) and just skim the following list to get an idea of what you might want to read about later:
+You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The local skill command syntax differs slightly from that of remote skill commands. 
 * Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to a local skill via callback functions.
@@ -118,7 +116,7 @@ misty.SlamGetMap("override", "9d50efbd-af53-4cd3-9659-c0faf648263d", 500, 10);
 ```
 
 ### Sensor Event Callbacks
-For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../using-remote-commands/websocket-reference).
+For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../reference/sensor-data).
 
 The `misty.RegisterEvent()` function has the following form:
 
@@ -264,7 +262,7 @@ Additional commands that operate on data across skills are described in the [Hel
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
-Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../javascript-api).
+Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../reference/javascript-api).
 
 ### Get Commands
 Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-get-data-callbacks) section for more usage details.
@@ -284,11 +282,11 @@ All of the event command types require you to implement a callback to be notifie
 The system supplies the following types of helper commands to assist you in creating a local skill for Misty.
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `Set`, `Get`, `Remove`, `Keys`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
-* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../tutorials/#hello-world-external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
-* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described in the [JavaScript API reference documentation](../javascript-api). Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
+* **External Data.** Another type of helper command allows your local skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../../skills/local-skill-tutorials/#external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
+* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your local skill: `Pause`, `RandomPause`, `Debug`, `CancelSkill`, and `Publish`. These commands are described in the [JavaScript API reference documentation](../../reference/javascript-api). Note: A local skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
-The system provides some REST commands that you can use to control local skills from a remote device. For information about these commands, see the section on [REST API](../rest) commands for managing skills. These commands allow you to:
+The system provides some REST commands that you can use to control local skills from a remote device. For information about these commands, see the section on [REST API](../../reference/rest) commands for managing skills. These commands allow you to:
 * Upload skills to the robot
 * Load, reload, or unload one or more skills
 * Run a skill
@@ -395,11 +393,11 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 
 ## Loading & Running a Local Skill
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
-* the [Misty Skill Runner](../tools/#misty-skill-runner) web tool, which provides a simple upload feature
+* the [Misty Skill Runner](../../skills/tools/#misty-skill-runner) web tool, which provides a simple upload feature
 * a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
 
 ### Using Skill Runner 
-The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../tools/#misty-skill-runner).
+The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../skills/tools/#misty-skill-runner).
 
 ### Using Postman
 There are many ways to send a `POST` request to the skill deployment endpoint, but here we’ll use Postman.

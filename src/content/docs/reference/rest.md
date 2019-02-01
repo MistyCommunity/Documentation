@@ -2,14 +2,14 @@
 title: REST API
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
 
 With the REST API, you can send commands to Misty from a REST client or browser. There is also a community owned [Python wrapper](https://github.com/MistyCommunity/mistyPy) available for the Misty REST API.
 
-To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../architecture/#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
+To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
@@ -17,7 +17,7 @@ To create skills for Misty, you'll need to send commands to Misty and get data b
 
 Use the following URL format when sending commands to the robot:
 ```markup
-http://<robot-ip-address>/api/<Endpoint>
+http://{robot-ip-address}/api/{Endpoint}
 ```
 Misty uses JSON to format REST API data. Use this format when creating the payload:
 ```json
@@ -49,7 +49,7 @@ Displays an image on Misty's screen. Optionally, `ChangeDisplayImage` can displa
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/images/change
+Endpoint: POST {robot-ip-address}/api/images/change
 
 Parameters
 - FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
@@ -72,7 +72,7 @@ Return Values
 ### GetListOfImages
 Obtains a list of the images currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/images
+Endpoint: GET {robot-ip-address}/api/images
 
 Parameters
 - None
@@ -91,7 +91,7 @@ Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/images
+Endpoint: POST {robot-ip-address}/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
@@ -147,7 +147,7 @@ Enables you to remove an image file from Misty that you have previously uploaded
 
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/images/delete
+Endpoint: POST {robot-ip-address}/api/images/delete
 
 Parameters
 * FileName (string) - The name of the file to delete, including its file type extension.
@@ -166,7 +166,7 @@ Return Values
 ### ClearDisplayText - BETA
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/text/clear
+Endpoint: POST {robot-ip-address}/api/beta/text/clear
 
 Parameters
 - None
@@ -179,11 +179,11 @@ Return Values
 ### GetImage - ALPHA
 Obtains a system or user-uploaded image file currently stored on Misty
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/image?FileName={name-of-image-file.extension}
+Endpoint: GET {robot-ip-address}/api/alpha/image?FileName={name-of-image-file.extension}
 
 Example:
 
-`http://<robot-ip-address>/api/alpha/image?FileName=Content.jpg&Base64=false`
+`http://{robot-ip-address}/api/alpha/image?FileName=Content.jpg&Base64=false`
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
@@ -219,11 +219,11 @@ Return Values
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/camera
+Endpoint: GET {robot-ip-address}/api/camera
 
 Example:
 
-`http://<robot-ip-address>/api/alpha/camera?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
+`http://{robot-ip-address}/api/alpha/camera?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
 
 Parameters
 
@@ -260,7 +260,7 @@ Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
 **Important!** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command, and use `SlamStopStreaming` to close the data stream after using this command.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/visibleimage?Base64={bool}
+Endpoint: GET {robot-ip-address}/api/alpha/slam/visibleimage?Base64={bool}
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
@@ -289,7 +289,7 @@ Provides the current distance of objects from Misty’s Occipital Structure Core
 
 **Important!** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command, and use `SlamStopStreaming` to close the data stream after using this command.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/depthimage
+Endpoint: GET {robot-ip-address}/api/alpha/slam/depthimage
 
 Parameters
 - None
@@ -313,7 +313,7 @@ Opens the data stream from the Occipital Structure Core depth sensor, so you can
 
 **Important!** Always use `SlamStopStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `SlamStopStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/streaming/start
+Endpoint: POST {robot-ip-address}/api/alpha/slam/streaming/start
 
 Parameters 
 - None
@@ -326,7 +326,7 @@ Closes the data stream from the Occipital Structure Core depth sensor. This comm
 
 **Important!** Always use this command to close the depth sensor data stream after using `SlamStartStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/streaming/stop
+Endpoint: POST {robot-ip-address}/api/alpha/slam/streaming/stop
 
 Parameters
 - None
@@ -344,7 +344,7 @@ Lists the default system audio files currently stored on Misty.
 
 Note that you can use the `GetListOfAudioFiles` command to list all audio files on the robot (system files and user uploads).
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio/clips
+Endpoint: GET {robot-ip-address}/api/audio/clips
 
 Parameters
 - None
@@ -358,7 +358,7 @@ Return Values
 ### GetListOfAudioFiles
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio
+Endpoint: GET {robot-ip-address}/api/audio
 
 Parameters
 - None
@@ -371,7 +371,7 @@ Return Values
 ### PlayAudioClip
 Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
+Endpoint: POST {robot-ip-address}/api/audio/play
 
 Parameters    
 - AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
@@ -390,7 +390,7 @@ Return Values
 ### SaveAudioAssetToRobot (Byte Array String)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
+Endpoint: POST {robot-ip-address}/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
@@ -416,7 +416,7 @@ Return Values
 ### SaveAudioAssetToRobot (Audio File)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
+Endpoint: POST {robot-ip-address}/api/audio
 
 **Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
@@ -436,7 +436,7 @@ Return Values
 ### StartRecordingAudio - BETA
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/audio/startrecord
+Endpoint: POST {robot-ip-address}/api/beta/audio/startrecord
 
 Parameters
 * FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
@@ -448,7 +448,7 @@ Return Values
 ### StopRecordingAudio - BETA
 Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/audio/stoprecord
+Endpoint: POST {robot-ip-address}/api/beta/audio/stoprecord
 
 Parameters
 * None
@@ -462,7 +462,7 @@ Enables you to remove an audio file from Misty that you have previously uploaded
 
 **Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/audio/delete
+Endpoint: POST {robot-ip-address}/api/beta/audio/delete
 
 Parameters
 * FileName (string) - The name of the file to delete, including its file type extension.
@@ -481,14 +481,14 @@ Return Values
 ### GetAudioFile - ALPHA
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/audio/file?FileName={name-of-audio-file.extension}
+Endpoint: GET {robot-ip-address}/api/alpha/audio/file?FileName={name-of-audio-file.extension}
 
 Parameters  
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
 
 ```markup
-http://<robot-ip-address>/api/alpha/audio/file?FileName=ExampleAudio.mp3
+http://{robot-ip-address}/api/alpha/audio/file?FileName=ExampleAudio.mp3
 ```
 
 Return Values
@@ -497,7 +497,7 @@ Return Values
 ### SetDefaultVolume - ALPHA
 Sets the default loudness of Misty's speakers for audio playback.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/audio/volume
+Endpoint: POST {robot-ip-address}/api/alpha/audio/volume
 
 Parameters
 - Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
@@ -507,9 +507,9 @@ Return Values
 
 ## Locomotion
 
-The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../meet_misty/apps/companion-app).
+The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../architecture/#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../websocket-reference). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -522,7 +522,7 @@ When using the Drive command, it helps to understand how linear velocity (speed 
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive
+Endpoint: POST {robot-ip-address}/api/drive
 
 Parameters
 - LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
@@ -550,7 +550,7 @@ When using the DriveTime command, it helps to understand how linear velocity (sp
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/time
+Endpoint: POST {robot-ip-address}/api/drive/time
 
 Parameters
 - LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
@@ -573,7 +573,7 @@ Return Values
 ### LocomotionTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/track
+Endpoint: POST {robot-ip-address}/api/drive/track
 
 Parameters
 - LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
@@ -593,7 +593,7 @@ Return Values
 ### Stop
 Stops Misty's movement.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
+Endpoint: POST {robot-ip-address}/api/drive/stop
 
 Parameters
 - None
@@ -607,7 +607,7 @@ Return Values
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/robot/halt
+Endpoint: POST {robot-ip-address}/api/alpha/robot/halt
 
 Parameters
 * None
@@ -620,7 +620,7 @@ Return Values
 ### GetAvailableWifiNetworks
 Obtains a list of local WiFi networks and basic information regarding each.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/wifi
+Endpoint: GET {robot-ip-address}/api/info/wifi
 
 Parameters
 - None
@@ -635,7 +635,7 @@ Return Values
 ### GetBatteryLevel
 Obtains Misty's current battery level.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/battery
+Endpoint: GET {robot-ip-address}/api/info/battery
 
 Parameters
 - None
@@ -647,7 +647,7 @@ Return Values
 ### GetDeviceInformation
 Obtains device-related information for the robot.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/device
+Endpoint: GET {robot-ip-address}/api/info/device
 
 Parameters
 - None
@@ -672,8 +672,8 @@ Return Values
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Endpoint:
-* GET &lt;robot-ip-address&gt;/api/info/help for a list of commands and endpoints
-* GET &lt;robot-ip-address&gt;/api/info/help?command=endpoint/path for information on a specific endpoint. Example: `<robot-ip-address>/api/info/help?command=audio/play`
+* GET {robot-ip-address}/api/info/help for a list of commands and endpoints
+* GET {robot-ip-address}/api/info/help?command=endpoint/path for information on a specific endpoint. Example: `{robot-ip-address}/api/info/help?command=audio/play`
 
 Parameters
 - None
@@ -692,11 +692,11 @@ Endpoint:
 
 Examples:
 
-`<robot-ip-address>/api/info/logs`
+`{robot ip address}/api/info/logs`
 
-`<robot-ip-address>/api/info/logs?date=2018/9/24`
+`{robot ip address}/api/info/logs?date=2018/9/24`
 
-`<robot-ip-address>/api/info/logs?date=September/24/2018`
+`{robot ip address}/api/info/logs?date=September/24/2018`
 
 Parameters
 - Date (string) - Optional. A date within the last 7 days. Dates must be formatted as: `MonthName/Date/FourDigitYear` or `FourDigitYear/MonthNumber/Date`.
@@ -710,8 +710,8 @@ Return Values
 Obtains information about a specified beta API command. Calling `GetBetaHelp` with no parameters returns a list of all the beta API commands that are available.
 
 Endpoint:
-* GET &lt;robot-ip-address&gt;/api/beta/info/help for a list of beta commands and endpoints
-* GET &lt;robot-ip-address&gt;/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint. Example: `<robot-ip-address>/api/beta/info/help?command=head/position`
+* GET {robot-ip-address}/api/beta/info/help for a list of beta commands and endpoints
+* GET {robot-ip-address}/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint. Example: `{robot-ip-address}/api/beta/info/help?command=head/position`
 
 Parameters
 - None
@@ -728,8 +728,8 @@ Obtains information about a specified alpha API command. Calling `GetAlphaHelp` 
 
 Endpoint: 
 
-* GET &lt;robot-ip-address&gt;/api/alpha/info/help for a list of alpha commands and endpoints.
-* GET &lt;robot-ip-address&gt;/api/alpha/help?command=endpoint/path for information on a specific alpha endpoint. Example: `<robot-ip-address>/api/alpha/info/help?command=audio/file`
+* GET {robot-ip-address}/api/alpha/info/help for a list of alpha commands and endpoints.
+* GET {robot-ip-address}/api/alpha/help?command=endpoint/path for information on a specific alpha endpoint. Example: `{robot-ip-address}/api/alpha/info/help?command=audio/file`
 
 Parameters
 * None
@@ -742,7 +742,7 @@ Return Values
 ### ChangeLED
 Changes the color of the LED light behind the logo on Misty's torso.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/led/change
+Endpoint: POST {robot-ip-address}/api/led/change
 
 Parameters
 - Red (byte) - The red RGB color value (range 0 to 255).
@@ -765,7 +765,7 @@ Return Values
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/wifi
+Endpoint: POST {robot-ip-address}/api/wifi
 
 Parameters
 - NetworkName (string) - The WiFi network name (SSID).
@@ -787,7 +787,7 @@ Return Values
 
 Checks whether a system update is available. 
 
-Endpoint: &lt;robot-ip-address&gt;/api/alpha/info/updates
+Endpoint: {robot-ip-address}/api/alpha/info/updates
 
 Parameters
 * None
@@ -799,7 +799,7 @@ Return Values
 
 Downloads and installs a system update if one is available.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/system/update
+Endpoint: POST {robot-ip-address}/api/alpha/system/update
 
 Parameters
 * None
@@ -813,7 +813,7 @@ Attempts to install updates for specified components of your robot.
 
 **Note:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the `GetDeviceInformation` command. You can make sure individual components are up-to-date by comparing these version numbers to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/system/update/target
+Endpoint: POST {robot-ip-address}/api/alpha/system/update/target
 
 Parameters
 - Components (array) - A list of strings indicating the specific components to update. Use `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
@@ -831,9 +831,9 @@ Return Values
 
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
 
-The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#face-training-amp-recognition-beta).
+The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](../../../docs/apps/api-explorer/#face-training-amp-recognition-beta).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../architecture/#sending-commands-and-subscribing-to-websockets) to her FaceDetection and FaceRecognition [WebSockets](../websocket-reference). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture#sending-commands-and-subscribing-to-websockets) to her FaceDetection and FaceRecognition [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
 
 ### StartFaceDetection - BETA
@@ -841,7 +841,7 @@ Initiates Misty's detection of faces in her line of vision. This command assigns
 
 When you are done having Misty detect faces, call StopFaceDetection.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/detection/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/detection/start
 
 Parameters
 - None
@@ -855,7 +855,7 @@ Trains Misty to recognize a specific face and applies a user-assigned ID to that
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/training/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/training/start
 
 Parameters
 - FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
@@ -875,7 +875,7 @@ Directs Misty to recognize a face she sees, if it is among those she alerady kno
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/recognition/start
+Endpoint: POST {robot-ip-address}/api/beta/faces/recognition/start
 
 Parameters
 - None
@@ -887,7 +887,7 @@ Return Values
 ### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/detection/stop
+Endpoint: POST {robot-ip-address}/api/beta/faces/detection/stop
 
 Parameters
 - None
@@ -899,7 +899,7 @@ Return Values
 ### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/training/cancel
+Endpoint: POST {robot-ip-address}/api/beta/faces/training/cancel
 
 Parameters
 - None
@@ -911,7 +911,7 @@ Return Values
 ### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/recognition/stop
+Endpoint: POST {robot-ip-address}/api/beta/faces/recognition/stop
 
 Parameters
 - None
@@ -923,7 +923,7 @@ Return Values
 ### GetLearnedFaces - BETA
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/beta/faces
+Endpoint: GET {robot-ip-address}/api/beta/faces
 
 Parameters
 - None
@@ -935,7 +935,7 @@ Return Values
 ### ClearLearnedFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/clearall
+Endpoint: POST {robot-ip-address}/api/beta/faces/clearall
 
 Parameters
 - None
@@ -951,7 +951,7 @@ Misty's ability to accurately position her head is currently under development.
 ### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/head/move
+Endpoint: POST {robot-ip-address}/api/beta/head/move
 
 Parameters
 - Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
@@ -974,7 +974,7 @@ Return Values
 ### SetHeadPosition - BETA
 Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/head/position
+Endpoint: POST {robot-ip-address}/api/beta/head/position
 
 Parameters
 - Axis (string) - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
@@ -1000,7 +1000,7 @@ Return Values
 
 Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/arms/move
+Endpoint: POST {robot-ip-address}/api/arms/move
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
@@ -1026,7 +1026,7 @@ Return Values
 
 Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
+Endpoint: POST {robot-ip-address}/api/arms/set
 
 Parameters
 * LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
@@ -1049,7 +1049,7 @@ Return Values
 
 ## Mapping & Tracking
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
@@ -1060,7 +1060,7 @@ Return Values
 ### SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/status
+Endpoint: GET {robot-ip-address}/api/alpha/slam/status
 
 Parameters
 - None
@@ -1101,7 +1101,7 @@ public enum SlamSensorStatus
 ### SlamReset - ALPHA
 Resets the SLAM sensors.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/reset
+Endpoint: POST {robot-ip-address}/api/alpha/slam/reset
 
 Parameters
 - None
@@ -1119,7 +1119,7 @@ Starts Misty mapping an area.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/map/start
+Endpoint: POST {robot-ip-address}/api/alpha/slam/map/start
 
 Parameters
 - None
@@ -1131,7 +1131,7 @@ Return Values
 ### SlamStartTracking - ALPHA
 Starts Misty tracking her location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/track/start
+Endpoint: POST {robot-ip-address}/api/alpha/slam/track/start
 
 Parameters
 - None
@@ -1143,7 +1143,7 @@ Return Values
 ### SlamStopMapping - ALPHA
 Stops Misty mapping an area.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/map/stop
+Endpoint: POST {robot-ip-address}/api/alpha/slam/map/stop
 
 Parameters
 - None
@@ -1155,7 +1155,7 @@ Return Values
 ### SlamStopTracking - ALPHA
 Stops Misty tracking her location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/track/stop
+Endpoint: POST {robot-ip-address}/api/alpha/slam/track/stop
 
 Parameters
 - None
@@ -1174,11 +1174,11 @@ The occupancy grid for the map is represented by a two-dimensional matrix. Each 
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `SlamGetPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
-Endpoint: &lt;robot-ip-address&gt;/api/alpha/slam/map/raw 
+Endpoint: {robot-ip-address}/api/alpha/slam/map/raw 
 
 or 
 
-&lt;robot-ip-address&gt;/api/alpha/slam/map 
+{robot-ip-address}/api/alpha/slam/map 
 
 Parameters
  * None
@@ -1202,7 +1202,7 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 
 **Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/path
+Endpoint: GET {robot-ip-address}/api/alpha/slam/path
 
 Parameters
 * X (integer) - The X coordinate of the destination.
@@ -1225,7 +1225,7 @@ Drives to a designated waypoint.
 
 **Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/location
+Endpoint: POST {robot-ip-address}/api/alpha/drive/location
 
 Parameters
 * Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `SlamGetRawMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
@@ -1243,7 +1243,7 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 
 **Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the end of the path.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/path
+Endpoint: POST {robot-ip-address}/api/alpha/drive/path
 
 Parameters
 - Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
@@ -1265,9 +1265,9 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../using-remote-commands/websocket-reference/#stringmessage) events.
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../reference/sensor-data/#stringmessage) events.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/serialport
+Endpoint: POST {robot-ip-address}/api/alpha/serialport
 
 Parameters
 
@@ -1281,4 +1281,165 @@ Parameters
 
 Return Values
 
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+## Skill Management Commands
+
+<!-- SaveSkillToRobot -->
+
+<!--- GetSkills -->
+### GetSkills - ALPHA
+Obtains a list of the skills currently uploaded onto the robot.
+
+Endpoint: GET {robot-ip-address}/api/alpha/sdk/skills
+
+Parameters
+* (None)
+
+Return Values
+* Result (array) - An array containing the names and meta file information for all of the skills on the robot.
+
+<!-- CancelSkill -->
+### CancelSkill - ALPHA
+Stops a specified running skill (or all running skills if no name is specified).
+
+Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/cancel
+
+Parameters
+* Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
+
+```json
+{
+	"Skill": "SkillName"
+}
+
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+<!-- LoadSkill -->
+### LoadSkill - ALPHA
+Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/load
+
+Parameters
+* Skill (string) - The name of the skill to load.
+
+```json
+{
+  "Skill": "SkillName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+<!-- ReloadSkills --> 
+### ReloadSkills - ALPHA
+Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
+
+Endpoint: POST {robot-ip-address}/api/sdk/reload
+
+Parameters
+* (None)
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request. 
+
+<!-- RunSkill -->
+### RunSkill - ALPHA
+Immediately runs a previously uploaded skill.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skill
+
+Parameters`
+* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
+* Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
+
+```json
+{
+  "Skill": "SkillName",
+  "Method": "methodName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+### SaveSkillToRobot - ALPHA
+Uploads a skill to the robot and makes it immediately available for the robot to run.
+
+**Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skill/deploy
+
+Parameters
+* File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
+* ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
+* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
+
+```json
+{
+  "File" : "SkillName.zip",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
+}
+```
+
+Return Values
+* Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
+
+<!-- TriggerSkillEvent -->
+### TriggerSkillEvent - ALPHA
+Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
+
+Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/event
+
+Parameters
+* UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
+* EventName (string) - The name of the event to trigger. 
+* Payload (JSON string) -  Any arguments needed for the event.
+
+```json
+ {
+  "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
+  "EventName": "UserEvent",
+  "Payload": { "test": "two" }
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+<!-- UnloadSkill -->
+### UnloadSkill - ALPHA
+Makes a skill unavailable to be run which is currently onboard the robot, but does not remove the skill from the robot’s memory.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unload
+
+Parameters
+* Skill (string) - The name of the skill to unload.
+
+```json
+{
+  "Skill": "SkillName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+### UnloadAllSkills - ALPHA
+Makes all skills onboard the robot unavailable to be run, but does not remove the skills from the robot’s memory.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unloadall
+
+Parameters
+* (None)
+
+Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.

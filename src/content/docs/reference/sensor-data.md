@@ -1,15 +1,17 @@
 ---
-title: WebSocket Reference
+title: Sensor & Skill Data Types
 layout: coding.hbs
 columns: three
-order: 4
+order: 3
 ---
 
 # {{title}}
 
-The following are Misty's available WebSocket data stream types. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
+The following are Misty’s available sensor and skill data types. You receive this data when you register for events in a local skill or when you subscribe to a WebSocket connection from a remote device.
 
-**Note**: All of Misty's WebSocket data structures are subject to change.
+You can filter all data types to (a) return only a specified subset of the data and (b) check current values before the data is sent.
+
+**Note**: All of Misty's sensor & skill data structures are subject to change.
 
 ## TimeOfFlight
 
@@ -404,9 +406,9 @@ ActuatorPosition {
 ## BumpSensor
 **Available for Misty II only**
 
-The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha). 
+The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha). 
 
-For an example that shows how to register for and use data from `BumpSensor` events in a local skill, see the [Bump Sensors skill tutorial](../../../coding/using-local-skills/tutorials/#bump-sensors-misty-ii-).
+For an example that shows how to register for and use data from `BumpSensor` events in a local skill, see the [Bump Sensors skill tutorial](../../../docs/skills/local-skill-tutorials/#bump-sensors-misty-ii-).
 
 Sample `BumpSensor` data:
 
@@ -602,7 +604,7 @@ function _StringMessage(data) {
 }
 ```
 
-For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../coding/using-local-skills/architecture/#data-handling-events-amp-callbacks) section of [Using Local Skills](../../../coding/using-local-skills/architecture/).
+For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../docs/skills/local-skill-architecture/#data-handling-events-amp-callbacks) section of [Local Skill Architecture](../../../docs/skills/local-skill-architecture).
 
 ## TouchSensor
 **Available for Misty II only**
@@ -618,7 +620,7 @@ The `TouchSensor` data stream sends information each time one of the capacitive 
 * `CapTouch_HeadTop`
 * `CapTouch_Scruff`
 
-The value of the `sensorPosition` property is a string indicating the location of the sensor. This value corresponds with the name of the sensor that triggered the event (i.e. when the `CapTouch_Chin` sensor triggers the event, the value of `sensorPosition` is `Chin`). The value of `isContacted` is a boolean indicating whether the sensor was touched (`true`) or released (`false`). The `TouchSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha). 
+The value of the `sensorPosition` property is a string indicating the location of the sensor. This value corresponds with the name of the sensor that triggered the event (i.e. when the `CapTouch_Chin` sensor triggers the event, the value of `sensorPosition` is `Chin`). The value of `isContacted` is a boolean indicating whether the sensor was touched (`true`) or released (`false`). The `TouchSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha). 
 
 
 Sample `TouchSensor` data:

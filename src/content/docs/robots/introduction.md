@@ -9,7 +9,7 @@ order: 1
 
 You now have (or soon will) a hand-built [Misty I](../misty-i) or early prototype [Misty II](../misty-ii) robot from the Misty Robotics team. When your robot arrives, please read these docs for some quick, out-of-box assembly steps and other helpful details.
 
-Once you get your robot powered up, you can quickly control Misty via her [Companion App](../../apps/companion-app), [Blockly](../../apps/blockly), or the [API Explorer](../../apps/api-explorer). The real fun starts when you write your first skill for Misty; go [here](../../../coding/using-local-skills/architecture) to get started coding Misty.
+Once you get your robot powered up, you can quickly control Misty via her [Companion App](../../apps/companion-app), [Blockly](../../apps/blockly), or the [API Explorer](../../apps/api-explorer). The real fun starts when you write your first skill for Misty; go [here](../../../docs/using-local-skills/architecture) to get started coding Misty.
 
 More Help & Links:
 * help @ mistyrobotics.com
