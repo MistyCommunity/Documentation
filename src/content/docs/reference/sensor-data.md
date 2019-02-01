@@ -1,5 +1,5 @@
 ---
-title: Sensor Data
+title: Sensor & Skill Data Types
 layout: coding.hbs
 columns: three
 order: 3
@@ -7,9 +7,11 @@ order: 3
 
 # {{title}}
 
-The following are Misty's available WebSocket data stream types. You can filter all WebSocket options so (a) they return only a specified subset of the data and (b) check current values before the data is sent.
+The following are Misty’s available sensor and skill data types. You receive this data when you register for events in a local skill or when you subscribe to a WebSocket connection from a remote device.
 
-**Note**: All of Misty's WebSocket data structures are subject to change.
+You can filter all data types to (a) return only a specified subset of the data and (b) check current values before the data is sent.
+
+**Note**: All of Misty's sensor & skill data structures are subject to change.
 
 ## TimeOfFlight
 
