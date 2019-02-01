@@ -7,9 +7,16 @@ order: 5
 
 # {{title}}
 
+<<<<<<< HEAD:src/content/docs/skills/remote-command-tutorials.md
 The tutorials in this section describe how to write skills for Misty that use her REST API. You can use the REST API to send Misty commands from an external device. These tutorials show how to use .html files and in-line JavaScript to write programs for Misty that run in your web browser.
 
 ## Changing Misty’s LED
+=======
+These tutorials describe how to code Misty using her REST API. With the REST API, we can send commands to Misty from an external device, like the web browser of a laptop or desktop. These tutorials demonstrate how to use .html documents and inline JavaScript to write code for Misty that executes in your web browser.
+
+## Changing Misty’s LED
+
+>>>>>>> master:src/content/coding/using-remote-commands/tutorials.md
 In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
@@ -109,7 +116,7 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tutorial%20%7C%20Changing%20Misty's%20LED) for reference.
 
 ```html
 <!DOCTYPE html>
@@ -164,7 +171,7 @@ See the full .html document for reference.
 
 ## Using Sensors, WebSockets, and Locomotion
 
-In this tutorial, we write a skill that commands Misty to drive in a straight line for a designated period of time and stop if she encounters an object in her path. We do this by combining Misty’s `DriveTime` locomotion command with information received from the `TimeOfFlight` and `LocomotionCommand` WebSocket connections. In this tutorial, you’ll learn:
+In this tutorial, we write code that commands Misty to drive in a straight line for a designated period of time and stop if she encounters an object in her path. We do this by combining Misty’s `DriveTime` locomotion command with information received from the `TimeOfFlight` and `LocomotionCommand` WebSocket connections. In this tutorial, you’ll learn:
 * How to subscribe to data from Misty’s WebSocket connections
 * How to use the `lightSocket.js` helper tool
 * How to write callbacks that use data from WebSocket connections to allow Misty to make decisions about what to do in different situations
@@ -173,7 +180,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 ### Setting Up Your Project
 
-In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -431,7 +438,7 @@ let _centerTimeOfFlight = function (data) {
 
 The `_centerTimeOfFlight()` callback triggers every time data from Misty’s front center sensor is received. If an object is detected close enough to the sensor, a `Stop` command is issued, and Misty stops before colliding with the object.
 
-The purpose of the `_locomotionCommand()` callback function is to “clean up” our skill when the program stops executing. Whenever you subscribe to a WebSocket, you should unsubscribe when you are done with it, so Misty stops sending data. Our program can end in two ways:
+The purpose of the `_locomotionCommand()` callback function is to “clean up” after our code when the program stops executing. Whenever you subscribe to a WebSocket, you should unsubscribe when you are done with it, so Misty stops sending data. Our program can end in two ways:
 
 * Misty stops driving when she detects an object in her path.
 * Misty does not detect an object in her path and stops driving after five seconds.
@@ -490,7 +497,7 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 socket.Connect();
 ```
 
-**Congratulations!** You’ve just written another skill for Misty. Save your .html document and open it in a web browser to watch Misty go. When the document loads, the program:
+Save your .html document and open it in a web browser to watch Misty go. When the document loads, the program:
 * connects with Misty
 * sends a `DriveTime` command for Misty to drive forward for 5 seconds
 * subscribes to `TimeOfFlight` events to detect if an object is in Misty’s path and sends a `Stop` command if so
@@ -498,7 +505,7 @@ socket.Connect();
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tutorial%20%7C%20Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) for reference.
 
 ```html
 <!DOCTYPE html>
@@ -646,7 +653,7 @@ See the full .html document for reference.
 
 ## Exploring Computer Vision
 
-This tutorial teaches how to write a skill to have Misty detect, recognize, and learn faces. When this skill runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches
+This tutorial teaches how to code Misty to detect, recognize, and learn faces. When this code runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches
 * how to use REST API commands for facial training and recognition
 * how to subscribe to and use data from Misty’s `ComputerVision` WebSocket connection
 
@@ -708,7 +715,7 @@ const you = "<your-name>"
 let onList = false;
 ```
 
-**Note:** Avoid hard-coding name values like this in real-world applications of Misty skills. Instead, create a form in the browser where users can type and send their names to Misty.
+**Note:** Avoid hard-coding name values like this in real-world applications of Misty's code. Instead, create a form in the browser where users can type and send their names to Misty.
 
 #### Opening a Connection
 
@@ -733,7 +740,7 @@ async function openCallback() {
 
 ```
 
-A subscription to the `ComputerVision` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"ComputerVision"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `ComputerVision` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
+A subscription to the `ComputerVision` WebSocket may already be active if the program has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"ComputerVision"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `ComputerVision` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
 
 ```JavaScript
 
@@ -1051,7 +1058,7 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 socket.Connect();
 ```
 
-**Congratulations!** You have written another remote skill for Misty. When the document loads, the program:
+Save the document as an .html file and open it in your web browser to run the code. When the document loads, the program:
 * connects with Misty
 * sends a `GetLearnedFaces` command and checks whether your name is on the list of faces Misty already knows
 * subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
@@ -1059,7 +1066,7 @@ socket.Connect();
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tutorial%20%7C%20Exploring%20Computer%20Vision) for reference.
 
 ```html
 <!DOCTYPE html>
@@ -1244,7 +1251,7 @@ See the full .html document for reference.
 
 ## Introduction to Mapping
 
-This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
+This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this code runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
 * how to use mapping REST API commands
 * how to subscribe to the data stream from the `SelfState` WebSocket connection
 * how to transform raw map data into a graphical map of Misty’s environment
@@ -1252,7 +1259,7 @@ This tutorial describes how to use Misty’s simultaneous localization and mappi
 Note that many real-world applications of Misty’s mapping capabilities require her to create a map while independently exploring her environment. Programs like this can be very complex as they require mapping commands to run alongside code telling Misty where to drive and how to avoid obstacles. For simplicity, this project requires you to use the API Explorer to move Misty instead of programming an automated exploration process.
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -1774,7 +1781,7 @@ function drawMap(data) {
             context.fill();
         }
     }
-    alert("Skill finished! Successfully obtained and drew a map!");
+    alert("Code execution complete! Successfully obtained and drew a map!");
 }
 ```
 
@@ -1821,7 +1828,7 @@ socket.connect()
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tutorial%20%7C%20Introduction%20to%20Mapping) for reference.
 
 ```html
 <!DOCTYPE html>
@@ -2009,7 +2016,7 @@ See the full .html document for reference.
 					context.fill();
 				}
 			}
-			alert("Skill finished! Successfully obtained and drew a map!");
+			alert("Code execution complete! Successfully obtained and drew a map!");
 		}
 
 		// Open the connection to your robot.
@@ -2029,7 +2036,7 @@ This tutorial describes how to write a remote-running program for Misty that tak
 * how to control the flow of a program to trigger commands when specific environmental circumstances are met
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -2391,7 +2398,7 @@ socket.Connect();
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/MistyI/tree/master/Sample%20Code/Tutorial%20%7C%20Taking%20Pictures) for reference.
 
 ```html
 <!DOCTYPE html>
