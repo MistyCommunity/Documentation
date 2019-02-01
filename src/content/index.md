@@ -19,5 +19,5 @@ What’s a skill? A skill is your JavaScript app, running on the robot. When you
    * or anything you like
 
 There are two basic types of skill architecture:
-* [**Local**](./docs/using-local-skills/architecture). You upload your code to the robot, and it runs internally on Misty. Local skills can also interact with external data, such as cloud calls and non-Misty API calls.
-* [**Remote**](./docs/using-remote-commands/architecture). Your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. 
+* [**Local**](./docs/skills/local-skill-architecture). You upload your code to the robot, and it runs internally on Misty. Local skills can also interact with external data, such as cloud calls and non-Misty API calls.
+* [**Remote**](./docs/skills/remote-command-architecture). Your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. 

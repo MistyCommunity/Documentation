@@ -1,15 +1,11 @@
 ---
-title: Architecture
+title: Remote Command Architecture
 layout: coding.hbs
 columns: three
-order: 1
+order: 3
 ---
 
 # {{title}}
-
-There are two basic types of skill architecture: remote and local.
-
-When you send "remote commands" to Misty, your code is running on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. This is different from [local skills](../../../docs/using-local-skills/architecture), where you upload your code to the robot, and it runs internally on Misty.
 
 Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/mistyPy) or a REST client such as Postman to send Misty commands.
 
@@ -34,7 +30,7 @@ We supply two helper tools that make it easy to develop JavaScript skills for Mi
 
 Get both tools [at the Misty I GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript).
 
-You can also use the [API Explorer](http://api-explorer.mistyrobotics.com) source code as a JavaScript wrapper for Misty's REST API. Read how to work with the API Explorer code [here](../tools/#working-with-the-api-explorer-code). 
+You can also use the [API Explorer](http://api-explorer.mistyrobotics.com) source code as a JavaScript wrapper for Misty's REST API. Read how to work with the API Explorer code [here](../../skills/tools/#working-with-the-api-explorer-code). 
 
 ### Using the LightClient JS Helper
 

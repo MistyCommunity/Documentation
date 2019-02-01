@@ -157,8 +157,8 @@ exports.metalsmith = function() {
         sortBy: 'order',
         orderDynamicCollections: [
           'robots',
-          'using-local-skills',
-          'using-remote-commands',
+          'skills',
+          'reference',
           'apps'
         ]
       }

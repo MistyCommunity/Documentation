@@ -2,14 +2,14 @@
 title: REST API
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
 
 With the REST API, you can send commands to Misty from a REST client or browser. There is also a community owned [Python wrapper](https://github.com/MistyCommunity/mistyPy) available for the Misty REST API.
 
-To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../architecture/#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
+To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for example skills.
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
@@ -509,7 +509,7 @@ Return Values
 
 The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../meet_misty/apps/companion-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../architecture/#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../websocket-reference). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -833,7 +833,7 @@ You can have Misty detect any face she sees or train her to recognize people tha
 
 The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#face-training-amp-recognition-beta).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../architecture/#sending-commands-and-subscribing-to-websockets) to her FaceDetection and FaceRecognition [WebSockets](../websocket-reference). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture#sending-commands-and-subscribing-to-websockets) to her FaceDetection and FaceRecognition [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../meet_misty/apps/api-explorer/#opening-a-websocket).
 
 
 ### StartFaceDetection - BETA
@@ -1049,7 +1049,7 @@ Return Values
 
 ## Mapping & Tracking
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
@@ -1265,7 +1265,7 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../using-remote-commands/websocket-reference/#stringmessage) events.
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../reference/sensor-data/#stringmessage) events.
 
 Endpoint: POST {robot-ip-address}/api/alpha/serialport
 
@@ -1281,4 +1281,165 @@ Parameters
 
 Return Values
 
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+## Skill Management Commands
+
+<!-- SaveSkillToRobot -->
+
+<!--- GetSkills -->
+### GetSkills - ALPHA
+Obtains a list of the skills currently uploaded onto the robot.
+
+Endpoint: GET {robot-ip-address}/api/alpha/sdk/skills
+
+Parameters
+* (None)
+
+Return Values
+* Result (array) - An array containing the names and meta file information for all of the skills on the robot.
+
+<!-- CancelSkill -->
+### CancelSkill - ALPHA
+Stops a specified running skill (or all running skills if no name is specified).
+
+Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/cancel
+
+Parameters
+* Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
+
+```json
+{
+	"Skill": "SkillName"
+}
+
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+<!-- LoadSkill -->
+### LoadSkill - ALPHA
+Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/load
+
+Parameters
+* Skill (string) - The name of the skill to load.
+
+```json
+{
+  "Skill": "SkillName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+<!-- ReloadSkills --> 
+### ReloadSkills - ALPHA
+Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
+
+Endpoint: POST {robot-ip-address}/api/sdk/reload
+
+Parameters
+* (None)
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request. 
+
+<!-- RunSkill -->
+### RunSkill - ALPHA
+Immediately runs a previously uploaded skill.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skill
+
+Parameters`
+* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
+* Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
+
+```json
+{
+  "Skill": "SkillName",
+  "Method": "methodName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+### SaveSkillToRobot - ALPHA
+Uploads a skill to the robot and makes it immediately available for the robot to run.
+
+**Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skill/deploy
+
+Parameters
+* File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
+* ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
+* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
+
+```json
+{
+  "File" : "SkillName.zip",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
+}
+```
+
+Return Values
+* Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
+
+<!-- TriggerSkillEvent -->
+### TriggerSkillEvent - ALPHA
+Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
+
+Endpoint: POST{robot-ip-address}/api/alpha/sdk/skills/event
+
+Parameters
+* UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
+* EventName (string) - The name of the event to trigger. 
+* Payload (JSON string) -  Any arguments needed for the event.
+
+```json
+ {
+  "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
+  "EventName": "UserEvent",
+  "Payload": { "test": "two" }
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+<!-- UnloadSkill -->
+### UnloadSkill - ALPHA
+Makes a skill unavailable to be run which is currently onboard the robot, but does not remove the skill from the robot’s memory.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unload
+
+Parameters
+* Skill (string) - The name of the skill to unload.
+
+```json
+{
+  "Skill": "SkillName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+### UnloadAllSkills - ALPHA
+Makes all skills onboard the robot unavailable to be run, but does not remove the skills from the robot’s memory.
+
+Endpoint: POST {robot-ip-address}/api/alpha/sdk/skills/unloadall
+
+Parameters
+* (None)
+
+Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
