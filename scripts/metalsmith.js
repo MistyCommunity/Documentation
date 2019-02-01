@@ -152,19 +152,13 @@ exports.metalsmith = function() {
     // This plugin is complex and buggy.
     // It causes the duplicate nav bar bug during development with livereload
     .use(collections({
-      coding: {
-        pattern: 'coding/:section/*.md',
-        sortBy: 'order',
-        orderDynamicCollections: [
-          'using-local-skills',
-          'using-remote-commands'
-        ]
-      },
-      'onboarding': {
-        pattern: 'onboarding/:section/*.md',
+      docs: {
+        pattern: 'docs/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
           'robots',
+          'using-local-skills',
+          'using-remote-commands',
           'apps'
         ]
       }
