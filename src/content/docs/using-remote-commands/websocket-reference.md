@@ -406,7 +406,7 @@ ActuatorPosition {
 
 The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../onboarding/apps/api-explorer/#mapping-amp-tracking-alpha). 
 
-For an example that shows how to register for and use data from `BumpSensor` events in a local skill, see the [Bump Sensors skill tutorial](../../../coding/using-local-skills/tutorials/#bump-sensors-misty-ii-).
+For an example that shows how to register for and use data from `BumpSensor` events in a local skill, see the [Bump Sensors skill tutorial](../../../docs/using-local-skills/tutorials/#bump-sensors-misty-ii-).
 
 Sample `BumpSensor` data:
 
@@ -602,7 +602,7 @@ function _StringMessage(data) {
 }
 ```
 
-For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../coding/using-local-skills/architecture/#data-handling-events-amp-callbacks) section of [Using Local Skills](../../../coding/using-local-skills/architecture/).
+For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../docs/using-local-skills/architecture/#data-handling-events-amp-callbacks) section of [Using Local Skills](../../../docs/using-local-skills/architecture/).
 
 ## TouchSensor
 **Available for Misty II only**

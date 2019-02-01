@@ -1,14 +1,14 @@
 {
-	"/meet_misty" : "/onboarding/robots/introduction",
+	"/meet_misty" : "/docs/robots/introduction",
 	"/casestudies" : "/casestudies/skills-developed/",
 	"/codesamples" : "/codesamples/sample1/",
 	"/faq" : "/faq/question/",
-	"/getstarted": "/coding/get-started/setting-up-misty/",
-	"/get-started": "/coding/get-started/setting-up-misty/",
-	"/gettingstarted": "/coding/get-started/setting-up-misty/",
-	"/getting-started": "/coding/get-started/setting-up-misty/",
-	"/onboarding": "/onboarding/robots/introduction",
-	"/coding": "/coding/using-local-skills/architecture",
-	"/tutorials": "/coding/using-local-skills/tutorials",
-	"/apis/api-reference/rest": "/coding/using-remote-commands/rest"
+	"/getstarted": "/",
+	"/get-started": "/",
+	"/gettingstarted": "/",
+	"/getting-started": "/",
+	"/onboarding": "/docs/robots/introduction",
+	"/coding": "/docs/using-local-skills/architecture",
+	"/tutorials": "/docs/using-local-skills/tutorials",
+	"/apis/api-reference/rest": "/docs/using-remote-commands/rest"
 }

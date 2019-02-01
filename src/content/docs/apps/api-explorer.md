@@ -111,7 +111,7 @@ Real-time data from Misty is sent via WebSocket connections and includes:
 * battery status
 * face detection and recognition
 
-The data that's sent over WebSocket connections is described in detail [here](../../../coding/using-remote-commands/architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
+The data that's sent over WebSocket connections is described in detail [here](../../../docs/using-remote-commands/architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
 
 When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (How you open the console will vary among browsers and platforms.)
 
@@ -158,7 +158,7 @@ Misty's ability to recognize faces is under development. To try face training an
 7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 8. When finished, click **Stop Face Recognition**.
 
-**Note: The face detection and recognition data that Misty sends is described in detail [here](../../../coding/using-remote-commands/websocket-reference).**
+**Note: The face detection and recognition data that Misty sends is described in detail [here](../../../docs/using-remote-commands/websocket-reference).**
 
 
 ## Moving Misty's Head - BETA
