@@ -1878,6 +1878,7 @@ Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial 
 Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../../docs/reference/sensor-data/#stringmessage) events.
 
 ```JavaScript
+// Syntax
 misty.WriteBackpackUart(string message, [int prePause], [int postPause])
 ```
 
@@ -1887,5 +1888,6 @@ Arguments
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
 ```JavaScript
+// Example
 misty.WriteBackpackUart("your-data");
 ```
