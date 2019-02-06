@@ -109,14 +109,14 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-See the full .html document for reference.
+See the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Changing%20Misty's%20LED) for reference.
 
 ```html
 <!DOCTYPE html>
 <html> 
 <head>
     <meta charset="utf-8" />
-    <title>Remote Command Tutorial 1</title>
+    <title>Tutorial | Changing Misty's LED</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Reference a link to a CDN for Axios here -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
