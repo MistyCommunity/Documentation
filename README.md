@@ -8,7 +8,7 @@ This documentation is early stage and is growing continuously. We're grateful fo
 
 ### Found something small that you think should be changed? 
 
-[Create an issue](https://github.com/MistyCommunity/Documentation/issues) right here in the repo.
+[Create an issue](https://github.com/MistyCommunity/Documentation/issues) right here in the repo!
 
 ### Want to contribute something to the documentation that's bigger than a bug report? 
 
