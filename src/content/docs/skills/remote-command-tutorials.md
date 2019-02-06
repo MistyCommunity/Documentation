@@ -109,58 +109,7 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-See the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Changing%20Misty's%20LED) for reference.
-
-```html
-<!DOCTYPE html>
-<html> 
-<head>
-    <meta charset="utf-8" />
-    <title>Tutorial | Changing Misty's LED</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Reference a link to a CDN for Axios here -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
-<body>
-    <script>
-        // Declare a constant variable.
-        // Set its value to your robot's IP address.
-        const ip = "<robotipaddress>";
-
-        // Create a data object to send with the POST request. 
-        // Set values for each RGB color property.
-        let data = {
-            "red": 255,
-            "green": 0,
-            "blue": 0
-        };
-
-        // Call axios.post(). Pass the URL of the ChangeLED 
-        // endpoint as the first parameter and the data object 
-        // as the second.
-
-        // Use a then() method after calling axios.post(). 
-        // Pass in a callback function to interpret the return 
-        // values of the call and to print a message to the console 
-        // indicating the request's success.
-
-        // Use a catch() method after then(). catch() triggers 
-        // if the promise is rejected. Pass a callback to catch() 
-        // to print any errors to the console.
-        axios.post("http://" + ip + "/api/led/change", data)
-            .then(function (response) {
-                console.log(`ChangeLED was a ${response.data[0].status}`);
-            })
-            .catch(function (error) {
-                console.log(`There was an error with the request ${error}`);
-            });
-
-    </script>
-</body>
-</html>
-```
-
-
+Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Changing%20Misty's%20LED) from GitHub.
 
 ## Using Sensors, WebSockets, and Locomotion
 
