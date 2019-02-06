@@ -10,7 +10,7 @@ This documentation is early stage and is growing continuously. We're grateful fo
 
 [Create an issue](https://github.com/MistyCommunity/Documentation/issues) right here in the repo!
 
-### Want to contribute something to the documentation that's bigger than a bug report? 
+### Want to contribute something bigger than a bug report? 
 
 First, before you invest too much time, reach out and let us know what you're thinking. It may be that we already know about the issue or are already creating new content. Reaching out could save you time and effort.
 
