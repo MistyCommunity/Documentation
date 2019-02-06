@@ -201,7 +201,7 @@ misty.RegisterUserEvent(string eventName, string callbackMethod);
 You can also trigger an event by making a REST call to the event endpoint with a POST command:
 
 ```html
-POST {robot-ip-address}api/alpha/sdk/skills/event
+POST <robot-ip-address>api/alpha/sdk/skills/event
 ```
 
 With a JSON body similar to:
@@ -426,7 +426,7 @@ To start a skill, send the `RunSkill POST` command with the following syntax. No
 
 ```html
 <!-- Endpoint -->
-POST http://{robot-ip-address}/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/alpha/sdk/skill
 
 <!-- Payload -->
 {
@@ -438,7 +438,7 @@ For example:
 
 ```html
 <!-- Endpoint -->
-POST http://{robot-ip-address}/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/alpha/sdk/skill
 
 <!-- Payload -->
 {
@@ -450,7 +450,7 @@ To stop a skill, send the `CancelSkill POST` command to the following endpoint, 
 
 ```html
 <!-- Endpoint -->
-POST http://{robot-ip-address}/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/alpha/sdk/cancel
 
 <!-- Payload -->
 {
@@ -462,7 +462,7 @@ To stop all running skills, send the same `POST` command with an empty payload (
 
 ```html
 <!-- Endpoint -->
-POST http://{robot-ip-address}/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/alpha/sdk/cancel
 
 <!-- Payload -->
 {}
