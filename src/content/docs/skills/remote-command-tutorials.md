@@ -122,7 +122,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 ### Setting Up Your Project
 
-In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -876,7 +876,7 @@ This tutorial describes how to use Misty’s simultaneous localization and mappi
 Note that many real-world applications of Misty’s mapping capabilities require her to create a map while independently exploring her environment. Programs like this can be very complex as they require mapping commands to run alongside code telling Misty where to drive and how to avoid obstacles. For simplicity, this project requires you to use the API Explorer to move Misty instead of programming an automated exploration process.
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title, and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -1456,7 +1456,7 @@ This tutorial describes how to write a remote-running program for Misty that tak
 * how to control the flow of a program to trigger commands when specific environmental circumstances are met
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/MistyI/tree/master/Skills/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 

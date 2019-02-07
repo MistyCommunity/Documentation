@@ -111,7 +111,7 @@ Real-time data from Misty is sent via WebSocket connections and includes:
 * battery status
 * face detection and recognition
 
-The data that's sent over WebSocket connections is described in detail [here](../../../docs/skills/remote-command-architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our GitHub repo](https://github.com/MistyCommunity/MistyI/tree/master/Skills) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
+The data that's sent over WebSocket connections is described in detail [here](../../../docs/skills/remote-command-architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our tutorials](../../../docs/skills/remote-command-tutorials) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
 
 When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (How you open the console will vary among browsers and platforms.)
 
