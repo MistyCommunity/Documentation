@@ -59,7 +59,7 @@ We ship Misty with her battery disconnected. Follow the steps below to access th
 
 ## Connecting to Wi-Fi
 
-Now that you've connected your robot's battery, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) or the [API Explorer](../../apps/api-explorer/#connecting-wifi).
+Now that you've connected your robot's battery, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) or the [API Explorer](../../apps/api-explorer/#connecting-wi-fi).
 
 ## Charging Misty II
 There are two ways to charge Misty II. You can use the wireless charging pad that comes with your robot, or you can plug the power supply directly into the power port on Misty's base.

@@ -29,7 +29,7 @@ The Misty Companion app will ask you to connect to Bluetooth first, then Wi-Fi.
 7. If the Bluetooth or Wi-Fi connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. If you cannot successfully connect Misty to Wi-Fi, check for and install any updates to the Companion App. ![Companion App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
 8. Once the Wi-Fi connection succeeds, you should see the Misty Companion app **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. **Note: You will need the IP address to use Misty with Blockly and the API Explorer.** ![Companion App home screen](../../../assets/images/companion_app_home_1.png)
 
-**Important!** While it’s usually easiest to use the Companion App to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the [API Explorer](../api-explorer/#connecting-wifi) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+**Important!** While it’s usually easiest to use the Companion App to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the [API Explorer](../api-explorer/#connecting-wi-fi) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 
 ## Getting Information about Misty
