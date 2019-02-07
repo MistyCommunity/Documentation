@@ -1,6 +1,6 @@
 # Misty Robotics Developer Documentation
 
-This repo contains the source files for the Misty Robotics developer documentation. If you want to read the docs, head over to [docs.mistyrobotics.com](docs.mistyrobotics.com).
+This repo contains the source files for the Misty Robotics developer documentation. If you want to read the docs, head over to [https://docs.mistyrobotics.com/](https://docs.mistyrobotics.com/).
 
 ## Contributing to Misty's Documentation
 
