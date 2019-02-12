@@ -1,5 +1,5 @@
 ---
-title: Local Skill Architecture
+title: On-Robot JavaScript API Architecture
 layout: coding.hbs
 columns: three
 order: 2
@@ -7,9 +7,9 @@ order: 2
 
 # {{title}}
 
-When you write a local skill, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. Local skills can also interact with external data and use non-Misty API calls to cloud services, etc.
+When you write a skill using Misty's on-robot JavaScript APi, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. On-robot skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
-**IMPORTANT! Local skills are a pre-release, “alpha” technology and are subject to frequent change.** Any local skills you create for Misty may need updates before release to reflect ongoing development of the local skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
+**IMPORTANT! On-robot skills are a pre-release, “alpha” technology and are subject to frequent change.** Any on-robot skills you create for Misty may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
 
 You can read this architecture section to understand the details of how to write local skills. However, you can also simply start right in with the [local skill tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
