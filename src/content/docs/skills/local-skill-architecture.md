@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-When you write a skill using Misty's on-robot JavaScript APi, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. On-robot skills can also interact with external data and use non-Misty API calls to cloud services, etc.
+When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. On-robot skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
 **IMPORTANT! On-robot skills are a pre-release, “alpha” technology and are subject to frequent change.** Any on-robot skills you create for Misty may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. Local skills will be publicly available at the time when Misty II ships.
 
