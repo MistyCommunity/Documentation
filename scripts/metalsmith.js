@@ -162,8 +162,9 @@ exports.metalsmith = function() {
           'apps'
         ]
       }
-    }))//end of collections/sections
-		// Fix previous / next links when a page doesn't exist for a specific device
+    }))
+    //end of collections/sections
+    // Fix previous / next links when a page doesn't exist for a specific device
     .use(fixLinks({
       key: 'devices'
     }))
