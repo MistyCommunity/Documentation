@@ -7,7 +7,7 @@ order: 3
 
 # {{title}}
 
-The following are Misty’s available sensor and skill data types. You receive this data when you register for events in an on-robot skill or when you subscribe to a WebSocket connection from a remote device.
+The following are Misty’s available sensor and skill data types. You receive this data when you register for events in an on-robot skill or when you subscribe to a WebSocket connection from an external device.
 
 You can filter all data types to (a) return only a specified subset of the data and (b) check current values before the data is sent.
 
