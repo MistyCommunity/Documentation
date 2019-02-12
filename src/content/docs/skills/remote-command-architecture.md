@@ -1,5 +1,5 @@
 ---
-title: Remote Command Architecture
+title: Rest API & WebSocket Architecture
 layout: coding.hbs
 columns: three
 order: 3
@@ -7,13 +7,16 @@ order: 3
 
 # {{title}}
 
-Misty’s remote command interface is based on a powerful REST API. The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) or a REST client such as Postman to send Misty commands.
+In addition to her on-robot JavaScript API, you can also write skills for Misty using her powerful REST API.
 
-Creating your own remote skill for Misty typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her API. This topic walks you through both sides of this process.
+Writing a skill this way typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her REST API. This topic walks you through both sides of this process.
+
+The examples in this topic are written in JavaScript and use helper libraries to simplify making requests and subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) or a REST client such as Postman to send Misty commands.
 
 ## Sending Commands to Misty
 
 Misty's API includes commands for:
+
 * Display and light control
 * Audio control
 * Face detection, training, and recognition
