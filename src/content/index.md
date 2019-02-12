@@ -9,9 +9,10 @@ order: 1
 
 When you write code for Misty, you can quickly build skills that make use of the unique characteristics of an autonomous, roaming robot with personality.
 
-What’s a skill? A skill is your JavaScript app, running on the robot. When you write a skill, you:
+What’s a skill? A skill is code you write to make Misty do something. When you write a skill, you:
+
 1. Take some of Misty’s sensory data (vision, audio, touch, distance, etc.).
-2. Process that data on the robot using Misty’s API or send it off to a cloud service.
+2. Process that data using Misty’s API or send it off to a cloud service.
 3. Have Misty do something in response:
    * drive to check out a sound
    * express amusement
@@ -19,5 +20,6 @@ What’s a skill? A skill is your JavaScript app, running on the robot. When you
    * or anything you like
 
 There are two basic types of skill architecture:
-* [**Local**](./docs/skills/local-skill-architecture). You upload your code to the robot, and it runs internally on Misty. Local skills can also interact with external data, such as cloud calls and non-Misty API calls.
-* [**Remote**](./docs/skills/remote-command-architecture). Your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot. 
+
+* [**On-Robot JavaScript API Architecture**](./docs/skills/local-skill-architecture). You write code using Misty's JavaScript API and upload it to the robot. This code runs internally on Misty and can interact with external data, such as cloud calls and non-Misty API calls.
+* [**REST API & WebSocket Architecture**](./docs/skills/remote-command-architecture). Your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.

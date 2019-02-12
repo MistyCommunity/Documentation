@@ -29,7 +29,7 @@ To use Skill Runner to upload and run a skill, follow the steps below.
 
 ## Visual Studio Code Extension
 
-You can use the Misty skills extension for [Visual Studio Code](https://code.visualstudio.com/) to aid in local skill development. This extension provides a list of the available methods for local skills. 
+You can use the Misty skills extension for [Visual Studio Code](https://code.visualstudio.com/) to aid in skill development. This extension provides a list of the available methods in Misty's on-robot JavaScript API.
 
 Access to the Misty skills extension is currently limited to a small group of field trial robot testers. If you are a field trial tester, you can access your extension download in the Field Trials section of the [Community forums](https://community.mistyrobotics.com/). 
 
