@@ -11,7 +11,7 @@ order: 6
 
 The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. 
 
-Access to Skill Runner is currently limited to a small group of field trial robot testers. If you'd like to be a part of our Misty II Field Trial, be sure to [apply here](https://docs.google.com/forms/d/e/1FAIpQLSdN_Jvs-HFtzQG4ysFWAMJ1ou5yltmSklYzxdcVplzMzUBMlw/viewform?usp=sf_link)
+Access to Skill Runner is currently limited to a small group of field trial robot testers. If you'd like to be a part of our Misty II Field Trial, be sure to [apply here](https://docs.google.com/forms/d/e/1FAIpQLSdN_Jvs-HFtzQG4ysFWAMJ1ou5yltmSklYzxdcVplzMzUBMlw/viewform?usp=sf_link).
 
 ![Skill runner home page](../../../assets/images/skill-runner.png)
 
@@ -29,7 +29,7 @@ To use Skill Runner to upload and run a skill, follow the steps below.
 
 ## Visual Studio Code Extension
 
-You can use the Misty skills extension for [Visual Studio Code](https://code.visualstudio.com/) to aid in local skill development. This extension provides a list of the available methods for local skills. 
+You can use the Misty skills extension for [Visual Studio Code](https://code.visualstudio.com/) to aid in skill development. This extension provides a list of the available methods in Misty's on-robot JavaScript API.
 
 Access to the Misty skills extension is currently limited to a small group of field trial robot testers. If you are a field trial tester, you can access your extension download in the Field Trials section of the [Community forums](https://community.mistyrobotics.com/). 
 

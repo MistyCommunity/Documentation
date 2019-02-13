@@ -1,5 +1,5 @@
 ---
-title: Local Skill Tutorials
+title: On-Robot JavaScript API Tutorials
 layout: coding.hbs
 columns: three
 order: 4
@@ -7,13 +7,20 @@ order: 4
 
 # {{title}}
 
-In these tutorials you will learn everything you need to know to begin writing local skills for your Misty robot. Each tutorial introduces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
+In these tutorials you will learn everything you need to know to begin writing skills using Misty's on-robot JavaScript API. Each tutorial introduces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
 
 ## Time-of-Flight
 
 In this tutorial we create a simple skill that changes Misty’s chest LED, drives her forward for 10 seconds, and tells her to stop if she detects an object in her path. We go over how to send commands, subscribe to sensor events, and structure your skill data. Let’s get started!
 
-The code for local skills is comprised of two parts. The logic used to define how the skill functions is located in a `.js` file located in the `/Code` directory under `/Skills`. In addition to this, there is a corresponding `.json` file in the `/Meta` directory. These files must have the same name. Create a `.js` file and call it `HelloWorld_TimeOfFlight.js`. Then create a `.json` file and give it the same name. When the skill is complete, we use [Skill Runner](../../skills/tools/#misty-skill-runner) to upload these files to the directories specified above.
+When you write a skill using Misty's on-robot JavaScript API, the following elements are required:
+
+* a `.js` "code" file with the logic used to define how the skill functions
+* a `.json` "meta" file with rules that describe how Misty should execute the code in the corresponding "code" file.
+
+The JavaScript "code" and JSON "meta" files for a skill **must** be given the same name.
+
+To begin, create a `.js` file and call it `HelloWorld_TimeOfFlight.js`. Then create a `.json` file and give it the same name. When the skill is complete, we use [Skill Runner](../../skills/tools/#misty-skill-runner) to upload these files to the directories specified above.
 
 ### Writing the Meta File
 
@@ -105,7 +112,7 @@ misty.ChangeLED(255, 0, 0);
 misty.Debug("ending skill helloworld ");
 ```
 
-Congratulations! You have just written a local skill for Misty. Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
+Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 
 See the full contents of the `HelloWorld_TimeOfFlight.js` file here for reference.
 
@@ -506,7 +513,7 @@ else {
 }
 ```
 
-Using timed events, we have told Misty to change her chest LED to a random color in three-second intervals. We have demonstrated how we can use global variables prefixed with an underscore to have data persist across threads that are created in our program as callbacks are triggered. This is a simple example of two powerful tools that you have at your disposal when writing local skills for Misty. 
+Using timed events, we have told Misty to change her chest LED to a random color in three-second intervals. We have demonstrated how we can use global variables prefixed with an underscore to have data persist across threads created in our program as callbacks are triggered.
 
 Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
@@ -592,7 +599,7 @@ The sixth required parameter (`jsonArgs`) holds the data to send with `POST` req
 
 The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` to `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
 
-The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePause` and `postPause` parameters that follow them. As with other local skill commands, `prePause` and `postPause` are optional in `misty.SendExternalRequest()`.
+The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePause` and `postPause` parameters that follow them. Note that `prePause` and `postPause` are optional in `misty.SendExternalRequest()`.
 
 The final form of `misty.SendExternalRequst()` in this tutorial is:
 
@@ -1158,7 +1165,7 @@ function _GetListOfAudioClips(data) {
 }
 ```
 
-When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioClips()`, which contains an array of audio file data. In local skills, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
+When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioClips()`, which contains an array of audio file data. In Misty's on-robot JavaScript API, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
 
 In the `_GetListOfAudioClips()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
 
@@ -1266,9 +1273,9 @@ function _BumpSensor(data) {
 }
 ```
 
-When this skill runs, Misty retrieves the list of audio clips in her local storage and associates the names of four audio files with unique global variables. She then registers for bump sensor events. Each time an event occurs, Misty determines which bump sensor was pressed and plays the sound associated with that sensor. 
+When this skill runs, Misty retrieves the list of audio clips in her local storage and associates the names of four audio files with unique global variables. She then registers for bump sensor events. Each time an event occurs, Misty determines which bump sensor was pressed and plays the sound associated with that sensor.
 
-**Note:** By default local skills timeout after 300 seconds, so this skill automatically stops executing after 5 minutes. This duration can be changed by changing the value of the `TimeoutInSeconds` property in the meta file. 
+**Note:** By default on-robot skills timeout after 300 seconds, so this skill automatically stops executing after 5 minutes. This duration can be changed by changing the value of the `TimeoutInSeconds` property in the meta file. 
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 

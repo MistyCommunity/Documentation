@@ -1,5 +1,5 @@
 ---
-title: Remote Command Tutorials
+title: REST API & WebSocket Tutorials
 layout: coding.hbs
 columns: three
 order: 5
@@ -23,7 +23,7 @@ This tutorial uses Misty’s REST API to send a POST request that changes the co
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Remote Command Tutorial 1</title>
+    <title>Tutorial | Changing Misty's LED</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Reference a link to a CDN for Axios here -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -131,7 +131,7 @@ To set up your project, create a new .html document. Give it a title, and includ
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Remote Command Tutorial 2</title>
+    <title>Tutorial | Using Sensors, WebSockets, and Locomotion</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Include references to a CDN for the Axios library and the local path where lightSocket.js is saved in the <head> of your document -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -468,7 +468,7 @@ To set up your project, create a new .html document. Give it a title, and includ
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Remote Command Tutorial 3</title>
+        <title>Tutorial | Exploring Computer Vision</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Include references to a CDN for the Axios library and the local path where lightSocket.js is saved in the <head> of your document -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  
@@ -856,7 +856,7 @@ At the bottom of the script, call `socket.Connect()`. When the connection is est
 socket.Connect();
 ```
 
-**Congratulations!** You have written another remote skill for Misty. When the document loads, the program:
+When you load the `.html` file in your browser, the program:
 * connects with Misty
 * sends a `GetLearnedFaces` command and checks whether your name is on the list of faces Misty already knows
 * subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
@@ -886,7 +886,7 @@ To set up your project, create a new HTML document. Give it a title, and include
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Remote Command Tutorial 4</title>
+    <title>Tutorial | Introduction to Mapping</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Include references to a CDN for the Axios library and the local path where lightSocket.js is saved in the <head> of your document -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -1465,7 +1465,7 @@ To set up your project, create a new HTML document. Give it a title and include 
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Remote Command Tutorial 5</title>
+    <title>Tutorial | Taking Pictures</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Include references to a CDN for the Axios library and the local path where lightSocket.js is saved in the <head> of your document -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
