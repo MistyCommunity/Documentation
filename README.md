@@ -18,5 +18,5 @@ Second, assuming we're not already making the changes, go ahead and fork the rep
 
 ---
 
-*The Misty Robotics documentation is based on a design by [Particle](docs.particle.io), is built with [Metalsmith](http://www.metalsmith.io), and is formatted using [Markdown](https://daringfireball.net/projects/markdown/syntax).*
+*The Misty Robotics documentation is based on a design by [Particle](https://docs.particle.io/), is built with [Metalsmith](http://www.metalsmith.io), and is formatted using [Markdown](https://daringfireball.net/projects/markdown/syntax).*
 
