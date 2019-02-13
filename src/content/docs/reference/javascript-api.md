@@ -1687,6 +1687,7 @@ misty.SetLogLevel("Debug");
 ```
 
 ### misty.GetLogLevel - ALPHA
+
 Obtains the current log level of the robot.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks).
@@ -1697,6 +1698,7 @@ misty.GetLogLevel([string callbackMethod], [string callbackRule = "synchronous"]
 ```
 
 Arguments
+
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks). 
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1713,6 +1715,7 @@ Returns
 * level (string) - The current log level of the robot. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.Debug - ALPHA
+
 Prints a message to the JavaScript console for the Skill Runner web page in your browser.
 
 When you use Skill Runner to run a skill, the `SkillData` WebSocket connection is established at the time you connect to your robot. This enables printing debug messages to the JavaScript console. You can use `misty.Debug()` to send your own messages to the console. **Note:** If `BroadcastMode` is set to `off` in the meta file for a skill, no debug messages are sent.
@@ -1723,6 +1726,7 @@ misty.Debug(string debugInfo, [int prePause], [int postPause]);
 ```
 
 Arguments
+
 * debugInfo (string) - The debug message to log to the console.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -1733,6 +1737,7 @@ misty.Debug("Message")
 ```
 
 ### misty.Publish - ALPHA
+
 Writes data to the robot's internal log.
 
 Note that `misty.Publish()` writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the API Explorer to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../../docs/reference/rest/#getlogfile) command. 
@@ -1743,6 +1748,7 @@ misty.Publish(string name, string value)
 ```
 
 Arguments
+
 * name (string) - A name for the data to write to the robot's log.
 * value (string, integer, double, or boolean) - The data to write to the robot's log. To write an object, you must serialize your data into a string using `JSON.stringify()`.
 
@@ -1754,6 +1760,7 @@ misty.Publish("data-name", "data-value");
 ## Persistent Data
 
 ### misty.Get - ALPHA
+
 Returns data saved to the robot using `misty.Set()`. 
 
 ```JavaScript
@@ -1762,6 +1769,7 @@ misty.Get(string key, [int prePause], [int postPause]);
 ```
 
 Arguments
+
 * key (string) - The key name of the data to return.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -1772,9 +1780,11 @@ misty.Get("Key");
 ```
 
 Returns
+
 * value (string, boolean, integer, or double) - The data associated with the specified key.
 
 ### misty.Keys - ALPHA
+
 Returns a list of all the available persistent data stored on the robot. 
 
 ```JavaScript
@@ -1783,6 +1793,7 @@ misty.Keys([int prePause], [int postPause]);
 ```
 
 Arguments
+
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
 
@@ -1792,9 +1803,11 @@ misty.Keys();
 ```
 
 Returns
+
 * keys (list) - A list of the keys and values for all available persistent data stored on the robot.
 
 ### misty.Remove - ALPHA
+
 Removes data that has been saved to the robot under a specific key with `misty.Set()`. 
 
 ```JavaScript
@@ -1803,6 +1816,7 @@ misty.Remove(string key, [int prePause], [int postPause])
 ```
 
 Arguments
+
 * key (string) - The key name of the data to remove.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -1813,6 +1827,7 @@ misty.Remove("Key");
 ```
 
 ### misty.Set - ALPHA
+
 Saves data that can be validly updated and used across threads or shared between skills. 
 
 **Important!** Data stored via the `misty.Set()` command **does not persist across a reboot** of the robot at this time.
@@ -1825,6 +1840,7 @@ misty.Set(string key, string value, [int prePause], [int postPause]);
 ```
 
 Arguments
+
 * key (string) - The key name for the data to save.
 * value (value) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1838,6 +1854,7 @@ misty.Set("Key", "Value");
 ## External Server Communication
 
 ### misty.SendExternalRequest - ALPHA
+
 Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
 **Note:** In most cases, the external server's response to requests sent from the robot must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command is given the same name as the command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial.
