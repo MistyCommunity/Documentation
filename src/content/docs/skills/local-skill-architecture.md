@@ -9,9 +9,9 @@ order: 2
 
 When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. On-robot skills can also interact with external data and use non-Misty API calls to cloud services, etc.
 
-**IMPORTANT! On-robot skills are a pre-release, “alpha” technology and are subject to frequent change.** Any on-robot skills you create for Misty may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. On-robot skills will be publicly available at the time when Misty II ships.
+**IMPORTANT! Misty's on-robot JavaScript API is a pre-release, “alpha” technology and is subject to frequent change.** Any code you write using this API may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. This API will be publicly available at the time when Misty II ships.
 
-You can read this architecture section to understand the details of how to write on-robot skills. However, you can also simply start right in with the [on-robot skill tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
+You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [on-robot skill tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The on-robot JavaScript API command syntax differs slightly from that of REST API commands.
 * Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to an on-robot skill via callback functions.
