@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Use the JavaScript API to write skills for Misty that run locally on your robot. For more about on-robot skills, see [On-Robot JavaScript API Architecture](../../../docs/skills/local-skill-architecture).
+Use Misty's on-robot JavaScript API to write skills that run locally on your robot. To learn about the architecture of this API, see [On-Robot JavaScript API Architecture](../../../docs/skills/local-skill-architecture).
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
@@ -87,7 +87,7 @@ misty.GetListOfImages();
 
 Returns
 
-* Result (array) - Returns an array containing one element for each image currently stored on Misty. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each element in the array contains the following:
+* Result (array) - Returns an array containing one element for each image currently stored on Misty. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each element in the array contains the following:
    * Height (integer) - The height of the image file.
    * Name (string) - The name of the image file.
    * Width (integer) - The width of the image file.
@@ -164,7 +164,7 @@ misty.GetImage("Angry.png", true);
 
 Returns
 
-- Result (object) - An object containing image data and meta information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+- Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
   - format (string) - The type and format of the image returned.
   - height (integer) - The height of the image in pixels.
@@ -198,7 +198,7 @@ misty.SlamGetDepthImage();
 
 Returns
 
-- Result (object) - An object containing depth information about the image matrix, with the following fields. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+- Result (object) - An object containing depth information about the image matrix, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   - height (integer) - The height of the matrix.
   - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
   - width (integer) - The width of the matrix.
@@ -230,7 +230,7 @@ misty.SlamGetVisibleImage(true);
 
 Returns
 
-- Result (object) -  An object containing image data and meta information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+- Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
   - format (string) - The type and format of the image returned.
   - height (integer) - The height of the picture in pixels.
@@ -302,7 +302,7 @@ misty.TakePicture(true);
 
 Returns
 
-* Result (object) - An object containing image data and meta information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
    * Base64 (string) - A string containing the Base64-encoded image data.
    * Format (string) - The type and format of the image returned.
    * Height (integer) - The height of the image in pixels.
@@ -343,7 +343,7 @@ misty.GetListOfAudioClips();
 
 Returns
 
-* Result (array) - Returns an array of audio file information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
+* Result (array) - Returns an array of audio file information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** Because `misty.GetListOfAudioClips()` only returns information for default audio files, the value of this property is `false` for all items in this list.
 
@@ -374,7 +374,7 @@ Returns
 
 <!-- TODO: review return values -->
 
-* Result (array) - Returns an array of audio file information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
+* Result (array) - Returns an array of audio file information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
@@ -644,7 +644,7 @@ misty.GetAvailableWifiNetworks();
 
 Returns
 
-* Result (array) - An array containing one element for each WiFi network discovered. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each element contains the following:
+* Result (array) - An array containing one element for each WiFi network discovered. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information. Each element contains the following:
    * Name (string) - The name of the WiFi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
@@ -674,7 +674,7 @@ misty.GetBatteryLevel();
 
 Returns
 
-* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.GetDeviceInformation
 Obtains device-related information for the robot.
@@ -700,7 +700,7 @@ misty.GetDeviceInformation();
 
 Returns
 
-* Result (object) - An object containing information about the robot, with the following fields. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (object) - An object containing information about the robot, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
    * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
    * currentProfileName - The name of the network that the robot is on.
    * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
@@ -739,7 +739,7 @@ misty.GetHelp();
 
 Returns
 
-* Result (string) - A string containing the requested help information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (string) - A string containing the requested help information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 <!-- Information - BETA -->
 
@@ -769,7 +769,7 @@ misty.GetBetaHelp();
 
 Returns
 
-* Result (string) - A string containing the requested help information. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (string) - A string containing the requested help information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ## LEDs
 
@@ -858,7 +858,7 @@ misty.GetLearnedFaces();
 
 Returns
 
-* Result (string) - A list of the names for faces that Misty has been trained to recognize. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (string) - A list of the names for faces that Misty has been trained to recognize. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.StartFaceDetection - BETA
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
@@ -1221,7 +1221,7 @@ misty.SlamGetMap();
 
 Returns
 
-* Result (object) - An object containing the following key-value pairs. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (object) - An object containing the following key-value pairs. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
   * height (integer) - The height of the occupancy grid matrix (in number of cells).
   * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
@@ -1260,7 +1260,7 @@ misty.SlamGetPath(100, 250);
 
 Returns
 
-* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.SlamGetStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
@@ -1285,7 +1285,7 @@ misty.SlamGetStatus();
 ```
 
 Returns
-* Result (object) - A data object with the following key-value pairs. **Note:** In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   * Status (integer) - An integer value where each bit is set to represent a different activity mode: 1 - Idle, 2 - Exploring, 3 - Tracking, 4 - Recording, 5 - Resetting. For example, if Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
   * SensorStatus (integer) - A number representing the status of Mistys' sensors, using the `SlamSensorStatus` enumerable.
   * RunMode (integer) - A number representing the status of Misty's navigation.
@@ -1661,7 +1661,7 @@ misty.GetLogFile();
 
 Returns
 
-* Result (list) - Compiled log file data. Returns an error message if no log data is found. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* Result (list) - Compiled log file data. Returns an error message if no log data is found. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.SetLogLevel - ALPHA
 Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
@@ -1712,7 +1712,7 @@ misty.GetLogLevel();
 
 Returns
 
-* level (string) - The current log level of the robot. In an on-robot skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
+* level (string) - The current log level of the robot. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
 
 ### misty.Debug - ALPHA
 

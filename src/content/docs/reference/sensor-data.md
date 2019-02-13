@@ -7,7 +7,7 @@ order: 3
 
 # {{title}}
 
-The following are Misty’s available sensor and skill data types. You receive this data when you register for events in an on-robot skill or when you subscribe to a WebSocket connection from an external device.
+The following are Misty’s available sensor and skill data types. You receive this data when you register for events using Misty's on-robot JavaScript API or when you subscribe to a WebSocket connection from an external device.
 
 You can filter all data types to (a) return only a specified subset of the data and (b) check current values before the data is sent.
 
@@ -373,7 +373,7 @@ The `ActuatorPosition` data stream provides information about the position of th
 
 In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in radians).
 
-**Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from an on-robot skill shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
+**Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from Misty's on-robot JavaScript API shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
 
 ```JavaScript
 // Register for ActuatorPosition data for the actuator for Misty's right arm
@@ -408,7 +408,7 @@ ActuatorPosition {
 
 The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the API Explorer documentation](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
 
-For an example that shows how to register for and use data from `BumpSensor` events in an on-robot skill, see the [Bump Sensors skill tutorial](../../../docs/skills/local-skill-tutorials/#bump-sensors-misty-ii-).
+For an example that shows how to register for and use data from `BumpSensor` events with Misty's on-robot JavaScript API, see the [Bump Sensors skill tutorial](../../../docs/skills/local-skill-tutorials/#bump-sensors-misty-ii-).
 
 Sample `BumpSensor` data:
 
@@ -585,7 +585,7 @@ Sending data to Misty as a JSON string can make it easier to parse the data in y
 Serial.println("{\"temperature\":\""+String(<temp_value>)+"\",\"pressure\":\""+String(<pressure_value>)+"\"}");
 ```
 
-Handle this data in an on-robot skill by registering for `StringMessage` events. Add `StringMessage` as an additional return property, and parse the data in the `_StringMessage()` callback that triggers when the data is ready.
+Handle this data with Misty's on-robot JavaScript API by registering for `StringMessage` events. Add `StringMessage` as an additional return property, and parse the data in the `_StringMessage()` callback that triggers when the data is ready.
 
 ```JavaScript
 // MISTY 

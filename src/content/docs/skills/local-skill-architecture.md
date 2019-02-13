@@ -7,11 +7,11 @@ order: 2
 
 # {{title}}
 
-When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. On-robot skills can also interact with external data and use non-Misty API calls to cloud services, etc.
+When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. You can also use Misty's on-robot JavaScript API to interact with external data and use non-Misty API calls to cloud services, etc.
 
 **IMPORTANT! Misty's on-robot JavaScript API is a pre-release, “alpha” technology and is subject to frequent change.** Any code you write using this API may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. This API will be publicly available at the time when Misty II ships.
 
-You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [on-robot skill tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
+You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [on-robot JavaScript API tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The on-robot JavaScript API command syntax differs slightly from that of REST API commands.
 * Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to an on-robot skill via callback functions.
@@ -427,7 +427,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 
 ## Starting & Stopping an On-Robot Skill
 
-Currently, you must use Misty's REST API to trigger an on-robot skill to start or stop. You can use the Skill Runner interface or a REST client like Postman to send these commands, or you can write your own code to send the command from an external device.
+Currently, you must use Misty's REST API to trigger an on-robot skill to start or stop. You can use the Skill Runner interface or a REST client like Postman to send `RunSkill` and `CancelSkill` commands, or you can write your own code to send these commands from an external device.
 
 To start a skill, send the `RunSkill POST` command with the following syntax. Note that the `Skill` value must be the same as the `Name` value for the skill in its JSON `meta` file.
 
