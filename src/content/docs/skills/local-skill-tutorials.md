@@ -1,5 +1,5 @@
 ---
-title: On-Robot Skill Tutorials
+title: On-Robot JavaScript API Tutorials
 layout: coding.hbs
 columns: three
 order: 4
