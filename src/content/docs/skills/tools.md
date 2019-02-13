@@ -11,7 +11,7 @@ order: 6
 
 The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. 
 
-Access to Skill Runner is currently limited to a small group of field trial robot testers. If you are a field trial tester, you can access your Skill Runner download in the Field Trials section of the [Community forums](https://community.mistyrobotics.com/). 
+Access to Skill Runner is currently limited to a small group of field trial robot testers. If you'd like to be a part of our Misty II Field Trial, be sure to [apply here](https://docs.google.com/forms/d/e/1FAIpQLSdN_Jvs-HFtzQG4ysFWAMJ1ou5yltmSklYzxdcVplzMzUBMlw/viewform?usp=sf_link)
 
 ![Skill runner home page](../../../assets/images/skill-runner.png)
 
