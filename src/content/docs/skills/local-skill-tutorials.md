@@ -240,7 +240,9 @@ function _GetListOfAudioClips(data) {
 ```
 
 ## Record Audio
-In this tutorial we learn how to record audio and play it back to the user. This involves two very simple commands: `StartRecordingAudio()` and `StopRecordingAudio()`. 
+In this tutorial we learn how to record audio and play it back to the user. This involves two very simple commands: `StartRecordingAudio()` and `StopRecordingAudio()`.
+
+**Note:** Due to the low volume of audio playback on Misty I Developer Editions and Misty II field trial robots, the audio you record in this tutorial may be difficult to hear when played back through Misty's internal speakers.
 
 ### Writing the Meta File
 
@@ -295,7 +297,7 @@ If the list contains the recording, we can call `PlayAudioClip()` to play the re
 
 ```JavaScript
 if (containsNewFile) {
-   misty.PlayAudioClip("RecordingExample.wav", 500, 500);
+   misty.PlayAudioClip("RecordingExample.wav", 100, 500);
 } else {
    misty.Debug("file was not found");
 }
@@ -303,7 +305,7 @@ if (containsNewFile) {
 
 Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
-See the complete `HelloWorld_RecordAudio.js` file here for reference.
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Record%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -342,7 +344,7 @@ function _GetListOfAudioFiles(data) {
 
     // If list contains recording, issue a command to play the recording
     if (containsNewFile) {
-        misty.PlayAudioClip("RecordingExample.wav", 500, 500);
+        misty.PlayAudioClip("RecordingExample.wav", 100, 500);
     } else {
         // If the list does not contain the recording, print an error message
         misty.Debug("file was not found");
