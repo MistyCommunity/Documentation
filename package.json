@@ -54,6 +54,7 @@
     "metalsmith-register-partials": "^1.0.2",
     "metalsmith-serve": "0.0.7",
     "metalsmith-watch": "^1.0.1",
+    "mime": ">=1.4.1",
     "mocha": "^3.2.0",
     "prettify": "^0.1.7",
     "sshpk": ">=1.13.2",
