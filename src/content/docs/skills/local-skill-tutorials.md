@@ -70,10 +70,10 @@ Once we have subscribed to `TimeOfFlight`, we’ll receive event data back from 
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = “synchronous”], [string skillToCall = null]);
 ```
 
-We call `misty.RegisterEvent()` and pass in the name we want to designate for the event (`"FrontTOF"`), and the name of the WebSocket stream we are subscribing to (`"TimeOFFlight"`). We pass `false` for the third parameter, `keepAlive`, to unregister the event after the callback for the event triggers. Make sure your register event method matches the code snippet below.
+We call `misty.RegisterEvent()` and pass in the name we want to designate for the event (`"FrontTOF"`), the name of the WebSocket stream we are subscribing to (`"TimeOFFlight"`), and the debounce time in milliseconds (`250`). By default, when a callback triggers for an event, the event is automatically unregistered. Make sure your register event method matches the code snippet below.
 
 ```JavaScript
-misty.RegisterEvent("FrontTOF", "TimeOfFlight", false);
+misty.RegisterEvent("FrontTOF", "TimeOfFlight", 250);
 ```
 
 Before we register to the event in our code, we can add property comparison tests to filter the data we receive. In this example, the first property test checks that we are only looking at data from the time-of-flight sensor we’re concerned with. The field we’re testing is `SensorPosition` and we’re checking that the data received is only coming from the time-of-flight sensor in the front center of Misty’s base, pointing in her direction of travel. Therefore, we only let through messages where `SensorPosition == Center`.
@@ -129,7 +129,7 @@ misty.DriveTime(10, 0, 10000);
 // Register for TimeOfFlight data and add property tests
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
-misty.RegisterEvent("FrontTOF", "TimeOfFlight");
+misty.RegisterEvent("FrontTOF", "TimeOfFlight", 250);
 
 // FrontTOF callback function
 function _FrontTOF(data) {
@@ -419,40 +419,37 @@ function _FaceDetectionTimeout() {
 
 Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
-See the complete `HelloWorld_FaceDetection.js` file here for reference.
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Face%20Detection).
 
 ```JavaScript
-// Debug message to indicate the skill has started
+
 misty.Debug("starting skill helloworld_facedetection");
 
-// Register for face detection events and for a timer event 
-// to cancel execution if no face is detected within 15 seconds
+// Register for face detection event
 misty.RegisterEvent("FaceDetection", "ComputerVision", 250);
+// Timer event cancels the skill
+// if no face is detected after 15 seconds
 misty.RegisterTimerEvent("FaceDetectionTimeout", 15000);
 
-// Issue a command to start face detection
 misty.StartFaceDetection();
 
 // FaceDetection event callback
 function _FaceDetection() {
-    // Debug message to indicate a face was detecteed
     misty.Debug("Face detected!");
-    // Play an audio clip, change the color of Misty's chest LED, and
-    // issue a command to stop face detection.
+    // Play an audio clip
     misty.PlayAudioClip("005-OoAhhh.wav");
-    misty.ChangeLED(255, 255, 255); // white
+    // Change LED to white
+    misty.ChangeLED(255, 255, 255);
+    // Stop face detection
     misty.StopFaceDetection();
 };
 
-
 // FaceDetectionTimeout callback
 function _FaceDetectionTimeout() {
-    // Debug message to indicate the timer event was triggered
     misty.Debug("face detection timeout called, it's taking too long...");
 
-    // Change the color of Misty's chest LED and issue a command
-    // to stop face detection.
-    misty.ChangeLED(0, 0, 0); // black
+    // Change LED to black
+    misty.ChangeLED(0, 0, 0);
     misty.StopFaceDetection();
 };
 ```
