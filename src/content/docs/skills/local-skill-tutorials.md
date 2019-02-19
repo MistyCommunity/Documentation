@@ -478,14 +478,14 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 ### Writing the Code File
 
-When registering for a timed event use the `RegisterTimerEvent()` method, we pass in the name of the event we want to create, the amount of time (in ms) we want Misty to wait before triggering the callback function, and we set the `keepAlive` parameter to `true` in order to have the event trigger the callback automatically every 3 seconds until it is unregistered. After the line of code to register for the timer event, we send our first command to change Misty’s LED to white below the timer event. This will turn the LED on for the first 3 seconds our skill runs, before the first callback is fired.
+When registering for a timed event use the `misty.RegisterTimerEvent()` method, we pass in the name of the event we want to create, the amount of time (in ms) we want Misty to wait before triggering the callback function, and we set the `keepAlive` parameter to `true` in order to have the event trigger the callback automatically every 3 seconds until it is unregistered. After the line of code to register for the timer event, we send our first command to change Misty’s LED to white below the timer event. This will turn the LED on for the first 3 seconds our skill runs, before the first callback is fired.
 
 ```JavaScript
 misty.RegisterTimerEvent("TimerEvent", 3000, true);
 misty.ChangeLED(255, 255, 255); // white
 ```
 
-Define a global variable to track the amount of callbacks that have been triggered. In order for the data to persist across new threads created by callbacks, prefix the name of the variable with an underscore. Initialize the value of the variable as `0`. Declare it above the `RegisterTimerEvent()` method. **Note:** Do not include a type when creating global variables.
+Define a global variable to track the amount of callbacks that have been triggered. In order for the data to persist across new threads created by callbacks, prefix the name of the variable with an underscore. Initialize the value of the variable as `0`. Declare it above the `misty.RegisterTimerEvent()` method. **Note:** Do not include a type when creating global variables.
 
 ```JavaScript
 _count = 0;
@@ -518,36 +518,35 @@ Using timed events, we have told Misty to change her chest LED to a random color
 
 Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
-See the complete `HelloWorld_TimerEvent.js` file here for reference.
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Timer%20Events).
 
 ```JavaScript
 
-// Debug message to indicate the skill has started
 misty.Debug("starting skill helloworld_timerevent");
 
-// Set a global variable to track the amount of callbacks triggered
+// global variable to count callbacks
 _count = 0;
 
-// Register for the timer event, specifying the duration of the timer
+// Register for TimerEvent
 misty.RegisterTimerEvent("TimerEvent", 3000, true);
 
-// Callback specified for Timer event
+// TimerEvent callback
 function _TimerEvent() {
-    // Check if the value of _count is less than 5
     if (_count < 5) {
-        // Increment the value of _count by 1
+        // Increment _count by 1
         _count = _count + 1;
 
-        // Specify random RGB values and issue command to change LED
+        // Change LED to random color
         let value1 = Math.floor(Math.random() * (256));
         let value2 = Math.floor(Math.random() * (256));
         let value3 = Math.floor(Math.random() * (256));
         misty.ChangeLED(value1, value2, value3);
     } else {
-        // Otherwise, turn off LED, unregister for the timer event and
-        // signal the end of the skill
+        // Unregister timer event
         misty.UnregisterEvent("TimerEvent");
-        misty.ChangeLED(0, 0, 0); // off
+        // Turn off LED
+        misty.ChangeLED(0, 0, 0);
+        // Signal skill end
         misty.Debug("ending skill helloworld_timerevent");
     }
 }
