@@ -1075,7 +1075,6 @@ Save the code file with the name `HelloWorld_HeadArms.js`. See the documentation
 See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Head%20%26%20Arm%20Movement).
 
 ```JavaScript
-// debug message to indicate the skill has started
 misty.Debug("starting skill HelloWorld_HeadArms");
 
 // register for front TOF and add property tests
@@ -1150,7 +1149,7 @@ In this tutorial we learn how to interact with Misty’s bump sensors. We use a 
 
 ### Writing the Meta File
 
-Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_Bump Sensors"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_BumpSensors.json`.
+Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_BumpSensors"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_BumpSensors.json`.
 
 ```json
 {
@@ -1306,63 +1305,55 @@ When this skill runs, Misty retrieves the list of audio clips in her local stora
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 
-See the complete `HelloWorld_BumpSensor.js` file here for reference. 
+See the complete `HelloWorld_BumpSensors.js` file here for reference. 
 
 ```JavaScript
-// Send a debug message to indicate the skill is running
 misty.Debug("HelloWorld_BumpSensors is running")
 
-// Fetch audio list and designate a callback 
-// to run when the data is available
+// Fetch list of audio clips
 misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
 
-// Handle the data returned by misty.GetListOfAudioClips 
+// Handle the list of audio clips
 function _GetListOfAudioClips(data) {
-   // Assign the names of audio files from the list to global variables
+   // Assign audio files from the list to global variables
    _audio1 = data.Result[0].Name;
    _audio2 = data.Result[1].Name;
    _audio3 = data.Result[2].Name;
    _audio4 = data.Result[3].Name;
 
-   // Use a property test test to isolate bump sensor
-   // messages where isContacted is true
+   // Return data when a bump sensor is pressed
    misty.AddPropertyTest("BumpSensor", "isContacted", "==", true, "boolean");
-   // Add the value for the sensorName property to the bump sensor
-   // data that can be accessed in the callback
+   // Return the sensorName property of 
+   // BumpSensor events
    misty.AddReturnProperty("BumpSensor", "sensorName");
-   // register for BumpSensor events
+   // Register for BumpSensor events
    misty.RegisterEvent("BumpSensor", "BumpSensor", 200, true);
 }
 
-// Handle data sent by BumpSensor events
+// Handle BumpSensor event data
 function _BumpSensor(data) {
-    // Assign the value of the sensorName property to a variable
+    // Store the name of the touched sensor
     let sensorName = data.AdditionalResults[0];
 
-    // determine which sensor is pressed. Send a debug 
-    // message indicating the sensor location and play an audio
-    // clip command with an audio file name unique to each bump sensor
+    // Play a different audio clip when
+    // each sensor is prssed
     switch (sensorName) {
-        // If the front right sensor is pressed, play the audio clip 
-        // assigned to _audio1
+
         case "Bump_FrontRight":
             misty.Debug("front right bump sensor pressed")
             misty.PlayAudioClip(_audio1, 75);
             break
-        // If the FrontLeft sensor is pressed, play the audio clip
-        // assigned to _audio2 
+
         case "Bump_FrontLeft":
             misty.Debug("front left bump sensor pressed")
             misty.PlayAudioClip(_audio2, 75);
             break
-        // If the RearRight sensor is pressed, play the audio clip
-        // assigned to _audio3
+
         case "Bump_RearRight":
             misty.Debug("rear right bump sensor pressed")
             misty.PlayAudioClip(_audio3, 75);
             break
-        // If the RearLeft sensor is pressed, play the audio clip
-        // assigned to _audio4
+
         case "Bump_RearLeft":
             misty.Debug("rear left bump sensor pressed")
             misty.PlayAudioClip(_audio4, 75);
@@ -1370,6 +1361,3 @@ function _BumpSensor(data) {
     }
 }
 ```
-
-
-
