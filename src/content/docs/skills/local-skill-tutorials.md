@@ -210,7 +210,7 @@ Note: All of this logic needs to be contained within `_GetListOfAudioClips()` to
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
-See the complete `HelloWorld_PlayAudio.js` skill file here for reference.
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Play%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
