@@ -1072,7 +1072,7 @@ her arms and ends skill execution.
 
 Save the code file with the name `HelloWorld_HeadArms.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 
-See the complete `HelloWorld_HeadArms.js` file here for reference.
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Head%20%26%20Arm%20Movement).
 
 ```JavaScript
 // debug message to indicate the skill has started
