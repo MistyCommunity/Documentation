@@ -29,14 +29,16 @@ The `.json` file includes fields that set certain specifications for your skill.
 ```json
 {
     "Name": "HelloWorld_TimeOfFlight",
-    "UniqueId": "e46c1b29-9d46-4f38-945f-673fa4b7c2bd",
-    "Description": "Local 'Hello, World!' tutorial series.",
-    "StartupRules": [ "Manual", "Robot" ],
+    "UniqueId" : "652d4346-1b17-4515-974d-ce7ff901e3a1",
+    "Description": "Time-of-flight tutorial skill",
+    "StartupRules": ["Manual", "Robot"],
     "Language": "javascript",
     "BroadcastMode": "verbose",
     "TimeoutInSeconds": 300,
     "CleanupOnCancel": false,
-    "WriteToLog": false
+    "SkillStorageLifetime": "Reboot",
+    "WriteToLog": false,
+    "Parameters": { }
 }
 ```
 
@@ -54,7 +56,7 @@ Now let’s use the very simple `misty.ChangeLED()` function to control the colo
 misty.ChangeLED(0, 255, 0);
 ```
 
-Then, we issue one of Misty’s drive commands, `DriveTime()`. The `DriveTime()` command accepts three parameters: `linearVelocity`, `angularVelocity`, and `time`. You can learn more about how these parameters will affect Misty’s movement in the documentation. In this case, we want Misty to drive forward slowly in a straight line for 10 seconds, so we set `linearVelocity` = 10, `angularVelocity` = 0, and `time` = 10000 (the unit of measure for this parameter is milliseconds). 
+Then, we issue one of Misty’s drive commands, `misty.DriveTime()`. The `misty.DriveTime()` command accepts three parameters: `linearVelocity`, `angularVelocity`, and `time`. You can learn more about how these parameters will affect Misty’s movement in the documentation. In this case, we want Misty to drive forward slowly in a straight line for 10 seconds, so we set `linearVelocity` = 50, `angularVelocity` = 0, and `time` = 10000 (the unit of measure for this parameter is milliseconds).
 
 ```JavaScript
 misty.DriveTime(50, 0, 10000);
@@ -68,10 +70,10 @@ Once we have subscribed to `TimeOfFlight`, we’ll receive event data back from 
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = “synchronous”], [string skillToCall = null]);
 ```
 
-We call `RegisterEvent()` and pass in the name we want to designate for the event (`"FrontTOF"`), and the name of the websocket stream we are subscribing to (`"TimeOFFlight"`). By default, when a callback triggers for an event, the event is automatically unregistered. Make sure your register event method matches the code snippet below. 
+We call `misty.RegisterEvent()` and pass in the name we want to designate for the event (`"FrontTOF"`), and the name of the WebSocket stream we are subscribing to (`"TimeOFFlight"`). We pass `false` for the third parameter, `keepAlive`, to unregister the event after the callback for the event triggers. Make sure your register event method matches the code snippet below.
 
 ```JavaScript
-misty.RegisterEvent("FrontTOF", "TimeOfFlight");
+misty.RegisterEvent("FrontTOF", "TimeOfFlight", false);
 ```
 
 Before we register to the event in our code, we can add property comparison tests to filter the data we receive. In this example, the first property test checks that we are only looking at data from the time-of-flight sensor we’re concerned with. The field we’re testing is `SensorPosition` and we’re checking that the data received is only coming from the time-of-flight sensor in the front center of Misty’s base, pointing in her direction of travel. Therefore, we only let through messages where `SensorPosition == Center`.
@@ -104,17 +106,17 @@ function _FrontTOF(data) {
 }
 ```
 
-Call `Stop()` to issue a stop command to Misty, then `ChangeLED()` and pass in the values `(255, 0, 0)` to turn the LED red (for stop!) and log a message to notify us that the skill has finished.
+Call `misty.Stop()` to issue a stop command to Misty, then `misty.ChangeLED()` and pass in the values `(255, 0, 0)` to turn the LED red (for stop!) and log a message to notify us that the skill has finished.
 
 ```JavaScript
 misty.Stop();
 misty.ChangeLED(255, 0, 0);
-misty.Debug("ending skill helloworld ");
+misty.Debug("ending skill helloworld_timeofflight");
 ```
 
 Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 
-See the full contents of the `HelloWorld_TimeOfFlight.js` file here for reference.
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Time-of-Flight).
 
 ```JavaScript
 // Print a message to indicate the skill has started
