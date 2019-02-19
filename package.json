@@ -58,6 +58,7 @@
     "mime": ">=1.4.1",
     "mocha": "^3.2.0",
     "prettify": "^0.1.7",
+    "randomatic": ">=3.0.0",
     "sshpk": ">=1.13.2",
     "through2": "^2.0.3",
     "tough-cookie": ">=2.3.3"
