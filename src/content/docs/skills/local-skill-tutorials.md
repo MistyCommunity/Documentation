@@ -748,11 +748,14 @@ Finally, we need to send the command to start face recognition as well. This com
 Putting the pieces together, shown below is first half of the parent skill; the commands relating to face recognition.
 
 ```JavaScript
-// Add a return property check to return just the property PersonName for use in our callback. Pass in the name of the event first, then the property we want.
+// Return only the PersonName property
 misty.AddReturnProperty("FaceRecognition", "PersonName");
-// Register for FaceRecognition events with an event name of ComputerVision. Set debounceMS to 5000, keepAlive to true, and the callback rule to Synchronous. Pass in the GUID for HelloWorld_TriggerSkill2.
+
+// Register for FaceRecognition events.
+// For the callback, pass in the GUID for
+// HelloWorld_TriggerSkill2.
 misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
-// Send command to start face recognition
+
 misty.StartFaceRecognition();
 ```
 
@@ -761,10 +764,14 @@ Next, we want to register for another event, `BackTOF`. This event triggers when
 Start by calling `RegisterEvent` and registering for `TimeOfFlight` as `BackTOF`. Pass in `5000` for `debounceMS`, set `keepAlive` to `true`, and specify the callback rule as `Synchronous`. Similar to our previous registration, pass in the GUID for our third skill for the last parameter (in our case, `f6cc6095-ae40-4507-a9ef-4c7638bf3ad5). Above our registration call, add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
 
 ```JavaScript
-//  add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
+// Return data only from rear-facing TOF sensors
 misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+// Return data only when an object is closer than 0.5m
 misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
-// register for TimeOfFlight as BackTOF. Pass in 5000 for debounceMS, set keepAlive to true, and specify the callback rule as Synchronous. Similar to our previous registration, pass in the GUID for HelloWorld_TriggerSkill3 for the last parameter.
+
+// Register for TimeOfFlight events.
+// For the callback, pass in the GUID for
+// HelloWorld_TriggerSkill3.
 misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
 ```
 
@@ -773,17 +780,24 @@ With both of our event registrations finished, our “parent” skill is complet
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill1.js`.
 
 ```JavaScript
-// add a return property check to return just the property PersonName for use in our callback. Pass in the name of the event first, then the property we want.
+// Return only the PersonName property
 misty.AddReturnProperty("FaceRecognition", "PersonName");
-// register for FaceRecognition events with an event name of ComputerVision. Set debounceMS to 5000, keepAlive to true, and the callback rule to Synchronous. Pass in the GUID for HelloWorld_TriggerSkill2.
+
+// Register for FaceRecognition events.
+// For the callback, pass in the GUID for
+// HelloWorld_TriggerSkill2.
 misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
-// send command to start face recognition
+
 misty.StartFaceRecognition();
 
-//  add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
+// Return data only from rear-facing TOF sensors
 misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+// Return data only when an object is closer than 0.5m
 misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
-// register for TimeOfFlight as BackTOF. Pass in 5000 for debounceMS, set keepAlive to true, and specify the callback rule as Synchronous. Similar to our previous registration, pass in the GUID for HelloWorld_TriggerSkill3 for the last parameter.
+
+// Register for TimeOfFlight events.
+// For the callback, pass in the GUID for
+// HelloWorld_TriggerSkill3.
 misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
 ```
 
@@ -800,7 +814,7 @@ Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2
 Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 
 ```JavaScript
-// define a variable, personName to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within data.AdditionalResults. 
+// Store the name of the detected face
 let personName = data.AdditionalResults[0];
 ```
 
@@ -808,11 +822,12 @@ Then, use an if statement to check if `personName` is equal to unknown person. I
 
 ```JS
 if (personName == "unknown person") {
-    // if the person is not recognized, change the LED to red and print "I don't know you" to the console.
+    // Change LED
     misty.ChangeLED(255, 0, 0); // red
     misty.Debug("I don't know you...");
-} else {
-    // If the person is recognized, change the LED to green and greet the person in the console.
+}
+else {
+    // Change LED
     misty.ChangeLED(0, 255, 0); // green
     misty.Debug("Hello there " + personName + "!");
 }
@@ -825,36 +840,37 @@ For reference, here is the entire skill file for `HelloWorld_TriggerSkill2.js`.
 ```JavaScript
 // callback for face recognition event
 function _FaceRecognition(data) {
-	// send a debug message to notify the user that the new skill has been triggered.
-	misty.Debug("TriggerSkill part 2 has been triggered.");
-	// define a variable, personName to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within data.AdditionalResults. 
-	let personName = data.AdditionalResults[0];
-	// check if person was recognized
-	if (personName == "unknown person") {
-		// if the person is not recognized, change the LED to red and print "I don't know you" to the console.
-		misty.ChangeLED(255, 0, 0); // red
-		misty.Debug("I don't know you...");
-	} else {
-		// If the person is recognized, change the LED to green and greet the person in the console.
-		misty.ChangeLED(0, 255, 0); // green
-		misty.Debug("Hello there " + personName + "!");
-	}
+    // Signal that new skill has been triggered.
+    misty.Debug("TriggerSkill part 2 has been triggered.");
+    // Store the name of the detected face
+    let personName = data.AdditionalResults[0];
+    if (personName == "unknown person") {
+        // Change LED
+        misty.ChangeLED(255, 0, 0); // red
+        misty.Debug("I don't know you...");
+    }
+    else {
+        // Change LED
+        misty.ChangeLED(0, 255, 0); // green
+        misty.Debug("Hello there " + personName + "!");
+    }
 }
 ```
 
 The third skill is designated for our time-of-flight event. Start by defining a function for the callback for `BackTOF`. Pass in an argument to access the data. Then, within the callback write a debug message indicating that skill number three has been triggered.
 
 ```JS
-// callback for time of flight event
+// TimeOfFlight callback
 function _BackTOF(data) {
-    // log a debug message indicating a new skill is triggered
+    // Signal that new skill has been triggered
+    misty.Debug("TriggerSkill part 3 has been triggered.");
 }
 ```
 
 Define a variable `distance` to hold the value of the distance an object was detected. We can access this from our property test results (contained in the response). Dig into the results to locate the value we want.
 
 ```JS
-// Define a variable distance to hold the value of the distance an object was detected. We can access this from our property test results (contained in data.PropertyTestResults[1].PropertyParent.DistanceInMeters)
+// Store the distance of the detected object
 let distance = data.PropertyTestResults[1].PropertyParent.DistanceInMeters;
 ```
 
@@ -862,12 +878,14 @@ Then, use an `if` statement to check that the distance is less than `0.1m`. If s
 
 ```JS
 if (distance < 0.1) {
-    // If an object is detected closer than 10 cm, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. 
+    // Play irritated audio clip
     misty.PlayAudioClip("002-Ahhh.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
+    // Drive forward
     misty.DriveTime(50, 0, 1000);
-} else {
-    // If no object is detected closer than 10 cm, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
+}
+else {
+    // Play happy audio clip
     misty.PlayAudioClip("004-WhaooooO.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
 }
@@ -878,20 +896,22 @@ Just like before in our second skill, we specified the callback to trigger once 
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill3.js`.
 
 ```JS
-// callback for time of flight event
+// TimeOfFlight callback
 function _BackTOF(data) {
-    // log a debug message indicating a new skill is triggered
+    // Signal that new skill has been triggered
     misty.Debug("TriggerSkill part 3 has been triggered.");
-    // Define a variable distance to hold the value of the distance an object was detected. We can access this from our property test results (contained in data.PropertyTestResults[1].PropertyParent.DistanceInMeters)
+    // Store the distance of the detected object
     let distance = data.PropertyTestResults[1].PropertyParent.DistanceInMeters;
     // Check the value of distance
     if (distance < 0.1) {
-        // If an object is detected closer than 10 cm, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. 
+        // Play irritated audio clip
         misty.PlayAudioClip("002-Ahhh.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
+        // Drive forward
         misty.DriveTime(50, 0, 1000);
-    } else {
-        // If no object is detected closer than 10 cm, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
+    }
+    else {
+        // Play happy audio clip
         misty.PlayAudioClip("004-WhaooooO.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
     }
@@ -899,6 +919,8 @@ function _BackTOF(data) {
 ```
 
 Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
+
+[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Trigger%20Skill)
 
 ## Head & Arm Movement (Misty II)
 
