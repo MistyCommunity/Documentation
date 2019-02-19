@@ -298,7 +298,8 @@ If the list contains the recording, we can call `PlayAudioClip()` to play the re
 ```JavaScript
 if (containsNewFile) {
    misty.PlayAudioClip("RecordingExample.wav", 100, 500);
-} else {
+}
+else {
    misty.Debug("file was not found");
 }
 ```
@@ -345,7 +346,8 @@ function _GetListOfAudioFiles(data) {
     // If list contains recording, issue a command to play the recording
     if (containsNewFile) {
         misty.PlayAudioClip("RecordingExample.wav", 100, 500);
-    } else {
+    }
+    else {
         // If the list does not contain the recording, print an error message
         misty.Debug("file was not found");
     }
@@ -501,7 +503,10 @@ if (_count < 5) {
     let value2 = Math.floor(Math.random() * (256));
     let value3 = Math.floor(Math.random() * (256));
     misty.ChangeLED(value1, value2, value3);
-} else { }
+}
+else {
+
+}
 ```
 
 The `else` statement will trigger once the value of `_count` has reached `5`. At this point, we want the skill to end. Start by unregistering for the timer event by calling `misty.UnregisterEvent()` and passing in the name designated for the event. Then turn the LED off by passing in zero values for `misty.ChangeLED()` and log a debug message.
@@ -541,7 +546,8 @@ function _TimerEvent() {
         let value2 = Math.floor(Math.random() * (256));
         let value3 = Math.floor(Math.random() * (256));
         misty.ChangeLED(value1, value2, value3);
-    } else {
+    }
+    else {
         // Unregister timer event
         misty.UnregisterEvent("TimerEvent");
         // Turn off LED
@@ -587,8 +593,8 @@ In this example we send a `GET` request, so we use the string `GET` for the firs
 
 The second parameter (`resourceURL`) should contain the full URL of the host and resource to access. In this example, the full `resourceURL` is:
 
-```JavaScript
-http://soundbible.com/grab.php?id=1949&type=mp3. 
+```http
+http://soundbible.com/grab.php?id=1949&type=mp3.
 ```
 
 For some requests additional authorization may be necessary. This is where the third (`authorization`) and fourth (`token`) parameters come into play. In this example, no authorization is required, so we can enter `null` for the third and fourth parameters.
@@ -629,33 +635,32 @@ When the response is ready, Misty receives the file, saves it to local storage, 
 misty.Debug("The skill is complete!!")
 ```
 
-Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
+Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill).
 
-See the full contents of the `HelloWorld_ExternalRequest.js` file here for reference.
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20External%20Requests).
 
 ```JavaScript
-// Debug message to indicate when skill execution begins
 misty.Debug("Starting skill HelloWorld_ExternalRequest");
 
-// Use misty.SendExternalRequest() to access an audio file hosted at soundbible.com. 
+// Get and play an audio file hosted on soundbible.com.
 misty.SendExternalRequest(
-    "GET", /*method: pass the HTTP method to send with the request*/
-    "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL: pass the entire URL of the request*/
-    null, /*authorizationType: pass null if no authorization is required*/
-    null, /*token: pass a string with the authorization token*/
-    "audio/mp3", /*returnType: pass the media type of the data you expect the request to return*/
-    null, /*jsonArgs: pass null if no args are required*/
-    true, /*saveAssetToRobot: pass true to save the returned file to the robot*/
-    true, /*applyAssetAfterSaving: pass true to immediately play the returned audio file*/
-    "sound", /*fileName: pass the name to give the saved file*/
-    null, /*callbackMethod: pass null if no callback method is used*/
-    null, /*callbackRule: pass null if no callback method is used*/
-    null, /*skillToCallOnCallback: pass null if the response is not passed into a skill*/
+    "GET", /*method*/
+    "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
+    null, /*authorizationType*/
+    null, /*token*/
+    "audio/mp3", /*returnType*/
+    null, /*jsonArgs*/
+    true, /*saveAssetToRobot*/
+    true, /*applyAssetAfterSaving*/
+    "sound", /*fileName*/
+    null, /*callbackMethod*/
+    null, /*callbackRule*/
+    null, /*skillToCallOnCallback*/
     0, /*prePause*/
     0/*postPause*/
     );
 
-// Debug message to indicate when skill execution completes
+// Signal skill ccmpletion
 misty.Debug("The skill is complete!!")
 ```
 
