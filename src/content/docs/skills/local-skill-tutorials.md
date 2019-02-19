@@ -1305,7 +1305,7 @@ When this skill runs, Misty retrieves the list of audio clips in her local stora
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-a-local-skill). 
 
-See the complete `HelloWorld_BumpSensors.js` file here for reference. 
+See the complete JavaScript code below or [download the code files from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Bump%20Sensors).
 
 ```JavaScript
 misty.Debug("HelloWorld_BumpSensors is running")
