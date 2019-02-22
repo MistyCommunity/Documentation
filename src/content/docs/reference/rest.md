@@ -174,6 +174,55 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### GetRecordedVideo - BETA
+
+Downloads Misty's most recent video recording to your browser or REST client.
+
+**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
+
+Endpoint: GET <robot-ip-address>/api/beta/video/getvideo
+
+Parameters
+
+* None
+
+Return Values
+
+* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
+### StartRecordingVideo - BETA
+Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
+
+Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+Endpoint: POST {robot-ip-address}/api/beta/video/startrecord
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopRecordingVideo - BETA
+
+Stops recording video with Misty's 4K camera.
+
+Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+
+Endpoint: POST {robot-ip-address}/api/beta/video/stoprecord
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 <!-- Images & Display - ALPHA -->
 
 ### GetImage - ALPHA
