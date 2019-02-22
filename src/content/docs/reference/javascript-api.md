@@ -137,6 +137,49 @@ Arguments
 misty.ClearDisplayText();
 ```
 
+### misty.StartRecordingVideo - BETA
+Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels.
+
+Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+```JavaScript
+// Syntax
+misty.StartRecordingVideo([int prePause], [int postPause])
+```
+
+Arguments
+
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartRecordingVideo();
+```
+
+### misty.StopRecordingVideo - BETA
+
+Stops recording video with Misty's 4K camera.
+
+Use this command after calling `misty.StartRecordingVideo()`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+
+```JavaScript
+// Syntax
+misty.StopRecordingVideo([int prePause], [int postPause]);
+```
+
+Arguments
+
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopRecordingVideo();
+```
+
 <!-- Images & Display - ALPHA -->
 
 <!-- misty.GetImage - ALPHA -->
