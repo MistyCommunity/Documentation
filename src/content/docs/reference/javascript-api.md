@@ -137,6 +137,49 @@ Arguments
 misty.ClearDisplayText();
 ```
 
+### misty.StartRecordingVideo - BETA
+Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels.
+
+Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+```JavaScript
+// Syntax
+misty.StartRecordingVideo([int prePause], [int postPause])
+```
+
+Arguments
+
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartRecordingVideo();
+```
+
+### misty.StopRecordingVideo - BETA
+
+Stops recording video with Misty's 4K camera.
+
+Use this command after calling `misty.StartRecordingVideo()`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+
+```JavaScript
+// Syntax
+misty.StopRecordingVideo([int prePause], [int postPause]);
+```
+
+Arguments
+
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopRecordingVideo();
+```
+
 <!-- Images & Display - ALPHA -->
 
 <!-- misty.GetImage - ALPHA -->
@@ -794,6 +837,29 @@ Arguments
 misty.ChangeLED(0, 0, 0);
 ```
 
+## Configuration
+
+### misty.SetNetworkConnection
+
+Connects Misty to a specified Wi-Fi source.
+
+```JavaScript
+// Syntax
+misty.SetNetworkConnection(string networkName, string password, [int prePause], [int postPause])
+```
+
+Arguments
+
+* networkName (string) - The Wi-Fi network name (SSID).
+* password (string) - The Wi-Fi network password.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
+```
+
 ## Faces
 
 You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
@@ -1446,25 +1512,6 @@ Arguments
 misty.AddReturnProperty("EventName", "DistanceInMeters");
 ```
 
-### misty.CancelSkill - ALPHA
-Cancel execution a specified skill.
-
-
-```JavaScript
-// Syntax
-misty.CancelSkill(string uniqueId, [int prePause], [int postPause])
-```
-
-Arguments
-* uniqueId (string) - The unique GUID of the skill to cancel.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
-```
-
 ### misty.Pause - ALPHA
 Pause skill execution for a specified number of milliseconds.
 
@@ -1907,4 +1954,79 @@ Arguments
 ```JavaScript
 // Example
 misty.WriteBackpackUart("your-data");
+```
+
+## Skill Management Commands
+
+Use these commands to manage the skills stored on your robot.
+
+### misty.CancelSkill - ALPHA
+Cancel execution a specified skill.
+
+
+```JavaScript
+// Syntax
+misty.CancelSkill(string uniqueId, [int prePause], [int postPause])
+```
+
+Arguments
+* uniqueId (string) - The unique GUID of the skill to cancel.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
+```
+
+### misty.GetRunningSkills - ALPHA
+
+Obtains a list of the skills currently running on Misty.
+
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks).
+
+```JavaScript
+//Syntax
+misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int PostPause])
+```
+
+Arguments
+
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_GetRunningSkills()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+//Example
+misty.GetRunningSkills();
+```
+
+Returns
+
+* result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this command returns an empty array. Note that in a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill (see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information). Each object in the list includes the following key-value pairs:
+  * description (string) - The description of the skill as it appears in the skill's meta file.
+  * name (string) - the name of the skill, as it appears in the skill's meta file.
+  * startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
+  * uniqueId (string) - The unique id of the skill, from the skill's meta file.
+
+### misty.RunSkill - ALPHA
+
+Immediately runs a previously uploaded skill.
+
+```JavaScript
+// Syntax
+misty.RunSkill(string skill, [int prePause], [int postPause])
+```
+
+Arguments
+
+* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 ```

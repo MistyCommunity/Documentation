@@ -174,6 +174,55 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### GetRecordedVideo - BETA
+
+Downloads Misty's most recent video recording to your browser or REST client.
+
+**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/beta/video/getvideo
+
+Parameters
+
+* None
+
+Return Values
+
+* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
+### StartRecordingVideo - BETA
+Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
+
+Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/beta/video/startrecord
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopRecordingVideo - BETA
+
+Stops recording video with Misty's 4K camera.
+
+Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/beta/video/stoprecord
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 <!-- Images & Display - ALPHA -->
 
 ### GetImage - ALPHA
@@ -1281,14 +1330,45 @@ Parameters
 
 Return Values
 
-* Result (boolean) - Returns `true` if no errors related to this request.
+- Result (boolean) - Returns `true` if no errors related to this request.
 
 ## Skill Management Commands
 
-<!-- SaveSkillToRobot -->
+### GetRunningSkills - ALPHA
 
-<!--- GetSkills -->
+Obtains a list of the skills currently running on Misty.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/sdk/skills/running
+
+Parameters
+
+- None
+
+Return Values
+
+- result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this call returns an empty array. Each object in the list includes the following key-value pairs:
+  - description (string) - The description of the skill as it appears in the skill's meta file.
+  - name (string) - The name of the skill as it appears in the skill's meta file.
+  - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
+  - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
+
+```JSON
+// SAMPLE RESULT
+"result":[  
+    {  
+        "description":"A simple skill for Misty.",
+        "name":"HelloWorld",
+        "startupArguments":{  
+            "skill":"HelloWorld",
+            "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
+        },
+        "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
+    }
+]
+```
+
 ### GetSkills - ALPHA
+
 Obtains a list of the skills currently uploaded onto the robot.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/sdk/skills

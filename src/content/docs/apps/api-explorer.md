@@ -169,6 +169,15 @@ You can use the API Explorer to move Misty's head with the following controls:
 **Note: Misty I only provides movement along one axis: pitch. This means that up and down motions are all that can be controlled for Misty I.**
 ![Head commands](../../../assets/images/head_commands.png)
 
+## Recording Video - BETA
+
+Misty can record a ten second video with her 4K camera. You can use the API Explorer to start the recording, stop the recording, and download the recording to your web browser.
+
+Note that Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+![Record Video](../../../assets/images/record-video-api-explorer.png)
+
+Click **Start Recording Video** to start Misty recording a video, and click **Stop Recording Video** to stop the recording. Note that if you do not click **Stop Recording Video**, Misty automatically stops recording after 10 seconds. Click **Download Recorded Video** to download the most recent recorded video recorded to your web browser.
 
 ## Taking Pictures - ALPHA
 
@@ -189,7 +198,6 @@ Follow these steps to take a photo with this camera:
 1. Click **Start Camera** to turn on the data stream from the depth sensor.
 2. Click **Take + Display Photo** to take a photo and display it in your browser, or click **Take + Download Photo** to download the photo to your computer.
 3. Click **Stop Camera** to turn off the data stream when you are done using this camera.
-
 
 ## Mapping & Tracking - ALPHA
 
