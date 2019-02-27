@@ -142,7 +142,7 @@ Starts recording video with Misty's 4K Camera. Misty records videos in MP4 forma
 
 Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
 
-Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, use the [`GetRecordedVideo`](../../../docs/reference/rest/#getrecordedvideo-beta) REST command.
 
 ```JavaScript
 // Syntax
@@ -163,7 +163,7 @@ misty.StartRecordingVideo();
 
 Stops recording video with Misty's 4K camera.
 
-Use this command after calling `misty.StartRecordingVideo()`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+Use this command after calling `misty.StartRecordingVideo()`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command. To download a video from your robot, use the [`GetRecordedVideo`](../../../docs/reference/rest/#getrecordedvideo-beta) REST command.
 
 ```JavaScript
 // Syntax
