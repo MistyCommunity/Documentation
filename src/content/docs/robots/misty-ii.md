@@ -35,7 +35,7 @@ If you did not purchase Misty's Arduino backpack, the "backpack" shipped with yo
 
 ## Powering Up & Powering Down
 
-We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, considering placing books or blocks between her treads to elevate them above the surface of the table.
+We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, consider placing books or blocks between her treads to elevate them above the surface of the table.
 
 ### Turning Misty On
 1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](../../../assets/images/mii-power.jpg)
