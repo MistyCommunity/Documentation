@@ -63,7 +63,7 @@ Now that you've turned on your robot, you can set up Misty's internet connection
 
 There are two ways to charge Misty II. You can use the wireless charging pad that comes with your robot, or you can plug the power supply directly into the power port on Misty's base.
 
-Note that Misty does not need to be turned on during charging. Misty continues to use some power even when switched off, so her battery levels will drop even when she is powered down.
+Note that Misty does not need to be turned on during charging.
 
 ### Wireless Charging
 
