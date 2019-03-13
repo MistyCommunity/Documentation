@@ -75,7 +75,7 @@ To use Misty's wireless charging pad, follow these steps:
 4. Plug the power cable into the wall.
 5. Place Misty on the center of the charging pad. Position her to be facing out, with her back against the rear compartment of the charging pad. ![Misty II on her charging pad](../../../assets/images/mii-charging.jpg)
 
-**Note:** When Misty is turned on and charging the speed of her fan increases. If you don't hear the fan speed change, try adjusging her position on the pad.
+**Note:** When Misty is turned on and charging the speed of her fan increases. If you don't hear the fan speed change, try adjusting her position on the pad.
 
 ### Wired Charging
 
