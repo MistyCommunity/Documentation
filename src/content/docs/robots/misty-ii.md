@@ -70,7 +70,7 @@ Note that Misty does not need to be turned on during charging.
 To use Misty's wireless charging pad, follow these steps:
 
 1. Connect the power supply to the power port on the back of the charging pad. ![Charging pad and power jack](../../../assets/images/mii-charging-pad-power-jack.jpg)
-2. **Optional:** To prevent tripping hazards, place the power brick inside the charging pad and wrap any extra length of the power cable around the nodes inside the rear compartment, as seen in the photo below. ![Charging pad cable storage](../../../assets/images/mii-charging-pad-snaked-cable.jpg)
+2. To prevent tripping hazards, place the power brick inside the charging pad and wrap any extra length of the power cable around the nodes inside the rear compartment, as seen in the photo below. ![Charging pad cable storage](../../../assets/images/mii-charging-pad-snaked-cable.jpg)
 3. Place the charging pad on a flat surface. **Note:** To avoid the risk of driving Misty off a high surface, we recommend charging Misty on the floor.
 4. Plug the power cable into the wall.
 5. Place Misty on the center of the charging pad. Position her to be facing out, with her back against the rear compartment of the charging pad. ![Misty II on her charging pad](../../../assets/images/mii-charging.jpg)
