@@ -7,17 +7,20 @@ order: 3
 
 # {{title}}
 
-Welcome! Your Misty II Field Trial robot has been designed and built by the Misty Robotics team. For safety during shipping, Misty II arrives with her battery disconnected. Start here for a quick guide to setting up your robot.
+Welcome! Your Misty II Field Trial robot has been designed and built by the Misty Robotics team. Start here for a quick guide to setting up your robot.
 
 **Important!** Misty II features a built-in carrying handle on the back of her head. Grip this handle to carry your robot.
 
 **Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with your robot on the floor or temporarily elevating the treads so the robot cannot drive. To do this, you can place books or blocks between Misty's treads.
 
 ## What's in the Box?
+
 Misty II arrives with her magnetic headpiece and "backpack" attached. In addition to Misty, your package arrives with the following items:
+
 * charging pad
-* power supply
-* Misty II Getting Started guide
+* charging pad AC power supply
+* Misty II AC power supply
+* This Getting Started guide
 
 Some Field Trial robots may also arrive with a USB-to-Ethernet adapter.
 
@@ -38,9 +41,12 @@ If you did not purchase Misty's Arduino backpack, the "backpack" shipped with yo
 We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, consider placing books or blocks between her treads to elevate them above the surface of the table.
 
 ### Turning Misty On
+
 1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](../../../assets/images/mii-power.jpg)
 2. The Misty Robotics logo first appears on the screen. Then Misty’s eyes appear, beginning in a closed state. The eyes gradually open as Misty boots up.![Misty II eyes closed](../../../assets/images/mii-waking.jpg)
 3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. **Important!** If after a few minutes, Misty's eyes still do not appear fully open, contact technical support for assistance.![Misty II eyes open](../../../assets/images/mii-awake.png)
+
+**Note:** Your Misty II prototype arrives with her battery charged and should not require additional charging before first use. When her battery is low, Misty may fail to respond to some API commands. If this happens you can restore functionality by connecting your robot to a power source and performing a manual reboot.
 
 ### Restarting Misty
 If you need to restart Misty:
