@@ -34,7 +34,7 @@ Remove the magnetic "backpack" to reveal the ports on Misty's back. These includ
 
 You can use the USB port to power external hardware and to connect Misty to your local network with a USB-to-Ethernet adapter. The UART serial port enables communication between Misty and an external device, such as an Arduino.
 
-If you did not purchase Misty's Arduino backpack, the "backpack" shipped with your robot does not contain any hardware. Note that you can still use Misty's hardware expandability by connecting your own Arduino to her UART serial port.
+If you did not purchase Misty's Arduino-compatible backpack, the "backpack" shipped with your robot does not contain any hardware. Note that you can still use Misty's hardware expandability by connecting your own Arduino to her UART serial port.
 
 ## Powering Up & Powering Down
 
@@ -164,7 +164,7 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 ### Expandability
 * USB/Serial-connected backpack for hardware expansion
-* Arduino backpack (optional)
+* Arduino-compatible Backpack (optional)
 * Magnetic helmet connection point
 
 ### Operating Systems
