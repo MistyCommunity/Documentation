@@ -20,7 +20,7 @@ Misty II arrives with her magnetic headpiece and "backpack" attached. In additio
 * charging pad
 * charging pad AC power supply
 * Misty II AC power supply
-* This Getting Started guide
+* this Getting Started guide
 
 Some Field Trial robots may also arrive with a USB-to-Ethernet adapter.
 
