@@ -92,13 +92,11 @@ You can also charge Misty by plugging the power supply directly into the power p
 In the event that you need to check or reconnect Misty's battery, please read the following important notes:
 
 * Always use the battery that came with your Misty II.
-* Always use a power supply (12-volt, 3 Amp, **center positive**) with the same specifications as that which came with Misty. Using a differently configured power supply creates a high risk of fire.
-* If you encounter any resistance or difficulty plugging the power supply into the jack on the back of Misty: **STOP**. Pull the plug out and try again, rotating the plug if necessary, until the plug inserts smoothly. It’s possible to catch the ground leaf spring on the bottom of the jack with the power supply plug and create a short. This renders Misty inoperative.
-* **Never** unplug the power connectors inside Misty. These connectors can be reversed or otherwise improperly re-inserted and create a **high risk of fire**.![Do not unplug these power connectors](../../../assets/images/mii-power-connecter-warning.jpg)
+* Always use the same power supply that came with Misty II. Using a differently configured power supply creates a high risk of fire.
 
 Follow the steps below to access the battery compartment and connect Misty's battery:
 
-1. Remove the bump sensor covers from Misty's base. Use the indentation at the edge of the bump sensor covers to pry each cover off of Misty's base. Misty II has two front-facing and two rear-facing bump sensor covers. All four bump sensor covers must be removed. 
+1. Remove the bump sensor covers from Misty's base. Use the indentation at the edge of the bump sensor covers to pry each cover off of Misty's base. Misty II has two front-facing and two rear-facing bump sensor covers. All four bump sensor covers must be removed.
 
    **Rear-Facing Bump Sensor Cover Removal:** ![Rear-Facing Bump Sensor Cover Removal](../../../assets/images/mii-remove-bump-sensors-rear.jpg) **Front-Facing Bump Sensor Cover Removal:** ![Front-Facing Bump Sensor Cover Removal](../../../assets/images/mii-remove-bump-sensors-front.jpg)
 
