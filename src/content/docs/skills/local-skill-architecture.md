@@ -267,7 +267,7 @@ The following briefly describe the categories of commands you have available to 
 Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../reference/javascript-api).
 
 ### Get Commands
-Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-get-data-callbacks) section for more usage details.
+Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-quot-get-quot-data-callbacks) section for more usage details.
 
 <!-- TODO: add link to GET DATA CALLBACKS section -->
 

@@ -1181,7 +1181,7 @@ Then call `misty.GetListOfAudioClips()` to fetch the list of audio clips on Mist
 misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
 ```
 
-The `_GetListOfAudioClips()` callback triggers when the data from `misty.GetListOfAudioClips()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-get-data-callbacks)
+The `_GetListOfAudioClips()` callback triggers when the data from `misty.GetListOfAudioClips()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-quot-get-quot-data-callbacks)
 
 Next write the logic for the `_GetListOfAudioClips()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetListOfAudioClips()`.
 
