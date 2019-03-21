@@ -607,7 +607,7 @@ The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` paramet
 
 The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePause` and `postPause` parameters that follow them. Note that `prePause` and `postPause` are optional in `misty.SendExternalRequest()`.
 
-The final form of `misty.SendExternalRequst()` in this tutorial is:
+The final form of `misty.SendExternalRequest()` in this tutorial is:
 
 ```JavaScript
 misty.SendExternalRequest(
@@ -1323,7 +1323,7 @@ function _GetListOfAudioClips(data) {
 
    // Return data when a bump sensor is pressed
    misty.AddPropertyTest("BumpSensor", "isContacted", "==", true, "boolean");
-   // Return the sensorName property of 
+   // Return the sensorName property of
    // BumpSensor events
    misty.AddReturnProperty("BumpSensor", "sensorName");
    // Register for BumpSensor events
@@ -1336,7 +1336,7 @@ function _BumpSensor(data) {
     let sensorName = data.AdditionalResults[0];
 
     // Play a different audio clip when
-    // each sensor is prssed
+    // each sensor is pressed
     switch (sensorName) {
 
         case "Bump_FrontRight":

@@ -204,7 +204,7 @@ After constructing the messages, they are formatted as JSON objects, so they are
 
 ### Opening & Closing a WebSocket
 
-Having constucted the `subscribe` and `unsubscribe` messages, the `tofApp.js` sample next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted “subscribe” message.
+Having constucted the `subscribe` and `unsubscribe` messages, the `tofApp.js` sample next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted "subscribe" message.
 
 Once you've successfully subscribed to a data stream, you can use the `socket.onmessage()` function to handle the data received back from the robot. In this example, we simply log the received data to the console. For a real skill, you could instead parse the event data and write a conditional function based on a particular property value to do something when a condition is met.
 

@@ -286,12 +286,12 @@ If a full system update fails to update every component of your robot, you can p
 
 ![Targeted update controls](../../../assets/images/targeted_update_controls.png)
 
-To peform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
+To perform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
 
 **Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **Easy Commands** section at the top of the API Explorer. 
 
 ## Connecting Wi-Fi
-While it’s usually easiest to use the [Misty Companion App](../companion-app) to connect Misty to your home WiFi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty Companion App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.
@@ -299,7 +299,7 @@ While it’s usually easiest to use the [Misty Companion App](../companion-app) 
   * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
 3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
 4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
-5. Scroll down to the bottom of the API Explorer page to the **Connect WiFi** section. Enter your WiFi network credentials here and click **Connect to WiFi.** The process can take a few minutes. ![Connect WiFi UI](../../../assets/images/connect_wifi.png)
+5. Scroll down to the bottom of the API Explorer page to the **Connect Wi-Fi** section. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/connect_wifi.png)
 
 **Note: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:**
   * Apple/Unix: `arp -a | grep <MAC ADDRESS>`

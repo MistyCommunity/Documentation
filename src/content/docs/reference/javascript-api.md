@@ -1170,7 +1170,7 @@ misty.MoveArmPosition(string armToMove, double position, double velocity, [int p
 ```
 
 Arguments
-* armToMove (string) - The arm to move. Pass `"seft"` or `"right"`.
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
 * position (double) - The position to move the arm to. Value range: 0 - 10.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -1359,7 +1359,7 @@ misty.SlamGetStatus();
 Returns
 * Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-get-data-callbacks) for more information.
   * Status (integer) - An integer value where each bit is set to represent a different activity mode: 1 - Idle, 2 - Exploring, 3 - Tracking, 4 - Recording, 5 - Resetting. For example, if Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-  * SensorStatus (integer) - A number representing the status of Mistys' sensors, using the `SlamSensorStatus` enumerable.
+  * SensorStatus (integer) - A number representing the status of Misty's sensors, using the `SlamSensorStatus` enumerable.
   * RunMode (integer) - A number representing the status of Misty's navigation.
 
 ```c#
@@ -1638,7 +1638,7 @@ misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule
 Arguments
 * eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
 * keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `misty.UnregisterEvent()` function in your code.
-* callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
+* callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
 * skillToCall (string) - Optional. The unique ID of a skill to call when the event is triggered. Use this value if the callback function is not defined in the same skill as the user event is registered in.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.

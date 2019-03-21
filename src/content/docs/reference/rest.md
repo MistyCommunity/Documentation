@@ -237,7 +237,7 @@ Example:
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string) - The name of the image file to get, including the file type extension.
-- Base64 (boolean) - Optional. Stending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
+- Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
 
 ```json
 {
@@ -817,8 +817,8 @@ Connects Misty to a specified WiFi source.
 Endpoint: POST &lt;robot-ip-address&gt;/api/wifi
 
 Parameters
-- NetworkName (string) - The WiFi network name (SSID).
-- Password (string) - The WiFi network password.
+- NetworkName (string) - The Wi-Fi network name (SSID).
+- Password (string) - The Wi-Fi network password.
 
 ```json
 {
@@ -920,7 +920,7 @@ Return Values
 
 
 ### StartFaceRecognition - BETA
-Directs Misty to recognize a face she sees, if it is among those she alerady knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
+Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
@@ -1080,7 +1080,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 Parameters
 * LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
 * RightArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
-* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at cits highest velocity.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 
 ```JSON
@@ -1124,7 +1124,7 @@ Return Values
 
 Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
 
-* Slam Status (integer) - Value 2 is an integer value representing the status of Mistys' sensors, using the SlamSensorStatus enumerable.
+* Slam Status (integer) - Value 2 is an integer value representing the status of Misty's sensors, using the SlamSensorStatus enumerable.
 
 ```c#
 public enum SlamSensorStatus

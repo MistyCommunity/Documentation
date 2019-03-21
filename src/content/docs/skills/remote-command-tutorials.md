@@ -202,7 +202,7 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 2. `msgType` is a string that specifies the WebSocket data stream to subscribe to. We’re subscribing to Misty’s `"TimeOfFlight"` WebSocket.
 3. `debounceMs` specifies how often in milliseconds Misty should send a message with `TimeOfFlight` data. Enter `100` to receive a message every tenth of a second. At the speed we command Misty to travel, this should be precise enough for us to be able to execute a `Stop` command before Misty collides with an object in her path.
 4. The fourth, fifth, and sixth parameters form a comparison statement that specifies event conditions to filter out unwanted messages. The `TimeOfFlight` WebSocket data stream can send data from all of Misty's TOF sensors, but we only need data from her front center sensor. Pass `"SensorPosition"` for the `property` parameter to specify we want data from a specific sensor.
-5. `inequality` is a string that sets a comparison operater to specify the conditions of events to recieve messages about. In this case we use `"=="`.
+5. `inequality` is a string that sets a comparison operator to specify the conditions of events to receive messages about. In this case we use `"=="`.
 6. `value` is a string that specifies which value of the `property` parameter to check against. We want to receive information for TOF sensors where the value of the `"SensorPosition"` property is `"Center"`. 
 7. `returnProperty` is an optional parameter. We don't need to pass an argument for this parameter for our subscription to `TimeOfFlight`. Enter `null`.
 8. The parameter `eventCallback` is for the callback function that triggers when WebSocket data is received. Name this function `_centerTimeOfFlight()` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
@@ -361,7 +361,7 @@ let _centerTimeOfFlight = function (data) {
         // Write an if statement to check 
         // if the distance is smaller than 0.2 meters.
         if (distance < 0.2) {
-            // If the istance is less than 0.2 meters, send
+            // If the instance is less than 0.2 meters, send
             // a request to endpoint for the Stop command.  
             axios.post("http://" + ip + "/api/drive/stop")
                 .then(function (response) {
@@ -1075,7 +1075,7 @@ async function startMapping() {
    getMap();
 }
 
-// Define getMap() as an asynchronous function. getMap() will gather map data as Misty drives around her enviornment and return it to your program when she is done mapping.
+// Define getMap() as an asynchronous function. getMap() will gather map data as Misty drives around her environment and return it to your program when she is done mapping.
 async function getMap() {
 }
 ```
@@ -1102,7 +1102,7 @@ function _SelfState(data) {
 	    subscribed = true;
     }
     console.log("1 - Subscribed to SelfState, getting pose");
-    // The value of data.message will be an object if is relevant to our slamStatus event. Ensure a message is relevant data by executing the code in this if statment only under the condition that the value of data.message is not a string
+    // The value of data.message will be an object if is relevant to our slamStatus event. Ensure a message is relevant data by executing the code in this if statement only under the condition that the value of data.message is not a string
     if (typeof data.message != "string") {
 
     }
@@ -1338,8 +1338,8 @@ The `processMap()` function is called to isolate the map data after we receive a
 ```js
 // Define the processMap() function to isolate the map data.
 function processMap(res) {
-    // Print a log message indicating we have recieved the map data.
-    console.log("4 - Recieved map, processing map data");
+    // Print a log message indicating we have received the map data.
+    console.log("4 - Received map, processing map data");
     // Define a variable to store the map data sent with the response.
     let data = res.data;
 }
@@ -1349,7 +1349,7 @@ The API Explorer uses a function called `drawMap()` to generate a graphical map 
 
 ```js
 function processMap(res) {
-    console.log("4 - Recieved map, processing map data");
+    console.log("4 - Received map, processing map data");
     let data = res.data;
     // Pass data into drawMap() to draw the map in the browser.
     drawMap(data)

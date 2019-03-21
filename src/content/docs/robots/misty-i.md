@@ -43,7 +43,7 @@ To connect Misty's battery:
 3. Plug the yellow connectors together. ![yellow battery connectors](../../../assets/images/4_yellow_connectors.jpg)
 4. Plug the white connectors together. ![white battery connectors](../../../assets/images/5_white_connectors.jpg)
 5. Gently make sure the battery and connectors are inserted into Misty. ![reinserting the battery](../../../assets/images/6_push_battery.jpg)
-6. You can now plug the power adaptor into the back of Misty and into a power source. If the number on the battery charge indicator does not increase, unplug and replug the adaptor from Misty's power port. When Misty is fully charged, you should see values above 8 on the charge indicator. Note that Misty continues to use some power even when switched off, so her battery levels will drop even when she is powered down. A charge level lower than 7 may cause Misty to power down without warning. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
+6. You can now plug the power adaptor into the back of Misty and into a power source. If the number on the battery charge indicator does not increase, unplug and re-plug the adaptor from Misty's power port. When Misty is fully charged, you should see values above 8 on the charge indicator. Note that Misty continues to use some power even when switched off, so her battery levels will drop even when she is powered down. A charge level lower than 7 may cause Misty to power down without warning. ![power adaptor plug](../../../assets/images/power_adaptor_plug.jpg)
 
 Once you've plugged in the battery, you can assemble Misty's case and connect the Occipital Structure Core depth sensor.
 

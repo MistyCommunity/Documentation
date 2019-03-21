@@ -7,25 +7,25 @@ order: 2
 
 # {{title}}
 
-When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone “edge” computing device. You can also use Misty's on-robot JavaScript API to interact with external data and use non-Misty API calls to cloud services, etc.
+When you write a skill using Misty's on-robot JavaScript API, your code takes advantage of Misty’s capabilities as a standalone "edge" computing device. You can also use Misty's on-robot JavaScript API to interact with external data and use non-Misty API calls to cloud services, etc.
 
-**IMPORTANT! Misty's on-robot JavaScript API is a pre-release, “alpha” technology and is subject to frequent change.** Any code you write using this API may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. This API will be publicly available at the time when Misty II ships.
+**IMPORTANT! Misty's on-robot JavaScript API is a pre-release, "alpha" technology and is subject to frequent change.** Any code you write using this API may need updates before release to reflect ongoing development of Misty's skill architecture and implementation. This API will be publicly available at the time when Misty II ships.
 
 You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [on-robot JavaScript API tutorials](../../skills/local-skill-tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The on-robot JavaScript API command syntax differs slightly from that of REST API commands.
 * Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to an on-robot skill via callback functions.
-  * “Get” Data Callbacks
+  * "Get" Data Callbacks
   * Sensor Event Callbacks
   * Timed or Triggered Event Callbacks
-* Data Handling: Variables. There are two ways to store persistent data with on-robot skills: as a global variable or as “set” data.
+* Data Handling: Variables. There are two ways to store persistent data with on-robot skills: as a global variable or as "set" data.
 * Command Type Reference. There are several command types available to on-robot skills, with some usage differences among them.
   * Action Commands
   * Get Commands
   * Event Commands
   * Helper Commands
   * Skill Management Commands
-* File Structure & Code Architecture. There are two required file types for a an on-robot skill: a “meta” JSON file and a “code” JavaScript file.
+* File Structure & Code Architecture. There are two required file types for a an on-robot skill: a "meta" JSON file and a "code" JavaScript file.
 * Loading & Running an On-Robot Skill. There are currently two options for how you load and run skills.
 * Starting & Stopping an On-Robot Skill. Currently, you must use Misty's REST API to start or stop an on-robot skill.
 
@@ -43,7 +43,7 @@ So, for example, to change the color of Misty’s logo LED, you would call the `
 misty.ChangeLED(255, 0, 0);
 ```
 
-Most commands in the JavaScript API also allow you to pass in optional “pre-pause” and “post-pause” values, to add delays before the command is run or after. When we show a command, optional parameters are inside brackets. So the `Drive()` command is represented as:
+Most commands in the JavaScript API also allow you to pass in optional "pre-pause" and "post-pause" values, to add delays before the command is run or after. When we show a command, optional parameters are inside brackets. So the `Drive()` command is represented as:
 
 ```JS
 misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
@@ -68,18 +68,18 @@ In this case, the `Drive()` command would wait 500 milliseconds, start the robot
 
 You typically get two kinds of information from your robot:
 
-* Stored data, such as the list of audio files currently saved on the robot. This is the type of data you could obtain with one of Misty’s “Get” commands, for example.
-* Live sensor “event” data, such as distance information, face detection events, etc.
+* Stored data, such as the list of audio files currently saved on the robot. This is the type of data you could obtain with one of Misty’s "Get" commands, for example.
+* Live sensor "event" data, such as distance information, face detection events, etc.
 
 Both types of data are made available to the code running on your robot via callbacks, so you must implement callback methods to be informed when data is ready.
 
 The syntax and usage of callback commands for these two types of data varies. Additionally, there is a third category of callbacks you can create for Misty: timed or triggered callbacks. Their usage and syntax are described at the end of this section.
 
-### “Get” Data Callbacks
+### "Get" Data Callbacks
 
-For “get” callback functions, the callback name is by default set to be  `_<COMMAND>` (you can use your own callback name if desired). So, for example, the default callback function for `GetDeviceInformation` would be `_GetDeviceInformation`.
+For "get" callback functions, the callback name is by default set to be  `_<COMMAND>` (you can use your own callback name if desired). So, for example, the default callback function for `GetDeviceInformation` would be `_GetDeviceInformation`.
 
-A “get” callback function must have exactly one parameter. That parameter holds the data returned through the callback. Note that when you use Misty's on-robot JavaScript API the callback returns data as an object, not as a JSON string value. An example use of a callback to obtain an audio list and play a random sound is as follows:
+A "get" callback function must have exactly one parameter. That parameter holds the data returned through the callback. Note that when you use Misty's on-robot JavaScript API the callback returns data as an object, not as a JSON string value. An example use of a callback to obtain an audio list and play a random sound is as follows:
 
 ```JS
 StartMySkill();
@@ -98,18 +98,18 @@ function _GetListOfAudioClips(callbackData) {
 }
 ```
 
-“Get” callbacks may be set up with callback rules and a skill to trigger for the callback instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
+"Get" callbacks may be set up with callback rules and a skill to trigger for the callback instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
 * `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
 * `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back.
-* `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). For “get” callbacks, using abort in this case would mean that the data requested would not be received.
+* `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). For "get" callbacks, using abort in this case would mean that the data requested would not be received.
 
-Sample “get” callback with a callback rule:
+Sample "get" callback with a callback rule:
 
 ```js
 misty.GetListOfAudioClips("synchronous", 500, 1000);
 ```
 
-Sample “get” callback with a callback rule and including the ID of a skill to trigger:
+Sample "get" callback with a callback rule and including the ID of a skill to trigger:
 
 ```js
 misty.SlamGetMap("override", "9d50efbd-af53-4cd3-9659-c0faf648263d", 500, 10);
@@ -221,13 +221,13 @@ The `UniqueId` and `EventName` values are required and must match the ID of the 
 There are two ways to store persistent data with on-robot skills:
 
 * In a global variable, where the data is available (but not updated) across threads in a single skill
-* As “set” data, where the data is available (and updated) across threads in a single skill and is shareable among skills
+* As "set" data, where the data is available (and updated) across threads in a single skill and is shareable among skills
 
 **Important!** There is no capability at this time to store variable data such that it persists across a reboot of the robot.
 
-You can create global variables and use them across all “get” and “event” callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
+You can create global variables and use them across all "get" and "event" callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
 
-Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a “get” or “event” callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward. 
+Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward. 
 
 In this example, `_imageCount` is declared and used as a global variable:
 
@@ -301,7 +301,7 @@ The system provides REST commands that you can use to control and manage on-robo
 
 ## File Structure & Code Architecture
 
-There are two basic file types required for an on-robot skill: a “meta” JSON file and a “code” JavaScript file. On the robot, these files are located in the following directory structure:
+There are two basic file types required for an on-robot skill: a "meta" JSON file and a "code" JavaScript file. On the robot, these files are located in the following directory structure:
 
 ```JavaScript
 User Folders\Music\SDKAssets\Misty\Skills\Meta\<filename>.json
@@ -410,11 +410,11 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 
 1. Compress and save your skill’s `Meta` and `Code` files into a .zip file with the same name as your skill.
 2. To attach your skill .zip to the request, first navigate to the Headers section in Postman.
-3. For the header key, enter “Content-Type”.
-4. In the body section confirm that “form-data” is selected at the top.
-5. For the header value, enter “multipart/form-data”.
-6. For the body key, enter “skills”, then select “File” from the dropdown menu on the right.
-7. In the body value section, click “Choose Files” and select the .zip file for your skill.
+3. For the header key, enter "Content-Type".
+4. In the body section confirm that "form-data" is selected at the top.
+5. For the header value, enter "multipart/form-data".
+6. For the body key, enter "skills", then select "File" from the dropdown menu on the right.
+7. In the body value section, click "Choose Files" and select the .zip file for your skill.
 8. To add and load a skill onto the robot, send a POST request to `http://{your robot’s ip address}/api/alpha/sdk/skill/deploy` with the following parameters:
    * `Skill` (byte array) - A zipped file containing the two skill files (Meta and Code).
    * `ImmediatelyApply` (boolean) - `true` or `false`. Specifies whether the robot immediately runs the uploaded skill.
@@ -423,7 +423,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 10. Open `SkillRunner.html` and connect to Misty using your robot’s IP address.
 11. Open up your browser’s JavaScript console for the Skill Runner page, so you can see what’s happening.
 12. Click **Reload Skills** at the top of the page. This ensures that your robot and latest code changes are in sync. Observe the JavaScript console for a log message verifying the skills have been loaded.
-13. To run your skill, enter the skill’s name under “Run Skill” and click **Run**. Continue observing the console; as events are triggered, you’ll see debug messages in the console.
+13. To run your skill, enter the skill’s name under "Run Skill" and click **Run**. Continue observing the console; as events are triggered, you’ll see debug messages in the console.
 
 ## Starting & Stopping an On-Robot Skill
 
