@@ -167,7 +167,7 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 ### Operating Systems
 * Windows IoT Core™ (Main)
-* Android™ 7 (navigation/computer vision)
+* Android™ 8 (navigation/computer vision)
 
 ![Misty II Specs](../../../assets/images/mii-specs.png)
 
