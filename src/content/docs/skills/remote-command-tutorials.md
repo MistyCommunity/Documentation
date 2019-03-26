@@ -1505,7 +1505,8 @@ Within `<script>` tags in the `<body>` of your document, declare a constant vari
 ```js
 /* GLOBAL */
 
-// Declare a global variable ip and set its value to a string with your robot's IP address.
+// Declare a constant variable.
+// Set its value to your robot's IP address.
 const ip = <robotipaddress>;
 ```
 
@@ -1514,7 +1515,8 @@ Next, define a function called `sleep()`. We use this function to help control t
 ``` js
 /*TIMEOUT */
 
-// Define a helper function called sleep that can pause code execution for a set period of time.
+// Define sleep(). This function pauses execution
+// for a set period of time.
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -1526,7 +1528,9 @@ Create an new instance of `LightSocket`  called `socket`. This instance of `Ligh
 /* GLOBALS */
 
 const ip = "<robotipaddress>";
-// Create a new instance of LightSocket called socket. Pass as arguments the ip variable and a function named openCallback.
+// Create a new instance of LightSocket. 
+// Pass the ip variable and the name of the
+// callback function to run when the socket opens.
 let socket = new LightSocket(ip, openCallback);
 
 ```
@@ -1536,7 +1540,8 @@ Declare the `openCallback()` function. Prefix the definition of `openCallback()`
 ```js
 /* CALLBACKS */
 
-// Declare the openCallback() function. Prefix the definition of openCallback() with the keyword async() to declare it as an asynchronous function and enable the use of the sleep() function.
+// Define the openCallback() function.
+// This function runs when the socket opens.
 async function openCallback() {
 
 }
@@ -1549,7 +1554,8 @@ To keep track of whether we are currently subscribed to a `ComputerVision` event
 
 const ip = "<robotipaddress>";
 let socket = new LightSocket(ip, openCallback);
-// To keep track of whether we are currently subscribed to a ComputerVision event, declare a global variable called subscribed near the global ip variable.
+// Track whether we are currently subscribed 
+// to ComputerVision events.
 let subscribed;
 ```
 
@@ -1560,7 +1566,6 @@ Set the value of `subscribed` to `false` in the beginning of the `openCallback()
 /* CALLBACKS */
 
 async function openCallback() {
-    // Set the value of subscribed to false to show that the subscription has not been established.
     subscribed = false;
 }
 ```
@@ -1596,7 +1601,8 @@ async function openCallback() {
     subscribed = false;
     socket.Unsubscribe("ComputerVision");
     await sleep(8000);
-    // Call socket.Subscribe(). Pass "ComputerVision" for the eventName argument, pass "ComputerVision" for msgType, pass 1000 for debounceMS, and pass "_ComputerVision" for eventCallback. Pass null for all other arguments.
+    // Call socket.Subscribe(). Pass in the following
+    // arguments to subscribe to "ComputerVision" events.
     socket.Subscribe("ComputerVision", "ComputerVision", 1000, null, null, null, null, _ComputerVision);
 
 }
@@ -1605,30 +1611,33 @@ async function openCallback() {
 Use the keyword `async` to define the `_ComputerVision()` callback that runs when a `ComputerVision` event triggers. This function takes a `data` argument, which holds the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
 
 ```js
-// Use the keyword async to define the _ComputerVision() callback that runs when a ComputerVision event triggers. This function takes a data argument, which holds the data from the event message. 
+// Define the _ComputerVision() callback function.
+// This function handles ComputerVision event data.
 async function _ComputerVision(data) {
-    // Write code to print a message to the console each time the callback triggers, including the message response data.
+    // Print a message each time the callback executes.
     console.log("CV callback called: ", data);
 ```
 
-When we establish a connection, we want to update the value of `subscribed` to reflect that we are subscribed to the event. Use an `if` statement to check if `subscribed` is `false`. If it is, set it to `true`. 
+When we establish a connection, we want to update the value of `subscribed` to reflect that we are subscribed to the event. Use an `if` statement to check if `subscribed` is `false`. If it is, set it to `true`.
 
 ```js
 async function _ComputerVision(data) {
     console.log("CV callback called: ", data);
-    // When we establish a connection, we want to update the value of subscribed to reflect that we are subscribed to the event. Use an if statement to check if subscribed is false. If it is, set it to true.
+    // Update subscribed to true
     if (!subscribed) {
         subscribed = true;
     }
 }
 ```
 
-As Misty takes pictures of the faces she recognizes, we unsubscribe and re-subscribe to "ComputerVision". However, because it’s okay for face detection to remain active even when we are not subscribed to `"ComputerVision"` event messages, we only need to send the command to start face detection once.  We can accomplish this by using a global variable called `firstTime` that we initialize with a value of `true`. 
+As Misty takes pictures of the faces she recognizes, we unsubscribe and re-subscribe to "ComputerVision". However, because it’s okay for face detection to remain active even when we are not subscribed to `"ComputerVision"` event messages, we only need to send the command to start face detection once.  We can accomplish this by using a global variable called `firstTime` that we initialize with a value of `true`.
 
 ```js
 /* GLOBALS */
 const ip = "<robotipaddress>";
-// We only need to send the command to start face detection once. We can accomplish this by using a global variable called firstTime that we initialize with a value of true.
+// Set firstTime to true. This variable tracks
+// whether we have already sent the command to 
+// start face detection.
 let firstTime = true;
 let subscribed;
 let socket = new LightSocket(ip, openCallback);
@@ -1641,13 +1650,15 @@ async function _ComputerVision(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
-        // Use an if statement to check if firstTime is true. If it is, send a POST request to the endpoint for the StartFaceDetection command. Use catch() to handle and log any errors you receive when sending the command. Set firstTime to false and leave it that way for the remainder of the program’s execution.
+        // If firstTime is true, send a POST request
+        // to the endpoint for the StartFaceDetection
+        // command.
         if (firstTime) {
             axios.post("http://" + ip + "/api/beta/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
-            // Update firstTime to tell future callbacks the first callback has already occurred.
+            // Update firstTime
             firstTime = false;
         }
     }
@@ -1668,7 +1679,7 @@ async function _ComputerVision(data) {
                 });
             firstTime = false;
         }
-        // Use return to exit the callback.
+        // Exit the callback.
         return
     }
 }
@@ -1697,7 +1708,10 @@ async function _ComputerVision(data) {
         }
         return
     }
-    // Use axios.get() to send a GET request to the endpoint for the TakePicture command. This endpoint accepts values for parameters that specify whether the image data should be returned as a Base64 string, what name the image file should be given, what size the image should be, whether to display the image on Misty’s screen, and whether to overwrite an image with the same file name if one exists on your robot.
+    // Use axios.get() to send a GET request
+    // to the endpoint for the TakePicture command. 
+    // Pass in the following params to save the file
+    // to Misty.
     axios.get("http://" + ip + "/api/alpha/camera", {
         params: {
             Base64: null,
@@ -1737,7 +1751,7 @@ async function _ComputerVision(data) {
             OverwriteExisting: true
         }
     })
-    // Use a then() method to log the response, as well as a message indicating the image has been saved with the specified file name.
+    // Use then() to log the response.
         .then(function (res) {
             console.log(res);
             console.log("Image saved with fileName: '" + fileName + "'");
@@ -1761,7 +1775,8 @@ async function _ComputerVision(data) {
         }
         return
     }
-    // Define the name to save the image with. For this project, we use the JavaScript built-in Date object to save pictures with the date and time they were taken. Windows systems omit certain characters from file names, so we need to use the replace() method and pass in some regular expressions to modify the string to an acceptable format and make it easier to read. These regular expressions replace semicolons with periods, replace spaces with underscores, remove commas, and append the file name with "_Face" to indicate that these are images of faces.
+    // Use the Date() object to define a unique name
+    // for each picture Misty takes.
     let fileName = new Date().toLocaleString().replace(/[/]/g, ".").replace(/[:]/g, ".").replace(/[ ]/g, "_").replace(",", "") + "_Face";
 
     axios.get("http://" + ip + "/api/alpha/camera", {
@@ -1797,7 +1812,7 @@ async function _ComputerVision(data) {
         }
         return
     }
-    // Wrap the GET request code block in a try, catch statement to catch and log errors.
+    // Wrap the GET request code block in a try, catch statement
     try {
         let fileName = new Date().toLocaleString().replace(/[/]/g, ".").replace(/[:]/g, ".").replace(/[ ]/g, "_").replace(",", "") + "_Face";
         axios.get("http://" + ip + "/api/alpha/camera", {
