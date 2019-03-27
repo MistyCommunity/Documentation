@@ -1360,7 +1360,7 @@ function processMap(res) {
     // Print a message that we have received the map data.
     console.log("4 - Received map, processing map data");
     // Store the map data.
-    let data = res.data;
+    let data = JSON.parse(res.data);
 }
 ```
 
@@ -1369,7 +1369,7 @@ The API Explorer uses a function called `drawMap()` to generate a graphical map 
 ```js
 function processMap(res) {
     console.log("4 - Received map, processing map data");
-    let data = res.data;
+    let data = JSON.parse(res.data);
     drawMap(data)
 }
 ```
