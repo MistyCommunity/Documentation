@@ -137,7 +137,7 @@ When you have a skill you want to share, we encourage you to post the skill to t
     2. To help your fellow developers, annotate your code in the places where the skill uses these accounts and credentials. You can list the details and instructions about how to acquire and use credentials in the skill in a `README` file in the same repository as the skill.
 3. Create a new topic for your skill in the [Misty Skills category of the Misty Community forums](https://community.mistyrobotics.com/c/misty-skills).
 4. Set the first post in your topic to be a wiki. This will allow you and other contributors to suggest changes to the original post as development on your skill continues.
-   1. To set your post to be a wiki, select the three-dots icon from the menu below the post.
-   2. Select the wrench icon.
-   3. Select the **Make Wiki** option from the menu.
+   1. To set your post to be a wiki, select the three-dots icon from the menu below the post. ![Discourse Wik Step 1](../../../assets/images/discourse-wiki-step-1.png)
+   1. Select the wrench icon. ![Discourse Wik Step 2](../../../assets/images/discourse-wiki-step-2.png)
+   2. Select the **Make Wiki** option from the menu.![Discourse Wik Step 3](../../../assets/images/discourse-wiki-step-3.png)
 5. Update the original post when you make changes to your skill.
