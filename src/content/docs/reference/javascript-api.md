@@ -610,12 +610,12 @@ Arguments
 misty.DriveTime(0, 0, 0);
 ```
 
-### misty.LocomotionTrack
+### misty.DriveTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
 ```JavaScript
 // Syntax
-misty.LocomotionTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
+misty.DriveTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
 ```
 
 Arguments
@@ -626,7 +626,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.LocomotionTrack(0, 0);
+misty.DriveTrack(0, 0);
 ```
 
 ### misty.Stop
