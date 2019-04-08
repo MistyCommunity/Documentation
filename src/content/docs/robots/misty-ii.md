@@ -189,4 +189,120 @@ We recommend you check for updates on a weekly basis.
 
 **Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
 
+## Hardware Extensibility
 
+You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills.
+
+External hardware can connect to the Universal Asynchronous Receiver-Transmitter (UART) serial and Universal Serial Bus (USB) ports on Misty's back. Remove the magnetic backpack attachment to access these ports.
+
+The UART serial and USB port channels have separate, isolated power controllers that allow Misty to supply power to external hardware.
+
+The USB port can be used with a USB-to-Ethernet adapter to connect Misty to your local network. Misty’s API/SDK does not currently have access to the USB port’s data interface, but this port can be used to supply power to external devices.
+
+The UART serial port enables communication between Misty's skills and an external device. The configuration of the pins on this port simplifies connection between Misty and her [Arduino-compatible backpack](../../../docs/robots/misty-ii/#misty-arduino-compatible-backpack). You can also connect your own microcontroller, a Raspberry Pi, or other UART serial-enabled hardware.
+
+The pins for Misty's UART serial port are configured as follows:
+
+* **RX (receiver)**: Receives messages sent to Misty from an external device.
+* **GND (ground)**: The grounding pin for the electrical circuit.
+* **TX (transmitter)**: Transmits messages from Misty to connected hardware.
+* **3V**: Supplies power to the connected hardware at 3.3v.
+
+## Misty (Arduino-Compatible) Backpack
+
+The Misty (Arduino-Compatible) Backpack is a microcontroller clone of the [Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3). It is designed such that it can connect to the UART serial port on Misty’s back in a plug-and-play fashion, without any modification.
+
+**Note:** If you did not purchase the Misty (Arduino-Compatible) Backpack, the "backpack" shipped with your robot does not contain a microcontroller. You can still use Misty's generic backpack to extend her hardware by connecting your own external device to her UART serial port.
+
+### Backpack Specs
+
+The Misty (Arduino-Compatible) Backpack shares most of its technical specifications with the Arduino Uno. You can find these specs under the [Tech Specs tab on the Arduino Uno product page](https://store.arduino.cc/usa/arduino-uno-rev3). There are, however, a few important differences. Unlike the Arduino Uno, the Misty backpack:
+
+* runs at a 3.3v (instead of 5v)
+* includes a QWIIC connector wired to the SCL and SDA pins on the microcontroller
+* has a USB micro port
+* includes built-in pins configured to interface with Misty's UART serial port
+* has embedded magnets for mounting the microcontroller to Misty
+* provides the ability to switch the default serial TX and RX pins from pins 0 and 1 (default) to pins 8 and 9
+
+The Misty (Arduino-Compatible) Backpack has Arduino compatible headers and works with 3.3v-compatible Uno Shields. Shields that require 5v will need to pull power from Misty's USB port or another external power source, and will require a logic level converter between any shared I/O lines. Be sure to understand the specific power requirements of any shields you attach to Misty's backpack before using them in your skills.
+
+### Programming the Misty (Arduino-Compatible) Backpack
+
+The Misty (Arduino-Compatible) Backpack uses an [ATmega328P microcontroller](https://www.arduino.cc/en/Hacking/Programmer). The bootloader pre-programmed onto this microcontroller allows you to upload code exactly as you would with a normal Arduino, without requiring an external hardware programmer.
+
+You can use the [Arduino IDE](https://www.arduino.cc/en/Main/Software) to write programs for the Misty (Arduino-Compatible) Backpack. After you install the Arduino IDE, connect the Misty backpack to your computer via the backpack's USB micro port. Open the IDE and select **Tools -> Board -> Arduino/Genuino Uno** from the top menu. You can then write a sketch and upload it to the microcontroller.
+
+For more information about writing a sketch, see the [reference materials](https://www.arduino.cc/reference/en/) and [tutorials](https://www.arduino.cc/en/Tutorial/HomePage) hosted on the Arduino website.
+
+In the code you write for Misty's Arduino-compatible backpack (or any other Arduino microcontroller), you use the [Serial](https://www.arduino.cc/reference/en/language/functions/communication/serial/) library to configure communication between the microcontroller and Misty. In the `setup()` function of your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to 9600 baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty.
+
+```C++
+void setup() {
+  Serial.begin(9600);
+}
+  
+void loop() {
+    delay(1000);
+    Serial.println("{\"message\":"Hello!"}");
+}
+```
+
+We recommend formatting data you send as JSON string to make it easier to parse in your skill code.
+
+To read messages sent to Misty, you register for [`StringMessage`](../../../docs/reference/sensor-data/#stringmessage) events in your skill code. `StringMessage` events occur when Misty receives a message through the RX pin of her UART serial port. By default, the data for `StringMessage` events is processed by a `_StringMessage()` callback function. You define how this callback handles the message in your skill code.
+
+```JS
+// Return the value of the "StringMessage" property 
+// in the StringMessage data object
+misty.AddReturnProperty("StringMessage", "StringMessage");
+
+// Register for StringMessage events.
+// Set the debounce rate to 0, or use the 
+// rate defined in the sketch.
+// Set `keepAlive` to `true`, so the event 
+// does not unregister after the first
+// _StringMessage() callback. 
+misty.RegisterEvent("StringMessage", "StringMessage", 0, true);
+
+function _StringMessage(data) {
+    try {
+        if(data !== undefined && data !== null) {
+            var obj = JSON.parse(data.AdditionalResults[0].Message);
+            var message = obj.message;
+        }
+    }
+    catch(exception) {
+        misty.Debug("Exception" + JSON.stringify(exception));
+    }
+}
+```
+
+To send messages from Misty to an external device, you can use the [`misty.WriteBackpackUart()`](../../../docs/reference/javascript-api/#misty-writebackpackuart-alpha) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteBackpackUart`](../../../docs/reference/rest/#writebackpackuart-alpha) command.
+
+### QWIIC Connector
+
+The Misty (Arduino-Compatible) Backpack comes with a built-in QWIIC Connector that operates through the SDA and SCL pins on the board. This connector uses the [Inter-integrated Circuit (I2C) communication protocol](https://learn.sparkfun.com/tutorials/i2c/all) and can immediately connect to any [Qwiic breakout board](https://www.sparkfun.com/qwiic).
+
+### Backpack Power
+
+Power **in** to the Misty (Arduino-Compatible) Backpack board can be provided via the 3V3 pin on the bottom of the board, or through the board's USB micro port.
+
+Use the following pins to provide power **out** of the board:
+* The 3.3v pins provide a 3.3 volt power supply generated by the on-board regulator.
+* The GND pins are the ground pins for the board.
+* The IOREF pin allows a properly configured shield to adapt to the voltage of the board.
+
+### Input & Output
+
+You can use each of the digital pins on the Misty (Arduino-Compatible) Backpack for either input or output. These pins operate at 3.3v logic. With the exception of the difference in voltage, the pinout for the Misty microcontroller is the same as the Arduino Uno. For more information about using these pins and their specialized functions, see the [Input and Output section of the documentation for the Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3).
+
+### Serial Communication
+
+The Misty (Arduino-Compatible) Backpack provides support for serial communication through pins 0 and 1. These pins are wired by default to interface with the UART pins on Misty's back.
+
+You can change the default receiver and transmitter pins from D0 and D1 to D8 and D9. To do this, cut trace to pins D0 and D1, and sauter a new connection to the D8 and D9 side of each connection bridge.
+
+![Backpack RX/TX Switch](../../../assets/images/backpack-rx-tx-switch.jpg)
+
+Additionally, you can use Arduino’s [SoftwareSerial](https://www.arduino.cc/en/Reference/SoftwareSerial) library in your sketch to allow serial communication through other digital pins on the board.
