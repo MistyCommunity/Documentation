@@ -127,6 +127,8 @@ Saves an image file to Misty. Optionally, proportionately reduces the size of th
 
 **Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 
+Endpoint: POST &lt;robot-ip-address&gt;/api/images
+
 Parameters
 * File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png. 
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). Important: To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 

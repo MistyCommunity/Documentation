@@ -889,12 +889,12 @@ Arguments
 misty.CancelFaceTraining();
 ```
 
-### misty.ClearLearnedFaces - BETA
+### misty.ForgetAllFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
 ```JavaScript
 // Syntax
-misty.ClearLearnedFaces([int prePause], [int postPause])
+misty.ForgetAllFaces([int prePause], [int postPause])
 ```
 
 Arguments
@@ -903,7 +903,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.ClearLearnedFaces();
+misty.ForgetAllFaces();
 ```
 
 ### misty.GetLearnedFaces - BETA
