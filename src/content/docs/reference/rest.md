@@ -1063,7 +1063,7 @@ Return Values
 ### GetSlamStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/status
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
 
 Parameters
 - None
