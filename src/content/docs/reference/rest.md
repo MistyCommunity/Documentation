@@ -1407,7 +1407,7 @@ Uploads a skill to the robot and makes it immediately available for the robot to
 
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skill/deploy
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
 Parameters
 * File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.

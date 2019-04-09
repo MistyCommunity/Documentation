@@ -403,7 +403,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 5. For the header value, enter "multipart/form-data".
 6. For the body key, enter "skills", then select "File" from the dropdown menu on the right.
 7. In the body value section, click "Choose Files" and select the .zip file for your skill.
-8. To add and load a skill onto the robot, send a POST request to `http://{your robot’s ip address}/api/alpha/sdk/skill/deploy` with the following parameters:
+8. To add and load a skill onto the robot, send a POST request to `http://<your robot’s ip address>/api/skills` with the following parameters:
    * `Skill` (byte array) - A zipped file containing the two skill files (Meta and Code).
    * `ImmediatelyApply` (boolean) - `true` or `false`. Specifies whether the robot immediately runs the uploaded skill.
    * `OverwriteExisting` (boolean) - `True` or `False`. Indicates whether the file should overwrite a file with the same name, if one currently exists on this robot.
