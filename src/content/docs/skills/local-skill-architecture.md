@@ -85,10 +85,10 @@ A "get" callback function must have exactly one parameter. That parameter holds 
 StartMySkill();
 
 function StartMySkill() {
-	misty.GetListOfAudioClips();
+	misty.GetListOfAudioFiles();
 }
 
-function _GetListOfAudioClips(callbackData) {
+function _GetListOfAudioFiles(callbackData) {
     var audioList = callbackData.Result;
     if (audioList.length > 0) {
         var randomInt = Math.floor(Math.random() * audioList.length);
@@ -102,18 +102,6 @@ function _GetListOfAudioClips(callbackData) {
 * `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
 * `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back.
 * `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). For "get" callbacks, using abort in this case would mean that the data requested would not be received.
-
-Sample "get" callback with a callback rule:
-
-```js
-misty.GetListOfAudioClips("synchronous", 500, 1000);
-```
-
-Sample "get" callback with a callback rule and including the ID of a skill to trigger:
-
-```js
-misty.SlamGetMap("override", "9d50efbd-af53-4cd3-9659-c0faf648263d", 500, 10);
-```
 
 ### Sensor Event Callbacks
 For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../reference/sensor-data).

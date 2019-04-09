@@ -38,16 +38,14 @@ Arguments
 misty.DisplayImage("Happy.png");
 ```
 
-<!-- misty.DeleteImageAssetFromRobot -->
-
-### misty.DeleteImageAssetFromRobot
+### misty.DeleteImage
 Enables you to remove an image file from Misty that you have previously saved to her storage.
 
 **Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
 
 ```JavaScript
 // Syntax
-misty.DeleteImageAssetFromRobot(string fileName, [int prePause], [int postPause]);
+misty.DeleteImage(string fileName, [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -58,7 +56,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.DeleteImageAssetFromRobot("DeleteMe.png");
+misty.DeleteImage("DeleteMe.png");
 ```
 
 ### misty.GetImageList
@@ -363,37 +361,6 @@ Returns
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
 <!-- Audio - PRODUCTION -->
-
-### misty.GetListOfAudioClips
-
-Lists the default system audio files currently stored on Misty.
-
-Note that you can use the `misty.GetListOfAudioFiles()` command to list all audio files on the robot (system files and user uploads).
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetListOfAudioClips([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
-```
-
-Arguments
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetListOfAudioClips();
-```
-
-Returns
-
-* Result (array) - Returns an array of audio file information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each item in the array contains the following:
-   * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** Because `misty.GetListOfAudioClips()` only returns information for default audio files, the value of this property is `false` for all items in this list.
 
 ### misty.GetListOfAudioFiles
 
@@ -773,7 +740,7 @@ misty.GetHelp([string endpointName], [string callbackMethod], [string callbackRu
 ```
 
 Arguments
-* endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetListOfAudioClips"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
+* endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetListOfAudioFiles"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.

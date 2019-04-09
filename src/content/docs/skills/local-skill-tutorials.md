@@ -170,16 +170,16 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 ### Writing the Code File
 
-We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetListOfAudioClips()` method to fetch the list of audio files currently stored on the robot.
+We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetListOfAudioFiles()` method to fetch the list of audio files currently stored on the robot.
 
 ```JavaScript
-misty.GetListOfAudioClips();
+misty.GetListOfAudioFiles();
 ```
 
 Each command’s callback is automatically set to be `_<COMMAND>`. When the data is returned, the callback runs.
 
 ```JavaScript
-function _GetListOfAudioClips(data) { 
+function _GetListOfAudioFiles(data) { 
 
 }
 ```
@@ -206,7 +206,7 @@ Finally, we call another Misty command, `PlayAudioClip()`, and pass in the rando
 misty.PlayAudioClip(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetListOfAudioClips()` to ensure that it does not run until the audio list has been populated. 
+Note: All of this logic needs to be contained within `_GetListOfAudioFiles()` to ensure that it does not run until the audio list has been populated. 
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
@@ -217,10 +217,10 @@ See the full JavaScript code file below or [download the code from GitHub](https
 misty.Debug("starting skill helloworld_playaudio");
 
 // Issue command to fetch list of audio clips
-misty.GetListOfAudioClips();
+misty.GetListOfAudioFiles();
 
-// Callback to handle data returned by GetListOfAudioClips()
-function _GetListOfAudioClips(data) {
+// Callback to handle data returned by GetListOfAudioFiles()
+function _GetListOfAudioFiles(data) {
     // Check if data was received
     if (data) {
         // Capture the array of files
@@ -1175,25 +1175,25 @@ To begin, send a debug message to indicate the skill is running.
 misty.Debug("HelloWorld_BumpSensors is running")
 ```
 
-Then call `misty.GetListOfAudioClips()` to fetch the list of audio clips on Misty's local storage. Data returned by "Get" type commands must be passed into a callback function to be used in your skill. For the first parameter of `misty.GetListOfAudioClips()`, designate a name for the callback function to run when the audio data is ready (`_GetListOfAudioClips`). Pass `"synchronous"` for the second parameter (`callbackRule`). 
+Then call `misty.GetListOfAudioFiles()` to fetch the list of audio clips on Misty's local storage. Data returned by "Get" type commands must be passed into a callback function to be used in your skill. For the first parameter of `misty.GetListOfAudioFiles()`, designate a name for the callback function to run when the audio data is ready (`_GetListOfAudioFiles`). Pass `"synchronous"` for the second parameter (`callbackRule`). 
 
 ```JavaScript
-misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
+misty.GetListOfAudioFiles("_GetListOfAudioFiles","synchronous");
 ```
 
-The `_GetListOfAudioClips()` callback triggers when the data from `misty.GetListOfAudioClips()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-quot-get-quot-data-callbacks)
+The `_GetListOfAudioFiles()` callback triggers when the data from `misty.GetListOfAudioFiles()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-quot-get-quot-data-callbacks)
 
-Next write the logic for the `_GetListOfAudioClips()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetListOfAudioClips()`.
+Next write the logic for the `_GetListOfAudioFiles()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetListOfAudioFiles()`.
 
 ```JavaScript
-function _GetListOfAudioClips(data) {
+function _GetListOfAudioFiles(data) {
 
 }
 ```
 
-When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioClips()`, which contains an array of audio file data. In Misty's on-robot JavaScript API, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
+When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioFiles()`, which contains an array of audio file data. In Misty's on-robot JavaScript API, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
 
-In the `_GetListOfAudioClips()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
+In the `_GetListOfAudioFiles()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
 
 ```JavaScript
 _audio1 = data.Result[0].Name;
@@ -1220,10 +1220,10 @@ The callback for our bump sensor event triggers when any of Misty's sensors are 
 misty.AddReturnProperty("BumpSensor", "sensorName");
 ```
 
-The full `_GetListOfAudioClips()` callback looks like this.
+The full `_GetListOfAudioFiles()` callback looks like this.
 
 ```JavaScript
-function _GetListOfAudioClips(data) {
+function _GetListOfAudioFiles(data) {
    _audio1 = data.Result[0].Name;
    _audio2 = data.Result[1].Name;
    _audio3 = data.Result[2].Name;
@@ -1243,7 +1243,7 @@ function _BumpSensor(data) {
 }
 ```
 
-We want to issue a `misty.PlayAudioClip()` command with a different audio file each time a bump sensor activates. To do this, write a `switch` statement and pass in the `sensorName` variable. The value of `sensorName` will be string indicating which of the four bump sensors was pressed: `"Bump_FrontRight"`, `"Bump_FrontLeft"`, `"Bump_RearRight"`, or `"Bump_RearLeft"`. Declare a case for each of these values. Within each case, send a debug message indicating which sensor was pressed. Then issue a `misty.PlayAudioClip()` command and pass in one of the global variables to which we assigned an audio file in the `_GetListOfAudioClips()` callback. For the second parameter (`volume`), pass an integer between 1 and 100.
+We want to issue a `misty.PlayAudioClip()` command with a different audio file each time a bump sensor activates. To do this, write a `switch` statement and pass in the `sensorName` variable. The value of `sensorName` will be string indicating which of the four bump sensors was pressed: `"Bump_FrontRight"`, `"Bump_FrontLeft"`, `"Bump_RearRight"`, or `"Bump_RearLeft"`. Declare a case for each of these values. Within each case, send a debug message indicating which sensor was pressed. Then issue a `misty.PlayAudioClip()` command and pass in one of the global variables to which we assigned an audio file in the `_GetListOfAudioFiles()` callback. For the second parameter (`volume`), pass an integer between 1 and 100.
 
 ```JavaScript
 switch (sensorName) {
@@ -1311,10 +1311,10 @@ See the complete JavaScript code below or [download the code files from GitHub](
 misty.Debug("HelloWorld_BumpSensors is running")
 
 // Fetch list of audio clips
-misty.GetListOfAudioClips("_GetListOfAudioClips","synchronous");
+misty.GetListOfAudioFiles("_GetListOfAudioFiles","synchronous");
 
 // Handle the list of audio clips
-function _GetListOfAudioClips(data) {
+function _GetListOfAudioFiles(data) {
    // Assign audio files from the list to global variables
    _audio1 = data.Result[0].Name;
    _audio2 = data.Result[1].Name;

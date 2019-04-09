@@ -144,7 +144,7 @@ Return Values
 * width (integer) - The width of the image in pixels.
 
 
-### DeleteImageAssetFromRobot
+### DeleteImage
 Enables you to remove an image file from Misty that you have previously uploaded.
 
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
@@ -388,23 +388,6 @@ Return Values
 ## Audio
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
-
-
-### GetListOfAudioClips
-Lists the default system audio files currently stored on Misty.
-
-Note that you can use the `GetListOfAudioFiles` command to list all audio files on the robot (system files and user uploads).
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio/clips
-
-Parameters
-- None
-
-Return Values
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
-   * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the audio file was added by the user. If `false`, the file is one of Misty's default audio files. **Note:** `GetListOfAudioClips` should always return `false`.
-
 
 ### GetListOfAudioFiles
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
