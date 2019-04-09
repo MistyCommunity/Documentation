@@ -926,7 +926,7 @@ Return Values
 ### GetKnownFaces - BETA
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/beta/faces
+Endpoint: GET &lt;robot-ip-address&gt;/api/faces
 
 Parameters
 - None

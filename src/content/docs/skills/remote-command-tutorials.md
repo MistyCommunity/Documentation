@@ -574,7 +574,7 @@ async function openCallback() {
 
 ```
 
-Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../reference/rest/#getknownfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
+Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../reference/rest/#getknownfaces-beta) command: `"http://" + ip + "/api/faces".`
 
 ```JavaScript
 async function openCallback() {
@@ -583,7 +583,7 @@ async function openCallback() {
 
     // Issue a GET request to the endpoint 
     // for the GetKnownFaces command. 
-    axios.get("http://" + ip + "/api/beta/faces")
+    axios.get("http://" + ip + "/api/faces")
 }
 ```
 
@@ -596,7 +596,7 @@ async function openCallback() {
 
     // Use then() to pass the response 
     // to a callback function.
-    axios.get("http://" + ip + "/api/beta/faces").then(function (res) {
+    axios.get("http://" + ip + "/api/faces").then(function (res) {
         // Store the list of known faces in the
         // faceArr variable and print this list.
         let faceArr = res.data[0].result;
@@ -612,7 +612,7 @@ async function openCallback() {
     socket.Unsubscribe("ComputerVision");
     await sleep(3000);
 
-    axios.get("http://" + ip + "/api/beta/faces").then(function (res) {
+    axios.get("http://" + ip + "/api/faces").then(function (res) {
         let faceArr = res.data[0].result;
         console.log("Learned faces:", faceArr);
 
@@ -658,7 +658,7 @@ async function openCallback() {
     socket.Unsubscribe("ComputerVision");
     await sleep(3000);
 
-    axios.get("http://" + ip + "/api/beta/faces").then(function (res) {
+    axios.get("http://" + ip + "/api/faces").then(function (res) {
         let faceArr = res.data[0].result;
         console.log("Learned faces:", faceArr);
 
@@ -687,7 +687,7 @@ async function openCallback() {
     socket.Unsubscribe("ComputerVision");
     await sleep(3000);
 
-    axios.get("http://" + ip + "/api/beta/faces").then(function (res) {
+    axios.get("http://" + ip + "/api/faces").then(function (res) {
         let faceArr = res.data[0].result;
         console.log("Learned faces:", faceArr);
 
