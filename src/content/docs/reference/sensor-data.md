@@ -564,12 +564,12 @@ IMU {
 }
 ```
 
-## StringMessage
+## SerialMessage
 **Available for Misty II only**
 
-The `StringMessage` data stream provides information sent to Misty by external hardware connected to the ports on her back. `StringMessage` events trigger when Misty receives data sent through one of these ports.
+The `SerialMessage` data stream provides information sent to Misty by external hardware connected to the ports on her back. `SerialMessage` events trigger when Misty receives data sent through one of these ports.
 
-To send `StringMessage` data to Misty from an Arduino, use:
+To send `SerialMessage` data to Misty from an Arduino, use:
 
 ```C++
 // ARDUINO
@@ -585,18 +585,18 @@ Sending data to Misty as a JSON string can make it easier to parse the data in y
 Serial.println("{\"temperature\":\""+String(<temp_value>)+"\",\"pressure\":\""+String(<pressure_value>)+"\"}");
 ```
 
-Handle this data with Misty's on-robot JavaScript API by registering for `StringMessage` events. Add `StringMessage` as an additional return property, and parse the data in the `_StringMessage()` callback that triggers when the data is ready.
+Handle this data with Misty's on-robot JavaScript API by registering for `SerialMessage` events. Add `SerialMessage` as an additional return property, and parse the data in the `_SerialMessage()` callback that triggers when the data is ready.
 
 ```JavaScript
 // MISTY 
 
-// Register for StringMessage events and add StringMessage as a return property
-misty.AddReturnProperty("StringMessage", "StringMessage");
-misty.RegisterEvent("StringMessage", "StringMessage", 0, true);
+// Register for SerialMessage events and add SerialMessage as a return property
+misty.AddReturnProperty("SerialMessage", "SerialMessage");
+misty.RegisterEvent("SerialMessage", "SerialMessage", 0, true);
 
-function _StringMessage(data) {
+function _SerialMessage(data) {
     if(data !== undefined && data !== null) {
-        // Parse StringMessage data and assign it to a variable
+        // Parse SerialMessage data and assign it to a variable
         var obj = JSON.parse(data.AdditionalResults[0].Message);
         var temp = obj.temperature;
         var pressure = obj.pressure;

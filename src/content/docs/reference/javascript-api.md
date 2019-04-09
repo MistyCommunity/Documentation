@@ -1903,17 +1903,17 @@ Returns
 
 ## Backpack Communication
 
-### misty.WriteBackpackUart - ALPHA
+### misty.WriteSerial - ALPHA
 
 **Available for Misty II Only**
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../../docs/reference/sensor-data/#stringmessage) events.
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../docs/reference/sensor-data/#serialmessage) events.
 
 ```JavaScript
 // Syntax
-misty.WriteBackpackUart(string message, [int prePause], [int postPause])
+misty.WriteSerial(string message, [int prePause], [int postPause])
 ```
 
 Arguments
@@ -1923,7 +1923,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.WriteBackpackUart("your-data");
+misty.WriteSerial("your-data");
 ```
 
 ## Skill Management Commands

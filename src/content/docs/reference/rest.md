@@ -1295,13 +1295,13 @@ Return Values
 
 ## Backpack Communication
 
-### WriteBackpackUart - ALPHA
+### WriteSerial - ALPHA
 
 **Available for Misty II Only**
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`StringMessage`](../../reference/sensor-data/#stringmessage) events.
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../reference/sensor-data/#serialmessage) events.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/serialport
 

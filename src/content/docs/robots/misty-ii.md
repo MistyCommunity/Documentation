@@ -236,22 +236,22 @@ void loop() {
 
 We recommend formatting data you send as JSON string to make it easier to parse in your skill code.
 
-To read messages sent to Misty, you register for [`StringMessage`](../../../docs/reference/sensor-data/#stringmessage) events in your skill code. `StringMessage` events occur when Misty receives a message through the RX pin of her UART serial port. By default, the data for `StringMessage` events is processed by a `_StringMessage()` callback function. You define how this callback handles the message in your skill code.
+To read messages sent to Misty, you register for [`SerialMessage`](../../../docs/reference/sensor-data/#serialmessage) events in your skill code. `SerialMessage` events occur when Misty receives a message through the RX pin of her UART serial port. By default, the data for `SerialMessage` events is processed by a `_SerialMessage()` callback function. You define how this callback handles the message in your skill code.
 
 ```JS
-// Return the value of the "StringMessage" property 
-// in the StringMessage data object
-misty.AddReturnProperty("StringMessage", "StringMessage");
+// Return the value of the "SerialMessage" property 
+// in the SerialMessage data object
+misty.AddReturnProperty("SerialMessage", "SerialMessage");
 
-// Register for StringMessage events.
+// Register for SerialMessage events.
 // Set the debounce rate to 0, or use the 
 // rate defined in the sketch.
 // Set `keepAlive` to `true`, so the event 
 // does not unregister after the first
-// _StringMessage() callback. 
-misty.RegisterEvent("StringMessage", "StringMessage", 0, true);
+// _SerialMessage() callback. 
+misty.RegisterEvent("SerialMessage", "SerialMessage", 0, true);
 
-function _StringMessage(data) {
+function _SerialMessage(data) {
     try {
         if(data !== undefined && data !== null) {
             var obj = JSON.parse(data.AdditionalResults[0].Message);
@@ -264,7 +264,7 @@ function _StringMessage(data) {
 }
 ```
 
-To send messages from Misty to an external device, you can use the [`misty.WriteBackpackUart()`](../../../docs/reference/javascript-api/#misty-writebackpackuart-alpha) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteBackpackUart`](../../../docs/reference/rest/#writebackpackuart-alpha) command.
+To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../docs/reference/javascript-api/#misty-writeserial-alpha) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../docs/reference/rest/#writeserial-alpha) command.
 
 ### QWIIC Connector
 
