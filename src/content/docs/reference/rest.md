@@ -1104,7 +1104,7 @@ public enum SlamSensorStatus
 
 Resets the SLAM sensors.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/reset
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
 
 Parameters
 
