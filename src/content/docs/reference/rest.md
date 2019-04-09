@@ -768,7 +768,7 @@ Return Values
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/wifi
+Endpoint: POST &lt;robot-ip-address&gt;/api/network
 
 Parameters
 - NetworkName (string) - The Wi-Fi network name (SSID).
