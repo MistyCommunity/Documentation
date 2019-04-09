@@ -531,7 +531,7 @@ Return Values
 ### SetDefaultVolume - ALPHA
 Sets the default loudness of Misty's speakers for audio playback.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/audio/volume
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
 
 Parameters
 - Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
