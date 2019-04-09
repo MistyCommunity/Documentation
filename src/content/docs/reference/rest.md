@@ -1131,20 +1131,22 @@ public enum SlamSensorStatus
 }
 ```
 
-
 ### ResetSlam - ALPHA
+
 Resets the SLAM sensors.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/reset
 
 Parameters
+
 - None
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
+- Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### SlamStartMapping - ALPHA
+### StartMapping - ALPHA
+
 Starts Misty mapping an area.
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:

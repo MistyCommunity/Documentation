@@ -1364,7 +1364,7 @@ Arguments
 misty.ResetSlam();
 ```
 
-### misty.SlamStartMapping - ALPHA
+### misty.StartMapping - ALPHA
 Starts Misty mapping an area.
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
@@ -1375,7 +1375,7 @@ Starts Misty mapping an area.
 
 ```JavaScript
 // Syntax
-misty.SlamStartMapping([int prePause], [int postPause]);
+misty.StartMapping([int prePause], [int postPause]);
 ```
 
 Arguments
@@ -1384,7 +1384,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamStartMapping();
+misty.StartMapping();
 ```
 
 ### misty.SlamStartTracking - ALPHA

@@ -1022,7 +1022,7 @@ function _SelfState(data) {
 }
 ```
 
-The code within `startMapping()` continues to execute once the first message is received, `_SelfState()` is triggered, `subscribed` is updated to `true`, and our event is registered. After the `while` loop in `startMapping()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStartMapping`](../../reference/rest/#slamstartmapping-alpha) command. `SlamStartMapping` tells Misty to establish her current orientation and position and engages her depth sensor to obtain map data. We refer to Misty’s orientation and position on a map as pose. 
+The code within `startMapping()` continues to execute once the first message is received, `_SelfState()` is triggered, `subscribed` is updated to `true`, and our event is registered. After the `while` loop in `startMapping()`, use `axios.post()` to send a POST request to the endpoint for the [`StartMapping`](../../reference/rest/#startmapping-alpha) command. `StartMapping` tells Misty to establish her current orientation and position and engages her depth sensor to obtain map data. We refer to Misty’s orientation and position on a map as pose. 
 
 ```js
 async function startMapping() {
@@ -1030,7 +1030,7 @@ async function startMapping() {
         await sleep(500);
     }
     // Use axios.post() to send a POST request 
-    // to the endpoint for the SlamStartMapping command.
+    // to the endpoint for the StartMapping command.
     axios.post("http://" + ip + "/api/alpha/slam/map/start");
 }
 ```
