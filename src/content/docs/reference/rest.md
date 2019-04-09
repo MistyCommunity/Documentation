@@ -1268,7 +1268,7 @@ Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial 
 
 Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../reference/sensor-data/#serialmessage) events.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/serialport
+Endpoint: POST &lt;robot-ip-address&gt;/api/serial
 
 Parameters
 
