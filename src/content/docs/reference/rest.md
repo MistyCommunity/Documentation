@@ -470,7 +470,7 @@ Return Values
 ### StartRecordingAudio - BETA
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/audio/startrecord
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
 
 Parameters
 * FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
@@ -482,7 +482,7 @@ Return Values
 ### StopRecordingAudio - BETA
 Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/audio/stoprecord
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/stop
 
 Parameters
 * None
@@ -1003,7 +1003,7 @@ Return Values
 
 Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/arms/move
+Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
