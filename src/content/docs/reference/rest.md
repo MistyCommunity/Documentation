@@ -335,7 +335,7 @@ Return Values
 }
 ```
 
-### SlamGetDepthImage - ALPHA
+### TakeDepthPicture - ALPHA
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
 
 **Important!** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command, and use `SlamStopStreaming` to close the data stream after using this command.

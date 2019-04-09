@@ -211,8 +211,7 @@ Returns
   - name (string) - The name of the image.
   - width (integer) - The width of the image in pixels.
 
-<!-- misty.SlamGetDepthImage -->
-### misty.SlamGetDepthImage - ALPHA
+### misty.TakeDepthPicture - ALPHA
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
 **Note:** Make sure to use `misty.SlamStartStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
@@ -221,7 +220,7 @@ Provides the current distance of objects from Misty’s Occipital Structure Core
 
 ```JavaScript
 // Syntax
-misty.SlamGetDepthImage([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.TakeDepthPicture([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -233,7 +232,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamGetDepthImage();
+misty.TakeDepthPicture();
 ```
 
 Returns
