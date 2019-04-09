@@ -1404,12 +1404,12 @@ Arguments
 misty.StartTracking();
 ```
 
-### misty.SlamStopMapping - ALPHA
+### misty.StopMapping - ALPHA
 Stops Misty mapping an area.
 
 ```JavaScript
 // Syntax
-misty.SlamStopMapping([int prePause], [int postPause]);
+misty.StopMapping([int prePause], [int postPause]);
 ```
 
 Arguments
@@ -1419,7 +1419,7 @@ command, `postPause` is not used.
 
 ```JavaScript
 // Example
-misty.SlamStopMapping();
+misty.StopMapping();
 ```
 
 ### misty.SlamStopTracking - ALPHA

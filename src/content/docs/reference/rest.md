@@ -1176,7 +1176,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### SlamStopMapping - ALPHA
+### StopMapping - ALPHA
 Stops Misty mapping an area.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/map/stop

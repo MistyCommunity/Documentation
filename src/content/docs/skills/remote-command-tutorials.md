@@ -1190,7 +1190,7 @@ async function getMap() {
 }
 ```
 
-Click **OK** after driving Misty around. At this point, Misty should have enough data to draw a map of her surroundings. Below the `alert` in `getMap()`, use `axios.post()` to send a POST request to the endpoint for the [`SlamStopMapping`](../../reference/rest/#slamstopmapping-alpha) command.
+Click **OK** after driving Misty around. At this point, Misty should have enough data to draw a map of her surroundings. Below the `alert` in `getMap()`, use `axios.post()` to send a POST request to the endpoint for the [`StopMapping`](../../reference/rest/#stopmapping-alpha) command.
 
 ```js
 async function getMap() {
@@ -1200,7 +1200,7 @@ async function getMap() {
     console.log("2 - Pose obtained, starting mapping");
     alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     // Use axios.post() to send a POST request 
-    // to the endpoint for the SlamStopMapping command.
+    // to the endpoint for the StopMapping command.
     axios.post("http://" + ip + "/api/alpha/slam/map/stop");
 }
 ```
@@ -1224,7 +1224,7 @@ async function getMap() {
 }
 ```
 
-In the `switch` statement of the `_SelfState()` callback function, add one more case. If `runMode` is equal to the string `"Paused"`, update `mapping` to `false`. This will occur a few seconds after we issue the `SlamStopMapping` command.
+In the `switch` statement of the `_SelfState()` callback function, add one more case. If `runMode` is equal to the string `"Paused"`, update `mapping` to `false`. This will occur a few seconds after we issue the `StopMapping` command.
 
 ```js
 function _SelfState(data) {
