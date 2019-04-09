@@ -311,7 +311,7 @@ Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
 **Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/visibleimage?Base64={bool}
+Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye?Base64=&lt;bool&gt;
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
