@@ -641,7 +641,7 @@ Return Values
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/robot/halt
+Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
 
 Parameters
 * None
@@ -1355,7 +1355,7 @@ Return Values
 ### LoadSkill - ALPHA
 Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skills/load
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/load
 
 Parameters
 * Skill (string) - The name of the skill to load.
@@ -1373,7 +1373,7 @@ Return Values
 ### ReloadSkills - ALPHA
 Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/sdk/reload
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
 
 Parameters
 * (None)
@@ -1451,7 +1451,7 @@ Return Values
 ### UnloadSkill - ALPHA
 Makes a skill unavailable to be run which is currently onboard the robot, but does not remove the skill from the robot’s memory.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skills/unload
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/unload
 
 Parameters
 * Skill (string) - The name of the skill to unload.
@@ -1468,7 +1468,7 @@ Return Values
 ### UnloadAllSkills - ALPHA
 Makes all skills onboard the robot unavailable to be run, but does not remove the skills from the robot’s memory.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skills/unloadall
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/unloadall
 
 Parameters
 * (None)

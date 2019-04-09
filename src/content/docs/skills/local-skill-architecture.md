@@ -445,7 +445,7 @@ To stop a skill, send the `CancelSkill POST` command to the following endpoint, 
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/skills/cancel
 
 <!-- Payload -->
 {
@@ -457,7 +457,7 @@ To stop all running skills, send the same `POST` command with an empty payload (
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/skills/cancel
 
 <!-- Payload -->
 {}
