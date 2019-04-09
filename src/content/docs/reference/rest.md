@@ -654,7 +654,7 @@ Return Values
 ### GetAvailableWifiNetworks
 Obtains a list of local WiFi networks and basic information regarding each.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/wifi
+Endpoint: GET &lt;robot-ip-address&gt;/api/networks
 
 Parameters
 - None
