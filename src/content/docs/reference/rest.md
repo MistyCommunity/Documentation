@@ -164,51 +164,50 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-## Backpack
+### SaveAudio (Byte Array String)
+Saves an audio file to Misty. Maximum size is 3 MB.
 
-## Event
-
-## Expression
-
-## External Requests
-
-## Movement
-
-## Navigation
-
-## Perception
-
-## Skill Management
-
-## System
-
-
-## Images & Display
-
-### DisplayImage
-
-Displays an image on Misty's screen. Optionally, `DisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImage` to upload images to Misty.
-
-Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
-- FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-- TimeOutSeconds (double) - Optional. The length of time to display the specified image.
-- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
+- FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 ```json
-{   
-  "FileName": "pink_sunset.jpg",
-  "TimeOutSeconds": 5,
-  "Alpha": 0.5
+{
+  "FilenameWithoutPath": "example.wav",
+  "DataAsByteArrayString": "34,88,90,49,56,...",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
 }
 ```
 
+Return Values
+* Result (array) - Returns an array of information about the audio file, with the following fields:
+   * Name (string) - The name of the file that was saved.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+
+### SaveAudio (Audio File)
+Saves an audio file to Misty. Maximum size is 3 MB.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio
+
+**Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+
+Parameters
+- File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
+- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
+- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+- Result (array) - An array of information about the audio file, with the following fields:
+  - name (string) - The name of the file that was saved.
+  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
 
 ### SaveImage (Byte Array String)
 Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
@@ -269,7 +268,51 @@ Return Values
 * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 * width (integer) - The width of the image in pixels.
 
-<!-- Beta - Images & Display -->
+
+## Backpack
+
+## Event
+
+## Expression
+
+## External Requests
+
+## Movement
+
+## Navigation
+
+## Perception
+
+## Skill Management
+
+## System
+
+
+## Images & Display
+
+### DisplayImage
+
+Displays an image on Misty's screen. Optionally, `DisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImage` to upload images to Misty.
+
+Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
+
+Parameters
+- FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
+- TimeOutSeconds (double) - Optional. The length of time to display the specified image.
+- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
+
+```json
+{   
+  "FileName": "pink_sunset.jpg",
+  "TimeOutSeconds": 5,
+  "Alpha": 0.5
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
@@ -472,50 +515,6 @@ Parameters
 
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
-
-### SaveAudio (Byte Array String)
-Saves an audio file to Misty. Maximum size is 3 MB.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
-
-Parameters
-- FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-```json
-{
-  "FilenameWithoutPath": "example.wav",
-  "DataAsByteArrayString": "34,88,90,49,56,...",
-  "ImmediatelyApply": false,
-  "OverwriteExisting": true
-}
-```
-
-Return Values
-* Result (array) - Returns an array of information about the audio file, with the following fields:
-   * Name (string) - The name of the file that was saved.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-
-
-### SaveAudio (Audio File)
-Saves an audio file to Misty. Maximum size is 3 MB.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
-
-**Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
-
-Parameters
-- File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-Return Values
-- Result (array) - An array of information about the audio file, with the following fields:
-  - name (string) - The name of the file that was saved.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 <!-- Beta - Audio -->
 

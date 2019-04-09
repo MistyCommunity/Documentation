@@ -139,6 +139,53 @@ Returns
    * Width (integer) - The width of the image file.
    * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### misty.SaveAudio
+Saves an audio file to Misty. Maximum size is 3 MB.
+
+```JavaScript
+// Syntax
+misty.SaveAudio(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
+```
+
+Arguments
+* fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
+* dataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
+* overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
+```
+
+
+### misty.SaveImage
+Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
+
+Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+
+```JavaScript
+// Syntax
+misty.SaveImage(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
+```
+
+Arguments
+* fileName (string) - The name of the image file to save.
+* dataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+* width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
+* height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
+* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
+* overwriteExisting (boolean) - Optional. A value of `true` indicates the saved file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the saved file should not overwrite any existing files on Misty.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
+```
+
 
 ## Backpack
 
@@ -184,33 +231,6 @@ Arguments
 // Example
 misty.DisplayImage("Happy.png");
 ```
-
-### misty.SaveImage
-Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
-
-Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
-
-```JavaScript
-// Syntax
-misty.SaveImage(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause]
-```
-
-Arguments
-* fileName (string) - The name of the image file to save.
-* dataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
-* width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
-* height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
-* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
-* overwriteExisting (boolean) - Optional. A value of `true` indicates the saved file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the saved file should not overwrite any existing files on Misty.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
-```
-
-<!-- Images & Display - BETA -->
 
 ### misty.ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
@@ -446,27 +466,6 @@ Arguments
 ```JavaScript
 // Example
 misty.PlayAudio("Play.wav", 100);
-```
-
-### misty.SaveAudio
-Saves an audio file to Misty. Maximum size is 3 MB.
-
-```JavaScript
-// Syntax
-misty.SaveAudio(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
-```
-
-Arguments
-* fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
-* dataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
-* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
-* overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 ```
 
 ### misty.StartRecordingAudio
