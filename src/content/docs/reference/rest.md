@@ -81,6 +81,45 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### GetImage
+Obtains a system or user-uploaded image file currently stored on Misty
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
+
+Example:
+
+`http://&lt;robot-ip-address&gt;/api/images?FileName=happy.png&Base64=false`
+
+Parameters  
+**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
+- FileName (string) - The name of the image file to get, including the file type extension.
+- Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
+
+```json
+{
+  "FileName": "Content.jpg",
+  "Base64": false
+}
+```
+
+Return Values
+- Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
+  - base64 (string) - A string containing the Base64-encoded image data.
+  - format (string) - The type and format of the image returned.
+  - height (integer) - The height of the image in pixels.
+  - name (string) - The name of the image.
+  - width (integer) - The width of the image in pixels.
+
+```json
+{
+  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
+  "format": "image/jpeg",
+  "height": 270.0,
+  "name": "ExampleFile.jpg",
+  "width": 450.0,
+}
+```
+
 ## Backpack
 
 ## Event
@@ -263,47 +302,6 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-<!-- Images & Display - ALPHA -->
-
-### GetImage
-Obtains a system or user-uploaded image file currently stored on Misty
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
-
-Example:
-
-`http://&lt;robot-ip-address&gt;/api/images?FileName=happy.png&Base64=false`
-
-Parameters  
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
-- FileName (string) - The name of the image file to get, including the file type extension.
-- Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
-
-```json
-{
-  "FileName": "Content.jpg",
-  "Base64": false
-}
-```
-
-Return Values
-- Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
-  - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the image.
-  - width (integer) - The width of the image in pixels.
-
-```json
-{
-  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
-  "format": "image/jpeg",
-  "height": 270.0,
-  "name": "ExampleFile.jpg",
-  "width": 450.0,
-}
-```
 
 ### TakePicture
 
