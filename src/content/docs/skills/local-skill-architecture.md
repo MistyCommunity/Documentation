@@ -189,7 +189,7 @@ misty.RegisterUserEvent(string eventName, string callbackMethod);
 You can also trigger an event by making a REST call to the event endpoint with a POST command:
 
 ```html
-POST <robot-ip-address>api/alpha/sdk/skills/event
+POST <robot-ip-address>api/skills/event
 ```
 
 With a JSON body similar to:

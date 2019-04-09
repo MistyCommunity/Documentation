@@ -1543,12 +1543,12 @@ Returns
 * Data sent by the timed event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../../../docs/skills/local-skill-architecture/#timed-or-triggered-event-callbacks).
 
 ### misty.RegisterUserEvent - ALPHA
-Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `<robot-ip-address>/api/alpha/sdk/skills/event` endpoint with the appropriate payload for the callback and/or skill.
+Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `<robot-ip-address>/api/skills/event` endpoint with the appropriate payload for the callback and/or skill.
 
 Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
 
 ```http
-POST <robot-ip-address>/api/alpha/sdk/skills/event
+POST <robot-ip-address>/api/skills/event
 ```
 
 With a JSON body similar to:

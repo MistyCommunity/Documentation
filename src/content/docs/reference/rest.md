@@ -1429,7 +1429,7 @@ Return Values
 ### TriggerSkillEvent - ALPHA
 Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skills/event
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
 
 Parameters
 * UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
