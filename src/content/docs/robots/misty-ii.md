@@ -26,16 +26,6 @@ Some Field Trial robots may also arrive with a USB-to-Ethernet adapter.
 
 **Note:** Misty's packaging has been specially designed to protect your robot during shipping. Because you will need to return this Field Trial unit, please keep all original packaging for use in shipment.
 
-### Misty's Backpack
-
-Remove the magnetic "backpack" to reveal the ports on Misty's back. These include
-* 5v USB port
-* 3.3v universal asynchronous receiver-transmitter (UART) serial port
-
-You can use the USB port to power external hardware and to connect Misty to your local network with a USB-to-Ethernet adapter. The UART serial port enables communication between Misty and an external device, such as an Arduino.
-
-If you did not purchase Misty's Arduino-compatible backpack, the "backpack" shipped with your robot does not contain any hardware. Note that you can still use Misty's hardware expandability by connecting your own Arduino to her UART serial port.
-
 ## Powering Up & Powering Down
 
 We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, consider placing books or blocks between her treads to elevate them above the surface of the table.
