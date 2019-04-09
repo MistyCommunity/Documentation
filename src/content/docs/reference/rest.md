@@ -1425,32 +1425,3 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
-
-<!-- UnloadSkill -->
-### UnloadSkill - ALPHA
-Makes a skill unavailable to be run which is currently onboard the robot, but does not remove the skill from the robot’s memory.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/unload
-
-Parameters
-* Skill (string) - The name of the skill to unload.
-
-```json
-{
-  "Skill": "SkillName"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
-
-### UnloadAllSkills - ALPHA
-Makes all skills onboard the robot unavailable to be run, but does not remove the skills from the robot’s memory.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/unloadall
-
-Parameters
-* (None)
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
