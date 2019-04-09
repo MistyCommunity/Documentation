@@ -199,7 +199,7 @@ Use the `StopRecordingVideo` command to stop recording a video. Video recordings
 
 Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/video/startrecord
+Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 
 Parameters
 
@@ -215,7 +215,7 @@ Stops recording video with Misty's 4K camera.
 
 Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/video/stoprecord
+Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/stop
 
 Parameters
 
