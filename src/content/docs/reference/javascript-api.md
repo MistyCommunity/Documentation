@@ -186,8 +186,30 @@ Arguments
 misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
 ```
 
-
 ## Backpack
+
+### misty.WriteSerial
+
+**Available for Misty II Only**
+
+Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
+
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../docs/reference/sensor-data/#serialmessage) events.
+
+```JavaScript
+// Syntax
+misty.WriteSerial(string message, [int prePause], [int postPause])
+```
+
+Arguments
+* message (string) - The data Misty sends to the UART serial port, passed as a string value.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.WriteSerial("your-data");
+```
 
 ## Event
 
@@ -1859,31 +1881,6 @@ Arguments
 Returns
 
 * Data (object) - An object containing the external server's response to the request. In most cases, data returned by the `misty.SendExternalRequest()` command must be passed into a callback function to be processed and made available for use in your skills. See the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial for more information.
-
-## Backpack Communication
-
-### misty.WriteSerial
-
-**Available for Misty II Only**
-
-Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
-
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../docs/reference/sensor-data/#serialmessage) events.
-
-```JavaScript
-// Syntax
-misty.WriteSerial(string message, [int prePause], [int postPause])
-```
-
-Arguments
-* message (string) - The data Misty sends to the UART serial port, passed as a string value.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.WriteSerial("your-data");
-```
 
 ## Skill Management Commands
 

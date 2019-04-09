@@ -268,8 +268,31 @@ Return Values
 * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 * width (integer) - The width of the image in pixels.
 
-
 ## Backpack
+
+### WriteSerial
+
+**Available for Misty II Only**
+
+Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
+
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../reference/sensor-data/#serialmessage) events.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/serial
+
+Parameters
+
+* Message (string) - The data Misty sends to the UART serial port, passed as a string value.
+
+```json
+{
+  "Message": "your-data"
+}
+```
+
+Return Values
+
+- Result (boolean) - Returns `true` if no errors related to this request.
 
 ## Event
 
@@ -1251,30 +1274,6 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Backpack Communication
-
-### WriteSerial
-
-**Available for Misty II Only**
-
-Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
-
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../reference/sensor-data/#serialmessage) events.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/serial
-
-Parameters
-
-* Message (string) - The data Misty sends to the UART serial port, passed as a string value.
-
-```json
-{
-  "Message": "your-data"
-}
-```
-
-Return Values
-
-- Result (boolean) - Returns `true` if no errors related to this request.
 
 ## Skill Management Commands
 
