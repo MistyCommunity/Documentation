@@ -494,8 +494,6 @@ misty.StopRecordingAudio();
 
 <!-- Audio - ALPHA -->
 
-<!-- TODO: ### misty.GetAudioFile - ALPHA -->
-
 <!-- misty.SetDefaultVolume - ALPHA -->
 ### misty.SetDefaultVolume - ALPHA
 Sets the default loudness of Misty's speakers for audio playback.

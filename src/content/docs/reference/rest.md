@@ -515,14 +515,14 @@ Return Values
 ### GetAudioFile - ALPHA
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/audio/file?FileName={name-of-audio-file.extension}
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
 
 Parameters  
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
 
 ```markup
-http://<robot-ip-address>/api/alpha/audio/file?FileName=ExampleAudio.mp3
+http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
 ```
 
 Return Values
