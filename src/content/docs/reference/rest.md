@@ -392,7 +392,7 @@ Want Misty to say something different or play a special tune when she recognizes
 ### GetAudioList
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio/list
 
 Parameters
 - None
@@ -706,8 +706,8 @@ Return Values
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Endpoint:
-* GET &lt;robot-ip-address&gt;/api/info/help for a list of commands and endpoints
-* GET &lt;robot-ip-address&gt;/api/info/help?command=endpoint/path for information on a specific endpoint. Example: `<robot-ip-address>/api/info/help?command=audio/play`
+* GET &lt;robot-ip-address&gt;/api/help for a list of commands and endpoints
+* GET &lt;robot-ip-address&gt;/api/help?command=endpoint/path for information on a specific endpoint. Example: `<robot-ip-address>/api/help?command=audio/play`
 
 Parameters
 - None
@@ -739,37 +739,6 @@ Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
 <!-- Beta - Information -->
-
-### GetBetaHelp - BETA
-Obtains information about a specified beta API command. Calling `GetBetaHelp` with no parameters returns a list of all the beta API commands that are available.
-
-Endpoint:
-* GET &lt;robot-ip-address&gt;/api/beta/info/help for a list of beta commands and endpoints
-* GET &lt;robot-ip-address&gt;/api/beta/info/help?command=endpoint/path for information on a specific beta endpoint. Example: `<robot-ip-address>/api/beta/info/help?command=head/position`
-
-Parameters
-- None
-
-Return Values
-* Result (string) - A string containing the requested help information.
-
-
-<!-- Alpha - Information -->
-
-### GetAlphaHelp - ALPHA
-
-Obtains information about a specified alpha API command. Calling `GetAlphaHelp` with no parameters returns a list of all available alpha API commands.
-
-Endpoint: 
-
-* GET &lt;robot-ip-address&gt;/api/alpha/info/help for a list of alpha commands and endpoints.
-* GET &lt;robot-ip-address&gt;/api/alpha/help?command=endpoint/path for information on a specific alpha endpoint. Example: `<robot-ip-address>/api/alpha/info/help?command=audio/file`
-
-Parameters
-* None
-
-Return Values
-* Result (string) - A string in JSON format containing the requested help information.
 
 ## LEDs
 

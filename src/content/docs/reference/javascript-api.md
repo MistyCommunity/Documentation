@@ -756,34 +756,6 @@ Returns
 
 <!-- Information - BETA -->
 
-<!-- misty.GetBetaHelp - BETA -->
-### misty.GetBetaHelp - BETA
-Obtains information about a specified beta API command. Calling `misty.GetBetaHelp()` with no parameters returns a list of all the beta API commands that are available.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetBetaHelp([string endpointName], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
-```
-
-Arguments
-* endpointName (string) - A beta command name in `"Api.<COMMAND>"` format, e.g.: `"Api.SetHeadPosition"`. If no command name is specified, `misty.GetBetaHelp()` returns a list of all the beta API commands.
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetBetaHelp();
-```
-
-Returns
-
-* Result (string) - A string containing the requested help information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-
 ## LEDs
 
 ### misty.ChangeLED
