@@ -1385,7 +1385,7 @@ Return Values
 ### RunSkill - ALPHA
 Immediately runs a previously uploaded skill.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skill
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
 
 Parameters`
 * Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.

@@ -421,7 +421,7 @@ To start a skill, send the `RunSkill POST` command with the following syntax. No
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/skills/start
 
 <!-- Payload -->
 {
@@ -433,7 +433,7 @@ For example:
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/skills/start
 
 <!-- Payload -->
 {
