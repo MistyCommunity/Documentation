@@ -182,7 +182,7 @@ Downloads Misty's most recent video recording to your browser or REST client.
 
 **Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/beta/video/getvideo
+Endpoint: GET &lt;robot-ip-address&gt;/api/video
 
 Parameters
 
