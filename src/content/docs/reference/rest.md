@@ -69,7 +69,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### GetListOfImages
+### GetImageList
 Obtains a list of the images currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/images

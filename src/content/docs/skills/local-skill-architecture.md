@@ -227,7 +227,7 @@ There are two ways to store persistent data with on-robot skills:
 
 You can create global variables and use them across all "get" and "event" callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
 
-Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward. 
+Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward.
 
 In this example, `_imageCount` is declared and used as a global variable:
 
@@ -237,10 +237,10 @@ _imageCount = 72;
 StartSkill();
 
 function StartSkill() {
-    misty.GetListOfImages();
+    misty.GetImageList();
 }
 
-function _GetListOfImages(response) {
+function _GetImageList(response) {
     if (response.Result.length != _imageCount) {
         misty.Debug("Wrong number of expected images!");
         misty.PlayAudioClip("SadSound.wav", 50);
