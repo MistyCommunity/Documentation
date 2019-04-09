@@ -152,9 +152,7 @@ The first thing the `tofApp.js` sample does is to construct the message that sub
 
 The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
 * ```TimeOfFlight```
-* ```ComputerVision```
-* ```FaceDetection``` (deprecated)
-* ```FaceRecognition``` (deprecated)
+* ```FaceRecognition```
 * ```LocomotionCommand```
 * ```HaltCommand```
 * ```SelfState```

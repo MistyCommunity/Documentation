@@ -453,7 +453,7 @@ Download the [full .html document](https://github.com/MistyCommunity/Tutorials/t
 
 This tutorial teaches how to write a skill to have Misty detect, recognize, and learn faces. When this skill runs, Misty checks a given name against her list of known faces. If the name exists, she engages facial recognition to see the user in her field of vision and print a message to the console, greeting the user by name. If the name does not match a known face, Misty uses facial training to learn the user’s face, assigns it the name provided, and prints a greeting to the console. This tutorial teaches
 * how to use REST API commands for facial training and recognition
-* how to subscribe to and use data from Misty’s `ComputerVision` WebSocket connection
+* how to subscribe to and use data from Misty’s `FaceRecognition` WebSocket connection
 
 Before you write any code, connect Misty to your home network and make sure you know her IP address. You can see how to get this information in the first tutorial above.
 
@@ -538,14 +538,14 @@ async function openCallback() {
 
 ```
 
-A subscription to the `ComputerVision` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"ComputerVision"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `ComputerVision` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
+A subscription to the `FaceRecognition` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"FaceRecognition"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `FaceRecognition` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
 
 ```JavaScript
 
 async function openCallback() {
-    // Unsubscribe from any existing ComputerVision 
+    // Unsubscribe from any existing FaceRecognition 
     // WebSocket connections.
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
 }
 
 ```
@@ -565,7 +565,7 @@ function sleep(ms) {
 /* CALLBACKS */
 
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     // Use sleep() to pause execution for 
     // three seconds to give Misty time 
     // to register and execute the command.
@@ -578,7 +578,7 @@ Next, check if the name stored in `you` is included on the list of faces Misty a
 
 ```JavaScript
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
 
     // Issue a GET request to the endpoint 
@@ -591,7 +591,7 @@ This request returns a list of the names of faces Misty has already been trained
 
 ```JavaScript
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
 
     // Use then() to pass the response 
@@ -609,7 +609,7 @@ The next step is to loop through the `faceArr` array and compare the name of eac
 
 ```JavaScript
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
@@ -651,11 +651,11 @@ async function startFaceTraining() {
 };
 ```
 
-In either case, we need to subscribe to the [`ComputerVision`](../../reference/sensor-data/#computervision-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"ComputerVision"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_ComputerVision()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
+In either case, we need to subscribe to the [`FaceRecognition`](../../reference/sensor-data/#facerecognition-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"FaceRecognition"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_FaceRecognition()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
 
 ```JavaScript
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
@@ -668,23 +668,23 @@ async function openCallback() {
             }
         }
 
-        // Subscribe to the ComputerVision WebSocket. 
-        // Pass ComputerVision for the eventName and 
+        // Subscribe to the FaceRecognition WebSocket. 
+        // Pass FaceRecognition for the eventName and 
         // msgType parameters. Set debounceMs to 200 
-        // and pass a callback function named _ComputerVision 
+        // and pass a callback function named _FaceRecognition 
         // for the callback parameter. Pass null for 
         // all other arguments.
-        socket.Subscribe("ComputerVision", "ComputerVision", 200, null, null, null, null, _ComputerVision);
+        socket.Subscribe("FaceRecognition", "FaceRecognition", 200, null, null, null, null, _FaceRecognition);
 
     });
 }
 ```
 
-After subscribing to `ComputerVision`, write an `if...else` statement to execute `startFaceRecognition()` if `onList` is `true`, and to execute `startFaceTraining()` if `onList` is `false`. In each condition, print a message to the console to state whether the program found the user on the list.
+After subscribing to `FaceRecognition`, write an `if...else` statement to execute `startFaceRecognition()` if `onList` is `true`, and to execute `startFaceTraining()` if `onList` is `false`. In each condition, print a message to the console to state whether the program found the user on the list.
 
 ```JavaScript
 async function openCallback() {
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
@@ -697,7 +697,7 @@ async function openCallback() {
             }
         }
 
-        socket.Subscribe("ComputerVision", "ComputerVision", 200, null, null, null, null, _ComputerVision);
+        socket.Subscribe("FaceRecognition", "FaceRecognition", 200, null, null, null, null, _FaceRecognition);
 
         // Use an if, else statement to execute 
         // startFaceRecognition() if onList is true 
@@ -718,7 +718,7 @@ async function openCallback() {
 
 Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. 
 
-This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
+This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `FaceRecognition` event, the callback for the `FaceRecognition` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
 ```JavaScript
 function startFaceRecognition() {
@@ -778,13 +778,13 @@ async function startFaceTraining() {
 
 #### Callbacks
 
-Data sent through the `ComputerVision` event subscription is passed to the `_ComputerVision()` callback function. As discussed in previous tutorials, WebSocket connections sometimes send registration and error messages that do not contain event data. To handle messages unrelated to `ComputerVision` events, wrap the code for the `_ComputerVision()` callback inside `try` and `catch` statements. As seen in the example, you can print caught errors to the console by passing `e` to the `catch` statement, but this is not necessary for the program to execute successfully.
+Data sent through the `FaceRecognition` event subscription is passed to the `_FaceRecognition()` callback function. As discussed in previous tutorials, WebSocket connections sometimes send registration and error messages that do not contain event data. To handle messages unrelated to `FaceRecognition` events, wrap the code for the `_FaceRecognition()` callback inside `try` and `catch` statements. As seen in the example, you can print caught errors to the console by passing `e` to the `catch` statement, but this is not necessary for the program to execute successfully.
 
 ```JavaScript
 // Define the callback function for handling  
-// ComputerVision event data.
-function _ComputerVision(data) { 
-    // Wrap the code for the _ComputerVision callback 
+// FaceRecognition event data.
+function _FaceRecognition(data) { 
+    // Wrap the code for the _FaceRecognition callback 
     // inside try and catch statements. 
     try { 
 
@@ -796,15 +796,15 @@ function _ComputerVision(data) {
 }
 ```
 
-The `_ComputerVision()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `ComputerVision` WebSocket includes a `"personName"` property. If a detected face cannot be recognized, the value of `"personName"` is `"unknown person"`. If a message does not hold any face data, then `"personName"` doesn’t exist or is `undefined`. In the `_ComputerVision()` callback function, use an `if` statement to check that `"personName"` does not equal any of these values.
+The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"personName"` property. If a detected face cannot be recognized, the value of `"personName"` is `"unknown person"`. If a message does not hold any face data, then `"personName"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"personName"` does not equal any of these values.
 
 ```JavaScript
-function _ComputerVision(data) {
+function _FaceRecognition(data) {
     try { 
         // Use an if statement to check that personName 
         // does not equal "unknown person", null, or 
         // undefined. personName is included in the 
-        // message returned by ComputerVision WebSocket events.
+        // message returned by FaceRecognition WebSocket events.
         if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
 
         }
@@ -815,20 +815,20 @@ function _ComputerVision(data) {
 }
 ```
 
-**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `ComputerVision` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
+**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
 
-If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"ComputerVision"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
+If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
 ```JavaScript
-function _ComputerVision(data) {
+function _FaceRecognition(data) {
     try {
         if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
             // If the face is recognized, print a 
             // message to greet the person by name.
             console.log(`A face was recognized. Hello there ${data.message.personName}!`);
 
-            // Unsubscribe from the ComputerVision WebSocket.
-            socket.Unsubscribe("ComputerVision");
+            // Unsubscribe from the FaceRecognition WebSocket.
+            socket.Unsubscribe("FaceRecognition");
             // Use Axios to issue a POST command to the 
             // endpoint for the StopFaceRecognition command.
             axios.post("http://" + ip + "/api/faces/recognition/stop");
@@ -852,7 +852,7 @@ socket.Connect();
 When you load the `.html` file in your browser, the program:
 * connects with Misty
 * sends a `GetKnownFaces` command and checks whether your name is on the list of faces Misty already knows
-* subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
+* subscribes to the `FaceRecognition` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
 * recognizes and greets you if you are on the list of known faces, or sends a `StartFaceTraining` command to learn your face if you are not
 
 ### Full Sample
@@ -1471,7 +1471,7 @@ Download the [full .html document](https://github.com/MistyCommunity/Tutorials/t
 ## Taking Pictures
 
 This tutorial describes how to write a remote-running program for Misty that takes a photo with her 4K camera and saves it to her local storage when she detects a face in her field of vision. It teaches
-* how to subscribe to the `ComputerVision` WebSocket
+* how to subscribe to the `FaceRecognition` WebSocket
 * how to engage with Misty’s face detection capabilities
 * how to use the `TakePicture` command to take photos with Misty’s 4K camera and save them to your robot
 * how to control the flow of a program to trigger commands when specific environmental circumstances are met
@@ -1547,7 +1547,7 @@ async function openCallback() {
 }
 ```
 
-To keep track of whether we are currently subscribed to a `ComputerVision` event, declare a global variable called `subscribed` near the global `ip` variable. 
+To keep track of whether we are currently subscribed to a `FaceRecognition` event, declare a global variable called `subscribed` near the global `ip` variable. 
 
 ```js
 /* GLOBALS */
@@ -1555,7 +1555,7 @@ To keep track of whether we are currently subscribed to a `ComputerVision` event
 const ip = "<robotipaddress>";
 let socket = new LightSocket(ip, openCallback);
 // Track whether we are currently subscribed 
-// to ComputerVision events.
+// to FaceRecognition events.
 let subscribed;
 ```
 
@@ -1570,17 +1570,17 @@ async function openCallback() {
 }
 ```
 
-Each time a picture is taken, we unsubscribe from the `ComputerVision` WebSocket, pause execution, and re-subscribe to the WebSocket. We do this to prevent Misty from taking dozens of pictures of the same person every time she detects a face. To manage this, we send a command to unsubscribe from the `"ComputerVision"` event before each attempt to establish a connection. 
+Each time a picture is taken, we unsubscribe from the `FaceRecognition` WebSocket, pause execution, and re-subscribe to the WebSocket. We do this to prevent Misty from taking dozens of pictures of the same person every time she detects a face. To manage this, we send a command to unsubscribe from the `"FaceRecognition"` event before each attempt to establish a connection. 
 
-Inside `openCallback()`, call `socket.Unsubscribe()` and pass in the `"ComputerVision"` event name. After unsubscribing, call `sleep()` (prefixed with the keyword `await`) and pass in the value `8000`. This tells  the program to pause for 8 seconds, which is how long we want Misty to wait before re-subscribing to `ComputerVision` and sending more face detection event data.
+Inside `openCallback()`, call `socket.Unsubscribe()` and pass in the `"FaceRecognition"` event name. After unsubscribing, call `sleep()` (prefixed with the keyword `await`) and pass in the value `8000`. This tells  the program to pause for 8 seconds, which is how long we want Misty to wait before re-subscribing to `FaceRecognition` and sending more face detection event data.
 
 ```js
 /* CALLBACKS */
 
 async function openCallback() {
     subscribed = false;
-    // Unsubscribe from the ComputerVision event.
-    socket.Unsubscribe("ComputerVision");
+    // Unsubscribe from the FaceRecognition event.
+    socket.Unsubscribe("FaceRecognition");
     // Pause execution while the event subscription ends.
     await sleep(8000);
 }
@@ -1592,28 +1592,28 @@ Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arg
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-When you call `socket.Subscribe()`, pass `"ComputerVision"` for the `eventName` argument, pass `"ComputerVision"` for `msgType`, pass `1000` for `debounceMS`, and pass `"_ComputerVision"` for `eventCallback`. Pass `null` for all other arguments. 
+When you call `socket.Subscribe()`, pass `"FaceRecognition"` for the `eventName` argument, pass `"FaceRecognition"` for `msgType`, pass `1000` for `debounceMS`, and pass `"_FaceRecognition"` for `eventCallback`. Pass `null` for all other arguments. 
 
 ```js
 /* CALLBACKS */
 
 async function openCallback() {
     subscribed = false;
-    socket.Unsubscribe("ComputerVision");
+    socket.Unsubscribe("FaceRecognition");
     await sleep(8000);
     // Call socket.Subscribe(). Pass in the following
-    // arguments to subscribe to "ComputerVision" events.
-    socket.Subscribe("ComputerVision", "ComputerVision", 1000, null, null, null, null, _ComputerVision);
+    // arguments to subscribe to "FaceRecognition" events.
+    socket.Subscribe("FaceRecognition", "FaceRecognition", 1000, null, null, null, null, _FaceRecognition);
 
 }
 ```
 
-Use the keyword `async` to define the `_ComputerVision()` callback that runs when a `ComputerVision` event triggers. This function takes a `data` argument, which holds the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
+Use the keyword `async` to define the `_FaceRecognition()` callback that runs when a `FaceRecognition` event triggers. This function takes a `data` argument, which holds the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
 
 ```js
-// Define the _ComputerVision() callback function.
-// This function handles ComputerVision event data.
-async function _ComputerVision(data) {
+// Define the _FaceRecognition() callback function.
+// This function handles FaceRecognition event data.
+async function _FaceRecognition(data) {
     // Print a message each time the callback executes.
     console.log("CV callback called: ", data);
 ```
@@ -1621,7 +1621,7 @@ async function _ComputerVision(data) {
 When we establish a connection, we want to update the value of `subscribed` to reflect that we are subscribed to the event. Use an `if` statement to check if `subscribed` is `false`. If it is, set it to `true`.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     // Update subscribed to true
     if (!subscribed) {
@@ -1630,7 +1630,7 @@ async function _ComputerVision(data) {
 }
 ```
 
-As Misty takes pictures of the faces she recognizes, we unsubscribe and re-subscribe to "ComputerVision". However, because it’s okay for face detection to remain active even when we are not subscribed to `"ComputerVision"` event messages, we only need to send the command to start face detection once.  We can accomplish this by using a global variable called `firstTime` that we initialize with a value of `true`.
+As Misty takes pictures of the faces she recognizes, we unsubscribe and re-subscribe to "FaceRecognition". However, because it’s okay for face detection to remain active even when we are not subscribed to `"FaceRecognition"` event messages, we only need to send the command to start face detection once.  We can accomplish this by using a global variable called `firstTime` that we initialize with a value of `true`.
 
 ```js
 /* GLOBALS */
@@ -1646,7 +1646,7 @@ let socket = new LightSocket(ip, openCallback);
 When the callback triggers, use an `if` statement to check if `firstTime` is `true`. If it is, send a POST request to the endpoint for the `StartFaceDetection` command. Use `catch()` to handle and log any errors you receive when sending the command. Set `firstTime` to `false` and leave it that way for the remainder of the program’s execution.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1665,10 +1665,10 @@ async function _ComputerVision(data) {
 }
 ```
 
-The first message we receive when we subscribe to the `ComputerVision` WebSocket is a registration message that does not contain data relevant to our program. When the `_ComputerVision()` callback triggers for the first time, we want to send the command to start face detection, but we want to prevent execution of the rest of the code to avoid processing this registration message. To do this, within the `if` statement checking the value of `subscribed`, use `return` to exit the callback and take no further action. 
+The first message we receive when we subscribe to the `FaceRecognition` WebSocket is a registration message that does not contain data relevant to our program. When the `_FaceRecognition()` callback triggers for the first time, we want to send the command to start face detection, but we want to prevent execution of the rest of the code to avoid processing this registration message. To do this, within the `if` statement checking the value of `subscribed`, use `return` to exit the callback and take no further action. 
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1695,7 +1695,7 @@ To have Misty take a picture, use `axios.get()` to send a GET request to the end
 * Set `OverwriteExisting` to `true` so Misty overwrites any old images that have the same name as newly captured photos.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1728,7 +1728,7 @@ async function _ComputerVision(data) {
 Use a `then()` method to log the response, as well as a message indicating the image has been saved with the specified file name.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1762,7 +1762,7 @@ async function _ComputerVision(data) {
 We define `fileName` above this GET request. For this project, we want Misty to take pictures and save them with the date and time the photo was taken. To accomplish this, we use the JavaScript built-in [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object. Instantiate a new `Date` object, then call the method `toLocaleString()` to convert the date and time into a string. Windows systems omit certain characters from file names, so we need to use the `replace()` method and pass in some regular expressions to modify the string to an acceptable format and make it easier to read. (**Note:** This code is okay to leave in your program if you are running it on a Mac or Unix system.) These regular expressions replace semicolons with periods, replace spaces with underscores, remove commas, and append the file name with `"_Face"` to indicate that these are images of faces.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1799,7 +1799,7 @@ async function _ComputerVision(data) {
 After the GET request, call `openCallback()` to start the process over again. To catch and log errors, wrap a `try, catch` statement around the code block that defines the value of `fileName`, makes the GET request, and repeats the call to `openCallback()`.
 
 ```js
-async function _ComputerVision(data) {
+async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
         subscribed = true;
@@ -1846,7 +1846,7 @@ socket.Connect();
 ```
 
 **Congratulations!** You’ve written a program for Misty to take a photo whenever she detects a face. 
-* When the document loads, the program establishes a connection to the `ComputerVision` WebSocket. 
+* When the document loads, the program establishes a connection to the `FaceRecognition` WebSocket. 
 * Misty starts face detection and, each time she sees a face, takes a photo with her 4K camera. 
 * These photos are saved to Misty’s local storage and given file names to indicate the date and time when the face was detected and the photo was taken. 
 * The flow of the program is managed by global variables indicating the status of the WebSocket subscription and whether Misty has already started face recognition. 

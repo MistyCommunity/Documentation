@@ -378,10 +378,10 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 ### Writing the Code File
 
-In order to tell if Misty has detected a face, we register an event to receive data from computer vision events. Call `misty.RegisterEvent()` and pass in a name for the event (this example uses `"FaceDetection"` to keep it simple), the data stream we are subscribing to (`"ComputerVision"`), and a value specifying how frequently we want to receive data (in this case, every `250` milliseconds).
+In order to tell if Misty has detected a face, we register an event to receive data from computer vision events. Call `misty.RegisterEvent()` and pass in a name for the event (this example uses `"FaceRecognition"` to keep it simple), the data stream we are subscribing to (`"FaceRecognition"`), and a value specifying how frequently we want to receive data (in this case, every `250` milliseconds).
 
 ```JavaScript
-misty.RegisterEvent("FaceDetection", "ComputerVision", 250);
+misty.RegisterEvent("FaceRecognition", "FaceRecognition", 250);
 ```
 
 Now that we have the event set up, we can send the command to start face detection. This command is different in that it initiates the process for Misty to start _looking_ for a face, while the event is only set up to trigger if a face is _detected_. Both parts are necessary to handle skills that include face detection.
@@ -390,10 +390,10 @@ Now that we have the event set up, we can send the command to start face detecti
 misty.StartFaceDetection();
 ```
 
-Within the callback (automatically named `_FaceDetection()`) we should log a debug message to indicate that a face has been detected, send a command to play an audio clip, and another to change the LED. Then we can send a command to stop face detection. Once the code in this callback finishes, the skill will automatically end after 5 seconds of inactivity.
+Within the callback (automatically named `_FaceRecognition()`) we should log a debug message to indicate that a face has been detected, send a command to play an audio clip, and another to change the LED. Then we can send a command to stop face detection. Once the code in this callback finishes, the skill will automatically end after 5 seconds of inactivity.
 
 ```JavaScript
-function _FaceDetection() {
+function _FaceRecognition() {
    misty.Debug("Face detected!”);
 
    misty.PlayAudio("005-OoAhhh.wav");
@@ -402,16 +402,16 @@ function _FaceDetection() {
 };
 ```
 
-With what we have so far, the skill will run indefinitely if no face is detected. To make the skill more complete, we need to write code to handle this “no face” situation. To accomplish this, let’s register for a timer event to trigger if no face was detected after 15 seconds. We register for this event just after we register for `"FaceDetection"` in our `misty.RegisterEvent()` method.
+With what we have so far, the skill will run indefinitely if no face is detected. To make the skill more complete, we need to write code to handle this “no face” situation. To accomplish this, let’s register for a timer event to trigger if no face was detected after 15 seconds. We register for this event just after we register for `"FaceRecognition"` in our `misty.RegisterEvent()` method.
 
 ```JavaScript
-misty.RegisterTimerEvent("FaceDetectionTimeout", 15000);
+misty.RegisterTimerEvent("FaceRecognitionTimeout", 15000);
 ```
 
-Then within the callback (again, automatically named `_FaceDetectionTimeout()`), we log a debug message to indicate the timeout was called, turn the LED off, and send the command to stop face detection. After this command has been issued, Misty will be inactive and the skill will automatically end after 5 seconds. 
+Then within the callback (again, automatically named `_FaceRecognitionTimeout()`), we log a debug message to indicate the timeout was called, turn the LED off, and send the command to stop face detection. After this command has been issued, Misty will be inactive and the skill will automatically end after 5 seconds. 
 
 ```JavaScript
-function _FaceDetectionTimeout() {
+function _FaceRecognitionTimeout() {
    misty.Debug("face detection timeout called, it's taking too long...");
 
    misty.ChangeLED(0, 0, 0); // black
@@ -428,15 +428,15 @@ See the complete JavaScript code below or [download the tutorial code from GitHu
 misty.Debug("starting skill helloworld_facedetection");
 
 // Register for face detection event
-misty.RegisterEvent("FaceDetection", "ComputerVision", 250);
+misty.RegisterEvent("FaceRecognition", "FaceRecognition", 250);
 // Timer event cancels the skill
 // if no face is detected after 15 seconds
-misty.RegisterTimerEvent("FaceDetectionTimeout", 15000);
+misty.RegisterTimerEvent("FaceRecognitionTimeout", 15000);
 
 misty.StartFaceDetection();
 
-// FaceDetection event callback
-function _FaceDetection() {
+// FaceRecognition event callback
+function _FaceRecognition() {
     misty.Debug("Face detected!");
     // Play an audio clip
     misty.PlayAudio("005-OoAhhh.wav");
@@ -446,8 +446,8 @@ function _FaceDetection() {
     misty.StopFaceDetection();
 };
 
-// FaceDetectionTimeout callback
-function _FaceDetectionTimeout() {
+// FaceRecognitionTimeout callback
+function _FaceRecognitionTimeout() {
     misty.Debug("face detection timeout called, it's taking too long...");
 
     // Change LED to black
@@ -725,12 +725,12 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 
 The first skill file we’ll look at, `HelloWorld_TriggerSkill1.js`, acts as our “parent” skill. The purpose of this skill is to register for our `TimeOfFlight` and `FaceRecognition` events. As the “child” skills are triggered by these events, this skill then runs in the background. 
 
-We start by calling the `misty.RegisterEvent()` command. In it, we register for `FaceRecognition` events with an event name of `ComputerVision`. Set    `debounceMS` to `5000`, `keepAlive` to `true`, and the callback rule to `Synchronous`. This is all typical for event registration.
+We start by calling the `misty.RegisterEvent()` command. In it, we register for `FaceRecognition` events with an event name of `FaceRecognition`. Set `debounceMS` to `5000`, `keepAlive` to `true`, and the callback rule to `Synchronous`. This is all typical for event registration.
 
 The difference from normal event registration happens when we use an optional parameter (`skillToCall`) to designate which skill we want the `FaceRecognition` event to trigger. We do that by providing by the GUID of that skill. In this case the face recognition event is going to trigger the `HelloWorld_TriggerSkill2.js` skill, so we provide the GUID for _that_ skill here. In this case, it’s `28c7cb66-91d4-4c8f-a8af-bb667ce18099`.
 
 ```JavaScript
-misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 ```
 
 We also want to add a return property check above the registration call, to return just the property `PersonName` for use in our callback. Pass in the name of the event first, then the property we want.
@@ -739,7 +739,7 @@ We also want to add a return property check above the registration call, to retu
 misty.AddReturnProperty("FaceRecognition", "PersonName");
 ```
 
-Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `ComputerVision` event subscription).
+Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `FaceRecognition` event subscription).
 
 ```JavaScript
  misty.StartFaceRecognition();
@@ -754,7 +754,7 @@ misty.AddReturnProperty("FaceRecognition", "PersonName");
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
 // HelloWorld_TriggerSkill2.
-misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 
 misty.StartFaceRecognition();
 ```
@@ -786,7 +786,7 @@ misty.AddReturnProperty("FaceRecognition", "PersonName");
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
 // HelloWorld_TriggerSkill2.
-misty.RegisterEvent("FaceRecognition", "ComputerVision", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
+misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 
 misty.StartFaceRecognition();
 

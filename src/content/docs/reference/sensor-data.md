@@ -32,9 +32,9 @@ TimeOfFlight{
 }
 ```
 
-## ComputerVision (Beta)
+## FaceRecognition (Beta)
 
-You can subscribe to the ```ComputerVision``` WebSocket to obtain data on both face detection and face recognition events.
+You can subscribe to the ```FaceRecognition``` WebSocket to obtain data on both face detection and face recognition events.
 
 The ```EventName``` value is the name you provide when you register the WebSocket connection.  
 
@@ -42,9 +42,9 @@ If face recognition is running on the robot, and a previously trained face is re
 
 ```TrackId``` is reserved data that may change in the future.
 
-Sample ComputerVision data for a face recognition event:
+Sample FaceRecognition data for a face recognition event:
 ```javascript
-ComputerVision{
+FaceRecognition{
 	"EventName":"MyFaceRecognition",
 	"Message":{
 		"Bearing":-3,
@@ -56,58 +56,6 @@ ComputerVision{
 		"SensorId":null,
 		"SensorName":null,
 		"TrackId":0
-	},
-	"Type":"ComputerVision"
-}
-```
-
-## FaceDetection (Deprecated)
-
-**Note**: The ```FaceDetection``` WebSocket is deprecated. Use the ```ComputerVision``` WebSocket instead.
-
-The ```FaceDetection``` WebSocket returns only raw face detection data. Currently, this sensory data is not aggregated with other face data, so there may be empty and ```null``` fields.
-
-The ```FaceDetection``` WebSocket data is sent only upon a sensory message trigger. It is not sent at timed intervals. The approximate transmission rate of ```FaceDetection``` data is 4x/second, but this timing can vary.
-
-Sample face detection data:
-```javascript
-FaceDetection{
-	"EventName":"FaceDetection",
-	"Message":{
-		"Bearing":-3,
-		"Created":"2018-04-02T16:25:00.6934206Z",
-		"Distance":71,
-		"Elevation":3,
-		"Expiry":"2018-04-02T16:25:01.4434254Z",
-		"FaceId":3,
-		"PersonName":null,
-		"SensorId":null
-	},
-	"Type":"FaceDetection"
-}
-```
-
-## FaceRecognition (Deprecated)
-
-**Note**: The ```FaceRecognition``` WebSocket is deprecated. Use the ```ComputerVision``` WebSocket instead.
-
-The ```FaceRecognition``` WebSocket returns only raw face recognition data. Currently, this sensory data is not aggregated with other face data, so there may be empty and ```null``` fields, including the recognized name.
-
-The ```FaceRecognition``` WebSocket data is sent only upon a sensory message trigger. It is not sent at timed intervals. The approximate transmission rate of ```FaceRecognition``` data is 1x/second, but this timing can vary.
-
-Sample face recognition data:
-```javascript
-FaceRecognition{
-	"EventName":"FaceRecognition",
-	"Message":{
-		"Bearing":0,
-		"Created":"2018-04-02T16:26:20.1718422Z",
-		"Distance":0,
-		"Elevation":0,
-		"Expiry":"2018-04-02T16:26:20.9218446Z",
-		"FaceId":12,
-		"PersonName":"Barkley",
-		"SensorId":null
 	},
 	"Type":"FaceRecognition"
 }
