@@ -1225,13 +1225,13 @@ Arguments
 misty.FollowPath("100:250,125:275...");
 ```
 
-### misty.SlamGetMap - ALPHA
+### misty.GetMap - ALPHA
 
 Obtains occupancy grid data for the most recent map Misty has generated. 
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
-**Note:** To obtain a valid response from `misty.SlamGetRawMap()`, Misty must first have successfully generated a map. 
+**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
@@ -1241,7 +1241,7 @@ Each cell corresponds to a pair of X,Y coordinates that you can use with the `mi
 
 ```JavaScript
 // Syntax
-misty.SlamGetMap([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetMap([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -1253,7 +1253,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamGetMap();
+misty.GetMap();
 ```
 
 Returns

@@ -1198,9 +1198,9 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### SlamGetRawMap - ALPHA
+### GetMap - ALPHA
 
-Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `SlamGetRawMap`, Misty must first have successfully generated a map. 
+Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. 
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
@@ -1232,7 +1232,7 @@ Return Values
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
 
-**Note:** `SlamGetRawMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
 **Important!** Make sure to use `SlamStartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
 
@@ -1262,7 +1262,7 @@ Drives to a designated waypoint.
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/location
 
 Parameters
-* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `SlamGetRawMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
 ```json
 “Destination": “10:25"

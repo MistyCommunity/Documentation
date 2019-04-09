@@ -1307,7 +1307,7 @@ async function getMap() {
 
 **Note:** If the program is running properly, these log messages should appear in order. If they don’t (if you see message 3 before message 2), then something isn’t right and you need to attempt to debug the issue.
 
-In order to get the raw map data Misty just collected, use `axios.get()` to send a GET request to the endpoint for the `SlamGetRawMap` command. Use `then()` to call two new functions, `unsubscribeSelfState()` and `processMap()`. We use these commands to respectively unsubscribe from the event and generate a graphical map from the map data. Log any errors to the console within a `catch()` statement. 
+In order to get the raw map data Misty just collected, use `axios.get()` to send a GET request to the endpoint for the `GetMap` command. Use `then()` to call two new functions, `unsubscribeSelfState()` and `processMap()`. We use these commands to respectively unsubscribe from the event and generate a graphical map from the map data. Log any errors to the console within a `catch()` statement. 
 
 ```js
 async function getMap() {
@@ -1324,7 +1324,7 @@ async function getMap() {
     console.log("3 - Mapping has stopped, obtaining map");
 
     // Use axios.get() to send a GET request 
-    // to the endpoint for the SlamGetRawMap command.
+    // to the endpoint for the GetMap command.
     // Use then() to call unsubscribeSelfState() and processMap().
     axios.get("http://" + ip + "/api/alpha/slam/map/raw")
         .then((data) => {
@@ -1352,7 +1352,7 @@ function unsubscribeSelfState() {
 }
 ```
 
-The `processMap()` function is called to isolate the map data after we receive a response from the `SlamGetRawMap` command.  Declare a function `processMap()`. This function starts by printing another log message indicating we have received the map data. Define a variable, `data` to store the map data within the response. 
+The `processMap()` function is called to isolate the map data after we receive a response from the `GetMap` command.  Declare a function `processMap()`. This function starts by printing another log message indicating we have received the map data. Define a variable, `data` to store the map data within the response. 
 
 ```js
 // Define processMap()
@@ -1374,7 +1374,7 @@ function processMap(res) {
 }
 ```
 
-The data returned by `SlamGetRawMap` includes a two-dimensional matrix with values representing individual cells of space on the map. Each cell in the matrix has a value of 0, 1, 2, or 3 -- 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. The `drawMap()` function iterates over each value in the matrix to generate a two-dimensional graphical representation of the map.
+The data returned by `GetMap` includes a two-dimensional matrix with values representing individual cells of space on the map. Each cell in the matrix has a value of 0, 1, 2, or 3 -- 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. The `drawMap()` function iterates over each value in the matrix to generate a two-dimensional graphical representation of the map.
 
 Insert the helper function `drawMap()` at the end of the program.
 
