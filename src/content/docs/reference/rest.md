@@ -1207,7 +1207,7 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 
 **Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/path
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
 
 Parameters
 * X (integer) - The X coordinate of the destination.
