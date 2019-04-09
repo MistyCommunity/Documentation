@@ -91,7 +91,7 @@ payload = JSON.stringify(data);
 Send the request, including the data:
 
 ```javascript
-client.PostCommand("led/change", payload, function(result) {
+client.PostCommand("led", payload, function(result) {
     if(result) {
         console.log("Request Successful")
     }

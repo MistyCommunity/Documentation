@@ -63,13 +63,13 @@ Now we’re ready to write the code to send the command to Misty. We do this by 
 * the URL of the request, and
 * the data to send with the request. 
 
-The REST API endpoint for the `ChangeLED` command is `http://<robotipaddress>/api/led/change`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
+The REST API endpoint for the `ChangeLED` command is `http://<robotipaddress>/api/led`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
 
 ```JavaScript
 // Call axios.post(). Pass the URL of the ChangeLED 
 // endpoint as the first parameter and the data object 
 // as the second.
-axios.post("http://" + ip + "/api/led/change", data)
+axios.post("http://" + ip + "/api/led", data)
 ```
 
 Because Axios is promise based, we need to use a `then()` method after calling `axios.post()`. This method returns a promise and triggers a callback function if the promise is fulfilled. We pass a callback function to `then()` to interpret information from the return values of the POST call and print a message to the console about whether the request was a failure or success.
@@ -79,7 +79,7 @@ Because Axios is promise based, we need to use a `then()` method after calling `
 // Pass in a callback function to interpret the return 
 // values of the call and to print a message to the console 
 // indicating the request's success.
-axios.post("http://" + ip + "/api/led/change", data)
+axios.post("http://" + ip + "/api/led", data)
     .then(function (response) {
         console.log(`ChangeLED was a ${response.data[0].status}`);
     })
@@ -91,7 +91,7 @@ We use a `catch()` method after `then()`, which triggers if the promise is rejec
 // Use a catch() method after then(). catch() triggers 
 // if the promise is rejected. Pass a callback to catch() 
 // to print any errors to the console.
-axios.post("http://" + ip + "/api/led/change", data)
+axios.post("http://" + ip + "/api/led", data)
     .then(function (response) { 
         console.log(`ChangeLED was a ${response.data[0].status}`);
     })

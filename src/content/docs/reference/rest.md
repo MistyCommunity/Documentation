@@ -745,7 +745,7 @@ Return Values
 ### ChangeLED
 Changes the color of the LED light behind the logo on Misty's torso.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/led/change
+Endpoint: POST &lt;robot-ip-address&gt;/api/led
 
 Parameters
 - Red (byte) - The red RGB color value (range 0 to 255).
