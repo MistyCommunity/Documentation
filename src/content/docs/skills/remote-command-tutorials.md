@@ -1326,7 +1326,7 @@ async function getMap() {
     // Use axios.get() to send a GET request 
     // to the endpoint for the GetMap command.
     // Use then() to call unsubscribeSelfState() and processMap().
-    axios.get("http://" + ip + "/api/alpha/slam/map/raw")
+    axios.get("http://" + ip + "/api/slam/map")
         .then((data) => {
 		    unsubscribeSelfState();
 			processMap(data);

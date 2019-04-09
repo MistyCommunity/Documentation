@@ -1175,15 +1175,11 @@ Obtains occupancy grid data for the most recent map Misty has generated. **Note:
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
-The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: “unknown", “open", “occupied", or “covered").
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
-Endpoint: &lt;robot-ip-address&gt;/api/alpha/slam/map/raw 
-
-or 
-
-&lt;robot-ip-address&gt;/api/alpha/slam/map 
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
 
 Parameters
  * None
