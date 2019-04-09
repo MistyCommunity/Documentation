@@ -1335,7 +1335,7 @@ Return Values
 ### CancelSkill - ALPHA
 Stops a specified running skill (or all running skills if no name is specified).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/sdk/skills/cancel
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
 
 Parameters
 * Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
