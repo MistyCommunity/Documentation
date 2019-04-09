@@ -230,11 +230,11 @@ Return Values
 ### GetImage - ALPHA
 Obtains a system or user-uploaded image file currently stored on Misty
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/image?FileName=&lt;name-of-image-file.extension&gt;
+Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
 
 Example:
 
-`http://&lt;robot-ip-address&gt;/api/image?FileName=Content.jpg&Base64=false`
+`http://&lt;robot-ip-address&gt;/api/images?FileName=happy.png&Base64=false`
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
