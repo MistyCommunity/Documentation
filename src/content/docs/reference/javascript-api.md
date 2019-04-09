@@ -362,7 +362,7 @@ Want Misty to say something different or play a special tune when she recognizes
 
 <!-- Audio - PRODUCTION -->
 
-### misty.GetListOfAudioFiles
+### misty.GetAudioList
 
 Lists all audio files (default system files and user-added files) currently stored on Misty.
 
@@ -370,7 +370,7 @@ Lists all audio files (default system files and user-added files) currently stor
 
 ```JavaScript
 // Syntax
-misty.GetListOfAudioFiles([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetAudioList([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -382,7 +382,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.GetListOfAudioFiles();
+misty.GetAudioList();
 ```
 
 Returns
@@ -395,12 +395,12 @@ Returns
 
 
 
-### misty.PlayAudioClip
+### misty.PlayAudio
 Plays an audio clip that has been previously saved to Misty's storage.
 
 ```JavaScript
 // Syntax
-misty.PlayAudioClip(string fileName, [int volume], [int prePause], [int postPause]);
+misty.PlayAudio(string fileName, [int volume], [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -411,16 +411,15 @@ Arguments
 
 ```JavaScript
 // Example
-misty.PlayAudioClip("Play.wav", 100);
+misty.PlayAudio("Play.wav", 100);
 ```
 
-<!-- misty.SaveAudioAssetToRobot -->
-### misty.SaveAudioAssetToRobot
+### misty.SaveAudio
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 ```JavaScript
 // Syntax
-misty.SaveAudioAssetToRobot(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
+misty.SaveAudio(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePause], [int postPause])
 ```
 
 Arguments
@@ -433,7 +432,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SaveAudioAssetToRobot("Filename.wav", "137,80,78,71,13,1...", false, false);
+misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 ```
 
 <!-- Audio - BETA -->
@@ -740,7 +739,7 @@ misty.GetHelp([string endpointName], [string callbackMethod], [string callbackRu
 ```
 
 Arguments
-* endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetListOfAudioFiles"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
+* endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetAudioList"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
 * callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.

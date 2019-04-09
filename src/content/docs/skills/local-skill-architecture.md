@@ -85,15 +85,15 @@ A "get" callback function must have exactly one parameter. That parameter holds 
 StartMySkill();
 
 function StartMySkill() {
-	misty.GetListOfAudioFiles();
+	misty.GetAudioList();
 }
 
-function _GetListOfAudioFiles(callbackData) {
+function _GetAudioList(callbackData) {
     var audioList = callbackData.Result;
     if (audioList.length > 0) {
         var randomInt = Math.floor(Math.random() * audioList.length);
         var currentSound = audioList[randomInt].Name;
-        misty.PlayAudioClip(currentSound);
+        misty.PlayAudio(currentSound);
     }
 }
 ```
@@ -231,7 +231,7 @@ function StartSkill() {
 function _GetImageList(response) {
     if (response.Result.length != _imageCount) {
         misty.Debug("Wrong number of expected images!");
-        misty.PlayAudioClip("SadSound.wav", 50);
+        misty.PlayAudio("SadSound.wav", 50);
     }
 }
 ```

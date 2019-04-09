@@ -389,7 +389,7 @@ Return Values
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-### GetListOfAudioFiles
+### GetAudioList
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio
@@ -402,8 +402,8 @@ Return Values
    * Name (string) - The name of the audio file.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-### PlayAudioClip
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudioAssetToRobot` to upload audio files to Misty.
+### PlayAudio
+Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
 
@@ -421,7 +421,7 @@ Parameters
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
 
-### SaveAudioAssetToRobot (Byte Array String)
+### SaveAudio (Byte Array String)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
@@ -447,7 +447,7 @@ Return Values
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 
-### SaveAudioAssetToRobot (Audio File)
+### SaveAudio (Audio File)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio

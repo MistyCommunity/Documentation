@@ -170,16 +170,16 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 ### Writing the Code File
 
-We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetListOfAudioFiles()` method to fetch the list of audio files currently stored on the robot.
+We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetAudioList()` method to fetch the list of audio files currently stored on the robot.
 
 ```JavaScript
-misty.GetListOfAudioFiles();
+misty.GetAudioList();
 ```
 
 Each command’s callback is automatically set to be `_<COMMAND>`. When the data is returned, the callback runs.
 
 ```JavaScript
-function _GetListOfAudioFiles(data) { 
+function _GetAudioList(data) { 
 
 }
 ```
@@ -200,13 +200,13 @@ let randSound = audioArr[randNum].Name;
 misty.Debug(randSound);
 ```
 
-Finally, we call another Misty command, `PlayAudioClip()`, and pass in the random file name to play the audio clip. 
+Finally, we call another Misty command, `PlayAudio()`, and pass in the random file name to play the audio clip. 
 
 ```JavaScript
-misty.PlayAudioClip(randSound);
+misty.PlayAudio(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetListOfAudioFiles()` to ensure that it does not run until the audio list has been populated. 
+Note: All of this logic needs to be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../skills/tools/#misty-skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
@@ -217,10 +217,10 @@ See the full JavaScript code file below or [download the code from GitHub](https
 misty.Debug("starting skill helloworld_playaudio");
 
 // Issue command to fetch list of audio clips
-misty.GetListOfAudioFiles();
+misty.GetAudioList();
 
-// Callback to handle data returned by GetListOfAudioFiles()
-function _GetListOfAudioFiles(data) {
+// Callback to handle data returned by GetAudioList()
+function _GetAudioList(data) {
     // Check if data was received
     if (data) {
         // Capture the array of files
@@ -234,7 +234,7 @@ function _GetListOfAudioFiles(data) {
         misty.Debug(randSound);
 
         // Issue command to play the audio clip
-        misty.PlayAudioClip(randSound);
+        misty.PlayAudio(randSound);
     }
 }
 ```
@@ -273,16 +273,16 @@ Start by calling `StartRecordingAudio()` to tell the microphone to start recordi
    misty.Pause(2000);
 ```
 
-Once the clip has been saved, check that the recording was saved correctly. To do this, call `GetListOfAudioFiles()`. As mentioned in previous tutorials, the callback function (automatically named `_<COMMAND>`) will run once the data is ready to be received.
+Once the clip has been saved, check that the recording was saved correctly. To do this, call `GetAudioList()`. As mentioned in previous tutorials, the callback function (automatically named `_<COMMAND>`) will run once the data is ready to be received.
 
 ```JavaScript
-misty.GetListOfAudioFiles();
-function _GetListOfAudioFiles(data) {
+misty.GetAudioList();
+function _GetAudioList(data) {
 
 }
 ```
 
-Now that we have the data, we want to check that our recording shows up in the list. Once way to do this is to create a boolean variable to indicate whether the list contains the file. Then, loop through the list and check if the name of any of the audio files match the name of your recording. If it does, change the boolean from `false` to `true`. **Note:** This logic needs to be contained within the callback, as it uses the data received from the `GetListOfAudioFiles()` command.
+Now that we have the data, we want to check that our recording shows up in the list. Once way to do this is to create a boolean variable to indicate whether the list contains the file. Then, loop through the list and check if the name of any of the audio files match the name of your recording. If it does, change the boolean from `false` to `true`. **Note:** This logic needs to be contained within the callback, as it uses the data received from the `GetAudioList()` command.
 
 ```JavaScript
 let containsNewFile = false;
@@ -293,11 +293,11 @@ for (let i = 0; i < audioArr.length; i++) {
 }
 ```
 
-If the list contains the recording, we can call `PlayAudioClip()` to play the recording and end the program. Otherwise, use `Debug()` to print an error message, as something went wrong with the process.
+If the list contains the recording, we can call `PlayAudio()` to play the recording and end the program. Otherwise, use `Debug()` to print an error message, as something went wrong with the process.
 
 ```JavaScript
 if (containsNewFile) {
-   misty.PlayAudioClip("RecordingExample.wav", 100, 500);
+   misty.PlayAudio("RecordingExample.wav", 100, 500);
 }
 else {
    misty.Debug("file was not found");
@@ -322,12 +322,12 @@ misty.StopRecordingAudio();
 misty.Pause(2000);
 
 // Send request to fetch list of audio files
-misty.GetListOfAudioFiles();
+misty.GetAudioList();
 
 // Define the callback for request
-function _GetListOfAudioFiles(data) {
+function _GetAudioList(data) {
     // Get the array of audio files from the data returned 
-    // by GetListOfAudioFiles()
+    // by GetAudioList()
     let audioArr = data.Result;
 
     // Initialize a variable to tell us if the list contains 
@@ -345,7 +345,7 @@ function _GetListOfAudioFiles(data) {
 
     // If list contains recording, issue a command to play the recording
     if (containsNewFile) {
-        misty.PlayAudioClip("RecordingExample.wav", 100, 500);
+        misty.PlayAudio("RecordingExample.wav", 100, 500);
     }
     else {
         // If the list does not contain the recording, print an error message
@@ -396,7 +396,7 @@ Within the callback (automatically named `_FaceDetection()`) we should log a deb
 function _FaceDetection() {
    misty.Debug("Face detected!”);
 
-   misty.PlayAudioClip("005-OoAhhh.wav");
+   misty.PlayAudio("005-OoAhhh.wav");
    misty.ChangeLED(255, 255, 255); // white
    misty.StopFaceDetection();
 };
@@ -439,7 +439,7 @@ misty.StartFaceDetection();
 function _FaceDetection() {
     misty.Debug("Face detected!");
     // Play an audio clip
-    misty.PlayAudioClip("005-OoAhhh.wav");
+    misty.PlayAudio("005-OoAhhh.wav");
     // Change LED to white
     misty.ChangeLED(255, 255, 255);
     // Stop face detection
@@ -879,14 +879,14 @@ Then, use an `if` statement to check that the distance is less than `0.1m`. If s
 ```JS
 if (distance < 0.1) {
     // Play irritated audio clip
-    misty.PlayAudioClip("002-Ahhh.wav", 100);
+    misty.PlayAudio("002-Ahhh.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
     // Drive forward
     misty.DriveTime(50, 0, 1000);
 }
 else {
     // Play happy audio clip
-    misty.PlayAudioClip("004-WhaooooO.wav", 100);
+    misty.PlayAudio("004-WhaooooO.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
 }
 ```
@@ -905,14 +905,14 @@ function _BackTOF(data) {
     // Check the value of distance
     if (distance < 0.1) {
         // Play irritated audio clip
-        misty.PlayAudioClip("002-Ahhh.wav", 100);
+        misty.PlayAudio("002-Ahhh.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
         // Drive forward
         misty.DriveTime(50, 0, 1000);
     }
     else {
         // Play happy audio clip
-        misty.PlayAudioClip("004-WhaooooO.wav", 100);
+        misty.PlayAudio("004-WhaooooO.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
     }
 }
@@ -996,7 +996,7 @@ Within the `_FrontTOF()` callback, we actually call `misty.MoveHeadPosition()` m
 
 ```JavaScript
 misty.ChangeLED(0, 255, 255); // aqua
-misty.PlayAudioClip("001-OooOooo.wav");
+misty.PlayAudio("001-OooOooo.wav");
 
 // pitch
 misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500); // pitch up
@@ -1004,7 +1004,7 @@ misty.MoveHeadPosition(5, 0, 0, 60, 0, 1500); // pitch down
 misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // pitch center
 
 misty.ChangeLED(255, 0, 255); // magenta
-misty.PlayAudioClip("004-WhaooooO.wav");
+misty.PlayAudio("004-WhaooooO.wav");
 
 // yaw
 misty.MoveHeadPosition(0, 0, -5, 60, 0, 1500); // yaw left
@@ -1012,7 +1012,7 @@ misty.MoveHeadPosition(0, 0, 5, 60, 0, 1500); // yaw right
 misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // yaw center
 
 misty.ChangeLED(255, 255, 0); // yellow
-misty.PlayAudioClip("004-EuuEuuuuu.wav");
+misty.PlayAudio("004-EuuEuuuuu.wav");
 
 // roll
 misty.MoveHeadPosition(0, -5, 0, 60, 0, 1500); // roll left
@@ -1020,7 +1020,7 @@ misty.MoveHeadPosition(0, 5, 0, 60, 0, 1500); // roll right
 misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // roll center
 
 misty.ChangeLED(0, 0, 0); // off
-misty.PlayAudioClip("010-Hummmmmm.wav");
+misty.PlayAudio("010-Hummmmmm.wav");
 ```
 
 #### Moving Misty's Arms
@@ -1047,21 +1047,21 @@ As we did with head movement, within the callback we can call `misty.MoveArmPosi
 ```JavaScript
 function _BackTOF() {
     misty.ChangeLED(0, 255, 0) // lime
-    misty.PlayAudioClip("006-Urhurra.wav");
+    misty.PlayAudio("006-Urhurra.wav");
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
-    misty.PlayAudioClip("001-EeeeeeE.wav");
+    misty.PlayAudio("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudioClip("010-Hummmmmm.wav");
+    misty.PlayAudio("010-Hummmmmm.wav");
 
     misty.Debug("ending skill HelloWorld_HeadArms");
 }
@@ -1086,7 +1086,7 @@ misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100);
 function _FrontTOF(data) {
     misty.Debug(data);
     misty.ChangeLED(0, 255, 255); // aqua
-    misty.PlayAudioClip("001-OooOooo.wav");
+    misty.PlayAudio("001-OooOooo.wav");
 
     // pitch
     misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500); // pitch up
@@ -1094,7 +1094,7 @@ function _FrontTOF(data) {
     misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // pitch center
 
     misty.ChangeLED(255, 0, 255); // magenta
-    misty.PlayAudioClip("004-WhaooooO.wav");
+    misty.PlayAudio("004-WhaooooO.wav");
 
     // yaw
     misty.MoveHeadPosition(0, 0, -5, 60, 0, 1500); // yaw left
@@ -1102,7 +1102,7 @@ function _FrontTOF(data) {
     misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // yaw center
 
     misty.ChangeLED(255, 255, 0); // yellow
-    misty.PlayAudioClip("004-EuuEuuuuu.wav");
+    misty.PlayAudio("004-EuuEuuuuu.wav");
 
     // roll
     misty.MoveHeadPosition(0, -5, 0, 60, 0, 1500); // roll left
@@ -1110,7 +1110,7 @@ function _FrontTOF(data) {
     misty.MoveHeadPosition(0, 0, 0, 60, 0, 1500); // roll center
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudioClip("010-Hummmmmm.wav");
+    misty.PlayAudio("010-Hummmmmm.wav");
 
     // register for back TOF and add property tests
     misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
@@ -1121,21 +1121,21 @@ function _FrontTOF(data) {
 // back TOF callback, arms
 function _BackTOF() {
     misty.ChangeLED(0, 255, 0) // lime
-    misty.PlayAudioClip("006-Urhurra.wav");
+    misty.PlayAudio("006-Urhurra.wav");
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
-    misty.PlayAudioClip("001-EeeeeeE.wav");
+    misty.PlayAudio("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
     misty.MoveArmPosition("Right", 0, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
-    misty.PlayAudioClip("010-Hummmmmm.wav");
+    misty.PlayAudio("010-Hummmmmm.wav");
 
     misty.Debug("ending skill HelloWorld_HeadArms");
 }
@@ -1175,25 +1175,25 @@ To begin, send a debug message to indicate the skill is running.
 misty.Debug("HelloWorld_BumpSensors is running")
 ```
 
-Then call `misty.GetListOfAudioFiles()` to fetch the list of audio clips on Misty's local storage. Data returned by "Get" type commands must be passed into a callback function to be used in your skill. For the first parameter of `misty.GetListOfAudioFiles()`, designate a name for the callback function to run when the audio data is ready (`_GetListOfAudioFiles`). Pass `"synchronous"` for the second parameter (`callbackRule`). 
+Then call `misty.GetAudioList()` to fetch the list of audio clips on Misty's local storage. Data returned by "Get" type commands must be passed into a callback function to be used in your skill. For the first parameter of `misty.GetAudioList()`, designate a name for the callback function to run when the audio data is ready (`_GetAudioList`). Pass `"synchronous"` for the second parameter (`callbackRule`). 
 
 ```JavaScript
-misty.GetListOfAudioFiles("_GetListOfAudioFiles","synchronous");
+misty.GetAudioList("_GetAudioList","synchronous");
 ```
 
-The `_GetListOfAudioFiles()` callback triggers when the data from `misty.GetListOfAudioFiles()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-quot-get-quot-data-callbacks)
+The `_GetAudioList()` callback triggers when the data from `misty.GetAudioList()` is ready. We use this callback to handle the data and make it available to the rest of our skill. For more information about data and callbacks, see ["Get" Data Callbacks](../../skills/local-skill-architecture/#-quot-get-quot-data-callbacks)
 
-Next write the logic for the `_GetListOfAudioFiles()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetListOfAudioFiles()`.
+Next write the logic for the `_GetAudioList()` callback function. Declare the function and pass in a parameter (here we use `data`) to access the audio data returned by `misty.GetAudioList()`.
 
 ```JavaScript
-function _GetListOfAudioFiles(data) {
+function _GetAudioList(data) {
 
 }
 ```
 
-When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetListOfAudioFiles()`, which contains an array of audio file data. In Misty's on-robot JavaScript API, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
+When the list of audio clips is available, we can assign the names of different audio files to four unique global variables. We access the names of audio files by digging into the response data from `misty.GetAudioList()`, which contains an array of audio file data. In Misty's on-robot JavaScript API, global variables are prefixed with an underscore (i.e. `_globalVar`) and do not require identifiers such as `var`, `let`, or `const`.
 
-In the `_GetListOfAudioFiles()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
+In the `_GetAudioList()` callback, assign the first four results in the audio data array to four unique global variables. These variables can be accessed from within the callback we write to handle bump sensor events, where we'll map them to each of Misty's bump sensors.
 
 ```JavaScript
 _audio1 = data.Result[0].Name;
@@ -1220,10 +1220,10 @@ The callback for our bump sensor event triggers when any of Misty's sensors are 
 misty.AddReturnProperty("BumpSensor", "sensorName");
 ```
 
-The full `_GetListOfAudioFiles()` callback looks like this.
+The full `_GetAudioList()` callback looks like this.
 
 ```JavaScript
-function _GetListOfAudioFiles(data) {
+function _GetAudioList(data) {
    _audio1 = data.Result[0].Name;
    _audio2 = data.Result[1].Name;
    _audio3 = data.Result[2].Name;
@@ -1243,28 +1243,28 @@ function _BumpSensor(data) {
 }
 ```
 
-We want to issue a `misty.PlayAudioClip()` command with a different audio file each time a bump sensor activates. To do this, write a `switch` statement and pass in the `sensorName` variable. The value of `sensorName` will be string indicating which of the four bump sensors was pressed: `"Bump_FrontRight"`, `"Bump_FrontLeft"`, `"Bump_RearRight"`, or `"Bump_RearLeft"`. Declare a case for each of these values. Within each case, send a debug message indicating which sensor was pressed. Then issue a `misty.PlayAudioClip()` command and pass in one of the global variables to which we assigned an audio file in the `_GetListOfAudioFiles()` callback. For the second parameter (`volume`), pass an integer between 1 and 100.
+We want to issue a `misty.PlayAudio()` command with a different audio file each time a bump sensor activates. To do this, write a `switch` statement and pass in the `sensorName` variable. The value of `sensorName` will be string indicating which of the four bump sensors was pressed: `"Bump_FrontRight"`, `"Bump_FrontLeft"`, `"Bump_RearRight"`, or `"Bump_RearLeft"`. Declare a case for each of these values. Within each case, send a debug message indicating which sensor was pressed. Then issue a `misty.PlayAudio()` command and pass in one of the global variables to which we assigned an audio file in the `_GetAudioList()` callback. For the second parameter (`volume`), pass an integer between 1 and 100.
 
 ```JavaScript
 switch (sensorName) {
     case "Bump_FrontRight":
         misty.Debug("front right bump sensor was pressed")
-        misty.PlayAudioClip(_audio1, 75);
+        misty.PlayAudio(_audio1, 75);
         break
 
     case "Bump_FrontLeft":
         misty.Debug("front left bump sensor was pressed")
-        misty.PlayAudioClip(_audio2, 75);
+        misty.PlayAudio(_audio2, 75);
         break
 
     case "Bump_RearRight":
         misty.Debug("rear right bump sensor was pressed")
-        misty.PlayAudioClip(_audio3, 75);
+        misty.PlayAudio(_audio3, 75);
         break
 
     case "Bump_RearLeft":
         misty.Debug("rear left bump sensor was pressed")
-        misty.PlayAudioClip(_audio4, 75);
+        misty.PlayAudio(_audio4, 75);
         break
 }
 ```
@@ -1278,22 +1278,22 @@ function _BumpSensor(data) {
     switch (sensorName) {
         case "Bump_FrontRight":
             misty.Debug("front right bump sensor was pressed")
-            misty.PlayAudioClip(_audio1, 75);
+            misty.PlayAudio(_audio1, 75);
             break
 
         case "Bump_FrontLeft":
             misty.Debug("front left bump sensor was pressed")
-            misty.PlayAudioClip(_audio2, 75);
+            misty.PlayAudio(_audio2, 75);
             break
 
         case "Bump_RearRight":
             misty.Debug("rear right bump sensor was pressed")
-            misty.PlayAudioClip(_audio3, 75);
+            misty.PlayAudio(_audio3, 75);
             break
 
         case "Bump_RearLeft":
             misty.Debug("rear left bump sensor was pressed")
-            misty.PlayAudioClip(_audio4, 75);
+            misty.PlayAudio(_audio4, 75);
             break
     }
 }
@@ -1311,10 +1311,10 @@ See the complete JavaScript code below or [download the code files from GitHub](
 misty.Debug("HelloWorld_BumpSensors is running")
 
 // Fetch list of audio clips
-misty.GetListOfAudioFiles("_GetListOfAudioFiles","synchronous");
+misty.GetAudioList("_GetAudioList","synchronous");
 
 // Handle the list of audio clips
-function _GetListOfAudioFiles(data) {
+function _GetAudioList(data) {
    // Assign audio files from the list to global variables
    _audio1 = data.Result[0].Name;
    _audio2 = data.Result[1].Name;
@@ -1341,22 +1341,22 @@ function _BumpSensor(data) {
 
         case "Bump_FrontRight":
             misty.Debug("front right bump sensor pressed")
-            misty.PlayAudioClip(_audio1, 75);
+            misty.PlayAudio(_audio1, 75);
             break
 
         case "Bump_FrontLeft":
             misty.Debug("front left bump sensor pressed")
-            misty.PlayAudioClip(_audio2, 75);
+            misty.PlayAudio(_audio2, 75);
             break
 
         case "Bump_RearRight":
             misty.Debug("rear right bump sensor pressed")
-            misty.PlayAudioClip(_audio3, 75);
+            misty.PlayAudio(_audio3, 75);
             break
 
         case "Bump_RearLeft":
             misty.Debug("rear left bump sensor pressed")
-            misty.PlayAudioClip(_audio4, 75);
+            misty.PlayAudio(_audio4, 75);
             break
     }
 }
