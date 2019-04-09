@@ -1048,27 +1048,6 @@ Arguments
 misty.SetHeadDegrees("yaw", 90, 100);
 ```
 
-### misty.SetHeadPosition
-
-Moves Misty’s head to a given position along one of three axes (tilt, turn, or up-and-down).
-
-```JavaScript
-// Syntax
-misty.SetHeadPosition(string axis, double position, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a skill running on Misty I robots does nothing.
-* position (double) - Indicates the position to move Misty’s head to along the given axis. Value range is -5 to 5. For pitch, -5 is fully up and 5 is fully down. For roll, -5 is fully left and 5 is fully right. For yaw, -5 is fully right and 5 is fully left.
-* velocity (double) - The speed of the head movement. Value range: 0 to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SetHeadPosition("pitch", 0, 100);
-```
-
 ### misty.SetHeadRadians
 
 Moves Misty’s head to a given radian along one of three axes (tilt, turn, or up-and-down).

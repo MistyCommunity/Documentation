@@ -974,27 +974,6 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### SetHeadPosition - BETA
-Moves Misty's head to a given position along one of three axes (tilt, turn, or up-and-down).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/head/position
-
-Parameters
-- Axis (string) - The axis to change. Values are "yaw" (turn), "pitch" (up and down), or "roll" (tilt).
-- Position (double) - The position to move Misty's head along the given axis. Value range: -5 to 5.
-- Velocity (double) - The speed of the head movement. Value range: 0 to 10.
-
-```json
-{   
-  "Axis ": "yaw",
-  "position": 3,
-  "Velocity": 6
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
 ## Arm Movement
 
 ### MoveArm
