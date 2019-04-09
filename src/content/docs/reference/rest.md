@@ -491,7 +491,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### DeleteAudioAssetFromRobot - BETA
+### DeleteAudio - BETA
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
 **Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
