@@ -38,10 +38,30 @@ All successful commands return a status and the result of the call:
 ```
 If there is an issue, Misty returns an HTTP error code and error message.
 
+## Asset
+
+Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
+
+## Backpack
+
+## Event
+
+## Expression
+
+## External Requests
+
+## Movement
+
+## Navigation
+
+## Perception
+
+## Skill Management
+
+## System
+
+
 ## Images & Display
-
-Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
-
 
 ### DisplayImage
 

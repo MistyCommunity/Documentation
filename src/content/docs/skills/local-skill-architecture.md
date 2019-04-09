@@ -278,7 +278,7 @@ The system supplies the following types of helper commands to assist you in writ
 
 ### Skill Management Commands
 
-The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../docs/reference/rest/#skill-management-commands). These commands allow you to:
+The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../docs/reference/rest/#skill-management). These commands allow you to:
 
 * Upload skills to the robot
 * Load, reload, or unload one or more skills

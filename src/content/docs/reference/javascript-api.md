@@ -11,6 +11,28 @@ Use Misty's on-robot JavaScript API to write skills that run locally on your rob
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
+## Asset
+
+Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
+
+## Backpack
+
+## Event
+
+## Expression
+
+## External Requests
+
+## Movement
+
+## Navigation
+
+## Perception
+
+## Skill Management
+
+## System
+
 ## Images & Display
 
 <!-- Images & Display - PRODUCTION -->
