@@ -81,6 +81,35 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### GetAudioFile
+Obtains a system or user-uploaded audio file currently stored on Misty.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
+
+Parameters  
+**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
+- FileName (string): The name of the audio file to get, including its file type extension.
+
+```markup
+http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
+```
+
+Return Values
+- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
+### GetAudioList
+Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio/list
+
+Parameters
+- None
+
+Return Values
+* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+   * Name (string) - The name of the audio file.
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
 ### GetImage
 Obtains a system or user-uploaded image file currently stored on Misty
 
@@ -425,19 +454,6 @@ Return Values
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-### GetAudioList
-Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio/list
-
-Parameters
-- None
-
-Return Values
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
-   * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-
 ### PlayAudio
 Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
 
@@ -525,25 +541,6 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-<!-- Alpha - Audio -->
-
-### GetAudioFile
-Obtains a system or user-uploaded audio file currently stored on Misty.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
-
-Parameters  
-**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
-- FileName (string): The name of the audio file to get, including its file type extension.
-
-```markup
-http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
-```
-
-Return Values
-- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### SetDefaultVolume
 Sets the default loudness of Misty's speakers for audio playback.
