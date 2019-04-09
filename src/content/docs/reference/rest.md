@@ -120,6 +120,21 @@ Return Values
 }
 ```
 
+### GetImageList
+Obtains a list of the images currently stored on Misty.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/images/list
+
+Parameters
+- None
+
+Return Values
+* Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
+   * Height (integer) - the height of the image file
+   * Name (string) - the name of the image file
+   * Width (integer) - the width of the image file
+   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
 ## Backpack
 
 ## Event
@@ -165,22 +180,6 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### GetImageList
-Obtains a list of the images currently stored on Misty.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/images/list
-
-Parameters
-- None
-
-Return Values
-* Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
-   * Height (integer) - the height of the image file
-   * Name (string) - the name of the image file
-   * Width (integer) - the width of the image file
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 ### SaveImage (Byte Array String)
 Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
