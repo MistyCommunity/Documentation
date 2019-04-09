@@ -1091,7 +1091,7 @@ Return Values
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
-### SlamGetStatus - ALPHA
+### GetSlamStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/status
