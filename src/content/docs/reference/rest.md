@@ -1132,7 +1132,7 @@ public enum SlamSensorStatus
 ```
 
 
-### SlamReset - ALPHA
+### ResetSlam - ALPHA
 Resets the SLAM sensors.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/reset

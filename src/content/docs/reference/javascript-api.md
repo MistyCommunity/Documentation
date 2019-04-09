@@ -1347,12 +1347,12 @@ public enum SlamSensorStatus
 }
 ```
 
-### misty.SlamReset - ALPHA
+### misty.ResetSlam - ALPHA
 Resets Misty's SLAM sensors.
 
 ```JavaScript
 // Syntax
-misty.SlamReset([int prePause], [int postPause]);
+misty.ResetSlam([int prePause], [int postPause]);
 ```
 
 Arguments
@@ -1361,7 +1361,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamReset();
+misty.ResetSlam();
 ```
 
 ### misty.SlamStartMapping - ALPHA
