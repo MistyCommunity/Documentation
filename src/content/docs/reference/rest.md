@@ -1327,7 +1327,7 @@ Return Values
 
 Obtains a list of the skills currently uploaded onto the robot.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/sdk/skills
+Endpoint: GET &lt;robot-ip-address&gt;/api/skills
 
 Parameters
 * (None)
