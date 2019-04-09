@@ -61,6 +61,26 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+
+### DeleteImage
+Enables you to remove an image file from Misty that you have previously uploaded.
+
+**Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
+
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+```json
+    {
+      "FileName": "ExampleImage.png"
+    }
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ## Backpack
 
 ## Event
@@ -181,26 +201,6 @@ Return Values
 * name (string) - The name of the saved file.
 * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 * width (integer) - The width of the image in pixels.
-
-
-### DeleteImage
-Enables you to remove an image file from Misty that you have previously uploaded.
-
-**Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
-
-Parameters
-* FileName (string) - The name of the file to delete, including its file type extension.
-
-```json
-    {
-      "FileName": "ExampleImage.png"
-    }
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 <!-- Beta - Images & Display -->
 

@@ -34,6 +34,27 @@ Arguments
 misty.DeleteAudio("DeleteMe.wav");
 ```
 
+### misty.DeleteImage
+Enables you to remove an image file from Misty that you have previously saved to her storage.
+
+**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
+
+```JavaScript
+// Syntax
+misty.DeleteImage(string fileName, [int prePause], [int postPause]);
+```
+
+Arguments
+
+* fileName (string) - The name of the file to delete, including its file type extension.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.DeleteImage("DeleteMe.png");
+```
+
 ## Backpack
 
 ## Event
@@ -77,27 +98,6 @@ Arguments
 ```JavaScript
 // Example
 misty.DisplayImage("Happy.png");
-```
-
-### misty.DeleteImage
-Enables you to remove an image file from Misty that you have previously saved to her storage.
-
-**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
-
-```JavaScript
-// Syntax
-misty.DeleteImage(string fileName, [int prePause], [int postPause]);
-```
-
-Arguments
-
-* fileName (string) - The name of the file to delete, including its file type extension.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.DeleteImage("DeleteMe.png");
 ```
 
 ### misty.GetImageList
