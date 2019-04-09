@@ -364,7 +364,7 @@ Opens the data stream from the Occipital Structure Core depth sensor, so you can
 
 **Important!** Always use `StopSlamStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `StopSlamStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/streaming/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/start
 
 Parameters 
 - None
@@ -377,7 +377,7 @@ Closes the data stream from the Occipital Structure Core depth sensor. This comm
 
 **Important!** Always use this command to close the depth sensor data stream after using `StartSlamStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/streaming/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/stop
 
 Parameters
 - None
@@ -1226,7 +1226,7 @@ Drives to a designated waypoint.
 
 **Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/location
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
 
 Parameters
 * Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
@@ -1244,7 +1244,7 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 
 **Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/path
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
 
 Parameters
 - Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
