@@ -844,7 +844,7 @@ Initiates Misty's detection of faces in her line of vision. This command assigns
 
 When you are done having Misty detect faces, call StopFaceDetection.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/detection/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
 
 Parameters
 - None
@@ -858,7 +858,7 @@ Trains Misty to recognize a specific face and applies a user-assigned ID to that
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/training/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
 
 Parameters
 - FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
@@ -878,7 +878,7 @@ Directs Misty to recognize a face she sees, if it is among those she already kno
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/recognition/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
 
 Parameters
 - None
@@ -890,7 +890,7 @@ Return Values
 ### StopFaceDetection - BETA
 Stops Misty's detection of faces in her line of vision.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/detection/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
 
 Parameters
 - None
@@ -902,7 +902,7 @@ Return Values
 ### CancelFaceTraining - BETA
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/training/cancel
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
 Parameters
 - None
@@ -914,7 +914,7 @@ Return Values
 ### StopFaceRecognition - BETA
 Stops the process of Misty recognizing a face she sees.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/recognition/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/stop
 
 Parameters
 - None

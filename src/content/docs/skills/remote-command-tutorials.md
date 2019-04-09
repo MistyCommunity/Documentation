@@ -716,7 +716,7 @@ async function openCallback() {
 
 #### Commands
 
-Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/beta/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. 
+Within the `startFaceRecognition()` function, print a message to the console that Misty is “starting face recognition”. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command: `"http://" + ip + "/api/faces/recognition/start"`. There is no need to send data along with this request, so you can omit the second parameter of `axios.post()`. 
 
 This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `ComputerVision` event, the callback for the `ComputerVision` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
@@ -727,11 +727,11 @@ function startFaceRecognition() {
     // Axios to send a POST request to the endpoint 
     // for the StartFaceRecognition command.
     console.log("starting face recognition");   
-    axios.post("http://" + ip + "/api/beta/faces/recognition/start");
+    axios.post("http://" + ip + "/api/faces/recognition/start");
 };
 ```
 
-In `startFaceTraining()`, log a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the `StartFaceTraining` command: `"http://" + ip + "api/beta/faces/training/start"`. This command tells Misty to use her occipital camera to learn the user’s face and pair it with a `FaceID` so she can recognize it in the future. Send a data object along with the request that includes the key `FaceId` with the value `you` to attach the name stored in `you` to the learned face.  
+In `startFaceTraining()`, log a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the `StartFaceTraining` command: `"http://" + ip + "api/faces/training/start"`. This command tells Misty to use her occipital camera to learn the user’s face and pair it with a `FaceID` so she can recognize it in the future. Send a data object along with the request that includes the key `FaceId` with the value `you` to attach the name stored in `you` to the learned face.  
 
 ```JavaScript
 async function startFaceTraining() {
@@ -740,7 +740,7 @@ async function startFaceTraining() {
     // to send a POST request to the endpoint for 
     // the StartFaceTraining command.
     console.log("starting face training");
-    axios.post("http://" + ip + "/api/beta/faces/training/start", { FaceId: you });
+    axios.post("http://" + ip + "/api/faces/training/start", { FaceId: you });
 };
 ```
 
@@ -749,7 +749,7 @@ To give Misty time to learn the user’s face, use the helper function `sleep()`
 ```JavaScript
 async function startFaceTraining() {
     console.log("starting face training");
-    axios.post("http://" + ip + "/api/beta/faces/training/start", { FaceId: you });
+    axios.post("http://" + ip + "/api/faces/training/start", { FaceId: you });
     // Give Misty time to complete the face 
     // training process. Call sleep and pass 
     // in the value 20000 for 20 seconds. 
@@ -766,13 +766,13 @@ When Misty is done learning the face, we want her to try to recognize it. Below 
 ```JavaScript
 async function startFaceTraining() {
     console.log("starting face training");
-    axios.post("http://" + ip + "/api/beta/faces/training/start", { FaceId: you });
+    axios.post("http://" + ip + "/api/faces/training/start", { FaceId: you });
 
     await sleep(20000);
     console.log("face training complete");
     // Use Axios to send a POST request to the endpoint 
     // for the StartFaceRecognition command.
-    axios.post("http://" + ip + "/api/beta/faces/recognition/start");
+    axios.post("http://" + ip + "/api/faces/recognition/start");
 };
 ```
 
@@ -817,7 +817,7 @@ function _ComputerVision(data) {
 
 **Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `ComputerVision` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
 
-If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"ComputerVision"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/beta/faces/recognition/stop"`.
+If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"ComputerVision"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
 ```JavaScript
 function _ComputerVision(data) {
@@ -831,7 +831,7 @@ function _ComputerVision(data) {
             socket.Unsubscribe("ComputerVision");
             // Use Axios to issue a POST command to the 
             // endpoint for the StopFaceRecognition command.
-            axios.post("http://" + ip + "/api/beta/faces/recognition/stop");
+            axios.post("http://" + ip + "/api/faces/recognition/stop");
         }
     }
     catch (e) {
@@ -1654,7 +1654,7 @@ async function _ComputerVision(data) {
         // to the endpoint for the StartFaceDetection
         // command.
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
@@ -1673,7 +1673,7 @@ async function _ComputerVision(data) {
     if (!subscribed) {
         subscribed = true;
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
@@ -1700,7 +1700,7 @@ async function _ComputerVision(data) {
     if (!subscribed) {
         subscribed = true;
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
@@ -1733,7 +1733,7 @@ async function _ComputerVision(data) {
     if (!subscribed) {
         subscribed = true;
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
@@ -1767,7 +1767,7 @@ async function _ComputerVision(data) {
     if (!subscribed) {
         subscribed = true;
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
@@ -1804,7 +1804,7 @@ async function _ComputerVision(data) {
     if (!subscribed) {
         subscribed = true;
         if (firstTime) {
-            axios.post("http://" + ip + "/api/beta/faces/recognition/start")
+            axios.post("http://" + ip + "/api/faces/recognition/start")
                 .catch((err) => {
                     console.log(err);
                 });
