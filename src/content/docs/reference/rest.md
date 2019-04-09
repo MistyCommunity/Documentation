@@ -938,7 +938,7 @@ Return Values
 ### ForgetAllFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/clearall
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
 
 Parameters
 - None
