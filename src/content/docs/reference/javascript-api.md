@@ -1299,14 +1299,14 @@ Returns
 
 * Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
-### misty.SlamGetStatus - ALPHA
+### misty.GetSlamStatus - ALPHA
 Obtains values representing Misty's current activity and sensor status.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```JavaScript
 // Syntax
-misty.SlamGetStatus([string callbackMethod], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.GetSlamStatus([string callbackMethod], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Arguments
@@ -1318,7 +1318,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamGetStatus();
+misty.GetSlamStatus();
 ```
 
 Returns
