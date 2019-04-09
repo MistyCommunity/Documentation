@@ -1712,7 +1712,7 @@ async function _ComputerVision(data) {
     // to the endpoint for the TakePicture command. 
     // Pass in the following params to save the file
     // to Misty.
-    axios.get("http://" + ip + "/api/alpha/camera", {
+    axios.get("http://" + ip + "/api/cameras/rgb", {
         params: {
             Base64: null,
             FileName: fileName,
@@ -1741,7 +1741,7 @@ async function _ComputerVision(data) {
         }
         return
     }
-    axios.get("http://" + ip + "/api/alpha/camera", {
+    axios.get("http://" + ip + "/api/cameras/rgb", {
         params: {
             Base64: null,
             FileName: fileName,
@@ -1779,7 +1779,7 @@ async function _ComputerVision(data) {
     // for each picture Misty takes.
     let fileName = new Date().toLocaleString().replace(/[/]/g, ".").replace(/[:]/g, ".").replace(/[ ]/g, "_").replace(",", "") + "_Face";
 
-    axios.get("http://" + ip + "/api/alpha/camera", {
+    axios.get("http://" + ip + "/api/cameras/rgb", {
         params: {
             Base64: null,
             FileName: fileName,
@@ -1815,7 +1815,7 @@ async function _ComputerVision(data) {
     // Wrap the GET request code block in a try, catch statement
     try {
         let fileName = new Date().toLocaleString().replace(/[/]/g, ".").replace(/[:]/g, ".").replace(/[ ]/g, "_").replace(",", "") + "_Face";
-        axios.get("http://" + ip + "/api/alpha/camera", {
+        axios.get("http://" + ip + "/api/cameras/rgb", {
             params: {
                 Base64: null,
                 FileName: fileName,

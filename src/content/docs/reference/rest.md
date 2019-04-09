@@ -270,11 +270,11 @@ Return Values
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/camera
+Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
 
 Example:
 
-`http://<robot-ip-address>/api/alpha/camera?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
+`http://<robot-ip-address>/api/cameras/rgb?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
 
 Parameters
 
@@ -669,7 +669,7 @@ Return Values
 ### GetBatteryLevel
 Obtains Misty's current battery level.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/battery
+Endpoint: GET &lt;robot-ip-address&gt;/api/battery
 
 Parameters
 - None
