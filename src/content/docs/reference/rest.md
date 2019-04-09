@@ -72,7 +72,7 @@ Return Values
 ### GetImageList
 Obtains a list of the images currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/images
+Endpoint: GET &lt;robot-ip-address&gt;/api/images/list
 
 Parameters
 - None
