@@ -1208,7 +1208,7 @@ misty.MoveArmRadians("left", -1.5708, 50);
 ### misty.FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
 
-**Important!** Make sure to call `misty.SlamStartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
+**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
 
 ```JavaScript
 // Syntax
@@ -1274,7 +1274,7 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
-**Important!** Make sure to call `misty.SlamStartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
+**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.SlamStopTracking()` to stop Misty tracking her location after using this command.
 
 ```JavaScript
 // Syntax
@@ -1387,12 +1387,12 @@ Arguments
 misty.StartMapping();
 ```
 
-### misty.SlamStartTracking - ALPHA
+### misty.StartTracking - ALPHA
 Starts Misty tracking her location.
 
 ```JavaScript
 // Syntax
-misty.SlamStartTracking([int prePause], [int postPause]);
+misty.StartTracking([int prePause], [int postPause]);
 ```
 
 Arguments
@@ -1401,7 +1401,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamStartTracking();
+misty.StartTracking();
 ```
 
 ### misty.SlamStopMapping - ALPHA
