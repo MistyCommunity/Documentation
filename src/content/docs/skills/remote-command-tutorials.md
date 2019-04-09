@@ -1031,7 +1031,7 @@ async function startMapping() {
     }
     // Use axios.post() to send a POST request 
     // to the endpoint for the StartMapping command.
-    axios.post("http://" + ip + "/api/alpha/slam/map/start");
+    axios.post("http://" + ip + "/api/slam/map/start");
 }
 ```
 
@@ -1073,7 +1073,7 @@ async function startMapping() {
    }
    //Set mapping to true.
    mapping = true;
-   axios.post("http://" + ip + "/api/alpha/slam/map/start");
+   axios.post("http://" + ip + "/api/slam/map/start");
    // Call getMap() to gather and return mapping data. 
    getMap();
 }
@@ -1201,7 +1201,7 @@ async function getMap() {
     alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     // Use axios.post() to send a POST request 
     // to the endpoint for the StopMapping command.
-    axios.post("http://" + ip + "/api/alpha/slam/map/stop");
+    axios.post("http://" + ip + "/api/slam/map/stop");
 }
 ```
 
@@ -1216,7 +1216,7 @@ async function getMap() {
     }
     console.log("2 - Pose obtained, starting mapping");
     alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
-    axios.post("http://" + ip + "/api/alpha/slam/map/stop");
+    axios.post("http://" + ip + "/api/slam/map/stop");
     // Pause execution while mapping is true.
     while (mapping) {
         await sleep(500); 
@@ -1295,7 +1295,7 @@ async function getMap() {
     }
     console.log("2 - Pose obtained, starting mapping");
     alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
-    axios.post("http://" + ip + "/api/alpha/slam/map/stop");
+    axios.post("http://" + ip + "/api/slam/map/stop");
     while (mapping) {
         await sleep(500); 
     }
@@ -1316,7 +1316,7 @@ async function getMap() {
     }
     console.log("2 - Pose obtained, starting mapping");
     alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
-    axios.post("http://" + ip + "/api/alpha/slam/map/stop");
+    axios.post("http://" + ip + "/api/slam/map/stop");
     
     while (mapping) {
         await sleep(500); 

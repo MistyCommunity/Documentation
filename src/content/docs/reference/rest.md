@@ -1124,7 +1124,7 @@ Starts Misty mapping an area.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/map/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
 
 Parameters
 - None
@@ -1136,7 +1136,7 @@ Return Values
 ### StartTracking - ALPHA
 Starts Misty tracking her location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/track/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
 
 Parameters
 - None
@@ -1148,7 +1148,7 @@ Return Values
 ### StopMapping - ALPHA
 Stops Misty mapping an area.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/map/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
 
 Parameters
 - None
@@ -1160,7 +1160,7 @@ Return Values
 ### StopTracking - ALPHA
 Stops Misty tracking her location.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/track/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
 
 Parameters
 - None
