@@ -243,7 +243,7 @@ Returns
   - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
   - width (integer) - The width of the matrix.
 
-### misty.SlamGetVisibleImage - ALPHA
+### misty.TakeFisheyePicture - ALPHA
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
 **Note:** Make sure to use `misty.SlamStartStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
@@ -252,7 +252,7 @@ Takes a photo using the camera on Misty’s Occipital Structure Core depth senso
 
 ```JavaScript
 // Syntax
-misty.SlamGetVisibleImage([bool base64 = true], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
+misty.TakeFisheyePicture([bool base64 = true], [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause])
 ```
 
 Arguments
@@ -265,7 +265,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.SlamGetVisibleImage(true);
+misty.TakeFisheyePicture(true);
 ```
 
 Returns

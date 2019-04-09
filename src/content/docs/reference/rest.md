@@ -306,7 +306,7 @@ Return Values
   * Width (integer) - The width of the image in pixels. 
 
 
-### SlamGetVisibleImage - ALPHA
+### TakeFisheyePicture - ALPHA
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
 **Important!** Make sure to use `SlamStartStreaming` to open the data stream from Misty's depth sensor before using this command, and use `SlamStopStreaming` to close the data stream after using this command.
