@@ -790,7 +790,7 @@ Return Values
 
 Checks whether a system update is available. 
 
-Endpoint: &lt;robot-ip-address&gt;/api/alpha/info/updates
+Endpoint: &lt;robot-ip-address&gt;/api/system/updates
 
 Parameters
 * None
@@ -1294,7 +1294,7 @@ Return Values
 
 Obtains a list of the skills currently running on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/sdk/skills/running
+Endpoint: GET &lt;robot-ip-address&gt;/api/skills/running
 
 Parameters
 
