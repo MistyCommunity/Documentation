@@ -42,6 +42,25 @@ If there is an issue, Misty returns an HTTP error code and error message.
 
 Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
 
+### DeleteAudio
+Enables you to remove an audio file from Misty that you have previously uploaded.
+
+**Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
+
+Parameters
+* FileName (string) - The name of the file to delete, including its file type extension.
+
+```json
+    {
+      "FileName": "ExampleSong.wav"
+    }
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ## Backpack
 
 ## Event
@@ -510,25 +529,6 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
-### DeleteAudio
-Enables you to remove an audio file from Misty that you have previously uploaded.
-
-**Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
-
-Parameters
-* FileName (string) - The name of the file to delete, including its file type extension.
-
-```json
-    {
-      "FileName": "ExampleSong.wav"
-    }
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 <!-- Alpha - Audio -->
 

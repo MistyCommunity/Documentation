@@ -15,6 +15,25 @@ Use Misty's on-robot JavaScript API to write skills that run locally on your rob
 
 Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
 
+### misty.DeleteAudio
+
+Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
+
+```JavaScript
+// Syntax
+misty.DeleteAudio(string fileName, [int prePause], [int postPause]);
+```
+
+Arguments
+* fileName (string) - The name of the file to delete, including its file type extension.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.DeleteAudio("DeleteMe.wav");
+```
+
 ## Backpack
 
 ## Event
@@ -454,27 +473,6 @@ Arguments
 ```JavaScript
 // Example
 misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
-```
-
-<!-- Audio - BETA -->
-
-### misty.DeleteAudio
-
-Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
-
-```JavaScript
-// Syntax
-misty.DeleteAudio(string fileName, [int prePause], [int postPause]);
-```
-
-Arguments
-* fileName (string) - The name of the file to delete, including its file type extension.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.DeleteAudio("DeleteMe.wav");
 ```
 
 ### misty.StartRecordingAudio
