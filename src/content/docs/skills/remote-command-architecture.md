@@ -54,13 +54,13 @@ let client = new LightClient("[robot IP address]", 10000);
 Once you create an instance of LightClient, it's simple to send requests to Misty’s REST endpoints. Most of the URL for Misty’s REST commands are built into LightClient: 
 
 ```javascript
-http://{ipAddress}/api/
+http://<ipAddress>/api/
 ```
 
 In order to use a specific endpoint, just pass in the rest of the URL. For example, you can do the following to send a GET request to the `GetDeviceInformation()` command:
 
 ```javascript
-client.GetCommand("info/device", function(data) {
+client.GetCommand("device", function(data) {
     console.log(data);
 });
 ```

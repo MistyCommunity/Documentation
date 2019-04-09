@@ -681,7 +681,7 @@ Return Values
 ### GetDeviceInformation
 Obtains device-related information for the robot.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/info/device
+Endpoint: GET &lt;robot-ip-address&gt;/api/device
 
 Parameters
 - None
