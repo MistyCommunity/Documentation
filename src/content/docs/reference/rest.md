@@ -340,7 +340,7 @@ Provides the current distance of objects from Misty’s Occipital Structure Core
 
 **Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/depthimage
+Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/depth
 
 Parameters
 - None
