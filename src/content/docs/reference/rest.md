@@ -168,7 +168,7 @@ Return Values
 ### ClearDisplayText - BETA
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/text/clear
+Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
 
 Parameters
 - None
