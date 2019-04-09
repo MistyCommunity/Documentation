@@ -49,7 +49,7 @@ Displays an image on Misty's screen. Optionally, `DisplayImage` can display an i
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/images/change
+Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
 
 Parameters
 - FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
