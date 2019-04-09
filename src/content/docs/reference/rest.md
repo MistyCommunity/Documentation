@@ -165,7 +165,7 @@ Return Values
 
 <!-- Beta - Images & Display -->
 
-### ClearDisplayText - BETA
+### ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
@@ -227,7 +227,7 @@ Return Values
 
 <!-- Images & Display - ALPHA -->
 
-### GetImage - ALPHA
+### GetImage
 Obtains a system or user-uploaded image file currently stored on Misty
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
@@ -266,7 +266,7 @@ Return Values
 }
 ```
 
-### TakePicture - ALPHA
+### TakePicture
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
@@ -306,7 +306,7 @@ Return Values
   * Width (integer) - The width of the image in pixels. 
 
 
-### TakeFisheyePicture - ALPHA
+### TakeFisheyePicture
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
 **Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
@@ -335,7 +335,7 @@ Return Values
 }
 ```
 
-### TakeDepthPicture - ALPHA
+### TakeDepthPicture
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
 
 **Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
@@ -359,7 +359,7 @@ Return Values
 }
 ```
 
-### StartSlamStreaming - ALPHA
+### StartSlamStreaming
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
 **Important!** Always use `StopSlamStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `StopSlamStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
@@ -372,7 +372,7 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### StopSlamStreaming - ALPHA
+### StopSlamStreaming
 Closes the data stream from the Occipital Structure Core depth sensor. This command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 **Important!** Always use this command to close the depth sensor data stream after using `StartSlamStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
@@ -467,7 +467,7 @@ Return Values
 
 <!-- Beta - Audio -->
 
-### StartRecordingAudio - BETA
+### StartRecordingAudio
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
@@ -479,7 +479,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### StopRecordingAudio - BETA
+### StopRecordingAudio
 Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/stop
@@ -491,7 +491,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### DeleteAudio - BETA
+### DeleteAudio
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
 **Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
@@ -512,7 +512,7 @@ Return Values
 
 <!-- Alpha - Audio -->
 
-### GetAudioFile - ALPHA
+### GetAudioFile
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
@@ -528,7 +528,7 @@ http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
 Return Values
 - An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
-### SetDefaultVolume - ALPHA
+### SetDefaultVolume
 Sets the default loudness of Misty's speakers for audio playback.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
@@ -604,7 +604,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### LocomotionTrack
+### DriveTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/track
@@ -637,7 +637,7 @@ Return Values
 
 <!-- Alpha - Locomotion -->
 
-### Halt - ALPHA
+### Halt
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
@@ -786,7 +786,7 @@ Return Values
 
 <!-- Alpha - Configuration -->
 
-### GetStoreUpdateAvailable - ALPHA
+### GetStoreUpdateAvailable
 
 Checks whether a system update is available. 
 
@@ -798,7 +798,7 @@ Parameters
 Return Values
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
 
-### PerformSystemUpdate - ALPHA
+### PerformSystemUpdate
 
 Downloads and installs a system update if one is available.
 
@@ -810,7 +810,7 @@ Parameters
 Return Values
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
 
-### PerformTargetedUpdate - ALPHA
+### PerformTargetedUpdate
 
 Attempts to install updates for specified components of your robot. 
 
@@ -839,7 +839,7 @@ The following commands allow you to programmatically use Misty's face detection 
 To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceDetection and FaceRecognition [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
 
-### StartFaceDetection - BETA
+### StartFaceDetection
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 When you are done having Misty detect faces, call StopFaceDetection.
@@ -853,7 +853,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### StartFaceTraining - BETA
+### StartFaceTraining
 Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
@@ -873,7 +873,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### StartFaceRecognition - BETA
+### StartFaceRecognition
 Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
@@ -887,7 +887,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### StopFaceDetection - BETA
+### StopFaceDetection
 Stops Misty's detection of faces in her line of vision.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
@@ -899,7 +899,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### CancelFaceTraining - BETA
+### CancelFaceTraining
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
@@ -911,7 +911,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### StopFaceRecognition - BETA
+### StopFaceRecognition
 Stops the process of Misty recognizing a face she sees.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/stop
@@ -923,7 +923,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### GetKnownFaces - BETA
+### GetKnownFaces
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/faces
@@ -935,7 +935,7 @@ Return Values
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
 
-### ForgetAllFaces - BETA
+### ForgetAllFaces
 Removes records of previously trained faces from Misty's memory.
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
@@ -951,7 +951,7 @@ Return Values
 
 Misty's ability to accurately position her head is currently under development.
 
-### MoveHead - BETA
+### MoveHead
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/head
@@ -1239,7 +1239,7 @@ Return Values
 
 ## Backpack Communication
 
-### WriteSerial - ALPHA
+### WriteSerial
 
 **Available for Misty II Only**
 
@@ -1265,7 +1265,7 @@ Return Values
 
 ## Skill Management Commands
 
-### GetRunningSkills - ALPHA
+### GetRunningSkills
 
 Obtains a list of the skills currently running on Misty.
 
@@ -1298,7 +1298,7 @@ Return Values
 ]
 ```
 
-### GetSkills - ALPHA
+### GetSkills
 
 Obtains a list of the skills currently uploaded onto the robot.
 
@@ -1311,7 +1311,7 @@ Return Values
 * Result (array) - An array containing the names and meta file information for all of the skills on the robot.
 
 <!-- CancelSkill -->
-### CancelSkill - ALPHA
+### CancelSkill
 Stops a specified running skill (or all running skills if no name is specified).
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
@@ -1361,7 +1361,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request. 
 
 <!-- RunSkill -->
-### RunSkill - ALPHA
+### RunSkill
 Immediately runs a previously uploaded skill.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
@@ -1381,7 +1381,7 @@ Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
 
-### SaveSkillToRobot - ALPHA
+### SaveSkillToRobot
 Uploads a skill to the robot and makes it immediately available for the robot to run.
 
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
@@ -1405,7 +1405,7 @@ Return Values
 * Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
 
 <!-- TriggerSkillEvent -->
-### TriggerSkillEvent - ALPHA
+### TriggerSkillEvent
 Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event

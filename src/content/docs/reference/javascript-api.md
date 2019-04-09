@@ -117,7 +117,7 @@ misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false)
 
 <!-- Images & Display - BETA -->
 
-### misty.ClearDisplayText - BETA
+### misty.ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
 
 ```JavaScript
@@ -179,8 +179,8 @@ misty.StopRecordingVideo();
 
 <!-- Images & Display - ALPHA -->
 
-<!-- misty.GetImage - ALPHA -->
-### misty.GetImage - ALPHA
+<!-- misty.GetImage -->
+### misty.GetImage
 Obtains a system or user-uploaded image file currently stored on Misty.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -211,7 +211,7 @@ Returns
   - name (string) - The name of the image.
   - width (integer) - The width of the image in pixels.
 
-### misty.TakeDepthPicture - ALPHA
+### misty.TakeDepthPicture
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
 **Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
@@ -242,7 +242,7 @@ Returns
   - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
   - width (integer) - The width of the matrix.
 
-### misty.TakeFisheyePicture - ALPHA
+### misty.TakeFisheyePicture
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
 **Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
@@ -276,7 +276,7 @@ Returns
   - name (string) - The name of the picture.
   - width (integer) - The width of the picture in pixels.
 
-### misty.StartSlamStreaming - ALPHA
+### misty.StartSlamStreaming
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
 **Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
@@ -295,7 +295,7 @@ Arguments
 misty.StartSlamStreaming();
 ```
 
-### misty.StopSlamStreaming - ALPHA
+### misty.StopSlamStreaming
 Closes the data stream from the Occipital Structure Core depth sensor. Calling this command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 **Important!** Always use this command to close the depth sensor data stream after using `misty.StartSlamStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
@@ -315,7 +315,7 @@ command, `postPause` is not used.
 misty.StopSlamStreaming();
 ```
 
-### misty.TakePicture - ALPHA
+### misty.TakePicture
 
 Takes a photo with Misty’s 4K camera.
 
@@ -436,7 +436,7 @@ misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 
 <!-- Audio - BETA -->
 
-### misty.DeleteAudio - BETA
+### misty.DeleteAudio
 
 Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
 
@@ -455,8 +455,7 @@ Arguments
 misty.DeleteAudio("DeleteMe.wav");
 ```
 
-<!-- misty.StartRecordingAudio - BETA -->
-### misty.StartRecordingAudio - BETA
+### misty.StartRecordingAudio
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
 ```JavaScript
@@ -474,8 +473,7 @@ Arguments
 misty.StartRecordingAudio("RecordingExample.wav");
 ```
 
-<!-- misty.StopRecordingAudio - BETA -->
-### misty.StopRecordingAudio - BETA
+### misty.StopRecordingAudio
 Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
 ```JavaScript
@@ -494,8 +492,7 @@ misty.StopRecordingAudio();
 
 <!-- Audio - ALPHA -->
 
-<!-- misty.SetDefaultVolume - ALPHA -->
-### misty.SetDefaultVolume - ALPHA
+### misty.SetDefaultVolume
 Sets the default loudness of Misty's speakers for audio playback.
 
 ```JavaScript
@@ -610,7 +607,7 @@ misty.Stop();
 
 <!-- Alpha - Locomotion -->
 
-### misty.Halt - ALPHA
+### misty.Halt
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
@@ -806,7 +803,7 @@ You can have Misty detect any face she sees or train her to recognize people tha
 
 <!-- Faces - BETA -->
 
-### misty.CancelFaceTraining - BETA
+### misty.CancelFaceTraining
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
 
 ```JavaScript
@@ -823,7 +820,7 @@ Arguments
 misty.CancelFaceTraining();
 ```
 
-### misty.ForgetAllFaces - BETA
+### misty.ForgetAllFaces
 Removes records of previously trained faces from Misty's memory.
 
 ```JavaScript
@@ -840,7 +837,7 @@ Arguments
 misty.ForgetAllFaces();
 ```
 
-### misty.GetKnownFaces - BETA
+### misty.GetKnownFaces
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -866,7 +863,7 @@ Returns
 
 * Result (string) - A list of the names for faces that Misty has been trained to recognize. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
-### misty.StartFaceDetection - BETA
+### misty.StartFaceDetection
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
@@ -885,7 +882,7 @@ Arguments
 misty.StartFaceDetection();
 ```
 
-### misty.StartFaceRecognition - BETA
+### misty.StartFaceRecognition
 Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `misty.StartFaceDetection()` command to detect and store face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
@@ -905,7 +902,7 @@ misty.StartFaceRecognition();
 ```
 
 <!-- misty.StartFaceTraining - BETA -->
-### misty.StartFaceTraining - BETA
+### misty.StartFaceTraining
 Starts Misty learning a face and assigns a name to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
@@ -925,7 +922,7 @@ Arguments
 misty.StartFaceTraining("My_Face");
 ```
 
-### misty.StopFaceDetection - BETA
+### misty.StopFaceDetection
 Stops Misty's detection of faces in her line of vision.
 
 ```JavaScript
@@ -942,7 +939,7 @@ Arguments
 misty.StopFaceDetection();
 ```
 
-### misty.StopFaceRecognition - BETA
+### misty.StopFaceRecognition
 Stops the process of Misty recognizing a face she sees.
 
 ```JavaScript
@@ -1852,7 +1849,7 @@ Returns
 
 ## Backpack Communication
 
-### misty.WriteSerial - ALPHA
+### misty.WriteSerial
 
 **Available for Misty II Only**
 
@@ -1879,7 +1876,7 @@ misty.WriteSerial("your-data");
 
 Use these commands to manage the skills stored on your robot.
 
-### misty.CancelSkill - ALPHA
+### misty.CancelSkill
 Cancel execution a specified skill.
 
 
@@ -1898,7 +1895,7 @@ Arguments
 misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
 ```
 
-### misty.GetRunningSkills - ALPHA
+### misty.GetRunningSkills
 
 Obtains a list of the skills currently running on Misty.
 
@@ -1930,7 +1927,7 @@ Returns
   * startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
   * uniqueId (string) - The unique id of the skill, from the skill's meta file.
 
-### misty.RunSkill - ALPHA
+### misty.RunSkill
 
 Immediately runs a previously uploaded skill.
 

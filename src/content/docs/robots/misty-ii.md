@@ -264,7 +264,7 @@ function _SerialMessage(data) {
 }
 ```
 
-To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../docs/reference/javascript-api/#misty-writeserial-alpha) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../docs/reference/rest/#writeserial-alpha) command.
+To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../docs/reference/javascript-api/#misty-writeserial) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../docs/reference/rest/#writeserial) command.
 
 ### QWIIC Connector
 
