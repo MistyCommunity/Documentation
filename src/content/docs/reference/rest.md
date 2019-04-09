@@ -802,7 +802,7 @@ Return Values
 
 Downloads and installs a system update if one is available.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/system/update
+Endpoint: POST &lt;robot-ip-address&gt;/api/system/update
 
 Parameters
 * None
