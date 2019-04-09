@@ -954,7 +954,7 @@ Misty's ability to accurately position her head is currently under development.
 ### MoveHead - BETA
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/beta/head/move
+Endpoint: POST &lt;robot-ip-address&gt;/api/head
 
 Parameters
 - Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
