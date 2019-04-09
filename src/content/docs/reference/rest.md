@@ -721,16 +721,16 @@ Obtains the robot's recent log files. Log file data is stored for 7 days. Callin
 
 Endpoint:
 
-* GET &lt;robot-ip-address&gt;/api/info/logs for all data
-* GET &lt;robot-ip-address&gt;/api/info/logs/?date={date string} for a specific date
+* GET &lt;robot-ip-address&gt;/api/logs for all data
+* GET &lt;robot-ip-address&gt;/api/logs/?date={date string} for a specific date
 
 Examples:
 
-`<robot-ip-address>/api/info/logs`
+`<robot-ip-address>/api/logs`
 
-`<robot-ip-address>/api/info/logs?date=2018/9/24`
+`<robot-ip-address>/api/logs?date=2018/9/24`
 
-`<robot-ip-address>/api/info/logs?date=September/24/2018`
+`<robot-ip-address>/api/logs?date=September/24/2018`
 
 Parameters
 - Date (string) - Optional. A date within the last 7 days. Dates must be formatted as: `MonthName/Date/FourDigitYear` or `FourDigitYear/MonthNumber/Date`.
