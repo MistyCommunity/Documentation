@@ -149,7 +149,7 @@ Enables you to remove an image file from Misty that you have previously uploaded
 
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/images/delete
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the file to delete, including its file type extension.
