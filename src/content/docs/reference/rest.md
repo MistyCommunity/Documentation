@@ -43,9 +43,9 @@ If there is an issue, Misty returns an HTTP error code and error message.
 Misty comes with a set of default "eyes" that display onscreen. But we encourage you to get creative and upload your own Misty "eyes" or other images. Misty's chest LED is also configurable.
 
 
-### ChangeDisplayImage
+### DisplayImage
 
-Displays an image on Misty's screen. Optionally, `ChangeDisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImageAssetToRobot` to upload images to Misty.
+Displays an image on Misty's screen. Optionally, `DisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImageAssetToRobot` to upload images to Misty.
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
@@ -971,7 +971,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### GetLearnedFaces - BETA
+### GetKnownFaces - BETA
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/beta/faces
@@ -983,7 +983,7 @@ Return Values
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
 
-### ClearLearnedFaces - BETA
+### ForgetAllFaces - BETA
 Removes records of previously trained faces from Misty's memory.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/beta/faces/clearall

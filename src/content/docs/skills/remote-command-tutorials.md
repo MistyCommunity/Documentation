@@ -574,7 +574,7 @@ async function openCallback() {
 
 ```
 
-Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetLearnedFaces`](../../reference/rest/#getlearnedfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
+Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../reference/rest/#getknownfaces-beta) command: `"http://" + ip + "/api/beta/faces".`
 
 ```JavaScript
 async function openCallback() {
@@ -582,12 +582,12 @@ async function openCallback() {
     await sleep(3000);
 
     // Issue a GET request to the endpoint 
-    // for the GetLearnedFaces command. 
+    // for the GetKnownFaces command. 
     axios.get("http://" + ip + "/api/beta/faces")
 }
 ```
 
-This request returns a list of the names of faces Misty has already been trained to recognize. We pass a callback function to a `then()` method to parse the response to the `GetLearnedFaces` request, and check whether the name stored in `you` exists in Misty’s list of known faces. Start by storing the list returned by the response in a variable called `faceArr`. Print `faceArr` to the console.
+This request returns a list of the names of faces Misty has already been trained to recognize. We pass a callback function to a `then()` method to parse the response to the `GetKnownFaces` request, and check whether the name stored in `you` exists in Misty’s list of known faces. Start by storing the list returned by the response in a variable called `faceArr`. Print `faceArr` to the console.
 
 ```JavaScript
 async function openCallback() {
@@ -851,7 +851,7 @@ socket.Connect();
 
 When you load the `.html` file in your browser, the program:
 * connects with Misty
-* sends a `GetLearnedFaces` command and checks whether your name is on the list of faces Misty already knows
+* sends a `GetKnownFaces` command and checks whether your name is on the list of faces Misty already knows
 * subscribes to the `ComputerVision` WebSocket to receive messages when Misty is commanded to `StartFaceRecognition` 
 * recognizes and greets you if you are on the list of known faces, or sends a `StartFaceTraining` command to learn your face if you are not
 

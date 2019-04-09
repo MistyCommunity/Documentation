@@ -15,14 +15,14 @@ Use Misty's on-robot JavaScript API to write skills that run locally on your rob
 
 <!-- Images & Display - PRODUCTION -->
 
-### misty.ChangeDisplayImage
-Displays an image on Misty's screen. Optionally, `misty.ChangeDisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImageAssetToRobot`](../../../docs/reference/rest/#saveimageassettorobot-byte-array-string-) command in Misty's REST API to upload images to Misty.
+### misty.DisplayImage
+Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImageAssetToRobot`](../../../docs/reference/rest/#saveimageassettorobot-byte-array-string-) command in Misty's REST API to upload images to Misty.
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
 ```JavaScript
 // Syntax
-misty.ChangeDisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
+misty.DisplayImage(string fileName, [double timeoutInSeconds], [double alpha], [int prePause], [int postPause])
 ```
 
 Arguments
@@ -35,7 +35,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.ChangeDisplayImage("Happy.png");
+misty.DisplayImage("Happy.png");
 ```
 
 <!-- misty.DeleteImageAssetFromRobot -->
@@ -906,14 +906,14 @@ Arguments
 misty.ForgetAllFaces();
 ```
 
-### misty.GetLearnedFaces - BETA
+### misty.GetKnownFaces - BETA
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```JavaScript
 // Syntax
-misty.GetLearnedFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+misty.GetKnownFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
 ```
 
 Arguments
@@ -925,7 +925,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.GetLearnedFaces();
+misty.GetKnownFaces();
 ```
 
 Returns
