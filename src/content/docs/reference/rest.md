@@ -1188,7 +1188,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### SlamStopTracking - ALPHA
+### StopTracking - ALPHA
 Stops Misty tracking her location.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/slam/track/stop
@@ -1236,7 +1236,7 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 
 **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/alpha/slam/path
 
@@ -1259,7 +1259,7 @@ Return Values
 
 Drives to a designated waypoint.
 
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the specified location.
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/location
 
@@ -1277,7 +1277,7 @@ Return Values
 ### FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
 
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `SlamStopTracking` to have her stop tracking her location after she arrives at the end of the path.
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/alpha/drive/path
 
