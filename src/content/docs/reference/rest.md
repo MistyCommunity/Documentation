@@ -1067,25 +1067,6 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### SetDefaultVolume
-Sets the default loudness of Misty's speakers for audio playback.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
-
-Parameters
-- Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Locomotion
-
-The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
-
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
-
-
-## Information
 
 ### GetAvailableWifiNetworks
 Obtains a list of local WiFi networks and basic information regarding each.
@@ -1137,22 +1118,25 @@ Return Values
    * serialNumber - The unique serial number for the robot.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
-
 ### GetHelp
+
 Obtains information about a specified API command. Calling `GetHelp` with no parameters returns a list of all the API commands that are available.
 
 Endpoint:
+
 * GET &lt;robot-ip-address&gt;/api/help for a list of commands and endpoints
 * GET &lt;robot-ip-address&gt;/api/help?command=endpoint/path for information on a specific endpoint. Example: `<robot-ip-address>/api/help?command=audio/play`
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (string) - A string containing the requested help information.
 
-
 ### GetLogFile
+
 Obtains the robot's recent log files. Log file data is stored for 7 days. Calling `GetLogFile` with no parameters returns all available log data.
 
 Endpoint:
@@ -1174,6 +1158,23 @@ Parameters
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
+
+### SetDefaultVolume
+Sets the default loudness of Misty's speakers for audio playback.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
+
+Parameters
+- Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+## Locomotion
+
+The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
+
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
 
 ## Configuration

@@ -1231,28 +1231,6 @@ Arguments
 misty.ClearDisplayText();
 ```
 
-### misty.SetDefaultVolume
-
-Sets the default loudness of Misty's speakers for audio playback.
-
-```JavaScript
-// Syntax
-misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
-```
-
-Arguments
-
-* volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SetDefaultVolume(100);
-```
-
-## Information
-
 ### misty.GetAvailableWifiNetworks
 
 Obtains a list of local WiFi networks and basic information regarding each.
@@ -1376,6 +1354,25 @@ Returns
 
 * Result (string) - A string containing the requested help information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
+### misty.SetDefaultVolume
+
+Sets the default loudness of Misty's speakers for audio playback.
+
+```JavaScript
+// Syntax
+misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
+```
+
+Arguments
+
+* volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SetDefaultVolume(100);
+```
 
 ## Configuration
 
