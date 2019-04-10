@@ -550,16 +550,326 @@ Return Values
 
 ## Navigation
 
+### DriveToLocation - ALPHA
+
+Drives to a designated waypoint.
+
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
+
+Parameters
+* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+```json
+“Destination": “10:25"
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### FollowPath - ALPHA
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
+
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
+
+Parameters
+- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
+
+```json
+{
+  "Path":"10:20,15:25,30:40"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+
+### GetMap - ALPHA
+
+Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. 
+
+Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
+
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
+
+Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
+
+Parameters
+ * None
+
+Return Values
+* Result (object) - An object containing the following key-value pairs:
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
+
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+### GetSlamPath - ALPHA
+
+Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
+
+**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
+
+Parameters
+* X (integer) - The X coordinate of the destination.
+* Y (integer) - The Y coordinate of the destination.
+
+```json
+{
+  "X": 13,
+  "Y": 37
+}
+```
+
+Return Values
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
+
+
+### GetSlamStatus - ALPHA
+Obtains values representing Misty's current activity and sensor status.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
+
+Parameters
+- None
+
+Return Values
+* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
+  1 - Idle
+  2 - Exploring
+  3 - Tracking
+  4 - Recording
+  5 - Resetting
+
+Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+
+* Slam Status (integer) - Value 2 is an integer value representing the status of Misty's sensors, using the SlamSensorStatus enumerable.
+
+```c#
+public enum SlamSensorStatus
+{
+  Unknown = 0,
+  Connected = 1,
+  Booting = 2,
+  Ready = 3,
+  Disconnected = 4,
+  Error = 5,
+  UsbError = 6,
+  LowPowerMode = 7,
+  RecoveryMode = 8,
+  ProdDataCorrupt = 9,
+  FWVersionMismatch = 10,
+  FWUpdate = 11,
+  FWUpdateComplete = 12,
+  FWCorrupt = 13
+}
+```
+
+### ResetSlam - ALPHA
+
+Resets the SLAM sensors.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
+
+Parameters
+
+- None
+
+Return Values
+
+- Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StartMapping - ALPHA
+
+Starts Misty mapping an area.
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StartTracking - ALPHA
+Starts Misty tracking her location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StopMapping - ALPHA
+Stops Misty mapping an area.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StopTracking - ALPHA
+Stops Misty tracking her location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
 ## Perception
+
+### StartFaceDetection
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
+
+When you are done having Misty detect faces, call StopFaceDetection.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StartFaceTraining
+Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
+
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
+
+Parameters
+- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+```json
+{
+  "FaceId": "Joe_Smith"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StartFaceRecognition
+Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
+
+When you are done having Misty recognize faces, call StopFaceRecognition.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StopFaceDetection
+Stops Misty's detection of faces in her line of vision.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### CancelFaceTraining
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StopFaceRecognition
+Stops the process of Misty recognizing a face she sees.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### GetKnownFaces
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/faces
+
+Parameters
+- None
+
+Return Values
+* Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+
+
+### ForgetAllFaces
+Removes records of previously trained faces from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Skill Management
 
 ## System
-
-
-## Images & Display
-
-
 
 ### ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
@@ -571,6 +881,9 @@ Parameters
 
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+## Images & Display
 
 ### GetRecordedVideo - BETA
 
@@ -954,324 +1267,6 @@ You can have Misty detect any face she sees or train her to recognize people tha
 The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](../../../docs/apps/api-explorer/#face-training-amp-recognition-beta).
 
 To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceDetection and FaceRecognition [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
-
-
-### StartFaceDetection
-Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
-
-When you are done having Misty detect faces, call StopFaceDetection.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StartFaceTraining
-Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
-
-This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
-
-Parameters
-- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
-
-```json
-{
-  "FaceId": "Joe_Smith"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StartFaceRecognition
-Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
-
-When you are done having Misty recognize faces, call StopFaceRecognition.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StopFaceDetection
-Stops Misty's detection of faces in her line of vision.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### CancelFaceTraining
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StopFaceRecognition
-Stops the process of Misty recognizing a face she sees.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### GetKnownFaces
-Obtains a list of the names of faces on which Misty has been successfully trained.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/faces
-
-Parameters
-- None
-
-Return Values
-* Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
-
-
-### ForgetAllFaces
-Removes records of previously trained faces from Misty's memory.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Mapping & Tracking
-
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-### GetSlamStatus - ALPHA
-Obtains values representing Misty's current activity and sensor status.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
-
-Parameters
-- None
-
-Return Values
-* Status (integer) - Value 1 is an integer value where each bit is set to represent a different activity mode:
-  1 - Idle
-  2 - Exploring
-  3 - Tracking
-  4 - Recording
-  5 - Resetting
-
-Example: If Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-
-* Slam Status (integer) - Value 2 is an integer value representing the status of Misty's sensors, using the SlamSensorStatus enumerable.
-
-```c#
-public enum SlamSensorStatus
-{
-  Unknown = 0,
-  Connected = 1,
-  Booting = 2,
-  Ready = 3,
-  Disconnected = 4,
-  Error = 5,
-  UsbError = 6,
-  LowPowerMode = 7,
-  RecoveryMode = 8,
-  ProdDataCorrupt = 9,
-  FWVersionMismatch = 10,
-  FWUpdate = 11,
-  FWUpdateComplete = 12,
-  FWCorrupt = 13
-}
-```
-
-### ResetSlam - ALPHA
-
-Resets the SLAM sensors.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
-
-Parameters
-
-- None
-
-Return Values
-
-- Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StartMapping - ALPHA
-
-Starts Misty mapping an area.
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StartTracking - ALPHA
-Starts Misty tracking her location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StopMapping - ALPHA
-Stops Misty mapping an area.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StopTracking - ALPHA
-Stops Misty tracking her location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### GetMap - ALPHA
-
-Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. 
-
-Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
-
-The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
-
-Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
-
-Parameters
- * None
-
-Return Values
-* Result (object) - An object containing the following key-value pairs:
-  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
-  * height (integer) - The height of the occupancy grid matrix (in number of cells).
-  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
-  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
-  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
-  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
-  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
-  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
-
-### GetSlamPath - ALPHA
-
-Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
-
-**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
-
-Parameters
-* X (integer) - The X coordinate of the destination.
-* Y (integer) - The Y coordinate of the destination.
-
-```json
-{
-  "X": 13,
-  "Y": 37
-}
-```
-
-Return Values
-* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
-
-
-### DriveToLocation - ALPHA
-
-Drives to a designated waypoint.
-
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
-
-Parameters
-* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-```json
-“Destination": “10:25"
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
-
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
-
-Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
-
-```json
-{
-  "Path":"10:20,15:25,30:40"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Backpack Communication
 
 ## Skill Management Commands
 

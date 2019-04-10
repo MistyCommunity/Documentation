@@ -575,14 +575,410 @@ misty.Stop();
 
 ## Navigation
 
+
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+<!-- Mapping & Tracking - ALPHA>
+
+<!-- misty.FollowPath - ALPHA -->
+### misty.FollowPath - ALPHA
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
+
+**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
+
+```JavaScript
+// Syntax
+misty.FollowPath(string path, [int prePause], [int postPause]);
+```
+
+Arguments
+* path (list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.FollowPath("100:250,125:275...");
+```
+
+### misty.GetMap - ALPHA
+
+Obtains occupancy grid data for the most recent map Misty has generated. 
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
+
+Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
+
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
+
+Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.GetSlamPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+```JavaScript
+// Syntax
+misty.GetMap([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Arguments
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.GetMap();
+```
+
+Returns
+
+* Result (object) - An object containing the following key-value pairs. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
+### misty.GetSlamPath - ALPHA
+
+Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
+
+```JavaScript
+// Syntax
+misty.GetSlamPath(double X location, double Y location, [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Arguments
+* X (double) - The X coordinate of the destination.
+* Y (double) - The Y coordinate of the destination.
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.GetSlamPath(100, 250);
+```
+
+Returns
+
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.GetSlamStatus - ALPHA
+Obtains values representing Misty's current activity and sensor status.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetSlamStatus([string callbackMethod], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int postPause])
+```
+
+Arguments
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.GetSlamStatus();
+```
+
+Returns
+* Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Status (integer) - An integer value where each bit is set to represent a different activity mode: 1 - Idle, 2 - Exploring, 3 - Tracking, 4 - Recording, 5 - Resetting. For example, if Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
+  * SensorStatus (integer) - A number representing the status of Misty's sensors, using the `SlamSensorStatus` enumerable.
+  * RunMode (integer) - A number representing the status of Misty's navigation.
+
+```c#
+public enum SlamSensorStatus
+{
+  Unknown = 0,
+  Connected = 1,
+  Booting = 2,
+  Ready = 3,
+  Disconnected = 4,
+  Error = 5,
+  UsbError = 6,
+  LowPowerMode = 7,
+  RecoveryMode = 8,
+  ProdDataCorrupt = 9,
+  FWVersionMismatch = 10,
+  FWUpdate = 11,
+  FWUpdateComplete = 12,
+  FWCorrupt = 13
+}
+```
+
+### misty.ResetSlam - ALPHA
+Resets Misty's SLAM sensors.
+
+```JavaScript
+// Syntax
+misty.ResetSlam([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.ResetSlam();
+```
+
+### misty.StartMapping - ALPHA
+Starts Misty mapping an area.
+
+**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+
+```JavaScript
+// Syntax
+misty.StartMapping([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartMapping();
+```
+
+### misty.StartTracking - ALPHA
+Starts Misty tracking her location.
+
+```JavaScript
+// Syntax
+misty.StartTracking([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartTracking();
+```
+
+### misty.StopMapping - ALPHA
+Stops Misty mapping an area.
+
+```JavaScript
+// Syntax
+misty.StopMapping([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
+command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopMapping();
+```
+
+### misty.StopTracking - ALPHA
+Stops Misty tracking her location.
+
+```JavaScript
+// Syntax
+misty.StopTracking([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopTracking();
+```
+
 ## Perception
+
+### misty.CancelFaceTraining
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
+
+```JavaScript
+// Syntax
+misty.CancelFaceTraining([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.CancelFaceTraining();
+```
+
+### misty.ForgetAllFaces
+Removes records of previously trained faces from Misty's memory.
+
+```JavaScript
+// Syntax
+misty.ForgetAllFaces([int prePause], [int postPause])
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.ForgetAllFaces();
+```
+
+### misty.GetKnownFaces
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetKnownFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
+```
+
+Arguments
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.GetKnownFaces();
+```
+
+Returns
+
+* Result (string) - A list of the names for faces that Misty has been trained to recognize. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.StartFaceDetection
+Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
+
+When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
+
+```JavaScript
+// Syntax
+misty.StartFaceDetection([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartFaceDetection();
+```
+
+### misty.StartFaceRecognition
+Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `misty.StartFaceDetection()` command to detect and store face IDs in Misty's memory.
+
+When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
+
+```JavaScript
+// Syntax
+misty.StartFaceRecognition([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartFaceRecognition();
+```
+
+<!-- misty.StartFaceTraining - BETA -->
+### misty.StartFaceTraining
+Starts Misty learning a face and assigns a name to that face.
+
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
+
+```JavaScript
+// Syntax
+misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
+```
+
+Arguments
+* faceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, `-`, and `_` are valid characters.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartFaceTraining("My_Face");
+```
+
+### misty.StopFaceDetection
+Stops Misty's detection of faces in her line of vision.
+
+```JavaScript
+// Syntax
+misty.StopFaceDetection([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopFaceDetection();
+```
+
+### misty.StopFaceRecognition
+Stops the process of Misty recognizing a face she sees.
+
+```JavaScript
+// Syntax
+misty.StopFaceRecognition([int prePause], [int postPause])
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopFaceRecognition();
+```
 
 ## Skill Management
 
 ## System
-
-## Images & Display
-
 
 
 ### misty.ClearDisplayText
@@ -601,6 +997,9 @@ Arguments
 // Example
 misty.ClearDisplayText();
 ```
+
+## Images & Display
+
 
 ### misty.StartRecordingVideo - BETA
 Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels.
@@ -1013,405 +1412,8 @@ You can have Misty detect any face she sees or train her to recognize people tha
 
 <!-- Faces - BETA -->
 
-### misty.CancelFaceTraining
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
-
-```JavaScript
-// Syntax
-misty.CancelFaceTraining([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.CancelFaceTraining();
-```
-
-### misty.ForgetAllFaces
-Removes records of previously trained faces from Misty's memory.
-
-```JavaScript
-// Syntax
-misty.ForgetAllFaces([int prePause], [int postPause])
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.ForgetAllFaces();
-```
-
-### misty.GetKnownFaces
-Obtains a list of the names of faces on which Misty has been successfully trained.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetKnownFaces([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
-```
-
-Arguments
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetKnownFaces();
-```
-
-Returns
-
-* Result (string) - A list of the names for faces that Misty has been trained to recognize. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-
-### misty.StartFaceDetection
-Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
-
-When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
-
-```JavaScript
-// Syntax
-misty.StartFaceDetection([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartFaceDetection();
-```
-
-### misty.StartFaceRecognition
-Directs Misty to recognize a face she sees, if it is among those she has previously detected. To use this command, you must have previously used the `misty.StartFaceDetection()` command to detect and store face IDs in Misty's memory.
-
-When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
-
-```JavaScript
-// Syntax
-misty.StartFaceRecognition([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartFaceRecognition();
-```
-
-<!-- misty.StartFaceTraining - BETA -->
-### misty.StartFaceTraining
-Starts Misty learning a face and assigns a name to that face.
-
-This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
-
-```JavaScript
-// Syntax
-misty.StartFaceTraining(string faceId, [int prePause], [int postPause]);
-```
-
-Arguments
-* faceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, `-`, and `_` are valid characters.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartFaceTraining("My_Face");
-```
-
-### misty.StopFaceDetection
-Stops Misty's detection of faces in her line of vision.
-
-```JavaScript
-// Syntax
-misty.StopFaceDetection([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StopFaceDetection();
-```
-
-### misty.StopFaceRecognition
-Stops the process of Misty recognizing a face she sees.
-
-```JavaScript
-// Syntax
-misty.StopFaceRecognition([int prePause], [int postPause])
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StopFaceRecognition();
-```
 
 ## Mapping & Tracking
-
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-<!-- Mapping & Tracking - ALPHA>
-
-<!-- misty.FollowPath - ALPHA -->
-### misty.FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
-
-**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
-
-```JavaScript
-// Syntax
-misty.FollowPath(string path, [int prePause], [int postPause]);
-```
-
-Arguments
-* path (list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.FollowPath("100:250,125:275...");
-```
-
-### misty.GetMap - ALPHA
-
-Obtains occupancy grid data for the most recent map Misty has generated. 
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
-
-Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
-
-The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
-
-Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.GetSlamPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-```JavaScript
-// Syntax
-misty.GetMap([string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
-```
-
-Arguments
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetMap();
-```
-
-Returns
-
-* Result (object) - An object containing the following key-value pairs. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
-  * height (integer) - The height of the occupancy grid matrix (in number of cells).
-  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
-  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
-  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
-  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
-  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
-  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
-
-### misty.GetSlamPath - ALPHA
-
-Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
-
-```JavaScript
-// Syntax
-misty.GetSlamPath(double X location, double Y location, [string callbackMethod], [string callbackRule = "synchronous"], [string skillToCallUniqueId], [int prePause], [int postPause]);
-```
-
-Arguments
-* X (double) - The X coordinate of the destination.
-* Y (double) - The Y coordinate of the destination.
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetSlamPath(100, 250);
-```
-
-Returns
-
-* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-
-### misty.GetSlamStatus - ALPHA
-Obtains values representing Misty's current activity and sensor status.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetSlamStatus([string callbackMethod], [string callbackRule], [string skillToCallUniqueId], [int prePause], [int postPause])
-```
-
-Arguments
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.GetSlamStatus();
-```
-
-Returns
-* Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * Status (integer) - An integer value where each bit is set to represent a different activity mode: 1 - Idle, 2 - Exploring, 3 - Tracking, 4 - Recording, 5 - Resetting. For example, if Misty is both exploring and recording, then bits 2 and 4 would be set => 0000 1010 => Status = 10.
-  * SensorStatus (integer) - A number representing the status of Misty's sensors, using the `SlamSensorStatus` enumerable.
-  * RunMode (integer) - A number representing the status of Misty's navigation.
-
-```c#
-public enum SlamSensorStatus
-{
-  Unknown = 0,
-  Connected = 1,
-  Booting = 2,
-  Ready = 3,
-  Disconnected = 4,
-  Error = 5,
-  UsbError = 6,
-  LowPowerMode = 7,
-  RecoveryMode = 8,
-  ProdDataCorrupt = 9,
-  FWVersionMismatch = 10,
-  FWUpdate = 11,
-  FWUpdateComplete = 12,
-  FWCorrupt = 13
-}
-```
-
-### misty.ResetSlam - ALPHA
-Resets Misty's SLAM sensors.
-
-```JavaScript
-// Syntax
-misty.ResetSlam([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.ResetSlam();
-```
-
-### misty.StartMapping - ALPHA
-Starts Misty mapping an area.
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-```JavaScript
-// Syntax
-misty.StartMapping([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartMapping();
-```
-
-### misty.StartTracking - ALPHA
-Starts Misty tracking her location.
-
-```JavaScript
-// Syntax
-misty.StartTracking([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartTracking();
-```
-
-### misty.StopMapping - ALPHA
-Stops Misty mapping an area.
-
-```JavaScript
-// Syntax
-misty.StopMapping([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
-command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StopMapping();
-```
-
-### misty.StopTracking - ALPHA
-Stops Misty tracking her location.
-
-```JavaScript
-// Syntax
-misty.StopTracking([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StopTracking();
-```
 
 ## Events & Timing
 
