@@ -574,7 +574,7 @@ async function openCallback() {
 
 ```
 
-Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../reference/rest/#getknownfaces-beta) command: `"http://" + ip + "/api/faces".`
+Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../reference/rest/#getknownfaces) command: `"http://" + ip + "/api/faces".`
 
 ```JavaScript
 async function openCallback() {
