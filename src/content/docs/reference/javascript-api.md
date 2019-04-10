@@ -359,25 +359,6 @@ Arguments
 misty.DriveTrack(0, 0);
 ```
 
-### misty.Stop
-Stops Misty's movement.
-
-```JavaScript
-// Syntax
-misty.Stop([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.Stop();
-```
-
-<!-- Alpha - Locomotion -->
-
 ### misty.Halt
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
@@ -396,6 +377,201 @@ Arguments
 misty.Halt();
 ```
 
+
+### misty.MoveArmPosition
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified position.
+
+```JavaScript
+// Syntax
+misty.MoveArmPosition(string armToMove, double position, double velocity, [int prePause], [int postPause])
+```
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
+* position (double) - The position to move the arm to. Value range: 0 - 10.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.MoveArmPosition("left", 0, 50);
+```
+
+### misty.MoveArmDegrees
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified location in degrees.
+
+```JavaScript
+// Syntax
+misty.MoveArmDegrees(string armToMove, double degrees, double velocity, [int prePause], [int postPause])
+```
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
+* degrees (double) - The location in degrees to move the arm to. Value range: 0 - 180.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.MoveArmDegrees("right", 90, 50);
+```
+
+### misty.MoveArmRadians
+
+**Available for Misty II Only**
+
+Moves one of Misty's arms to a specified location in radians.
+
+```JavaScript
+// Syntax
+misty.MoveArmRadians(string armToMove, double radians, double velocity, [int prePause], [int postPause])
+```
+
+Arguments
+* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
+* radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
+* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used. 
+
+```JavaScript
+// Example
+misty.MoveArmRadians("left", -1.5708, 50);
+```
+
+
+### misty.MoveHeadDegrees
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
+
+```JavaScript
+// Syntax
+misty.MoveHeadDegrees(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from approximately -9.5 (fully up) to 34.9 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Misty’s head tilts to the left or right. Values range from -43.0 (fully left) to 43.0 (fully right). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
+* yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
+* velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.MoveHeadDegrees(10, 10, 10, 100);
+```
+
+### misty.MoveHeadPosition
+
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadPosition()` command can only control the up-down movement of Misty's head.
+
+```JavaScript
+// Syntax
+misty.MoveHeadPosition(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from -5 (fully up) to 5 (fully down).
+* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -5 (head tilted fully to the left shoulder) to 5 (head fully to the right shoulder). This value is ignored for Misty I.
+* yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -5 (fully right) to 5 (fully left). This value is ignored for Misty I.
+* velocity (double) - A value from 0 to 100 specifying the speed at which Misty moves her head.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.MoveHeadPosition(0, 0, 0, 100);
+```
+
+### misty.MoveHeadRadians
+
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `MoveHeadPosition` command can only control the up-down movement of Misty's head.
+
+```JavaScript
+// Syntax
+misty.MoveHeadRadians(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* pitch (double) - A value in radians specifying the position of Misty’s head along the up-down axis. Values range from -0.1662 (fully up) to 0.6094 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+* roll (double) - A value in radians specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -0.75 (head tilted fully to the left shoulder) to 0.75 (head fully to the right shoulder). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
+* yaw (double) - A value in radians specifying the turn to the left or right of Misty’s head. Values range from -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+ This value is ignored for Misty I.
+* velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 100);
+```
+
+### misty.SetHeadDegrees
+
+Moves Misty’s head to a given degree along one of three axes (tilt, turn, or up-and-down).
+
+```JavaScript
+// Syntax
+misty.SetHeadDegrees(string axis, double degrees, double velocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a skill running on Misty I robots does nothing.  
+* degrees (double) - Indicates the degree to move Misty’s head to along the given axis. The value range for pitch is -9.5 (fully up) to 35.0 (fully down); for roll, -43.0 (fully left) to 43.0 (fully right); for yaw, -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. 
+* velocity (double) - The speed of the head movement. Value range: 0 to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SetHeadDegrees("yaw", 90, 100);
+```
+
+### misty.SetHeadRadians
+
+Moves Misty’s head to a given radian along one of three axes (tilt, turn, or up-and-down).
+
+```JavaScript
+// Syntax
+misty.SetHeadRadians(string axis, double position, double velocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a skill running on Misty I robots does nothing.
+* position (double) - Indicates the radian to move Misty’s head to along the given axis. The value range for pitch is -0.1662 (fully up) to 0.6094 (fully down); for roll, -0.75 (fully left) to 0.75 (fully right); for yaw, -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+* velocity (double) - The speed of the head movement. Value range: 0 to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.SetHeadRadians("yaw", 1.5708, 0);
+```
+
+### misty.Stop
+Stops Misty's movement.
+
+```JavaScript
+// Syntax
+misty.Stop([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.Stop();
+```
 
 ## Navigation
 
@@ -682,8 +858,6 @@ Arguments
 // Example
 misty.SetDefaultVolume(100);
 ```
-
-## Locomotion
 
 ## Information
 
@@ -990,187 +1164,6 @@ Arguments
 ```JavaScript
 // Example
 misty.StopFaceRecognition();
-```
-
-## Head Movement
-
-### misty.MoveHeadDegrees
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
-
-```JavaScript
-// Syntax
-misty.MoveHeadDegrees(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from approximately -9.5 (fully up) to 34.9 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Misty’s head tilts to the left or right. Values range from -43.0 (fully left) to 43.0 (fully right). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
-* yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
-* velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.MoveHeadDegrees(10, 10, 10, 100);
-```
-
-### misty.MoveHeadPosition
-
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadPosition()` command can only control the up-down movement of Misty's head.
-
-```JavaScript
-// Syntax
-misty.MoveHeadPosition(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* pitch (double) - A value specifying the position of Misty’s head along the up-down axis. Values range from -5 (fully up) to 5 (fully down).
-* roll (double) - A value specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -5 (head tilted fully to the left shoulder) to 5 (head fully to the right shoulder). This value is ignored for Misty I.
-* yaw (double) - A value specifying the turn to the left or right of Misty’s head. Values range from -5 (fully right) to 5 (fully left). This value is ignored for Misty I.
-* velocity (double) - A value from 0 to 100 specifying the speed at which Misty moves her head.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.MoveHeadPosition(0, 0, 0, 100);
-```
-
-### misty.MoveHeadRadians
-
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `MoveHeadPosition` command can only control the up-down movement of Misty's head.
-
-```JavaScript
-// Syntax
-misty.MoveHeadRadians(double pitch, double roll, double yaw, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* pitch (double) - A value in radians specifying the position of Misty’s head along the up-down axis. Values range from -0.1662 (fully up) to 0.6094 (fully down). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-* roll (double) - A value in radians specifying the tilt ("ear" to "shoulder") of Misty’s head. Values range from -0.75 (head tilted fully to the left shoulder) to 0.75 (head fully to the right shoulder). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. This value is ignored for Misty I.
-* yaw (double) - A value in radians specifying the turn to the left or right of Misty’s head. Values range from -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
- This value is ignored for Misty I.
-* velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 100);
-```
-
-### misty.SetHeadDegrees
-
-Moves Misty’s head to a given degree along one of three axes (tilt, turn, or up-and-down).
-
-```JavaScript
-// Syntax
-misty.SetHeadDegrees(string axis, double degrees, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a skill running on Misty I robots does nothing.  
-* degrees (double) - Indicates the degree to move Misty’s head to along the given axis. The value range for pitch is -9.5 (fully up) to 35.0 (fully down); for roll, -43.0 (fully left) to 43.0 (fully right); for yaw, -90.0 (fully right) to 90.0 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here. 
-* velocity (double) - The speed of the head movement. Value range: 0 to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SetHeadDegrees("yaw", 90, 100);
-```
-
-### misty.SetHeadRadians
-
-Moves Misty’s head to a given radian along one of three axes (tilt, turn, or up-and-down).
-
-```JavaScript
-// Syntax
-misty.SetHeadRadians(string axis, double position, double velocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* axis (string) - The axis to change. Values are `"yaw"` (turn), `"pitch"` (up-and-down), or `"roll"` (tilt). Passing a value of `"yaw"` or `"roll"` in a skill running on Misty I robots does nothing.
-* position (double) - Indicates the radian to move Misty’s head to along the given axis. The value range for pitch is -0.1662 (fully up) to 0.6094 (fully down); for roll, -0.75 (fully left) to 0.75 (fully right); for yaw, -1.57 (fully right) to 1.57 (fully left). Note that due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-* velocity (double) - The speed of the head movement. Value range: 0 to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.SetHeadRadians("yaw", 1.5708, 0);
-```
-
-## Arm Movement
-
-### misty.MoveArmPosition
-
-**Available for Misty II Only**
-
-Moves one of Misty's arms to a specified position.
-
-```JavaScript
-// Syntax
-misty.MoveArmPosition(string armToMove, double position, double velocity, [int prePause], [int postPause])
-```
-
-Arguments
-* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
-* position (double) - The position to move the arm to. Value range: 0 - 10.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.MoveArmPosition("left", 0, 50);
-```
-
-### misty.MoveArmDegrees
-
-**Available for Misty II Only**
-
-Moves one of Misty's arms to a specified location in degrees.
-
-```JavaScript
-// Syntax
-misty.MoveArmDegrees(string armToMove, double degrees, double velocity, [int prePause], [int postPause])
-```
-
-Arguments
-* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
-* degrees (double) - The location in degrees to move the arm to. Value range: 0 - 180.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.MoveArmDegrees("right", 90, 50);
-```
-
-### misty.MoveArmRadians
-
-**Available for Misty II Only**
-
-Moves one of Misty's arms to a specified location in radians.
-
-```JavaScript
-// Syntax
-misty.MoveArmRadians(string armToMove, double radians, double velocity, [int prePause], [int postPause])
-```
-
-Arguments
-* armToMove (string) - The arm to move. Pass `"left"` or `"right"`.
-* radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
-* velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used. 
-
-```JavaScript
-// Example
-misty.MoveArmRadians("left", -1.5708, 50);
 ```
 
 ## Mapping & Tracking

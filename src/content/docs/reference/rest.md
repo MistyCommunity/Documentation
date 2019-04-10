@@ -449,18 +449,81 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
-### Stop
-Stops Misty's movement.
+### MoveArm
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
+**Available for Misty II Only**
+
+Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
-- None
+* Arm (string) - The arm to move. You must use either `left` or `right`.
+* Position (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to 10 specifying the direction the arm should point. A value of 0 points the arm straight down, a value of 5 points the arm forward, and 10 points the arm straight up. 
+* Degrees (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -180 specifying the direction the arm should point. 0 points the arm straight down, -90 points the arm forward, and -180 points the arm straight up.
+* Radians (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -3.14 specifying the direction the arm should point. 0 points the arm straight down, -1.57 points the arm forward, and -3.14 points the arm straight up.
+* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+
+```JSON
+{
+  "Arm": "left",
+  "Position": 10,
+  "Velocity": 100
+}
+```
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-<!-- Alpha - Locomotion -->
+### MoveArms
+
+**Available for Misty II Only**
+
+Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
+
+Parameters
+* LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* RightArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+
+```JSON
+{
+  "LeftArmPosition": 10,
+  "RightArmPosition": 10,
+  "LeftArmVelocity": 50,
+  "RightArmVelocity": 5,
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### MoveHead
+Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/head
+
+Parameters
+- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
+- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+
+```json
+{
+  "Pitch": 3,
+  "Roll": 3,
+  "Yaw": -2,
+  "Velocity": 6
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### Halt
 
@@ -473,6 +536,17 @@ Parameters
 
 Return Values
 * None
+
+### Stop
+Stops Misty's movement.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Navigation
 
@@ -988,89 +1062,6 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-## Head Movement
-
-Misty's ability to accurately position her head is currently under development.
-
-### MoveHead
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/head
-
-Parameters
-- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
-
-```json
-{
-  "Pitch": 3,
-  "Roll": 3,
-  "Yaw": -2,
-  "Velocity": 6
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Arm Movement
-
-### MoveArm
-
-**Available for Misty II Only**
-
-Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/arms
-
-Parameters
-* Arm (string) - The arm to move. You must use either `left` or `right`.
-* Position (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to 10 specifying the direction the arm should point. A value of 0 points the arm straight down, a value of 5 points the arm forward, and 10 points the arm straight up. 
-* Degrees (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -180 specifying the direction the arm should point. 0 points the arm straight down, -90 points the arm forward, and -180 points the arm straight up.
-* Radians (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -3.14 specifying the direction the arm should point. 0 points the arm straight down, -1.57 points the arm forward, and -3.14 points the arm straight up.
-* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
-
-```JSON
-{
-  "Arm": "left",
-  "Position": 10,
-  "Velocity": 100
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### MoveArms
-
-**Available for Misty II Only**
-
-Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
-
-Parameters
-* LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
-* RightArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
-* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
-* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
-
-```JSON
-{
-  "LeftArmPosition": 10,
-  "RightArmPosition": 10,
-  "LeftArmVelocity": 50,
-  "RightArmVelocity": 5,
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
 
 ## Mapping & Tracking
 
