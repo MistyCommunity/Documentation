@@ -298,6 +298,30 @@ Return Values
 
 ## Expression
 
+### ChangeLED
+
+Changes the color of the LED light behind the logo on Misty's torso.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/led
+
+Parameters
+
+- Red (byte) - The red RGB color value (range 0 to 255).
+- Green (byte) - The green RGB color value (range 0 to 255).
+- Blue (byte) - The blue RGB color value (range 0 to 255).
+
+```json
+{
+  "red": 255,
+  "green": 0,
+  "blue": 0
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### DisplayImage
 
 Displays an image on Misty's screen. Optionally, `DisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImage` to upload images to Misty.
@@ -779,30 +803,7 @@ Parameters
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
-<!-- Beta - Information -->
 
-## LEDs
-
-### ChangeLED
-Changes the color of the LED light behind the logo on Misty's torso.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/led
-
-Parameters
-- Red (byte) - The red RGB color value (range 0 to 255).
-- Green (byte) - The green RGB color value (range 0 to 255).
-- Blue (byte) - The blue RGB color value (range 0 to 255).
-
-```json
-{
-  "red": 255,
-  "green": 0,
-  "blue": 0
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Configuration
 

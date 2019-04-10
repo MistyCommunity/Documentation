@@ -215,6 +215,27 @@ misty.WriteSerial("your-data");
 
 ## Expression
 
+### misty.ChangeLED
+
+Changes the color of the LED light behind the logo on Misty's torso.
+
+```JavaScript
+// Syntax
+misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
+```
+
+Arguments
+* Red (integer) - A value between 0 and 255 specifying the red RGB color.
+* Green (integer) - A value between 0 and 255 specifying the green RGB color.
+* Blue (integer) - A value between 0 and 255 specifying the blue RGB color.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.ChangeLED(0, 0, 0);
+```
+
 ### misty.DisplayImage
 Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../docs/reference/rest/#saveimage-byte-array-string-) command in Misty's REST API to upload images to Misty.
 
@@ -786,30 +807,6 @@ Returns
 
 * Result (string) - A string containing the requested help information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
-<!-- Information - BETA -->
-
-## LEDs
-
-### misty.ChangeLED
-
-Changes the color of the LED light behind the logo on Misty's torso.
-
-```JavaScript
-// Syntax
-misty.ChangeLED(int red, int green, int blue, [int prePause], [int postPause]);
-```
-
-Arguments
-* Red (integer) - A value between 0 and 255 specifying the red RGB color.
-* Green (integer) - A value between 0 and 255 specifying the green RGB color.
-* Blue (integer) - A value between 0 and 255 specifying the blue RGB color.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.ChangeLED(0, 0, 0);
-```
 
 ## Configuration
 
