@@ -370,6 +370,110 @@ Return Values
 
 ## Movement
 
+### Drive
+Drives Misty forward or backward at a specific speed until cancelled.
+
+When using the Drive command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive
+
+Parameters
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+
+```json
+{
+  "LinearVelocity": 20,
+  "AngularVelocity": 15,
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### DriveTime
+Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+
+When using the DriveTime command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/time
+
+Parameters
+- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- Degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `Degree` value recalculates linear velocity.
+
+```json
+{
+  "LinearVelocity": 1,
+  "AngularVelocity": 4,
+  "TimeMS": 500
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### DriveTrack
+Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/track
+
+Parameters
+- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+
+```json
+{   
+  "LeftTrackSpeed": 30,
+  "RightTrackSpeed": 70
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### Stop
+Stops Misty's movement.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+<!-- Alpha - Locomotion -->
+
+### Halt
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
+
+Parameters
+* None
+
+Return Values
+* None
+
 ## Navigation
 
 ## Perception
@@ -610,109 +714,6 @@ The following commands allow you to programmatically drive and stop Misty. If yo
 
 To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
-### Drive
-Drives Misty forward or backward at a specific speed until cancelled.
-
-When using the Drive command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
-
-* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
-* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
-* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
-* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
-* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive
-
-Parameters
-- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
-
-```json
-{
-  "LinearVelocity": 20,
-  "AngularVelocity": 15,
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### DriveTime
-Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
-
-When using the DriveTime command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
-
-* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
-* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
-* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
-* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
-* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/time
-
-Parameters
-- LinearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- AngularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
-- TimeMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- Degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `Degree` value recalculates linear velocity.
-
-```json
-{
-  "LinearVelocity": 1,
-  "AngularVelocity": 4,
-  "TimeMS": 500
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### DriveTrack
-Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/track
-
-Parameters
-- LeftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
-- RightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
-
-```json
-{   
-  "LeftTrackSpeed": 30,
-  "RightTrackSpeed": 70
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### Stop
-Stops Misty's movement.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-<!-- Alpha - Locomotion -->
-
-### Halt
-
-Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
-
-Parameters
-* None
-
-Return Values
-* None
 
 ## Information
 

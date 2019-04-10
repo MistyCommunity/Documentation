@@ -282,6 +282,121 @@ misty.PlayAudio("Play.wav", 100);
 
 ## Movement
 
+
+<!-- misty.Drive --> 
+### misty.Drive
+Drives Misty forward or backward at a specific speed until cancelled. Call `misty.Stop()` to cancel driving. 
+
+When using the `misty.Drive()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+```JavaScript
+// Syntax
+misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
+```
+
+Arguments
+* linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+* angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.Drive(0, 0);
+```
+
+### misty.DriveTime
+Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+
+When using the `misty.DriveTime()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+
+* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
+* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
+* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
+* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
+* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
+
+```JavaScript
+// Syntax
+misty.DriveTime(double linearVelocity, double angularVelocity, int timeInMs, [double degree], [int prePause], [int postPause]);
+```
+
+Arguments
+- linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
+- angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
+- timeInMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
+- degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `degree` value recalculates linear velocity.
+- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.DriveTime(0, 0, 0);
+```
+
+### misty.DriveTrack
+Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
+
+```JavaScript
+// Syntax
+misty.DriveTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
+```
+
+Arguments
+- leftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
+- rightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
+- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.DriveTrack(0, 0);
+```
+
+### misty.Stop
+Stops Misty's movement.
+
+```JavaScript
+// Syntax
+misty.Stop([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.Stop();
+```
+
+<!-- Alpha - Locomotion -->
+
+### misty.Halt
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+```JavaScript
+// Syntax
+misty.Halt([int prePause], [int postPause])
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.Halt();
+```
+
+
 ## Navigation
 
 ## Perception
@@ -569,119 +684,6 @@ misty.SetDefaultVolume(100);
 ```
 
 ## Locomotion
-
-<!-- misty.Drive --> 
-### misty.Drive
-Drives Misty forward or backward at a specific speed until cancelled. Call `misty.Stop()` to cancel driving. 
-
-When using the `misty.Drive()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
-
-* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
-* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
-* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
-* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
-* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
-
-```JavaScript
-// Syntax
-misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
-```
-
-Arguments
-* linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-* angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.Drive(0, 0);
-```
-
-### misty.DriveTime
-Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
-
-When using the `misty.DriveTime()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
-
-* Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
-* Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
-* Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
-* Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
-* Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
-
-```JavaScript
-// Syntax
-misty.DriveTime(double linearVelocity, double angularVelocity, int timeInMs, [double degree], [int prePause], [int postPause]);
-```
-
-Arguments
-- linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
-- angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
-- timeInMs (integer) - A value in milliseconds that specifies the duration of movement. Value range: 0 to 1000 ms, able to increment by 500 ms.
-- degree (double) - (optional) The number of degrees to turn. **Note:** Supplying a `degree` value recalculates linear velocity.
-- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.DriveTime(0, 0, 0);
-```
-
-### misty.DriveTrack
-Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
-
-```JavaScript
-// Syntax
-misty.DriveTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePause], [int postPause])
-```
-
-Arguments
-- leftTrackSpeed (double) - A value for the speed of the left track, range: -100 (full speed backward) to 100 (full speed forward).
-- rightTrackSpeed (double) - A value for the speed of the right track, range: -100 (full speed backward) to 100 (full speed forward).
-- prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-- postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.DriveTrack(0, 0);
-```
-
-### misty.Stop
-Stops Misty's movement.
-
-```JavaScript
-// Syntax
-misty.Stop([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.Stop();
-```
-
-<!-- Alpha - Locomotion -->
-
-### misty.Halt
-
-Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
-
-```JavaScript
-// Syntax
-misty.Halt([int prePause], [int postPause])
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.Halt();
-```
 
 ## Information
 
