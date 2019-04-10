@@ -835,6 +835,40 @@ Return Values
 
 ## Perception
 
+### CancelFaceTraining
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### GetKnownFaces
+Obtains a list of the names of faces on which Misty has been successfully trained.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/faces
+
+Parameters
+- None
+
+Return Values
+* Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+
+
+### ForgetAllFaces
+Removes records of previously trained faces from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### StartFaceDetection
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
@@ -882,23 +916,21 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StartRecordingAudio
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
+
+Parameters
+* FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopFaceDetection
 Stops Misty's detection of faces in her line of vision.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### CancelFaceTraining
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
 Parameters
 - None
@@ -918,26 +950,13 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StopRecordingAudio
+Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
-### GetKnownFaces
-Obtains a list of the names of faces on which Misty has been successfully trained.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/faces
-
-Parameters
-- None
-
-Return Values
-* Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
-
-
-### ForgetAllFaces
-Removes records of previously trained faces from Misty's memory.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/stop
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -1047,38 +1066,6 @@ Parameters
 
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-## Audio
-
-Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
-
-
-
-<!-- Beta - Audio -->
-
-### StartRecordingAudio
-Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
-
-Parameters
-* FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
-### StopRecordingAudio
-Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/stop
-
-Parameters
-* None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### SetDefaultVolume
 Sets the default loudness of Misty's speakers for audio playback.

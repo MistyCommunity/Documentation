@@ -1047,6 +1047,25 @@ Arguments
 misty.StartFaceTraining("My_Face");
 ```
 
+### misty.StartRecordingAudio
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+
+```JavaScript
+// Syntax
+misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
+```
+
+Arguments
+* fileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StartRecordingAudio("RecordingExample.wav");
+```
+
+
 ### misty.StopFaceDetection
 Stops Misty's detection of faces in her line of vision.
 
@@ -1079,6 +1098,23 @@ Arguments
 ```JavaScript
 // Example
 misty.StopFaceRecognition();
+```
+
+### misty.StopRecordingAudio
+Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+
+```JavaScript
+// Syntax
+misty.StopRecordingAudio([int prePause], [int postPause]);
+```
+
+Arguments
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.StopRecordingAudio();
 ```
 
 ### misty.TakePicture
@@ -1195,50 +1231,8 @@ Arguments
 misty.ClearDisplayText();
 ```
 
-## Audio
-
-Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
-
-
-
-### misty.StartRecordingAudio
-Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
-
-```JavaScript
-// Syntax
-misty.StartRecordingAudio(string filename, [int prePause], [int postPause]);
-```
-
-Arguments
-* fileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StartRecordingAudio("RecordingExample.wav");
-```
-
-### misty.StopRecordingAudio
-Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
-
-```JavaScript
-// Syntax
-misty.StopRecordingAudio([int prePause], [int postPause]);
-```
-
-Arguments
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.StopRecordingAudio();
-```
-
-<!-- Audio - ALPHA -->
-
 ### misty.SetDefaultVolume
+
 Sets the default loudness of Misty's speakers for audio playback.
 
 ```JavaScript
@@ -1247,6 +1241,7 @@ misty.SetDefaultVolume(int volume, [int prePause], [int postPause]);
 ```
 
 Arguments
+
 * volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
@@ -1259,6 +1254,7 @@ misty.SetDefaultVolume(100);
 ## Information
 
 ### misty.GetAvailableWifiNetworks
+
 Obtains a list of local WiFi networks and basic information regarding each.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
