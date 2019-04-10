@@ -942,23 +942,46 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-## Skill Management
+### TakePicture
 
-## System
+Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
-### ClearDisplayText
-Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
+Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
+Example:
+
+`http://<robot-ip-address>/api/cameras/rgb?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
 
 Parameters
-- None
+
+* Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`.
+* FileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
+* DisplayOnScreen (boolean) - Optional. If `true` **and** a `FileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `FileName` value is provided, does nothing.
+* OverwriteExisting (boolean) - Optional. Indicates whether Misty should overwrite an image with the same filename as the captured photo if one exists on her local storage. Passing in `true` overwrites a file with the same name. Passing in `false` prevents an existing file with the same name from being overwritten. In the case that `OverwriteExisting` is set to `false` and a photo already exists with the same filename as the newly captured photo, the new photo is not saved to Misty. Defaults to `false`.
+
+```json
+{
+  "Base64": true,
+  "FileName": "MyPicture",
+  "Width": 300,
+  "Height": 200,
+  "DisplayOnScreen": true,
+  "OverwriteExisting": true
+}
+```
 
 Return Values
-- Result (boolean) - Returns `true` if there are no errors related to this command.
+
+* Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
+  * Base64 (string) - A string containing the Base64-encoded image data.
+  * Format (string) - The type and format of the image returned.
+  * Height (integer) - The height of the image in pixels.
+  * Name (string) - The name of the image.  
+  * Width (integer) - The width of the image in pixels. 
 
 
-## Images & Display
 
 ### GetRecordedVideo - BETA
 
@@ -1009,44 +1032,21 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### TakePicture
 
-Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
+## Skill Management
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
+## System
 
-Example:
+### ClearDisplayText
+Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
-`http://<robot-ip-address>/api/cameras/rgb?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
+Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
 
 Parameters
-
-* Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`.
-* FileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
-* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
-* DisplayOnScreen (boolean) - Optional. If `true` **and** a `FileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `FileName` value is provided, does nothing.
-* OverwriteExisting (boolean) - Optional. Indicates whether Misty should overwrite an image with the same filename as the captured photo if one exists on her local storage. Passing in `true` overwrites a file with the same name. Passing in `false` prevents an existing file with the same name from being overwritten. In the case that `OverwriteExisting` is set to `false` and a photo already exists with the same filename as the newly captured photo, the new photo is not saved to Misty. Defaults to `false`.
-
-```json
-{
-  "Base64": true,
-  "FileName": "MyPicture",
-  "Width": 300,
-  "Height": 200,
-  "DisplayOnScreen": true,
-  "OverwriteExisting": true
-}
-```
+- None
 
 Return Values
-
-* Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
-  * Base64 (string) - A string containing the Base64-encoded image data.
-  * Format (string) - The type and format of the image returned.
-  * Height (integer) - The height of the image in pixels.
-  * Name (string) - The name of the image.  
-  * Width (integer) - The width of the image in pixels. 
+- Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Audio
