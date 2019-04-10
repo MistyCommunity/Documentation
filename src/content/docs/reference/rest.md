@@ -298,21 +298,6 @@ Return Values
 
 ## Expression
 
-## External Requests
-
-## Movement
-
-## Navigation
-
-## Perception
-
-## Skill Management
-
-## System
-
-
-## Images & Display
-
 ### DisplayImage
 
 Displays an image on Misty's screen. Optionally, `DisplayImage` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. Use `SaveImage` to upload images to Misty.
@@ -336,6 +321,23 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+## External Requests
+
+## Movement
+
+## Navigation
+
+## Perception
+
+## Skill Management
+
+## System
+
+
+## Images & Display
+
+
 
 ### ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.

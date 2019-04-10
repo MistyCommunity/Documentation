@@ -215,22 +215,6 @@ misty.WriteSerial("your-data");
 
 ## Expression
 
-## External Requests
-
-## Movement
-
-## Navigation
-
-## Perception
-
-## Skill Management
-
-## System
-
-## Images & Display
-
-<!-- Images & Display - PRODUCTION -->
-
 ### misty.DisplayImage
 Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../docs/reference/rest/#saveimage-byte-array-string-) command in Misty's REST API to upload images to Misty.
 
@@ -253,6 +237,22 @@ Arguments
 // Example
 misty.DisplayImage("Happy.png");
 ```
+
+## External Requests
+
+## Movement
+
+## Navigation
+
+## Perception
+
+## Skill Management
+
+## System
+
+## Images & Display
+
+
 
 ### misty.ClearDisplayText
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
