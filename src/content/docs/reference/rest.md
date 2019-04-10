@@ -366,9 +366,13 @@ Parameters
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
 
-## External Requests
-
 ## Movement
+
+The following commands allow you to programmatically drive and stop Misty and move her head and arms. 
+
+If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
+
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -828,48 +832,65 @@ Stops Misty tracking her location.
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
 
 Parameters
+
 - None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Perception
 
+The following commands allow you to programmatically take pictures, record sounds or videos, and have misty detect and learn to recognize faces. 
+
+Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [API Explorer](../../../docs/apps/api-explorer/#face-training-amp-recognition-beta).
+
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
+
 ### CancelFaceTraining
+
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### GetKnownFaces
+
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/faces
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
-
 ### ForgetAllFaces
+
 Removes records of previously trained faces from Misty's memory.
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StartFaceDetection
+
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
 When you are done having Misty detect faces, call StopFaceDetection.
@@ -877,13 +898,15 @@ When you are done having Misty detect faces, call StopFaceDetection.
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
 ### StartFaceTraining
+
 Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
@@ -891,7 +914,8 @@ This process should take less than 15 seconds and will automatically stop when c
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
 
 Parameters
-- FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
+
+* FaceId (string) - A unique string of 30 characters or less that provides a name for the face. Only alpha-numeric, -, and _ are valid characters.
 
 ```json
 {
@@ -900,10 +924,11 @@ Parameters
 ```
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
 ### StartFaceRecognition
+
 Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
 When you are done having Misty recognize faces, call StopFaceRecognition.
@@ -911,7 +936,8 @@ When you are done having Misty recognize faces, call StopFaceRecognition.
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
 
 Parameters
-- None
+
+* None
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -1158,48 +1184,6 @@ Parameters
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
-
-### SetDefaultVolume
-Sets the default loudness of Misty's speakers for audio playback.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
-
-Parameters
-- Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Locomotion
-
-The following commands allow you to programmatically drive and stop Misty. If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
-
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
-
-
-## Configuration
-
-###  SetNetworkConnection
-Connects Misty to a specified WiFi source.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/network
-
-Parameters
-- NetworkName (string) - The Wi-Fi network name (SSID).
-- Password (string) - The Wi-Fi network password.
-
-```json
-{
-  "NetworkName": "MyWiFi",
-  "Password": "superPassw0rd"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-<!-- Alpha - Configuration -->
-
 ### GetStoreUpdateAvailable
 
 Checks whether a system update is available. 
@@ -1207,9 +1191,11 @@ Checks whether a system update is available.
 Endpoint: &lt;robot-ip-address&gt;/api/system/updates
 
 Parameters
+
 * None
 
 Return Values
+
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
 
 ### PerformSystemUpdate
@@ -1244,13 +1230,36 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-## Faces
+### SetDefaultVolume
 
-You can have Misty detect any face she sees or train her to recognize people that you choose. Note that, like most of us, Misty sees faces best in a well-lit area.
+Sets the default loudness of Misty's speakers for audio playback.
 
-The following commands allow you to programmatically use Misty's face detection and recognition abilities. If you want to directly experiment with these, you can use the [API Explorer](../../../docs/apps/api-explorer/#face-training-amp-recognition-beta).
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceDetection and FaceRecognition [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
+Parameters
+- Volume (integer): A value between 0 and 100 for the loudness of the system audio. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+###  SetNetworkConnection
+Connects Misty to a specified WiFi source.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/network
+
+Parameters
+- NetworkName (string) - The Wi-Fi network name (SSID).
+- Password (string) - The Wi-Fi network password.
+
+```json
+{
+  "NetworkName": "MyWiFi",
+  "Password": "superPassw0rd"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Skill Management Commands
 
