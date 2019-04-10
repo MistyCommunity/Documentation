@@ -296,6 +296,27 @@ Return Values
 
 ## Event
 
+### TriggerSkillEvent
+Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
+
+Parameters
+* UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
+* EventName (string) - The name of the event to trigger. 
+* Payload (JSON string) -  Any arguments needed for the event.
+
+```json
+ {
+  "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
+  "EventName": "UserEvent",
+  "Payload": { "test": "two" }
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
 ## Expression
 
 ### ChangeLED
@@ -1080,6 +1101,144 @@ Return Values
 
 ## Skill Management
 
+### CancelSkill
+Stops a specified running skill (or all running skills if no name is specified).
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
+
+Parameters
+* Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
+
+```json
+{
+	"Skill": "SkillName"
+}
+
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+### GetRunningSkills
+
+Obtains a list of the skills currently running on Misty.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/skills/running
+
+Parameters
+
+- None
+
+Return Values
+
+- result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this call returns an empty array. Each object in the list includes the following key-value pairs:
+  - description (string) - The description of the skill as it appears in the skill's meta file.
+  - name (string) - The name of the skill as it appears in the skill's meta file.
+  - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
+  - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
+
+```JSON
+// SAMPLE RESULT
+"result":[  
+    {  
+        "description":"A simple skill for Misty.",
+        "name":"HelloWorld",
+        "startupArguments":{  
+            "skill":"HelloWorld",
+            "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
+        },
+        "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
+    }
+]
+```
+
+### GetSkills
+
+Obtains a list of the skills currently uploaded onto the robot.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/skills
+
+Parameters
+* (None)
+
+Return Values
+* Result (array) - An array containing the names and meta file information for all of the skills on the robot.
+
+<!-- RunSkill -->
+### RunSkill
+Immediately runs a previously uploaded skill.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
+
+Parameters`
+* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
+* Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
+
+```json
+{
+  "Skill": "SkillName",
+  "Method": "methodName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+
+### SaveSkillToRobot
+Uploads a skill to the robot and makes it immediately available for the robot to run.
+
+**Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills
+
+Parameters
+* File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
+* ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
+* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
+
+```json
+{
+  "File" : "SkillName.zip",
+  "ImmediatelyApply": false,
+  "OverwriteExisting": true
+}
+```
+
+Return Values
+* Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
+
+### LoadSkill - ALPHA
+Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/load
+
+Parameters
+* Skill (string) - The name of the skill to load.
+
+```json
+{
+  "Skill": "SkillName"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+<!-- ReloadSkills --> 
+### ReloadSkills - ALPHA
+Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
+
+Parameters
+* (None)
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request. 
+
+
 ## System
 
 ### ClearDisplayText
@@ -1260,166 +1419,3 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-## Skill Management Commands
-
-### GetRunningSkills
-
-Obtains a list of the skills currently running on Misty.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/skills/running
-
-Parameters
-
-- None
-
-Return Values
-
-- result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this call returns an empty array. Each object in the list includes the following key-value pairs:
-  - description (string) - The description of the skill as it appears in the skill's meta file.
-  - name (string) - The name of the skill as it appears in the skill's meta file.
-  - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
-  - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
-
-```JSON
-// SAMPLE RESULT
-"result":[  
-    {  
-        "description":"A simple skill for Misty.",
-        "name":"HelloWorld",
-        "startupArguments":{  
-            "skill":"HelloWorld",
-            "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
-        },
-        "uniqueId":"28c7cb66-91d4-4c8f-a8af-bb667ce18099"
-    }
-]
-```
-
-### GetSkills
-
-Obtains a list of the skills currently uploaded onto the robot.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/skills
-
-Parameters
-* (None)
-
-Return Values
-* Result (array) - An array containing the names and meta file information for all of the skills on the robot.
-
-<!-- CancelSkill -->
-### CancelSkill
-Stops a specified running skill (or all running skills if no name is specified).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
-
-Parameters
-* Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
-
-```json
-{
-	"Skill": "SkillName"
-}
-
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
-
-
-<!-- LoadSkill -->
-### LoadSkill - ALPHA
-Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/load
-
-Parameters
-* Skill (string) - The name of the skill to load.
-
-```json
-{
-  "Skill": "SkillName"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
-
-<!-- ReloadSkills --> 
-### ReloadSkills - ALPHA
-Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
-
-Parameters
-* (None)
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request. 
-
-<!-- RunSkill -->
-### RunSkill
-Immediately runs a previously uploaded skill.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
-
-Parameters`
-* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
-* Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
-
-```json
-{
-  "Skill": "SkillName",
-  "Method": "methodName"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
-
-
-### SaveSkillToRobot
-Uploads a skill to the robot and makes it immediately available for the robot to run.
-
-**Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills
-
-Parameters
-* File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
-* ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
-* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
-
-```json
-{
-  "File" : "SkillName.zip",
-  "ImmediatelyApply": false,
-  "OverwriteExisting": true
-}
-```
-
-Return Values
-* Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
-
-<!-- TriggerSkillEvent -->
-### TriggerSkillEvent
-Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
-
-Parameters
-* UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
-* EventName (string) - The name of the event to trigger. 
-* Payload (JSON string) -  Any arguments needed for the event.
-
-```json
- {
-  "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
-  "EventName": "UserEvent",
-  "Payload": { "test": "two" }
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
