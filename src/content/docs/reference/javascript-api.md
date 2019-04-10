@@ -238,6 +238,25 @@ Arguments
 misty.DisplayImage("Happy.png");
 ```
 
+### misty.PlayAudio
+Plays an audio clip that has been previously saved to Misty's storage.
+
+```JavaScript
+// Syntax
+misty.PlayAudio(string fileName, [int volume], [int prePause], [int postPause]);
+```
+
+Arguments
+* fileName (string) - The name of the file to play.
+* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
+
+```JavaScript
+// Example
+misty.PlayAudio("Play.wav", 100);
+```
+
 ## External Requests
 
 ## Movement
@@ -471,24 +490,7 @@ Returns
 
 Want Misty to say something different or play a special tune when she recognizes someone? You can save your own audio files to Misty and control what she plays.
 
-### misty.PlayAudio
-Plays an audio clip that has been previously saved to Misty's storage.
 
-```JavaScript
-// Syntax
-misty.PlayAudio(string fileName, [int volume], [int prePause], [int postPause]);
-```
-
-Arguments
-* fileName (string) - The name of the file to play.
-* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.PlayAudio("Play.wav", 100);
-```
 
 ### misty.StartRecordingAudio
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
