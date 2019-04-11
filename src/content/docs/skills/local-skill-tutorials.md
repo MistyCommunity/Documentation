@@ -1154,7 +1154,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 ```json
 {
     "Name": "HelloWorld_BumpSensors",
-    "UniqueId": "01190e52-3d72-4a9c-ba26-ea483fbdbdea",
+    "UniqueId": "c07db3af-ee28-4d1f-b3c9-fc67c1e8246c",
     "Description": "Local 'Hello, World!' tutorial series",
     "StartupRules": [ "Manual", "Robot" ],
     "Language": "javascript",
