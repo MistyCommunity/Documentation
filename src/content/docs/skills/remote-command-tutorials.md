@@ -599,7 +599,7 @@ async function openCallback() {
     axios.get("http://" + ip + "/api/faces").then(function (res) {
         // Store the list of known faces in the
         // faceArr variable and print this list.
-        let faceArr = res.data[0].result;
+        let faceArr = res.data.result;
         console.log("Learned faces:", faceArr);
     });
 }
@@ -613,7 +613,7 @@ async function openCallback() {
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
-        let faceArr = res.data[0].result;
+        let faceArr = res.data.result;
         console.log("Learned faces:", faceArr);
 
         // Loop through each item in faceArr. 
@@ -659,7 +659,7 @@ async function openCallback() {
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
-        let faceArr = res.data[0].result;
+        let faceArr = res.data.result;
         console.log("Learned faces:", faceArr);
 
         for (let i = 0; i < faceArr.length; i++) {
@@ -688,7 +688,7 @@ async function openCallback() {
     await sleep(3000);
 
     axios.get("http://" + ip + "/api/faces").then(function (res) {
-        let faceArr = res.data[0].result;
+        let faceArr = res.data.result;
         console.log("Learned faces:", faceArr);
 
         for (let i = 0; i < faceArr.length; i++) {
