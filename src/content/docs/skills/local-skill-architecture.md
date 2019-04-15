@@ -289,18 +289,14 @@ The system provides REST commands that you can use to control and manage on-robo
 
 ## File Structure & Code Architecture
 
-There are two basic file types required for an on-robot skill: a "meta" JSON file and a "code" JavaScript file. On the robot, these files are located in the following directory structure:
+There are two basic file types required for an on-robot skill: a "meta" JSON file and a "code" JavaScript file. Each skill MUST have a "code" file and a "meta" file of the same name. For example:
 
-```JavaScript
-User Folders\Music\SDKAssets\Misty\Skills\Meta\<filename>.json
-User Folders\Music\SDKAssets\Misty\Skills\Code\<filename>.js
 ```
+// meta file
+Roam.json
 
-Each skill MUST have files of the same name in both the `Code` and `Meta` folders. For example:
-
-```JavaScript
-User Folders\Music\SDKAssets\Misty\Skills\Meta\Roam.json
-User Folders\Music\SDKAssets\Misty\Skills\Code\Roam.js
+// code file
+Roam.js
 ```
 
 ### Meta File
@@ -309,7 +305,6 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 
 ```json
 {
-    "Name": "sample_skill",
     "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
     "Description": "My skill is amazing!",
     "StartupRules": ["Manual", "Robot"],
@@ -327,6 +322,8 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 }
 ```
 
+The meta file must have the same name as the code file for the skill.
+
 The value for `UniqueId` should be a 128-bit GUID, and `Name` can be any value you want. To get up and running quickly with your own skill, you can duplicate the values we’ve provided and simply generate a new GUID for the `UniqueId` value.
 
 Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
@@ -340,7 +337,7 @@ _global = _params.foo;
 ```
 
 ### Code File
-The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even simpler than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
+The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
 
 ```js
 misty.Debug("Hello, World!");
@@ -417,7 +414,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 
 Currently, you must use Misty's REST API to trigger an on-robot skill to start or stop. You can use the Skill Runner interface or a REST client like Postman to send `RunSkill` and `CancelSkill` commands, or you can write your own code to send these commands from an external device.
 
-To start a skill, send the `RunSkill POST` command with the following syntax. Note that the `Skill` value must be the same as the `Name` value for the skill in its JSON `meta` file.
+To start a skill, send the `RunSkill POST` command with the following syntax. The value of the `Skill` key must be the name given to the meta and code files for the skill.
 
 ```html
 <!-- Endpoint -->
@@ -441,7 +438,7 @@ POST http://<robot-ip-address>/api/skills/start
 }
 ```
 
-To stop a skill, send the `CancelSkill POST` command to the following endpoint, again using the Name value for the skill from its JSON `meta` file:
+To stop a skill, send the `CancelSkill POST` command to the following endpoint, again using the name given to the skills meta and code files.
 
 ```html
 <!-- Endpoint -->
