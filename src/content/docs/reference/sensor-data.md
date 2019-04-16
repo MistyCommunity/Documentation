@@ -63,7 +63,7 @@ FaceRecognition{
 
 ## LocomotionCommand
 
-```LocomotionCommand``` WebSocket data is sent every time the linear or angular velocity of the robot changes. It is not sent at timed intervals.
+`LocomotionCommand` WebSocket data is sent every time the linear or angular velocity of the robot changes. It is not sent at timed intervals.
 
 Sample locomotion data:
 ```javascript
@@ -664,4 +664,23 @@ TouchSensor{
     },
     "type":"TouchSensor"
  }
+```
+
+## AudioPlayComplete
+
+`AudioPlayComplete` WebSocket data is sent every time Misty finishes playing an audio file. It is not sent at timed intervals.
+
+```JSON
+AudioPlayComplete {
+    "eventName":"AudioPlayComplete",
+    "message":{
+        "created":"2019-04-08T20:54:36.7051135Z",
+        "metaData":{
+            "directory":"Idle",
+            "duration":0,
+            "name":"002-Ahhh.wav",
+            "vad":[0,0,-0.5]
+        }
+    }
+}
 ```
