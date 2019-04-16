@@ -910,6 +910,21 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### ForgetFace
+
+Removes records of a specific trained face from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
+
+Parameters
+
+* FaceId (string) - The name of the face to remove.
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
+
+
 ### StartFaceDetection
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
