@@ -1665,30 +1665,33 @@ Arguments
 misty.Remove("Key");
 ```
 
-### misty.Set - ALPHA
+### misty.Set
 
-Saves data that can be validly updated and used across threads or shared between skills. 
+Saves data that can be validly updated and used across threads or shared between skills.
 
-**Important!** Data stored via the `misty.Set()` command **does not persist across a reboot** of the robot at this time.
+Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
-Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
+By default, long term data saved by the `misty.Set()` command clears from Misty's memory when Misty reboots. To change this, you need to include an additional `SkillStorageLifetime` key in the meta file for your skill. The `SkillStorageLifetime` key determines how long data saved to Misty with the `misty.Set()` command remains available for use in your skills. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+
+* `Skill` - The data clears when the skill stops running.
+* `Reboot` - The data clears the next time Misty reboots.
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the mi`sty.Remove()` command.
+
+You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default behavior of persistent data for that skill.
 
 ```JavaScript
 // Syntax
-misty.Set(string key, string value, [int prePause], [int postPause]);
+misty.Set(string key, string value, [bool longTermStorage], [int prePause], [int postPause]);
 ```
 
 Arguments
 
 * key (string) - The key name for the data to save.
 * value (value) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`.
+* longTermStorage (boolean) - Whether to save the data to long term storage. Defaults to `false`.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPause` is not used.
-
-```JavaScript
-// Example
-misty.Set("Key", "Value");
-```
+* postPause (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next comm
+and in the skill. If no command follows this command, `postPause` is not used.
 
 ## System
 
