@@ -801,14 +801,14 @@ Obtains information about a specified WebSocket class. Calling `GetWebsocketHelp
  
 Endpoint: 
 
-GET &lt;robot-ip-address&gt;/api/beta/info/help/websocket for information about all of Misty’s available WebSocket connections.
+GET &lt;robot-ip-address&gt;/api/websockets for information about all of Misty’s available WebSocket connections.
 
-GET &lt;robot-ip-address&gt;/api/beta/info/help/websocket?websocketClass=&lt;websocket-class-name&gt; for information about a specific WebSocket class. 
+GET &lt;robot-ip-address&gt;/api/websockets?websocketClass=&lt;websocket-class-name&gt; for information about a specific WebSocket class. 
 
 Example:
 
 ```
-<robot-ip-address>/api/beta/info/help/websocket?websocketClass=TimeOfFlight
+<robot-ip-address>/api/websockets?websocketClass=TimeOfFlight
 ```
 
 Parameters
