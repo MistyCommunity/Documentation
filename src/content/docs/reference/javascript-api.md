@@ -1179,6 +1179,24 @@ Arguments
 misty.ForgetAllFaces();
 ```
 
+### misty.ForgetFace
+
+Removes records of a specific trained face from Misty's memory.
+
+```JavaScript
+// Syntax
+misty.ForgetFace(string FaceId, [int prePause], [int postPause]);
+```
+
+Arguments
+
+* FaceId (string) - The name of the face to remove.
+
+```JavaScript
+// Example
+misty.ForgetFace("John");
+```
+
 ### misty.GetKnownFaces
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
