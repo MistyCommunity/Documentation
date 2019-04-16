@@ -793,6 +793,40 @@ public enum SlamSensorStatus
 }
 ```
 
+### GetWebsocketHelp
+
+Obtains information about a specified WebSocket class. Calling `GetWebsocketHelp` with no parameters returns information about all of Misty’s available WebSocket connections.
+
+**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data/).
+ 
+Endpoint: 
+
+GET &lt;robot-ip-address&gt;/api/beta/info/help/websocket for information about all of Misty’s available WebSocket connections.
+
+GET &lt;robot-ip-address&gt;/api/beta/info/help/websocket?websocketClass=&lt;websocket-class-name&gt; for information about a specific WebSocket class. 
+
+Example:
+
+```
+<robot-ip-address>/api/beta/info/help/websocket?websocketClass=TimeOfFlight
+```
+
+Parameters
+* websocketClass (string) - Optional. Specifies the WebSocket class to obtain information about. 
+
+Return Values
+* result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. The data object for each WebSocket class includes the following information:
+  * class (string) - The name of a given WebSocket class.
+  * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
+
+```json
+{"result": [ { 
+   "class": "TimeOfFlight",
+   "nestedProperties": [ "SensorPosition", "DistanceInMeters", "Created", "Expiry", "SensorId", "SensorName" ]
+} ]
+```
+
+
 ### ResetSlam - ALPHA
 
 Resets the SLAM sensors.
@@ -1394,9 +1428,11 @@ Downloads and installs a system update if one is available.
 Endpoint: POST &lt;robot-ip-address&gt;/api/system/update
 
 Parameters
+
 * None
 
 Return Values
+
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
 
 ### PerformTargetedUpdate
