@@ -1113,22 +1113,22 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
 ## Skill Management
 
 ### CancelSkill
+
 Stops a specified running skill (or all running skills if no name is specified).
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
 
 Parameters
+
 * Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
 
 ```json
 {
 	"Skill": "SkillName"
 }
-
 ```
 
 Return Values
@@ -1223,7 +1223,8 @@ Uploads a skill to the robot and makes it immediately available for the robot to
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
 Parameters
-* File (file) - A zipped file containing the two skill files. Both these files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
+
+* File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
 * ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
 * OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
 
