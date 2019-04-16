@@ -1134,6 +1134,20 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
+### DeleteSkill
+
+Removes the code, meta, and asset files for a skill from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/skills?Skill=&lt;unique-id&gt;
+
+Arguments
+
+* Skill (string) - The unique ID of the skill to delete.
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
+
 
 ### GetRunningSkills
 
