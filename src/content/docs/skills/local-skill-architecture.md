@@ -410,8 +410,7 @@ The .zip you create for your skill files can include any image and audio files u
 
 You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill. You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
 
-
-### Using Skill Runner 
+### Using Skill Runner
 The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../skills/tools/#misty-skill-runner).
 
 ### Using Postman
