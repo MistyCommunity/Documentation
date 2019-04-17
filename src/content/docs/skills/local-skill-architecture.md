@@ -341,7 +341,7 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 
 The meta file must have the same name as the code file for the skill.
 
-The value for `UniqueId` should be a 128-bit GUID, and `Name` can be any value you want. To get up and running quickly with your own skill, you can duplicate the values we’ve provided and simply generate a new GUID for the `UniqueId` value.
+The value for `UniqueId` should be a 128-bit GUID. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/skills/tools/#misty-skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
 
 Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
 
@@ -406,7 +406,7 @@ Once you’ve created the files for your skill, you must load them onto your rob
 
 The Skill Runner provides a graphic interface for uploading code, meta, image, and audio files for your skills. When you use the endpoint for the `SaveSkillToRobot` command, you compress the code, meta, and asset files into a .zip file and send them to the robot with your request.
 
-The .zip you create for your skill files can include any image and audio files used in the skill. When you upload image and audio files this way, Misty appends the filenames of these assets with the `UniqueID` from the skill's `meta` file. **Note:** You do not need to change the filenames in the original skill code to include this appended `UniqueID`.
+The .zip you create for your skill files can include any image and audio files used in the skill. When you upload image and audio files this way, Misty appends the filenames of these assets with the `UniqueID` from the skill's `meta` file. **You do not need to use these modified filenames in the code for the original skill**.
 
 You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill. You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
 
