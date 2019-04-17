@@ -1029,9 +1029,11 @@ Stops Misty's detection of faces in her line of vision.
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/stop
 
 Parameters
-- None
+
+* None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 

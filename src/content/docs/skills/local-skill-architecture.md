@@ -236,17 +236,34 @@ function _GetImageList(response) {
 }
 ```
 
-In cases where you need persistent data that can be (a) validly updated across threads or (b) shared between skills, you need to use the cross-skill `Set()` command:
+### Data Handling: Persistent Data
+
+In cases where you need persistent data that can be (a) validly updated across threads and/or (b) shared between skills, you need to use the cross-skill `misty.Set()` command:
 
 ```js
-misty.Set(string key, string value);
+// Syntax
+misty.Set(string key, string value, [bool longTermStorage]);
 ```
 
-Data saved using `Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
+Data saved with `misty.Set()` must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. 
 
-Additional commands that operate on data across skills are described in the [Helper Commands](./#helper-commands) section. 
+When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
 
-<!-- TODO: Add link to Helper Commands section -->
+```JavaScript
+misty.Set("key", "my long term data", true);
+```
+
+By default, data saved by the `misty.Set()` command clears from Misty's memory when Misty reboots. To change this, you need to include an additional `SkillStorageLifetime` key in the meta file for your skill. The `SkillStorageLifetime` key determines how long data saved to Misty with the `misty.Set()` command remains available for use in your skills.
+
+You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+
+* `Skill` - The data clears when the skill stops running.
+* `Reboot` - The data clears the next time Misty reboots (default).
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `misty.Remove()` command.
+
+You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
+
+Additional commands that operate on data across skills are described in the [Helper Commands](../../../docs/skills/local-skill-architecture/#helper-commands) section.
 
 ## Command Types
 The following briefly describe the categories of commands you have available to work with Misty.
