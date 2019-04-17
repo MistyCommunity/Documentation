@@ -150,8 +150,9 @@ Misty is packed with sophisticated hardware and software features that contribut
 * 2.4 and 5 Ghz WiFi connection
 * Bluetooth and Bluetooth Low Energy capabilities 
 
-### Expandability
-* USB/Serial-connected backpack for hardware expansion
+### Extensibility
+
+* USB/Serial-connected backpack for hardware extension
 * Arduino-compatible Backpack (optional)
 * Magnetic helmet connection point
 

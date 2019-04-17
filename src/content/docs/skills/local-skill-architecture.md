@@ -402,7 +402,7 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
 
 * the [Misty Skill Runner](../../skills/tools/#misty-skill-runner) web tool, which provides a simple upload feature
-* a REST tool such as Postman that can send a `POST` request to the dedicated `SaveSkilltoRobot` endpoint for skill deployment
+* a REST tool such as Postman that can send a `POST` request to the dedicated `SaveSkillToRobot` endpoint for skill deployment
 
 The Skill Runner provides a graphic interface for uploading code, meta, image, and audio files for your skills. When you use the endpoint for the `SaveSkillToRobot` command, you compress the code, meta, and asset files into a .zip file and send them to the robot with your request.
 
