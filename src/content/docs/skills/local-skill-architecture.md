@@ -85,15 +85,15 @@ A "get" callback function must have exactly one parameter. That parameter holds 
 StartMySkill();
 
 function StartMySkill() {
-	misty.GetListOfAudioClips();
+	misty.GetAudioList();
 }
 
-function _GetListOfAudioClips(callbackData) {
+function _GetAudioList(callbackData) {
     var audioList = callbackData.Result;
     if (audioList.length > 0) {
         var randomInt = Math.floor(Math.random() * audioList.length);
         var currentSound = audioList[randomInt].Name;
-        misty.PlayAudioClip(currentSound);
+        misty.PlayAudio(currentSound);
     }
 }
 ```
@@ -102,18 +102,6 @@ function _GetListOfAudioClips(callbackData) {
 * `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
 * `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back.
 * `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). For "get" callbacks, using abort in this case would mean that the data requested would not be received.
-
-Sample "get" callback with a callback rule:
-
-```js
-misty.GetListOfAudioClips("synchronous", 500, 1000);
-```
-
-Sample "get" callback with a callback rule and including the ID of a skill to trigger:
-
-```js
-misty.SlamGetMap("override", "9d50efbd-af53-4cd3-9659-c0faf648263d", 500, 10);
-```
 
 ### Sensor Event Callbacks
 For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../reference/sensor-data).
@@ -201,7 +189,7 @@ misty.RegisterUserEvent(string eventName, string callbackMethod);
 You can also trigger an event by making a REST call to the event endpoint with a POST command:
 
 ```html
-POST <robot-ip-address>api/alpha/sdk/skills/event
+POST <robot-ip-address>api/skills/event
 ```
 
 With a JSON body similar to:
@@ -227,7 +215,7 @@ There are two ways to store persistent data with on-robot skills:
 
 You can create global variables and use them across all "get" and "event" callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
 
-Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward. 
+Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward.
 
 In this example, `_imageCount` is declared and used as a global variable:
 
@@ -237,34 +225,51 @@ _imageCount = 72;
 StartSkill();
 
 function StartSkill() {
-    misty.GetListOfImages();
+    misty.GetImageList();
 }
 
-function _GetListOfImages(response) {
+function _GetImageList(response) {
     if (response.Result.length != _imageCount) {
         misty.Debug("Wrong number of expected images!");
-        misty.PlayAudioClip("SadSound.wav", 50);
+        misty.PlayAudio("SadSound.wav", 50);
     }
 }
 ```
 
-In cases where you need persistent data that can be (a) validly updated across threads or (b) shared between skills, you need to use the cross-skill `Set()` command:
+### Persistent Data
+
+In cases where you need persistent data that can be (a) validly updated across threads and/or (b) shared between skills, you need to use the cross-skill `misty.Set()` command:
 
 ```js
-misty.Set(string key, string value);
+// Syntax
+misty.Set(string key, string value, [bool longTermStorage]);
 ```
 
-Data saved using `Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
+Data saved with `misty.Set()` must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. 
 
-Additional commands that operate on data across skills are described in the [Helper Commands](./#helper-commands) section. 
+When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
 
-<!-- TODO: Add link to Helper Commands section -->
+```JavaScript
+misty.Set("key", "my long term data", true);
+```
+
+By default, data saved by the `misty.Set()` command clears from Misty's memory when Misty reboots. To change this, you need to include an additional `SkillStorageLifetime` key in the meta file for your skill. The `SkillStorageLifetime` key determines how long data saved to Misty with the `misty.Set()` command remains available for use in your skills.
+
+You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+
+* `Skill` - The data clears when the skill stops running.
+* `Reboot` - The data clears the next time Misty reboots (default).
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `misty.Remove()` command.
+
+You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
+
+Additional commands that operate on data across skills are described in the [Helper Commands](../../../docs/skills/local-skill-architecture/#helper-commands) section.
 
 ## Command Types
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
-Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `SlamStartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../reference/javascript-api).
+Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `StartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../reference/javascript-api).
 
 ### Get Commands
 Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-quot-get-quot-data-callbacks) section for more usage details.
@@ -290,7 +295,7 @@ The system supplies the following types of helper commands to assist you in writ
 
 ### Skill Management Commands
 
-The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../docs/reference/rest/#skill-management-commands). These commands allow you to:
+The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../docs/reference/rest/#skill-management). These commands allow you to:
 
 * Upload skills to the robot
 * Load, reload, or unload one or more skills
@@ -301,18 +306,14 @@ The system provides REST commands that you can use to control and manage on-robo
 
 ## File Structure & Code Architecture
 
-There are two basic file types required for an on-robot skill: a "meta" JSON file and a "code" JavaScript file. On the robot, these files are located in the following directory structure:
+There are two basic file types required for an on-robot skill: a "meta" JSON file and a "code" JavaScript file. Each skill MUST have a "code" file and a "meta" file of the same name. For example:
 
-```JavaScript
-User Folders\Music\SDKAssets\Misty\Skills\Meta\<filename>.json
-User Folders\Music\SDKAssets\Misty\Skills\Code\<filename>.js
 ```
+// meta file
+Roam.json
 
-Each skill MUST have files of the same name in both the `Code` and `Meta` folders. For example:
-
-```JavaScript
-User Folders\Music\SDKAssets\Misty\Skills\Meta\Roam.json
-User Folders\Music\SDKAssets\Misty\Skills\Code\Roam.js
+// code file
+Roam.js
 ```
 
 ### Meta File
@@ -321,7 +322,6 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 
 ```json
 {
-    "Name": "sample_skill",
     "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
     "Description": "My skill is amazing!",
     "StartupRules": ["Manual", "Robot"],
@@ -339,7 +339,9 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 }
 ```
 
-The value for `UniqueId` should be a 128-bit GUID, and `Name` can be any value you want. To get up and running quickly with your own skill, you can duplicate the values we’ve provided and simply generate a new GUID for the `UniqueId` value.
+The meta file must have the same name as the code file for the skill.
+
+The value for `UniqueId` should be a 128-bit GUID. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/skills/tools/#misty-skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
 
 Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
 
@@ -352,7 +354,7 @@ _global = _params.foo;
 ```
 
 ### Code File
-The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even simpler than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
+The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
 
 ```js
 misty.Debug("Hello, World!");
@@ -391,7 +393,7 @@ function _FrontTOF(data) {
 }
 ```
 
-Note that when a skill starts, the code within the skill automatically starts running. When a skill has finished executing (or has been cancelled), normal cleanup automatically begins. Normal cleanup drops any pending callbacks, deletes cached code, etc.
+When a skill starts, the code within the skill automatically starts running. When a skill has finished executing (or has been cancelled), normal cleanup automatically begins. Normal cleanup drops any pending callbacks, deletes cached code, etc.
 
 If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is cancelled, additional commands are automatically issued to stop running processes that may have been started in the skill. These process might include facial detection / recognition / training, SLAM mapping / tracking / recording / streaming, and record audio. If `CleanupOnCancel` is set to `false`, then this additional cleanup does not occur when cancelled (`false` is currently the default value). Currently, this does not affect the behavior of the skill if it ends normally. These commands are not automatically issued in this case.
 
@@ -400,9 +402,15 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
 
 * the [Misty Skill Runner](../../skills/tools/#misty-skill-runner) web tool, which provides a simple upload feature
-* a REST tool such as Postman that can send a `POST` request to the dedicated endpoint for skill deployment
+* a REST tool such as Postman that can send a `POST` request to the dedicated `SaveSkillToRobot` endpoint for skill deployment
 
-### Using Skill Runner 
+The Skill Runner provides a graphic interface for uploading code, meta, image, and audio files for your skills. When you use the endpoint for the `SaveSkillToRobot` command, you compress the code, meta, and asset files into a .zip file and send them to the robot with your request.
+
+The .zip you create for your skill files can include any image and audio files used in the skill. When you upload image and audio files this way, Misty appends the filenames of these assets with the `UniqueID` from the skill's `meta` file. **You do not need to use these modified filenames in the code for the original skill**.
+
+You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill. You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
+
+### Using Skill Runner
 The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../skills/tools/#misty-skill-runner).
 
 ### Using Postman
@@ -415,7 +423,7 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 5. For the header value, enter "multipart/form-data".
 6. For the body key, enter "skills", then select "File" from the dropdown menu on the right.
 7. In the body value section, click "Choose Files" and select the .zip file for your skill.
-8. To add and load a skill onto the robot, send a POST request to `http://{your robot’s ip address}/api/alpha/sdk/skill/deploy` with the following parameters:
+8. To add and load a skill onto the robot, send a POST request to `http://<your robot’s ip address>/api/skills` with the following parameters:
    * `Skill` (byte array) - A zipped file containing the two skill files (Meta and Code).
    * `ImmediatelyApply` (boolean) - `true` or `false`. Specifies whether the robot immediately runs the uploaded skill.
    * `OverwriteExisting` (boolean) - `True` or `False`. Indicates whether the file should overwrite a file with the same name, if one currently exists on this robot.
@@ -429,11 +437,11 @@ There are many ways to send a `POST` request to the skill deployment endpoint, b
 
 Currently, you must use Misty's REST API to trigger an on-robot skill to start or stop. You can use the Skill Runner interface or a REST client like Postman to send `RunSkill` and `CancelSkill` commands, or you can write your own code to send these commands from an external device.
 
-To start a skill, send the `RunSkill POST` command with the following syntax. Note that the `Skill` value must be the same as the `Name` value for the skill in its JSON `meta` file.
+To start a skill, send the `RunSkill POST` command with the following syntax. The value of the `Skill` key must be the name given to the meta and code files for the skill.
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/skills/start
 
 <!-- Payload -->
 {
@@ -445,7 +453,7 @@ For example:
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/skill
+POST http://<robot-ip-address>/api/skills/start
 
 <!-- Payload -->
 {
@@ -453,11 +461,11 @@ POST http://<robot-ip-address>/api/alpha/sdk/skill
 }
 ```
 
-To stop a skill, send the `CancelSkill POST` command to the following endpoint, again using the Name value for the skill from its JSON `meta` file:
+To stop a skill, send the `CancelSkill POST` command to the following endpoint, again using the name given to the skills meta and code files.
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/skills/cancel
 
 <!-- Payload -->
 {
@@ -469,10 +477,14 @@ To stop all running skills, send the same `POST` command with an empty payload (
 
 ```html
 <!-- Endpoint -->
-POST http://<robot-ip-address>/api/alpha/sdk/cancel
+POST http://<robot-ip-address>/api/skills/cancel
 
 <!-- Payload -->
 {}
 ```
 
-**Important!** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. This duration can be changed by providing a different `TimeoutInSeconds` value in the `meta` file. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
+**Important!** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. You can change this duration by providing a different `TimeoutInSeconds` value in the `meta` file. This value determines how many seconds elapse before the skill cancels. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
+
+It's possible to prevent this automatic cancellation by using an infinite loop in your code, but doing so can cause Misty to continue executing your skill in the background even after the skill times out or is explicitly cancelled. Currently, you can address this by including an additional `ForceCancelSkill` key in the `meta` file for the skill and setting its value to     `true`. When you do this, issuing a `CancelSkill` command forces the skill to cancel via a thrown exception and stops all background execution of the skill.
+
+**Note:** Cancelling a skill that has a `true` value for `ForceCancelSkill` in the `meta` puts Misty into a state where she may not be able to start new skills for up to 30 seconds. We recommend excluding the `ForceCancelSkill` parameter from the `meta` file for skills without infinite running logic, and avoiding this kind logic where possible.

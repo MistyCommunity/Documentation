@@ -66,7 +66,7 @@ Misty getting a bit overloaded with custom files? It's easy to tidy her up again
 
 ### Using the API Explorer to obtain byte array strings from audio or image file data
 
-There is an option in the API explorer to convert audio or image file data to a byte array string and copy it to the clipboard. This is handy if you are using the REST or JavaScript commands `SaveAudioAssetToRobot` or `SaveImageAssetToRobot`, because these APIs require you to pass in raw file data.
+There is an option in the API explorer to convert audio or image file data to a byte array string and copy it to the clipboard. This is handy if you are using the REST or JavaScript commands `SaveAudio` or `SaveImage`, because these APIs require you to pass in raw file data.
 
 1. To select a file to convert, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
 2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to convert.

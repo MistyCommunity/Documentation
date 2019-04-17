@@ -54,13 +54,13 @@ let client = new LightClient("[robot IP address]", 10000);
 Once you create an instance of LightClient, it's simple to send requests to Misty’s REST endpoints. Most of the URL for Misty’s REST commands are built into LightClient: 
 
 ```javascript
-http://{ipAddress}/api/
+http://<ipAddress>/api/
 ```
 
 In order to use a specific endpoint, just pass in the rest of the URL. For example, you can do the following to send a GET request to the `GetDeviceInformation()` command:
 
 ```javascript
-client.GetCommand("info/device", function(data) {
+client.GetCommand("device", function(data) {
     console.log(data);
 });
 ```
@@ -91,7 +91,7 @@ payload = JSON.stringify(data);
 Send the request, including the data:
 
 ```javascript
-client.PostCommand("led/change", payload, function(result) {
+client.PostCommand("led", payload, function(result) {
     if(result) {
         console.log("Request Successful")
     }
@@ -152,9 +152,7 @@ The first thing the `tofApp.js` sample does is to construct the message that sub
 
 The `Type` property is the name of the desired data stream. Misty's available WebSocket data stream types are described below. Currently, they include:
 * ```TimeOfFlight```
-* ```ComputerVision```
-* ```FaceDetection``` (deprecated)
-* ```FaceRecognition``` (deprecated)
+* ```FaceRecognition```
 * ```LocomotionCommand```
 * ```HaltCommand```
 * ```SelfState```
