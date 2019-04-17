@@ -1665,7 +1665,7 @@ Arguments
 misty.Remove("Key");
 ```
 
-### misty.Set
+### misty.Set - ALPHA
 
 Saves data that can be validly updated and used across threads or shared between skills.
 

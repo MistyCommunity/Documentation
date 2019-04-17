@@ -57,26 +57,5 @@ Please contact Misty's support team if the connections on either of these boards
 ## Driving Misty with the Companion App
 
 1. From the **Home** screen, select the **Map/Drive** icon at the bottom of the screen. ![Companion App home screen](../../../assets/images/companion_app_home_4.png)
-2. You should see a screen with instructions on creating a map. From this screen, you can either start mapping or driving your Misty robot. Press the **Drive View** button at the bottom of this instruction screen. ![Companion App mapping instructions screen](../../../assets/images/companion_app_map_instructions_1.png)
-3. On the driving control screen, you can see a speed slider control, a "joystick" directional control, and a +/- control (to move Misty's head up or down). Start Misty driving at a slower speed by moving the speed control left, toward the "tortoise". To speed up, move the control to the right, toward the "hare". ![Companion App Drive screen](../../../assets/images/companion_app_drive_1.png)
-5. Control the direction that Misty drives by moving one finger around the “joystick”. Pressing at the points at the top and bottom of the circle drives Misty straight forward or backward. Pressing in the areas to the left and right of the circle rotates Misty.
-
-## Mapping with the Companion App
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](../api-explorer/#obtaining-pose). If you are unable to successfully map an area with the Companion App, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
-
-1. From the **Home** screen, select the **Map/Drive** icon at the bottom of the screen. ![Companion App home screen](../../../assets/images/companion_app_home_5.png)
-2. You should see a screen with instructions on creating a map. From this screen, you can either start mapping or driving your Misty robot. To create a map, begin by pressing the **Start Mapping** button. ![Companion App mapping instructions screen](../../../assets/images/companion_app_map_instructions_2.png)
-3. The **Start Mapping** button should change to **Stop Mapping** on the instruction screen. Press the **Drive View** button at the bottom of the screen. ![Companion App stop mapping button](../../../assets/images/companion_app_stop_mapping_1.png)
-4. Use the driving controls to SLOWLY drive Misty around the area you want to map. ![Companion App Drive screen](../../../assets/images/companion_app_drive_2.png)
-5. When you want to see the progress of your map, press the **Map View** button at the bottom of the driving control screen.
-6. Pressing **Map View** brings up the map screen, which displays the in-progress map. From this screen, you can press **Drive View** to continue filling in the map, or you can press **Reset Map** to clear the map and start over.![Companion App map screen](../../../assets/images/companion_app_sample_map.png)
-7. Once you have finished the map to your satisfaction, press the arrow at the top left of the drive or map screens to return to the instructions.
-8. On the instructions screen, press **Stop Mapping** and view your completed map. ![Companion App stop mapping button](../../../assets/images/companion_app_stop_mapping_2.png)
+2. On the driving control screen, you can see a speed slider control, a "joystick" directional control, and a +/- control (to move Misty's head up or down). Start Misty driving at a slower speed by moving the speed control left, toward the "tortoise". To speed up, move the control to the right, toward the "hare". ![Companion App Drive screen](../../../assets/images/companion_app_drive_1.png)
+3. Control the direction that Misty drives by moving one finger around the “joystick”. Pressing at the points at the top and bottom of the circle drives Misty straight forward or backward. Pressing in the areas to the left and right of the circle rotates Misty.

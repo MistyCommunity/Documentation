@@ -236,7 +236,7 @@ function _GetImageList(response) {
 }
 ```
 
-### Data Handling: Persistent Data
+### Persistent Data
 
 In cases where you need persistent data that can be (a) validly updated across threads and/or (b) shared between skills, you need to use the cross-skill `misty.Set()` command:
 
@@ -408,9 +408,8 @@ The Skill Runner provides a graphic interface for uploading code, meta, image, a
 
 The .zip you create for your skill files can include any image and audio files used in the skill. When you upload image and audio files this way, Misty appends the filenames of these assets with the `UniqueID` from the skill's `meta` file. **Note:** You do not need to change the filenames in the original skill code to include this appended `UniqueID`.
 
-When you upload skill files, Misty associates the uploaded files with the `UniqueID` in that skill's JSON `meta` file. You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill.
+You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill. You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
 
-**Note:** You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
 
 ### Using Skill Runner 
 The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../skills/tools/#misty-skill-runner).
@@ -485,10 +484,8 @@ POST http://<robot-ip-address>/api/skills/cancel
 {}
 ```
 
-**Important!** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. This duration can be changed by providing a different `TimeoutInSeconds` value in the `meta` file. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
-
-The value of `TimeOutInSeconds` in the `meta` file determines how many seconds elapse before the skill cancels. If a skill is not performing actions or waiting on callbacks, it automatically cancels after 5 seconds.
+**Important!** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. You can change this duration by providing a different `TimeoutInSeconds` value in the `meta` file. This value determines how many seconds elapse before the skill cancels. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
 
 It's possible to prevent this automatic cancellation by using an infinite loop in your code, but doing so can cause Misty to continue executing your skill in the background even after the skill times out or is explicitly cancelled. Currently, you can address this by including an additional `ForceCancelSkill` key in the `meta` file for the skill and setting its value to     `true`. When you do this, issuing a `CancelSkill` command forces the skill to cancel via a thrown exception and stops all background execution of the skill.
 
-**Note:** Cancelling a skill with a `true` value for `ForceCancelSkill` in the `meta` puts Misty into a state where she may not be able to start new skills for up to 30 seconds. We recommend excluding the `ForceCancelSkill` parameter from the `meta` file for skills without infinite running logic, and avoiding this kind logic where possible.
+**Note:** Cancelling a skill that has a `true` value for `ForceCancelSkill` in the `meta` puts Misty into a state where she may not be able to start new skills for up to 30 seconds. We recommend excluding the `ForceCancelSkill` parameter from the `meta` file for skills without infinite running logic, and avoiding this kind logic where possible.
