@@ -812,9 +812,11 @@ Example:
 ```
 
 Parameters
+
 * websocketClass (string) - Optional. Specifies the WebSocket class to obtain information about. 
 
 Return Values
+
 * result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. The data object for each WebSocket class includes the following information:
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
