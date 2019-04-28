@@ -178,12 +178,13 @@ var subscribeMsg = {
   "EventName": "CenterTimeOfFlight",
   "Message": "",
   "ReturnProperty": null,
-  "EventConditions":
-  {
-    "Property": "SensorPosition",
-    "Inequality": "=",
-    "Value": "Center"
-  }
+  "EventConditions": [
+    {
+      "Property": "SensorPosition",
+      "Inequality": "=",
+      "Value": "Center"
+    }
+  ]
 };
 
 //Create a message to unsubscribe to the data when done.
