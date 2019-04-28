@@ -1238,8 +1238,9 @@ Runs an on-robot skill that you have uploaded to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
 
-Parameters`
-* Skill (string) - The `UniqueID` for a skill. Use the `UniqueID` specified in the JSON meta file for the skill.
+Parameters
+
+* Skill (string) - The skill's unique GUID identification string. Use the value of the `UniqueId` parameter from the skill's JSON meta file.
 * Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
 
 ```json
