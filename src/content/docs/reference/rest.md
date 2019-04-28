@@ -1234,17 +1234,17 @@ Return Values
 
 <!-- RunSkill -->
 ### RunSkill
-Immediately runs a previously uploaded skill.
+Runs an on-robot skill that you have uploaded to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
 
 Parameters`
-* Skill (string) - As specified with the `Name` value in the skill’s meta file, the name of the skill to run. You can also pass the `UniqueID` for a skill.
+* Skill (string) - The `UniqueID` for a skill. Use the `UniqueID` specified in the JSON meta file for the skill.
 * Method (string) - Optional. A specific method within a skill to run, which can be useful for testing. If no value is specified for the Method parameter, `RunSkill` by default starts running the skill from the beginning.
 
 ```json
 {
-  "Skill": "SkillName",
+  "Skill": "523c7187-706e-4313-a657-0fa11d8bbdd4",
   "Method": "methodName"
 }
 ```
