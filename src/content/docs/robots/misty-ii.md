@@ -222,9 +222,15 @@ The Misty (Arduino-Compatible) Backpack has Arduino compatible headers and works
 
 ### Programming the Misty (Arduino-Compatible) Backpack
 
-The Misty (Arduino-Compatible) Backpack uses an [ATmega328P microcontroller](https://www.arduino.cc/en/Hacking/Programmer). The bootloader pre-programmed onto this microcontroller allows you to upload code exactly as you would with a normal Arduino, without requiring an external hardware programmer.
+The Misty (Arduino-Compatible) Backpack uses an [ATmega328P microcontroller](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf). The bootloader pre-programmed onto this microcontroller allows you to upload code exactly as you would with a normal Arduino, without requiring an external hardware programmer.
 
-You can use the [Arduino IDE](https://www.arduino.cc/en/Main/Software) to write programs for the Misty (Arduino-Compatible) Backpack. After you install the Arduino IDE, connect the Misty backpack to your computer via the backpack's USB micro port. Open the IDE and select **Tools -> Board -> Arduino/Genuino Uno** from the top menu. You can then write a sketch and upload it to the microcontroller.
+You can use the [Arduino IDE](https://www.arduino.cc/en/Main/Software) to write programs for the Misty (Arduino-Compatible) Backpack. Here's how:
+1. Install the [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+2. Connect the Misty backpack to your computer via the backpack's USB micro port.
+3. Open the IDE and select **Tools** from the top menu.
+   * From the **Board** sub-menu, select **Arduino Pro or Pro Mini**.
+   * From the **Processor** sub-menu, select **ATmega328P (3.3V, 8MHz)**. ![Arduino IDE Tools selection](../../../assets/images/arduino-ide-tools-selection.png)
+4. Write your sketch and upload it to the microcontroller.
 
 For more information about writing a sketch, see the [reference materials](https://www.arduino.cc/reference/en/) and [tutorials](https://www.arduino.cc/en/Tutorial/HomePage) hosted on the Arduino website.
 
