@@ -46,10 +46,10 @@ misty.ChangeLED(255, 0, 0);
 Most commands in the JavaScript API also allow you to pass in optional "pre-pause" and "post-pause" values, to add delays before the command is run or after. When we show a command, optional parameters are inside brackets. So the `Drive()` command is represented as:
 
 ```JS
-misty.Drive(double linearVelocity, double angularVelocity, [int prePause], [int postPause]);
+misty.Drive(double linearVelocity, double angularVelocity, [int prePauseMs], [int postPauseMs]);
 ```
 
-If you use a given optional parameter (such as `postPause`), you must place a value in any preceding optional parameter (such as `prePause`). For example:
+If you use a given optional parameter (such as `postPauseMs`), you must place a value in any preceding optional parameter (such as `prePauseMs`). For example:
 
 ```JS
 misty.Drive(50, 10, 0, 1000);

@@ -586,7 +586,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 The code file is simple, focusing on the use of `misty.SendExternalRequest()`. The `misty.SendExternalRequest()` prototype is as follows:
 
 ```JavaScript
-misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callbackMethod], [string callbackRule], [string skillToCallOnCallback], [int prePause], [int postPause]);
+misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callbackMethod], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
 ```
 
 In this example we send a `GET` request, so we use the string `GET` for the first (`method`) parameter.
@@ -605,7 +605,7 @@ The sixth required parameter (`jsonArgs`) holds the data to send with `POST` req
 
 The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` to `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
 
-The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePause` and `postPause` parameters that follow them. Note that `prePause` and `postPause` are optional in `misty.SendExternalRequest()`.
+The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePauseMs` and `postPauseMs` parameters that follow them. Note that `prePauseMs` and `postPauseMs` are optional in `misty.SendExternalRequest()`.
 
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
@@ -623,8 +623,8 @@ misty.SendExternalRequest(
     null, /*callbackMethod*/
     null, /*callbackRule*/
     null, /*skillToCallOnCallback*/
-    0, /*prePause*/
-    0/*postPause*/
+    0, /*prePauseMs*/
+    0/*postPauseMs*/
     );
 ```
 
@@ -656,8 +656,8 @@ misty.SendExternalRequest(
     null, /*callbackMethod*/
     null, /*callbackRule*/
     null, /*skillToCallOnCallback*/
-    0, /*prePause*/
-    0/*postPause*/
+    0, /*prePauseMs*/
+    0/*postPauseMs*/
     );
 
 // Signal skill ccmpletion
@@ -986,7 +986,7 @@ function _FrontTOF() {
 }
 ```
 
-Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadPosition()`](../../../docs/reference/javascript-api/#misty-moveheadposition). We pass in a position value for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePause` and `postPause` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePause` and `postPause` values to tell Misty to pause for a second and a half after executing the command.
+Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadPosition()`](../../../docs/reference/javascript-api/#misty-moveheadposition). We pass in a position value for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePauseMs` and `postPauseMs` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-5`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePauseMs` and `postPauseMs` values to tell Misty to pause for a second and a half after executing the command.
 
 ```JavaScript
 misty.MoveHeadPosition(-5, 0, 0, 60, 0, 1500);
@@ -1036,7 +1036,7 @@ misty.RegisterEvent("BackTOF", "TimeOfFlight", 100);
 
 We register for `BackTOF` events by adding property tests checking that `SensorPosition` equals `Back` and the `DistanceInMeters` is less than or equal to `0.2`. We then call `misty.RegisterEvent()` and pass in the name for the event, `BackTOF`. When `BackTOF` is triggered, the callback runs. And it’s within the `_BackTOF()` callback that we send the actual commands to move Misty’s arms.
 
-Like head movement, arm movement can be controlled three ways, by position, radians, or degrees. In this example, we’ll use position via the `misty.MoveArmPosition()` command. With this command you can designate which arm to move (`Left` or `Right`), the position to move it to (a range from `0` to `10`), the velocity (a percentage of max speed), and provide optional `prePause` and `postPause` values (in ms). Here, we tell Misty to move her left arm up at a moderate speed to the limit of her motion.
+Like head movement, arm movement can be controlled three ways, by position, radians, or degrees. In this example, we’ll use position via the `misty.MoveArmPosition()` command. With this command you can designate which arm to move (`Left` or `Right`), the position to move it to (a range from `0` to `10`), the velocity (a percentage of max speed), and provide optional `prePauseMs` and `postPauseMs` values (in ms). Here, we tell Misty to move her left arm up at a moderate speed to the limit of her motion.
 
 ```JavaScript
 misty.MoveArmPosition("Left", 10, 60, 0, 1500);
