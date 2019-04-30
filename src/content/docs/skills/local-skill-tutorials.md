@@ -586,7 +586,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 The code file is simple, focusing on the use of `misty.SendExternalRequest()`. The `misty.SendExternalRequest()` prototype is as follows:
 
 ```JavaScript
-misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callbackMethod], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
+misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
 ```
 
 In this example we send a `GET` request, so we use the string `GET` for the first (`method`) parameter.
@@ -605,7 +605,7 @@ The sixth required parameter (`jsonArgs`) holds the data to send with `POST` req
 
 The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` to `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
 
-The optional `callbackMethod`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePauseMs` and `postPauseMs` parameters that follow them. Note that `prePauseMs` and `postPauseMs` are optional in `misty.SendExternalRequest()`.
+The optional `callback`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePauseMs` and `postPauseMs` parameters that follow them. Note that `prePauseMs` and `postPauseMs` are optional in `misty.SendExternalRequest()`.
 
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
@@ -620,7 +620,7 @@ misty.SendExternalRequest(
     true, /*saveAssetToRobot*/
     true, /*applyAssetAfterSaving*/
     "sound", /*fileName*/
-    null, /*callbackMethod*/
+    null, /*callback*/
     null, /*callbackRule*/
     null, /*skillToCallOnCallback*/
     0, /*prePauseMs*/
@@ -653,7 +653,7 @@ misty.SendExternalRequest(
     true, /*saveAssetToRobot*/
     true, /*applyAssetAfterSaving*/
     "sound", /*fileName*/
-    null, /*callbackMethod*/
+    null, /*callback*/
     null, /*callbackRule*/
     null, /*skillToCallOnCallback*/
     0, /*prePauseMs*/

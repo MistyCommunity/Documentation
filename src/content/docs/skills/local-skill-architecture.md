@@ -183,7 +183,7 @@ For example, you can set the `callbackTimeInMs` parameter to 5 seconds and speci
 You can also create a triggered event to call back to the skill when a specific command is called. That event is triggered once and removed, but you can immediately re-register as needed in the callback:
 
 ```js
-misty.RegisterUserEvent(string eventName, string callbackMethod);
+misty.RegisterUserEvent(string eventName, string callback);
 ```
 
 You can also trigger an event by making a REST call to the event endpoint with a POST command:
