@@ -787,7 +787,6 @@ misty.Stop();
 
 ## Navigation
 
-
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
