@@ -1161,11 +1161,11 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/skills/cancel
 
 Parameters
 
-* Skill (string) - As specified with the Name value in the skill’s meta file, the name of the skill to run. Use an empty payload to cancel all running skills.
+* Skill (string) - The skill's unique GUID identification string. Use the value of the `UniqueId` parameter from the skill's JSON meta file.
 
 ```json
 {
-	"Skill": "SkillName"
+	"Skill": "523c7187-706e-4313-a657-0fa11d8bbdd4"
 }
 ```
 
