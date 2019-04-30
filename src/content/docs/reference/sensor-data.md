@@ -293,23 +293,27 @@ The ```WorldState``` WebSocket sends data about the environment Misty is perceiv
 ```WorldState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```WorldState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
 
 ## BatteryCharge
-The `BatteryCharge` data stream provides information about the state of Misty's battery, including charge percentage, voltage, and charging status. The `BatteryCharge` data stream sends messages at timed intervals of five seconds.
+The `BatteryCharge` data stream provides information about the state of Misty's battery, including charge percentage, voltage, and charging status. By default, the `BatteryCharge` data stream sends messages at timed intervals of five seconds.
 
 Sample `BatteryCharge` data:
 
 ```JSON
 BatteryCharge {
-    "eventName":"BatteryCharge",
+    "eventName": "BatteryCharge",
     "message": {
-        "batteryChargePercent": 0.51,
-        "created": "2019-01-09T19:18:53.3921197Z",
-        "currentVoltage": 6.949,
-        "expiry": "2019-01-09T19:19:03.3921197Z",
+        "capacitymAh": 0,
+        "chargePercent": 0,
+        "created": "2019-04-30T15:37:17.0291086Z",
+        "currentmAh": 0,
         "isCharging": false,
+        "lastChargeCapacity": 0,
+        "maxMeasuredCapacity": 0,
+        "numberOfChargeCycles": 0,
         "sensorId": "charge",
-        "sensorName": null
-    },
-    "type":"BatteryCharge"
+        "temperature": 0,
+        "trained": false,
+        "voltage": 11.895
+    }
 }
 ```
 
