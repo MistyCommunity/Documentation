@@ -659,7 +659,6 @@ Arguments
 misty.MoveArmRadians("left", -1.5708, 50);
 ```
 
-
 ### misty.MoveHeadDegrees
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
 

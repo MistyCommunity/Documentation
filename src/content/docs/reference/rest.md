@@ -478,15 +478,13 @@ Return Values
 
 **Available for Misty II Only**
 
-Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
+Moves one of Misty's arms.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
-* Position (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to 10 specifying the direction the arm should point. A value of 0 points the arm straight down, a value of 5 points the arm forward, and 10 points the arm straight up. 
-* Degrees (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -180 specifying the direction the arm should point. 0 points the arm straight down, -90 points the arm forward, and -180 points the arm straight up.
-* Radians (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -3.14 specifying the direction the arm should point. 0 points the arm straight down, -1.57 points the arm forward, and -3.14 points the arm straight up.
+* Position (double) - The new position to move the arm to.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 
 ```JSON
@@ -509,17 +507,18 @@ Moves one or both of Misty's arms. You can control both arms simultaneously or o
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
-* LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
-* RightArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
+* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
 {
-  "LeftArmPosition": 10,
-  "RightArmPosition": 10,
+  "LeftArmPosition": -180,
+  "RightArmPosition": -180,
   "LeftArmVelocity": 50,
-  "RightArmVelocity": 5,
+  "RightArmVelocity": 5
 }
 ```
 
@@ -533,10 +532,12 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 Endpoint: POST &lt;robot-ip-address&gt;/api/head
 
 Parameters
-- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Pitch (double) - Value that determines the up or down movement of Misty's head movement.
+- Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
+- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
 - Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+- Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
+
 
 ```json
 {
@@ -546,6 +547,16 @@ Parameters
   "Velocity": 6
 }
 ```
+
+**Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+
+**Table of Unit Value Ranges Per Movement Type**
+
+|| degrees | position | radians |
+|-----|---------|----------|---------|
+|pitch|-9.5 (up) to 34.9 (down)|-5 (up) to 5 (down)|-0.1662 (up) to 0.6094 (down)|
+|roll|-43 (right) to 43 (left)|-5 (right) to 5 (left)|-0.75 (right) to 0.75 (left)|
+|yaw|-90 (right) to 90 (right)|-5(right) to 5 (left)|-1.57(right) to 1.57 (left)|
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.

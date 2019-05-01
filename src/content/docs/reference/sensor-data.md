@@ -323,7 +323,7 @@ BatteryCharge {
 
 The `ActuatorPosition` data stream provides information about the position of the actuators responsible for controlling the movement of Misty's head and arms. `ActuatorPosition` data is sent at timed intervals you define when you register for `ActuatorPosition` messages.
 
-In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in radians).
+In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in degrees).
 
 **Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from Misty's on-robot JavaScript API shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
 
@@ -460,7 +460,7 @@ BumpSensor {
 
 **Available for Misty II only**
 
-The `DriveEncoders` data stream provides information about the angular velocity (in radians per second) and rotation (in radians) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
+The `DriveEncoders` data stream provides information about the angular velocity (in degrees per second) and rotation (in degrees) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
 
 Sample `DriveEncoders` sensor data:
 
@@ -486,7 +486,7 @@ DriveEncoders {
 **Available for Misty II only**
 
 The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor. It includes information about:
-* the pitch, yaw, and roll orientation angles of the sensor (in radians)
+* the pitch, yaw, and roll orientation angles of the sensor (in degrees)
 * the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
 * the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
 
