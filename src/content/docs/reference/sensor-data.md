@@ -487,7 +487,7 @@ DriveEncoders {
 
 The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor. It includes information about:
 * the pitch, yaw, and roll orientation angles of the sensor (in radians)
-* the force (in meters per second squared) currently applied to the sensor along its pitch, yaw, and roll rotational axes
+* the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
 * the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
 
 By default, `IMU` data is sent at timed intervals of five seconds. 
@@ -501,15 +501,15 @@ IMU {
         "created": "2019-01-09T21:47:53.7607457Z",
         "expiry": "2019-01-09T21:47:54.1607457Z",
         "pitch":0.193,
-        "pitchAcceleration": 0.057,
+        "pitchVelocity": 0.057,
         "roll": 0.9,
-        "rollAcceleration": -0.1,
+        "rollVelocity": -0.1,
         "sensorId": "imu",
         "sensorName": null,
         "xAcceleration": 0.75,
         "yAcceleration": 0.73,
         "yaw": 2.004,
-        "yawAcceleration": 0.096,
+        "yawVelocity": 0.096,
         "zAcceleration": 20.04
     },
     "type":"IMU"
