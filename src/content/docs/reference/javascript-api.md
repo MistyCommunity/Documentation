@@ -287,6 +287,34 @@ Returns
 
 * Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../../../docs/skills/local-skill-architecture/#sensor-event-callbacks).
 
+### misty.RegisterSimpleEvent - ALPHA
+
+Register for an event and apply a filter to the messages sent to your event callback function.
+
+```JavaScript
+// Syntax
+misty.RegisterSimpleEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string property], [string inequality], [string valueAsString], [string valueType], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+* eventName (string) - Sets an event name (of your choice) for the registered event. The name of the callback function is set automatically to be the same as your event name, prefixed with an underscore (`_<eventName>`). 
+* messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed [here](../../../docs/reference/sensor-data).
+* debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
+* keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
+* property (string) - The property of the event to compare. For the full list of properties for each event, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data/).
+* inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
+* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data).
+* valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+Returns
+
+* Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../../../docs/skills/local-skill-architecture/#sensor-event-callbacks).
+
+
 ### misty.RegisterTimerEvent - ALPHA
 Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../../../docs/skills/local-skill-tutorials/#timer-events).
 
