@@ -584,6 +584,102 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DriveArc - ALPHA
+Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
+
+Misty's velocity is equal to:
+
+`((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+
+Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/arc
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Radius (double) - The radius (in meters) of the arc.
+* TimeMs (double) -  The duration (in milliseconds) that Misty drives.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Radius": 1,
+  "TimeMs": 4000
+}
+```
+Return Values:
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
+
+### DriveHeading - ALPHA
+
+Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
+
+For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `DriveHeading` command. Variations of greater than two degrees result in large correction velocities. You can use the `DriveArc` command to face Misty in the direction of the heading you want her to maintain. Then, use the `DriveHeading` command to drive Misty forward or backward in a straight line.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+**Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Distance (double) - The distance (in meters) that Misty should drive.
+* TimeMs (double) - The duration (in milliseconds) that Misty should drive.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Distance": 1,
+  "TimeMs": 4000,
+}
+```
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
+
 ## Navigation
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
@@ -1342,18 +1438,60 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### ConnectToSavedWifi
 
-### GetAvailableWifiNetworks
-Obtains a list of local WiFi networks and basic information regarding each.
+Connects Misty to a saved Wi-Fi network.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/networks
+Endpoint: POST &lt;robot-ip-address&gt;/api/networks
 
 Parameters
-- None
+
+* NetworkId (string) - The name of the network to connect to.
+
+```JSON
+{
+  "NetworkID": "MyNetworkName"
+}
+```
 
 Return Values
-* Result (array) - An array containing one element for each WiFi network discovered. Each element contains the following:
-   * Name (string) - The name of the WiFi network.
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### ForgetWifi
+
+Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you send this command without any parameters, Misty deletes information for all of her saved networks.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/networks
+
+Parameters
+
+* NetworkId (string) - Optional. The network to remove from Misty’s list of saved networks.
+
+```JSON
+{
+  "NetworkId": "NetworkToForget"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### GetAvailableWifiNetworks
+
+Obtains a list of local Wi-Fi networks and basic information regarding each.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/networks/scan
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (array) - An array containing one element for each Wi-Fi network discovered. Each element contains the following:
+   * Name (string) - The name of the Wi-Fi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
@@ -1409,6 +1547,20 @@ Parameters
 Return Values
 
 * Result (string) - A string containing the requested help information.
+
+### GetSavedWifiNetworks
+
+Obtains Misty's list of saved network IDs.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/networks
+
+Parameters
+
+* None
+
+Return Values
+
+* Result - Misty's list of saved Wi-Fi networks.
 
 ### GetLogFile
 
@@ -1547,7 +1699,7 @@ Return Values
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/network
+Endpoint: POST &lt;robot-ip-address&gt;/api/networks/create
 
 Parameters
 - NetworkName (string) - The Wi-Fi network name (SSID).

@@ -289,7 +289,7 @@ Returns
 
 ### misty.RegisterSimpleEvent - ALPHA
 
-Register for an event and apply a filter to the messages sent to your event callback function.
+Registers for an event and applies a filter to event messages. Events you register for with the `misty.RegisterSimpleEvent()` command only return messages for events that pass the property comparison test you specify in the command's arguments.
 
 ```JavaScript
 // Syntax
@@ -551,7 +551,6 @@ Returns
 * Data (object) - An object containing the external server's response to the request. In most cases, data returned by the `misty.SendExternalRequest()` command must be passed into a callback function to be processed and made available for use in your skills. See the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial for more information.
 
 ## Movement
-
 
 <!-- misty.Drive --> 
 ### misty.Drive
@@ -840,6 +839,69 @@ Arguments
 ```JavaScript
 // Example
 misty.Stop();
+```
+
+### misty.DriveArc - ALPHA
+Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
+
+Misty's velocity is equal to:
+
+`((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+
+Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+```JavaScript
+// Syntax
+misty.DriveArc(double heading, double radius, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* radius (double) - The radius (in meters) of the arc.
+* timeMs (double) -  The duration (in milliseconds) that Misty drives.
+* reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+// Misty drives in an arc with a 1m radius for 5 
+// seconds to obtain an absolute heading of 180 degrees
+misty.DriveArc(180, 1, 5000, false)
+```
+
+### misty.DriveHeading - ALPHA
+
+Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
+
+For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `misty.DriveHeading()` command. A variation of greater than two degrees results in large correction velocities. You can use the `misty.DriveArc()` command to face Misty in the direction of the heading you want her to maintain. Then, use the `misty.DriveHeading()` command to drive Misty forward or backward in a straight line.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+**Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+```JavaScript
+// Syntax
+misty.DriveHeading(double heading, double distance, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* distance (double) - The distance (in meters) that Misty should drive.
+* timeMs (double) - The duration (in milliseconds) that Misty should drive.
+* reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+// Misty drives forward 0.5m over 4 seconds and
+// maintains an absolute heading of 90 degrees
+misty.DriveHeading(90, 0.5, 4000, false);
 ```
 
 ## Navigation
@@ -1756,6 +1818,7 @@ and in the skill. If no command follows this command, `postPauseMs` is not used.
 ## System
 
 ### misty.ClearDisplayText
+
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
 
 ```JavaScript
@@ -1770,6 +1833,46 @@ Arguments
 ```JavaScript
 // Example
 misty.ClearDisplayText();
+```
+
+### misty.ConnectToSavedWifi
+
+Connects Misty to a saved Wi-Fi network.
+
+```JavaScript
+// Syntax
+misty.ConnectToSavedWifi(string networkId, [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* networkId (string) - The name of the network to connect to.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ConnectToSavedWifi("MyHomeWifi")
+```
+
+### misty.ForgetWifi
+
+Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
+
+```JavaScript
+// Syntax
+misty.ForgetWifi(string networkId, [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* networkId (string) - Optional. The network to remove from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ForgetWifi("MyHomeWifi")
 ```
 
 ### misty.GetAvailableWifiNetworks
@@ -1949,6 +2052,39 @@ misty.GetLogLevel();
 Returns
 
 * level (string) - The current log level of the robot. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.GetSavedWifiNetworks
+
+Obtains Misty's list of saved network IDs.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetSavedWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to execute on data returned by this command. If empty, the default `_GetSavedWifiNetworks()` function executes on callback data.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetSavedWifiNetworks();
+
+// When data is ready, send it to debug listeners
+function _GetSavedWifiNetworks(data) {
+   misty.Debug(JSON.stringify(data));
+};
+```
+
+Returns
+
+* Result - A list of Misty's saved Wi-Fi networks. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.SetDefaultVolume
 
