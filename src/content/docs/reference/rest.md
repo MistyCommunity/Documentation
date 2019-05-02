@@ -1367,7 +1367,7 @@ Parameters
 - None
 
 Return Values
-* Result (double) - A value between 0 and 100 corresponding to the current battery level.
+* Result (double) - A decimal value indicating the current level of the battery.
 
 
 ### GetDeviceInformation
@@ -1461,6 +1461,23 @@ Return Values
 
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
 
+### GetWebsocketVersion
+
+Returns a string indicating which version of Misty's WebSocket system is currently in use.
+
+* If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs. 
+* If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
+
+Endpoint: GET <robot-ip-address>/api/websocket/version
+
+Parameters
+
+* None
+
+Return Values
+
+* version (string): The version of Misty's WebSocket system currently in use. Returns `Current` or `Deprecated`.
+
 ### PerformSystemUpdate
 
 Downloads and installs a system update if one is available.
@@ -1545,3 +1562,26 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### SetWebsocketVersion
+
+Sets the active WebSocket system to the `Current` or `Deprecated` version of the system.
+
+* If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs.
+* If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
+
+Endpoint: POST <robot-ip-address>/api/websocket/version
+
+Parameters
+
+* version (string): The version of Misty's WebSocket system to use. Accepts `Current` or `Deprecated`.
+
+```JSON
+{
+  "version": "Current"
+}
+```
+
+Return Values
+
+* Results (bool) - Returns `true` if no errors related to this command.

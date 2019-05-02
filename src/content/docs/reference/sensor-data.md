@@ -13,6 +13,8 @@ You can filter all data types to (a) return only a specified subset of the data 
 
 **Note**: All of Misty's sensor & skill data structures are subject to change.
 
+**Important:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../docs/reference/rest/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../docs/reference/rest/#setwebsocketversion) to switch versions.
+
 ## TimeOfFlight
 
 Misty has four time-of-flight sensors that provide raw proximity data (in meters) in a single stream. The ```TimeOfFlight``` WebSocket sends this data any time a time-of-flight sensor is triggered. It is possible for proximity data to be sent as frequently as every 70 milliseconds, though it can be significantly slower. It is not sent at timed intervals.
