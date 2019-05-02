@@ -1433,6 +1433,20 @@ Parameters
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
+### GetLogLevel
+
+Obtains the current log level of the robot.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/logs/level
+
+Parameters
+
+* None
+
+Return Values
+
+* result (string) - A string value indicating the robot's current log level.
+
 ### GetStoreUpdateAvailable
 
 Checks whether a system update is available. 
@@ -1492,6 +1506,26 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### SetLogLevel
+
+Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
+
+
+* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
+* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/logs/level
+
+Parameters:
+
+* LogLevel (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`.
+
+Return Values
+
+* result (bool) - Returns `true` if no errors related to this command.
 
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
