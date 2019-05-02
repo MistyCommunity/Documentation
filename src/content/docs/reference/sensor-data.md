@@ -688,3 +688,111 @@ AudioPlayComplete {
     }
 }
 ```
+
+## SkillData
+
+Subscribe to the `SkillData` named object to see debug messages, error messages, and other data on-robot skills publish during skill execution. Use the `misty.Debug()` command in a skill to send a `SkillData` message.
+
+The value of the `BroadcastMode` parameter in a skill's .json meta file determines when the skill sends `SkillData` messages, and what kind of data those messages include.
+
+* `Off` - The skill does not send `SkillData` messages.
+* `Debug` - The skill prints error and debug messages to `SkillData` events.
+* `Verbose` - In addition to error and debug messages, the skill sends a message for each command that Misty receives to `SkillData` events.
+
+When you connect Misty to the Skill Runner to start and stop skills, the web page subscribes to `SkillData` events and skill messages print to the console in your web browser. You can create your own subscription to `SkillData` messages by connecting to Misty's WebSocket server.
+
+**SkillData Message Examples**
+
+This sample shows the `SkillData` message sent when a skill executes the `misty.Debug()` command with the string `"Hello, world!"`:
+```JSON
+{
+  "eventName": "SkillData",
+  "message": {
+    "data": {
+      "data": "Hello, world!"
+    },
+    "message": "Calling command 'Debug'",
+    "timestamp": "2019-04-28T22:29:33.0441867Z",
+    "truncated": false
+  }
+}
+```
+
+This sample shows the `SkillData` message sent when a skill executes a `misty.SendExternalRequest()` command. The `message.data` object provides information about the values passed in for the command's arguments.
+
+```JSON
+{
+  "eventName": "SkillData",
+  "message": {
+    "data": {
+      "method": "GET",
+      "resource": "http://soundbible.com/grab.php?id=1949&type=mp3",
+      "authorizationType": "null",
+      "token": "null",
+      "arguments": "null",
+      "save": true,
+      "apply": true,
+      "fileName": "sound",
+      "callback": "null",
+      "callbackRule": "null",
+      "skillToCall": "null",
+      "prePauseMs": 0,
+      "postPauseMs": 0
+    },
+    "message": "Calling command 'SendExternalRequest'",
+    "timestamp": "2019-04-28T22:29:33.0285627Z",
+    "truncated": false
+  }
+}
+```
+
+### Subscribing to SkillData Events
+
+To subscribe to `SkillData` events, you open a WebSocket connection to Misty and send a subscription message to the `SkillData` named object.
+
+This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
+
+```JavaScript
+//Misty's IP address
+const ip = "<robot-ip-address>";
+
+function streamSkillData() {
+    //Open a WebSocket connection to Misty
+    const ws = new WebSocket("ws://" + ip + "/pubsub");
+
+    //Send a message to subscribe to SkillData events
+    ws.onopen = function(event) {
+        ws.send(JSON.stringify(
+            {
+            "Operation": "subscribe",
+            "Type": "SkillData",
+            "DebounceMs": null,
+            "EventName": "SkillData",
+            "Message": "",
+            "ReturnProperty": null
+            }
+        ));
+    }
+
+    //Parse and log SkillData messages
+    ws.onmessage = function(event) {
+        var data = event.data
+        console.log(data);
+    };
+};
+
+streamSkillData();
+```
+
+Before you close the WebSocket connection, send a message to unsubscribe to `SkillData` events. You cannot set up a `SkillData` subscription when there is an open subscription with the same `EventName` you are trying to subscribe to.
+
+```JavaScript
+ws.send(JSON.stringify(
+    {
+    "Operation": "unsubscribe",
+    "EventName": "SkillData",
+    "Message": ""
+    }
+));
+ws.close();
+```
