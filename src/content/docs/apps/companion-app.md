@@ -39,7 +39,7 @@ The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi co
 
 ## Updating Misty
 
-The **Settings** screen provides a way for you to easily start an update to Misty's system software. If you want to find the version information for your robot's currently installed system software, use the **My Misty** screen as described above. To find out the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development/misty-I). 
+The **Settings** screen provides a way for you to easily start an update to Misty's system software. If you want to find the version information for your robot's currently installed system software, use the **My Misty** screen as described above. To find out the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 

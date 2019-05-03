@@ -276,7 +276,7 @@ To follow a path on a map: ![Path following controls](../../../assets/images/pat
 
 ## System Updates
 
-You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development/misty-I). 
+You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 
