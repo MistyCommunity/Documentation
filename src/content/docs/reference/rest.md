@@ -478,15 +478,13 @@ Return Values
 
 **Available for Misty II Only**
 
-Moves one of Misty's arms. You can use either degrees, radians, or a positional value to control the `MoveArm` command.
+Moves one of Misty's arms.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
-* Position (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to 10 specifying the direction the arm should point. A value of 0 points the arm straight down, a value of 5 points the arm forward, and 10 points the arm straight up. 
-* Degrees (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -180 specifying the direction the arm should point. 0 points the arm straight down, -90 points the arm forward, and -180 points the arm straight up.
-* Radians (double) - Optional. You must pass a value for either the `Position`, `Degrees`, or `Radians` parameter. A value from 0 to -3.14 specifying the direction the arm should point. 0 points the arm straight down, -1.57 points the arm forward, and -3.14 points the arm straight up.
+* Position (double) - The new position to move the arm to.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 
 ```JSON
@@ -509,17 +507,18 @@ Moves one or both of Misty's arms. You can control both arms simultaneously or o
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
-* LeftArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
-* RightArmPosition (double) - Optional. A value from 0 to 10 specifying the direction the arm should point. 0 points the arm straight down, 5 points the arm forward, and 10 points the arm straight up.
+* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
+* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
 {
-  "LeftArmPosition": 10,
-  "RightArmPosition": 10,
+  "LeftArmPosition": -180,
+  "RightArmPosition": -180,
   "LeftArmVelocity": 50,
-  "RightArmVelocity": 5,
+  "RightArmVelocity": 5
 }
 ```
 
@@ -533,10 +532,12 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For 
 Endpoint: POST &lt;robot-ip-address&gt;/api/head
 
 Parameters
-- Pitch (double) - Number that determines the up or down movement of Misty's head movement. Value range: -5 to 5.
-- Roll (double) - Number that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right. Value range: -5 to 5. This value is ignored for Misty I.
-- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right. Value range: -5 to 5. This value is ignored for Misty I.
+- Pitch (double) - Value that determines the up or down movement of Misty's head movement.
+- Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
+- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
 - Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+- Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
+
 
 ```json
 {
@@ -546,6 +547,16 @@ Parameters
   "Velocity": 6
 }
 ```
+
+**Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+
+**Table of Unit Value Ranges Per Movement Type**
+
+|| degrees | position | radians |
+|-----|---------|----------|---------|
+|pitch|-9.5 (up) to 34.9 (down)|-5 (up) to 5 (down)|-0.1662 (up) to 0.6094 (down)|
+|roll|-43 (right) to 43 (left)|-5 (right) to 5 (left)|-0.75 (right) to 0.75 (left)|
+|yaw|-90 (right) to 90 (right)|-5(right) to 5 (left)|-1.57(right) to 1.57 (left)|
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -572,6 +583,102 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DriveArc - ALPHA
+Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
+
+Misty's velocity is equal to:
+
+`((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+
+Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/arc
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Radius (double) - The radius (in meters) of the arc.
+* TimeMs (double) -  The duration (in milliseconds) that Misty drives.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Radius": 1,
+  "TimeMs": 4000
+}
+```
+Return Values:
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
+
+### DriveHeading - ALPHA
+
+Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
+
+For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `DriveHeading` command. Variations of greater than two degrees result in large correction velocities. You can use the `DriveArc` command to face Misty in the direction of the heading you want her to maintain. Then, use the `DriveHeading` command to drive Misty forward or backward in a straight line.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+**Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Distance (double) - The distance (in meters) that Misty should drive.
+* TimeMs (double) - The duration (in milliseconds) that Misty should drive.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Distance": 1,
+  "TimeMs": 4000,
+}
+```
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
 
 ## Navigation
 
@@ -1331,18 +1438,60 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### ConnectToSavedWifi
 
-### GetAvailableWifiNetworks
-Obtains a list of local WiFi networks and basic information regarding each.
+Connects Misty to a saved Wi-Fi network.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/networks
+Endpoint: POST &lt;robot-ip-address&gt;/api/networks
 
 Parameters
-- None
+
+* NetworkId (string) - The name of the network to connect to.
+
+```JSON
+{
+  "NetworkID": "MyNetworkName"
+}
+```
 
 Return Values
-* Result (array) - An array containing one element for each WiFi network discovered. Each element contains the following:
-   * Name (string) - The name of the WiFi network.
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### ForgetWifi
+
+Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you send this command without any parameters, Misty deletes information for all of her saved networks.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/networks
+
+Parameters
+
+* NetworkId (string) - Optional. The network to remove from Misty’s list of saved networks.
+
+```JSON
+{
+  "NetworkId": "NetworkToForget"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### GetAvailableWifiNetworks
+
+Obtains a list of local Wi-Fi networks and basic information regarding each.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/networks/scan
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (array) - An array containing one element for each Wi-Fi network discovered. Each element contains the following:
+   * Name (string) - The name of the Wi-Fi network.
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
@@ -1356,7 +1505,7 @@ Parameters
 - None
 
 Return Values
-* Result (double) - A value between 0 and 100 corresponding to the current battery level.
+* Result (double) - A decimal value indicating the current level of the battery.
 
 
 ### GetDeviceInformation
@@ -1399,6 +1548,20 @@ Return Values
 
 * Result (string) - A string containing the requested help information.
 
+### GetSavedWifiNetworks
+
+Obtains Misty's list of saved network IDs.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/networks
+
+Parameters
+
+* None
+
+Return Values
+
+* Result - Misty's list of saved Wi-Fi networks.
+
 ### GetLogFile
 
 Obtains the robot's recent log files. Log file data is stored for 7 days. Calling `GetLogFile` with no parameters returns all available log data.
@@ -1422,6 +1585,20 @@ Parameters
 Return Values
 * Result (list) - Compiled log file data. Or, an error if the date is invalid or no log data is found.
 
+### GetLogLevel
+
+Obtains the current log level of the robot.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/logs/level
+
+Parameters
+
+* None
+
+Return Values
+
+* result (string) - A string value indicating the robot's current log level.
+
 ### GetStoreUpdateAvailable
 
 Checks whether a system update is available. 
@@ -1435,6 +1612,23 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
+
+### GetWebsocketVersion
+
+Returns a string indicating which version of Misty's WebSocket system is currently in use.
+
+* If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs. 
+* If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
+
+Endpoint: GET <robot-ip-address>/api/websocket/version
+
+Parameters
+
+* None
+
+Return Values
+
+* version (string): The version of Misty's WebSocket system currently in use. Returns `Current` or `Deprecated`.
 
 ### PerformSystemUpdate
 
@@ -1482,10 +1676,30 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### SetLogLevel
+
+Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
+
+
+* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
+* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/logs/level
+
+Parameters:
+
+* LogLevel (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`.
+
+Return Values
+
+* result (bool) - Returns `true` if no errors related to this command.
+
 ###  SetNetworkConnection
 Connects Misty to a specified WiFi source.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/network
+Endpoint: POST &lt;robot-ip-address&gt;/api/networks/create
 
 Parameters
 - NetworkName (string) - The Wi-Fi network name (SSID).
@@ -1500,3 +1714,26 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### SetWebsocketVersion
+
+Sets the active WebSocket system to the `Current` or `Deprecated` version of the system.
+
+* If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs.
+* If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
+
+Endpoint: POST <robot-ip-address>/api/websocket/version
+
+Parameters
+
+* version (string): The version of Misty's WebSocket system to use. Accepts `Current` or `Deprecated`.
+
+```JSON
+{
+  "version": "Current"
+}
+```
+
+Return Values
+
+* Results (bool) - Returns `true` if no errors related to this command.

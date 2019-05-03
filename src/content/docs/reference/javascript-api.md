@@ -287,6 +287,34 @@ Returns
 
 * Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../../../docs/skills/local-skill-architecture/#sensor-event-callbacks).
 
+### misty.RegisterSimpleEvent - ALPHA
+
+Registers for an event and applies a filter to event messages. Events you register for with the `misty.RegisterSimpleEvent()` command only return messages for events that pass the property comparison test you specify in the command's arguments.
+
+```JavaScript
+// Syntax
+misty.RegisterSimpleEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string property], [string inequality], [string valueAsString], [string valueType], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+* eventName (string) - Sets an event name (of your choice) for the registered event. The name of the callback function is set automatically to be the same as your event name, prefixed with an underscore (`_<eventName>`). 
+* messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed [here](../../../docs/reference/sensor-data).
+* debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
+* keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
+* property (string) - The property of the event to compare. For the full list of properties for each event, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data/).
+* inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
+* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data).
+* valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+Returns
+
+* Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../../../docs/skills/local-skill-architecture/#sensor-event-callbacks).
+
+
 ### misty.RegisterTimerEvent - ALPHA
 Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../../../docs/skills/local-skill-tutorials/#timer-events).
 
@@ -461,7 +489,7 @@ misty.PlayAudio("Play.wav", 100);
 
 ## External Requests
 
-### misty.SendExternalRequest - ALPHA
+### misty.SendExternalRequest (Misty I) - ALPHA
 
 Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
@@ -469,18 +497,48 @@ Sends an HTTP request from Misty to an external server. You use `misty.SendExter
 
 ```JavaScript
 // Syntax
-misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
+misty.SendExternalRequest(string method, string resource, string authorizationType, string token, string returnType, string arguments, bool save, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
 * method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
 * resourceURL (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
-* authorization (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* authorizationType (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
 * token (string) - The authentication credentials required to access the resource. Use `null` if no credentials are required.
 * arguments (string) - The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
 * returnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response, i.e. `text/plain`.
-* saveAssetToRobot (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
-* applyAssetAfterSaving (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* save (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* apply (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* fileName (string) - The name to give the saved file, including the appropriate file type extension.
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SendExternalRequest()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+Returns
+
+* Data (object) - An object containing the external server's response to the request. In most cases, data returned by the `misty.SendExternalRequest()` command must be passed into a callback function to be processed and made available for use in your skills. See the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial for more information.
+
+### misty.SendExternalRequest (Misty II) - ALPHA
+
+Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+**Note:** In most cases, the external server's response to requests sent from the robot must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command is given the same name as the command, prefixed with an underscore: `_SendExternalRequest()`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial.
+
+```JavaScript
+// Syntax
+misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string arguments, bool save, bool apply, string fileName, [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+* method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* authorizationType (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* token (string) - The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* arguments (string) - The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* save (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* apply (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * fileName (string) - The name to give the saved file, including the appropriate file type extension.
 * callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SendExternalRequest()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -493,7 +551,6 @@ Returns
 * Data (object) - An object containing the external server's response to the request. In most cases, data returned by the `misty.SendExternalRequest()` command must be passed into a callback function to be processed and made available for use in your skills. See the [External Requests](../../../docs/skills/local-skill-tutorials/#external-requests) tutorial for more information.
 
 ## Movement
-
 
 <!-- misty.Drive --> 
 ### misty.Drive
@@ -659,7 +716,6 @@ Arguments
 misty.MoveArmRadians("left", -1.5708, 50);
 ```
 
-
 ### misty.MoveHeadDegrees
 Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
 
@@ -783,6 +839,69 @@ Arguments
 ```JavaScript
 // Example
 misty.Stop();
+```
+
+### misty.DriveArc - ALPHA
+Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
+
+Misty's velocity is equal to:
+
+`((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+
+Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+```JavaScript
+// Syntax
+misty.DriveArc(double heading, double radius, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* radius (double) - The radius (in meters) of the arc.
+* timeMs (double) -  The duration (in milliseconds) that Misty drives.
+* reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+// Misty drives in an arc with a 1m radius for 5 
+// seconds to obtain an absolute heading of 180 degrees
+misty.DriveArc(180, 1, 5000, false)
+```
+
+### misty.DriveHeading - ALPHA
+
+Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
+
+For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `misty.DriveHeading()` command. A variation of greater than two degrees results in large correction velocities. You can use the `misty.DriveArc()` command to face Misty in the direction of the heading you want her to maintain. Then, use the `misty.DriveHeading()` command to drive Misty forward or backward in a straight line.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../docs/reference/sensor-data/#imu) named object.
+
+**Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
+
+```JavaScript
+// Syntax
+misty.DriveHeading(double heading, double distance, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* distance (double) - The distance (in meters) that Misty should drive.
+* timeMs (double) - The duration (in milliseconds) that Misty should drive.
+* reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+// Misty drives forward 0.5m over 4 seconds and
+// maintains an absolute heading of 90 degrees
+misty.DriveHeading(90, 0.5, 4000, false);
 ```
 
 ## Navigation
@@ -1699,6 +1818,7 @@ and in the skill. If no command follows this command, `postPauseMs` is not used.
 ## System
 
 ### misty.ClearDisplayText
+
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
 
 ```JavaScript
@@ -1713,6 +1833,46 @@ Arguments
 ```JavaScript
 // Example
 misty.ClearDisplayText();
+```
+
+### misty.ConnectToSavedWifi
+
+Connects Misty to a saved Wi-Fi network.
+
+```JavaScript
+// Syntax
+misty.ConnectToSavedWifi(string networkId, [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* networkId (string) - The name of the network to connect to.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ConnectToSavedWifi("MyHomeWifi")
+```
+
+### misty.ForgetWifi
+
+Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
+
+```JavaScript
+// Syntax
+misty.ForgetWifi(string networkId, [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* networkId (string) - Optional. The network to remove from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ForgetWifi("MyHomeWifi")
 ```
 
 ### misty.GetAvailableWifiNetworks
@@ -1865,6 +2025,67 @@ Returns
 
 * Result (list) - Compiled log file data. Returns an error message if no log data is found. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
+### misty.GetLogLevel
+
+Obtains the current log level of the robot.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetLogLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks). 
+* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetLogLevel();
+```
+
+Returns
+
+* level (string) - The current log level of the robot. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.GetSavedWifiNetworks
+
+Obtains Misty's list of saved network IDs.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+// Syntax
+misty.GetSavedWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to execute on data returned by this command. If empty, the default `_GetSavedWifiNetworks()` function executes on callback data.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetSavedWifiNetworks();
+
+// When data is ready, send it to debug listeners
+function _GetSavedWifiNetworks(data) {
+   misty.Debug(JSON.stringify(data));
+};
+```
+
+Returns
+
+* Result - A list of Misty's saved Wi-Fi networks. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
 ### misty.SetDefaultVolume
 
 Sets the default loudness of Misty's speakers for audio playback.
@@ -1885,7 +2106,28 @@ Arguments
 misty.SetDefaultVolume(100);
 ```
 
+### misty.SetLogLevel
+Sets the log level of the robot. The log level specifies where to write different types of messages sent by the system.
 
+* `Debug`: `Debug` and `Info` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged on Misty's remote servers and are pushed to WebSocket event listeners.
+* `Info`: `Info` messages are logged locally and on Misty's remote servers. `Debug` messages are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Warn`: `Warn` messages are logged locally and pushed to WebSocket listeners. `Debug` messages are logged locally, on Misty's remote servers, and pushed to WebSocket event listeners. `Warn` and `Error` messages are logged only on Misty's remote servers.
+* `Error`: `Error` messages are logged locally and on Misty's remote servers. All other message types are logged locally, on Misty's remote servers, and are pushed to WebSocket event listeners.
+
+```JavaScript
+// Syntax
+misty.SetLogLevel(string level, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+* level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 
+* prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetLogLevel("Debug");
+```
 
 ### misty.SetNetworkConnection
 

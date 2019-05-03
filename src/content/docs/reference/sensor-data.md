@@ -13,6 +13,8 @@ You can filter all data types to (a) return only a specified subset of the data 
 
 **Note**: All of Misty's sensor & skill data structures are subject to change.
 
+**Important:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../docs/reference/rest/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../docs/reference/rest/#setwebsocketversion) to switch versions.
+
 ## TimeOfFlight
 
 Misty has four time-of-flight sensors that provide raw proximity data (in meters) in a single stream. The ```TimeOfFlight``` WebSocket sends this data any time a time-of-flight sensor is triggered. It is possible for proximity data to be sent as frequently as every 70 milliseconds, though it can be significantly slower. It is not sent at timed intervals.
@@ -323,7 +325,7 @@ BatteryCharge {
 
 The `ActuatorPosition` data stream provides information about the position of the actuators responsible for controlling the movement of Misty's head and arms. `ActuatorPosition` data is sent at timed intervals you define when you register for `ActuatorPosition` messages.
 
-In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in radians).
+In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in degrees).
 
 **Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from Misty's on-robot JavaScript API shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
 
@@ -460,7 +462,7 @@ BumpSensor {
 
 **Available for Misty II only**
 
-The `DriveEncoders` data stream provides information about the angular velocity (in radians per second) and rotation (in radians) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
+The `DriveEncoders` data stream provides information about the angular velocity (in degrees per second) and rotation (in degrees) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
 
 Sample `DriveEncoders` sensor data:
 
@@ -486,8 +488,8 @@ DriveEncoders {
 **Available for Misty II only**
 
 The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor. It includes information about:
-* the pitch, yaw, and roll orientation angles of the sensor (in radians)
-* the force (in meters per second squared) currently applied to the sensor along its pitch, yaw, and roll rotational axes
+* the pitch, yaw, and roll orientation angles of the sensor (in degrees)
+* the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
 * the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
 
 By default, `IMU` data is sent at timed intervals of five seconds. 
@@ -501,15 +503,15 @@ IMU {
         "created": "2019-01-09T21:47:53.7607457Z",
         "expiry": "2019-01-09T21:47:54.1607457Z",
         "pitch":0.193,
-        "pitchAcceleration": 0.057,
+        "pitchVelocity": 0.057,
         "roll": 0.9,
-        "rollAcceleration": -0.1,
+        "rollVelocity": -0.1,
         "sensorId": "imu",
         "sensorName": null,
         "xAcceleration": 0.75,
         "yAcceleration": 0.73,
         "yaw": 2.004,
-        "yawAcceleration": 0.096,
+        "yawVelocity": 0.096,
         "zAcceleration": 20.04
     },
     "type":"IMU"
@@ -687,4 +689,112 @@ AudioPlayComplete {
         }
     }
 }
+```
+
+## SkillData
+
+Subscribe to the `SkillData` named object to see debug messages, error messages, and other data on-robot skills publish during skill execution. Use the `misty.Debug()` command in a skill to send a `SkillData` message.
+
+The value of the `BroadcastMode` parameter in a skill's .json meta file determines when the skill sends `SkillData` messages, and what kind of data those messages include.
+
+* `Off` - The skill does not send `SkillData` messages.
+* `Debug` - The skill prints error and debug messages to `SkillData` events.
+* `Verbose` - In addition to error and debug messages, the skill sends a message for each command that Misty receives to `SkillData` events.
+
+When you connect Misty to the Skill Runner to start and stop skills, the web page subscribes to `SkillData` events and skill messages print to the console in your web browser. You can create your own subscription to `SkillData` messages by connecting to Misty's WebSocket server.
+
+**SkillData Message Examples**
+
+This sample shows the `SkillData` message sent when a skill executes the `misty.Debug()` command with the string `"Hello, world!"`:
+```JSON
+{
+  "eventName": "SkillData",
+  "message": {
+    "data": {
+      "data": "Hello, world!"
+    },
+    "message": "Calling command 'Debug'",
+    "timestamp": "2019-04-28T22:29:33.0441867Z",
+    "truncated": false
+  }
+}
+```
+
+This sample shows the `SkillData` message sent when a skill executes a `misty.SendExternalRequest()` command. The `message.data` object provides information about the values passed in for the command's arguments.
+
+```JSON
+{
+  "eventName": "SkillData",
+  "message": {
+    "data": {
+      "method": "GET",
+      "resource": "http://soundbible.com/grab.php?id=1949&type=mp3",
+      "authorizationType": "null",
+      "token": "null",
+      "arguments": "null",
+      "save": true,
+      "apply": true,
+      "fileName": "sound",
+      "callback": "null",
+      "callbackRule": "null",
+      "skillToCall": "null",
+      "prePauseMs": 0,
+      "postPauseMs": 0
+    },
+    "message": "Calling command 'SendExternalRequest'",
+    "timestamp": "2019-04-28T22:29:33.0285627Z",
+    "truncated": false
+  }
+}
+```
+
+### Subscribing to SkillData Events
+
+To subscribe to `SkillData` events, you open a WebSocket connection to Misty and send a subscription message to the `SkillData` named object.
+
+This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
+
+```JavaScript
+//Misty's IP address
+const ip = "<robot-ip-address>";
+
+function streamSkillData() {
+    //Open a WebSocket connection to Misty
+    const ws = new WebSocket("ws://" + ip + "/pubsub");
+
+    //Send a message to subscribe to SkillData events
+    ws.onopen = function(event) {
+        ws.send(JSON.stringify(
+            {
+            "Operation": "subscribe",
+            "Type": "SkillData",
+            "DebounceMs": null,
+            "EventName": "SkillData",
+            "Message": "",
+            "ReturnProperty": null
+            }
+        ));
+    }
+
+    //Parse and log SkillData messages
+    ws.onmessage = function(event) {
+        var data = event.data
+        console.log(data);
+    };
+};
+
+streamSkillData();
+```
+
+Before you close the WebSocket connection, send a message to unsubscribe to `SkillData` events. You cannot set up a `SkillData` subscription when there is an open subscription with the same `EventName` you are trying to subscribe to.
+
+```JavaScript
+ws.send(JSON.stringify(
+    {
+    "Operation": "unsubscribe",
+    "EventName": "SkillData",
+    "Message": ""
+    }
+));
+ws.close();
 ```

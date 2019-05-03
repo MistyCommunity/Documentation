@@ -341,7 +341,7 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 
 The meta file must have the same name as the code file for the skill.
 
-The value for `UniqueId` should be a 128-bit GUID. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/skills/tools/#misty-skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
+The value for `UniqueId` should be a 128-bit GUID. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/apps/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
 
 Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
 
@@ -401,7 +401,7 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
 
-* the [Misty Skill Runner](../../skills/tools/#misty-skill-runner) web tool, which provides a simple upload feature
+* the [Misty Skill Runner](../../../docs/apps/skill-runner/) web tool, which provides a simple upload feature
 * a REST tool such as Postman that can send a `POST` request to the dedicated `SaveSkillToRobot` endpoint for skill deployment
 
 The Skill Runner provides a graphic interface for uploading code, meta, image, and audio files for your skills. When you use the endpoint for the `SaveSkillToRobot` command, you compress the code, meta, and asset files into a .zip file and send them to the robot with your request.
@@ -411,7 +411,7 @@ The .zip you create for your skill files can include any image and audio files u
 You can overwrite the JavaScript code file or associate new image and audio files with an existing skill by uploading these files to Misty alongside the `meta` file for that skill. You **must** upload the `meta` file for a skill each time you upload new skill files. Misty uses information from the `meta` to store these files correctly. When you delete a skill, all of the image and audio files associated with that skill are also removed from the robot.
 
 ### Using Skill Runner
-The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../skills/tools/#misty-skill-runner).
+The Misty Skill Runner web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. For details on using Skill Runner to load and run a skill, see the [Misty Skill Runner guide](../../../docs/apps/skill-runner/).
 
 ### Using Postman
 There are many ways to send a `POST` request to the skill deployment endpoint, but here we’ll use Postman.
