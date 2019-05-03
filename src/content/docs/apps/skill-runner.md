@@ -19,7 +19,8 @@ When using Skill Runner, make sure your computer and Misty are connected to the 
 
 1. Open Skill Runner in a new browser window.
 2. Enter Misty's IP address in the **Robot IP Address** field at the top of the page and select **Connect**.
-3. When Misty connects, the text on the button displays **Connected** and the **Manage** section populates with the skills currently installed on your robot.
+
+When Misty connects, the text on the button displays **Connected** and the **Manage** section populates with the skills currently installed on your robot.
 
 ## Viewing Debug Messages (and Other Skill Data)
 
@@ -55,10 +56,11 @@ You can use the Skill Runner to generate JSON `meta` files for your skills. The 
 
 ![Skill Runner Generate Interface](../../../assets/images/skill-runner-generate.png)
 
-To generate a `.json` `meta` template for your skill:
+To generate a `meta` template for your skill:
+
 1. Enter your skill's name.
-2. Choose **Display** to view the file in a modal, or choose **Download** to download the `.json` file to your computer.
-3. Click **Generate JSON Meta Template**
+2. Choose **Display** to view the file's contents in a modal on the Skill Runner page, or choose **Download** to download the `.json` file to your computer.
+3. Click **Generate JSON Meta Template**.
 
 ## Starting, Stopping, and Deleting Skills
 
