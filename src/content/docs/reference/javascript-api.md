@@ -2084,7 +2084,25 @@ function _GetSavedWifiNetworks(data) {
 
 Returns
 
-* Result - A list of Misty's saved Wi-Fi networks. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result - An array of objects with data about Misty's saved Wi-Fi networks. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+Example JSON object for a saved WiFi network:
+
+```JSON
+{
+   "bssid": null,
+   "detailedState": null,
+   "frequency": 0,
+   "hidden": false,
+   "ipAddress": null,
+   "linkSpeed": 0,
+   "networkId": 0,
+   "physicalAddress": null,
+   "ssid": "\"NetworkID\"",
+   "status": "Unknown",
+   "supplicantState": null
+}
+```
 
 ### misty.SetDefaultVolume
 

@@ -1560,7 +1560,30 @@ Parameters
 
 Return Values
 
-* Result - Misty's list of saved Wi-Fi networks.
+* Result (array) - An array of objects with data about Misty's saved Wi-Fi networks.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": [
+    {
+      "bssid": null,
+      "detailedState": null,
+      "frequency": 0,
+      "hidden": false,
+      "ipAddress": null,
+      "linkSpeed": 0,
+      "networkId": 0,
+      "physicalAddress": null,
+      "ssid": "\"NetworkName\"",
+      "status": "Unknown",
+      "supplicantState": null
+    }
+  ],
+  "status": "Success"
+}
+```
 
 ### GetLogFile
 
