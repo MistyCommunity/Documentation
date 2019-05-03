@@ -585,6 +585,9 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### DriveArc - ALPHA
+
+**Available for Misty II Only**
+
 Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
 
 Misty's velocity is equal to:
@@ -634,6 +637,8 @@ Example JSON response for a failed request:
 ```
 
 ### DriveHeading - ALPHA
+
+**Available for Misty II Only**
 
 Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
 

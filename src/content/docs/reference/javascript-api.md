@@ -842,6 +842,9 @@ misty.Stop();
 ```
 
 ### misty.DriveArc - ALPHA
+
+**Available for Misty II Only**
+
 Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
 
 Misty's velocity is equal to:
@@ -874,6 +877,8 @@ misty.DriveArc(180, 1, 5000, false)
 ```
 
 ### misty.DriveHeading - ALPHA
+
+**Available for Misty II Only**
 
 Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
 
