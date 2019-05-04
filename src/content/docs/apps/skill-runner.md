@@ -52,7 +52,7 @@ To update the code for an existing skill, or to associate new image and audio as
 
 ## Generating a JSON Meta File
 
-You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 16-character GUID with the `UniqueID` parameter. For more information about `meta` files, see [On-Robot JavaScript API Architecture](../../../docs/skills/local-skill-architecture).
+You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 128 bit GUID with the `UniqueID` parameter. For more information about `meta` files, see [On-Robot JavaScript API Architecture](../../../docs/skills/local-skill-architecture).
 
 ![Skill Runner Generate Interface](../../../assets/images/skill-runner-generate.png)
 

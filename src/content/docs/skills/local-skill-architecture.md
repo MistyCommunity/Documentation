@@ -341,16 +341,32 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 
 The meta file must have the same name as the code file for the skill.
 
-The value for `UniqueId` should be a 128-bit GUID. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/apps/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
+* `UniqueId` (string) - A unique 128-bit GUID that Misty will use to identify the skill. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/apps/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
+* `Description` (string) - A brief description of the skill.
+* `StartupRules` (array) - A list of strings that set the rules for how this skill can start.
+  * `Manual` - A user can trigger this skill to start.
+  * `Robot` - Misty can start this skill autonomously.
+  * `Startup` - This skill starts after Misty boots up.
+* `Language` (string) - The language the skill is written in. Currently, only `JavaScript` is supported.
+* `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. To receive debug messages in `SkillData`. See the [documentation on Misty's `SkillData` named object](../../../docs/reference/sensor-data/#skilldata) for more information.
+  * `Off` - The skill does not send `SkillData` messages.
+  * `Debug` - The skill prints error and debut messages to `SkillData` events.
+  * `Verbose` - In addition to error and debug messages, the skill sends a message to `SkillData` events for each command that Misty receives.
+* `TimeoutInSeconds` (int) - The duration (in milliseconds) the skill runs before it automatically cancels.
+* `CleanupOnCancel` (boolean) - If `true`, Misty stops all processes (like mapping, tracking, face recognition, face detection, and other start/stop-type commands) that are in progress when the skill cancels.
+* `WriteToLog` (boolean) - If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
+* `Parameters` (object) - Any additional parameters to make available 
 
 Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
 
 You can use the `Parameters` value(s) in the meta file to define any optional default parameters for the skill. You can then access these values in your code file via the global `_params` variable.
 
-So, in the example below from the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the meta sample above:
+For example, in the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the `meta` sample above:
 
 ```js
 _global = _params.foo;
+// Sends a debug message with the string "bar"
+misty.Debug(_global)
 ```
 
 ### Code File
