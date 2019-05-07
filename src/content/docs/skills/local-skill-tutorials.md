@@ -560,11 +560,11 @@ function _TimerEvent() {
 
 ## External Requests
 
-In this tutorial we learn how Misty can access external data from the internet and deliver it back to Misty. We write a skill that fetches an audio file from an external resource, saves it to Misty, and plays it immediately. To do this, we use the `SendExternalRequest()` command to send a `GET` request to download a sound from [soundbible.com](http://soundbible.com/).
+In this tutorial, we write a skill that fetches an audio file from an external resource, saves the file to Misty, and plays it back through Misty's speakers. To do this, we use the `misty.SendExternalRequest()` method to send a `GET` request and download a sound from [soundbible.com](http://soundbible.com/).
 
 ### Writing the Meta File
 
-Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_ExternalRequest"`. Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_ExternalRequest.json`.
+Create a new `.json` meta file for this skill. Copy and paste the code from the example to fill out the parameters. Save this file with the name `HelloWorld_ExternalRequest.json`.
 
 ```JSON
 {
@@ -583,13 +583,13 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 ### Writing the Code File
 
-The code file is simple, focusing on the use of `misty.SendExternalRequest()`. The `misty.SendExternalRequest()` prototype is as follows:
+The brief code file makes use of the `misty.SendExternalRequest()` method. The `misty.SendExternalRequest()` prototype is as follows:
 
 ```JavaScript
 misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
 ```
 
-In this example we send a `GET` request, so we use the string `GET` for the first (`method`) parameter.
+In this skill we are sending a `GET` request, so we use the string `GET` for the first (`method`) parameter.
 
 The second parameter (`resourceURL`) should contain the full URL of the host and resource to access. In this example, the full `resourceURL` is:
 
@@ -601,9 +601,11 @@ For some requests additional authorization may be necessary. This is where the t
 
 The fifth required parameter (`returnType`) indicates the expected media type of the data returned by the request. In this example we expect to receive an .mp3 file, so we enter the string `audio/mp3`. If you expect to receive an image, you can enter the string `image/jpeg` (or another image type), or enter a text type if you expect the data to contain text. If the return type is provided by the external resource in the response to the request, you can pass `null` for this parameter.
 
+***Note for Misty II Developers:** The `misty.SendExternalRequest()` method on Misty II robots does **not** use the `returnType` parameter. If you are using this tutorial with a Misty II robot, skip this parameter. Do not pass `null`, `undefined`, or any other value for this parameter. [See the documentation on this method for more information.](../../../docs/reference/javascript-api/#misty-sendexternalrequest-misty-ii-alpha)*
+
 The sixth required parameter (`jsonArgs`) holds the data to send with `POST` requests. Because this example uses a `GET` request, `jsonArgs` can be set to null. **Note:** When you have no data to send with a `POST` request, some services may require you to use a string with an empty JSON payload (`"{}"`) instead of `null`. When you pass `null` for the `jsonArgs` parameter to a service where this is the case, the service returns an error message to indicate the value of args cannot be null or empty.
 
-The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` to `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
+The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` for `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
 
 The optional `callback`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../skills/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePauseMs` and `postPauseMs` parameters that follow them. Note that `prePauseMs` and `postPauseMs` are optional in `misty.SendExternalRequest()`.
 
@@ -615,7 +617,7 @@ misty.SendExternalRequest(
     "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
     null, /*authorizationType*/
     null, /*token*/
-    "audio/mp3", /*returnType*/
+    "audio/mp3", /*returnType -- OMIT for Misty II*/
     null, /*jsonArgs*/
     true, /*saveAssetToRobot*/
     true, /*applyAssetAfterSaving*/
