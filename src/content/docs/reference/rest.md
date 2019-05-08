@@ -1617,47 +1617,48 @@ Return Values
 
 Obtains Misty's current log level.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file, to a remote log file on a server owned by Misty Robotics, and to listeners of the `LogEntry` named object. See the tables below for information about how Misty's log level determines where different message types are published.
+Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how Misty's log level determines where different message types are published.
 
 If Misty's log level is set to `Debug`:
 
-| Message Type: | Logged Locally | Logged Remotely | Published to `LogEntry` Listeners|
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |   &#x2713;                    |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+| Message Type: | Logged Locally | Logged Remotely |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
 
 If Misty's log level is set to `Info`:
 
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
 
  If Misty's log level is set to `Warn`:
 
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     |              |                          |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
 
  If Misty's log level is set to `Error`:
 
-|        | Locally     | Remotely     | Published to WebSocket   |
-|--------|:-----------:|:------------:|:------------------------:|
-| Debug  |    &#x2713;      |              |                          |
-| Info   |    &#x2713;      |              |                          |
-| Warn   |    &#x2713;      |              |                          |
-| Error  |    &#x2713;      |&#x2713;            |&#x2713;                        |
-| Remote |    &#x2713;      |&#x2713;            |&#x2713;                        |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:-----------:|:------------:|
+| Debug  |    &#x2713;      |              |
+| Info   |    &#x2713;      |              |
+| Warn   |    &#x2713;      |              |
+| Error  |    &#x2713;      |&#x2713;             |
+| Remote |    &#x2713;      |&#x2713;             |
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/logs/level
 
@@ -1750,47 +1751,48 @@ Return Values
 
 Sets Misty's log level. Misty's log level can be set to `Debug`, `Info`, `Warn`, or `Error`.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file, to a remote log file on a server owned by Misty Robotics, and to listeners of the `LogEntry` named object. See the tables below for information about how Misty's log level determines where different message types are published.
+Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics.
 
 If Misty's log level is set to `Debug`:
 
-| Message Type: | Logged Locally | Logged Remotely | Published to `LogEntry` Listeners|
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |   &#x2713;                    |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+| Message Type: | Logged Locally | Logged Remotely |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
 
 If Misty's log level is set to `Info`:
 
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
 
  If Misty's log level is set to `Warn`:
 
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     |              |                          |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
 
  If Misty's log level is set to `Error`:
 
-|        | Locally     | Remotely     | Published to WebSocket   |
-|--------|:-----------:|:------------:|:------------------------:|
-| Debug  |    &#x2713;      |              |                          |
-| Info   |    &#x2713;      |              |                          |
-| Warn   |    &#x2713;      |              |                          |
-| Error  |    &#x2713;      |&#x2713;            |&#x2713;                        |
-| Remote |    &#x2713;      |&#x2713;            |&#x2713;                        |
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:-----------:|:------------:|
+| Debug  |    &#x2713;      |              |
+| Info   |    &#x2713;      |              |
+| Warn   |    &#x2713;      |              |
+| Error  |    &#x2713;      |&#x2713;             |
+| Remote |    &#x2713;      |&#x2713;             |
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/logs/level
 

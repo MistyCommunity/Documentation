@@ -2034,60 +2034,61 @@ Returns
 
 Obtains Misty's current log level.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file, to a remote log file on a server owned by Misty Robotics, and to listeners of the `LogEntry` named object. See the tables below for information about how Misty's log level determines where different message types are published.
-
-If Misty's log level is set to `Debug`:
-
-| Message Type: | Logged Locally | Logged Remotely | Published to `LogEntry` Listeners|
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |   &#x2713;                    |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
-
-If Misty's log level is set to `Info`:
-
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
-
- If Misty's log level is set to `Warn`:
-
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     |              |                          |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
-
- If Misty's log level is set to `Error`:
-
-|        | Locally     | Remotely     | Published to WebSocket   |
-|--------|:-----------:|:------------:|:------------------------:|
-| Debug  |    &#x2713;      |              |                          |
-| Info   |    &#x2713;      |              |                          |
-| Warn   |    &#x2713;      |              |                          |
-| Error  |    &#x2713;      |x             |x                         |
-| Remote |    &#x2713;      |x             |x                         |
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```JavaScript
 // Syntax
 misty.GetLogLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics.
+
+If Misty's log level is set to `Debug`:
+
+| Message Type: | Logged Locally | Logged Remotely |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+
+If Misty's log level is set to `Info`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+ If Misty's log level is set to `Warn`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+ If Misty's log level is set to `Error`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:-----------:|:------------:|
+| Debug  |    &#x2713;      |              |
+| Info   |    &#x2713;      |              |
+| Warn   |    &#x2713;      |              |
+| Error  |    &#x2713;      |&#x2713;             |
+| Remote |    &#x2713;      |&#x2713;             |
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
 Arguments
 
-* callbackMethod (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_GetLogLevel()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks). 
-* skillToCallUniqueId (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -2175,52 +2176,54 @@ misty.SetDefaultVolume(100);
 
 Sets Misty's log level. Misty's log level can be set to `Debug`, `Info`, `Warn`, or `Error`.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file, to a remote log file on a server owned by Misty Robotics, and to listeners of the `LogEntry` named object. See the tables below for information about how Misty's log level determines where different message types are published.
-
-If Misty's log level is set to `Debug`:
-
-| Message Type: | Logged Locally | Logged Remotely | Published to `LogEntry` Listeners|
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |     &#x2713;       |             |    &#x2713;                     |
-| Info   |      &#x2713;      |  &#x2713;           |    &#x2713;              |
-| Warn   |      &#x2713;      |  &#x2713;           |    &#x2713;                     |
-| Error  |       &#x2713;     |   &#x2713;          |     &#x2713;                    |
-| Remote |        &#x2713;    |    &#x2713;         |      &#x2713;                   |
-
-If Misty's log level is set to `Info`:
-
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |     &#x2713;       |             |                           |
-| Info   |      &#x2713;      | &#x2713;          |   &#x2713;                    |
-| Warn   |      &#x2713;      | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
-
- If Misty's log level is set to `Warn`:
-
-|        | Locally    | Remotely    | Published to WebSocket  |
-|--------|:------------:|:-------------:|:-------------------------:|
-| Debug  |    &#x2713;      |             |                           |
-| Info   |     &#x2713;     |              |                          |
-| Warn   |     &#x2713;     | &#x2713;          |   &#x2713;                    |
-| Error  |      &#x2713;    |  &#x2713;         |    &#x2713;                   |
-| Remote |       &#x2713;   |   &#x2713;        |     &#x2713;                  |
-
- If Misty's log level is set to `Error`:
-
-|        | Locally     | Remotely     | Published to WebSocket   |
-|--------|:-----------:|:------------:|:------------------------:|
-| Debug  |    &#x2713;      |              |                          |
-| Info   |    &#x2713;      |              |                          |
-| Warn   |    &#x2713;      |              |                          |
-| Error  |    &#x2713;      |x             |x                         |
-| Remote |    &#x2713;      |x             |x                         |
-
 ```JavaScript
 // Syntax
 misty.SetLogLevel(string level, [int prePauseMs], [int postPauseMs]);
 ```
+
+Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how Misty's log level determines where different message types are published.
+
+If Misty's log level is set to `Debug`:
+
+| Message Type: | Logged Locally | Logged Remotely |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+
+If Misty's log level is set to `Info`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     | &#x2713;          |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+ If Misty's log level is set to `Warn`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:------------:|:-------------:|
+| Debug  |    &#x2713;      |             |
+| Info   |     &#x2713;     |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+| Remote |       &#x2713;   |   &#x2713;        |
+
+ If Misty's log level is set to `Error`:
+
+|    Message Type:    | Logged Locally    | Logged Remotely    |
+|--------|:-----------:|:------------:|
+| Debug  |    &#x2713;      |              |
+| Info   |    &#x2713;      |              |
+| Warn   |    &#x2713;      |              |
+| Error  |    &#x2713;      |&#x2713;             |
+| Remote |    &#x2713;      |&#x2713;             |
+
 
 Arguments
 * level (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`. 

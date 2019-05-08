@@ -798,25 +798,3 @@ ws.send(JSON.stringify(
 ));
 ws.close();
 ```
-
-## LogEntry
-
-Subscribe to the `LogEntry` named object to receive the log messages that Misty publishes to WebSocket connections and `LogEntry` event listeners.
-
-`LogEntry`
-
-Sample `LogEntry` data:
-
-```JSON
- {
-     "eventName":"LogEntry",
-     "message":{
-         "created":"2019-05-08T20:13:15.2750402Z",
-         "exception":null,
-         "logLevel":"Info",
-         "message":"Wifi status = InternetAccess. Wifi IP = 10.0.0.99."
-    }
-}
-```
-
-Misty's log level determines which messages she publishes to `LogEntry` subscribers.
