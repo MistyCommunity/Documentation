@@ -389,7 +389,7 @@ Return Values
 
 ## Movement
 
-The following commands allow you to programmatically drive and stop Misty and move her head and arms. 
+The following commands allow you to programmatically drive and stop Misty and move her head and arms.
 
 If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
 
@@ -561,22 +561,14 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### Halt
-
-Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
-
-Parameters
-* None
-
-Return Values
-
-* None
-
 ### Stop
 
-Stops Misty's driving.
+Stops Misty's driving. Optionally, engages both drive motors to hold Misty's current position.
+
+When you use the `Stop` command to hold Misty's current position, her motors remain engaged until:
+
+* she receives a new drive command
+* she receives a new `Stop` or `Halt` command to disengage her drive motors
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
 
@@ -690,6 +682,41 @@ Example JSON response for a failed request:
   "status": "Failed"
 }
 ```
+
+### Halt - ALPHA
+
+<!-- There is an additional "MotorMask" parameter for this command that is not exposed to developers in the documentation at this time.
+
+"MotorMask" accepts the following values:
+
+Right Drive 2
+Left Drive 4
+Right Arm 8
+Left Arm 16
+Pitch 32
+Roll 64
+Yaw 128
+
+As this is a "mask", to stop more than one motors, you would pass in the sum of the integers for the motors that you want to stop. e.g. right drive and left drive and right arm = halt(14).
+
+Stopping the right drive or the left drive motor will stop BOTH motors.
+
+ -->
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+**Note:** This command is under active development and may change in a future release.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 
 ## Navigation
 

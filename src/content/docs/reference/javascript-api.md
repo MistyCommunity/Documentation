@@ -630,25 +630,6 @@ Arguments
 misty.DriveTrack(0, 0);
 ```
 
-### misty.Halt
-
-Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
-
-```JavaScript
-// Syntax
-misty.Halt([int prePauseMs], [int postPauseMs])
-```
-
-Arguments
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
-
-```JavaScript
-// Example
-misty.Halt();
-```
-
-
 ### misty.MoveArmPosition
 
 **Available for Misty II Only**
@@ -828,7 +809,12 @@ misty.SetHeadRadians("yaw", 1.5708, 0);
 
 ### misty.Stop
 
-Stops Misty's movement.
+Stops Misty's driving. Optionally, engages both drive motors to hold Misty's current position.
+
+When you use the `misty.Stop()` command to hold Misty's current position, her motors remain engaged until:
+
+* she receives a new drive command
+* she receives a new `misty.Stop()` or [`Halt`](../../../docs/reference/rest/#halt) command to disengage her drive motors
 
 ```JavaScript
 // Syntax
@@ -914,11 +900,55 @@ Arguments
 misty.DriveHeading(90, 0.5, 4000, false);
 ```
 
+### misty.Halt - ALPHA
+
+<!-- There is an additional "MotorMask" parameter for this command that is not exposed to developers in the documentation at this time.
+
+"MotorMask" accepts the following values:
+
+Right Drive 2
+Left Drive 4
+Right Arm 8
+Left Arm 16
+Pitch 32
+Roll 64
+Yaw 128
+
+As this is a "mask", to stop more than one motors, you would pass in the sum of the integers for the motors that you want to stop. e.g. right drive and left drive and right arm = halt(14).
+
+Stopping the right drive or the left drive motor will stop BOTH motors.
+
+ -->
+
+Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
+
+```JavaScript
+// Syntax
+misty.Halt();
+```
+
+Arguments
+
+* None
+
+<!-- 
+
+Commenting out these arguments, as there is no way for developers to use them without also passing in a value for the MotorMask argument that we do not want to expose.
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. -->
+
+```JavaScript
+// Example
+misty.Halt();
+```
+
 ## Navigation
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
