@@ -535,7 +535,7 @@ Parameters
 - Pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
-- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 10.
+- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 100.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 
