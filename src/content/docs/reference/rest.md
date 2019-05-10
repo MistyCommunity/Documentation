@@ -648,6 +648,8 @@ To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../.
 
 **Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
 
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/hdt
+
 Parameters
 
 * Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
