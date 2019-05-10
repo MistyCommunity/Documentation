@@ -371,6 +371,7 @@ misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule
 ```
 
 Arguments
+
 * eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
 * keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `misty.UnregisterEvent()` function in your code.
 * callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
@@ -570,6 +571,7 @@ misty.Drive(double linearVelocity, double angularVelocity, [int prePauseMs], [in
 ```
 
 Arguments
+
 * linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
 * angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -825,14 +827,17 @@ misty.SetHeadRadians("yaw", 1.5708, 0);
 ```
 
 ### misty.Stop
+
 Stops Misty's movement.
 
 ```JavaScript
 // Syntax
-misty.Stop([int prePauseMs], [int postPauseMs]);
+misty.Stop([bool hold], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
+
+* hold (bool) - Optional. Defaults to `false`. If the value of `Hold` is `false`, or if you send this command without any arguments, Misty's drive motors disengage. If the value of `Hold` is `true`, Misty stops moving and her drive motors remain engaged to try and hold Misty's current position. In this scenario, when an outside force tries to move Misty (for example, if you try to push Misty forward), Misty tries to return to the position she was in when she received the `misty.Stop(true)` command.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
