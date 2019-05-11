@@ -471,8 +471,8 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### MoveArm
 
@@ -484,14 +484,16 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
-* Position (double) - The new position to move the arm to.
-* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
+* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
 {
   "Arm": "left",
-  "Position": 10,
+  "Position": -90,
   "Velocity": 100
+  "Units": "degrees"
 }
 ```
 
@@ -509,8 +511,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 Parameters
 * LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
-* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. If no value is specified, Misty's arm moves at its highest velocity.
-* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. If no value is specified, Misty's arm moves at its highest velocity.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move.
+* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
