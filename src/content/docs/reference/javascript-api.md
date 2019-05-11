@@ -650,7 +650,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.MoveArmPosition("left", 0, 50);
+misty.MoveArmPosition("left", 0, 10);
 ```
 
 ### misty.MoveArmDegrees
