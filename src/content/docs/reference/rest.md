@@ -574,21 +574,17 @@ Parameters
 * None
 
 Return Values
-
 * None
 
 ### Stop
-
-Stops Misty's driving.
+Stops Misty's movement.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
 
 Parameters
-
-* Hold (boolean) - Optional. Defaults to `false`. If the value of `Hold` is `false`, or if you send this command without any arguments, Misty's drive motors disengage. If the value of `Hold` is `true`, Misty stops moving and her drive motors remain engaged to try and hold Misty's current position. In this scenario, when an outside force tries to move Misty (for example, if you try to push Misty forward), Misty tries to return to the position she was in when she received the `Stop` command.
+- None
 
 Return Values
-
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### DriveArc - ALPHA
