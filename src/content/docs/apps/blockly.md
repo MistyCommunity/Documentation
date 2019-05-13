@@ -118,14 +118,29 @@ Returns
 
 
 ### GetBatteryLevel
-Displays Misty's current battery level.
+Obtains Misty's current battery level, along with other information about the battery.
 
 Parameters
 * None
 
 Returns
-* A value between 0 and 100 corresponding to the current battery level. Open your browser's JavaScript console to view the results of this command.
 
+* An object with information about Misty's current battery level. Includes the following properties:
+  * capacitymAh (int)
+  * chargePercent (double)
+  * created (string)
+  * currentmAh (int)
+  * expiry (string)
+  * isCharging (bool)
+  * lastChargeCapacity (int)
+  * maxMeasuredCapacity (int)
+  * numberOfChargeCycles (int)
+  * sensorId (string)
+  * sensorName (string)
+  * state (string)
+  * temperature (int)
+  * trained (bool)
+  * voltage (double)
 
 ### GetDeviceInformation
 Displays hardware and version information for your Misty robot.

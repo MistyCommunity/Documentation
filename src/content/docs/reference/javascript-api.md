@@ -1915,7 +1915,7 @@ Returns
 
 <!-- misty.GetBatteryLevel -->
 ### misty.GetBatteryLevel
-Obtains Misty's current battery level.
+Obtains Misty's current battery level, along with other information about the battery.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
@@ -1938,7 +1938,22 @@ misty.GetBatteryLevel();
 
 Returns
 
-* Result (double) - Returns a value between 0 and 100 corresponding to the current battery level. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following properties:
+  * capacitymAh (int)
+  * chargePercent (double)
+  * created (string)
+  * currentmAh (int)
+  * expiry (string)
+  * isCharging (bool)
+  * lastChargeCapacity (int)
+  * maxMeasuredCapacity (int)
+  * numberOfChargeCycles (int)
+  * sensorId (string)
+  * sensorName (string)
+  * state (string)
+  * temperature (int)
+  * trained (bool)
+  * voltage (double)
 
 ### misty.GetDeviceInformation
 Obtains device-related information for the robot.
