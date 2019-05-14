@@ -312,6 +312,7 @@ BatteryCharge {
         "maxMeasuredCapacity": 0,
         "numberOfChargeCycles": 0,
         "sensorId": "charge",
+        "state": "Unknown",
         "temperature": 0,
         "trained": false,
         "voltage": 11.895

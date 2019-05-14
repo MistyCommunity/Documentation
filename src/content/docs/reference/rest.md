@@ -1507,7 +1507,7 @@ Return Values
 
 
 ### GetBatteryLevel
-Obtains Misty's current battery level.
+Obtains Misty's current battery level, along with other information about the battery.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/battery
 
@@ -1515,7 +1515,22 @@ Parameters
 - None
 
 Return Values
-* Result (double) - A decimal value indicating the current level of the battery.
+* Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
+  * capacitymAh (int)
+  * chargePercent (double)
+  * created (string)
+  * currentmAh (int)
+  * expiry (string)
+  * isCharging (bool)
+  * lastChargeCapacity (int)
+  * maxMeasuredCapacity (int)
+  * numberOfChargeCycles (int)
+  * sensorId (string)
+  * sensorName (string)
+  * state (string)
+  * temperature (int)
+  * trained (bool)
+  * voltage (double)
 
 
 ### GetDeviceInformation
