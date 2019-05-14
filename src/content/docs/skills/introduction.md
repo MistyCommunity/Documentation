@@ -7,14 +7,13 @@ order: 1
 
 # {{title}}
 
-
-This article provides an overview of developing skills for Misty. It describes how Misty works with your code and explores some of the differences between developing for Misty and developing for other platforms. It also provides guidelines for sharing skills and collaborating with other developers in the [Misty Community](https://community.mistyrobotics.com).
+This article provides an overview of developing skills for Misty. It describes how Misty works with your code, and it explores some of the differences between developing for Misty and developing for other platforms. It also provides guidelines for sharing skills and collaborating with other developers in the [Misty Community](https://community.mistyrobotics.com).
 
 ---
 
 ## What is a Skill?
 
-A skill is an application you develop for the Misty platform. While you can build many different types of skills, most skills involve some combination of the following:
+A skill is an application you develop for the Misty platform. While you can build many different types of skills, most involve some combination of the following:
 
 1. gathering some of Misty's sensory data
 2. processing that data using Misty's API, or sending it off to a cloud service
@@ -24,9 +23,9 @@ For example, you might write skills to have Misty do the following:
 
 * roam an office to greet people she recognizes
 * respond with sound and movement when you touch her on the head or chin
-* patrol an area and capture photos and videos to report changes in the environment
+* patrol an area to capture photos, videos, and audio recordings while reporting changes in the environment
 
-The first step in building a skill is deciding what you want the skill to do. Then, you can choose to write the skill using Misty's on-robot JavaScript API, her REST API, or a combination of the two. When you're ready, you can share your code with other developers in the Misty Community.
+The first step in building a skill is deciding what you want the skill to do. Then, you can choose to write the skill using Misty's on-robot JavaScript API, her REST API, or both. When you're ready, you can share your code with other developers in the Misty Community.
 
 ## Using Misty's APIs
 
@@ -38,9 +37,9 @@ Misty's on-robot JavaScript and REST APIs include many of the same commands, but
 
 ### Misty's On-Robot JavaScript API
 
-Code that you write with Misty's on-robot JavaScript API runs internally on Misty. To use Misty's on-robot JavaScript API, you write the JavaScript for your skill using whichever text editor you like. Then you [upload this code to Misty](../../../docs/skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill) along with a .json meta file that tells Misty how to execute the code and any image or audio assets in the skill. Learn more about file structure and code architecture [here](../../../docs/skills/local-skill-architecture/#file-structure-amp-code-architecture).
+Code that you write with Misty's on-robot JavaScript API runs internally on Misty. To use Misty's on-robot JavaScript API, you write the JavaScript for your skill using any text editor you like. Then, you [upload your code to Misty](../../../docs/skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill) along with a .json meta file that tells Misty how to execute the code. If a skill uses special image or audio assets, you can upload these assets along with your skill code. [Learn more about file structure and code architecture](../../../docs/skills/local-skill-architecture/#file-structure-amp-code-architecture).
 
-Misty's JavaScript engine supports most features of ES6 available in modern web browsers.
+Misty's JavaScript engine supports most features of ES6 that are available in modern web browsers.
 
 **Note:** If you're used to writing JavaScript for the web, you may be familiar with  manipulating the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) in your code. With Misty, there is no DOM for your code to manipulate. Skills you write with Misty's on-robot JavaScript API cannot use the various [objects and data types](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction#Important_Data_Types) present in the DOM.
 
@@ -50,7 +49,7 @@ The syntax for using a command in Misty's JavaScript API is:
 misty.<COMMAND>(parameters);
 ```
 
-So, for example, to change the color of Misty’s logo LED, you would call the 
+So, for example, to change the color of Misty’s logo LED, you would call the
 `misty.ChangeLED()` command like this:
 
 ```JS
@@ -66,14 +65,15 @@ In addition to methods for using Misty's robot capabilities, the on-robot JavaSc
 * sending external requests to third party web APIs
 * starting and stopping the execution of other JavaScript code files on Misty
 
-Follow these links to learn more about Misty's on-robot JavaScript API: 
+Follow these links to learn more about coding with Misty's on-robot JavaScript API:
 
 * [Architecture](../../../docs/skills/local-skill-architecture)
 * [Tutorials](../../../docs/skills/local-skill-tutorials)
 * [Reference Documentation](../../../docs/reference/javascript-api)
 
 #### When Should I Use Misty's On-Robot JavaScript API?
-Code you write with Misty's on-robot JavaScript API executes locally on the robot. This means you can expect Misty to respond to commands immediately after they execute in your code. This is different from using Misty's REST API, where you can expect some lag between executing a command and seeing Misty respond.
+
+Code you write with Misty's on-robot JavaScript API executes locally on the robot. This means you can expect Misty to respond to commands immediately after they execute in your code. This differs from using Misty's REST API, where you can expect some latency between the execution of a command and Misty's response.
 
 Consider using Misty's on-robot JavaScript API when:
 
@@ -82,6 +82,7 @@ Consider using Misty's on-robot JavaScript API when:
 * your skill does not require input from another interface (like text from a computer)
 
 #### Uploading Skill Files to Misty
+
 After you write the JavaScript code for a skill, you must upload your files onto the robot before you can run it. To learn how to load a skill onto Misty, see [Loading & Running On-Robot Skills](../../../docs/skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
 ### Misty's REST API
@@ -109,7 +110,7 @@ Consider using Misty's REST API when:
 * you want to use JavaScript features that are not supported by Misty's JavaScript engine
 * your skill uses third-party services not yet supported by Misty's on-robot API
 
-Follow these links to learn more about Misty's on-robot JavaScript API: 
+Follow these links to learn more about Misty's REST API:
 
 * [Architecture](../../../docs/skills/remote-command-architecture)
 * [Tutorials](../../../docs/skills/remote-command-tutorials)
@@ -117,7 +118,7 @@ Follow these links to learn more about Misty's on-robot JavaScript API:
 
 ### Integrating Misty's APIs
 
-Misty's REST API includes a set of commands for interacting with the code that runs locally on the robot. You use these REST API commands to upload and remove skill files, to initiate and stop the execution of skills, and to perform other skill management tasks. 
+Misty's REST API includes a set of commands for interacting with the code that runs locally on the robot. You use these REST API commands to upload and remove skill files, to initiate and stop the execution of skills, and to perform other skill management tasks.
 
 Additionally, Misty's REST API provides a command to trigger an event in a skill running locally on the robot. This makes it possible to pass data from an external device into the callback functions for events in an on-robot skill. You can use this command to integrate code that runs on an external device with code that runs locally on Misty.
 
