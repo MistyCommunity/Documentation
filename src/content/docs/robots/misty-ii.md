@@ -230,7 +230,7 @@ void setup() {
   
 void loop() {
     delay(1000);
-    Serial.println("{\"message\":"Hello!"}");
+    Serial.println("{\"message\":\"Hello!\"}");
 }
 ```
 
