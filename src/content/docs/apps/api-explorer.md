@@ -1,5 +1,5 @@
 ---
-title: API Explorer
+title: Command Center
 layout: onboarding.hbs
 columns: one
 order: 3
@@ -7,18 +7,22 @@ order: 3
 
 # {{title}}
 
-When you use the API Explorer in your browser, you can use Misty's API endpoints to try Misty out, without writing any code. We recommend using the API Explorer with the following browsers: Safari, Chrome, Firefox, and Microsoft Edge (latest versions).
+You can use the Command Center in your browser to try Misty’s capabilities and send basic commands to your robot before writing your own code. We recommend using the Command Center with the latest version of the Google Chrome browser.
 
-**Note: It's not generally recommended for multiple users to each use a separate instance of the API Explorer to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.**
+**Note:** It's not generally recommended for multiple users to each use a separate instance of the Command Center to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time (as in a class or group development environment), each person should take turns sending commands, or Misty may appear to respond unpredictably.
 
-## Setting up the API Explorer
+## Setting up the Command Center
 
-As with the companion app and Blockly, when using the API Explorer, **make sure your computer and Misty are on the same Wi-Fi network** and using Bluetooth. ![API Explorer](../../../assets/images/api_client.png)
+Before you connect Misty to an instance of the Command Center, **make sure your computer and Misty are on the same Wi-Fi network**. ![API Explorer](../../../assets/images/command_center.png)
 
-1. [Open up the API Explorer](http://api-explorer.mistyrobotics.com) in a browser window. The API Explorer should look like the screenshot above.
-2. Enter the IP address of your robot from the Info tab of the companion app and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
-3. Experiment with changing the color of the LED on Misty's chest or changing her eyes by selecting a different mood.
-4. To view data provided by the **Get Device Information** or **Get Log Information** buttons, open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.)
+1. [Open up the Command Center](sdk.mistyrobotics.com/command-center) in a browser window.
+2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
+
+## Using System Commands
+
+Experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
+
+1. To view data provided by the **Get Device Information** or **Get Log Information** buttons, open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.)
 
 ## Managing Audio and Image Files
 
