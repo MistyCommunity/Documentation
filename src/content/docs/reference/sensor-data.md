@@ -495,6 +495,8 @@ The IMU data stream provides information from Misty's Inertial Measurement Unit 
 
 By default, `IMU` data is sent at timed intervals of five seconds. 
 
+**Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+
 Sample `IMU` data:
 
 ```JSON

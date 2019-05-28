@@ -9,6 +9,11 @@ order: 3
 
 You can use the Command Center in your browser to try Misty’s capabilities and send basic commands to your robot before writing your own code. We recommend using the Command Center with the latest version of the Google Chrome browser.
 
+The Command Center works by sending requests to Misty's [REST API](../../../docs/reference/rest) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
+
+* **Ctrl + Shift + J** (Windows/Linux)
+* **Cmd + Option + J** (Mac)
+
 **Note:** It's not generally recommended for multiple users to each use a separate instance of the Command Center to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time (as in a class or group development environment), each person should take turns sending commands, or Misty may appear to respond unpredictably.
 
 ## Setting up the Command Center
@@ -17,81 +22,23 @@ Before you connect Misty to an instance of the Command Center, **make sure your 
 
 1. [Open up the Command Center](sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
+3. Use the **Quick Commands** in the **System** section to experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
+![Command Center Quick Commands](../../../assets/images/command-center-quick-commands.png)
+1. When Misty is connected, her serial number, battery level, and software version display under **Device Info** in the **System** section. ![Misty's Device Info](../../../assets/images/command_center_device_info.png)To see all data provided by the **Get All Device Info** button, open the web console for the browser window.
 
-## Using System Commands
+## Movement
 
-Experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
+Use the **Movement** section to send Misty drive commands, drive Misty manually, and to move Misty's head and arms.
 
-1. To view data provided by the **Get Device Information** or **Get Log Information** buttons, open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.)
+ ![Movement controls](../../../assets/images/command_center_movement.png)
 
-## Managing Audio and Image Files
+**Note:** You can use the red **Halt All Motors** button at any time to disable all of Misty's motor controllers.
 
-Misty comes with a number of default system image files that display on her screen, as well as default audio files that she can play. To add your own sounds and images to Misty, follow these steps.
+### Locomotion
 
-**Note: The processes for working with audio and image files on Misty are the same, with the exception that image files can be downloaded to your computer from the API Explorer.**
-![Asset management controls](../../../assets/images/explorer_asset_management.png)
+Use this section to send a [**DriveTime**](../../../docs/reference/rest/#drivetime) command to Misty. Using this command allows you to drive Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
 
-### Adding a custom audio or image file to Misty
-
-Would you like to have Misty sing a song or play a particular sound when her face recognition identifies someone in particular? What about giving her some custom eyes or other interesting images for her display?
-
-**Note:**
-
-* **For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).**
-* **For audio, you can upload all file format types, however Misty cannot currently play OGG files.**
-* **The maximum size for both audio and image files is 3 MB.**
-
-1. To select a file to upload to Misty, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
-2. After you choose a file, select the **Save to Robot** button. A message pops up to confirm the file is being saved.
-3. Once the upload is complete, you can confirm your file has been saved by clicking the **Populate Audio List** or **Populate Image List** button. Scroll through the list to find the file you just saved.
-
-### Playing audio files
-
-1. Click the **Populate Audio List** button to get a list of the current audio files saved to your robot.
-2. Choose the listed file to play. 
-3. Click the **Play Clip** button to hear Misty play the clip, or click the **Play Clip in Browser** button to hear it in your browser.
-
-### Displaying and downloading images
-
-1. Click the **Populate Image List** button to get a list of the current image files saved to your robot.
-2. Choose the listed file to display or download.
-3. Click the **Display Image on Robot** button to see the image appear on Misty's screen, or click the **Show Image Below** button to view the image in your browser.
-4. Click the **Download Image** button to download the chosen image to your computer.
-
-### Deleting a custom audio or image file from Misty
-
-Misty getting a bit overloaded with custom files? It's easy to tidy her up again.
-
-1. Click **Populate Audio List** or **Populate Image List** to obtain a list of the audio or image files you've saved to Misty.
-2. Choose a listed file to delete. **Note: You can only delete audio or image files that you have previously uploaded to Misty. The API Explorer posts an error if you attempt to remove one of Misty's default system files.** ![Error for deleting a system file](../../../assets/images/explorer_delete_error.png)
-3. Click the **Delete Clip** button to delete the audio file, or the **Delete Image** button to delete an image file.
-4. Refresh your screen and reconnect API Explorer to your robot.
-5. Click the **Populate Audio List** or **Populate Image List** button. The file you deleted should no longer be included in the list.
-
-### Using the API Explorer to obtain byte array strings from audio or image file data
-
-There is an option in the API explorer to convert audio or image file data to a byte array string and copy it to the clipboard. This is handy if you are using the REST or JavaScript commands `SaveAudio` or `SaveImage`, because these APIs require you to pass in raw file data.
-
-1. To select a file to convert, either drag a file into the rectangular drop area or click the **Choose a file...** text and browse for the file on your computer.
-2. After you choose a file, a checkbox appears under the white rectangle. Click that checkbox to confirm the file to convert.
-3. Click the **Copy to Clipboard** button. A message pops up to confirm that your file is being copied.
-
-## Driving Misty
-
-There are a variety of ways to use the API Explorer to drive Misty.
- ![Locomotion controls](../../../assets/images/locomotion_controls.png)
-
-### Drive Time
-
-1. First, use **Select a motion** to select the driving motion you want Misty to perform.
-2. Use the **Duration (ms)** control to specify the amount of time Misty should drive.
-3. Click **Move Robot**. Misty will stop driving automatically when the time is up.
-
-### Drive Time by Value
-
-Using this command allows you to drive Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
-
-When using **Drive Time by Value**, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
+When using **Drive Time**, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
 
 * Linear velocity (-100) and angular velocity (0) = driving straight backward at full speed.
 * Linear velocity (100) and angular velocity (0) = driving straight forward at full speed.
@@ -99,140 +46,248 @@ When using **Drive Time by Value**, it helps to understand how linear velocity (
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
+Follow these steps to send Misty a **DriveTime** command:
+
 1. Use the **Linear Velocity** control to set the speed Misty travels in a straight line. The control can be set from -100 (full speed backward) to 100 (full speed forward).
-2. Use the **Angular Velocity** control to set the speed and direction of Misty's rotation. The control can be set from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note: For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.**
+2. Use the **Angular Velocity** control to set the speed and direction of Misty's rotation. The control can be set from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 3. Use the **Duration (ms)** control to specify the amount of time Misty should drive.
-4. Click **Move Robot**. Misty stops driving automatically when the time is up.
+4. Click **Drive**. Misty stops driving automatically when the time is up.
 
 ### Manual Driving
 
-You can use these controls to drive Misty in a variety of directions.
- ![Manual driving controls](../../../assets/images/manual_driving_controls.png)
+You can use the **Manual Driving** controls to drive Misty in a variety of directions.
+ ![Manual driving controls](../../../assets/images/command_center_manual_drive.png)
 
-1. Click a directional button, and Misty will start driving.
-2. Adjust the **Velocity** level, if she is going too quickly or too slowly.
-3. Use the center control to stop driving.
+1. Click a directional button to drive Misty in that direction. Misty will continue to drive in that direction until you specify a new direction or send a command to halt or stop driving.
+2. Adjust the **Velocity** slider to change how fast Misty drive.
+3. Use the center button to stop Misty's drive motors.
 
-## Opening a WebSocket
+### Moving Misty's Head & Arms
 
-Real-time data from Misty is sent via WebSocket connections and includes:
+You can use the Command Center to change the position of Misty's head and arms.
 
-* movement, location, and proximity information
-* battery status
-* face detection and recognition
+![Command Center head and arm movement controls](../../../assets/images/command_center_head_movement.png)
 
-The data that's sent over WebSocket connections is described in detail [here](../../../docs/skills/remote-command-architecture/#subscribing-amp-unsubscribing-to-a-websocket). See [our tutorials](../../../docs/skills/remote-command-tutorials) for examples of programmatically subscribing to WebSocket data to create skills for Misty.
+When Misty connects to the Command Center, the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
 
-When you use the API Explorer to open WebSocket connections, you can view live data from Misty in your browser's JavaScript console. (How you open the console will vary among browsers and platforms.)
+**Note for Misty I Users**: Misty I does not have arms, and her head only provides movement along one axis: pitch. This means that up and down head motions are all that can be controlled for Misty I.
 
-Select **Show Sensors** to view the available sensor websockets.
-![Websocket controls](../../../assets/images/websockets.png)
+## Managing Audio and Image Files
 
-### Subscribing to Time of Flight data
+Misty comes with a number of default system image files that display on her screen, as well as default audio files that she can play. You can use the **Asset** section of the Command Center to upload your own image and audio files to Misty, or to manage the files already on your robot.
 
-You can view a stream of distance data from Misty I's four time-of-flight sensors in the API Explorer. For an example of obtaining time-of-flight data from Misty programmatically, see [this article](https://community.mistyrobotics.com/t/using-websockets-in-js-to-subscribe-to-time-of-flight-data/313).
+![Asset management controls](../../../assets/images/command_center_asset.png)
 
-1. In the **Sensor Data** area, locate the **Time of Flight** controls.
-2. Toggle the switch on for the sensor position for which you want to view distance data.
-3. You can see the time-of-flight sensor's data in the corresponding **Distance (meters)** field.
+### Adding a custom audio or image file to Misty
 
-### Subscribing to Battery data
+Please read the following before uploading new image or audio files to Misty:
 
-1. In the **Sensor Data** area, find the **Battery Voltage** controls.
-2. Toggle the **Battery** switch on.
-3. You can see data from Misty's battery sensor in the **Battery Voltage** field.
+* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the Command Center, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).**
+* For audio, you can upload all file format types, however Misty cannot currently play OGG files.
+* The maximum size for both audio and image files is 3 MB.
 
-### Subscribing to Other WebSocket data
+Follow these steps to add a custom audio or image file to Misty:
 
-1. Find the **Other WebSockets** controls in the API Explorer. ![Other Websockets](../../../assets/images/other_websockets.png)
-2. Select a WebSocket to monitor from the **Named Object** list. **Note: Named Object is the only required field.** The other fields are optional:
-   * **Event Name**: [Optional] Provide a name for this subscription. If no name is specified, the value for **Named Object** is also used for the **Event Name**.
-   * **Debounce**: [Optional] Provide the minimum amount of time between data events.
-   * **Property, Comparison, Value, Return Property**: [Optional] These allow you to set filters for the data of interest and the data returned. See the instructions in the API Explorer for more details.
-3. Click **Subscribe**.
-4. When you are finished, go to the **Unsubscribe** controls. In the **Event Name** field, enter the name of the Named Object to which you subscribed (or the Event Name if you provided one). ![Unsubscribe](../../../assets/images/unsubscribe.png)
-5. Click **Unsubscribe**.
+1. To select a file to upload to Misty, either drag a file into the rectangular drop area, or click the text in the drop area browse for the file on your computer.
+2. Once the upload is complete, you can locate the file in the dropdown list of images or audio files to confirm the upload was successful.
 
-## Face Training & Recognition - BETA
+### Working with audio files
 
-Misty's ability to recognize faces is under development. To try face training and recognition, follow these steps.
+You can use the controls in the **Audio** section to play, download, or delete the audio files on Misty. The list of audio files currently on Misty automatically populates in the **Audio** section when Misty connects to the Command Center.
 
-1. Make sure that your robot is connected to the API Explorer and that the light on Misty’s HD camera (located above her eyes on Misty I) is solid blue.
-2. In the **Beta Commands** section, go to **Computer Vision** and enter a name in the **Face Training** input box. ![Face Training interface](../../../assets/images/computer_vision.png)
+* **To have Misty play an audio file**, choose the file to play from the list and click the **Play on Robot** button.
+* **To play an audio file in your web browser**, choose the file to play from the list and click the **Play in Browser** button
+* **To download an audio file from Misty to your computer**, choose the file to download from the list and click the purple download button.
+* **To delete an audio file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty.The Command Center returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
+
+### Working with image files
+
+You can use the controls in the **Image** section to display, download, or delete the images on Misty. The list of image files currently on Misty automatically populates in the **Image** section when Misty connects to the Command Center.
+
+* **To have Misty display an image**, choose the file to display from the list and click the **Display on Robot** button.
+* **To display an image in your web browser**, choose the file to display from the list and click the **Display Image** button.
+* **To download an image file from Misty to your computer**, choose the file to download from the list and click the purple download button.
+* **To delete an image file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty. The Command Center returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
+
+## Perception
+
+You can use the **Perception** section of the Command Center to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video.
+
+### Face Training & Recognition
+
+To use face training and recognition, follow these steps.
+
+1. Make sure that your robot is connected to the Command Center.
+2. In the **Perception** section, go to **Face Training** and enter a name in the **Name to Train** input box. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
 3. Position a single person’s face in a well-lit area 1-6 feet from Misty’s camera. Do not attempt to train Misty to recognize more than one person at the same time.
-4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Cancel Face Training**, unless you want to stop the process before it completes. You can observe the main API Explorer browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
+4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Stop Face Training**, unless you want to stop the process before it completes. You can observe the main Command Center browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
 5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
 6. Position the person’s face in a well-lit area front of the camera.
-7. Open the JavaScript console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
+7. Open the web console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 8. When finished, click **Stop Face Recognition**.
 
-**Note: The face detection and recognition data that Misty sends is described in detail [here](../../../docs/reference/sensor-data).**
+**Note:** The face detection and recognition data that Misty sends is described in detail in the [Sensor & Skill Data Types](../../../docs/reference/sensor-data) section.**
 
-## Moving Misty's Head - BETA
+### Recording Video
 
-You can use the API Explorer to move Misty's head with the following controls:
-
-* **Move Head**
-* **Set Head Position**
-
-**Note: Misty I only provides movement along one axis: pitch. This means that up and down motions are all that can be controlled for Misty I.**
-![Head commands](../../../assets/images/head_commands.png)
-
-## Recording Video - BETA
-
-Misty can record a ten second video with her 4K camera. You can use the API Explorer to start the recording, stop the recording, and download the recording to your web browser.
+Misty can record a ten second video with her 4K camera. You can use the Command Center to start the recording, stop the recording, and download the recording to your web browser.
 
 Note that Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
 
-![Record Video](../../../assets/images/record-video-api-explorer.png)
+![Record Video](../../../assets/images/command_center_record_video.png)
 
 Click **Start Recording Video** to start Misty recording a video, and click **Stop Recording Video** to stop the recording. Note that if you do not click **Stop Recording Video**, Misty automatically stops recording after 10 seconds. Click **Download Recorded Video** to download the most recent recorded video recorded to your web browser.
 
-## Taking Pictures - ALPHA
+### Taking Pictures
 
 Misty can take pictures with her 4K camera as well as the ultra-wide vision camera on her Occipital Structure Core depth sensor.
 
-**Note: Images captured with these cameras are not saved to Misty's memory. To save photos taken with one of these cameras to Misty, follow the directions below to download these photos to your computer, then use the **Asset Management** controls in the API Explorer to save them to your robot.**
+Use the **Take Photo** controls to take a picture with Misty's 4K camera.
+![Camera controls](../../../assets/images/command_center_take_photo.png)
 
-Use the **Camera** controls to take a picture with Misty's 4K camera.
-![Camera controls](../../../assets/images/camera_controls.png)
+Click **Take + Display Photo** to take a picture and display it in your browser, or click **Take + Download Photo** to download the picture to your computer.
 
-Click **Take Picture and Display** to take a picture and display it in your browser, or click **Take Picture and Download** to download the picture to your computer.
-
-**Note: Misty's 4K camera may not work if the data stream from the Occipital Structure Core depth sensor is open. If you can't use Misty's camera to take and display or download a picture, click** Stop Camera **in the** Ultra-Wide Vision Camera **controls, then try again.**
-
-Use the **Ultra-Wide Vision Camera** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
-![Depth sensor camera controls](../../../assets/images/depth_sensor_camera_controls.png)
+Use the **Wide-Angle Vision Camera** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
+![Depth sensor camera controls](../../../assets/images/command_center_wide_angle.png)
 Follow these steps to take a photo with this camera:
 
-1. Click **Start Camera** to turn on the data stream from the depth sensor.
-2. Click **Take + Display Photo** to take a photo and display it in your browser, or click **Take + Download Photo** to download the photo to your computer.
-3. Click **Stop Camera** to turn off the data stream when you are done using this camera.
+Click **Take + Display Photo** to take a picture and display it in your browser, or click **Take + Download Photo** to download the picture to your computer.
 
-## Mapping & Tracking - ALPHA
+### Recording Audio
+
+Use the **Record Audio** controls to have Misty record an audio file with her microphone array.
+
+![Record audio controls](../../../assets/images/command_center_record_audio.png)
+
+Follow these steps to have Misty record an audio file:
+
+1. Enter a name to save the file with on Misty's local storage.
+2. Click the **Start Recording Audio** button to have Misty start recording audio.
+3. When you're finished recording, click the **Stop Recording Audio** button. **Note:** Misty automatically stops recording after 60 seconds.
+
+The new audio file will appear in the list of Misty's audio files in the **Assets** section of the Command Center.
+
+## Sensor Data
+
+Misty sends real-time data from her sensors and on-board events to the Command Center via WebSocket connections. You can use these WebSockets to receive:
+
+* time-of-flight sensor data
+* bump sensor data
+* capacitive touch sensor data
+* battery voltage levels
+* inertial measurement unit (IMU) sensor data
+* actuator position data
+* drive encoder data
+
+The [Sensor & Event Data](../../../docs/skills/remote-command-architecture/#subscribing-amp-unsubscribing-to-a-websocket) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../docs/skills/remote-command-tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
+
+### Opening a WebSocket
+
+When you use the Command Center to open WebSocket connections, you can view live data from Misty on your screen and in your browser's web console. (How you open the console will vary among browsers and platforms.)
+
+![Command Center sensor data](../../../assets/images/command_center_sensor_data.png)
+
+### Subscribing to Time of Flight Data
+
+Follow these instructions to stream time-of-flight data from Misty's sensors to the Command Center.
+
+1. In the **Sensor Data** area, locate the **Time of Flights** fields.
+2. Check the box next to each sensor position for which you want to view distance data.
+3. You can see the time-of-flight sensor's data in the corresponding **meters** field.
+
+### Subscribing to Bump Sensor Data
+
+1. In the **Sensor Data** area, check the box next to the **Bump Sensors** section.
+2. The field associated with a bump sensor will change colors when that bump sensor is activated.
+
+### Subscribing to Cap Touch Data
+
+1. In the **Sensor Data** area, check the box next to the **Cap Touch Sensors** section.
+2. The field associated with a cap touch sensor will change colors when that sensor is activated.
+
+### Subscribing to Battery Voltage Data
+
+1. In the **Sensor Data** area, check the box next to the **Battery Voltage** section.
+2. You can see data from Misty's battery sensor in the **volts** and **%** fields.
+
+### Subscribing to IMU Data
+
+The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor.
+It includes information about:
+
+* the pitch, yaw, and roll orientation angles of the sensor (in degrees)
+* the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
+* the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
+
+**Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty, a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+
+To stream IMU data from Misty to the Command Center:
+
+1. In the **Sensor Data** area, locate the **IMU Sensors** section.
+2. Check the box next to each data type for which you want to view data.
+3. You can see the IMU sensor's data in the corresponding field.
+
+### Subscribing to Actuator Data
+
+1. In the **Sensor Data** area, locate the **Actuator Positions** section.
+2. Check the box next to each actuator for which you want to view data.
+3. You can see the actuator's position data in the corresponding **degrees** field.
+
+### Subscribing to Drive Encoders Data
+
+1. In the **Sensor Data** area, locate the **Drive Encoders** section.
+2. Check the box next to each encoder for which you want to view data.
+3. You can see the encoder's rotation or angular velocity data in the corresponding **degrees** field.
+
+### Subscribing to Other WebSocket data
+
+Use the **Advanced Options** modal to customize WebSocket subscriptions and apply filters to the data that WebSockets send. Data you subscribe to using the **Advanced Options** modal streams to the web console in your browser window.
+
+1. Open the **Advanced Options** controls in the **Sensor Data** section of the Command Center. ![Advanced Options](../../../assets/images/command_center_advanced_options_1.png)
+2. Select a WebSocket to monitor from the **Named Object** list. **Note: Named Object is the only required field.** The other fields are optional:
+   * **Event Name**: [Optional] Provide a name for this subscription. If no name is specified, the value for **Named Object** is also used for the **Event Name**.
+   * **Debounce**: [Optional] Provide the minimum amount of time between data events. 
+   * **Property, Comparison, Value, Return Property**: [Optional] These allow you to set filters for the data of interest and the data returned. 
+     * To filter to specific details in subscription, you can enter the data property path in the `Property` field, which will cause Misty to return that data. The data property path is specified from the Named Object and currently must be discovered by examining the data packet or checking the documentation.
+     * For example, if you want to access the value of the Mental State property, which is an object in `SelfState`, you can put `MentalState` in the `ReturnProperty` field. If you want the specific `Valence` value of the `Affect` in `MentalState`, your `ReturnProperty` will be `MentalState.Affect.Valence`. 
+     * You may also use the same pattern to filter data. When you do this, Misty only sends data when the filter is true. For example, if you only want to return the above Mental State's `Affect` data if the `Dominance` value in `Affect` is equal to `1`, you would use the following settings:
+```json
+NamedObject : SelfState
+Property: MentalState.Affect.Dominance
+Comparison: ==
+Value: 1
+ReturnProperty: MentalState.Affect
+```
+3. Click **Subscribe**.
+4. When you are finished, go to the **Unsubscribe** controls. In the **Event Name** field, enter the name of the Named Object to which you subscribed (or the Event Name if you provided one). ![Unsubscribe](../../../assets/images/command_center_advanced_options_2.png)
+5. Click **Unsubscribe**.
+
+**Note:** Too many socket subscriptions at a fast debounce can cause performance issues, so remember to unsubscribe when you don't need data and to set the debounce as high as is appropriate for your needs.
+
+## Navigation - ALPHA
 
 Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
 
-**Note: If you are mapping with a Misty I or Misty II prototype, please be aware of the following:**
+**Important!** If you are mapping with a Misty I or Misty II prototype, please be aware of the following:
 
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
-**Note: The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.**
+**Note:** The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.
 
-**Important! For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.**
+**Important!** For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
 
 ### Obtaining Pose
 
 Before attempting to map or track, you must obtain pose.
 
-1. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
+1. Make sure Misty is already connected to the Command Center.
 2. Ensure Misty is in a well-lit (not dark) environment.
-3. Scroll down to **Alpha** and find the **Mapping** section. ![Mapping controls](../../../assets/images/slam_controls.png)
-4. Click **Get Status** and see what Misty's status is. You can see the results of clicking **Get Status** either from a status message that pops up on the bottom of the page or by opening the browser's JavaScript console (how you open the console varies among browsers and platforms).
-5. If Misty's status is other than "Ready", click **Reset**, then click **Get Status** again. _Note: If Misty's status does not return as ready after multiple **Reset** and **Get Status** commands, restart Misty and start these instructions over._
+3. Scroll down to the **Navigation** section of the Command Center. ![Mapping controls](../../../assets/images/command_center_navigation_controls.png)
+4. Click **Get Depth Sensor Status** and see what Misty's status is. You can see the results of clicking **Get Depth Sensor Status** either from a status message that pops up on the bottom of the page or by opening the browser's web console (how you open the console varies among browsers and platforms).
+5. If Misty's status is other than "Ready", click **Reset Depth Sensor**, then click **Get Depth Sensor Status** again. _Note: If Misty's status does not return as ready after multiple **Reset Depth Sensor** and **Get Depth Sensor Status** commands, restart Misty and start these instructions over._
 6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
   * Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
   * Increase the lighting.
@@ -242,81 +297,91 @@ Before attempting to map or track, you must obtain pose.
 
 When mapping, drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness. When possible, making wider turns also improves mapping results.
 
-**Note: Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.**
+**Note:** Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
 
-**Note: If Misty loses pose after generating a map, she will need to generate a new map and start over.**
+**Note:** If Misty loses pose after generating a map, she will need to generate a new map and start over.
 
-**Note: It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the API Explorer, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.**
+**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the API Explorer, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
 
-1. Follow the above instructions to obtain pose.
-2. Click **Start Mapping**. After a few seconds, the **Pose** light should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
+To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
+
+1. Before you start mapping, follow the above instructions to obtain pose.
+2. Click **Start Mapping**. After a few seconds, the **Pose** indicator should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
 3. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
 4. If **Pose** stays green, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red while you are mapping, try the following:_
     * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
     * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
 5. When done driving, click **Stop**.
 6. Click **Stop Mapping**.
-7. Scroll down to the **Map** section and click **Get Map**. ![Get map button](../../../assets/images/get_map.png)
+7. Scroll down to the bottom of the **Mapping** section and click **Get Map**. The generated map appears in a modal in the Command Center window.
 
 ### Tracking & Following a Path - ALPHA
 
 You can have Misty track where she is on a map that she has already created or track without a map. You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated.
 
-**Important! For Misty's maps, you read coordinates from the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.**
+**Important!** For Misty's maps, you read coordinates from the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
 
-To track: ![Tracking controls](../../../assets/images/track.png)
+To track: ![Tracking controls](../../../assets/images/command_center_tracking.png)
 
 1. Follow the above instructions to obtain pose.
 2. Click **Start Tracking** and begin driving Misty. Activating tracking provides pose data in the SelfState websocket for where Misty is on the map you previously generated. Or, if you have not previously generated a map, Misty sets her beginning tracking position as 0,0.
 3. If **Pose** turns from green to red while Misty is moving, try backing Misty up for a second and see if she gets pose again.
 4. Click **Stop Tracking**.
 
-To follow a path on a map: ![Path following controls](../../../assets/images/path.png)
+To follow a path on a map: ![Path following controls](../../../assets/images/command_center_follow_path.png)
 
 1. Ensure that Misty still has pose.
 2. Either:
   * Supply individual X,Y value pairs and click the **Add Waypoint** button to add these individual waypoints to a path.
   * Use the field next to the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**. A path of waypoints should be entered in the form of X1:Y1,X2:Y2,X3:Y3.
 
+You can also have Misty attempt to drive to a specific X,Y coordinate without following a specific path by entering your coordinates in the fields beneath **Drive to Location** and clicking the **Drive** button.
+
 ## System Updates
 
-You can use the API Explorer to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
+You can use the Command Center to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 
 To perform an update:
 
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
-2. If the API Explorer is not already connected to your robot: At the top of the API Explorer window, enter the IP address of your robot (from the Info tab of the companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window. ![API Explorer](../../../assets/images/api_client.png)
-3. Scroll down to the bottom of the API Explorer window and find the **System Updates** section. Click **Check for Updates**. It may take a few seconds, but a message will pop up on the bottom of the window telling you if your Misty has any updates available. ![Update controls](../../../assets/images/update_controls.png)
-4. If there are updates available, click **Perform System Update**. Misty will begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty is still functional, however it is NOT recommended to send any commands to Misty or drive her during this process.**
-5. The update process may take up to a half hour total. **The update process is not complete until Misty restarts and her happy eyes re-appear.**  ![Happy eyes](../../../assets/images/happy.png)
-6. If your robot consistently fails to update, there may be a loose or faulty connection on Misty's headboard or real-time controller board. To check these connections, visually inspect the connectors on the headboard first, near the location indicated below. ![Headboard connectors](../../../assets/images/headboard_connectors.jpeg) Then check the connectors on the real-time controller board, indicated below. ![real-time controller board connectors](../../../assets/images/realtime_controller_board_connectors.jpeg)
-Please contact Misty's support team if the connections on either of these boards appear loose or broken.
+2. If the Command Center is not already connected to your robot: At the top of the Command Center window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the Command Center window.
+3. Navigate to the **System** section of the Command Center window and find the **System Updates** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
+4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for **Halt** and **Stop**. It is NOT recommended to send any commands to Misty during the update process.**
+5. The update process may take up to a half hour total and **is not complete until Misty restarts and her happy eyes re-appear.**  ![Happy eyes](../../../assets/images/happy.png)
 
 ### Targeted Updates
 
-If a full system update fails to update every component of your robot, you can perform a targeted update to update these components individually.  
+If a full system update fails to update every component of your robot, you can perform a targeted update to attempt to update these components individually.
 
-![Targeted update controls](../../../assets/images/targeted_update_controls.png)
+![Targeted update controls](../../../assets/images/command_center_targeted_updates.png)
 
 To perform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
 
-**Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **Easy Commands** section at the top of the API Explorer. 
+**Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **System** section of the Command Center
 
 ## Connecting Wi-Fi
 
-While it’s usually easiest to use the [Misty Companion App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.
   * On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under **System Preferences > Network**.
   * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
 3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
-4. Open the API Explorer and connect to your robot by entering the IP address and clicking **Connect**. Look for the message "Connected successfully" to appear at the bottom of the API Explorer window.
-5. Scroll down to the bottom of the API Explorer page to the **Connect Wi-Fi** section. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/connect_wifi.png)
+4. Open the Command Center and connect to your robot by entering the IP address and clicking **Connect**.
+5. Click the **Wi-Fi** button next to the **Connect** button to open the Wi-Fi connection modal. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/command_center_wifi.png)
 
 **Note: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:**
 
 * Apple/Unix: `arp -a | grep <MAC ADDRESS>`
 * Windows (in a Powershell window): `arp -a | select-string <MAC ADDRESS>`
+
+### Saved Wi-Fi Networks
+
+You can also use the Command Center to manage the Wi-Fi networks that Misty remembers.
+
+* To see the list of Wi-Fi networks that Misty remembers, connect Misty to the Command Center and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers. ![Saved wifi interface](../../../assets/images/command_center_saved_wifi.png)
+* To connect to a network, select the network name from the list and click the **Connect** button.
+* To forget a network, select the network name from the list and click the **Forget** button. Or, click the **Forget All** button to clear all Wi-Fi networks from Misty's memory.
