@@ -18,7 +18,7 @@ The Command Center works by sending requests to Misty's [REST API](../../../docs
 
 ## Setting up the Command Center
 
-Before you connect Misty to an instance of the Command Center, **make sure your computer and Misty are on the same Wi-Fi network**. ![API Explorer](../../../assets/images/command_center.png)
+Before you connect Misty to an instance of the Command Center, **make sure your computer and Misty are on the same Wi-Fi network**. ![Command Center](../../../assets/images/command_center.png)
 
 1. [Open up the Command Center](sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
@@ -59,7 +59,7 @@ You can use the **Manual Driving** controls to drive Misty in a variety of direc
  ![Manual driving controls](../../../assets/images/command_center_manual_drive.png)
 
 1. Click a directional button to drive Misty in that direction. Misty will continue to drive in that direction until you specify a new direction or send a command to halt or stop driving.
-2. Adjust the **Velocity** slider to change how fast Misty drive.
+2. Adjust the **Velocity** slider to change how fast Misty drives.
 3. Use the center button to stop Misty's drive motors.
 
 ### Moving Misty's Head & Arms
@@ -74,7 +74,7 @@ When Misty connects to the Command Center, the position of each slider updates t
 
 ## Managing Audio and Image Files
 
-Misty comes with a number of default system image files that display on her screen, as well as default audio files that she can play. You can use the **Asset** section of the Command Center to upload your own image and audio files to Misty, or to manage the files already on your robot.
+Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. You can use the **Asset** section of the Command Center to upload your own image and audio files to Misty, or to manage the files already on your robot.
 
 ![Asset management controls](../../../assets/images/command_center_asset.png)
 
@@ -82,7 +82,7 @@ Misty comes with a number of default system image files that display on her scre
 
 Please read the following before uploading new image or audio files to Misty:
 
-* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the Command Center, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).**
+* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the Command Center, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).
 * For audio, you can upload all file format types, however Misty cannot currently play OGG files.
 * The maximum size for both audio and image files is 3 MB.
 
@@ -126,7 +126,7 @@ To use face training and recognition, follow these steps.
 7. Open the web console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 8. When finished, click **Stop Face Recognition**.
 
-**Note:** The face detection and recognition data that Misty sends is described in detail in the [Sensor & Skill Data Types](../../../docs/reference/sensor-data) section.**
+**Note:** The face detection and recognition data that Misty sends is described in detail in the [Sensor & Skill Data Types](../../../docs/reference/sensor-data) section.
 
 ### Recording Video
 
@@ -149,7 +149,6 @@ Click **Take + Display Photo** to take a picture and display it in your browser,
 
 Use the **Wide-Angle Vision Camera** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
 ![Depth sensor camera controls](../../../assets/images/command_center_wide_angle.png)
-Follow these steps to take a photo with this camera:
 
 Click **Take + Display Photo** to take a picture and display it in your browser, or click **Take + Download Photo** to download the picture to your computer.
 
@@ -301,13 +300,13 @@ When mapping, drive slowly to give the mapping system the best chance to fill in
 
 **Note:** If Misty loses pose after generating a map, she will need to generate a new map and start over.
 
-**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the API Explorer, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the Command Center, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
 
 To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
 
 1. Before you start mapping, follow the above instructions to obtain pose.
 2. Click **Start Mapping**. After a few seconds, the **Pose** indicator should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
-3. Select one of the drive options (**Turn in Circle**, etc.) or use the **Locomotion: Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
+3. Use the **Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
 4. If **Pose** stays green, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red while you are mapping, try the following:_
     * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
     * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
@@ -347,9 +346,9 @@ To perform an update:
 
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
 2. If the Command Center is not already connected to your robot: At the top of the Command Center window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the Command Center window.
-3. Navigate to the **System** section of the Command Center window and find the **System Updates** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
-4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for **Halt** and **Stop**. It is NOT recommended to send any commands to Misty during the update process.**
-5. The update process may take up to a half hour total and **is not complete until Misty restarts and her happy eyes re-appear.**  ![Happy eyes](../../../assets/images/happy.png)
+3. Navigate to the **System** section of the Command Center window and find the **System Update** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
+4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for `Halt` and `Stop`. It is NOT recommended to send any commands to Misty during the update process.**
+5. The update process may take up to a half hour total and is not complete until Misty restarts and displays a message that the update has been successful.
 
 ### Targeted Updates
 
@@ -363,7 +362,7 @@ To perform a targeted update, check the box next to each component to attempt to
 
 ## Connecting Wi-Fi
 
-While it’s usually easiest to use the [Misty App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the API Explorer and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the Command Center and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.

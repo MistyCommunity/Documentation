@@ -33,8 +33,6 @@ We supply two helper tools that make it easy to develop JavaScript skills for Mi
 
 Get both tools [here](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript).
 
-You can also use the [API Explorer](http://api-explorer.mistyrobotics.com) source code as a JavaScript wrapper for Misty's REST API. Read how to work with the API Explorer code [here](../../skills/tools/#working-with-the-api-explorer-code). 
-
 ### Using the LightClient JS Helper
 
 Both the `lightClient.js` and `lightSocket.js` files should typically be located in a "tools" or "assets" folder. It’s important to reference the files prior to your application file in your .html page. For example:
@@ -139,7 +137,7 @@ socket.Unsubscribe("CenterTimeOfFlight");
 
 A WebSocket connection provides a live, continuously updating stream of data from Misty. When you subscribe to a WebSocket, you can get data for your robot ranging from distance information to face detection events to movement and more.
 
-You can directly observe WebSocket data in your browser's JavaScript console, by connecting your robot to the [API Explorer](../../../docs/apps/api-explorer), but to use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/SampleCode/tree/master/Time%20of%20Flight).
+You can directly observe WebSocket data in your browser's JavaScript console, by connecting your robot to the [Command Center](../../../docs/apps/command-center), but to use WebSocket data in a skill, you'll need to subscribe to it programmatically, in your code. We'll walk through this process, using the `tofApp.js` sample. You can download this JavaScript sample [here](https://github.com/MistyCommunity/SampleCode/tree/master/Time%20of%20Flight).
 
 To subscribe to a WebSocket data stream, you must first open the WebSocket, then send a message to specify the exact data you want to receive. For some WebSocket data, you must also send a REST command to the robot so it starts generating the data. For the time-of-flight sensor data that the `tofApp.js` [sample](https://github.com/MistyCommunity/SampleCode/tree/master/Time%20of%20Flight) uses, sending a REST command is not required, because Misty's time-of-flight sensors are always on.
 
