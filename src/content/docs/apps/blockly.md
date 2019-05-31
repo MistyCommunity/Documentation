@@ -2,7 +2,7 @@
 title: Blockly
 layout: onboarding.hbs
 columns: one
-order: 5
+order: 6
 ---
 
 # {{title}}
