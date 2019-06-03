@@ -7,18 +7,20 @@ order: 3
 
 # {{title}}
 
-You can use the Command Center in your browser to try Misty’s capabilities and send basic commands to your robot before writing your own code. We recommend using the Command Center with the latest version of the Google Chrome browser.
+You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) in your browser to try Misty’s capabilities and send basic commands to your robot before writing your own code. We recommend using the [Command Center](http://sdk.mistyrobotics.com/command-center/) with the latest version of the Google Chrome browser.
 
-The Command Center works by sending requests to Misty's [REST API](../../../docs/reference/rest) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
+**NOTE:** The Command Center is currently in a pre-release state. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
+
+The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by sending requests to Misty's [REST API](../../../docs/reference/rest) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
 
 * **Ctrl + Shift + J** (Windows/Linux)
 * **Cmd + Option + J** (Mac)
 
-**Note:** It's not generally recommended for multiple users to each use a separate instance of the Command Center to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time (as in a class or group development environment), each person should take turns sending commands, or Misty may appear to respond unpredictably.
+**Note:** It's not generally recommended for multiple users to each use a separate instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time (as in a class or group development environment), each person should take turns sending commands, or Misty may appear to respond unpredictably.
 
 ## Setting up the Command Center
 
-Before you connect Misty to an instance of the Command Center, **make sure your computer and Misty are on the same Wi-Fi network**. ![Command Center](../../../assets/images/command_center.png)
+Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**. ![Command Center](../../../assets/images/command_center.png)
 
 1. [Open up the Command Center](sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
@@ -64,11 +66,11 @@ You can use the **Manual Driving** controls to drive Misty in a variety of direc
 
 ### Moving Misty's Head & Arms
 
-You can use the Command Center to change the position of Misty's head and arms.
+You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to change the position of Misty's head and arms.
 
 ![Command Center head and arm movement controls](../../../assets/images/command_center_head_movement.png)
 
-When Misty connects to the Command Center, the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
+When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/), the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
 
 **Note for Misty I Users**: Misty I does not have arms, and her head only provides movement along one axis: pitch. This means that up and down head motions are all that can be controlled for Misty I.
 
@@ -82,7 +84,7 @@ Misty comes with a number of default system image files that you can display on 
 
 Please read the following before uploading new image or audio files to Misty:
 
-* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the Command Center, for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).
+* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the [Command Center](http://sdk.mistyrobotics.com/command-center/), for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).
 * For audio, you can upload all file format types, however Misty cannot currently play OGG files.
 * The maximum size for both audio and image files is 3 MB.
 
@@ -93,34 +95,34 @@ Follow these steps to add a custom audio or image file to Misty:
 
 ### Working with audio files
 
-You can use the controls in the **Audio** section to play, download, or delete the audio files on Misty. The list of audio files currently on Misty automatically populates in the **Audio** section when Misty connects to the Command Center.
+You can use the controls in the **Audio** section to play, download, or delete the audio files on Misty. The list of audio files currently on Misty automatically populates in the **Audio** section when Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 * **To have Misty play an audio file**, choose the file to play from the list and click the **Play on Robot** button.
 * **To play an audio file in your web browser**, choose the file to play from the list and click the **Play in Browser** button
 * **To download an audio file from Misty to your computer**, choose the file to download from the list and click the purple download button.
-* **To delete an audio file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty.The Command Center returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
+* **To delete an audio file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty.The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
 
 ### Working with image files
 
-You can use the controls in the **Image** section to display, download, or delete the images on Misty. The list of image files currently on Misty automatically populates in the **Image** section when Misty connects to the Command Center.
+You can use the controls in the **Image** section to display, download, or delete the images on Misty. The list of image files currently on Misty automatically populates in the **Image** section when Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 * **To have Misty display an image**, choose the file to display from the list and click the **Display on Robot** button.
 * **To display an image in your web browser**, choose the file to display from the list and click the **Display Image** button.
 * **To download an image file from Misty to your computer**, choose the file to download from the list and click the purple download button.
-* **To delete an image file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty. The Command Center returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
+* **To delete an image file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty. The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
 
 ## Perception
 
-You can use the **Perception** section of the Command Center to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video.
+You can use the **Perception** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video.
 
 ### Face Training & Recognition
 
 To use face training and recognition, follow these steps.
 
-1. Make sure that your robot is connected to the Command Center.
+1. Make sure that your robot is connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. In the **Perception** section, go to **Face Training** and enter a name in the **Name to Train** input box. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
 3. Position a single person’s face in a well-lit area 1-6 feet from Misty’s camera. Do not attempt to train Misty to recognize more than one person at the same time.
-4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Stop Face Training**, unless you want to stop the process before it completes. You can observe the main Command Center browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
+4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Stop Face Training**, unless you want to stop the process before it completes. You can observe the main [Command Center](http://sdk.mistyrobotics.com/command-center/) browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
 5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
 6. Position the person’s face in a well-lit area front of the camera.
 7. Open the web console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
@@ -130,7 +132,7 @@ To use face training and recognition, follow these steps.
 
 ### Recording Video
 
-Misty can record a ten second video with her 4K camera. You can use the Command Center to start the recording, stop the recording, and download the recording to your web browser.
+Misty can record a ten second video with her 4K camera. You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to start the recording, stop the recording, and download the recording to your web browser.
 
 Note that Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
 
@@ -164,11 +166,11 @@ Follow these steps to have Misty record an audio file:
 2. Click the **Start Recording Audio** button to have Misty start recording audio.
 3. When you're finished recording, click the **Stop Recording Audio** button. **Note:** Misty automatically stops recording after 60 seconds.
 
-The new audio file will appear in the list of Misty's audio files in the **Assets** section of the Command Center.
+The new audio file will appear in the list of Misty's audio files in the **Assets** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 ## Sensor Data
 
-Misty sends real-time data from her sensors and on-board events to the Command Center via WebSocket connections. You can use these WebSockets to receive:
+Misty sends real-time data from her sensors and on-board events to the [Command Center](http://sdk.mistyrobotics.com/command-center/) via WebSocket connections. You can use these WebSockets to receive:
 
 * time-of-flight sensor data
 * bump sensor data
@@ -182,17 +184,17 @@ The [Sensor & Event Data](../../../docs/skills/remote-command-architecture/#subs
 
 ### Opening a WebSocket
 
-When you use the Command Center to open WebSocket connections, you can view live data from Misty on your screen and in your browser's web console. (How you open the console will vary among browsers and platforms.)
+When you use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to open WebSocket connections, you can view live data from Misty on your screen and in your browser's web console. (How you open the console will vary among browsers and platforms.)
 
 ![Command Center sensor data](../../../assets/images/command_center_sensor_data.png)
 
-You can open WebSocket connections to Misty by checking the box next to the sensors you want to stream data from. When you check a box, the Command Center connects to Misty's WebSocket server and streams data from the selected sensors.
+You can open WebSocket connections to Misty by checking the box next to the sensors you want to stream data from. When you check a box, the [Command Center](http://sdk.mistyrobotics.com/command-center/) connects to Misty's WebSocket server and streams data from the selected sensors.
 
 To stream data from all sensors or properties in a category, check the box next to the category name. To receive a subset of data from a category, check the boxes next to the specific sensors or properties you want and leave the rest of the boxes unchecked.
 
 ### Streaming Time of Flight Data
 
-Follow these instructions to stream time-of-flight data from Misty's sensors to the Command Center.
+Follow these instructions to stream time-of-flight data from Misty's sensors to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 1. In the **Sensor Data** area, locate the **Time of Flights** fields.
 2. Check the box next to **Time of Flights** to stream all distance data. Alternatively, check the box next to each individual sensor position you want to receive distance data from.
@@ -224,7 +226,7 @@ It includes information about:
 
 **Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty, a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
 
-To stream IMU data from Misty to the Command Center:
+To stream IMU data from Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/):
 
 1. In the **Sensor Data** area, locate the **IMU Sensors** section.
 2. Check the box next to **IMU Sensors** to stream all IMU sensor data. Alternatively, check the box next to each individual type of data you want to receive.
@@ -246,7 +248,7 @@ To stream IMU data from Misty to the Command Center:
 
 Use the **Advanced Options** modal to customize WebSocket subscriptions and apply filters to the data that WebSockets send. Data you subscribe to using the **Advanced Options** modal streams to the web console in your browser window.
 
-1. Open the **Advanced Options** controls in the **Sensor Data** section of the Command Center. ![Advanced Options](../../../assets/images/command_center_advanced_options_1.png)
+1. Open the **Advanced Options** controls in the **Sensor Data** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/). ![Advanced Options](../../../assets/images/command_center_advanced_options_1.png)
 2. Select a WebSocket to monitor from the **Named Object** list. **Note: Named Object is the only required field.** The other fields are optional:
    * **Event Name**: [Optional] Provide a name for this subscription. If no name is specified, the value for **Named Object** is also used for the **Event Name**.
    * **Debounce**: [Optional] Provide the minimum amount of time between data events. 
@@ -286,9 +288,9 @@ Misty can generate a map of your home or office, track her location on a map, an
 
 Before attempting to map or track, you must obtain pose.
 
-1. Make sure Misty is already connected to the Command Center.
+1. Make sure Misty is already connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. Ensure Misty is in a well-lit (not dark) environment.
-3. Scroll down to the **Navigation** section of the Command Center. ![Mapping controls](../../../assets/images/command_center_navigation_controls.png)
+3. Scroll down to the **Navigation** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/). ![Mapping controls](../../../assets/images/command_center_navigation_controls.png)
 4. Click **Get Depth Sensor Status** and see what Misty's status is. You can see the results of clicking **Get Depth Sensor Status** either from a status message that pops up on the bottom of the page or by opening the browser's web console (how you open the console varies among browsers and platforms).
 5. If Misty's status is other than "Ready", click **Reset Depth Sensor**, then click **Get Depth Sensor Status** again. _Note: If Misty's status does not return as ready after multiple **Reset Depth Sensor** and **Get Depth Sensor Status** commands, restart Misty and start these instructions over._
 6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
@@ -304,7 +306,7 @@ When mapping, drive slowly to give the mapping system the best chance to fill in
 
 **Note:** If Misty loses pose after generating a map, she will need to generate a new map and start over.
 
-**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the Command Center, you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
 
 To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
 
@@ -316,7 +318,7 @@ To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
     * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
 5. When done driving, click **Stop**.
 6. Click **Stop Mapping**.
-7. Scroll down to the bottom of the **Mapping** section and click **Get Map**. The generated map appears in a modal in the Command Center window.
+7. Scroll down to the bottom of the **Mapping** section and click **Get Map**. The generated map appears in a modal in the [Command Center](http://sdk.mistyrobotics.com/command-center/) window.
 
 ### Tracking & Following a Path - ALPHA
 
@@ -342,15 +344,15 @@ You can also have Misty attempt to drive to a specific X,Y coordinate without fo
 
 ## System Updates
 
-You can use the Command Center to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
+You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
 
 **Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
 
 To perform an update:
 
 1. First make sure that Misty is plugged into a power source and is connected to the Internet.
-2. If the Command Center is not already connected to your robot: At the top of the Command Center window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the Command Center window.
-3. Navigate to the **System** section of the Command Center window and find the **System Update** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
+2. If the [Command Center](http://sdk.mistyrobotics.com/command-center/) is not already connected to your robot: At the top of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window.
+3. Navigate to the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window and find the **System Update** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
 4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for `Halt` and `Stop`. It is NOT recommended to send any commands to Misty during the update process.**
 5. The update process may take up to a half hour total and is not complete until Misty restarts and displays a message that the update has been successful.
 
@@ -362,18 +364,18 @@ If a full system update fails to update every component of your robot, you can p
 
 To perform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
 
-**Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **System** section of the Command Center
+**Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 ## Connecting Wi-Fi
 
-While it’s usually easiest to use the [Misty App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the Command Center and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty App](../companion-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 
 1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.
   * On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under **System Preferences > Network**.
   * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
 3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
-4. Open the Command Center and connect to your robot by entering the IP address and clicking **Connect**.
+4. Open the [Command Center](http://sdk.mistyrobotics.com/command-center/) and connect to your robot by entering the IP address and clicking **Connect**.
 5. Click the **Wi-Fi** button next to the **Connect** button to open the Wi-Fi connection modal. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/command_center_wifi.png)
 
 **Note: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:**
@@ -383,8 +385,8 @@ While it’s usually easiest to use the [Misty App](../companion-app) to connect
 
 ### Saved Wi-Fi Networks
 
-You can also use the Command Center to manage the Wi-Fi networks that Misty remembers.
+You can also use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to manage the Wi-Fi networks that Misty remembers.
 
-* To see the list of Wi-Fi networks that Misty remembers, connect Misty to the Command Center and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers. ![Saved wifi interface](../../../assets/images/command_center_saved_wifi.png)
+* To see the list of Wi-Fi networks that Misty remembers, connect Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/) and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers. ![Saved wifi interface](../../../assets/images/command_center_saved_wifi.png)
 * To connect to a network, select the network name from the list and click the **Connect** button.
 * To forget a network, select the network name from the list and click the **Forget** button. Or, click the **Forget All** button to clear all Wi-Fi networks from Misty's memory.
