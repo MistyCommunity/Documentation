@@ -186,30 +186,34 @@ When you use the Command Center to open WebSocket connections, you can view live
 
 ![Command Center sensor data](../../../assets/images/command_center_sensor_data.png)
 
-### Subscribing to Time of Flight Data
+You can open WebSocket connections to Misty by checking the box next to the sensors you want to stream data from. When you check a box, the Command Center connects to Misty's WebSocket server and streams data from the selected sensors.
+
+To stream data from all sensors or properties in a category, check the box next to the category name. To receive a subset of data from a category, check the boxes next to the specific sensors or properties you want and leave the rest of the boxes unchecked.
+
+### Streaming Time of Flight Data
 
 Follow these instructions to stream time-of-flight data from Misty's sensors to the Command Center.
 
 1. In the **Sensor Data** area, locate the **Time of Flights** fields.
-2. Check the box next to each sensor position for which you want to view distance data.
+2. Check the box next to **Time of Flights** to stream all distance data. Alternatively, check the box next to each individual sensor position you want to receive distance data from.
 3. You can see the time-of-flight sensor's data in the corresponding **meters** field.
 
-### Subscribing to Bump Sensor Data
+### Streaming Bump Sensor Data
 
 1. In the **Sensor Data** area, check the box next to the **Bump Sensors** section.
 2. The field associated with a bump sensor will change colors when that bump sensor is activated.
 
-### Subscribing to Cap Touch Data
+### Streaming Cap Touch Data
 
 1. In the **Sensor Data** area, check the box next to the **Cap Touch Sensors** section.
 2. The field associated with a cap touch sensor will change colors when that sensor is activated.
 
-### Subscribing to Battery Voltage Data
+### Streaming Battery Voltage Data
 
 1. In the **Sensor Data** area, check the box next to the **Battery Voltage** section.
 2. You can see data from Misty's battery sensor in the **volts** and **%** fields.
 
-### Subscribing to IMU Data
+### Streaming IMU Data
 
 The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor.
 It includes information about:
@@ -223,22 +227,22 @@ It includes information about:
 To stream IMU data from Misty to the Command Center:
 
 1. In the **Sensor Data** area, locate the **IMU Sensors** section.
-2. Check the box next to each data type for which you want to view data.
+2. Check the box next to **IMU Sensors** to stream all IMU sensor data. Alternatively, check the box next to each individual type of data you want to receive.
 3. You can see the IMU sensor's data in the corresponding field.
 
-### Subscribing to Actuator Data
+### Streaming Actuator Data
 
 1. In the **Sensor Data** area, locate the **Actuator Positions** section.
-2. Check the box next to each actuator for which you want to view data.
+2. Check the box next to **Actuator Positions** to stream all actuator position data. Alternatively, check the individual boxes next to the actuators you want to receive data from.
 3. You can see the actuator's position data in the corresponding **degrees** field.
 
-### Subscribing to Drive Encoders Data
+### Streaming Drive Encoder Data
 
 1. In the **Sensor Data** area, locate the **Drive Encoders** section.
-2. Check the box next to each encoder for which you want to view data.
+2. Check the box next to **Drive Encoders** to stream all drive encoder data. Alternatively, check the individual boxes next to the drive encoders you want to receive data from.
 3. You can see the encoder's rotation or angular velocity data in the corresponding **degrees** field.
 
-### Subscribing to Other WebSocket data
+### Subscribing to Other WebSockets
 
 Use the **Advanced Options** modal to customize WebSocket subscriptions and apply filters to the data that WebSockets send. Data you subscribe to using the **Advanced Options** modal streams to the web console in your browser window.
 
