@@ -14,7 +14,7 @@ Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) provides inte
 * experiment with different parameters
 * generate code samples for Misty's REST API and on-robot JavaScript API
 
-The [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) simplifies experimenting with different commands. It allows you to quickly see Misty's responses, so you can understand how your code works with Misty. For more information about using Misty's APIs, see the [REST API](../../docs/reference/rest) and [on-robot JavaScript API](../../docs/reference/javascript-api) reference documentation.
+The [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) simplifies experimenting with different commands. It allows you to quickly see Misty's responses, so you can understand how your code works with Misty. For more information about using Misty's APIs, see the [REST API](../../../docs/reference/rest) and [on-robot JavaScript API](../../../docs/reference/javascript-api) reference documentation.
 
 **NOTE:** **The API Explorer is currently in a pre-release state**. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
 
@@ -22,7 +22,7 @@ The [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) simplifies experi
 
 Connect Misty to the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to start experimenting with her REST endpoints. Before you connect Misty to an instance of the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/), **make sure your computer and Misty are on the same Wi-Fi network**.
 
-1. [Open up the API Explorer](sdk.mistyrobotics.com/api-explorer) in a browser window.
+1. [Open up the API Explorer](http://sdk.mistyrobotics.com/api-explorer) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
 
 ## Sending a Request
@@ -34,7 +34,7 @@ Follow these steps to send REST requests from the API Explorer to Misty.
 3. Enter values for any parameters the command requires.
 4. Click the **Send Request** button to send the request to Misty.
 
-When you send a request, Misty's response appears in the [JSON Response](./#JSON-response) section of the API Explorer, as well as in your browser's web console.
+When you send a request, Misty's response appears in the [**JSON Response** section](./#json-response) of the API Explorer, as well as in your browser's web console.
 
 ## Using Code Samples
 
@@ -55,9 +55,9 @@ Read more about lightClient.js [in the documentation](../../../docs/skills/remot
 
 ### On-Robot JavaScript API Code Samples
 
-You can use the API Explorer to generate code samples for many of the methods in Misty's on-robot JavaScript API. These code samples appear in the [**Skill Code**](./#skill-code) section of the request form.
+You can use the API Explorer to generate code samples for many of the methods in Misty's on-robot JavaScript API. These code samples appear in the [**Skill Code** section](./#skill-code) of the request form.
 
-**Note:** Code samples for ["Get" commands](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) also include examples of the callback function required to handle the data that Misty returns.
+**Note:** Code samples for "Get" commands also include examples of the [callback function required to handle the data](../../../docs/skills/local-skill-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
 
 You can run these code samples by copying them from the API Explorer and pasting them into the [code file](../../../docs/skills/local-skill-architecture/#code-file) for an on-robot skill. Then, [upload the code to Misty](../../../docs/skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill) and [start the skill](../../../docs/skills/local-skill-architecture/#starting-amp-stopping-an-on-robot-skill).
 
@@ -79,7 +79,7 @@ The **Request** section of the request form includes a brief description of the 
 
 The sample code in this section automatically updates when you enter new data into the **Parameters** fields. To copy this sample code, click the **Copy** button. 
 
-For information about using this sample code with Misty, see [REST API Sample Code](./#rest-api-sample-code).
+For information about using this sample code with Misty, see [REST API Code Samples](./#rest-api-code-samples).
 
 ![API Explorer Request](../../../assets/images/api-explorer-request.png)
 
