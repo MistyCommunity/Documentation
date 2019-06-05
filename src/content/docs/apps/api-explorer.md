@@ -14,13 +14,13 @@ Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) provides inte
 * experiment with different parameters
 * generate code samples for Misty's REST API and on-robot JavaScript API
 
-The [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) simplifies experimenting with different commands. It allows you to quickly see Misty's responses, so you can understand how your code works with Misty. For more information about using Misty's APIs, see the [REST API](../../../docs/reference/rest) and [on-robot JavaScript API](../../../docs/reference/javascript-api) reference documentation.
+The API Explorer simplifies experimenting with different commands. It allows you to quickly see Misty's responses, so you can understand how your code works with Misty. For more information about using Misty's APIs, see the [REST API](../../../docs/reference/rest) and [on-robot JavaScript API](../../../docs/reference/javascript-api) reference documentation.
 
 **NOTE:** **The API Explorer is currently in a pre-release state**. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
 
 ## Setting Up the API Explorer
 
-Connect Misty to the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to start experimenting with her REST endpoints. Before you connect Misty to an instance of the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/), **make sure your computer and Misty are on the same Wi-Fi network**.
+Connect Misty to the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to start experimenting with her REST endpoints. Before you connect Misty to an instance of the API Explorer, **make sure your computer and Misty are on the same Wi-Fi network**.
 
 1. [Open up the API Explorer](http://sdk.mistyrobotics.com/api-explorer) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
