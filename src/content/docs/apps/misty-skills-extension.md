@@ -1,5 +1,5 @@
 ---
-title: Misty Skills VSC Extension
+title: VSC Extension
 layout: coding.hbs
 columns: one
 order: 7
@@ -32,10 +32,16 @@ With the extension activated, type `misty` in your JavaScript code file to start
 
 The Misty Skills Extension provides commands for uploading, running, and stopping skills, so you can iterate quickly and manage skills without leaving your text editor. To view these commands, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and start typing `Misty:`.
 
-Note: Your robot needs to be turned on and connected to the same local Wi-Fi network as the computer you are using for development in order to work.
+Before using these commands, make sure Misty is powered on and connected to the same local Wi-Fi network as the computer you are using for development in order to work.
 
-Both upload commands compresses the contents of the directory where the skill file you are currently editing is stored into a .zip, and then sends that .zip file to Misty using the REST endpoint for the SaveSkillToRobot endpoint.
+
 
 * Select **Misty: Upload** and enter your robot's IP Address to upload your skill to Misty.
 * Select **Misty: Upload and Run** and enter your robot's IP address to upload your skill to Misty and run it immediately.
 * Select **Misty: Stop Skills** and enter your robot's IP address to stop all skills that are currently running.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:**
+
+Both upload commands compresses the contents of the directory where the skill file you are currently editing is stored into a .zip, and then sends that .zip file to Misty using the REST endpoint for the SaveSkillToRobot endpoint.
+{{box op="end"}}
