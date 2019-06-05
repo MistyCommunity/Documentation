@@ -13,7 +13,7 @@ The tutorials in this section describe how to write skills for Misty that use he
 In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
-Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../docs/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/api-explorer/#connecting-wi-fi) to connect Misty to your Wi-Fi network using the API Explorer and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
+Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../docs/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/command-center/#connecting-wi-fi) to connect Misty to your Wi-Fi network using the Command Center and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
 
 ### Setting Up Your Project
 This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` calls to Misty from the browser, we use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a content delivery network (CDN) for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
@@ -861,12 +861,12 @@ Download the [full .html document](https://github.com/MistyCommunity/Tutorials/t
 
 ## Introduction to Mapping
 
-This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the API Explorer to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
+This tutorial describes how to use Misty’s simultaneous localization and mapping (SLAM) system to obtain data about your robot’s location and draw a map of her surroundings. When this skill runs, Misty enables the mapping capabilities of her Occipital Structure Core depth sensor and creates a map as you use the Command Center to drive her around her environment. When she finishes driving, Misty draws a map of the location she explored. This tutorial teaches
 * how to use mapping REST API commands
 * how to subscribe to the data stream from the `SelfState` WebSocket connection
 * how to transform raw map data into a graphical map of Misty’s environment
 
-Note that many real-world applications of Misty’s mapping capabilities require her to create a map while independently exploring her environment. Programs like this can be very complex as they require mapping commands to run alongside code telling Misty where to drive and how to avoid obstacles. For simplicity, this project requires you to use the API Explorer to move Misty instead of programming an automated exploration process.
+Note that many real-world applications of Misty’s mapping capabilities require her to create a map while independently exploring her environment. Programs like this can be very complex as they require mapping commands to run alongside code telling Misty where to drive and how to avoid obstacles. For simplicity, this project requires you to use the Command Center to move Misty instead of programming an automated exploration process.
 
 ### Setting Up Your Project
 This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
@@ -1174,7 +1174,7 @@ async function getMap() {
 }
 ```
 
-The next step is to use an `alert` to pause execution of the program and give Misty time to drive around collecting data. Execution of the program only continues once the user clicks **OK**. You can use the API Explorer or the Misty Companion App to drive Misty around. Be sure to drive slowly and thoroughly cover the room Misty is mapping. As Misty drives, the Occipital Structure Core depth sensor measures her distance from the objects she detects and localizes them relative to her current orientation and location.
+The next step is to use an `alert` to pause execution of the program and give Misty time to drive around collecting data. Execution of the program only continues once the user clicks **OK**. You can use the Command Center or the Misty Companion App to drive Misty around. Be sure to drive slowly and thoroughly cover the room Misty is mapping. As Misty drives, the Occipital Structure Core depth sensor measures her distance from the objects she detects and localizes them relative to her current orientation and location.
 
 ```js
 async function getMap() {
@@ -1186,7 +1186,7 @@ async function getMap() {
     // This gives you time to drive Misty around and
     // gather map data. Execution of the program
     // continues when you click OK.
-    alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
+    alert("Head over to the Command Center and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
 }
 ```
 
@@ -1198,7 +1198,7 @@ async function getMap() {
         await sleep(500);
     }
     console.log("2 - Pose obtained, starting mapping");
-    alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
+    alert("Head over to the Command Center and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     // Use axios.post() to send a POST request 
     // to the endpoint for the StopMapping command.
     axios.post("http://" + ip + "/api/slam/map/stop");
@@ -1215,7 +1215,7 @@ async function getMap() {
         await sleep(500);
     }
     console.log("2 - Pose obtained, starting mapping");
-    alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
+    alert("Head over to the Command Center and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     axios.post("http://" + ip + "/api/slam/map/stop");
     // Pause execution while mapping is true.
     while (mapping) {
@@ -1294,7 +1294,7 @@ async function getMap() {
         await sleep(500);
     }
     console.log("2 - Pose obtained, starting mapping");
-    alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
+    alert("Head over to the Command Center and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     axios.post("http://" + ip + "/api/slam/map/stop");
     while (mapping) {
         await sleep(500); 
@@ -1315,7 +1315,7 @@ async function getMap() {
         await sleep(500);
     }
     console.log("2 - Pose obtained, starting mapping");
-    alert("Head over to the API explorer and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
+    alert("Head over to the Command Center and drive Misty around the room to gather map data. Once finished, hit ok to proceed.");
     axios.post("http://" + ip + "/api/slam/map/stop");
     
     while (mapping) {
@@ -1364,7 +1364,7 @@ function processMap(res) {
 }
 ```
 
-The API Explorer uses a function called `drawMap()` to generate a graphical map from raw map data. This tutorial borrows the `drawMap()` function from the API Explorer code. Pass `data` into `drawMap()` to draw the map in the browser. 
+The Command Center uses a function called `drawMap()` to generate a graphical map from raw map data. This tutorial borrows the `drawMap()` function from the Command Center code. Pass `data` into `drawMap()` to draw the map in the browser. 
 
 ```js
 function processMap(res) {
@@ -1379,7 +1379,7 @@ The data returned by `GetMap` includes a two-dimensional matrix with values repr
 Insert the helper function `drawMap()` at the end of the program.
 
 ```js
-// This function is copied from the API Explorer 
+// This function is copied from the Command Center 
 // source code. It creates a graphic image of a
 // map from Misty's raw map data.
 function drawMap(data) {
@@ -1461,7 +1461,7 @@ socket.connect()
 * establishes a connection to your robot
 * subscribes to the data stream from the `SelfState` WebSocket connection
 * initiates the SLAM system to enable mapping
-* prompts the user to use the API Explorer to explore an area
+* prompts the user to use the Command Center to explore an area
 * generates a graphical representation of the map Misty generates
 
 ### Full Sample

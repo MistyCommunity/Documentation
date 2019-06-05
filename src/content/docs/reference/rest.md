@@ -393,7 +393,7 @@ The following commands allow you to programmatically drive and stop Misty and mo
 
 If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../docs/apps/command-center/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -692,7 +692,7 @@ Example JSON response for a failed request:
 
 ## Navigation
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../docs/apps/command-center/#navigation-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
 
@@ -847,7 +847,7 @@ Return Values
   * width (integer) - The width of the occupancy grid matrix (in number of cells). 
 
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [API Explorer](../../../docs/apps/api-explorer/#mapping-amp-tracking-alpha).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../docs/apps/command-center/#navigation-alpha).
 
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
@@ -903,20 +903,25 @@ Example: If Misty is both exploring and recording, then bits 2 and 4 would be se
 ```c#
 public enum SlamSensorStatus
 {
-  Unknown = 0,
-  Connected = 1,
-  Booting = 2,
-  Ready = 3,
-  Disconnected = 4,
-  Error = 5,
-  UsbError = 6,
-  LowPowerMode = 7,
-  RecoveryMode = 8,
-  ProdDataCorrupt = 9,
-  FWVersionMismatch = 10,
-  FWUpdate = 11,
-  FWUpdateComplete = 12,
-  FWCorrupt = 13
+Uninitialized = 0,
+Connected = 1,
+Booting = 2,
+Ready = 3,
+Disconnected = 4,
+Error = 5,
+UsbError = 6,
+LowPowerMode = 7,
+RecoveryMode = 8,
+ProdDataCorrupt = 9,
+CalibrationMissingOrInvalid = 10,
+FWVersionMismatch = 11,
+FWUpdate = 12,
+FWUpdateComplete = 13,
+FWUpdateFailed = 14,
+FWCorrupt = 15,
+EndOfFile = 16,
+UsbDriverNotInstalled = 17,
+Streaming = 18
 }
 ```
 
@@ -1027,9 +1032,9 @@ Return Values
 
 The following commands allow you to programmatically take pictures, record sounds or videos, and have misty detect and learn to recognize faces. 
 
-Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [API Explorer](../../../docs/apps/api-explorer/#face-training-amp-recognition-beta).
+Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [Command Center](../../../docs/apps/command-center/#perception).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../reference/sensor-data). To directly observe this data, you can use the [API Explorer](../../../docs/apps/api-explorer/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../skills/remote-command-architecture/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../docs/apps/command-center/#opening-a-websocket).
 
 ### CancelFaceTraining
 

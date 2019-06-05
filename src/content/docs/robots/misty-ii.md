@@ -53,7 +53,7 @@ To turn off your robot, turn off the power switch on Misty’s base.
 
 ## Connecting to Wi-Fi
 
-Now that you've turned on your robot, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) or the [API Explorer](../../apps/api-explorer/#connecting-wi-fi).
+Now that you've turned on your robot, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/#connecting-misty-to-bluetooth-and-wi-fi) or the [Command Center](../../apps/command-center/#connecting-wi-fi).
 
 ## Charging Misty II
 
@@ -164,7 +164,7 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 ## System Updates
 
-Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the Misty Companion app or API Explorer.
+Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the Misty Companion app or Command Center.
 
 Updates can include:
 
