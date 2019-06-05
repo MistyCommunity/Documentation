@@ -903,20 +903,25 @@ Example: If Misty is both exploring and recording, then bits 2 and 4 would be se
 ```c#
 public enum SlamSensorStatus
 {
-  Unknown = 0,
-  Connected = 1,
-  Booting = 2,
-  Ready = 3,
-  Disconnected = 4,
-  Error = 5,
-  UsbError = 6,
-  LowPowerMode = 7,
-  RecoveryMode = 8,
-  ProdDataCorrupt = 9,
-  FWVersionMismatch = 10,
-  FWUpdate = 11,
-  FWUpdateComplete = 12,
-  FWCorrupt = 13
+Uninitialized = 0,
+Connected = 1,
+Booting = 2,
+Ready = 3,
+Disconnected = 4,
+Error = 5,
+UsbError = 6,
+LowPowerMode = 7,
+RecoveryMode = 8,
+ProdDataCorrupt = 9,
+CalibrationMissingOrInvalid = 10,
+FWVersionMismatch = 11,
+FWUpdate = 12,
+FWUpdateComplete = 13,
+FWUpdateFailed = 14,
+FWCorrupt = 15,
+EndOfFile = 16,
+UsbDriverNotInstalled = 17,
+Streaming = 18
 }
 ```
 
