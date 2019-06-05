@@ -2,7 +2,7 @@
 title: Skill Runner
 layout: onboarding.hbs
 columns: one
-order: 4
+order: 5
 ---
 
 # {{title}}
