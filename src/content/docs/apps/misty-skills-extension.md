@@ -11,13 +11,13 @@ You can use the Misty Skills extension for [Visual Studio Code](https://code.vis
 
 Access to the Misty skills extension is currently limited to a small group of field trial robot testers. If you are a field trial tester, you can access your extension download in the Field Trials section of the [Community forums](https://community.mistyrobotics.com/).
 
-### Installing the Extension
+### Installing the Misty Skills Extension
 
 Follow these steps to install the Misty Skills extension:
 
 1. Open Visual Studio Code.
 2. Use **Ctrl** + **Shift** + **X** (Windows) or **Command** + **Shift** + **X** (Mac) to see your list of Installed extensions.
-3. Open the menu at the top of this list and select the option to **Install from VSIX...** ![Install from VSIX menu](../../../assets/images/install-from-vsix.png)
+3. Use the menu at the top of this list to select the option to **Install from VSIX...**
 4. Locate the Misty Skills .vsix file and select it to install.
 
 ### Activating the Misty Skills Extension
@@ -28,9 +28,39 @@ To activate the extension when writing a skill:
 
 With the extension activated, type `misty` in your JavaScript code file to start getting autocomplete and command information.
 
-### Uploading Running, and Stopping Skills
+### Uploading Skills
 
-The Misty Skills Extension provides commands for uploading, running, and stopping skills, so you can iterate quickly and manage skills without leaving your text editor. To view these commands, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and start typing `Misty:`.
+When the Misty Skills extension is active, you can use it to upload and run a skill you are editing. This makes it possible to edit and update your skill code on Misty entirely from your VSC window.
+
+Follow these steps to **upload a skill:**
+
+1. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
+2. Activate the Misty Skills extension in Visual Studio Code.
+3. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
+4. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
+5. Watch for the notification that the upload is complete.
+
+Follow these steps to **upload and run a skill:**
+
+1. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
+2. Activate the Misty Skills extension in Visual Studio Code.
+3. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
+4. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
+5. Watch for notification that the upload is complete and wait for your skill to run.
+
+
+
+6. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
+7. Activate the Misty Skills extension in Visual Studio Code.
+8. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
+9. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
+10. Watch for notification that the upload is complete and wait for your skill to run.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click the notification to see error details.
+{{box op="end"}}
+
+### Stopping Skills
 
 Before using these commands, make sure Misty is powered on and connected to the same local Wi-Fi network as the computer you are using for development in order to work.
 

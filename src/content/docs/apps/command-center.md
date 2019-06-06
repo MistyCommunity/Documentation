@@ -9,14 +9,18 @@ order: 3
 
 You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) in your browser to try Misty’s capabilities and send basic commands to your robot before writing your own code. We recommend using the [Command Center](http://sdk.mistyrobotics.com/command-center/) with the latest version of the Google Chrome browser.
 
-**NOTE:** **The Command Center is currently in a pre-release state**. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The Command Center is currently in a pre-release state. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
+{{box op="end"}}
 
 The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by sending requests to Misty's [REST API](../../../docs/reference/rest) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
 
 * **Ctrl + Shift + J** (Windows/Linux)
 * **Cmd + Option + J** (Mac)
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** It's not generally recommended for multiple users to each use a separate instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time (as in a class or group development environment), each person should take turns sending commands, or Misty may appear to respond unpredictably.
+{{box op="end"}}
 
 ## Setting up the Command Center
 
@@ -34,7 +38,9 @@ Use the **Movement** section to send Misty drive commands, drive Misty manually,
 
  ![Movement controls](../../../assets/images/command_center_movement.png)
 
-**Note:** You can use the red **Halt All Motors** button at any time to disable all of Misty's motor controllers.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** You can use the red **Halt All Motors** button at any time to disable all of Misty's motor controllers.
+{{box op="end"}}
 
 ### Locomotion
 
@@ -72,7 +78,9 @@ You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) t
 
 When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/), the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
 
-**Note for Misty I Users**: Misty I does not have arms, and her head only provides movement along one axis: pitch. This means that up and down head motions are all that can be controlled for Misty I.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Pitch head movement is all that can be controlled for Misty I robots.
+{{box op="end"}}
 
 ## Managing Audio and Image Files
 
@@ -128,7 +136,9 @@ To use face training and recognition, follow these steps.
 7. Open the web console for the browser window. (Note that how you open the console varies among browsers and platforms.) Watch the browser console for face recognition data to come through. Face recognition data is sent at a rate of about once per second, but this timing may vary significantly.
 8. When finished, click **Stop Face Recognition**.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** The face detection and recognition data that Misty sends is described in detail in the [Sensor & Skill Data Types](../../../docs/reference/sensor-data) section.
+{{box op="end"}}
 
 ### Recording Video
 
@@ -224,7 +234,9 @@ It includes information about:
 * the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
 * the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
 
-**Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty, a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty, a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+{{box op="end"}}
 
 To stream IMU data from Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/):
 
@@ -267,12 +279,14 @@ ReturnProperty: MentalState.Affect
 4. When you are finished, go to the **Unsubscribe** controls. In the **Event Name** field, enter the name of the Named Object to which you subscribed (or the Event Name if you provided one). ![Unsubscribe](../../../assets/images/command_center_advanced_options_2.png)
 5. Click **Unsubscribe**.
 
-**Note:** Too many socket subscriptions at a fast debounce can cause performance issues, so remember to unsubscribe when you don't need data and to set the debounce as high as is appropriate for your needs.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Too many socket subscriptions at a fast debounce can cause performance issues, so remember to unsubscribe when you don't need data and to set the debounce as high as is appropriate for your needs. {{box op="end"}}
 
 ## Navigation - ALPHA
 
 Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** If you are mapping with a Misty I or Misty II prototype, please be aware of the following:
 
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
@@ -281,8 +295,11 @@ Misty can generate a map of your home or office, track her location on a map, an
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
 **Note:** The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.
+{{box op="end"}}
 
-**Important!** For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
+{{box op="end"}}
 
 ### Obtaining Pose
 
@@ -302,11 +319,13 @@ Before attempting to map or track, you must obtain pose.
 
 When mapping, drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness. When possible, making wider turns also improves mapping results.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
 
-**Note:** If Misty loses pose after generating a map, she will need to generate a new map and start over.
+If Misty loses pose after generating a map, she will need to generate a new map and start over.
 
-**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+{{box op="end"}}
 
 To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
 
@@ -324,7 +343,9 @@ To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
 
 You can have Misty track where she is on a map that she has already created or track without a map. You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** For Misty's maps, you read coordinates from the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
+{{box op="end"}}
 
 To track: ![Tracking controls](../../../assets/images/command_center_tracking.png)
 
@@ -346,7 +367,9 @@ You can also have Misty attempt to drive to a specific X,Y coordinate without fo
 
 You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
 
-**Important: Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.**
+{{box op="start" cssClass="boxed noteBox"}}
+**Important!** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
+{{box op="end"}}
 
 To perform an update:
 
@@ -364,7 +387,9 @@ If a full system update fails to update every component of your robot, you can p
 
 To perform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Always try a full system update before trying a targeted update. You can make sure individual components are up-to-date by comparing the version numbers for each component to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site. The version numbers for individual components are returned by the **Get Device Information** button in the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+{{box op="end"}}
 
 ## Connecting Wi-Fi
 
@@ -378,10 +403,12 @@ While it’s usually easiest to use the [Misty App](../companion-app) to connect
 4. Open the [Command Center](http://sdk.mistyrobotics.com/command-center/) and connect to your robot by entering the IP address and clicking **Connect**.
 5. Click the **Wi-Fi** button next to the **Connect** button to open the Wi-Fi connection modal. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/command_center_wifi.png)
 
-**Note: Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:**
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:
 
 * Apple/Unix: `arp -a | grep <MAC ADDRESS>`
 * Windows (in a Powershell window): `arp -a | select-string <MAC ADDRESS>`
+{{box op="end"}}
 
 ### Saved Wi-Fi Networks
 
