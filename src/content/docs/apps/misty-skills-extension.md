@@ -2,7 +2,7 @@
 title: Misty Skills Extension for VSC
 layout: coding.hbs
 columns: one
-order: 7
+order: 6
 ---
 
 # {{title}}
