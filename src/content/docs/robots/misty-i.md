@@ -22,7 +22,7 @@ Aside from Misty herself, there are a few things to look for in her packaging:
 * battery
 * power supply
 * two side panels
-* Ethernet to USB adapter
+* USB-to-Ethernet adapter
 * FTDI cable
 
 **Note:** Please keep all the original packaging for Misty. In case you need to ship her in the future, this packaging has been specially designed to protect these hand-built prototypes.
