@@ -1,5 +1,5 @@
 ---
-title: VSC Extension
+title: Misty Skills Extension for VSC
 layout: coding.hbs
 columns: one
 order: 7
@@ -18,7 +18,7 @@ Follow these steps to install the Misty Skills extension:
 1. Open Visual Studio Code.
 2. Use **Ctrl** + **Shift** + **X** (Windows) or **Command** + **Shift** + **X** (Mac) to see your list of Installed extensions.
 3. Use the menu at the top of this list to select the option to **Install from VSIX...**
-4. Locate the Misty Skills .vsix file and select it to install.
+4. Locate your Misty Skills `.vsix` file and select it to install.
 
 ### Activating the Misty Skills Extension
 
@@ -26,52 +26,56 @@ To activate the extension when writing a skill:
 * On Mac OS - Press **Command+Shift+P** and select MistySkills.
 * On Windows - Press **Control+Shift+P** and select MistySkills.
 
-With the extension activated, type `misty` in your JavaScript code file to start getting autocomplete and command information.
+With the extension activated, start typing `misty` in a JavaScript code file to start getting autocomplete and command information.
 
-### Uploading Skills
+### Uploading, Running, and Stopping Skills
 
-When the Misty Skills extension is active, you can use it to upload and run a skill you are editing. This makes it possible to edit and update your skill code on Misty entirely from your VSC window.
+When the Misty Skills extension is active, you can run commands directly from your VSC window to upload a skill, upload and run a skill, or to stop the skills that Misty is currently running. This makes it possible to edit and update your skill code on Misty without leaving your text editor.
 
-Follow these steps to **upload a skill:**
+The list of currently available commands is:
 
-1. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
-2. Activate the Misty Skills extension in Visual Studio Code.
-3. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
-4. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
-5. Watch for the notification that the upload is complete.
+* Upload
+* Upload and Run
+* Stop Skills
 
-Follow these steps to **upload and run a skill:**
+To view and use these commands:
 
 1. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
 2. Activate the Misty Skills extension in Visual Studio Code.
-3. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
-4. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
-5. Watch for notification that the upload is complete and wait for your skill to run.
+3. Press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows).
+4. Type **Misty:** to see the list of commands, and select the command you want to use.
 
+![List of commands in VSC plugin](../../../assets/images/misty-skills-vsc-commands.gif)
 
+To **upload** a skill:
 
-6. Make sure Misty is powered on and connected to the same local Wi-Fi network as your computer.
-7. Activate the Misty Skills extension in Visual Studio Code.
-8. With a file from the skill you want to upload open in your editor, press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows) and type **Misty: Upload**. Press **Enter** to run the command.
-9. Enter the IP address for the Misty to which you want to upload the skill. You can find Misty's IP address in the Misty companion app.
-10. Watch for notification that the upload is complete and wait for your skill to run.
+1. Follow the steps above to view the list of commands.
+2. Select **Misty: Upload and Run**.
+3. Enter Misty's IP address. (You can find Misty's IP address in the [Misty companion app](../../../docs/apps/companion-app)).
+4. Watch for the notification that the upload is complete.
+
+To **upload and run** a skill:
+
+1. Follow the steps above to view the list of commands.
+2. Select **Misty: Upload**.
+3. Enter Misty's IP address. (You can find the IP address in the [Misty companion app](../../../docs/apps/companion-app)).
+4. Watch for the notification that the upload is complete and wait for your skill to run.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click the notification to see error details.
+**Note:** When you run the **Upload** or **Upload and Run** command, the Misty Skills extension compresses the entire directory for the currently active file into a .zip and attempts to upload this .zip to Misty using the [SaveSkillToRobot](../../../docs/reference/rest/#saveskilltorobot) endpoint. Loading a skill onto Misty this way also uploads any image and audio files from the compressed directory to Misty and associates them with the skill.
+
+An upload will fail if the directory you attempt to upload does not contain the [JSON `meta`](../../../docs/skills/local-skill-architecture/#file-structure-amp-code-architecture) file for the skill. If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click this notification to see more details about the error.
+
+For more information about loading skills onto Misty, see [Loading & Running an On-Robot Skill.](../../../docs/skills/local-skill-architecture/#loading-amp-running-an-on-robot-skill)
 {{box op="end"}}
 
-### Stopping Skills
+To **stop skills**:
 
-Before using these commands, make sure Misty is powered on and connected to the same local Wi-Fi network as the computer you are using for development in order to work.
+1. Follow the steps above to view the list of commands.
+2. Select **Misty: Stop Skills**.
+3. Enter Misty's IP address. (You can find the IP address in the Misty [Misty companion app](../../../docs/apps/companion-app).)
+4. Watch for the notification that the command was successful and wait for Misty to stop skill execution.
 
-
-
-* Select **Misty: Upload** and enter your robot's IP Address to upload your skill to Misty.
-* Select **Misty: Upload and Run** and enter your robot's IP address to upload your skill to Misty and run it immediately.
-* Select **Misty: Stop Skills** and enter your robot's IP address to stop all skills that are currently running.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:**
-
-Both upload commands compresses the contents of the directory where the skill file you are currently editing is stored into a .zip, and then sends that .zip file to Misty using the REST endpoint for the SaveSkillToRobot endpoint.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** When you use the **Misty: Stop Skills** command, the Misty Skills extension stops skill execution by sending a POST request to the REST endpoint for Misty's [CancelSkill](docs/reference/rest/#cancelskill) command.
 {{box op="end"}}
