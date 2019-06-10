@@ -488,14 +488,11 @@ DriveEncoders {
 
 **Available for Misty II only**
 
-The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor. It includes information about:
-* the pitch, yaw, and roll orientation angles of the sensor (in degrees)
-* the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
-* the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
-
-By default, `IMU` data is sent at timed intervals of five seconds.
-
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+{{box op="end"}}
+
+By default, Misty sends `IMU` data to listeners of `IMU` events once every five seconds.
 
 Sample `IMU` data:
 
@@ -520,6 +517,38 @@ IMU {
     "type":"IMU"
 }
 ```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty uses a **right-handed coordinate frame** to determine the value of each property returned in IMU event messages.
+{{box op="end"}}
+
+The IMU data stream provides information from Misty's Inertial Measurement Unit (IMU) sensor. It includes information about:
+* the pitch, yaw, and roll orientation angles of the sensor (in degrees)
+* the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
+* the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
+
+Message Properties:
+
+* `pitch` (double) - Misty's rotational orientation around her X axis (in degrees). A positive number means Misty is tipping forward, and a negative number means she is tipping back.
+* `roll` (double) - Misty's rotational orientation around her Y axis (in degrees). A positive number means Misty is tipping to the her left, and a negative number means she is tipping to her right.
+* `yaw` (double) - Misty's rotational orientation around her Z axis (in degrees). A positive number means Misty is rotated to the left, and a negative number means she is rotated to the right.
+* `pitchVelocity` (double) - 
+* `rollVelocity` (double) - 
+* `yawVelocity` (double) - 
+* `xAcceleration` (double) - 
+* `yAcceleration` (double) - 
+* `zAcceleration` (double) - 
+
+
+* Positive values for `zAcceleration`, `yAcceleration`, and `zAcceleration` indicate that Misty is accelerating in the direction fo her right hand (from Misty's point of view), straight forward, and up, respectively. Negative values indicate acceleration in the opposite directions.
+* Positive values for `pitchVelocity`, `rollVelocity`, and `yawVelocity` indicate how  
+
+* Positive `pitch` and `pitchAcceleration` values indicate that Misty is tilting forward. Negative values for these properties indicate Misty is tilting backward.
+* Positive `roll` and `rollAcceleration` values indicate that Misty is tilting to her left.  negative `roll` values indicate that she is tipping to the right
+* Positive `yaw` values indicate rotation to Misty's left, and negative values indicate she rotation to her right.
+
+
+
 
 ## SerialMessage
 **Available for Misty II only**
