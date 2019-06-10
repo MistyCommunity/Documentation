@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-There are several tools available to interact with Misty, explore her APIs, and to aid in [coding skills](../../../docs/skills/introduction).
+The following tools allow you to more easily interact with Misty, explore her APIs, and [build skills](../../../docs/skills/introduction).
 
 * The [Companion App](../companion-app) is the simplest way to get Misty onto your local Wi-Fi network and to test out driving Misty manually.
 * The [Command Center](../command-center) provides a graphic UX that allows you to experiment with Misty’s API commands before you write any code.
