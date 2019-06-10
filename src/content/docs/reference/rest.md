@@ -559,7 +559,7 @@ Parameters
 |-----|---------|----------|---------|
 |pitch|-9.5 (up) to 34.9 (down)|-5 (up) to 5 (down)|-0.1662 (up) to 0.6094 (down)|
 |roll|-43 (right) to 43 (left)|-5 (right) to 5 (left)|-0.75 (right) to 0.75 (left)|
-|yaw|-90 (right) to 90 (right)|-5(right) to 5 (left)|-1.57(right) to 1.57 (left)|
+|yaw|-90 (right) to 90 (left)|-5 (right) to 5 (left)|-1.57(right) to 1.57 (left)|
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
