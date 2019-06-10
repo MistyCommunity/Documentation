@@ -9,7 +9,7 @@ layout: page-not-found.hbs
       ![Not found dog](/assets/images/page-not-found-misty.png)
     </div>
     <div class="not-found-text">
-    <p>We couldn't find the page you requested. You might be able to find it somewhere else -- try searching below, or <a href="/">return to the docs homepage</a>.</p>
+    <p>You might be able to find what you're looking for somewhere else in Misty's developer documentation. Try searching below, or <a href="/">return to the docs homepage</a>.</p>
       <div class="search">
         <div class="search-input-wrapper">
           <i class="ion-search"></i>
