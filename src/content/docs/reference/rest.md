@@ -553,13 +553,13 @@ Parameters
 
 **Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
 
-**Table of Unit Value Ranges Per Movement Type**
+**Value Ranges (By Unit) for Each Direction of Head Movement**
 
 || degrees | position | radians |
 |-----|---------|----------|---------|
-|pitch|-9.5 (up) to 34.9 (down)|-5 (up) to 5 (down)|-0.1662 (up) to 0.6094 (down)|
-|roll|-43 (left) to 43 (right)|-5 (left) to 5 (right)|-0.75 (left) to 0.75 (right)|
-|yaw|-90 (right) to 90 (left)|-5 (right) to 5 (left)|-1.57 (right) to 1.57 (left)|
+| pitch | -9.5 (up) to 34.9 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
+| roll | -43 (left) to 43 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
+| yaw | -90 (right) to 90 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
