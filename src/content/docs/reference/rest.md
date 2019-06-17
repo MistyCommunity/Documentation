@@ -387,6 +387,75 @@ Parameters
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
 
+## External Requests
+
+### SendExternalRequest (Misty I) - ALPHA
+
+Sends an HTTP request from Misty to an external server. You can use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/request
+
+Parameters
+
+* Method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* Resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* AuthorizationType (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* Token (string) - The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* Arguments (string) - The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* ReturnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response, i.e. `text/plain`.
+* Save (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* Apply (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* FileName (string) - The name to give the saved file, including the appropriate file type extension.
+
+```JSON
+{
+  "Method": "GET",
+  "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
+  "AuthorizationType": null,
+  "Token": null,
+  "Arguments": "{}",
+  "ReturnType": "audio/mp3",
+  "Save": true,
+  "Apply": true,
+  "FileName": "externalAudioFile.mp3"
+}
+```
+
+Return Values
+
+* Data (object) - The external server's response to the request.
+
+### misty.SendExternalRequest (Misty II) - ALPHA
+
+Sends an HTTP request from Misty to an external server. You use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/request
+
+Parameters
+
+* Method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* Resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* authorizationType (string) - Optional. The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* Token (string) - Optional. The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* Arguments (string) - Optional. The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* Save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* Apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+
+```JSON
+{
+  "Method": "GET",
+  "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
+  "Save": true,
+  "Apply": true,
+  "FileName": "externalAudioFile.mp3"
+}
+```
+
+Return Values
+
+* Data (object) - The external server's response to the request.
+
 ## Movement
 
 The following commands allow you to programmatically drive and stop Misty and move her head and arms. 
