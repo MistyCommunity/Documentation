@@ -1161,6 +1161,8 @@ Return Values
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
+**Note:** When you call the `TakePicture` command immediately after using the RGB camera to record a video, there may be a few seconds delay before Misty takes the photograph.
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
 
 Example:
@@ -1220,6 +1222,8 @@ Starts recording video with Misty's 4K Camera. Misty records videos in MP4 forma
 Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
 
 Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 
