@@ -391,7 +391,7 @@ Return Values
 
 The following commands allow you to programmatically drive and stop Misty and move her head and arms. 
 
-If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
+If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/misty-app).
 
 To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../docs/apps/command-center/#opening-a-websocket).
 
