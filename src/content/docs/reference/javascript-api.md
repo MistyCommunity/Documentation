@@ -246,6 +246,28 @@ Adds an additional return property field for a registered event.
 misty.AddReturnProperty(string eventName, string eventProperty, [int prePauseMs], [int postPauseMs]);
 ```
 
+Use the `misty.AddReturnProperty()` method to add the values of specific properties from an event message to the data object passed to the callback function for the event. When the event callback handles the data object for an event, the data object includes the values of any properties added with `misty.AddReturnProperty()` in an array called `AdditionalResults`.
+
+You can add multiple return properties to the same event. The order of values in the `AdditionalResults` array matches the order in which you added those properties to the event in your skill code. For an example of how this works, see how the following code adds return properties to a `BumpSensor` event:
+
+```JavaScript
+// Add the value of the sensorName and isContacted properties of
+// BumpSensor event to the data you want to receive with "Bumped"
+// event messages
+misty.AddReturnProperty("Bumped", "sensorName");
+misty.AddReturnProperty("Bumped", "isContacted");
+// Register for BumpSensor events
+misty.RegisterEvent("Bumped", "BumpSensor", 50 ,true);
+
+function _Bumped(data) {
+     // The value of sensorName is at index 0
+     var sensor = data.AdditionalResults[0]
+     // The value of isContacted is at index 1
+     var isContacted = data.AdditionalResults[1]
+     misty.Debug("Sensor: " + sensor + ", is contacted: " + isContacted)
+}
+```
+
 Arguments
 * eventName (string) - The name of the event to add a return property field for.
 * eventProperty (string) - The additional property to return.
