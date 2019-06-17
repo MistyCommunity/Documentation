@@ -807,18 +807,20 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
 
 Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
+- Waypoints (array of objects) - A list of objects, where each object includes the X and Y coordinates for a waypoint on the path that Misty should follow. Misty travels to each waypoint in the order they appear in this array. **Note:** X values specify forward and backward movement, and Y values indicate movement to Misty's left or right.
 
 ```json
 {
-  "Path":"10:20,15:25,30:40"
+  "Waypoints":[
+    {"X": 0, "Y": 0},
+    {"X": 5, "Y": 5},
+    {"X": 5, "Y": 10}
+    ]
 }
 ```
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
 
 ### GetMap - ALPHA
 
