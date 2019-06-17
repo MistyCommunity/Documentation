@@ -73,12 +73,13 @@ Follow these links to learn more about coding with Misty's on-robot JavaScript A
 
 #### When Should I Use Misty's On-Robot JavaScript API?
 
-Code you write with Misty's on-robot JavaScript API executes locally on the robot. This means you can expect Misty to respond to commands immediately after they execute in your code. This differs from using Misty's REST API, where you can expect some latency between the execution of a command and Misty's response.
+Code you write with Misty's on-robot JavaScript API executes locally on the robot. This means you can expect Misty to respond to commands immediately after they execute in your code. This differs from using Misty's REST API, where you can expect some latency between the execution of a command and Misty's response. Writing skills that can run entirely on Misty offers portability and allows you to easily package and redistribute skills for reuse. Being able to encapsulate and reuse skills is the key to having a robot that does many tasks.
 
 Consider using Misty's on-robot JavaScript API when:
 
+* you want your skill to be portable, so that Misty can run it without depending on or requiring an external device
+* you want to be able to package and share your functionality with other developers or Misty owners
 * you need Misty to respond to commands immediately after they execute in your code
-* you want Misty to be able to run a skill without depending on a connection to the internet
 * your skill does not require input from another interface (like text from a computer)
 
 #### Uploading Skill Files to Misty

@@ -310,7 +310,7 @@ Parameters
  {
   "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
   "EventName": "UserEvent",
-  "Payload": { "test": "two" }
+  "Payload": "{\"test\":\"two\"}"
 }
 ```
 
@@ -1361,7 +1361,7 @@ Parameters
 
 * File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
 * ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
-* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
+* OverwriteExisting (boolean) - Indicates whether the skill should overwrite a skill with the same name, if one currently exists on Misty.
 
 ```json
 {
