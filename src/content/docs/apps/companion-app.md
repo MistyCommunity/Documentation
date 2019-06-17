@@ -1,5 +1,5 @@
 ---
-title: Companion App
+title: Misty App
 layout: onboarding.hbs
 columns: one
 order: 2
@@ -7,9 +7,7 @@ order: 2
 
 # {{title}}
 
-The Misty companion app allows you to set up Bluetooth and Wi-Fi connections to your robot. You can also drive Misty and see information about Misty's software.
-
-As a Field Trial developer, you should receive an email inviting you to download the current version of the Misty companion app, as well as email updates when new versions are available. Because the app is updated very frequently, it's good to check for new versions often.
+The Misty App is a mobile app for Android and iOS devices that you can use to set up Bluetooth and Wi-Fi connections to Misty. You can also use the app to drive Misty and see information about her software.
 
 **Note:** It's not generally recommended for multiple users to each use a separate instance of the Misty companion app to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, they will need to take turns sending commands, or Misty may appear to respond unpredictably.
 

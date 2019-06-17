@@ -19,7 +19,7 @@ The following controls are available on Misty's Blockly editor.
 
 ![Blockly controls](../../../assets/images/menu_blockly_2.png)
 
-* **Robot IP Address**: Enter your Misty's IP address here; you can get this value from the Companion App.
+* **Robot IP Address**: Enter your Misty's IP address here; you can get this value from the Misty companion app.
 * **Connect/Connected button**: Indicates whether Blockly can communicate with Misty. After entering Misty's IP address, click the **Connect** button. When Misty is connected to Blockly, the button changes to **Connected**.
 * **Run**: Runs the blocks on the workspace.
 * **Abort**: Stops the currently running Blockly project. **Important! Abort stops the project after the current block completes and before the next block begins; it doesn't stop the actions of the current block.**
