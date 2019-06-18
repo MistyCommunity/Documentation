@@ -209,9 +209,7 @@ The `UniqueId` and `EventName` values are required and must match the ID of the 
 There are two ways to store persistent data with on-robot skills:
 
 * In a global variable, where the data is available (but not updated) across threads in a single skill
-* As "set" data, where the data is available (and updated) across threads in a single skill and is shareable among skills
-
-**Important!** There is no capability at this time to store variable data such that it persists across a reboot of the robot.
+* As "set" data, where the data is available (and updated) across threads in a single skill and is shareable among skills.
 
 You can create global variables and use them across all "get" and "event" callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
 
