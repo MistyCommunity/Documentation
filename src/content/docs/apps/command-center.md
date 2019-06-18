@@ -26,7 +26,7 @@ The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by send
 
 Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**. ![Command Center](../../../assets/images/command_center.png)
 
-1. [Open up the Command Center](sdk.mistyrobotics.com/command-center) in a browser window.
+1. [Open up the Command Center](http://sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
 3. Use the **Quick Commands** in the **System** section to experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
 ![Command Center Quick Commands](../../../assets/images/command-center-quick-commands.png)
