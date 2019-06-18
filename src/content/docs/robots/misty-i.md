@@ -69,7 +69,7 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 
 **Important!** There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen. Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage. ![Misty laser warning](../../../assets/images/do_not_touch_laser.jpg)
 
-Now that you've put your robot together, you can set up Misty's internet connection with the [Companion app](../../apps/companion-app/).
+Now that you've put your robot together, you can set up Misty's internet connection with the [Misty App](../../apps/misty-app/).
 
 
 ## Cleaning the Time-of-Flight Sensors
@@ -141,7 +141,7 @@ Just turn off the power switch on Misty’s back.
 
 ## System Updates
 
-Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the [Misty Companion app](../../apps/companion-app/#updating-misty) or [Command Center](../../apps/command-center/#system-updates).
+Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the [Misty App](../../apps/misty-app/#updating-misty) or [Command Center](../../apps/command-center/#system-updates).
 
 Updates can include:
 

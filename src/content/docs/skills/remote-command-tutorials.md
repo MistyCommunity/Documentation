@@ -13,7 +13,7 @@ The tutorials in this section describe how to write skills for Misty that use he
 In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.
 
 ### Connecting Misty to Your Network
-Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Companion App](../../../docs/apps/companion-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/command-center/#connecting-wi-fi) to connect Misty to your Wi-Fi network using the Command Center and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
+Because these commands are sent to Misty over a local network connection, you must connect your robot to your local network. [Use the Misty App](../../../docs/apps/misty-app) to connect your robot to your Wi-Fi network, or [follow this guide](../../../docs/apps/command-center/#connecting-wi-fi) to connect Misty to your Wi-Fi network using the Command Center and an Ethernet/USB dongle. Once Misty is connected to your network, take note of her IP address to use with the REST API commands.
 
 ### Setting Up Your Project
 This tutorial uses Misty’s REST API to send a POST request that changes the color of her chest LED and logs a successful response. To set up your project, create a new .html document. To simplify the task of making `XMLHttpRequests` calls to Misty from the browser, we use Axios, an HTTP library supported by most web browsers and Node.js. To use Axios in your program, reference a link to a content delivery network (CDN) for Axios inside `<script>` tags in the `<head>` section of your .html file when you set up the project. 
@@ -1174,7 +1174,7 @@ async function getMap() {
 }
 ```
 
-The next step is to use an `alert` to pause execution of the program and give Misty time to drive around collecting data. Execution of the program only continues once the user clicks **OK**. You can use the Command Center or the Misty Companion App to drive Misty around. Be sure to drive slowly and thoroughly cover the room Misty is mapping. As Misty drives, the Occipital Structure Core depth sensor measures her distance from the objects she detects and localizes them relative to her current orientation and location.
+The next step is to use an `alert` to pause execution of the program and give Misty time to drive around collecting data. Execution of the program only continues once the user clicks **OK**. You can use the Command Center or the Misty companion app to drive Misty around. Be sure to drive slowly and thoroughly cover the room Misty is mapping. As Misty drives, the Occipital Structure Core depth sensor measures her distance from the objects she detects and localizes them relative to her current orientation and location.
 
 ```js
 async function getMap() {

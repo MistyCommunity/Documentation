@@ -316,13 +316,13 @@ Roam.js
 
 ### Meta File
 
-Every on-robot skill must include a named meta file with a `.json` extension. This brief meta file enables Misty to understand what your skill does and how to execute your code. For example:
+Every on-robot skill must include a named meta file with a `.json` extension. The meta file must have the same name as the code file for the skill. This brief meta file provides the initial settings and parameters Misty needs to run the skill. For example:
 
 ```json
 {
     "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
     "Description": "My skill is amazing!",
-    "StartupRules": ["Manual", "Robot"],
+    "StartupRules": ["Manual"],
     "Language": "javascript",
     "BroadcastMode": "verbose",
     "TimeoutInSeconds": 300,
@@ -337,24 +337,22 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
 }
 ```
 
-The meta file must have the same name as the code file for the skill.
+The `meta` file includes the following parameters:
 
 * `UniqueId` (string) - A unique 128-bit GUID that Misty will use to identify the skill. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../docs/apps/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
 * `Description` (string) - A brief description of the skill.
-* `StartupRules` (array) - A list of strings that set the rules for how this skill can start. At this time you should use `["Manual", "Robot"]`.
+* `StartupRules` (array) - A list of strings that defines when and how the skill can start.
+  * Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up.
+  * Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../docs/reference/rest/#runskill) command or using [Skill Runner](../../../docs/apps/skill-runner).
 * `Language` (string) - The language the skill is written in. Currently, Misty only supports `JavaScript` in on-robot skills.
 * `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. See the [documentation on Misty's `SkillData` named object](../../../docs/reference/sensor-data/#skilldata) for more information.
-  * `Off` - The skill does not send `SkillData` messages.
-  * `Debug` - The skill prints error and debug messages to `SkillData` events.
-  * `Verbose` - In addition to error and debug messages, the skill sends a message to `SkillData` events for each command that Misty receives.
+  * `Off` - The skill does not send [`SkillData`](../../../docs/reference/sensor-data/#skilldata) messages.
+  * `Debug` - The skill sends error and debug messages to [`SkillData`](../../../docs/reference/sensor-data/#skilldata) events.
+  * `Verbose` - In addition to error and debug messages, the skill sends a message to [`SkillData`](../../../docs/reference/sensor-data/#skilldata) events for each command that Misty receives.
 * `TimeoutInSeconds` (int) - The duration (in milliseconds) the skill runs before it automatically cancels.
 * `CleanupOnCancel` (boolean) - If `true`, Misty stops all processes (like mapping, tracking, face recognition, face detection, and other start/stop-type commands) that are in progress when the skill cancels.
 * `WriteToLog` (boolean) - If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
-* `Parameters` (object) - An object with key/value pairs for parameters to use in the skill that are not declared in the skill code.
-
-You can use the `Parameters` value(s) in the meta file to define any optional default parameters for the skill. You can then access these values in your code file via the global `_params` variable.
-
-For example, in the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the `meta` sample above:
+* `Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the `meta` sample above:
 
 ```js
 _global = _params.foo;
@@ -362,7 +360,7 @@ _global = _params.foo;
 misty.Debug(_global)
 ```
 
-Note that the `WriteToLog` value is optional, and that example meta files may include additional key/value pairs that are not currently in active use and may change in the future.
+**Note:** The `WriteToLog` value is optional. Any example meta files in this documentation may include additional key/value pairs that are not currently in active use and may change in the future.
 
 ### Code File
 The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
