@@ -505,7 +505,7 @@ The IMU data stream provides information from Misty's Inertial Measurement Unit 
 * `pitchVelocity` (double) - The force (in meters per second) currently applied to Misty along her `pitch` rotational axis.
 * `rollVelocity` (double) - The force (in meters per second) currently applied to Misty along her `roll` rotational axis.
 * `yawVelocity` (double) - The force (in meters per second) currently applied to Misty along her `yaw` rotational axis.
-* * `xAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `x` axis. A positive value means Misty is accelerating forward, and a negative value means she is accelerating backward.
+* `xAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `x` axis. A positive value means Misty is accelerating forward, and a negative value means she is accelerating backward.
 * `yAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `y` axis. A positive value means Misty is accelerating to her left, and a negative value means she is accelerating to her right.
 * `zAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `z` axis. A positive value means Misty is accelerating up, and a negative value means Misty is accelerating down. When Misty is set on a level surface, this value should be a negative number that indicates the force of gravity on Misty's IMU sensor.
 
