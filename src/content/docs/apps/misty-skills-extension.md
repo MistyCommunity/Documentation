@@ -77,5 +77,5 @@ To **stop skills**:
 4. Watch for the notification that the command was successful and wait for Misty to stop skill execution.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** When you use the **Misty: Stop Skills** command, the Misty Skills extension stops skill execution by sending a POST request to the REST endpoint for Misty's [CancelSkill](docs/reference/rest/#cancelskill) command.
+**Tip:** When you use the **Misty: Stop Skills** command, the Misty Skills extension stops skill execution by sending a POST request to the REST endpoint for Misty's [CancelSkill](../../../docs/reference/rest/#cancelskill) command.
 {{box op="end"}}
