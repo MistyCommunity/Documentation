@@ -51,14 +51,14 @@ To **upload** a skill:
 
 1. Follow the steps above to view the list of commands.
 2. Select **Misty: Upload and Run**.
-3. Enter Misty's IP address. (You can find Misty's IP address in the [Misty companion app](../../../docs/apps/companion-app)).
+3. Enter Misty's IP address. (You can find Misty's IP address in the [Misty companion app](../../../docs/apps/misty-app)).
 4. Watch for the notification that the upload is complete.
 
 To **upload and run** a skill:
 
 1. Follow the steps above to view the list of commands.
 2. Select **Misty: Upload**.
-3. Enter Misty's IP address. (You can find the IP address in the [Misty companion app](../../../docs/apps/companion-app)).
+3. Enter Misty's IP address. (You can find the IP address in the [Misty companion app](../../../docs/apps/misty-app)).
 4. Watch for the notification that the upload is complete and wait for your skill to run.
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -73,7 +73,7 @@ To **stop skills**:
 
 1. Follow the steps above to view the list of commands.
 2. Select **Misty: Stop Skills**.
-3. Enter Misty's IP address. (You can find the IP address in the Misty [Misty companion app](../../../docs/apps/companion-app).)
+3. Enter Misty's IP address. (You can find the IP address in the Misty [Misty companion app](../../../docs/apps/misty-app).)
 4. Watch for the notification that the command was successful and wait for Misty to stop skill execution.
 
 {{box op="start" cssClass="boxed tipBox"}}

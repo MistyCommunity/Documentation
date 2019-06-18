@@ -493,11 +493,21 @@ The IMU data stream provides information from Misty's Inertial Measurement Unit 
 * the force (in meters per second) currently applied to the sensor along its pitch, yaw, and roll rotational axes
 * the force (in meters per second squared) currently applied to the sensor along its X, Y, and Z axes
 
-By default, `IMU` data is sent at timed intervals of five seconds.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty, a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+{{box op="end"}}
 
-**Note:** Misty's IMU orients its heading to 0/360 degrees each time Misty boots up or resets her real-time controller. For Misty a `yaw` value of 0/360 degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading. Additionally, because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+`IMU` message properties:
 
-Sample `IMU` data:
+* `pitch` (double) - Misty's orientation on her pitch rotational axis (in degrees). A positive number means Misty is pitched at an angle forward, and a negative number means she is pitched back.
+* `roll` (double) - Misty's orientation on her roll rotational axis (in degrees). A positive number means Misty is tipped at an angle to her right, and a negative number means she is tipped to her left.
+* `yaw` (double) - Misty's orientation on her yaw rotational axis (in degrees). (Use this value to determine Misty's current heading when sending `DriveHead` commands.) A positive number means Misty is rotated to the left, and a negative number means she is rotated to the right.
+* `pitchVelocity` (double) - The force (in meters per second) currently applied to Misty along her `pitch` rotational axis.
+* `rollVelocity` (double) - The force (in meters per second) currently applied to Misty along her `roll` rotational axis.
+* `yawVelocity` (double) - The force (in meters per second) currently applied to Misty along her `yaw` rotational axis.
+* `xAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `x` axis. A positive value means Misty is accelerating forward, and a negative value means she is accelerating backward.
+* `yAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `y` axis. A positive value means Misty is accelerating to her left, and a negative value means she is accelerating to her right.
+* `zAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `z` axis. A positive value means Misty is accelerating up, and a negative value means Misty is accelerating down. When Misty is set on a level surface, this value should be a negative number that indicates the force of gravity on Misty's IMU sensor.
 
 ```JSON
 IMU {
@@ -505,9 +515,9 @@ IMU {
     "message": {
         "created": "2019-01-09T21:47:53.7607457Z",
         "expiry": "2019-01-09T21:47:54.1607457Z",
-        "pitch":0.193,
+        "pitch":11.193,
         "pitchVelocity": 0.057,
-        "roll": 0.9,
+        "roll": 2.468,
         "rollVelocity": -0.1,
         "sensorId": "imu",
         "sensorName": null,
@@ -515,11 +525,16 @@ IMU {
         "yAcceleration": 0.73,
         "yaw": 2.004,
         "yawVelocity": 0.096,
-        "zAcceleration": 20.04
+        "zAcceleration": 9.80
     },
     "type":"IMU"
 }
 ```
+
+By default, Misty sends `IMU` data to listeners of `IMU` events once every five seconds.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty uses a **right-handed coordinate frame** to determine the value of each property returned in IMU event messages.
+{{box op="end"}}
 
 ## SerialMessage
 **Available for Misty II only**

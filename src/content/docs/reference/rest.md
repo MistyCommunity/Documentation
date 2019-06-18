@@ -310,7 +310,7 @@ Parameters
  {
   "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
   "EventName": "UserEvent",
-  "Payload": { "test": "two" }
+  "Payload": "{\"test\":\"two\"}"
 }
 ```
 
@@ -387,11 +387,80 @@ Parameters
 Return Values
 * Result (string) - Returns a string with any errors related to this command.
 
+## External Requests
+
+### SendExternalRequest (Misty I) - ALPHA
+
+Sends an HTTP request from Misty to an external server. You can use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/request
+
+Parameters
+
+* Method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* Resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* AuthorizationType (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* Token (string) - The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* Arguments (string) - The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* ReturnType (string) - The [Multipurpose Internet Mail Extension (MIME)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) type indicating the nature and format of the expected response, i.e. `text/plain`.
+* Save (bool) - If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* Apply (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* FileName (string) - The name to give the saved file, including the appropriate file type extension.
+
+```JSON
+{
+  "Method": "GET",
+  "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
+  "AuthorizationType": null,
+  "Token": null,
+  "Arguments": "{}",
+  "ReturnType": "audio/mp3",
+  "Save": true,
+  "Apply": true,
+  "FileName": "externalAudioFile.mp3"
+}
+```
+
+Return Values
+
+* Data (object) - The external server's response to the request.
+
+### misty.SendExternalRequest (Misty II) - ALPHA
+
+Sends an HTTP request from Misty to an external server. You use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/request
+
+Parameters
+
+* Method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
+* Resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
+* authorizationType (string) - Optional. The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
+* Token (string) - Optional. The authentication credentials required to access the resource. Use `null` if no credentials are required.
+* Arguments (string) - Optional. The arguments to send with the request, passed as a string written in JSON format with key-value pairs for each parameter option. If the request does not require additional arguments, pass `null` or an empty JSON string (`"{}"`).
+* Save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
+* Apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
+* FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+
+```JSON
+{
+  "Method": "GET",
+  "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
+  "Save": true,
+  "Apply": true,
+  "FileName": "externalAudioFile.mp3"
+}
+```
+
+Return Values
+
+* Data (object) - The external server's response to the request.
+
 ## Movement
 
 The following commands allow you to programmatically drive and stop Misty and move her head and arms. 
 
-If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/companion-app).
+If you want to directly drive Misty, you can use her [companion app](../../../docs/apps/misty-app).
 
 To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../skills/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../docs/apps/command-center/#opening-a-websocket).
 
@@ -539,7 +608,7 @@ Parameters
 - Pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
-- Velocity (double) - Number that represents speed at which Misty moves her head. Value range: 0 to 100.
+- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
@@ -553,13 +622,13 @@ Parameters
 
 **Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
 
-**Table of Unit Value Ranges Per Movement Type**
+**Value Ranges (By Unit) for Each Direction of Head Movement**
 
 || degrees | position | radians |
 |-----|---------|----------|---------|
-|pitch|-9.5 (up) to 34.9 (down)|-5 (up) to 5 (down)|-0.1662 (up) to 0.6094 (down)|
-|roll|-43 (left) to 43 (right)|-5 (left) to 5 (right)|-0.75 (left) to 0.75 (right)|
-|yaw|-90 (right) to 90 (left)|-5 (right) to 5 (left)|-1.57 (right) to 1.57 (left)|
+| pitch | -9.5 (up) to 34.9 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
+| roll | -43 (left) to 43 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
+| yaw | -90 (right) to 90 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -807,18 +876,20 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
 
 Parameters
-- Path (comma-separated list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `Path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
+- Waypoints (array of objects) - A list of objects, where each object includes the X and Y coordinates for a waypoint on the path that Misty should follow. Misty travels to each waypoint in the order they appear in this array. **Note:** X values specify forward and backward movement, and Y values indicate movement to Misty's left or right.
 
 ```json
 {
-  "Path":"10:20,15:25,30:40"
+  "Waypoints":[
+    {"X": 0, "Y": 0},
+    {"X": 5, "Y": 5},
+    {"X": 5, "Y": 10}
+    ]
 }
 ```
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-
 
 ### GetMap - ALPHA
 
@@ -924,42 +995,6 @@ UsbDriverNotInstalled = 17,
 Streaming = 18
 }
 ```
-
-### GetWebsocketHelp
-
-Obtains information about a specified WebSocket class. Calling `GetWebsocketHelp` with no parameters returns information about all of Misty’s available WebSocket connections.
-
-**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data/).
- 
-Endpoint: 
-
-GET &lt;robot-ip-address&gt;/api/websockets for information about all of Misty’s available WebSocket connections.
-
-GET &lt;robot-ip-address&gt;/api/websockets?websocketClass=&lt;websocket-class-name&gt; for information about a specific WebSocket class. 
-
-Example:
-
-```
-<robot-ip-address>/api/websockets?websocketClass=TimeOfFlight
-```
-
-Parameters
-
-* websocketClass (string) - Optional. Specifies the WebSocket class to obtain information about. 
-
-Return Values
-
-* result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. The data object for each WebSocket class includes the following information:
-  * class (string) - The name of a given WebSocket class.
-  * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
-
-```json
-{"result": [ { 
-   "class": "TimeOfFlight",
-   "nestedProperties": [ "SensorPosition", "DistanceInMeters", "Created", "Expiry", "SensorId", "SensorName" ]
-} ]
-```
-
 
 ### ResetSlam - ALPHA
 
@@ -1197,6 +1232,8 @@ Return Values
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
+**Note:** When you call the `TakePicture` command immediately after using the RGB camera to record a video, there may be a few seconds delay before Misty takes the photograph.
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
 
 Example:
@@ -1256,6 +1293,8 @@ Starts recording video with Misty's 4K Camera. Misty records videos in MP4 forma
 Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
 
 Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 
@@ -1397,7 +1436,7 @@ Parameters
 
 * File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../skills/local-skill-architecture/#file-structure-amp-code-architecture) section.
 * ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
-* OverwriteExisting (boolean) - Indicates whether the file should overwrite a file with the same name, if one currently exists on Misty .
+* OverwriteExisting (boolean) - Indicates whether the skill should overwrite a skill with the same name, if one currently exists on Misty.
 
 ```json
 {
@@ -1708,6 +1747,41 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns a value of `true` if an update is available. Otherwise, `false`.
+
+### GetWebsocketNames
+
+Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
+
+**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../docs/reference/sensor-data/).
+ 
+Endpoint: 
+
+GET &lt;robot-ip-address&gt;/api/websockets for information about all of Misty’s available WebSocket connections.
+
+GET &lt;robot-ip-address&gt;/api/websockets?websocketClass=&lt;websocket-class-name&gt; for information about a specific WebSocket class. 
+
+Example:
+
+```
+<robot-ip-address>/api/websockets?websocketClass=TimeOfFlight
+```
+
+Parameters
+
+* websocketClass (string) - Optional. Specifies the WebSocket class to obtain information about. 
+
+Return Values
+
+* result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. The data object for each WebSocket class includes the following information:
+  * class (string) - The name of a given WebSocket class.
+  * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
+
+```json
+{"result": [ { 
+   "class": "TimeOfFlight",
+   "nestedProperties": [ "SensorPosition", "DistanceInMeters", "Created", "Expiry", "SensorId", "SensorName" ]
+} ]
+```
 
 ### GetWebsocketVersion
 
