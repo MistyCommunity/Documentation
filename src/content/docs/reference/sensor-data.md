@@ -581,15 +581,13 @@ For more about events and callbacks, see the [Data Handling: Events & Callbacks]
 ## TouchSensor
 **Available for Misty II only**
 
-The `TouchSensor` data stream sends information each time one of the capacitive touch sensors on Misty's head is touched or released. In the `TouchSensor` data object, the value of the `sensorName` property is one of the following strings, indicating which sensor triggered the event: 
-* `CapTouch_Chin` 
-* `CapTouch_ChinLeft` 
-* `CapTouch_ChinRight` 
-* `CapTouch_HeadLeft` 
-* `CapTouch_HeadRight` 
+The `TouchSensor` data stream sends information each time one of the capacitive touch sensors on Misty's head is touched or released. In the `TouchSensor` data object, the value of the `sensorName` property is one of the following strings, indicating which sensor triggered the event:
+
+* `CapTouch_Chin`
+* `CapTouch_HeadLeft`
+* `CapTouch_HeadRight`
 * `CapTouch_HeadBack`
 * `CapTouch_HeadFront`
-* `CapTouch_HeadTop`
 * `CapTouch_Scruff`
 
 The value of the `sensorPosition` property is a string indicating the location of the sensor. This value corresponds with the name of the sensor that triggered the event (i.e. when the `CapTouch_Chin` sensor triggers the event, the value of `sensorPosition` is `Chin`). The value of `isContacted` is a boolean indicating whether the sensor was touched (`true`) or released (`false`). The `TouchSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the Command Center documentation](../../../docs/apps/command-center/#navigation-alpha).
