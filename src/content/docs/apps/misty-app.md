@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-The Misty App is a mobile app for Android and iOS devices that you can use to set up Bluetooth and Wi-Fi connections to Misty. You can also use the app to drive Misty and see information about her software.
+The Misty App is a mobile app for Android and iOS devices that you can use to set up Misty's Wi-Fi connection. You can also use the app to drive Misty and see information about her software. You can download the Misty App from the [App Store (iOS)](https://apps.apple.com/us/app/misty-app/id1296946424) or [Google Play (Android)](https://play.google.com/store/apps/details?id=com.mistyrobotics.Companion&hl=en_US).
 
 **Note:** It's not generally recommended for multiple users to each use a separate instance of the Misty companion app to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, they will need to take turns sending commands, or Misty may appear to respond unpredictably.
 
@@ -21,7 +21,7 @@ The Misty App is a mobile app for Android and iOS devices that you can use to se
 2. Turn on Bluetooth on your phone or tablet and make sure your device is connected to your preferred Wi-Fi network.
 3. Download the Misty App. If you have trouble downloading the app for your device, please send a note to **help @ mistyrobotics.com**.
 4. Open the Misty App. Previous users may be asked to log in. New users will be asked to sign up for a new account.
-5. Once you've logged in, connect the app to Misty via Bluetooth by standing close to Misty with your device when this screen appears. ![Misty App Bluetooth connection screen](../../../assets/images/companion_app_bluetooth.png)
+5. Once you've logged in, connect the app to Misty via Bluetooth by standing close to Misty **with the Misty App open on your device**. ![Misty App Bluetooth connection screen](../../../assets/images/companion_app_bluetooth.png)
 6. If the Bluetooth connection succeeds, the app displays a list of Misty robots that your app can connect to. Select your Misty from the list. **Note:** If you are in a room with more than one Misty, you may need to locate your Misty's serial number by checking the label on the bottom of your robot. ![Misty App Misty Serial Number Screen](../../../assets/images/companion_app_serial_number.png)
 7. If the connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. If you cannot successfully connect Misty to Wi-Fi, check for and install any updates to the companion app. ![Misty App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
 8. Once the Wi-Fi connection succeeds, you should see the Misty companion app **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. **Note: You will need the IP address to use Misty with Blockly and the Command Center.** ![Misty App home screen](../../../assets/images/companion_app_home_4.png)
