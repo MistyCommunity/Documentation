@@ -385,7 +385,26 @@ Parameters
 ```
 
 Return Values
+
 * Result (string) - Returns a string with any errors related to this command.
+
+### SetFlashlight
+
+**Available for Misty II Only**
+
+Turns the LED flashlight on Misty's head on or off.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/flashlight
+
+Parameters
+
+* On (bool) - Turns the flashlight on (`true`) or off (`false`).
+
+```JSON
+{
+  "On": true
+}
+```
 
 ## External Requests
 
