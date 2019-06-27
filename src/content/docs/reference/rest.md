@@ -385,6 +385,7 @@ Parameters
 ```
 
 Return Values
+
 * Result (string) - Returns a string with any errors related to this command.
 
 ### SetFlashlight
