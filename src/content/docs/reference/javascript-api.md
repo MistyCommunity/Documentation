@@ -509,6 +509,26 @@ Arguments
 misty.PlayAudio("Play.wav", 100);
 ```
 
+### misty.SetFlashlight
+
+**Available for Misty II Only**
+
+Turns the LED flashlight on Misty's head on or off.
+
+```JavaScript
+// Syntax
+misty.SetFlashlight(bool on, [int prePauseMs], [int postPauseMs]);
+```
+
+Parameters
+
+* on (bool) - Turns the flashlight on (`true`) or off (`false`).
+
+```JavaScript
+// Example
+misty.SetFlashlight(true);
+```
+
 ## External Requests
 
 ### misty.SendExternalRequest (Misty I) - ALPHA
