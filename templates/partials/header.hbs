@@ -107,11 +107,19 @@
       </a>
     </div>
 
+      <div class="toggle-nav-secondary" onclick="secondaryHeaderToggle();">
+          <a href="#" class="secondary-nav-icon">
+              <i class="ion-chevron-down" title="show/hide the navigation"></i>
+          </a>
+      </div>
+
     <div class="sections">
-      <a class="nav {{#contains path.href 'docs'}}active{{/contains}}" href="/">Docs</a>
-      {{!-- <a class="nav" href="http://sdk.mistyrobotics.com/command-center/">Command Center</a> --}}
-      <a class="nav" href="https://github.com/MistyCommunity">Code Samples</a>
-      <a class="nav" href="https://github.com/MistySampleSkills">Sample Skills</a>
+        <ul class="docs-menu-2">
+            <li><a class="nav {{#contains path.href 'docs'}}active{{/contains}}" href="/">Docs</a></li>
+            {{!-- <li><a class="nav" href="http://sdk.mistyrobotics.com/command-center/">Command Center</a></li> --}}
+            <li><a class="nav" href="https://github.com/MistyCommunity">Code Samples</a></li>
+            <li><a class="nav" href="https://github.com/MistySampleSkills">Sample Skills</a></li>
+        </ul>
     </div>
 
     <div class="dropdown mobile-only">
