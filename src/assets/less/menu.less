@@ -215,3 +215,43 @@ ul.in-page-toc {
     display: none;
   }
 }
+
+@media(min-width:@medium-size){
+  .toggle-nav-secondary{
+    display:none;
+  }
+  .docs-menu-2 {
+    li{
+      display:inline!important;
+    }
+  }
+}
+
+@media(max-width:@medium-size){
+  .secondary-nav-icon i{
+    font-size:2em;
+    color: #fff !important;
+  }
+  .secondary-nav-icon{
+    position:absolute;
+    margin: 10px 10px 0px 0px;
+  }
+  .sections{
+    display:none;
+    background-color:#fff;
+    margin-top:20%;
+    border-radius:5px;
+    border: solid 1px #333;
+    padding: 5px;
+
+    .docs-menu-2{
+      li{
+        a{
+          color:#333!important;
+          margin:0;
+        }
+      }
+    }
+  }
+}
+
