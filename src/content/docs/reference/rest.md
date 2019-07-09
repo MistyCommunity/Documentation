@@ -656,7 +656,7 @@ Return Values
 
 Stops all motor controllers, including drive motor, head/neck, and arm (for Misty II).
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/robot/halt
+Endpoint: POST &lt;robot-ip-address&gt;/api/halt
 
 Parameters
 * None
