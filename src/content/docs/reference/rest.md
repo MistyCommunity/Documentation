@@ -117,7 +117,7 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-fil
 
 Example:
 
-`http://&lt;robot-ip-address&gt;/api/images?FileName=happy.png&Base64=false`
+`http://<robot-ip-address>/api/images?FileName=happy.png&Base64=false`
 
 Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
