@@ -172,10 +172,6 @@ We recommend you check for updates on a weekly basis.
 **Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
 {{box op="end"}}
 
-## Hazards System
-
-Misty's hazards system is intended to prevent Misty from executing drive commands that would cause her harm, such as driving into obstacles or off of high surfaces. Currently, Misty's hazards system integrates with her bump sensors, and Misty will stop driving when a bump sensor is activated/pressed.
-
 ## Hardware Extensibility
 
 You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills.

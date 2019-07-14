@@ -119,7 +119,8 @@ Example:
 
 `http://<robot-ip-address>/api/images?FileName=happy.png&Base64=false`
 
-Parameters  
+Parameters
+
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string) - The name of the image file to get, including the file type extension.
 - Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
