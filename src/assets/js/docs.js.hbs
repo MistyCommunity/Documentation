@@ -276,12 +276,16 @@ Created by Zach Supalla.
     Docs.resultsAdded = 0;
   };
 
+// This code formats the string that appears in the search results
+// to indicate the section where the result is found. 
   Docs.titleize = function(string) {
     var stringNoDashes = string.replace(/-/g, ' ');
-    var stringToTitleCase = stringNoDashes.replace(/\w\S*/g, function(txt){
+    var stringNoUnderscores= stringNoDashes.replace(/_/g, ' ');
+    var stringWithAmpersands = stringNoUnderscores.replace("and", "&");
+    var stringToTitleCase = stringWithAmpersands.replace(/\w\S*/g, function(txt){
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
-    return stringToTitleCase;
+    return stringToTitleCase.toUpperCase();
   };
 
   Docs.boostSearchByUrl = function(results,urlArray) {

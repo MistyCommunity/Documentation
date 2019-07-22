@@ -25,8 +25,8 @@
 .sections {
   display: block;
   float: right;
-  @media(max-width: @medium-size) {
-    display: inline; // To-do: if menu gets bigger - reinstate this //
+  @media(max-width: @nav-shrink-size) {
+    display: none; // To-do: if menu gets bigger - reinstate this //
   }
 }
 
@@ -100,7 +100,8 @@ a.nav-device {
 .docs-header .right {
   float: right;
   display: inline;
-  @media (max-width: @medium-size) {
+  // hides the edit link at this width
+  @media (max-width: @xsmall-size) { 
     padding-right: 8px;
     display: none;
   }
@@ -139,7 +140,7 @@ a.nav-device {
   }
   &.mobile-only {
     display: none;
-    @media(max-width: @medium-size) {
+    @media(max-width: 1100px) { // shrink nav into dropdown menu at this width
       display: inline-block;
     }
   }
@@ -170,6 +171,10 @@ a.nav-device {
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   li {
     overflow-x: hidden;
+  }
+  img {
+    width: 12px;
+    height: 12px;
   }
 
 }
@@ -674,4 +679,12 @@ a.lnk\:blk {
   .header .header__nav__mobile__toggle {
     display: none;
   }
+}
+
+// New window icon
+
+.nav img {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
 }
