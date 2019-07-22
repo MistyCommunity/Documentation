@@ -479,10 +479,10 @@ You're now ready to update your skill. Save your changes, and use the Skill Runn
 
 ## Using Face Recognition
 
-This part of the Hello World tutorial series teaches how to use face recognition data in your skill code. When the code you write in this section executes, Misty attempts to detect and recognize faces. If you've trained Misty on your own face, then Misty waves when she sees you. If Misty sees a person she doesn't know, she raises her eyebrows and plays a sound. 
+This part of the Hello World tutorial series teaches how to use face recognition data in your skill code. When the code you write in this section executes, Misty attempts to detect and recognize faces. If you've trained Misty on your own face, then Misty waves when she sees you. If Misty sees a person she doesn't know, she raises her eyebrows and plays a sound.
 
 {{box op="start" cssClass="boxed noteBox"}}
-If you haven't already trained Misty to recognize your face, [use the Command Center to do so](../../../tools-&-apps/web-based-tools/command-center/#face-training-amp-recognition) before working through this section of the tutorial.
+**Note:** If you haven't already trained Misty to recognize your face, [use the Command Center to do so](../../../tools-&-apps/web-based-tools/command-center/#face-training-amp-recognition) before working through this section of the tutorial.
 {{box op="end"}}
 
 If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code that taught Misty to wave.
@@ -695,7 +695,7 @@ You're now ready to update your skill. Save your changes, and the Skill Runner t
 
 When you run the full Hello World skill, Misty starts looking for faces after she waves for the first time.
 
-{{box op="start" cssClass="box noteBox"}}
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty's face recognition works best in well-lit environments, and she recognizes faces best when they are directly in front of her visor at a range of closer than about six feet. Because Misty is likely to be on the floor when you run this skill, you may need to kneel down to get within range of her visor. You may also need to wait for Misty to turn her head to look at you, as the head movement commands created in the first part of this series continue to execute until the end of the skill.
 {{box op="end"}}
 
