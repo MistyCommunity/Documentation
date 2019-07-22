@@ -109,28 +109,38 @@
 
     <div class="sections">
         <ul class="docs-menu-2">
-            <li><a class="nav {{#contains path.href 'docs'}}active{{/contains}}" href="/">Docs</a></li>
-            <li><a class="nav" href="https://github.com/MistyCommunity">Code Samples</a></li>
-            <li><a class="nav" href="https://github.com/MistySampleSkills">Sample Skills</a></li>
+            {{!-- This is an example of how to use the "active" tag to underline the active page. Avoid using until Misty I docs are removed. --}}
+            {{!-- <li><a class="nav {{#contains path.href 'misty-i'}}active{{/contains}}" href="/misty-i/robots/introduction">Misty II</a></li> --}}
+            <li><a class="nav" href="/">Docs Home</a></li>
+            <li><a class="nav" href="/misty-ii/robot/get-started">Misty II</a></li>
+            <li><a class="nav" href="/misty-i/robot/introduction">Misty I</a></li>
+            <li><a class="nav" href="/tools-&-apps/tools-&-apps/introduction">Tools & Apps</a></li>
+            {{!-- <li><a class="nav" href="http://sdk.mistyrobotics.com" target="_blank">SDK <img src="../../../assets/images/new-window.svg" alt="new window icon"></a></li> --}}
+            <li><a class="nav" href="https://github.com/MistyCommunity" target="_blank">Code Samples <img src="../../../assets/images/new-window.svg" alt="new window icon"></a></li>
+            <li><a class="nav" href="https://github.com/MistySampleSkills" target="_blank">Sample Skills <img src="../../../assets/images/new-window.svg" alt="new window icon"></a></li>
         </ul>
     </div>
 
     <div class="dropdown mobile-only">
       <a id="dLabel" data-target="#" class="nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        {{top-level-category path.href}}
+        {{titleize-top-level-category path.href}}
+
         <i class="icon ion-chevron-down"></i>
       </a>
       <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li><a href="/">Docs</a></li>
-        <li><a href="https://github.com/MistyCommunity">Code Samples</a></li>
-        <li><a href="https://github.com/MistySampleSkills">Sample Skills</a></li>
+        <li><a href="/">Docs Home</a></li>
+        <li><a href="/misty-ii/robot/get-started">Misty II</a></li>
+        <li><a href="/misty-i/robot/introduction">Misty I</a></li>
+        <li><a href="/tools-&-apps/tools-&-apps/introduction">Tools & Apps</a></li>
+        {{!-- <li><a href="http://sdk.mistyrobotics.com" target="_blank">SDK <img src="../../../assets/images/new-window-dropdown.svg" alt="new window icon" style="{height: 12px, width: 12px}"></a></li> --}}
+        <li><a href="https://github.com/MistyCommunity" target="_blank">Code Samples <img src="../../../assets/images/new-window-dropdown.svg" alt="new window icon" style="{height: 12px, width: 12px}"></a></li>
+        <li><a href="https://github.com/MistySampleSkills" target="_blank">Sample Skills <img src="../../../assets/images/new-window-dropdown.svg" alt="new window icon"></a></li>
       </ul>
     </div>
 
   </div>
 
   <div class='right'>
-
 
     <div class="search">
       <div class="search-input-wrapper">
