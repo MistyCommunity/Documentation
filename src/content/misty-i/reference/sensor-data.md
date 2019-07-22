@@ -400,7 +400,7 @@ This sample shows the `SkillData` message sent when a skill executes a `misty.Se
 
 To subscribe to `SkillData` events, you open a WebSocket connection to Misty and send a subscription message to the `SkillData` named object.
 
-This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/misty-i/Web/API/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
+This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/docs/web/api/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
 
 ```JavaScript
 //Misty's IP address

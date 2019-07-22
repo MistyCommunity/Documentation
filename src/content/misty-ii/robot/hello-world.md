@@ -73,7 +73,7 @@ function _look_around(repeat = true) {
 
 You can place the code to move Misty's head inside the `_look_around()` callback function.
 
-Misty's neck has three movement axes -- pitch (tilt up/down), roll (tilt left/right), and yaw (turn left/right). You can move Misty's head to a new position by using the [`misty.MoveHeadPosition()`](../../../reference/javascript-api/#misty-moveheadposition) method. The syntax for this method is as follows:
+Misty's neck has three movement axes -- pitch (tilt up/down), roll (tilt left/right), and yaw (turn left/right). You can move Misty's head to a new position by using the [`misty.MoveHeadPosition()`](../../../misty-ii/reference/javascript-api/#misty-moveheadposition) method. The syntax for this method is as follows:
 
 ```JavaScript
 // Syntax

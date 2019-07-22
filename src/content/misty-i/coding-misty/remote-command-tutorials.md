@@ -45,7 +45,7 @@ const ip = "<robotipaddress>";
 ```
 
 When we send a command to change Misty’s LED color, we need to communicate what the new color should be. The REST API command to change Misty’s LED requires three parameters: `"red"`, `"green"
-`, and `"blue"`. These parameters represent the [RGB values](https://developer.mozilla.org/en-US/misty-i/Glossary/RGB) of the new color. 
+`, and `"blue"`. These parameters represent the [RGB values](https://developer.mozilla.org/en-US/docs/glossary/RGB) of the new color. 
 
 Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s chest LED to hot pink.
 
@@ -1759,7 +1759,7 @@ async function _FaceRecognition(data) {
 }
 ```
 
-We define `fileName` above this GET request. For this project, we want Misty to take pictures and save them with the date and time the photo was taken. To accomplish this, we use the JavaScript built-in [`Date`](https://developer.mozilla.org/en-US/misty-i/Web/JavaScript/Reference/Global_Objects/Date) object. Instantiate a new `Date` object, then call the method `toLocaleString()` to convert the date and time into a string. Windows systems omit certain characters from file names, so we need to use the `replace()` method and pass in some regular expressions to modify the string to an acceptable format and make it easier to read. (**Note:** This code is okay to leave in your program if you are running it on a Mac or Unix system.) These regular expressions replace semicolons with periods, replace spaces with underscores, remove commas, and append the file name with `"_Face"` to indicate that these are images of faces.
+We define `fileName` above this GET request. For this project, we want Misty to take pictures and save them with the date and time the photo was taken. To accomplish this, we use the JavaScript built-in [`Date`](https://developer.mozilla.org/en-US/docs/web/JavaScript/Reference/Global_Objects/Date) object. Instantiate a new `Date` object, then call the method `toLocaleString()` to convert the date and time into a string. Windows systems omit certain characters from file names, so we need to use the `replace()` method and pass in some regular expressions to modify the string to an acceptable format and make it easier to read. (**Note:** This code is okay to leave in your program if you are running it on a Mac or Unix system.) These regular expressions replace semicolons with periods, replace spaces with underscores, remove commas, and append the file name with `"_Face"` to indicate that these are images of faces.
 
 ```js
 async function _FaceRecognition(data) {

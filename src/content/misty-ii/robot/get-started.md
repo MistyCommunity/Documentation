@@ -11,8 +11,8 @@ Welcome to the Misty II Getting Started guide! This document provides a set of a
 
 Follow this guide to learn:
 
-* how to use Misty's [Command Center](https://sdk.mistyrobotics.com/command-center) to discover your robot's capabilities and send basic commands before writing your own code
-* how to use Misty's [API Explorer](https://sdk.mistyrobotics.com/api-explorer) to interact with Misty's REST API and generate sample code for your skills and robot applications
+* how to use Misty's [Command Center](http://sdk.mistyrobotics.com/command-center) to discover your robot's capabilities and send basic commands before writing your own code
+* how to use Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer) to interact with Misty's REST API and generate sample code for your skills and robot applications
 * how to install and run your own skills on Misty II
 * how to set up the Misty Skills Extension for Visual Studio Code to deploy skills without leaving your text editor
 
