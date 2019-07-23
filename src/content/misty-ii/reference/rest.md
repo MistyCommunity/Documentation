@@ -460,6 +460,7 @@ Parameters
 * Save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
 * Apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+* ContentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 
 ```JSON
 {

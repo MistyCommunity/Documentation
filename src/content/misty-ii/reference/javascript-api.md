@@ -610,7 +610,7 @@ Sends an HTTP request from Misty to an external server. You use `misty.SendExter
 
 ```JavaScript
 // Syntax
-misty.SendExternalRequest(string method, string resourceURL, [string authorizationType], [string token], [string arguments], [bool save], [bool apply], [string fileName], [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
+misty.SendExternalRequest(string method, string resourceURL, [string authorizationType], [string token], [string arguments], [bool save], [bool apply], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
@@ -622,6 +622,7 @@ Arguments
 * save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
 * apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * fileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+* contentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 * callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SendExternalRequest()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
