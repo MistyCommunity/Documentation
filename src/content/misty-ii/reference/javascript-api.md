@@ -1921,8 +1921,8 @@ Returns
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
 
-<!-- misty.GetBatteryLevel -->
 ### misty.GetBatteryLevel
+
 Obtains Misty's current battery level, along with other information about the battery.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -1947,15 +1947,12 @@ misty.GetBatteryLevel();
 Returns
 
 * Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following properties:
-  * capacitymAh (int)
   * chargePercent (double)
   * created (string)
-  * currentmAh (int)
+  * current (int)
   * expiry (string)
+  * healthPercent (double)
   * isCharging (bool)
-  * lastChargeCapacity (int)
-  * maxMeasuredCapacity (int)
-  * numberOfChargeCycles (int)
   * sensorId (string)
   * sensorName (string)
   * state (string)
@@ -1964,6 +1961,7 @@ Returns
   * voltage (double)
 
 ### misty.GetDeviceInformation
+
 Obtains device-related information for the robot.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).

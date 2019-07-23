@@ -1533,15 +1533,12 @@ Parameters
 
 Return Values
 * Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
-  * capacitymAh (int)
   * chargePercent (double)
   * created (string)
-  * currentmAh (int)
+  * current (int)
   * expiry (string)
+  * healthPercent (double)
   * isCharging (bool)
-  * lastChargeCapacity (int)
-  * maxMeasuredCapacity (int)
-  * numberOfChargeCycles (int)
   * sensorId (string)
   * sensorName (string)
   * state (string)
@@ -1549,6 +1546,27 @@ Return Values
   * trained (bool)
   * voltage (double)
 
+Sample response data:
+
+```JSON
+{
+ "result": {
+  "chargePercent": null,
+  "created": "2019-07-23T16:36:27.8514937Z",
+  "current": 0.174,
+  "expiry": "2019-07-23T16:36:37.8514937Z",
+  "healthPercent": null,
+  "isCharging": true,
+  "sensorId": "charge",
+  "sensorName": "/Sensors/RTC/BatteryCharge",
+  "state": "Charging",
+  "temperature": 16,
+  "trained": false,
+  "voltage": 8.364
+ },
+ "status": "Success"
+}
+```
 
 ### GetDeviceInformation
 Obtains device-related information for the robot.
