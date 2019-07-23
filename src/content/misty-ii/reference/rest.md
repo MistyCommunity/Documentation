@@ -413,6 +413,35 @@ Parameters
 }
 ```
 
+### SetBlinking - ALPHA
+
+Turns Misty's eye blinking behavior on or off. Misty blinks by quickly flashing the `blinkMisty.png` image on her display.
+
+When blinking is turned on, Misty checks the filename of the image currently shown on her display. If this filename matches the filename of one of Misty's default open-eyed image assets, then Misty blinks at random intervals.
+
+Misty blinks while any of her default open-eyed image assets display on her screen, with the exception of `Afraid.png`.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you overwrite an open-eyed image asset with a different image that uses the same filename, then Misty will blink anytime her display shows the new image, even if it does not show Misty's eyes. For this reason, we suggest you not overwrite Misty's default image assets with other image files.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/blink
+
+Parameters
+
+* Blink (bool) - Passing in `true` turns blinking on, and passing in `false` turns blinking off. By default, blinking turns on when Misty starts up.
+
+```JSON
+{
+  "Blink": true
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+
 ## External Requests
 
 ### misty.SendExternalRequest - ALPHA
