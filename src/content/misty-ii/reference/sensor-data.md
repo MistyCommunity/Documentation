@@ -461,19 +461,16 @@ The `DriveEncoders` data stream provides information about the angular velocity 
 Sample `DriveEncoders` sensor data:
 
 ```JSON
-DriveEncoders {
-    "eventName": "DriveEncoders",
-    "message": {
-        "created": "2019-01-09T21:39:32.0681324Z",
-        "expiry": "2019-01-09T21:39:33.0681324Z", 
-        "leftEncoderAngularVelocity": 0,
-        "leftEncoderRotations": 0,
-        "rightEncoderAngularVelocity": 1.4223481644949679e-36,
-        "rightEncoderRotations": 3.430562713439764e-34,
-        "sensorId": "enc",
-        "sensorName": null
-    },
-    "type":"DriveEncoders"
+{
+  "eventName": "DriveEncodersEvent",
+  "message": {
+    "created": "2019-07-23T16:54:05.7372361Z",
+    "leftDistance": 626,
+    "leftVelocity": 249,
+    "rightDistance": 676,
+    "rightVelocity": 247,
+    "sensorId": "enc"
+  }
 }
 ```
 
