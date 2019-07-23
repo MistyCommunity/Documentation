@@ -174,21 +174,21 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-### SaveAudio (Byte Array String)
+### SaveAudio (Data String)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+- Data (string) - The audio data, passed as a string containing a byte array or base64 data.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
   "FilenameWithoutPath": "example.wav",
-  "DataAsByteArrayString": "34,88,90,49,56,...",
+  "Data": "34,88,90,49,56,...",
   "ImmediatelyApply": false,
   "OverwriteExisting": true
 }
@@ -219,8 +219,9 @@ Return Values
   - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 
-### SaveImage (Byte Array String)
-Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
+### SaveImage (Data String)
+
+Saves an image to Misty in the form of a base64 string or data byte array. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
@@ -230,7 +231,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
-* DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+* Data (string) - The image data, passed as a base64 string or data byte array.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
@@ -239,7 +240,7 @@ Parameters
 ```json
 {
   "FileName": "example.jpg",
-  "DataAsByteArrayString": "30,190,40,24,...",
+  "Data": "30,190,40,24,...",
   "Width": "300",
   "Height": "300",
   "ImmediatelyApply": false,
@@ -861,15 +862,15 @@ Parameters
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
     - base64 (string) - A string containing the Base64-encoded image data.
-    - format (string) - The type and format of the image returned.
+    - contentType (string) - The type and format of the image returned.
     - height (integer) - The height of the picture in pixels.
     - name (string) - The name of the picture.
     - width (integer) - The width of the picture in pixels.
 
 ```json
 {
-  "base64": "data:image/png;base64,iVBORw0KG...",
-  "format": "image/png",
+  "base64": "iVBORw0KG...",
+  "contentType": "image/png",
   "height": 480.0,
   "name": "OccipitalVisibleImage",
   "width": 640.0,
@@ -1290,7 +1291,7 @@ Return Values
 
 * Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
   * Base64 (string) - A string containing the Base64-encoded image data.
-  * Format (string) - The type and format of the image returned.
+  * ContentType (string) - The type and format of the image returned.
   * Height (integer) - The height of the image in pixels.
   * Name (string) - The name of the image.  
   * Width (integer) - The width of the image in pixels. 

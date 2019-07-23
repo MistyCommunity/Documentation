@@ -192,12 +192,12 @@ Saves an audio file to Misty. Maximum size is 3 MB.
 
 ```JavaScript
 // Syntax
-misty.SaveAudio(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs])
+misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
 * fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
-* dataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+* data (string) - The audio data, passed as a string containing a base64 string or byte array.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -210,18 +210,18 @@ misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 
 
 ### misty.SaveImage
-Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
+Saves an image to Misty in the form of a base64 or byte array string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
 ```JavaScript
 // Syntax
-misty.SaveImage(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]
+misty.SaveImage(string fileName, string data, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]
 ```
 
 Arguments
 * fileName (string) - The name of the image file to save.
-* dataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+* data (string) - The image data, passed as a string containing a base64 string or byte array.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
@@ -1114,7 +1114,7 @@ Returns
 
 - Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
+  - contentType (string) - The type and format of the image returned.
   - height (integer) - The height of the picture in pixels.
   - name (string) - The name of the picture.
   - width (integer) - The width of the picture in pixels.
@@ -1611,7 +1611,7 @@ Returns
 
 * Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
    * Base64 (string) - A string containing the Base64-encoded image data.
-   * Format (string) - The type and format of the image returned.
+   * ContentType (string) - The type and format of the image returned.
    * Height (integer) - The height of the image in pixels.
    * Name (string) - The name of the image.
    * Width (integer) - The width of the image in pixels.
@@ -1660,16 +1660,6 @@ Arguments
 // Example
 misty.StopRecordingVideo();
 ```
-
-Returns
-
-- Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the image.
-  - width (integer) - The width of the image in pixels.
-
 
 ## Skill Management
 
