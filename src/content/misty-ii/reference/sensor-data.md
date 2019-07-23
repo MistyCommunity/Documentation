@@ -34,11 +34,11 @@ TimeOfFlight{
 }
 ```
 
-## FaceRecognition (Beta)
+## FaceRecognition
 
 You can subscribe to the ```FaceRecognition``` WebSocket to obtain data on both face detection and face recognition events.
 
-The ```EventName``` value is the name you provide when you register the WebSocket connection.  
+The ```EventName``` value is the name you provide when you register the WebSocket connection.
 
 If face recognition is running on the robot, and a previously trained face is recognized, the ```PersonName``` value is the name previously assigned to that face. The ```PersonName``` value is ```unknown_person``` if an untrained/unknown face is detected. The ```PersonName``` value is ```null``` if face recognition is not currently running.
 
@@ -804,4 +804,59 @@ ws.send(JSON.stringify(
     }
 ));
 ws.close();
+```
+
+## SourceTrackDataMessage - ALPHA
+
+The `SourceTrackDataMessage` named object provides information about the location and volume of the noise or spoken voice that Misty can detect.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty only sends audio localization event messages when she is actively recording audio. When using audio localization data in your skills, you need to call the `misty.StartRecordingAudio()` method in order to receive `SourceTrackDataMessage` or `SourceFocusConfigMessage` event messages.
+{{box op="end"}}
+
+Audio localization messages include the following data:
+* `DegreeOfArrivalNoise`: An array where each element is a value between 0-360 that indicates the angle of arrival for a noise that Misty detects. This array can contain the degree of arrival noise for up to three unique sounds. Each value in this array represents the degree of arrival for a single sound.
+* `DegreeOfArrivalSpeech`: A value between 0-360 that indicates the angle relative to Misty where she detected the loudest voice.
+* `TimeOffset`: The time (in milliseconds) that Misty captured the audio sample relative to the start time of the audio recording. Misty records samples at roughly 20hz, or once every 50ms.
+* `VoiceActivityPolar`: A 360 element array where each element is a value between 0 and 255 that indicates the level of sound activity detected at a particular angle. The higher the value, the more voice activity detected.
+* `VoiceActivitySectors`: A four element array of boolean values indicating whether Misty detected voice activity in a particular sector. Each sector represents a 90 degree wedge of the area surrounding Misty. The front-facing wedge is offset, with Misty's face pointing toward the 45 degree angle down its center.
+
+Sample `SourceTrackDataMessage` response data:
+
+```JSON
+{
+  "eventName": "SourceTrackDataMessageEvent",
+  "message": {
+    "degreeOfArrivalNoise": [90],
+    "degreeOfArrivalSpeech": 360,
+    "timeOffset": 4925,
+    "voiceActivityPolar": [6,6,6,5,5,5,5,5,5,4,4,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,4,4,4,3,3,2,2,3,5,6,5,4,4,4,5,6,6,6,7,7,8,8,9,9,9,9,9,10,10,10,10,10,10,9,9,9,10,10,10,9,8,7,7,7,7,8,8,8,7,7,7,6,6,5,5,5,4,4,4,4,3,3,3,2,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,3,3,4,4,5,5,6,6,7,8,8,8,9,9,9,9,9,9,9,9,8,8,8,8,7,7,6,6,5,5,3,2,1,3,4,4,3,2,1,1,2,3,3,4,4,4,4,3,2,1,2,2,3,3,4,4,3,3,2,4,5,5,4,4,4,5,5,5,6,5,5,5,5,4,4,5,5,4,3,3,4,5,5,5,4,4,4,4,4,5,5,4,3,2,1,1,1,1,1,2,2,2,3,3,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,4,4,3,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,3,3,4,5,5,5,6,6,7,8,8,8,8,8,8,8,9,9,9,9,8,8,8,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6],
+    "voiceActivitySectors": [false, false,false, false ]
+  }
+}
+```
+
+## SourceFocusConfigMessage - ALPHA
+
+The `SourceFocusConfigMessage` named object provides meta information about the configuration of audio localization data. The system only sends this message once, when Misty starts recording audio.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty only sends `SourceFocusConfigMessage` data once, when she starts recording audio. When using audio localization data in your skills, you need to call the `misty.StartRecordingAudio()` method in order to receive `SourceTrackDataMessage` or `SourceFocusConfigMessage` event messages.
+{{box op="end"}}
+
+* `GainStep`: A value that indicates the spatial gain applied to the sector where Misty detects a voice. You can safely ignore this value.
+* `SectorsEnabled`: A four element array of boolean values that indicate whether audio localization is enabled for a given sector. At this time, all sectors are enabled be default and cannot be disabled.
+* `SectorStartAngles`: A four element array of integer values between 0 - 360 indicating the angle bounding the start of a given sector. Each sector represents a 90 degree wedge of the environment that surrounds Misty. Each sector stops at the angle where the next sector begins. These sectors correspond to the `VoiceActivitySectors` array in the `SourceTrackDataMessage` named object.
+
+Sample `SourceFocusConfigMessage` response data:
+
+```JSON
+{
+  "eventName": "SourceFocusConfigMessageEvent",
+  "message": {
+    "gainStep": 65535,
+    "sectorsEnabled": [true, true, true, true],
+    "sectorStartAngles": [135,45,315,225]
+  }
+}
 ```
