@@ -55,6 +55,39 @@ Arguments
 misty.DeleteImage("DeleteMe.png");
 ```
 
+### misty.GetAudioFile
+
+Obtains a system or user-uploaded audio file currently stored on Misty.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetAudioFile()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+misty.GetAudioFile(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments  
+* fileName (string) - The name of the audio file to get, including its file type extension.
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If blank, the system passes data into the default `_GetAudioFile()` callback function.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetAudioFile("001-EeeeeeE.wav", false);
+
+function _GetAudioFile(data)
+{
+	misty.Debug(JSON.stringify(data));
+}
+```
+
+* Result (object) - An object containing audio data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * `Base64`: A base64-encoded string for the audio file data.
+  * `ContentType`: The content type of the media encoded in the base64 string.
+  * `Name`: The filename of the returned audio file.
+
 ### misty.GetAudioList
 
 Lists all audio files (default system files and user-added files) currently stored on Misty.
@@ -96,7 +129,8 @@ Obtains a system or user-uploaded image file currently stored on Misty.
 misty.GetImage(string fileName, [string callback], [bool base64 = true], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-Arguments  
+Arguments
+
 * fileName (string) - The name of the image file to get, including its file type extension.
 * base64 (boolean) - Optional. Passing in `true` returns the image data as a Base64 string. Passing in `false` returns the image. Defaults to `true`. 
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -107,8 +141,20 @@ Arguments
 
 ```JavaScript
 // Example
-misty.GetImage("Angry.png", true);
+misty.GetImage("Angry.png");
+
+function _GetImage(data)
+{
+	misty.Debug(JSON.stringify(data));
+}
 ```
+- Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  - Name (string) - The name of the image
+  - Height (integer) - The height of the image in pixels.
+  - Width (integer) - The width of the image in pixels.
+  - SystemAsset (boolean) - Whether the image is one of Misty's default image assets.
+  - ContentType (string) - The type and format of the image returned.
+  - Base64 (string) - A string containing the Base64-encoded image data.
 
 ### misty.GetImageList
 Obtains a list of the images stored on Misty.

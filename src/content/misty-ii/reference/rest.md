@@ -79,23 +79,30 @@ Parameters
 ```
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### GetAudioFile
+
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
 
-Parameters  
+Parameters
+
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
+- Base64 (boolean): Optional. Sending a request with `true` returns the audio file data as a downloadable Base64 string. Sending a request with `false` returns the audio file to your browser or REST client. Defaults to `false`.
 
 ```markup
 http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
 ```
 
 Return Values
-- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+- If you set `Base64` to `false`, returns an audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman. If you set `Base64` to `true`, returns the following key/value pairs:
+  - `base64`: A base64-encoded string for the audio file data.
+  - `contentType`: The content type of the media encoded in the base64 string.
+  - `name`: The filename of the returned audio file.
 
 ### GetAudioList
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
@@ -135,19 +142,21 @@ Parameters
 Return Values
 - Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
   - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
+  - contentType (string) - The type and format of the image returned.
   - height (integer) - The height of the image in pixels.
   - name (string) - The name of the image.
+  - systemAsset (boolean) - Whether the image is one of Misty's default image assets.
   - width (integer) - The width of the image in pixels.
 
 ```json
 {
-  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
-  "format": "image/jpeg",
-  "height": 270.0,
-  "name": "ExampleFile.jpg",
-  "width": 450.0,
-}
+  "base64": "iVBORw0KGgoAAAANS....",
+  "contentType": "image/png",
+  "height": 270,
+  "name": "Angry.png",
+  "systemAsset": false,
+  "width": 480
+},
 ```
 
 ### GetImageList
@@ -1261,6 +1270,7 @@ Return Values
 * An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### StartRecordingVideo - BETA
+
 Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
 
 Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
