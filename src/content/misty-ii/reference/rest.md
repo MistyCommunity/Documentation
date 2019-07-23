@@ -231,7 +231,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 Parameters
 * FileName (string) - The name of the image file to upload.
 * DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
@@ -385,7 +385,7 @@ Parameters
 
 - AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 - FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
 ```json
 {
@@ -571,14 +571,14 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
 * Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
-* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move.
+* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
 {
   "Arm": "left",
   "Position": -90,
-  "Velocity": 100
+  "Velocity": 100,
   "Units": "degrees"
 }
 ```
@@ -595,8 +595,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 Parameters
 * LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
-* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move.
-* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. Defaults to `null`.
+* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
 
 ```JSON
@@ -623,7 +623,7 @@ Parameters
 - Pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
-- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
+- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10. Defaults to `null`.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
