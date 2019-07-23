@@ -734,6 +734,13 @@ misty.Halt();
 
 Moves one of Misty's arms to a specified position.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 ```JavaScript
 // Syntax
 misty.MoveArmPosition(string arm, double position, double velocity, [int prePauseMs], [int postPauseMs])
@@ -741,7 +748,7 @@ misty.MoveArmPosition(string arm, double position, double velocity, [int prePaus
 
 Arguments
 * arm (string) - The arm to move. Pass `"left"` or `"right"`.
-* position (double) - The position to move the arm to. Value range: 0 - 10.
+* position (double) - The position to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -754,6 +761,13 @@ misty.MoveArmPosition("left", 0, 10);
 ### misty.MoveArmDegrees
 
 Moves one of Misty's arms to a specified location in degrees.
+
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
 
 ```JavaScript
 // Syntax
@@ -776,6 +790,13 @@ misty.MoveArmDegrees("right", -90, 50);
 
 Moves one of Misty's arms to a specified location in radians.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 ```JavaScript
 // Syntax
 misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseMs], [int postPauseMs])
@@ -783,7 +804,7 @@ misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseM
 
 Arguments
 * arm (string) - The arm to move. Pass `"left"` or `"right"`.
-* radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
+* radians (double) - The location in radians to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 

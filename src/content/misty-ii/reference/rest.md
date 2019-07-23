@@ -566,13 +566,20 @@ Return Values
 
 Moves one of Misty's arms.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
 * Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
-* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
 ```JSON
 {
@@ -590,6 +597,14 @@ Return Values
 
 Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
@@ -597,7 +612,7 @@ Parameters
 * RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. Defaults to `null`.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
-* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
 ```JSON
 {
