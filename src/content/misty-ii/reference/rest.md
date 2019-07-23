@@ -1835,6 +1835,28 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### RestartRobot
+
+Restarts Misty's 410 or 820 processor.
+
+Endpoint: POST &lt;<robot-ip-address>/api/reboot&gt;
+
+Parameters:
+
+* Core (boolean): If `true`, restarts Misty's 410 processor.
+* SensoryServices (boolean): If `true`, restarts Misty's 820 processor.
+
+```json
+{
+  "Core": true,
+  "SensoryServices": true
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### SetDefaultVolume
 
 Sets the default loudness of Misty's speakers for audio playback.
