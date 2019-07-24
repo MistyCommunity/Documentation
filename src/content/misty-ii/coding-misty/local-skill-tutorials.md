@@ -555,14 +555,17 @@ function _TimerEvent() {
     }
 }
 ```
-
 ## External Requests
 
-In this tutorial, we write a skill that fetches an audio file from an external resource, saves the file to Misty, and plays it back through Misty's speakers. To do this, we use the `misty.SendExternalRequest()` method to send a `GET` request and download a sound from [soundbible.com](http://soundbible.com/).
+In this tutorial, we write a skill that fetches weather data from the [APIXU API](https://www.apixu.com/), parse the response, and prints the current weather condition to the developer console on the Skill Runner web page.
 
 ### Writing the Meta File
 
-Create a new `.json` meta file for this skill. Copy and paste the code from the example to fill out the parameters. Save this file with the name `HelloWorld_ExternalRequest.json`.
+Even though your skills run locally on Misty, they can still send requests to use external data from the internet. This sample skill fetches the current temperature of a designated city, then sends it back Misty to print through a debug message. To do this, you’ll need to use the `misty.SendExternalRequest()` command to send a GET request to the [APIXU API](https://www.apixu.com/) to obtain the data.
+
+To run this skill, you must first create an account with APIXU and generate a key to use with their API. You can [create an account with APIXU on their web page](https://www.apixu.com/signup.aspx).
+
+Once you have your API key from APIXU, you can set up the meta file for the skill. For this tutorial, we set the API key and the city to query as parameters in the JSON meta file. Create a new meta file for this skill, and copy the following to fill out the parameters. Replace the `key` string with your APIXU API key, and change the value of the `city` key to a city of your choosing. Save this file with the name `HelloWorld_ExternalRequest.json`.
 
 ```JSON
 {
@@ -575,94 +578,81 @@ Create a new `.json` meta file for this skill. Copy and paste the code from the 
     "TimeoutInSeconds": 300,
     "CleanupOnCancel": false,
     "WriteToLog": false,
-    "Parameters": { }
+    "Parameters": {
+        "key": "<your-APIXU-api-key>",
+        "city": "Boulder"
+    }
 }
 ```
 
 ### Writing the Code File
 
-The brief code file makes use of the `misty.SendExternalRequest()` method. The `misty.SendExternalRequest()` prototype is as follows:
+The code file is simple, focusing on the use of the `misty.SendExternalRequest()` method. As a reminder, the syntax for the  `misty.SendExternalRequest()` method is as follows:
 
 ```JavaScript
-misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
+// Syntax
+misty.SendExternalRequest(string method, string resource, [string authorizationType], [string token], [string arguments], [bool save], [bool applyAssetAfterSaving], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 In this skill we are sending a `GET` request, so we use the string `GET` for the first (`method`) parameter.
 
-The second parameter (`resourceURL`) should contain the full URL of the host and resource to access. In this example, the full `resourceURL` is:
+The second parameter (`resource`) should contain the full URL of the resource to access. In this example, the URL includes the API key from APIXU and the name of the city to query, both of which we stored in the JSON meta file. We can reference the `_params` object to use the `Parameters` values from the meta file in our skill code. 
 
-```http
-http://soundbible.com/grab.php?id=1949&type=mp3.
+In the meta file, we specified the key `city` to hold the city we want query and `key` to hold our API key from APIXU. Therefore, here in the code file, `_params.key` holds our API key, and `_params.city` holds the string `Boulder`. We can use this data in the `resource` arg by using a literals, passing the values `_params.key` and `_params.city` into the URL string. It should look like this:
+
+```JS
+"http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
 ```
 
-For some requests additional authorization may be necessary. This is where the third (`authorization`) and fourth (`token`) parameters come into play. In this example, no authorization is required, so we can enter `null` for the third and fourth parameters.
-
-The fifth required parameter (`returnType`) indicates the expected media type of the data returned by the request. In this example we expect to receive an .mp3 file, so we enter the string `audio/mp3`. If you expect to receive an image, you can enter the string `image/jpeg` (or another image type), or enter a text type if you expect the data to contain text. If the return type is provided by the external resource in the response to the request, you can pass `null` for this parameter.
-
-**Note for Misty II Developers:** The `misty.SendExternalRequest()` method on Misty II robots does **not** use the `returnType` parameter. If you are using this tutorial with a Misty II robot, skip this parameter. Do not pass `null`, `undefined`, or any other value for this parameter. [See the documentation on this method for more information.](../../../misty-ii/reference/javascript-api/#misty-sendexternalrequest-alpha)
-
-The sixth required parameter (`jsonArgs`) holds the data to send with `POST` requests. Because this example uses a `GET` request, `jsonArgs` can be set to null. **Note:** When you have no data to send with a `POST` request, some services may require you to use a string with an empty JSON payload (`"{}"`) instead of `null`. When you pass `null` for the `jsonArgs` parameter to a service where this is the case, the service returns an error message to indicate the value of args cannot be null or empty.
-
-The optional `saveAssetToRobot`, `applyAssetAfterSaving`, and `fileName` parameters tell Misty how to handle images and audio files returned by requests. Pass `true` for `saveAssetToRobot` to have Misty save the file to local storage. Pass `true` for `applyAssetAfterSaving` to play the audio file immediately after it is saved (or, if the returned file is an image, to display it on Misty's screen). The string you pass for `fileName` specifies a name for the saved file (this example uses `sound`).
-
-The optional `callback`, `callbackRule`, and `skillToCallOnCallback` parameters designate a function or skill to receive the data returned by the request and indicate the callback rule Misty should follow to execute the callback. Read more about callbacks and callback rules in [Data Handling: Events & Callbacks](../../coding-misty/local-skill-architecture/#data-handling-events-amp-callbacks). This example does not use a callback function, so you can omit these parameters, or pass `null` if you want to use the `prePauseMs` and `postPauseMs` parameters that follow them. Note that `prePauseMs` and `postPauseMs` are optional in `misty.SendExternalRequest()`.
+When you send requests that require additional authorization, or when you want to return image or audio file data, you need to make use of the other parameters. Because APIXU doesn't require additional authorization, and because our data comes back as a JSON object, we can leave the remaining arguments empty.
 
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
 ```JavaScript
 misty.SendExternalRequest(
-    "GET", /*method*/
-    "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
-    null, /*authorizationType*/
-    null, /*token*/
-    "audio/mp3", /*returnType -- OMIT for Misty II*/
-    null, /*jsonArgs*/
-    true, /*saveAssetToRobot*/
-    true, /*applyAssetAfterSaving*/
-    "sound", /*fileName*/
-    null, /*callback*/
-    null, /*callbackRule*/
-    null, /*skillToCallOnCallback*/
-    0, /*prePauseMs*/
-    0/*postPauseMs*/
-    );
+    "GET",
+    "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
+    )
 ```
 
-When the response is ready, Misty receives the file, saves it to local storage, and immediately plays through her built-in speakers. The final step is to have Misty send us a debug message to indicate skill execution is complete:
+Once Misty receives the data back from APIXU, the callback -- which is automatically set to `_SendExternalRequest()` -- will run:
 
-```JavaScript
-// Debug message to indicate the skill is complete
-misty.Debug("The skill is complete!!")
+```JS
+```
+
+Once the data comes back from the request, we parse the data to find the current condition in the queried city. We can assign that condition to a variable as shown below:
+
+```JS
+_data = JSON.parse(data.Result.ResponseObject.Data)
+_condition = _data.current.condition.text
+}
+```
+
+The final step is to have Misty send us the data back through a debug message:
+
+```JS
+misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _params.city);
+```
+
+The complete code file for the skill should look like this:
+
+```JS
+misty.SendExternalRequest(
+    "GET",
+    "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
+    )
+
+function _SendExternalRequest(data) {
+    misty.Debug(JSON.stringify(data));
+    _data = JSON.parse(data.Result.ResponseObject.Data)
+    _condition = _data.current.condition.text
+    misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _params.city);
+}
 ```
 
 Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20External%20Requests).
-
-```JavaScript
-misty.Debug("Starting skill HelloWorld_ExternalRequest");
-
-// Get and play an audio file hosted on soundbible.com.
-misty.SendExternalRequest(
-    "GET", /*method*/
-    "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
-    null, /*authorizationType*/
-    null, /*token*/
-    "audio/mp3", /*returnType*/
-    null, /*jsonArgs*/
-    true, /*saveAssetToRobot*/
-    true, /*applyAssetAfterSaving*/
-    "sound", /*fileName*/
-    null, /*callback*/
-    null, /*callbackRule*/
-    null, /*skillToCallOnCallback*/
-    0, /*prePauseMs*/
-    0/*postPauseMs*/
-    );
-
-// Signal skill ccmpletion
-misty.Debug("The skill is complete!!")
-```
+You can [download the code for this skill from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20External%20Requests).
 
 ## Trigger Skill
 

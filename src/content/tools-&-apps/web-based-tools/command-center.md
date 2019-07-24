@@ -24,7 +24,7 @@ The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by send
 
 ## Setting up the Command Center
 
-Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**. ![Command Center](../../../assets/images/command_center.png)
+Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**.
 
 1. [Open up the Command Center](http://sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
@@ -260,7 +260,9 @@ To stream IMU data from Misty to the [Command Center](http://sdk.mistyrobotics.c
 
 Use the **Advanced Options** modal to customize WebSocket subscriptions and apply filters to the data that WebSockets send. Data you subscribe to using the **Advanced Options** modal streams to the web console in your browser window.
 
-1. Open the **Advanced Options** controls in the **Sensor Data** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/). ![Advanced Options](../../../assets/images/command_center_advanced_options_1.png)
+![Advanced Options](../../../assets/images/command_center_advanced_options.png)
+
+1. Open the **Advanced Options** controls in the **Sensor Data** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. Select a WebSocket to monitor from the **Named Object** list. **Note: Named Object is the only required field.** The other fields are optional:
    * **Event Name**: [Optional] Provide a name for this subscription. If no name is specified, the value for **Named Object** is also used for the **Event Name**.
    * **Debounce**: [Optional] Provide the minimum amount of time between data events. 
@@ -276,7 +278,7 @@ Value: 1
 ReturnProperty: MentalState.Affect
 ```
 3. Click **Subscribe**.
-4. When you are finished, go to the **Unsubscribe** controls. In the **Event Name** field, enter the name of the Named Object to which you subscribed (or the Event Name if you provided one). ![Unsubscribe](../../../assets/images/command_center_advanced_options_2.png)
+4. When you are finished, go to the **Unsubscribe** controls. In the **Event Name** field, enter the name of the Named Object to which you subscribed (or the Event Name if you provided one)
 5. Click **Unsubscribe**.
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -414,6 +416,6 @@ While it’s usually easiest to use the [Misty App](../../../tools-&-apps/mobile
 
 You can also use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to manage the Wi-Fi networks that Misty remembers.
 
-* To see the list of Wi-Fi networks that Misty remembers, connect Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/) and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers. ![Saved wifi interface](../../../assets/images/command_center_saved_wifi.png)
+* To see the list of Wi-Fi networks that Misty remembers, connect Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/) and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers.
 * To connect to a network, select the network name from the list and click the **Connect** button.
 * To forget a network, select the network name from the list and click the **Forget** button. Or, click the **Forget All** button to clear all Wi-Fi networks from Misty's memory.

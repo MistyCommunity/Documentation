@@ -494,7 +494,7 @@ Sends an HTTP request from Misty to an external server. You use `misty.SendExter
 
 ```JavaScript
 // Syntax
-misty.SendExternalRequest(string method, string resource, string authorizationType, string token, string returnType, string arguments, bool save, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+misty.SendExternalRequest(string method, string resource, [string authorizationType], [string token], [string arguments], [bool save], [bool applyAssetAfterSaving], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments

@@ -40,7 +40,9 @@ Use the **Install** interface to install and modify Misty's on-robot skills.
 
 To upload a new skill, drag-and-drop your skill files onto the box, or click the box to find the files in your computer's file system.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** When you install a new skill on Misty, you must upload the JavaScript `code` file and the JSON `meta` file at the same time. You can upload image and audio assets associated with a skill by including these asset files when you upload the skill.
+{{box op="end"}}
 
 ### Updating an Existing Skill
 

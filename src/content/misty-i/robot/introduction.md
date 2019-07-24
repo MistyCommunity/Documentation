@@ -13,7 +13,7 @@ Once you get your robot powered up, you can quickly control Misty via her [compa
 
 ## Getting Support
 
-If you get stuck or have questions while developing for and interacting with your Misty II robot, there are several ways to get help.
+If you get stuck or have questions while developing for and interacting with your Misty I robot, there are several ways to get help.
 
 * For **questions about coding Misty**, post in the Community Forums first. This gives other developers – in addition to all of the Misty staff – the ability to jump in and help. The [Support](https://community.mistyrobotics.com/c/support), [Feature Requests](https://community.mistyrobotics.com/c/feature-requests), and [Bug](https://community.mistyrobotics.com/c/bugs) categories (in particular) are monitored for immediate response from 9am-6pm Mountain Time on weekdays and from 9am-4pm Mountain Time on weekends.
 * For **product support** – for example, for shipping questions, or issues with Misty's general functionality – email us at support@mistyrobotics.com. Our email support hours are 9 AM to 5 PM MST Monday through Friday.
