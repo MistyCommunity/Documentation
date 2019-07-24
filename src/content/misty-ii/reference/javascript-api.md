@@ -55,6 +55,39 @@ Arguments
 misty.DeleteImage("DeleteMe.png");
 ```
 
+### misty.GetAudioFile
+
+Obtains a system or user-uploaded audio file currently stored on Misty.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetAudioFile()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+
+```JavaScript
+misty.GetAudioFile(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments  
+* fileName (string) - The name of the audio file to get, including its file type extension.
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If blank, the system passes data into the default `_GetAudioFile()` callback function.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetAudioFile("001-EeeeeeE.wav", false);
+
+function _GetAudioFile(data)
+{
+	misty.Debug(JSON.stringify(data));
+}
+```
+
+* Result (object) - An object containing audio data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * `Base64`: A base64-encoded string for the audio file data.
+  * `ContentType`: The content type of the media encoded in the base64 string.
+  * `Name`: The filename of the returned audio file.
+
 ### misty.GetAudioList
 
 Lists all audio files (default system files and user-added files) currently stored on Misty.
@@ -96,7 +129,8 @@ Obtains a system or user-uploaded image file currently stored on Misty.
 misty.GetImage(string fileName, [string callback], [bool base64 = true], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-Arguments  
+Arguments
+
 * fileName (string) - The name of the image file to get, including its file type extension.
 * base64 (boolean) - Optional. Passing in `true` returns the image data as a Base64 string. Passing in `false` returns the image. Defaults to `true`. 
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -107,8 +141,20 @@ Arguments
 
 ```JavaScript
 // Example
-misty.GetImage("Angry.png", true);
+misty.GetImage("Angry.png");
+
+function _GetImage(data)
+{
+	misty.Debug(JSON.stringify(data));
+}
 ```
+- Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  - Name (string) - The name of the image
+  - Height (integer) - The height of the image in pixels.
+  - Width (integer) - The width of the image in pixels.
+  - SystemAsset (boolean) - Whether the image is one of Misty's default image assets.
+  - ContentType (string) - The type and format of the image returned.
+  - Base64 (string) - A string containing the Base64-encoded image data.
 
 ### misty.GetImageList
 Obtains a list of the images stored on Misty.
@@ -146,12 +192,12 @@ Saves an audio file to Misty. Maximum size is 3 MB.
 
 ```JavaScript
 // Syntax
-misty.SaveAudio(string fileName, string dataAsByteArrayString, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs])
+misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
 * fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
-* dataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+* data (string) - The audio data, passed as a string containing a base64 string or byte array.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -164,18 +210,18 @@ misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 
 
 ### misty.SaveImage
-Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
+Saves an image to Misty in the form of a base64 or byte array string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
 ```JavaScript
 // Syntax
-misty.SaveImage(string fileName, string dataAsByteArrayString, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]
+misty.SaveImage(string fileName, string data, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]
 ```
 
 Arguments
 * fileName (string) - The name of the image file to save.
-* dataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
+* data (string) - The image data, passed as a string containing a base64 string or byte array.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
@@ -466,7 +512,8 @@ misty.ChangeLED(0, 0, 0);
 ```
 
 ### misty.DisplayImage
-Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../misty-ii/reference/rest/#saveimage-byte-array-string-) command in Misty's REST API to upload images to Misty.
+
+Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../misty-ii/reference/rest/#saveimage) command in Misty's REST API to upload images to Misty.
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 
@@ -478,7 +525,7 @@ misty.DisplayImage(string fileName, [double timeoutSeconds], [double alpha], [in
 Arguments
 
 * fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-* timeoutSeconds (double) - Optional. The length of time to display the specified image. 
+* timeoutSeconds (double) - Optional. The length of time to display the specified image. Defaults to `null`.
 * alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to 1.
 * prePauseMsMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -525,6 +572,34 @@ Parameters
 misty.SetFlashlight(true);
 ```
 
+### misty.SetBlinking - ALPHA
+
+Turns Misty's eye blinking behavior on or off. Misty blinks by quickly flashing the `BlinkMisty.png` image on her display.
+
+```JavaScript
+// Syntax
+misty.SetBlinking(bool blink, [int prePauseMs], [int postPauseMs]);
+```
+
+When blinking is turned on, Misty checks the filename of the image currently shown on her display. If this filename matches the filename of one of Misty's default open-eyed image assets, then Misty blinks at random intervals.
+
+Misty blinks while any of her default open-eyed image assets display on her screen, with the exception of `Afraid.png`.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you overwrite an open-eyed image asset with a different image that uses the same filename, then Misty will blink anytime her display shows the new image, even if it does not show Misty's eyes. For this reason, we suggest you not overwrite Misty's default image assets with other image files.
+{{box op="end"}}
+
+Arguments
+
+* blink (bool) - Passing in `true` turns blinking on, and passing in `false` turns blinking off. By default, blinking turns on when Misty starts up.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetBlinking(true);
+```
+
 ## External Requests
 
 ### misty.SendExternalRequest - ALPHA
@@ -535,7 +610,7 @@ Sends an HTTP request from Misty to an external server. You use `misty.SendExter
 
 ```JavaScript
 // Syntax
-misty.SendExternalRequest(string method, string resourceURL, [string authorizationType], [string token], [string arguments], [bool save], [bool apply], [string fileName], [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
+misty.SendExternalRequest(string method, string resourceURL, [string authorizationType], [string token], [string arguments], [bool save], [bool apply], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
@@ -547,6 +622,7 @@ Arguments
 * save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
 * apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * fileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+* contentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 * callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SendExternalRequest()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
@@ -659,6 +735,13 @@ misty.Halt();
 
 Moves one of Misty's arms to a specified position.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 ```JavaScript
 // Syntax
 misty.MoveArmPosition(string arm, double position, double velocity, [int prePauseMs], [int postPauseMs])
@@ -666,7 +749,7 @@ misty.MoveArmPosition(string arm, double position, double velocity, [int prePaus
 
 Arguments
 * arm (string) - The arm to move. Pass `"left"` or `"right"`.
-* position (double) - The position to move the arm to. Value range: 0 - 10.
+* position (double) - The position to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -679,6 +762,13 @@ misty.MoveArmPosition("left", 0, 10);
 ### misty.MoveArmDegrees
 
 Moves one of Misty's arms to a specified location in degrees.
+
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
 
 ```JavaScript
 // Syntax
@@ -701,6 +791,13 @@ misty.MoveArmDegrees("right", -90, 50);
 
 Moves one of Misty's arms to a specified location in radians.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 ```JavaScript
 // Syntax
 misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseMs], [int postPauseMs])
@@ -708,7 +805,7 @@ misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseM
 
 Arguments
 * arm (string) - The arm to move. Pass `"left"` or `"right"`.
-* radians (double) - The location in radians to move the arm to. Value range: 0 to -3.14.
+* radians (double) - The location in radians to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 
@@ -921,9 +1018,10 @@ misty.DriveHeading(90, 0.5, 4000, false);
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
 
 ### misty.StartSlamStreaming
+
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-**Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 ```JavaScript
 // Syntax
@@ -960,9 +1058,8 @@ misty.StopSlamStreaming();
 ```
 
 ### misty.TakeDepthPicture
-Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
-**Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
@@ -991,19 +1088,17 @@ Returns
   - width (integer) - The width of the matrix.
 
 ### misty.TakeFisheyePicture
-Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
-**Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```JavaScript
 // Syntax
-misty.TakeFisheyePicture([bool base64 = true], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
+misty.TakeFisheyePicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
-* base64 (boolean) - Optional. Sending a request with `true` returns the image data as a Base64 string. Defaults to `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, then pass the returned image data to `misty.SaveImage()`.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1012,14 +1107,14 @@ Arguments
 
 ```JavaScript
 // Example
-misty.TakeFisheyePicture(true);
+misty.TakeFisheyePicture();
 ```
 
 Returns
 
 - Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
   - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
+  - contentType (string) - The type and format of the image returned.
   - height (integer) - The height of the picture in pixels.
   - name (string) - The name of the picture.
   - width (integer) - The width of the picture in pixels.
@@ -1411,6 +1506,7 @@ misty.StartFaceTraining("My_Face");
 ```
 
 ### misty.StartRecordingAudio
+
 Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
 ```JavaScript
@@ -1490,12 +1586,11 @@ Takes a photo with Misty’s 4K camera.
 
 ```JavaScript
 // Syntax
-misty.TakePicture([bool base64 = true], [string fileName], [int width], [int height], [bool displayOnScreen = false], [bool overwriteExisting = false], [string callback = _TakePicture()], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+misty.TakePicture([string fileName], [int width], [int height], [bool displayOnScreen = false], [bool overwriteExisting = false], [string callback = _TakePicture()], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
 
-* base64 (boolean) - Optional. Passing in `true` returns the image data as a Base64 string. Defaults to `true`.
 * fileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
@@ -1509,14 +1604,14 @@ Arguments
 
 ```JavaScript
 // Example
-misty.TakePicture(false, "newImage", 1200, 1600, false, true);
+misty.TakePicture("newImage", 1200, 1600, false, true);
 ```
 
 Returns
 
 * Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
    * Base64 (string) - A string containing the Base64-encoded image data.
-   * Format (string) - The type and format of the image returned.
+   * ContentType (string) - The type and format of the image returned.
    * Height (integer) - The height of the image in pixels.
    * Name (string) - The name of the image.
    * Width (integer) - The width of the image in pixels.
@@ -1565,16 +1660,6 @@ Arguments
 // Example
 misty.StopRecordingVideo();
 ```
-
-Returns
-
-- Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the image.
-  - width (integer) - The width of the image in pixels.
-
 
 ## Skill Management
 
@@ -1920,8 +2005,8 @@ Returns
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
 
-<!-- misty.GetBatteryLevel -->
 ### misty.GetBatteryLevel
+
 Obtains Misty's current battery level, along with other information about the battery.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -1946,15 +2031,12 @@ misty.GetBatteryLevel();
 Returns
 
 * Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following properties:
-  * capacitymAh (int)
   * chargePercent (double)
   * created (string)
-  * currentmAh (int)
+  * current (int)
   * expiry (string)
+  * healthPercent (double)
   * isCharging (bool)
-  * lastChargeCapacity (int)
-  * maxMeasuredCapacity (int)
-  * numberOfChargeCycles (int)
   * sensorId (string)
   * sensorName (string)
   * state (string)
@@ -1963,6 +2045,7 @@ Returns
   * voltage (double)
 
 ### misty.GetDeviceInformation
+
 Obtains device-related information for the robot.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).

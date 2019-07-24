@@ -266,7 +266,7 @@ Next, we create the two `for` loops that cause Misty's chest LED to "breathe". T
 misty.ChangeLED(int red, int green, int blue, [int prePauseMs], [int postPauseMs]);
 ```
 
-Each iteration of the `for` loops in the `_breathingLED()` callback should send a `misty.changeLED()` command with slightly altered values for the `red`, `green`, and `blue` arguments. We use the built-in `Math.floor()` JavaScript method to help with this. We also call the [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause) method to briefly pause execution between iterations. Increasing the pause time decreases breathing speed, and decreasing pause time makes Misty breath faster. 
+Each iteration of the `for` loops in the `_breathingLED()` callback should send a `misty.changeLED()` command with slightly altered values for the `red`, `green`, and `blue` arguments. We use the built-in `Math.floor()` JavaScript method to help with this. We also call the [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause-alpha) method to briefly pause execution between iterations. Increasing the pause time decreases breathing speed, and decreasing pause time makes Misty breath faster. 
 
 Copy these `for` loops into your `_breathingLED()` callback function:
 
@@ -377,7 +377,7 @@ When we bring Misty to life, she should greet the world with a robot sound of he
 misty.PlayAudio(string fileName, [int volume], [int prePauseMs], [int postPauseMs]);
 ```
 
-In our Hello World skill, Misty plays the `"001-EeeeeeE.wav"` file at 100% of max volume. This is the same file that Misty plays when she boots up. After she plays the sound, we use the [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause) method to have Misty wait a few seconds before executing the next command.
+In our Hello World skill, Misty plays the `"001-EeeeeeE.wav"` file at 100% of max volume. This is the same file that Misty plays when she boots up. After she plays the sound, we use the [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause-alpha) method to have Misty wait a few seconds before executing the next command.
 
 Copy the following into your `HelloWorld.js` code file:
 
@@ -425,7 +425,7 @@ misty.DriveTime(double linearVelocity, double angularVelocity, int timeMs, [doub
 * If linear velocity is not zero and angular velocity is not zero, Misty drives in a curve.
 {{box op="end"}}
 
-In our Hello World skill, we want Misty to turn slowly counter-clockwise, pause, then turn slowly clockwise. We do this with a sequence of `misty.DriveTime()` commands. We insert [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause) commands after each call to `misty.DriveTime()` to prevent the next drive command from overriding the previous drive command before Misty has finished driving. We call the [`misty.Stop()`](../../../misty-ii/reference/javascript-api/#misty-stop) method to ensure Misty's drive motors stop at the end of the sequence.
+In our Hello World skill, we want Misty to turn slowly counter-clockwise, pause, then turn slowly clockwise. We do this with a sequence of `misty.DriveTime()` commands. We insert [`misty.Pause()`](../../../misty-ii/reference/javascript-api/#misty-pause-alpha) commands after each call to `misty.DriveTime()` to prevent the next drive command from overriding the previous drive command before Misty has finished driving. We call the [`misty.Stop()`](../../../misty-ii/reference/javascript-api/#misty-stop) method to ensure Misty's drive motors stop at the end of the sequence.
 
 Copy the following lines of code into your `HelloWorld.js` skill file, beneath where you wrote the code to play audio:
 
@@ -508,7 +508,7 @@ function _registerFaceRec() {
 }
 ```
 
-We can subscribe to data from Misty's face recognition system by registering for events from the [`FaceRecognition`](../../../misty-ii/reference/sensor-data/#facerecognition-beta-) named object. We use the [`misty.RegisterEvent`](../../../misty-ii/reference/javascript-api/#misty-registerevent-alpha) method to do this. This method invokes a callback function each time the registered event occurs. The syntax for `misty.RegisterEvent` is as follows:
+We can subscribe to data from Misty's face recognition system by registering for events from the [`FaceRecognition`](../../../misty-ii/reference/sensor-data/#facerecognition) named object. We use the [`misty.RegisterEvent`](../../../misty-ii/reference/javascript-api/#misty-registerevent-alpha) method to do this. This method invokes a callback function each time the registered event occurs. The syntax for `misty.RegisterEvent` is as follows:
 
 ```JavaScript
 // Syntax
@@ -567,7 +567,7 @@ function _FaceRec(data) {
 }
 ```
 
-We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/reference/javascript-api/#misty-debug) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
+We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/reference/javascript-api/#misty-debug-alpha) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
 
 Copy the following code into your `_FaceRec()` callback function:
 

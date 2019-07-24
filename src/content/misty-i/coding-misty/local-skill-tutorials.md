@@ -617,7 +617,7 @@ misty.SendExternalRequest(
     "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
     null, /*authorizationType*/
     null, /*token*/
-    "audio/mp3", /*returnType -- OMIT for Misty II*/
+    "audio/mp3", /*returnType*/
     null, /*jsonArgs*/
     true, /*saveAssetToRobot*/
     true, /*applyAssetAfterSaving*/
@@ -639,7 +639,7 @@ misty.Debug("The skill is complete!!")
 
 Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20External%20Requests).
+See the complete JavaScript code below.
 
 ```JavaScript
 misty.Debug("Starting skill HelloWorld_ExternalRequest");
