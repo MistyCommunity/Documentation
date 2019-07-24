@@ -79,23 +79,30 @@ Parameters
 ```
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### GetAudioFile
+
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
 
-Parameters  
+Parameters
+
 **Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
+- Base64 (boolean): Optional. Sending a request with `true` returns the audio file data as a downloadable Base64 string. Sending a request with `false` returns the audio file to your browser or REST client. Defaults to `false`.
 
 ```markup
 http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
 ```
 
 Return Values
-- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+- If you set `Base64` to `false`, returns an audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman. If you set `Base64` to `true`, returns the following key/value pairs:
+  - `base64`: A base64-encoded string for the audio file data.
+  - `contentType`: The content type of the media encoded in the base64 string.
+  - `name`: The filename of the returned audio file.
 
 ### GetAudioList
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
@@ -135,19 +142,21 @@ Parameters
 Return Values
 - Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
   - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
+  - contentType (string) - The type and format of the image returned.
   - height (integer) - The height of the image in pixels.
   - name (string) - The name of the image.
+  - systemAsset (boolean) - Whether the image is one of Misty's default image assets.
   - width (integer) - The width of the image in pixels.
 
 ```json
 {
-  "base64": "data:image/jpeg;base64,/9j/4AAQ...",
-  "format": "image/jpeg",
-  "height": 270.0,
-  "name": "ExampleFile.jpg",
-  "width": 450.0,
-}
+  "base64": "iVBORw0KGgoAAAANS....",
+  "contentType": "image/png",
+  "height": 270,
+  "name": "Angry.png",
+  "systemAsset": false,
+  "width": 480
+},
 ```
 
 ### GetImageList
@@ -165,21 +174,21 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-### SaveAudio (Byte Array String)
+### SaveAudio (Data String)
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- DataAsByteArrayString (string) - The audio data, passed as a string containing a byte array.
+- Data (string) - The audio data, passed as a string containing a byte array or base64 data.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
   "FilenameWithoutPath": "example.wav",
-  "DataAsByteArrayString": "34,88,90,49,56,...",
+  "Data": "34,88,90,49,56,...",
   "ImmediatelyApply": false,
   "OverwriteExisting": true
 }
@@ -210,8 +219,9 @@ Return Values
   - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 
-### SaveImage (Byte Array String)
-Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
+### SaveImage (Data String)
+
+Saves an image to Misty in the form of a base64 string or data byte array. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
@@ -221,8 +231,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
-* DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
+* Data (string) - The image data, passed as a base64 string or data byte array.
+* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
@@ -230,7 +240,7 @@ Parameters
 ```json
 {
   "FileName": "example.jpg",
-  "DataAsByteArrayString": "30,190,40,24,...",
+  "Data": "30,190,40,24,...",
   "Width": "300",
   "Height": "300",
   "ImmediatelyApply": false,
@@ -351,9 +361,10 @@ Note that it's not possible for a custom image to overlay another custom image. 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
 
 Parameters
+
 - FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-- TimeoutSeconds (double) - Optional. The length of time to display the specified image.
-- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image.
+- TimeoutSeconds (double) - Optional. The length of time to display the specified image. Defaults to `null`.
+- Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to `1`.
 
 ```json
 {
@@ -375,7 +386,7 @@ Parameters
 
 - AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 - FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
 ```json
 {
@@ -403,6 +414,35 @@ Parameters
 }
 ```
 
+### SetBlinking - ALPHA
+
+Turns Misty's eye blinking behavior on or off. Misty blinks by quickly flashing the `blinkMisty.png` image on her display.
+
+When blinking is turned on, Misty checks the filename of the image currently shown on her display. If this filename matches the filename of one of Misty's default open-eyed image assets, then Misty blinks at random intervals.
+
+Misty blinks while any of her default open-eyed image assets display on her screen, with the exception of `Afraid.png`.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you overwrite an open-eyed image asset with a different image that uses the same filename, then Misty will blink anytime her display shows the new image, even if it does not show Misty's eyes. For this reason, we suggest you not overwrite Misty's default image assets with other image files.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/blink
+
+Parameters
+
+* Blink (bool) - Passing in `true` turns blinking on, and passing in `false` turns blinking off. By default, blinking turns on when Misty starts up.
+
+```JSON
+{
+  "Blink": true
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+
 ## External Requests
 
 ### misty.SendExternalRequest - ALPHA
@@ -421,6 +461,7 @@ Parameters
 * Save (bool) - Optional. If `true`, the robot saves any media asset contained in the request response to the robot's local storage. If you do not want to save any returned assets, pass `false`. At this time, the `misty.SendExternalRequest()` command can save only image and audio files to Misty. 
 * Apply (bool) - Optional. A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
+* ContentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 
 ```JSON
 {
@@ -527,19 +568,26 @@ Return Values
 
 Moves one of Misty's arms.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left` or `right`.
 * Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
-* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move.
-* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
+* Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
 ```JSON
 {
   "Arm": "left",
   "Position": -90,
-  "Velocity": 100
+  "Velocity": 100,
   "Units": "degrees"
 }
 ```
@@ -551,14 +599,22 @@ Return Values
 
 Moves one or both of Misty's arms. You can control both arms simultaneously or one at a time.
 
+When moving Misty's arms, it's helpful to understand their orientation.
+
+* At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
+* At +90 degrees, Misty's arms point straight down towards the ground.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
 * LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
 * RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
-* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move.
-* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move.
-* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms. For `degrees`, values can range from 0 to -180; 0 points the arm straight down, and -180 points the arm straight up. For `position`, values can range from 0 - 10; 0 points the arm straight down, and 10 points the arm straight up. For `radians`, values can range from 0 to -3.14; 0 points the arm straight down, and -3.14 points the arm straight up.
+* LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. Defaults to `null`.
+* RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
+* Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
 ```JSON
 {
@@ -584,7 +640,7 @@ Parameters
 - Pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
-- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
+- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10. Defaults to `null`.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
@@ -746,7 +802,7 @@ Example JSON response for a failed request:
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-**Important!** Always use `StopSlamStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `StopSlamStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+**Important!** Always use `StopSlamStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `StopSlamStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/start
 
@@ -770,9 +826,8 @@ Return Values
 - Results (boolean) - Returns `true` if there are no errors related to this command.
 
 ### TakeDepthPicture
-Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
 
-**Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/depth
 
@@ -794,28 +849,28 @@ Return Values
 ```
 
 ### TakeFisheyePicture
+
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
-**Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
+Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye?Base64=&lt;bool&gt;
+Parameters
 
-Parameters  
 **Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
-- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
+- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
 
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
     - base64 (string) - A string containing the Base64-encoded image data.
-    - format (string) - The type and format of the image returned.
+    - contentType (string) - The type and format of the image returned.
     - height (integer) - The height of the picture in pixels.
     - name (string) - The name of the picture.
     - width (integer) - The width of the picture in pixels.
 
 ```json
 {
-  "base64": "data:image/png;base64,iVBORw0KG...",
-  "format": "image/png",
+  "base64": "iVBORw0KG...",
+  "contentType": "image/png",
   "height": 480.0,
   "name": "OccipitalVisibleImage",
   "width": 640.0,
@@ -1214,7 +1269,7 @@ Example:
 
 Parameters
 
-* Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`.
+* Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`.
 * FileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
@@ -1236,7 +1291,7 @@ Return Values
 
 * Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
   * Base64 (string) - A string containing the Base64-encoded image data.
-  * Format (string) - The type and format of the image returned.
+  * ContentType (string) - The type and format of the image returned.
   * Height (integer) - The height of the image in pixels.
   * Name (string) - The name of the image.  
   * Width (integer) - The width of the image in pixels. 
@@ -1260,6 +1315,7 @@ Return Values
 * An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### StartRecordingVideo - BETA
+
 Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
 
 Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
@@ -1532,15 +1588,12 @@ Parameters
 
 Return Values
 * Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
-  * capacitymAh (int)
   * chargePercent (double)
   * created (string)
-  * currentmAh (int)
+  * current (int)
   * expiry (string)
+  * healthPercent (double)
   * isCharging (bool)
-  * lastChargeCapacity (int)
-  * maxMeasuredCapacity (int)
-  * numberOfChargeCycles (int)
   * sensorId (string)
   * sensorName (string)
   * state (string)
@@ -1548,6 +1601,27 @@ Return Values
   * trained (bool)
   * voltage (double)
 
+Sample response data:
+
+```JSON
+{
+ "result": {
+  "chargePercent": null,
+  "created": "2019-07-23T16:36:27.8514937Z",
+  "current": 0.174,
+  "expiry": "2019-07-23T16:36:37.8514937Z",
+  "healthPercent": null,
+  "isCharging": true,
+  "sensorId": "charge",
+  "sensorName": "/Sensors/RTC/BatteryCharge",
+  "state": "Charging",
+  "temperature": 16,
+  "trained": false,
+  "voltage": 8.364
+ },
+ "status": "Success"
+}
+```
 
 ### GetDeviceInformation
 Obtains device-related information for the robot.
@@ -1804,6 +1878,28 @@ Parameters
 ```
 
 Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### RestartRobot
+
+Restarts Misty's 410 or 820 processor.
+
+Endpoint: POST &lt;<robot-ip-address>/api/reboot&gt;
+
+Parameters:
+
+* Core (boolean): If `true`, restarts Misty's 410 processor.
+* SensoryServices (boolean): If `true`, restarts Misty's 820 processor.
+
+```json
+{
+  "Core": true,
+  "SensoryServices": true
+}
+```
+
+Return Values:
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### SetDefaultVolume
