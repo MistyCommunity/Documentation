@@ -449,27 +449,27 @@ This part of the Hello World tutorial series teaches how to programmatically mov
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
 {{box op="end"}}
 
-In this tutorial, we use the [`misty.MoveArmPosition()`](../../../misty-ii/reference/javascript-api/#misty-movearmposition) method to have Misty move her arms. This method controls which arm should move, the position (`0` - fully down, and `10` - fully up) that the arm should move to, and how quickly the arm should move. The syntax for the `misty.MoveArmPosition()` method is as follows:
+In this tutorial, we use the [`misty.MoveArmDegrees()`](../../../misty-ii/reference/javascript-api/#misty-movearmDegrees) method to have Misty move her arms. This method controls which arm should move, the angle (`90` - fully down, and `-45` - angled up) that the arm should move to, and how quickly the arm should move. The syntax for the `misty.MoveArmDegrees()` method is as follows:
 
 ```JavaScript
 // Syntax
-misty.MoveArmPosition(string arm, double position, double velocity, [int prePauseMs], [int postPauseMs])
+misty.MoveArmDegrees(string arm, double degrees, double velocity, [int prePauseMs], [int postPauseMs])
 ```
 
-To have Misty wave, we start by setting the position of both arms to `0`. We then send a command to move Misty's right arm fully up (wave), then pause before returning the arm to Misty's side. We wrap all this in a function called `waveRightArm()`, so we can use it later in the skill. 
+To have Misty wave, we start by setting the angle of both arms to `90`, down by Misty's sides. We then send a command to move Misty's right arm up (wave), then pause before returning the arm to Misty's side. We wrap all this in a function called `waveRightArm()`, so we can use it later in the skill. 
 
 Copy the following into your `HelloWorld.js` skill code:
 
 ```JavaScript
 // Waves Misty's right arm!
 function waveRightArm() {
-    misty.MoveArmPosition("left", 0, 45); // Left arm fully down
+    misty.MoveArmDegrees("left", 90, 45); // Left arm fully down
     misty.Pause(50);
-    misty.MoveArmPosition("right", 0, 45); // Right arm fully down
+    misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
     misty.Pause(3000); // Pause for 3 seconds
-    misty.MoveArmPosition("right", 10, 45); // Right arm fully up
+    misty.MoveArmDegrees("right", -45, 45); // Right arm up
     misty.Pause(5000); // Pause with arm up for 5 seconds (wave!)
-    misty.MoveArmPosition("right", 0, 45); // Right arm fully down
+    misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
 }
 
 waveRightArm();
