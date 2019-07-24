@@ -557,13 +557,11 @@ function _TimerEvent() {
 ```
 ## External Requests
 
-In this tutorial, we write a skill that fetches weather data from the [APIXU API](https://www.apixu.com/), parse the response, and prints the current weather condition to the developer console on the Skill Runner web page.
-
-### Writing the Meta File
-
-Even though your skills run locally on Misty, they can still send requests to use external data from the internet. This sample skill fetches the current temperature of a designated city, then sends it back Misty to print through a debug message. To do this, you’ll need to use the `misty.SendExternalRequest()` command to send a GET request to the [APIXU API](https://www.apixu.com/) to obtain the data.
+Even though your skills run locally on Misty, they can still send requests to use external data from the internet. This sample skill fetches the current weather conditions of a designated city, then sends it back Misty to print through a debug message. To do this, you’ll need to use the `misty.SendExternalRequest()` command to send a GET request to the [APIXU API](https://www.apixu.com/) to obtain the data.
 
 To run this skill, you must first create an account with APIXU and generate a key to use with their API. You can [create an account with APIXU on their web page](https://www.apixu.com/signup.aspx).
+
+### Writing the Meta File
 
 Once you have your API key from APIXU, you can set up the meta file for the skill. For this tutorial, we set the API key and the city to query as parameters in the JSON meta file. Create a new meta file for this skill, and copy the following to fill out the parameters. Replace the `key` string with your APIXU API key, and change the value of the `city` key to a city of your choosing. Save this file with the name `HelloWorld_ExternalRequest.json`.
 
@@ -609,15 +607,15 @@ When you send requests that require additional authorization, or when you want t
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
 ```JavaScript
-misty.SendExternalRequest(
-    "GET",
-    "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
-    )
+misty.SendExternalRequest("GET", "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city)
 ```
 
 Once Misty receives the data back from APIXU, the callback -- which is automatically set to `_SendExternalRequest()` -- will run:
 
 ```JS
+function _SendExternalRequest(data) {
+
+}
 ```
 
 Once the data comes back from the request, we parse the data to find the current condition in the queried city. We can assign that condition to a variable as shown below:
@@ -625,7 +623,6 @@ Once the data comes back from the request, we parse the data to find the current
 ```JS
 _data = JSON.parse(data.Result.ResponseObject.Data)
 _condition = _data.current.condition.text
-}
 ```
 
 The final step is to have Misty send us the data back through a debug message:
@@ -637,13 +634,9 @@ misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _p
 The complete code file for the skill should look like this:
 
 ```JS
-misty.SendExternalRequest(
-    "GET",
-    "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
-    )
+misty.SendExternalRequest("GET","http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city);
 
 function _SendExternalRequest(data) {
-    misty.Debug(JSON.stringify(data));
     _data = JSON.parse(data.Result.ResponseObject.Data)
     _condition = _data.current.condition.text
     misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _params.city);
