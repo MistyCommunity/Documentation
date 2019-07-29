@@ -13,12 +13,14 @@ Follow this guide to learn:
 
 * how to use Misty's [Command Center](http://sdk.mistyrobotics.com/command-center) to discover your robot's capabilities and send basic commands before writing your own code
 * how to use Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer) to interact with Misty's REST API and generate sample code for your skills and robot applications
-* how to install and run your own skills on Misty II
+* how to install and run your own skills on Misty II via Misty's [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/index.html)
 * how to set up the Misty Skills Extension for Visual Studio Code to deploy skills without leaving your text editor
 
 **Before you begin**, you need:
 * a Misty II robot that's powered on and connected to your local Wi-Fi network.
-* the IP address for your Misty II robot, which you can find in the Misty App.
+* the IP address for your Misty II robot, which you can find in the Misty Mobile App.
+
+**Before getting started**, place Misty on the black foam block from her box. This will ensure as you program her, she doesn’t accidentally roll off the table!
 
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -47,7 +49,7 @@ Once you're connected, you can experiment with Misty's functionality by interact
 * Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](../../../assets/images/command_center_head_movement.png)
   * Move Misty's head by moving the sliders under **Head Movement**. Set a new **Pitch**, **Yaw**, or **Roll** position, and then click the **Set** button.
   * Move Misty's arms by moving the left or right slider and clicking the **Rotate Left Arm** or **Rotate Right Arm** button.
-* Use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
+* In preparation of the skill we'll use shortly, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
   1. To make sure Misty's head is positioned for effective face training, use the **Pitch**, **Yaw** and **Roll** commands under the **Movement** section to align Misty’s gaze with yours. Then, in the **Perception** section, go to **Face Training** and type your name in the **Name to Train** field. Make sure to enter a single word without spaces.
   2. Click the **Start Face Training** button. Wait 10-15 seconds for face training to complete. The main Command Center window displays pop-up status messages during the face training process.
   3. When face training is complete, you can click the **Get Learned Faces** button to see the labels for people Misty can recognize. Check for your name to make sure Misty learned your face!
@@ -73,22 +75,51 @@ Follow these steps to start learning about the API Explorer:
 
 The [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/index.html) web page allows you to install, run, and manage skills on Misty. This section of the Misty II Getting Started guide teaches how to use the Skill Runner to deploy the sample `lookAround` skill to Misty.
 
+In the `lookAround` skill, Misty will look around until she sees a face and then will do something. 
+
 You can download the files for the `lookAround` skill from the [`lookAround` repository in the MistySampleSkills GitHub organization](https://github.com/MistySampleSkills/lookAround). This repository includes:
 * `lookAround.js`, which contains the JavaScript that Misty executes when she runs the skill
 * `lookAround.json`, which contains a JSON object with metadata and and parameters required to run a skill
 
-After you've downloaded these files, follow these steps to install and run the `lookAround` skill on your Misty II:
+Create a new folder called **lookAround** and downloaded these files to that folder. Then, follow these steps to install and run the `lookAround` skill on your Misty II:
 
 1. Follow the link at the top of the API Explorer to open up the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner) web page. If Misty is still connected to the API Explorer when you do this, this connection carries over to the Skill Runner, and there's no need to reconnect. If not, you'll need to use Misty's IP address to connect your robot to the Skill Runner.
-2. Open your browser's web console to view debug messages, error messages, and other data Misty sends to the Skill Runner web page. To open the web console in Chrome, use **Ctrl + Shift + J** (Windows/Linux) **Cmd + Option + J** (Mac).
+2. Open your browser's web console to view debug messages, error messages, and other data Misty sends to the Skill Runner web page. To open the web console in Chrome, use **Ctrl + Shift + J** (Windows) **Ctrl + Shift + X** (Linux) **Cmd + Option + J** (Mac).
 3. Under the **Install** section of the Skill Runner, click **Choose a file**. Navigate to the folder where you downloaded the `lookAround.json` and `lookAround.json` files. Select **both files** and then click **Open**.
-4. When the skill uploads, it appears in the **Manage** section of the Skill Runner page. Find the **lookAround** skill and click **Start** to run it!
-
-You can also experiment by downloading and installing other [sample skills from GitHub](https://github.com/MistySampleSkills).
+4. When the skill uploads, it appears in the **Manage** section of the Skill Runner page. Find the **lookAround** skill and click **Start** to run it, or stop to **stop the skill.**
 
 ## Setting Up the Misty Skills Extension for Visual Studio Code
 
 In addition to deploying skills from the the Skill Runner web page, you can also deploy skills to Misty directly from the Visual Studio Code editor. You can [download Visual Studio Code for free from Microsoft](https://code.visualstudio.com/). Follow [these instructions](https://docs.mistyrobotics.com/tools-&-apps/plugins-&-extensions/misty-skills-extension/) to install the Misty Skills Extension for VSC.
+
+Now that you are set-up with VSC and understand how Misty’s Extension works, let’s start programming a skill!
+
+**Edit Code and Deploy on Robot with VSC**
+Still using the lookAround skill, let’s go back to the code file, create a new file and make some changes. 
+
+1.  The Misty extension in VSC works with **folders**. The **folder and two files must be named the same**. The first step is to **create a new folder** on the desktop and name it whatever you like.
+2.  Click on the lookAround.js file and then click save as. **Name the .js file the same name you called the new folder and then save to the new folder.** 
+3.  Switch **back to your browser and go to Misty’s SDK** and click on Skill Runner in the menu bar.
+4.  In the section called **Generate**, type the same name you used for the folder and .js file in the New Skill Name field. 
+5.  Click the **Download** option and then click **Generate JSON Meta Template**. 
+6.  **Move the downloaded JSON file** to the new folder you created along with the .js file. 
+7.  Switch back to **VSC** and open the new folder you created.
+8.  **Click on the js file** and try switching out the audio and/or image files with the following and save the file:
+    **Eye Files:				Audio Files:**
+    Relaxed.png				034-Hicup.wav
+    Afraid.png				013-0Bark.wav
+    Waking.jpg				001-Veep.wav
+9.  Now it’s time to deploy your code to the robot by using the **Misty Extension in VSC**. 
+
+10. There are two ways to deploy code. The first is **click View in the menu bar, then Command Palette…** The other way is to use one of the shortcuts listed below:
+    For PC users: Press Control+Shift+P and select: Misty: Upload and Run 
+    For Mac users: Press Command+Shift+P and select: Misty: Upload and Run  
+
+11. **Enter the IP address** for Misty. Check the status on the bottom right hand corner to confirm your skill is running. Watch Misty drive around and look for a face. When she sees your face, she’ll let you know. 
+
+12.  To **stop your skill**, use the Misty Extension in VSC and follow the same steps from above. Either click View => Command Palette… or use one of the shortcuts below:
+    For **PC users**: Press Control+Shift+P and select: Misty: Stop Skills 
+    For **Mac users**: Press Command+Shift+P and select: Misty: Stop Skills 
 
 ## What's Next?
 
