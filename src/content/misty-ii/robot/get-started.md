@@ -72,9 +72,7 @@ Follow these steps to start learning about the API Explorer:
 
 ## Uploading Skills with Skill Runner
 
-The [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/index.html) web page allows you to install, run, and manage skills on Misty. This section of the Misty II Getting Started guide teaches how to use the Skill Runner to deploy the sample `lookAround` skill to Misty.
-
-In the `lookAround` skill, Misty will look around until she sees a face and then will do something. 
+The [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/index.html) web page allows you to install, run, and manage skills on Misty. This section of the Misty II Getting Started guide teaches how to use the Skill Runner to deploy the sample `lookAround` skill to Misty. When you run the `lookAround` skill, Misty will look around until she sees a face, and then will do something.
 
 You can download the files for the `lookAround` skill from the [`lookAround` repository in the MistySampleSkills GitHub organization](https://github.com/MistySampleSkills/lookAround). This repository includes:
 * `lookAround.js`, which contains the JavaScript that Misty executes when she runs the skill
