@@ -181,7 +181,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- Data (string) - The audio data, passed as a string containing a byte array or base64 data.
+- Data (string) - The audio data, passed as a string containing base64 data.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
@@ -221,7 +221,7 @@ Return Values
 
 ### SaveImage (Data String)
 
-Saves an image to Misty in the form of a base64 string or data byte array. Optionally, proportionately reduces the size of the saved image.
+Saves an image to Misty in the form of a base64 string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
@@ -231,7 +231,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
-* Data (string) - The image data, passed as a base64 string or data byte array.
+* Data (string) - The image data, passed as a base64 string.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
@@ -1209,7 +1209,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StartRecordingAudio
-Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
+Starts Misty recording audio saves the recording as a new audioi file to Misty's local storage. To stop recording, you must call the `StopRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
 
