@@ -18,7 +18,7 @@ Follow this guide to learn:
 
 **Before you begin**, you need:
 * a Misty II robot that's powered on and connected to your local Wi-Fi network.
-* the IP address for your Misty II robot, which you can find in the Misty Mobile App.
+* the IP address for your Misty II robot, which you can find in the Misty App for mobile devices.
 
 **Before getting started**, place Misty on the black foam block from her box. This will ensure that, as you program her, she doesn’t accidentally roll off the table.
 
