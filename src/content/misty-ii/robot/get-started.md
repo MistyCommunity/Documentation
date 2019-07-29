@@ -48,7 +48,7 @@ Once you're connected, you can experiment with Misty's functionality by interact
 * Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](../../../assets/images/command_center_head_movement.png)
   * Move Misty's head by moving the sliders under **Head Movement**. Set a new **Pitch**, **Yaw**, or **Roll** position, and then click the **Set** button.
   * Move Misty's arms by moving the left or right slider and clicking the **Rotate Left Arm** or **Rotate Right Arm** button.
-* In preparation of the skill we'll use shortly, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
+* To prepare Misty for the Hello World tutorial series, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
   1. To make sure Misty's head is positioned for effective face training, use the **Pitch**, **Yaw** and **Roll** commands under the **Movement** section to align Misty’s gaze with yours. Then, in the **Perception** section, go to **Face Training** and type your name in the **Name to Train** field. Make sure to enter a single word without spaces.
   2. Click the **Start Face Training** button. Wait 10-15 seconds for face training to complete. The main Command Center window displays pop-up status messages during the face training process.
   3. When face training is complete, you can click the **Get Learned Faces** button to see the labels for people Misty can recognize. Check for your name to make sure Misty learned your face!
