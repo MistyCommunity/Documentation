@@ -78,7 +78,7 @@ You can download the files for the `lookAround` skill from the [`lookAround` rep
 * `lookAround.js`, which contains the JavaScript that Misty executes when she runs the skill
 * `lookAround.json`, which contains a JSON object with metadata and and parameters required to run a skill
 
-Create a new folder called **lookAround** and downloaded these files to that folder. Then, follow these steps to install and run the `lookAround` skill on your Misty II:
+Create a new folder on your desktop called **lookAround**. Download the `lookAround` skill files to that folder. Then, follow these steps to install and run the `lookAround` skill on your Misty II:
 
 1. Follow the link at the top of the API Explorer to open up the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner) web page. If Misty is still connected to the API Explorer when you do this, this connection carries over to the Skill Runner, and there's no need to reconnect. If not, you'll need to use Misty's IP address to connect your robot to the Skill Runner.
 2. Open your browser's web console to view debug messages, error messages, and other data Misty sends to the Skill Runner web page. To open the web console in Chrome, use **Ctrl + Shift + J** (Windows) **Ctrl + Shift + X** (Linux) **Cmd + Option + J** (Mac).
