@@ -197,7 +197,7 @@ misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool ove
 
 Arguments
 * fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
-* data (string) - The audio data, passed as a string containing a base64 string or byte array.
+* data (string) - The audio data, passed as a string containing a base64 string .
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -210,7 +210,7 @@ misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 
 
 ### misty.SaveImage
-Saves an image to Misty in the form of a base64 or byte array string. Optionally, proportionately reduces the size of the saved image.
+Saves an image to Misty in the form of a base64 string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
@@ -221,7 +221,7 @@ misty.SaveImage(string fileName, string data, [int width], [int height], [bool i
 
 Arguments
 * fileName (string) - The name of the image file to save.
-* data (string) - The image data, passed as a string containing a base64 string or byte array.
+* data (string) - The image data, passed as a string containing a base64 string.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
@@ -1507,7 +1507,10 @@ misty.StartFaceTraining("My_Face");
 
 ### misty.StartRecordingAudio
 
-Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a byte array string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a 
+
+
+string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
 ```JavaScript
 // Syntax
