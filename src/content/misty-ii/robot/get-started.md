@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Welcome to the Misty II Getting Started guide! This document provides a set of activities meant to familiarize new Misty developers with the robot, her SDK, and her web-based developer tools.
+Welcome to the Misty II Getting Started guide! This document provides a set of activities to familiarize developers with Misty II, her SDK, and her web-based developer tools.
 
 Follow this guide to learn:
 
