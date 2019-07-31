@@ -414,6 +414,26 @@ Parameters
 }
 ```
 
+### RemoveBlinkMappings - BETA
+
+Removes blink mappings from one or more image assets.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/blink/images
+
+Parameters
+
+* BlinkImages (array) - The list of images to remove blink mappings from.
+
+```JSON
+{
+  "BlinkImages": ["Relaxed.png", "Protected.png"]
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
 ### SetBlinking - BETA
 
 Turns Misty's eye blinking behavior on or off.
