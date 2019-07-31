@@ -572,21 +572,17 @@ Parameters
 misty.SetFlashlight(true);
 ```
 
-### misty.SetBlinking - ALPHA
+### misty.SetBlinking - BETA
 
-Turns Misty's eye blinking behavior on or off. Misty blinks by quickly flashing the `BlinkMisty.png` image on her display.
+Turns Misty's eye blinking behavior on or off.
 
 ```JavaScript
 // Syntax
 misty.SetBlinking(bool blink, [int prePauseMs], [int postPauseMs]);
 ```
 
-When blinking is turned on, Misty checks the filename of the image currently shown on her display. If this filename matches the filename of one of Misty's default open-eyed image assets, then Misty blinks at random intervals.
-
-Misty blinks while any of her default open-eyed image assets display on her screen, with the exception of `Afraid.png`.
-
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If you overwrite an open-eyed image asset with a different image that uses the same filename, then Misty will blink anytime her display shows the new image, even if it does not show Misty's eyes. For this reason, we suggest you not overwrite Misty's default image assets with other image files.
+**Note:** To change the duration that Misty's eyes stay open or closed while blinking, or to configure Misty to blink while displaying images other than her default eye assets, use the `SetBlinkSettings` command in Misty's REST API. To prevent Misty from blinking while displaying a specific eye asset, use the `RemoveBlinkMappings` command in Misty's REST API.
 {{box op="end"}}
 
 Arguments
