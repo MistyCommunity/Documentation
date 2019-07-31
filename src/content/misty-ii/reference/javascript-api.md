@@ -1643,7 +1643,7 @@ misty.StartRecordingVideo();
 
 ### misty.StartKeyPhraseRecognition - BETA
 
-Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to `KeyPhraseRecognized` event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized-beta) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you call the `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
@@ -2480,3 +2480,32 @@ Arguments
 // Example
 misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
 ```
+
+### misty.ConvertIntentToCommand - ALPHA
+
+Translates a given string and set of arguments to invoke a command from Misty's API.
+
+```JavaScript
+// Syntax
+misty.ConvertIntentToCommand(string command, [string argument]...);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** As an alpha feature, the `misty.ConvertIntentToCommand()` method is in active development, and it may not always produce the expected result. You can expect this method to be modified and improved with future updates to Misty's software.
+{{box op="end"}}
+
+Arguments:
+
+* command (string) - A string that matches the internal name of a command from Misty's API. **Note:** The `misty.ConvertIntentToCommand()` method currently expects the value passed in for the the `command` argument to match an internal name that Misty uses to recognize and execute the command. Sometimes these internal command names differ from the method names used in Misty's JavaScript API. For example, calling the `misty.DisplayImage()` method in Misty's JavaScript API invokes the the command known internally as `ChangeDisplayImage`. You can find the internal names of Misty's commands by issuing a GET request to the `GetHelp` endpoint (`<robot-ip-address>/api/help`) and checking the values for the `id` keys in the response object.
+* argument - (string) - One or more unique strings that hold the value for arguments to pass into the given `command`. 
+
+When passing in values for more than one argument, you must pass in the value for each argument as a unique string. As an example, the following invokes Misty's `ChangeLED` command with unique values for the `red`, `green`, and `blue` arguments to change Misty's chest LED color.
+
+```JavaScript
+// Invokes the ChangeLED command
+misty.ConvertIntentToCommand("ChangeLED", "0", "255", "0");
+```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** The `misty.ConvertIntentToCommand()` method simplifies the task of coding Misty to respond when you issue a voice command to invoke a command from her API. When you use Misty's [`StartKeyPhraseRecognition`](../../../misty-ii/reference/rest/#startkeyphraserecognition-beta) command and register for [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized-beta) events, you can code Misty to start recording audio inside the `KeyPhraseRecognized` callback. You can then send this recorded audio off for processing by a third party service like [Dialogflow](https://dialogflow.com/) that's configured to identify the intent of a speaker from a given speech recording. Pass this intent (and any additional arguments that you parse out in your skill code) into your `misty.ConvertIntentToCommand()` method to have Misty execute the matching command.
+{{box op="end"}}
