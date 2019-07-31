@@ -414,17 +414,35 @@ Parameters
 }
 ```
 
-### SetBlinking - ALPHA
+### RemoveBlinkMappings - BETA
 
-Turns Misty's eye blinking behavior on or off. Misty blinks by quickly flashing the `blinkMisty.png` image on her display.
+Removes blink mappings from one or more image assets.
 
-When blinking is turned on, Misty checks the filename of the image currently shown on her display. If this filename matches the filename of one of Misty's default open-eyed image assets, then Misty blinks at random intervals.
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/blink/images
 
-Misty blinks while any of her default open-eyed image assets display on her screen, with the exception of `Afraid.png`.
+Parameters
+
+* BlinkImages (array) - The list of images to remove blink mappings from.
+
+```JSON
+{
+  "BlinkImages": ["Relaxed.png", "Protected.png"]
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+### SetBlinking - BETA
+
+Turns Misty's eye blinking behavior on or off.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If you overwrite an open-eyed image asset with a different image that uses the same filename, then Misty will blink anytime her display shows the new image, even if it does not show Misty's eyes. For this reason, we suggest you not overwrite Misty's default image assets with other image files.
+**Note:** To customize Misty's blinking behavior, use the `SetBlinkSettings` command.
 {{box op="end"}}
+
+Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/blink
 
@@ -442,6 +460,42 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### SetBlinkSettings - BETA
+
+Sets the duration that Misty's eyes stay open or closed while blinking. You can also use this command to add a blink mapping to an image asset. Optionally, reverts Misty's blink settings to their default configuration.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty saves your custom blink settings to her local database, so there's no need to re-configure these settings each time she boots up.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/blink/settings
+
+Parameters
+
+* BlinkImages (JSON object) - Optional. Adds a blink mapping for one or more image assets.
+* OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
+* OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
+* ClosedEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay closed while blinking.
+* ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
+* RevertToDefault (boolean) - Optional. Use `true` to revert Misty's blink settings to the default configuration. Use `false` (or leave blank) to continue using your custom settings.
+
+```JSON
+{
+  "BlinkImages": {
+    "Green.jpg": "Red.jpg",
+    "Wonder.png": "blink.png"
+    },
+  "OpenEyeMinMs" : 1000,
+  "OpenEyeMaxMs" : 7000,
+  "ClosedEyeMinMs" : 100,
+  "ClosedEyeMaxMs" : 200,
+  "RevertToDefault": false
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ## External Requests
 
@@ -1296,8 +1350,6 @@ Return Values
   * Name (string) - The name of the image.  
   * Width (integer) - The width of the image in pixels. 
 
-
-
 ### GetRecordedVideo - BETA
 
 Downloads Misty's most recent video recording to your browser or REST client.
@@ -1325,6 +1377,49 @@ Misty only saves the most recent video recording to her local storage. Recording
 **Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StartKeyPhraseRecognition - BETA
+
+Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized-beta) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+
+To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a `StartRecordingAudio` command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+{{box op="end"}}
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+1. Invoke the `StartKeyPhraseRecognition` command.
+2. Subscribe to `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
+3. Write the code to handle what Misty should do when she hears the key phrase. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to send another `StartKeyPhraseRecognition` command.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopKeyPhraseRecognition - BETA
+
+Stops Misty listening for the "Hey, Misty!" key phrase.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
 
 Parameters
 

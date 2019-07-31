@@ -449,7 +449,7 @@ This part of the Hello World tutorial series teaches how to programmatically mov
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
 {{box op="end"}}
 
-In this tutorial, we use the [`misty.MoveArmDegrees()`](../../../misty-ii/reference/javascript-api/#misty-movearmDegrees) method to have Misty move her arms. This method controls which arm should move, the angle (`90` - fully down, and `-45` - angled up) that the arm should move to, and how quickly the arm should move. The syntax for the `misty.MoveArmDegrees()` method is as follows:
+In this tutorial, we use the [`misty.MoveArmDegrees()`](../../../misty-ii/reference/javascript-api/#misty-movearmdegrees) method to have Misty move her arms. This method controls which arm should move, the angle (`90` - fully down, and `-45` - angled up) that the arm should move to, and how quickly the arm should move. The syntax for the `misty.MoveArmDegrees()` method is as follows:
 
 ```JavaScript
 // Syntax
