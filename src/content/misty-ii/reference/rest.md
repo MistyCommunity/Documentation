@@ -419,8 +419,10 @@ Parameters
 Turns Misty's eye blinking behavior on or off.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To change the duration that Misty's eyes stay open or closed while blinking, or to configure Misty to blink while displaying images other than her default eye assets, use the `SetBlinkSettings` command. To prevent Misty from blinking while displaying a specific eye asset, use the `RemoveBlinkMappings` command.
+**Note:** To customize Misty's blinking behavior, use the `SetBlinkSettings` command.
 {{box op="end"}}
+
+Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/blink
 
@@ -438,6 +440,42 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### SetBlinkSettings - BETA
+
+Sets the duration that Misty's eyes stay open or closed while blinking. You can also use this command to add a blink mapping to an image asset. Optionally, reverts Misty's blink settings to their default configuration.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty saves your custom blink settings to her local database, so there's no need to re-configure these settings each time she boots up.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/blink/settings
+
+Parameters
+
+* BlinkImages (JSON object) - Optional. Adds a blink mapping for one or more image assets.
+* OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
+* OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
+* ClosedEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay closed while blinking.
+* ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
+* RevertToDefault (boolean) - Optional. Use `true` to revert Misty's blink settings to the default configuration. Use `false` (or leave blank) to continue using your custom settings.
+
+```JSON
+{
+  "BlinkImages": {
+    "Green.jpg": "Red.jpg",
+    "Wonder.png": "blink.png"
+    },
+  "OpenEyeMinMs" : 1000,
+  "OpenEyeMaxMs" : 7000,
+  "ClosedEyeMinMs" : 100,
+  "ClosedEyeMaxMs" : 200,
+  "RevertToDefault": false
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ## External Requests
 

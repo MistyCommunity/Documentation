@@ -582,8 +582,10 @@ misty.SetBlinking(bool blink, [int prePauseMs], [int postPauseMs]);
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To change the duration that Misty's eyes stay open or closed while blinking, or to configure Misty to blink while displaying images other than her default eye assets, use the `SetBlinkSettings` command in Misty's REST API. To prevent Misty from blinking while displaying a specific eye asset, use the `RemoveBlinkMappings` command in Misty's REST API.
+**Note:** To customize Misty's blinking behavior, use the `SetBlinkSettings` command in Misty's REST API.
 {{box op="end"}}
+
+Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
 
 Arguments
 
