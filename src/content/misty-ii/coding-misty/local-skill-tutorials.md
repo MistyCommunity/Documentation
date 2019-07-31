@@ -1032,14 +1032,14 @@ function _BackTOF() {
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
+    misty.MoveArmPosition("Left", 2, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
     misty.PlayAudio("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Right", 10, 60, 0, 1500); // down
+    misty.MoveArmPosition("Right", 2, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudio("010-Hummmmmm.wav");
@@ -1106,14 +1106,14 @@ function _BackTOF() {
 
     // left
     misty.MoveArmPosition("Left", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Left", 0, 60, 0, 1500); // down
+    misty.MoveArmPosition("Left", 2, 60, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
     misty.PlayAudio("001-EeeeeeE.wav");
 
     // right
     misty.MoveArmPosition("Right", 10, 60, 0, 1500); // up
-    misty.MoveArmPosition("Right", 0, 60, 0, 1500); // down
+    misty.MoveArmPosition("Right", 2, 60, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudio("010-Hummmmmm.wav");
