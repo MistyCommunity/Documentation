@@ -1641,6 +1641,85 @@ Arguments
 misty.StartRecordingVideo();
 ```
 
+### misty.StartKeyPhraseRecognition - BETA
+
+Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to `KeyPhraseRecognized` event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When you call the `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+
+To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a `misty.StartRecordingAudio()` command after receiving a `KeyPhraseRecognized` event message. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+{{box op="end"}}
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+1. Invoke the `misty.StartKeyPhraseRecognition()` command.
+2. Register for `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
+3. Write the code to handle what Misty should do when she hears the key phrase inside the `KeyPhrasedRecognized` event callback. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `misty.StartKeyPhraseRecognition()` command.
+{{box op="end"}}
+
+```JavaScript
+// Syntax
+misty.StartKeyPhraseRecognition([int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+As an example of how to use this functionality in your skill code, the following has Misty play a sound and wave when she hears the key phrase.
+
+```JavaScript
+StartKeyPhraseRecognition();
+
+function StartKeyPhraseRecognition() {
+   misty.Debug("Starting key phrase recognition...");
+   // Starts Misty listening for the "Hey, Misty" key phrase
+   misty.StartKeyPhraseRecognition();
+   // Registers for KeyPhraseRecognized events
+	misty.RegisterEvent("KeyPhraseRecognized","KeyPhraseRecognized", 10, false);
+	misty.Debug("KeyPhraseRecognition started. Misty will play a sound and wave when she hears 'Hey Misty'.");
+}
+
+// Callback function to execute when Misty hears the key phrase
+function _KeyPhraseRecognized() {
+   misty.PlayAudio("002-Weerp.wav", 100);
+   waveRightArm();
+   misty.Debug("Key phrase recognized!");
+   misty.Debug("Audio recording stopped. Starting key phrase recognition again...");
+   // Starts Misty listening for the key phrase again
+   StartKeyPhraseRecognition();
+}
+
+// Helper function to wave Misty's arm
+function waveRightArm() {
+   misty.MoveArmDegrees("left", 90, 45); // Left arm fully down
+   misty.Pause(50);
+   misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
+   misty.Pause(50); // Pause for 3 seconds
+   misty.MoveArmDegrees("right", -45, 45); // Right arm fully up
+   misty.Pause(7000); // Pause with arm up for 5 seconds (wave!)
+   misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
+}
+```
+
+### misty.StopKeyPhraseRecognition - BETA
+
+Stops Misty listening for the "Hey, Misty!" key phrase.
+
+```JavaScript
+// Syntax
+misty.StopKeyPhraseRecognition([int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.StopRecordingVideo - BETA
 
 Stops recording video with Misty's 4K camera.
