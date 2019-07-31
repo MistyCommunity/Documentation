@@ -651,7 +651,7 @@ async function startFaceTraining() {
 };
 ```
 
-In either case, we need to subscribe to the [`FaceRecognition`](../../reference/sensor-data/#facerecognition) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"FaceRecognition"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_FaceRecognition()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
+In either case, we need to subscribe to the [`FaceRecognition`](../../reference/sensor-data/#facerecognition-beta-) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"FaceRecognition"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_FaceRecognition()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
 
 ```JavaScript
 async function openCallback() {
