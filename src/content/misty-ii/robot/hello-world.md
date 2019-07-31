@@ -91,9 +91,9 @@ function _look_around(repeat = true) {
     // values passed into getRandomInt() to change Misty's range of
     // motion when she calls this method.
     misty.MoveHeadPosition(
-        getRandomInt(-5, 5), // Random pitch position between -5 and 5
-        getRandomInt(-5, 5), // Random roll position between -5 and 5
-        getRandomInt(-5, 5), // Random yaw position between -5 and 5
+        getRandomInt(-3, 3), // Random pitch position between -3 and 3
+        getRandomInt(-3, 3), // Random roll position between -3 and 3
+        getRandomInt(-3, 3), // Random yaw position between -3 and 3
         100); // Head movement velocity. Decrease for slower movement.
 }
 ```
@@ -109,9 +109,9 @@ function _look_around(repeat = true) {
     // values passed into getRandomInt() to change Misty's range of
     // motion when she calls this method.
     misty.MoveHeadPosition(
-        getRandomInt(-5, 5), // Random pitch position between -5 and 5
-        getRandomInt(-5, 5), // Random roll position between -5 and 5
-        getRandomInt(-5, 5), // Random yaw position between -5 and 5
+        getRandomInt(-3, 3), // Random pitch position between -3 and 3
+        getRandomInt(-3, 3), // Random roll position between -3 and 3
+        getRandomInt(-3, 3), // Random yaw position between -3 and 3
         100); // Head movement velocity. Decrease for slower movement.
 
         // If repeat is set to true, re-registers for the look_around
@@ -151,9 +151,9 @@ function _look_around(repeat = true) {
     // values passed into getRandomInt() to change Misty's range of
     // motion when she calls this method.
     misty.MoveHeadPosition(
-        getRandomInt(-5, 5), // Random pitch position between -5 and 5
-        getRandomInt(-5, 5), // Random roll position between -5 and 5
-        getRandomInt(-5, 5), // Random yaw position between -5 and 5
+        getRandomInt(-3, 3), // Random pitch position between -3 and 3
+        getRandomInt(-3, 3), // Random roll position between -3 and 3
+        getRandomInt(-3, 3), // Random yaw position between -3 and 3
         100); // Head movement velocity. Decrease for slower movement.
 
         // If repeat is set to true, re-registers for the look_around
@@ -597,7 +597,7 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("Happy.png");
+        misty.DisplayImage("DefaultEyes_Joy.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
@@ -618,14 +618,14 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("Happy.png");
+        misty.DisplayImage("DefaultEyes_Joy.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
     // If misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
-        misty.DisplayImage("Disdainful.png");
+        misty.DisplayImage("DefaultEyes_Disgust.jpg");
         misty.PlayAudio("001-OooOooo.wav");
     };
 
@@ -666,14 +666,14 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("Happy.png");
+        misty.DisplayImage("DefaultEyes_Joy.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
     // If misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
-        misty.DisplayImage("Disdainful.png");
+        misty.DisplayImage("DefaultEyes_Disgust.jpg");
         misty.PlayAudio("001-OooOooo.wav");
     };
 
