@@ -1505,15 +1505,20 @@ misty.StartFaceTraining("My_Face");
 
 ### misty.StartRecordingAudio
 
-Directs Misty to initiate an audio recording and save it with the specified file name. Misty records audio with a far-field microphone array and saves it as a 
-
-
-string. To stop recording, you must call the `misty.StopRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
+Starts Misty recording audio. Misty saves audio recordings to her local storage as .wav files. To stop recording, you must call the `misty.StopRecordingAudio()` method.
 
 ```JavaScript
 // Syntax
 misty.StartRecordingAudio(string filename, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Warning:** If you do not issue a `misty.StopRecordingAudio()` command, Misty will continue recording until the audio file is 1 GB. Attempting to retrieve a file this large from Misty can cause the system to crash.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#misty-startkeyphraserecognition-beta).
+{{box op="end"}}
 
 Arguments
 * fileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
@@ -1646,9 +1651,11 @@ misty.StartRecordingVideo();
 Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized-beta) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** When you call the `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+**Note** 
 
-To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a `misty.StartRecordingAudio()` command after receiving a `KeyPhraseRecognized` event message. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* When you call the `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a `misty.StartRecordingAudio()` command after receiving a `KeyPhraseRecognized` event message. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#misty-startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `misty.StartKeyPhraseRecognition()` command.
 {{box op="end"}}
 
 Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:

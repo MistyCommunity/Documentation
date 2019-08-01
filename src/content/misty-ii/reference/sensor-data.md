@@ -815,11 +815,20 @@ Misty sends `KeyPhraseRecognized` event messages when she recognizes the "Hey, M
 }'
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note** 
+
+* When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](./#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
+{{box op="end"}}
+
 You must start key phrase recognition before Misty can send `KeyPhraseRecognized` event messages. Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 
 1. Invoke the [`StartKeyPhraseRecognition`](../../../misty-ii/reference/javascript-api/#misty-startkeyphraserecognition-beta) command.
 2. Register for `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
 3. Write the code to handle what Misty should do when she hears the key phrase inside the `KeyPhrasedRecognized` event callback. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
+
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `StartKeyPhraseRecognition` command.
