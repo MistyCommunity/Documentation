@@ -2192,9 +2192,9 @@ Returns
 
 ### misty.GetLogFile
 
-Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days.
+Obtains log file data for the current date.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetLogFile()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```JavaScript
 // Syntax
@@ -2202,7 +2202,7 @@ misty.GetLogFile([string callback], [string callbackRule = "synchronous"], [stri
 ```
 
 Arguments
-* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, results are passed into the default `_GetLogFile()` callback function.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -2211,11 +2211,16 @@ Arguments
 ```JavaScript
 // Example
 misty.GetLogFile();
+
+// Callback function to handle result
+function _GetLogFile(data) {
+    misty.Debug(JSON.stringify(data.Result));
+};
 ```
 
 Returns
 
-* Result (list) - Compiled log file data. Returns an error message if no log data is found. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (string) - Compiled log file data. Returns an error message if no log data is found. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.GetLogLevel
 
