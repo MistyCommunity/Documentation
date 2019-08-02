@@ -1809,7 +1809,11 @@ Example JSON response for a successful request:
 
 ### GetLogFile
 
-Obtains log file data. Calling `GetLogFile` with no parameters returns available log data for the current date.
+Obtains log file data. Calling `GetLogFile` with no parameters returns log data from the current date. This command returns up to 3 MB of logs.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you request the logs for a specific date, the results may include logs from the following date if less than 3 MB of logs exist for the date requested.
+{{box op="end"}}
 
 Endpoint:
 
