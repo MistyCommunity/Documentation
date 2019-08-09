@@ -187,7 +187,7 @@ Parameters
 
 ```json
 {
-  "FilenameWithoutPath": "example.wav",
+  "FileName": "example.wav",
   "Data": "34,88,90,49,56,...",
   "ImmediatelyApply": false,
   "OverwriteExisting": true
