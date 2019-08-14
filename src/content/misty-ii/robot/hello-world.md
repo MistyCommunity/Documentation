@@ -597,7 +597,7 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("DefaultEyes_Joy.jpg");
+        misty.DisplayImage("e_Joy2.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
@@ -618,14 +618,14 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("DefaultEyes_Joy.jpg");
+        misty.DisplayImage("e_Joy2.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
     // If misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
-        misty.DisplayImage("DefaultEyes_Disgust.jpg");
+        misty.DisplayImage("e_Disgust.jpg");
         misty.PlayAudio("001-OooOooo.wav");
     };
 
@@ -666,14 +666,14 @@ function _FaceRec(data) {
     // Then, replace <Your-Name> below with your own name! If Misty
     // sees and recognizes you, she waves and looks happy.
     if (faceDetected == "<Your-Name>") {
-        misty.DisplayImage("DefaultEyes_Joy.jpg");
+        misty.DisplayImage("e_Joy2.jpg");
         misty.PlayAudio("005-Eurra.wav");
         waveRightArm();
     }
     // If misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
-        misty.DisplayImage("DefaultEyes_Disgust.jpg");
+        misty.DisplayImage("e_Disgust.jpg");
         misty.PlayAudio("001-OooOooo.wav");
     };
 
