@@ -172,6 +172,20 @@ We recommend you check for updates on a weekly basis.
 **Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
 {{box op="end"}}
 
+## Hazard System
+
+Misty's software includes a built-in hazard system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses that she has collided with an object.
+
+In addition to protecting your robot from harm, the hazard system sends an event message each time Misty enters or exits a hazard state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the Sensor & Skill Data section of these docs for details on using this data in your skills.
+
+By default, Misty enters a hazard state when she detects a drop distance of 0.06 meters (60 mm) or greater. She also enters a hazard state when one of her bump sensors becomes activated, indicating she has collided with an object. While in a hazard state, Misty ignores any commands that would make that hazard state worse. For example, when Misty is driving forward, if one of her front-facing bump sensors is pressed, or if the downward-facing time-of-flight sensors detect a high ledge in front of the robot, Misty stops driving. In this example situation, Misty would ignore any forward drive commands she receives until the sensors indicate that she's no longer in that hazard state.
+
+To enable the hazards system to work effectively, Misty's max speed is limited to ~450 mm/s. This is the highest speed at which Misty can safely detect most ledges and stop moving, without being carried over the edge by any built-up momentum. The hazards system will be enhanced in future updates to allow for increased performance and to increase Misty's default max speed.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazard system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
+{{box op="end"}}
+
 ## Hardware Extensibility
 
 You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills.

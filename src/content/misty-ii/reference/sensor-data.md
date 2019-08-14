@@ -110,179 +110,286 @@ The ```SelfState``` WebSocket provides a variety of data about Misty’s current
 ```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
 
 Sample SelfState data:
-```javascript
-SelfState {
-    "eventName": "SelfState",
-    "message": {
-        "acceleration": null,
-        "batteryChargePercent": 0,
-        "batteryVoltage": 0,
-        "bumpedState": {
-            "disengagedSensorIds": [],
-            "disengagedSensorNames": [],
-            "disengagedSensors": [],
-            "engagedSensorIds": [],
-            "engagedSensorNames": [],
-            "engagedSensors": []
-        },
-        "currentGoal": {
-            "animation": null,
-            "animationId": null,
-            "directedMotion": null,
-            "directedMotionBehavior": "SupersedeAll",
-            "haltActionSequence": false,
-            "haltAnimation": false
-        },
-        "isCharging": false,
-        "localIPAddress": "10.0.1.160",
-        "location": {
-            "bearing": 2.1161846957231862,
-            "bearingThreshold": {
-                "lowerBound": 0,
-                "upperBound": 0
-            },
-            "distance": 0.049783250606253104,
-            "distanceThreshold": {
-                "lowerBound": 0,
-                "upperBound": 0
-            },
-            "elevation": -0.009038750542528028,
-            "elevationThreshold": {
-                "lowerBound": 0,
-                "upperBound": 0
-            },
-            "pose": {
-                "bearing": 2.1161846957231862,
-                "created": "2018-09-17T21:01:35.7312016Z",
-                "distance": 0.049783250606253104,
-                "elevation": -0.009038750542528028,
-                "frameId": "WorldOrigin",
-                "framesProvider": {
-                    "rootFrame": {
-                        "created": "2018-09-17T18:21:22.8435331Z",
-                        "id": "RobotBaseCenter",
-                        "isStatic": true,
-                        "linkFromParent": {
-                            "isStatic": true,
-                            "parentFrameId": "",
-                            "transformFromParent": {
-                                "bearing": 0,
-                                "distance": 0,
-                                "elevation": 0,
-                                "pitch": 0,
-                                "quaternion": {
-                                    "isIdentity": true,
-                                    "w": 1,
-                                    "x": 0,
-                                    "y": 0,
-                                    "z": 0
-                                },
-                                "roll": 0,
-                                "x": 0,
-                                "y": 0,
-                                "yaw": 0,
-                                "z": 0
-                            },
-                            "transformToParent": {
-                                "bearing": 3.141592653589793,
-                                "distance": 0,
-                                "elevation": 0,
-                                "pitch": 0,
-                                "quaternion": {
-                                    "isIdentity": true,
-                                    "w": 1,
-                                    "x": 0,
-                                    "y": 0,
-                                    "z": 0
-                                },
-                                "roll": 0,
-                                "x": 0,
-                                "y": 0,
-                                "yaw": 0,
-                                "z": 0
-                            }
-                        }
-                    }
-                },
-                "homogeneousCoordinates": {
-                    "bearing": 2.1161846957231862,
-                    "distance": 0.049783250606253104,
-                    "elevation": -0.009038750542528028,
-                    "pitch": -0.18708743155002594,
-                    "quaternion": {
-                        "isIdentity": false,
-                        "w": 0.99558717,
-                        "x": -0.008987884,
-                        "y": -0.09339719,
-                        "z": -0.0015491969
-                    },
-                    "roll": -0.017920719552386073,
-                    "x": -0.025824014097452164,
-                    "y": 0.04255925118923187,
-                    "yaw": -0.001430802591800146,
-                    "z": 0.00044997225631959736
-                },
-                "pitch": -0.18708743155002594,
-                "roll": -0.017920719552386073,
-                "x": -0.025824014097452164,
-                "y": 0.04255925118923187,
-                "yaw": -0.001430802591800146,
-                "z": 0.00044997225631959736
-            },
-            "unitOfMeasure": "None"
-        },
-        "mentalState": {
-            "affect": {
-                "arousal": 0,
-                "dominance": 0,
-                "valence": 0
-            },
-            "created": "2018-09-17T21:01:35.7312016Z",
-            "personality": {
-                "agreeableness": 0,
-                "conscientiousness": 0,
-                "extraversion": 0,
-                "neuroticism": 0,
-                "openness": 0
-            },
-            "physiologicalBehavior": {
-                "hunger": {
-                    "isEating": false,
-                    "level": 0
-                },
-                "sleepiness": {
-                    "isSleeping": false,
-                    "level": 0
-                }
-            }
-        },
-        "occupancyGridCell": {
-            "x": 0,
-            "y": 0
-        },
-        "occupancyGridCellMeters": 0,
-        "orientation": {
-            "pitch": -0.18708743155002594,
-            "roll": -0.017920719552386073,
-            "yaw": -0.001430802591800146
-        },
-        "position": {
-            "x": -0.025824014097452164,
-            "y": 0.04255925118923187,
-            "z": -0.025824014097452164
-        },
-        "slamStatus": {
-            "runMode": "Exploring",
-            "sensorStatus": "Ready",
-            "status": 132
-        },
-        "stringMessages": null,
-        "touchedState": {
-            "disengagedSensors": [],
-            "engagedSensors": []
-        }
+```JSON
+SelfState
+{
+  "eventName": "SelfState",
+  "message": {
+    "acceleration": {
+      "units": "None",
+      "x": 0,
+      "y": 0,
+      "z": 0
     },
-    "type": "SelfState"
+    "battery": {
+      "chargePercent": null,
+      "created": "2019-08-14T21:17:53.7266429Z",
+      "current": -0.911,
+      "expiry": "2019-08-14T21:18:03.7266429Z",
+      "healthPercent": null,
+      "isCharging": false,
+      "sensorId": "charge",
+      "sensorName": "/Sensors/RTC/BatteryCharge",
+      "state": "Discharging",
+      "temperature": 21,
+      "trained": false,
+      "voltage": 6.612
+    },
+    "bumpedState": {
+      "disengagedSensorIds": [],
+      "disengagedSensorNames": [],
+      "disengagedSensors": [],
+      "engagedSensorIds": [],
+      "engagedSensorNames": [],
+      "engagedSensors": []
+    },
+    "cameraStatus": {
+      "isTakingPicture": false,
+      "onboardCameraStatus": "Streaming"
+    },
+    "currentGoal": {
+      "directedMotion": {
+        "commandGroups": [
+          {
+            "arguments": {
+              "apiCommand": "MoveHead",
+              "changeDisplayImageGesture": null,
+              "lookParameters": {
+                "actionDelayInSeconds": null,
+                "actionDurationInSeconds": 1,
+                "fractionalPupilUseLimit": null,
+                "rollInRadians": -0.7330382858376184,
+                "spatialPrecisionInMeters": null,
+                "targetPose": {
+                  "bearing": 0,
+                  "created": "2019-08-14T20:28:48.3341954Z",
+                  "distance": 10,
+                  "elevation": 0,
+                  "frameId": "RobotNeck",
+                  "framesProvider": {
+                    "rootFrame": {
+                      "created": "2019-08-14T16:21:18.1035121Z",
+                      "id": "RobotBaseCenter",
+                      "isStatic": true,
+                      "linkFromParent": {
+                        "isStatic": true,
+                        "parentFrameId": "",
+                        "transformFromParent": {
+                          "bearing": 0,
+                          "distance": 0,
+                          "elevation": 0,
+                          "pitch": 0,
+                          "quaternion": {
+                            "isIdentity": true,
+                            "w": 1,
+                            "x": 0,
+                            "y": 0,
+                            "z": 0
+                          },
+                          "roll": 0,
+                          "x": 0,
+                          "y": 0,
+                          "yaw": 0,
+                          "z": 0
+                        },
+                        "transformToParent": {
+                          "bearing": 3.141592653589793,
+                          "distance": 0,
+                          "elevation": 0,
+                          "pitch": 0,
+                          "quaternion": {
+                            "isIdentity": true,
+                            "w": 1,
+                            "x": 0,
+                            "y": 0,
+                            "z": 0
+                          },
+                          "roll": 0,
+                          "x": 0,
+                          "y": 0,
+                          "yaw": 0,
+                          "z": 0
+                        }
+                      }
+                    }
+                  },
+                  "homogeneousCoordinates": {
+                    "bearing": 0,
+                    "distance": 10,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 10,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "pitch": 0,
+                  "roll": 0,
+                  "x": 10,
+                  "y": 0,
+                  "yaw": 0,
+                  "z": 0
+                },
+                "worldObjectId": null
+              }
+            },
+            "name": "Misty2.AffectiveHeadEyeAction"
+          }
+        ],
+        "id": 8835
+      },
+      "directedMotionBehavior": "Update",
+      "haltActionSequence": false
+    },
+    "localIPAddress": "192.168.7.32",
+    "location": {
+      "bearing": 0,
+      "bearingThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "distance": 0,
+      "distanceThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "elevation": 0,
+      "elevationThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "pose": {
+        "bearing": 0,
+        "created": "2019-08-14T21:17:53.9314769Z",
+        "distance": 0,
+        "elevation": 0,
+        "frameId": "WorldOrigin",
+        "framesProvider": {
+          "rootFrame": {
+            "created": "2019-08-14T16:21:18.1035121Z",
+            "id": "RobotBaseCenter",
+            "isStatic": true,
+            "linkFromParent": {
+              "isStatic": true,
+              "parentFrameId": "",
+              "transformFromParent": {
+                "bearing": 0,
+                "distance": 0,
+                "elevation": 0,
+                "pitch": 0,
+                "quaternion": {
+                  "isIdentity": true,
+                  "w": 1,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "roll": 0,
+                "x": 0,
+                "y": 0,
+                "yaw": 0,
+                "z": 0
+              },
+              "transformToParent": {
+                "bearing": 3.141592653589793,
+                "distance": 0,
+                "elevation": 0,
+                "pitch": 0,
+                "quaternion": {
+                  "isIdentity": true,
+                  "w": 1,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "roll": 0,
+                "x": 0,
+                "y": 0,
+                "yaw": 0,
+                "z": 0
+              }
+            }
+          }
+        },
+        "homogeneousCoordinates": {
+          "bearing": 0,
+          "distance": 0,
+          "elevation": 0,
+          "pitch": 0.10141706466674805,
+          "quaternion": {
+            "isIdentity": false,
+            "w": 0.619889557,
+            "x": -0.7773387,
+            "y": -0.041995585,
+            "z": 0.09861117
+          },
+          "roll": -1.7855754801963701,
+          "x": 0,
+          "y": 0,
+          "yaw": 0.18964907113092544,
+          "z": 0
+        },
+        "pitch": 0.10141706466674805,
+        "roll": -1.7855754801963701,
+        "x": 0,
+        "y": 0,
+        "yaw": 0.18964907113092544,
+        "z": 0
+      },
+      "unitOfMeasure": "None"
+    },
+    "mentalState": {
+      "affect": {
+        "arousal": 0,
+        "dominance": 0,
+        "valence": 0
+      },
+      "created": "2019-08-14T21:17:53.9314769Z",
+      "personality": {
+        "agreeableness": 0,
+        "conscientiousness": 0,
+        "extraversion": 0,
+        "neuroticism": 0,
+        "openness": 0
+      },
+      "physiologicalBehavior": {
+        "hunger": {
+          "isEating": false,
+          "level": 0
+        },
+        "sleepiness": {
+          "isSleeping": false,
+          "level": 0
+        }
+      }
+    },
+    "occupancyGridCell": {
+      "x": 0,
+      "y": 0
+    },
+    "occupancyGridCellMeters": 0,
+    "serialMessages": [],
+    "slamStatus": {
+      "runMode": "Uninitialized",
+      "sensorStatus": "Ready",
+      "status": 2,
+      "statusList": [
+        "Ready"
+      ]
+    },
+    "touchedState": {
+      "disengagedSensors": [],
+      "engagedSensors": []
+    }
+  }
 }
 ```
 
@@ -923,5 +1030,209 @@ Sample `SourceFocusConfigMessage` response data:
     "sectorsEnabled": [true, true, true, true],
     "sectorStartAngles": [135,45,315,225]
   }
+}
+```
+
+## HazardNotification - ALPHA
+
+Misty sends `HazardNotification` event messages each time the hazard system detects a change to a hazard state. You can subscribe to `HazardNotification` events to be notified when Misty enters or exits a specific hazard state. Use this data to have Misty programmatically alter her course or change her behavior in skills that use automated movement and locomotion.
+
+Each `HazardNotification` event message includes the following properties:
+* `bumpSensorsHazardState` - An array of objects that describe the hazard state for each of Misty's bump sensors. Each object in the array includes a `sensorName` property with a string value for a bump sensor name, and an `inHazard` property with a boolean value indicating whether that bump sensor is in a hazard state. The hazard system considers a bump sensor to be in a hazard state when that sensor is activated/pressed.
+* `criticalInternalError` - A number indicating the presence of a critical internal error that could prevent the hazards system from functioning. If 0, there is no critical internal error; if 1, there is a communication issue between the firmware and the 410 processor in Misty's headboard; if 2, the system has lost communications with Misty's real-time controller. If you encounter a `criticalInternalError` with a value of 1 or 2, please contact a member of the Misty support team.
+* `currentSensorsHazard` - This property is not yet implemented and, for now, can be safely ignored.
+* `driveStopped` - An array of objects that describe the hazard state for six zones around Misty. Each object in the array includes a `sensorName` property with a string value for a zone, and an `inHazard` property with a boolean value indicating whether that zone is in a hazard state. Data from Misty's time-of-flight and bump sensors can trigger a `driveStopped` hazard state.
+* `motorStallHazard` - An array of objects that describe the hazard state for Misty's head, arm, and drive motors. Each object in the array includes a `sensorName` property with a string value for one of Misty's motors, and an `inHazard` property with a boolean value indicating whether that motor is in a hazard state. The `motorStallHazard` state triggers when Misty's sensor data indicates a motor is attempting and failing to enable movement.
+* `timeOfFlightSensorsHazardState` - An array of objects that describe the hazard state for each of Misty's time-of-flight sensors. Each object in the array includes a `sensorName` property with a string value for a time-of-flight sensor name, and an `inHazard` property with a boolean value indicating whether that sensor is in a hazard state. The hazard system considers a time-of-flight sensor to be in a hazard state when the sensor detects a distance greater than a predetermined threshold. For downward-facing time-of-flight sensors, this threshold defaults to 0.06 meters. The hazard system is disabled for front- and rear-facing time-of-flight sensors at this time.
+
+In the following example of a `HazardNotification` event message, the `TOF_DownBackLeft` and `TOF_DownBackRight` time-of-flight sensors are both in a hazard state.
+
+```JSON
+{
+  "eventName": "HazardNotification",
+  "message": {
+    "bumpSensorsHazardState": [
+      {
+        "inHazard": false,
+        "sensorName": "Bump_FrontRight"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Bump_FrontLeft"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Bump_RearRight"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Bump_RearLeft"
+      }
+    ],
+    "criticalInternalError": 0,
+    "currentSensorsHazard": [
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_RightTrack"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_LeftTrack"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_RightArm"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_LeftArm"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_HeadPitch"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_HeadRoll"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "CurrentSensor_HeadYaw"
+      }
+    ],
+    "driveStopped": [
+      {
+        "inHazard": false,
+        "sensorName": "Front right hazard"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Front center hazard"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Front left hazard"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Back right hazard"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Back center hazard"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "Back left hazard"
+      }
+    ],
+    "motorStallHazard": [
+      {
+        "inHazard": false,
+        "sensorName": "RightDrive"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "LeftDrive"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "RightArm"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "LeftArm"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "HeadPitch"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "HeadRoll"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "HeadYaw"
+      }
+    ],
+    "timeOfFlightSensorsHazardState": [
+      {
+        "inHazard": false,
+        "sensorName": "TOF_Right"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "TOF_Center"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "TOF_Left"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "TOF_Back"
+      },
+      {
+        "inHazard": true,
+        "sensorName": "TOF_DownFrontRight"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "TOF_DownFrontLeft"
+      },
+      {
+        "inHazard": false,
+        "sensorName": "TOF_DownBackRight"
+      },
+      {
+        "inHazard": true,
+        "sensorName": "TOF_DownBackLeft"
+      }
+    ]
+  }
+}
+```
+
+### Subscribing to HazardNotification Events
+
+You can subscribe to `HazardNotification` event messages to receive notifications when Misty enters or exits a specific hazard state. You can use this information in your skill code to have Misty make decisions about how to move when autonomously navigating her environment.
+
+The following code provides an example of registering for `HazardNotification` events in a skill running on Misty using her JavaScript API. In this code, we add return properties for `BumpSensorsHazardState` and `TimeOfFlightSensorsHazardState`. This allows us to parse `HazardNotification` event messages in a callback to understand which sensors are in a hazard state. This example uses `HazardNotification` messages to turn Misty's chest LED white when it's safe for her to drive, and red when Misty is in a hazard state. We populate an array with the names of the sensors that are in a hazard state, and we print that array to `SkillData` event listeners with the `misty.Debug()` method.
+
+```JavaScript
+misty.Debug("HazardNotification skill starting!");
+
+// White LED means it's safe to drive
+// Red LED means Misty is in a hazard state
+
+misty.ChangeLED(255, 255, 255);
+
+misty.AddReturnProperty("Hazard", "BumpSensorsHazardState");
+misty.AddReturnProperty("Hazard", "TimeOfFlightSensorsHazardState");
+misty.RegisterEvent("Hazard", "HazardNotification", 0, true);
+
+function _Hazard(data) {
+    var safe = false;
+    // Print HazardNotification event message & data from 
+    // added return properties 
+    misty.Debug(JSON.stringify(data));
+    misty.Debug(JSON.stringify(data.AdditionalResults));
+    const dataIn = data.AdditionalResults;
+    // Push the name of each sensor that is in a hazard state
+    // into an array called triggers
+    var triggers = [];
+    dataIn.forEach(sensor => {
+        sensor.forEach(sensorData => {
+            sensorData.InHazard ? triggers.push(sensorData.SensorName) : {}
+        });
+    });
+    // If the triggers array is empty, it's safe to drive.
+    // If there are elements in this array, Misty is in
+    // a hazard state.
+    triggers.length ? {} : safe = true;
+    safe ? misty.ChangeLED(255, 255, 255) : misty.ChangeLED(255, 0, 0);
+    misty.Debug(safe);
+    misty.Debug(triggers);
 }
 ```
