@@ -428,10 +428,10 @@ Returns:
 
 * Result (object) - A data object with the following parameters:
   * blinkImages (object) - A set of key/value pairs indicating the blink mappings for each image on the robot. Each property in this object is the filename of an image asset saved to Misty. Each value is the image that Misty will "blink" when displaying that image on her screen.
-  * OpenEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
-  * OpenEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
-  * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
-  * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
+  * openEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
+  * openEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
+  * closedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
+  * closedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
 Sample response data for a `GetBlinkSettings` request:
 
