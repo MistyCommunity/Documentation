@@ -414,6 +414,68 @@ Parameters
 }
 ```
 
+### GetBlinkSettings - BETA
+
+Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings-beta) endpoint.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/blink/settings
+
+Parameters:
+
+* None
+
+Returns:
+
+* Result (object) - A data object with the following parameters:
+  * blinkImages (object) - A set of key/value pairs indicating the blink mappings for each image on the robot. Each property in this object is the filename of an image asset saved to Misty. Each value is the image that Misty will "blink" when displaying that image on her screen.
+  * OpenEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
+  * OpenEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
+  * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
+  * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
+
+Sample response data for a `GetBlinkSettings` request:
+
+```JSON
+{
+    "result": {
+        "blinkImages": {
+            "e_Love.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Joy2.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sleepy4.jpg": "e_SystemBlinkStandard.jpg",
+            "e_ContentRight.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Amazement.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Terror.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Anger.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Disoriented.jpg": "e_SystemBlinkStandard.jpg",
+            "e_ApprehensionConcerned.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Fear.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sleepy.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Terror2.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Sleepy2.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sadness.jpg": "e_SystemBlinkStandard.jpg",
+            "e_JoyGoofy2.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Rage4.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Rage.jpg": "e_SystemBlinkLarge.jpg",
+            "e_ContentLeft.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Rage3.jpg": "e_SystemBlinkLarge.jpg",
+            "e_DefaultContent.jpg": "e_SystemBlinkStandard.jpg",
+            "e_EcstacyStarryEyed.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Surprise.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Joy.jpg": "e_SystemBlinkStandard.jpg",
+            "e_TerrorLeft.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Sleepy3.jpg": "e_SystemBlinkStandard.jpg",
+            "e_SystemCamera.jpg": "e_SystemBlinkStandard.jpg",
+            "e_TerrorRight.jpg": "e_SystemBlinkLarge.jpg"
+        },
+        "closedEyeMaxMs": 200,
+        "closedEyeMinMs": 100,
+        "openEyeMaxMs": 8000,
+        "openEyeMinMs": 1000
+    },
+    "status": "Success"
+}
+```
+
 ### RemoveBlinkMappings - BETA
 
 Removes blink mappings from one or more image assets.
