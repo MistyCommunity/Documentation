@@ -414,6 +414,68 @@ Parameters
 }
 ```
 
+### GetBlinkSettings - BETA
+
+Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings-beta) endpoint.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/blink/settings
+
+Parameters:
+
+* None
+
+Returns:
+
+* Result (object) - A data object with the following parameters:
+  * blinkImages (object) - A set of key/value pairs indicating the blink mappings for each image on the robot. Each property in this object is the filename of an image asset saved to Misty. Each value is the image that Misty will "blink" when displaying that image on her screen.
+  * openEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
+  * openEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
+  * closedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
+  * closedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
+
+Sample response data for a `GetBlinkSettings` request:
+
+```JSON
+{
+    "result": {
+        "blinkImages": {
+            "e_Love.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Joy2.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sleepy4.jpg": "e_SystemBlinkStandard.jpg",
+            "e_ContentRight.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Amazement.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Terror.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Anger.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Disoriented.jpg": "e_SystemBlinkStandard.jpg",
+            "e_ApprehensionConcerned.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Fear.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sleepy.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Terror2.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Sleepy2.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Sadness.jpg": "e_SystemBlinkStandard.jpg",
+            "e_JoyGoofy2.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Rage4.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Rage.jpg": "e_SystemBlinkLarge.jpg",
+            "e_ContentLeft.jpg": "e_SystemBlinkStandard.jpg",
+            "e_Rage3.jpg": "e_SystemBlinkLarge.jpg",
+            "e_DefaultContent.jpg": "e_SystemBlinkStandard.jpg",
+            "e_EcstacyStarryEyed.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Surprise.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Joy.jpg": "e_SystemBlinkStandard.jpg",
+            "e_TerrorLeft.jpg": "e_SystemBlinkLarge.jpg",
+            "e_Sleepy3.jpg": "e_SystemBlinkStandard.jpg",
+            "e_SystemCamera.jpg": "e_SystemBlinkStandard.jpg",
+            "e_TerrorRight.jpg": "e_SystemBlinkLarge.jpg"
+        },
+        "closedEyeMaxMs": 200,
+        "closedEyeMinMs": 100,
+        "openEyeMaxMs": 8000,
+        "openEyeMinMs": 1000
+    },
+    "status": "Success"
+}
+```
+
 ### RemoveBlinkMappings - BETA
 
 Removes blink mappings from one or more image assets.
@@ -2124,3 +2186,80 @@ Parameters
 Return Values
 
 * Results (bool) - Returns `true` if no errors related to this command.
+
+### UpdateBaseHazardManagementSettings - ALPHA
+
+Changes the hazard system settings for Misty's bump and time-of-flight sensors.
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Warning:** Our testing shows that Misty cannot safely drive over ledges of greater than 0.06 meters. Navigating drops higher than 0.06 meters can cause Misty to tip or fall and become damaged. You may find it useful to customize these settings while testing and developing your robot's skills, but DO SO AT YOUR OWN RISK. We always recommend working with Misty on her foam block while she's operating on a high surface like a desk or table. Always supervise your robot while she is operating in a new environment, and be ready to catch her in the event that she tips over a high ledge.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The settings for Misty's hazard system reset to the default values listed in the tables below each time the robot boots up. The changes you apply with this command do not save across reboot cycles.
+{{box op="end"}}
+
+The default hazards settings for Misty's bump sensors are as follows:
+
+| **`sensorName`** | **`enabled`** |
+| -- | -- |
+| `Bump_FrontRight` | `true` |
+| `Bump_FrontLeft` | `true` |
+| `Bump_RearRight` | `true` |
+| `Bump_RearLeft` | `true` |
+
+The default hazard settings for Misty's time-of-flight sensors are as follows:
+
+|**`sensorName`**| **`threshold`** (in meters) |
+|--|--|
+|`TOF_DownFrontRight`| 0.06|
+|`TOF_DownFrontLeft` | 0.06|
+|`TOF_DownBackRight` |0.06|
+|`TOF_DownBackLeft`|0.06|
+|`TOF_Right` |0 (disabled)|
+|`TOF_Left`|0 (disabled)|
+|`TOF_Center`|0 (disabled)|
+|`TOF_Back`|0 (disabled)|
+
+By default, the hazard system is currently disabled for Misty's front- and rear-facing time-of-flight sensors. The default values for these sensors will change in a future system update.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The `UpdateBaseHazardManagementSettings` endpoint expects a JSON payload with a `Content-Type` of `application/json`.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/hazard/updatebasesettings
+
+Parameters:
+
+* BumpSensorsEnabled (array) - A four element array of objects that turn hazards on or off for each of Misty's bump sensors. You must include an object for each of Misty's bump sensors, but the order of these objects in the `BumpSensorsEnabled` array does not matter. Each object must include the following key/value pairs: 
+  * sensorName (string) - The name of one of Misty's bump sensors. Expects `Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`.
+  * enabled (boolean) - Enables or disables hazards for the correlated bump sensor. Bump sensor hazards are enabled (`true`) by default.
+* TimeOfFlightThresholds (array) - An eight element array of objects that set the minimum distance that will trigger a hazard state for each of Misty's time-of-flight sensors. You must include an object for each of Misty's time-of-flight sensors, but the order of these objects in the `TimeOfFlightThresholds` array does not matter. Each object must include the following key/value pairs: 
+  * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
+  * threshold (double) - The minimum distance (in meters) that will trigger a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
+
+For example, this JSON payload sets the bump and time-of-flight hazard settings to their current default values:
+
+```JSON
+{
+    "bumpSensorsEnabled":[
+        {"sensorName":"Bump_FrontRight","enabled":true},
+        {"sensorName":"Bump_FrontLeft","enabled":true},
+        {"sensorName":"Bump_RearRight","enabled":true},
+        {"sensorName":"Bump_RearLeft","enabled":true}
+    ],
+    "timeOfFlightThresholds":[
+        {"sensorName":"TOF_DownFrontRight","threshold":0.06},
+        {"sensorName":"TOF_DownFrontLeft","threshold":0.06},
+        {"sensorName":"TOF_DownBackRight","threshold":0.06},
+        {"sensorName":"TOF_DownBackLeft","threshold":0.06},
+        {"sensorName":"TOF_Right","threshold":0},
+        {"sensorName":"TOF_Left","threshold":0},
+        {"sensorName":"TOF_Center","threshold":0},
+        {"sensorName":"TOF_Back","threshold":0}
+    ]
+}
+```
+
+Return Values:
+* Result (boolean) - Returns `true` if there are no errors related to this command.
