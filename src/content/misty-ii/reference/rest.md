@@ -363,13 +363,11 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
 Parameters
 
 - FileName (string) - Name of the previously uploaded file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-- TimeoutSeconds (double) - Optional. The length of time to display the specified image. Defaults to `null`.
 - Alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to `1`.
 
 ```json
 {
-  "FileName": "pink_sunset.jpg",
-  "TimeOutSeconds": 5,
+  "FileName": "e_Joy2.jpg",
   "Alpha": 0.5
 }
 ```
@@ -756,7 +754,7 @@ Parameters
 - Pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
-- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10. Defaults to `null`.
+- Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
