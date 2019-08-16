@@ -173,9 +173,9 @@ misty.RegisterTimerEvent("look_around", getRandomInt(5, 10) * 1000, false);
 
 Next we create the JSON meta file and install the skill on Misty. Follow these steps to generate a JSON file for your Hello World skill:
 
-1. Open the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page in a new browser window and find the **Generate** section. ![Skill Runner generate meta](../../../assets/images/skill-runner-generate.png)
+1. Open the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page in a new browser window and find the **Generate** section.
 2. Type `HelloWorld` in the **New Skill Name** field.
-3. Select the option to **Download** option and click **Generate JSON Meta Template**.
+3. Select the option to **Download** option and click **Generate JSON Meta Template**. The full sequence for generating a meta file looks like this: ![Generate meta file animation](../../../assets/images/skill-runner-generate-meta-animation.gif)
 4. Locate the downloaded `HelloWorld.json` file save it to the `HelloWorld` directory you created for this skill earlier.
 5. Open the `HelloWorld.json` file in your text editor. It should look something like this, with a different value for the `"UniqueID"` key:
 
@@ -212,12 +212,10 @@ Make sure the value of the `"Name"` parameter is `"HelloWorld"`. You can ignore 
 With the meta file saved, you're ready to install your skill on Misty. Follow these steps to do so:
 
 1. In the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page, type Misty’s IP address into the Robot IP Address field in the upper right hand corner. (You can find Misty's IP address in the Misty App.) Click **Connect**.
-2. Once the connection is established, find the **Install** section on the Skill Runner page. Click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**.
-3. The skill takes a few seconds to upload. When the upload is complete, your new `HelloWorld` skill appears under the **Manage** section of the Skill Runner page. Find it and click **Start** to begin execution!
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** The Skill Runner web page prints additional information from the skills running on Misty (including debug messages) to your browser's web console. To open the web console in Chrome, use **Ctrl + Shift + J** (Windows/Linux) or **Cmd + Option + J** (Mac).
-{{box op="end"}}
+2. Once the connection is established, find the **Install** section on the Skill Runner page. Click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**, or drag and drop the files to upload them to Misty. ![Upload skill animation](../../../assets/images/skill-runner-upload-skill-animation.gif)
+3. When the upload is complete, your new `HelloWorld` skill appears under the **Manage** section of the Skill Runner page. Find it and click **Start** to begin execution!
+4. Open the web console to view additional information from the skills running on Misty (including debug messages). The keyboard shortcuts for opening the console in Chrome are **Ctrl + Shift + J** (Windows/Linux) or **Cmd + Option + J** (Mac). ![Run skill animation](../../../assets/images/skill-runner-run-skill.gif)
+5. Click **Stop** to stop running the skill.
 
 ## Changing Misty's LED
 

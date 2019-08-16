@@ -24,7 +24,7 @@ When Misty connects, the text on the button displays **Connected** and the **Man
 
 When Misty connects to Skill Runner, the web page subscribes to [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) events through a WebSocket connection to Misty. `SkillData` event messages include debug messages, error messages, and other data on-robot skills publish during skill execution. When you run a skill from the Skill Runner page, these messages print to the console in your web browser.
 
-![Skill Runner web console](../../../assets/images/skill-runner-console.png)
+![Skill Runner web console](../../../assets/images/skill-runner-run-skill.gif)
 
 We recommend using Skill Runner in Chrome browsers for best results. To open the web console in Chrome, use:
 * **Ctrl + Shift + J** (Windows/Linux)
@@ -40,6 +40,8 @@ Use the **Install** interface to install and modify Misty's on-robot skills.
 
 To upload a new skill, drag-and-drop your skill files onto the box, or click the box to find the files in your computer's file system.
 
+![Skill Runner install animation](../../../assets/images/skill-runner-upload-skill-animation.gif)
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Important!** When you install a new skill on Misty, you must upload the JavaScript `code` file and the JSON `meta` file at the same time. You can upload image and audio assets associated with a skill by including these asset files when you upload the skill.
 {{box op="end"}}
@@ -54,7 +56,7 @@ To update the code for an existing skill, or to associate new image and audio as
 
 You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 128 bit GUID with the `UniqueID` parameter. For more information about `meta` files, see [On-Robot JavaScript API Architecture](../../../misty-ii/coding-misty/local-skill-architecture).
 
-![Skill Runner Generate Interface](../../../assets/images/skill-runner-generate.png)
+![Skill Runner Generate animation](../../../assets/images/skill-runner-generate-meta-animation.gif)
 
 To generate a `meta` template for your skill:
 

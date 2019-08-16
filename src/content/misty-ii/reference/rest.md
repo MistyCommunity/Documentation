@@ -680,7 +680,7 @@ Return Values
 
 ### MoveArm
 
-Moves one of Misty's arms.
+Moves Misty's arms.
 
 When moving Misty's arms, it's helpful to understand their orientation.
 
@@ -692,7 +692,7 @@ When moving Misty's arms, it's helpful to understand their orientation.
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
-* Arm (string) - The arm to move. You must use either `left` or `right`.
+* Arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
 * Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.

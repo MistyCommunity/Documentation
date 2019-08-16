@@ -18,13 +18,13 @@ Follow this guide to learn:
 
 **Before you begin**, you need:
 * a Misty II robot that's powered on and connected to your local Wi-Fi network.
-* the IP address for your Misty II robot, which you can find in the Misty App for mobile devices.
-
-**Before getting started**, place Misty on the black foam block from her box. This will ensure that, as you program her, she doesn’t accidentally roll off the table.
+* the IP address for your Misty II robot. You can find Misty's IP address in the [Misty App](../../../tools-&-apps/mobile/misty-app) for your mobile device.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you have not yet connected your Misty II robot to your Wi-Fi network, you can do so now by using the Misty App for iOS or Android. For more information, see the instructions in the [Misty App section of this documentation](../../../tools-&-apps/mobile/misty-app).
 {{box op="end"}}
+
+**Before getting started**, place Misty on the black foam block from her box. This will ensure that, as you program her, she doesn’t accidentally roll off the table.
 
 ## Sending Basic Commands
 
@@ -41,19 +41,19 @@ Follow these steps to start using the Command Center:
 
 Once you're connected, you can experiment with Misty's functionality by interacting with different elements of the Command Center. Here are a few things to try:
 
-* Use the **Quick Commands** section to change the color of Misty's chest LED, show a different image on her display, and have her play a sound. ![Quick Commands](../../../assets/images/command_center_quick_commands.png)
-  * Use the color picker or type in different RGB values and click the **Change LED** button. For example, if you wanted Misty's LED to be purple, use **Red**: `101`; **Green**: `73`; and **Blue**: `157`.
-  * Change Misty's eyes by choosing a different file from the **Change Display Image** menu. For example, try changing her eyes to `Sad.png` or `Angry.png`.
-  * Play a sound by choosing a file from the **Play Audio File** menu.
-* Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](../../../assets/images/command_center_head_movement.png)
+* Use the **Quick Commands** section to change the color of Misty's chest LED, show a different image on her display, and have her play a sound.
+  * Use the color picker or type in different RGB values and click the **Change LED** button. For example, if you wanted Misty's LED to be purple, use **Red**: `101`; **Green**: `73`; and **Blue**: `157`. ![Change LED animation](../../../assets/images/command-center-change-led-animation.gif)
+  * Change Misty's eyes by choosing a different file from the **Change Display Image** menu. For example, try changing her eyes to `Sad.png` or `Angry.png`. ![Change display image animation](../../../assets/images/command-center-display-image-animation.gif)
+  * Play a sound by choosing a file from the **Play Audio File** menu. ![Play audio animation](../../../assets/images/command-center-play-audio-animation.gif)
+* Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](../../../assets/images/command-center-movement-animation.gif)
   * Move Misty's head by moving the sliders under **Head Movement**. Set a new **Pitch**, **Yaw**, or **Roll** position, and then click the **Set** button.
   * Move Misty's arms by moving the left or right slider and clicking the **Rotate Left Arm** or **Rotate Right Arm** button.
-* To prepare Misty for the Hello World tutorial series, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
+* To prepare Misty for the Hello World tutorial series, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command-center-face-training-animation.gif)
   1. To make sure Misty's head is positioned for effective face training, use the **Pitch**, **Yaw** and **Roll** commands under the **Movement** section to align Misty’s gaze with yours. Then, in the **Perception** section, go to **Face Training** and type your name in the **Name to Train** field. Make sure to enter a single word without spaces.
   2. Click the **Start Face Training** button. Wait 10-15 seconds for face training to complete. The main Command Center window displays pop-up status messages during the face training process.
-  3. When face training is complete, you can click the **Get Learned Faces** button to see the labels for people Misty can recognize. Check for your name to make sure Misty learned your face!
-* Use Misty's camera to take a picture. ![Take Picture controls](../../../assets/images/command_center_take_photo.png)
-  * Use the head movement controls to point Misty's visor at something you'd like to photograph. In the **4K Camera** section, click the **Take + Display Photo** button to see what Misty’s sees.
+  3. When face training is complete, you can click the **Get Learned Faces** button to see the labels for people Misty can recognize. Check for your name to make sure Misty learned your face.
+* Use Misty's camera to take a picture.
+  * Use the head movement controls to point Misty's visor at something you'd like to photograph. In the **4K Camera** section, click the **Take + Display Photo** button to see what Misty’s sees. ![Take Picture controls](../../../assets/images/command_center_take_photo.png)
 
 ## Exploring Misty's API
 
@@ -62,13 +62,13 @@ You can use Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer) to
 Follow these steps to start learning about the API Explorer:
 
 1. Follow the link at the top of the Command Center to open up the [API Explorer](http://sdk.mistyrobotics.com/api-explorer) web page. If Misty is still connected to the Command Center when you do this, this connection carries over to the API Explorer, and there's no need to reconnect. If not, you'll need to use Misty's IP address to connect your robot to the API Explorer.
-2. Start by changing the color of Misty's chest LED. Open the **Expression** group in the left-hand side of the page and select the **ChangeLED** command. ![ChangeLED in API Explorer](../../../assets/images/api_explorer_changeLED.png)
-3. Under the **Parameters** section, add a value between `0` and `255` in the **Red**, **Green**, and **Blue** fields. For example, if you want her LED to be fuschia, use **Red**: `204`, **Green**: `0`, **Blue**: `204`. ![API Explorer ChangeLED parameters](../../../assets/images/api_explorer_changeLED_params.png)
-4. Click **Send Request** to send the command and change the LED.
+2. Start by changing the color of Misty's chest LED. Open the **Expression** group in the left-hand side of the page and select the **ChangeLED** command.
+3. Under the **Parameters** section, add a value between `0` and `255` in the **Red**, **Green**, and **Blue** fields. For example, if you want her LED to be fuschia, use **Red**: `204`, **Green**: `0`, **Blue**: `204`.
+4. Click **Send Request** to send the command and change the LED. The full sequence looks like this: ![API Explorer ChangeLED animation](../../../assets/images/api-explorer-send-request-animation.gif)
 5. Next let’s play an audio clip on Misty. Select the **Expression** group from the list on the left-hand side of the page, and click on the **PlayAudioClip** command. 
 6. Enter the file name for one of Misty's default system audio files into the **FileName** field. Try using `034-Hicup.wav`,
 `013-0Bark.wav`, or `001-Veep.wav`. Set the volume to a number between `10` and `100`, and then click **Send Request**. ![API Explorer play audio clip parameters](../../../assets/images/api_explorer_playAudio_params.png)
-1. Lastly, let’s change Misty's eyes. Select the **ChangeDisplayImage** command from the list of commands. Enter `Relaxed.png`, `Afraid.png`, or `Waking.jpg` into the **FileName** field, and click **Send Request**.
+1. Lastly, let’s change Misty's eyes. Select the **ChangeDisplayImage** command from the list of commands. Enter `e_Disgust.jpg`, `e_Admiration.jpg`, or `e_Fear.jpg` into the **FileName** field, and click **Send Request**.
 
 ## Uploading Skills with Skill Runner
 
@@ -84,37 +84,6 @@ Create a new folder on your desktop called **MultiplePersonality**. Download the
 2. Open your browser's web console to view debug messages, error messages, and other data Misty sends to the Skill Runner web page. To open the web console in Chrome, use **Ctrl + Shift + J** (Windows) **Ctrl + Shift + X** (Linux) **Cmd + Option + J** (Mac).
 3. Under the **Install** section of the Skill Runner, click **Choose a file**. Navigate to the folder where you downloaded the `lookAround.json` and `lookAround.json` files. Select **both files** and then click **Open**.
 4. When the skill uploads, it appears in the **Manage** section of the Skill Runner page. Find the **lookAround** skill and click **Start** to run it, or stop to **stop the skill.**
-
-## Setting Up the Misty Skills Extension for Visual Studio Code
-
-In addition to deploying skills from the the Skill Runner web page, you can also deploy skills to Misty directly from the Visual Studio Code editor. You can [download Visual Studio Code for free from Microsoft](https://code.visualstudio.com/). Follow [these instructions](https://docs.mistyrobotics.com/tools-&-apps/plugins-&-extensions/misty-skills-extension/) to install the Misty Skills Extension for VSC.
-
-Now that you are set-up with VSC and understand how Misty’s Extension works, let’s start programming a skill!
-
-### Editing Code and Deploying Skills to Misty
-
-This section of the getting started guide describes how to use the VSC extension to edit the `MultiplePersonality` skill and deploy your updated skill to Misty. Follow these instructions to get started:
-
-1.  The Misty Skills Extension for VSC works with **folders**. The **folder and the two skill files must have the same**. The first step is to **create a new folder** on your desktop and name it whatever you like.
-2.  Open the `MultiplePersonality.js` file in Visual Studio Code then click **Save As**. **Save the .js file with the same name you gave the new folder, and then click Save**. This will be the name of the modified skill.
-3.  Switch **back to your browser and navigate to [Misty’s web-based tools](http://sdk.mistyrobotics.com/)**. Click on **Skill Runner** in the menu bar.
-4.  In the **Generate** section, enter the name you used for the folder and .js file in the **New Skill Name** field. 
-5.  Select the **Download** option, and then click **Generate JSON Meta Template**. 
-6.  **Move the downloaded JSON file** to the new skill folder where you saved the .js code file. 
-7.  Switch back to **VSC** and open the contents of your new folder.
-8.  **Click to open the .js code file**. Try replacing the audio and/or image files used in the skill code with the following filenames, and save the file with your changes:
-    **Eye Files:				Audio Files:**
-    Relaxed.png				034-Hicup.wav
-    Afraid.png				013-0Bark.wav
-    Waking.jpg				001-Veep.wav
-9.  Now it’s time to deploy your code to the robot by using the **Misty Extension in VSC**. 
-10. There are two ways run the commands to deploy code. The first is to **click View in the menu bar, then Command Palette…**. You can also use one of the shortcuts listed below:
-  * For PC users: Press Control+Shift+P and select: **Misty: Upload and Run** 
-  * For Mac users: Press Command+Shift+P and select: **Misty: Upload and Run**
-11. **Enter the IP address** for Misty. Check the status on the bottom right hand corner to confirm your skill is running. Press Misty's bump sensors to see her reactions.
-12.  To **stop your skill**, use the Misty Extension in VSC by following the process outlined in step 10. Either click View and then **Command Palette**, or use one of the shortcuts below:
-  * For **PC users**: Press Control+Shift+P and select: **Misty: Stop Skill**
-  * For **Mac users**: Press Command+Shift+P and select: **Misty: Stop Skills** 
 
 ## What's Next?
 
