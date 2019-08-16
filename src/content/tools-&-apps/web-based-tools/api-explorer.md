@@ -36,6 +36,8 @@ Follow these steps to send REST requests from the API Explorer to Misty.
 
 When you send a request, Misty's response appears in the [**JSON Response** section](./#json-response) of the API Explorer, as well as in your browser's web console.
 
+The full sequence for sending a request from the API Explorer looks like this: ![API Explorer request](../../../assets/images/api-explorer-send-request-animation.gif)
+
 ## Using Code Samples
 
 You can use the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to generate code samples for Misty's REST API and her on-robot JavaScript API. Click the **Copy** button next to a section to copy the text from that section to your computer's clipboard.

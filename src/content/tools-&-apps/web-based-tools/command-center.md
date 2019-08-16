@@ -27,7 +27,7 @@ The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by send
 Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**.
 
 1. [Open up the Command Center](http://sdk.mistyrobotics.com/command-center) in a browser window.
-2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**.
+2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**. ![Connect to Misty](../../../assets/images/command-center-connect-animation.gif)
 3. Use the **Quick Commands** in the **System** section to experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
 ![Command Center Quick Commands](../../../assets/images/command-center-quick-commands.png)
 1. When Misty is connected, her serial number, battery level, and software version display under **Device Info** in the **System** section. ![Misty's Device Info](../../../assets/images/command_center_device_info.png)To see all data provided by the **Get All Device Info** button, open the web console for the browser window.
@@ -72,9 +72,9 @@ You can use the **Manual Driving** controls to drive Misty in a variety of direc
 
 ### Moving Misty's Head & Arms
 
-You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to change the position of Misty's head and arms.
+You can use the **Movement** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to change the position of Misty's head and arms.
 
-![Command Center head and arm movement controls](../../../assets/images/command_center_head_movement.png)
+![Command Center head and arm movement controls](../../../assets/images/command-center-movement-animation.gif)
 
 When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/), the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
 

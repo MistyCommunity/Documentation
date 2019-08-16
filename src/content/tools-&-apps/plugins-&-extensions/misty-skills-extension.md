@@ -28,6 +28,8 @@ To activate the extension when writing a skill:
 
 With the extension activated, start typing `misty` in a JavaScript code file to start getting autocomplete and command information.
 
+![VSC Extension autocomplete example](../../../assets/images/vsc-plugin-autocomplete.gif)
+
 ### Uploading, Running, and Stopping Skills
 
 When the Misty Skills extension is active, you can run commands directly from your VSC window to upload a skill, upload and run a skill, or to stop the skills that Misty is currently running. This makes it possible to edit and update your skill code on Misty without leaving your text editor.
