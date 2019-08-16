@@ -24,7 +24,7 @@ Follow this guide to learn:
 **Note:** If you have not yet connected your Misty II robot to your Wi-Fi network, you can do so now by using the Misty App for iOS or Android. For more information, see the instructions in the [Misty App section of this documentation](../../../tools-&-apps/mobile/misty-app).
 {{box op="end"}}
 
-**Before getting started**, place Misty on the black foam block from her box. This will ensure that, as you program her, she doesn’t accidentally roll off the table.
+**Before getting started**, place Misty on the black foam block from her box. While Misty is designed to automatically detect obstacles and ledges, placing her on this foam block will ensure that she doesn’t accidentally roll off the table while you're coding.
 
 ## Sending Basic Commands
 

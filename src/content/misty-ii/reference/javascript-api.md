@@ -869,8 +869,8 @@ Arguments
 
 
 ```JS
-// Example
-misty.MoveHead(10, 0, 0, 100);
+// Misty looks straight ahead
+misty.MoveHead(0, 0, 0, 100);
 ```
 
 ### misty.MoveHeadDegrees
