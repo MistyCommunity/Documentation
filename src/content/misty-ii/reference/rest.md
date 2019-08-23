@@ -2261,3 +2261,43 @@ For example, this JSON payload sets the bump and time-of-flight hazard settings 
 
 Return Values:
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### SetNotificationSettings - BETA
+
+Changes the settings for Misty's default hardware notifications.
+
+Misty's default hardware notification settings are as follows:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
+
+**LED Notifications**
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * When training fails, the LED blinks red three times.
+  * When Misty sees more than one face, the LED blinks yellow three times.
+  * When Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/notification/settings
+
+Parameters:
+
+* RevertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
+* LedEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
+* KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
+* KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
+
+```JSON
+{
+  "LedEnabled": false,
+  "KeyPhraseEnabled": true,
+  "KeyPhraseFile": "<new-wakeword-sound>.wav"
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.

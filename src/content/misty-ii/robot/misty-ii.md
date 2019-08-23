@@ -79,6 +79,25 @@ To use Misty's wireless charging pad, follow these steps:
 
 You can also charge Misty by plugging the power supply directly into the power port. Misty's power port is on the bottom of Misty, next to her power switch.
 
+## Hardware Notifications
+
+When you interact with Misty, she notifies you of certain events by playing sounds or changing the color of her chest LED. These notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+
+The following notifications are enabled by default:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+
+**LED Notifications**
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * If training fails, the LED blinks red three times.
+  * If Misty sees more than one face, the LED blinks yellow three times.
+  * If Misty doesn't see a face, the LED turns yellow.
+* **System Updates** While Misty is performing a system update, the LED blinks white.
+
 ## Misty II Specs
 
 Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.
