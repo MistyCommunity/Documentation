@@ -2180,6 +2180,7 @@ Returns
    * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
    * ipAddress - The IP address of the robot.
    * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
    * outputCapabilities - An array listing the output capabilities for this robot.
    * robotId - The robot's unique ID, if set. Default value is all zeros.
    * robotVersion - The version number for the HomeRobot app running on the robot.
