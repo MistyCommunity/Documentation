@@ -140,7 +140,7 @@ a.nav-device {
   }
   &.mobile-only {
     display: none;
-    @media(max-width: 1100px) { // shrink nav into dropdown menu at this width
+    @media(max-width: @nav-shrink-size) { // shrink nav into dropdown menu at this width
       display: inline-block;
     }
   }
