@@ -9,16 +9,15 @@ order:
 
 You can use the Misty Skills extension for [Visual Studio Code](https://code.visualstudio.com/) to aid in skill development. This extension provides a list of the available methods in Misty's on-robot JavaScript API. It offers auto-complete, tabbed parameter entry, and information about each method. It also provides basic commands for uploading, running, and stopping skills on Misty from within the Visual Studio Code editor.
 
-Access to the Misty skills extension is currently limited to a small group of field trial robot testers. If you are a field trial tester, you can access your extension download in the Field Trials section of the [Community forums](https://community.mistyrobotics.com/).
-
 ### Installing the Misty Skills Extension
 
 Follow these steps to install the Misty Skills extension:
 
-1. Open Visual Studio Code.
-2. Use **Ctrl** + **Shift** + **X** (Windows) or **Command** + **Shift** + **X** (Mac) to see your list of Installed extensions.
-3. Use the menu at the top of this list to select the option to **Install from VSIX...**
-4. Locate your Misty Skills `.vsix` file and select it to install.
+1. [Click here to download the extension](https://misty-releases.s3.amazonaws.com/vsc-extension/latest/mistyskills-0.0.5.vsix).
+2. Open Visual Studio Code.
+3. Use **Ctrl** + **Shift** + **X** (Windows) or **Command** + **Shift** + **X** (Mac) to see your list of Installed extensions.
+4. Use the menu at the top of this list to select the option to **Install from VSIX...**
+5. Navigate to the folder where you downloaded the `.vsix` file and select it to install.
 
 ### Activating the Misty Skills Extension
 
