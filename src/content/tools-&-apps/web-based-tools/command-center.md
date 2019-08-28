@@ -419,3 +419,15 @@ You can also use the [Command Center](http://sdk.mistyrobotics.com/command-cente
 * To see the list of Wi-Fi networks that Misty remembers, connect Misty to the [Command Center](http://sdk.mistyrobotics.com/command-center/) and click the **Wifi** button at the top of the page. Click the **Populate List** button to generate a list of networks that Misty remembers.
 * To connect to a network, select the network name from the list and click the **Connect** button.
 * To forget a network, select the network name from the list and click the **Forget** button. Or, click the **Forget All** button to clear all Wi-Fi networks from Misty's memory.
+
+## Getting a Diagnostic Report
+
+The Command Center provides controls for downloading a diagnostic report from your robot to your PC. This report includes a copy of your robot’s log files from the previous seven days and a text file with your robot's device information. When you download this report via the Command Center, it is saved to the downloads folder on your PC in the form of a `diagnostic.zip` file.
+
+When troubleshooting issues with your Misty II, you may be asked to get a diagnostic report to share with the Misty support team. Follow these steps to get the report:
+
+1. Make sure Misty is already connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+2. Scroll down to the **Sensor Data** section and click **Advanced Options**.
+3. Scroll down to the **Get Diagnostic Report** section at the bottom of the **Advanced Options** modal.
+4. Click the **Run and Download** button to download a compressed `diagnostic.zip` file with your robot's log files and device information. ![Get a report](../../../assets/images/command-center-diagnostic-report.png)
+5. Locate the downloaded `diagnostic.zip` file on your PC. Send this file to the Misty support team by attaching it in an email to help@mistyrobotics.com.
