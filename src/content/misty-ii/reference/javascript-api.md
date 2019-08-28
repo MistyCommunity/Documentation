@@ -779,7 +779,7 @@ misty.MoveArmPosition(string arm, double position, double velocity, [int prePaus
 ```
 
 Arguments
-* arm (string) - The arm to move. Pass `"left"` or `"right"`.
+* arm (string) - The arm to move. Use `left`, `right`, or `both`.
 * position (double) - The position to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -807,7 +807,7 @@ misty.MoveArmDegrees(string arm, double degrees, double velocity, [int prePauseM
 ```
 
 Arguments
-* arm (string) - The arm to move. Pass `"left"` or `"right"`.
+* arm (string) - The arm to move. Use `left`, `right`, or `both`.
 * degrees (double) - The location in degrees to move the arm to. Value range: 0 to -180.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -835,7 +835,7 @@ misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseM
 ```
 
 Arguments
-* arm (string) - The arm to move. Pass `"left"` or `"right"`.
+* arm (string) - The arm to move. Use `left`, `right`, or `both`.
 * radians (double) - The location in radians to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
