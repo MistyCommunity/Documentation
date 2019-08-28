@@ -7,32 +7,92 @@ order: 3
 
 # {{title}}
 
-The following are Misty’s available sensor and skill data types. You receive this data when you register for events using Misty's on-robot JavaScript API or when you subscribe to a WebSocket connection from an external device.
+This document provides information about Misty’s available sensor and skill data types. You can receive data from these named by using WebSockets or by registering for events in your skill code. You can filter the messages all data types send to (a) return only a specified subset of the data and (b) check current values before the message is sent.
 
-You can filter all data types to (a) return only a specified subset of the data and (b) check current values before the data is sent.
-
-**Note**: All of Misty's sensor & skill data structures are subject to change.
-
-**Important:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/reference/rest/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/reference/rest/#setwebsocketversion) to switch versions.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/reference/rest/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/reference/rest/#setwebsocketversion) to switch versions.
+{{box op="end"}}
 
 ## TimeOfFlight
 
-Misty has four time-of-flight sensors that provide raw proximity data (in meters) in a single stream. The ```TimeOfFlight``` WebSocket sends this data any time a time-of-flight sensor is triggered. It is possible for proximity data to be sent as frequently as every 70 milliseconds, though it can be significantly slower. It is not sent at timed intervals.
+Misty has four edge and four range time-of-flight sensors that provide a single stream of raw proximity data. These sensors send `TimeOfFlight` messages that you can subscribe to in your skills and robot applications. 
 
-Sample time-of-flight sensor data:
-```javascript
-TimeOfFlight{
-	"EventName":"TimeOfFlight",
-	"Message":{
-		"Created":"2018-03-30T20:36:46.5816862Z",
-		"DistanceInMeters":0.184,
-		"Expiry":"2018-03-30T20:36:46.9316897Z",
-		"SensorId":"CD727A0A",
-		"SensorPosition":"Right"
-	},
-	"Type":"TimeOfFlight"
+{{box op="start" cssClass="boxed noteBox"}}
+You can change how frequently a `TimeOfFlight` subscription gets messages by adjusting the value of the `debounceMS` parameter when you subscribe to the WebSocket connection or call the [`misty.RegisterEvent()`](../../../misty-ii/reference/javascript-api/#misty-registerevent-alpha) method in Misty's JavaScript API.
+{{box op="end"}}
+
+A `TimeOfFlight` event message includes the following key/value pairs:
+
+* `created` - A timestamp that tells us when the system created the message.
+* `distanceInMeters` - The distance (in meters) of the nearest object the sensor detects.
+* `sensorId` - An identification string associated with a specific time-of-flight sensor. In `TimeOfFlight` events, the value of `sensorId` tells us which sensor sent the message. See the [Time-of-Flight Sensor Details](./#time-of-flight-sensor-details) table for a list of `sensorId` values and their corresponding time-of-flight sensors.
+* `status` - A status code from the sensor that provides additional context for the distance reading in a `TimeOfFlight` event message. At the macro level, `0` indicates the distance reading is valid; `100` codes are warnings (the system has low confidence in the value); and `200` codes are errors (the distance value is not reliable and should probably be discarded). Status codes are different for edge and range time-of-flight sensors. For a list of status codes and their descriptions, see the [Time-of-Flight Status Codes](./#time-of-flight-status-codes) section below.
+* `type` - A string value indicating whether this message comes from a `Range` or `Edge` time-of-flight sensor. See the [Time-of-Flight Sensor Details](./#time-of-flight-sensor-details) table for a list of which sensors belong in each category.
+
+```JSON
+// Example message from right front ToF sensor
+{
+  "eventName": "TimeOfFlight",
+  "message": {
+    "created": "2019-08-22T20:29:30.7786174Z",
+    "distanceInMeters": 0.19,
+    "sensorId": "toffr",
+    "status": 0,
+    "type": "Range"
+  }
 }
 ```
+
+### Time-of-Flight Sensor Details
+
+**Sensor Position**|**`sensorName`**|**`sensorId`**|**`type`**
+-----|-----|-----|-----
+Right Front|`toF_Right`|`toffr`|`Range`
+Center Front|`toF_Left`|`toffl`|`Range`
+Left Front|`toF_Center`|`toffc`|`Range`
+Back|`toF_Back`|`tofr`|`Range`
+Downward Front Right|`toF_DownBackRight`|`tofdfr`|`Edge`
+Downward Front Left|`toF_DownBackLeft`|`tofdfl`|`Edge`
+Downward Back Right|`toF_DownFrontRight`|`tofdrr`|`Edge`
+Downward Back Left|`toF_DownFrontLeft`|`tofdrl`|`Edge`
+
+### Time-of-Flight Status Codes
+
+**Range Sensor Status Codes**
+
+Event messages from Misty's range time-of-flight sensors include one of the following status codes:
+
+**Status Code**|**Name**|**Meaning**
+-----|-----|-----|-----
+`-1`|`Unknown`| An unknown error. The system uses this code as a catch-all for errors that do not map to one of the codes below.
+`0`|`RangeValid`| The distance reading is valid. The sensor received good data, and its readings fell within the thresholds set for both sigma and signal.
+`101`|`SigmaFail`| The distance reading may not be accurate. The system sends this code when the standard deviation (sigma) of the sensor's readings is higher than the threshold set in Misty's firmware. You are more likely to see this code when Misty is operating in bright environments.
+`102`|`SignalFail`| The distance reading may not be accurate. The system sends this code when the return signal is too weak for the sensor to provide good data. You are more likely to see this code when the target of a sensor is too far away, not reflective enough, or too small.
+`103`|`ROIOutOfBounds`| Each range time-of-flight sensor is comprised of a 16x16 array of detectors. The region of interest for each sensor can be adjusted to allow a different area of the sensor to read return signals. This allows us to change which direction the sensor "sees". (This is similar to the way that you can move your eyes to look in different directions, albeit with more restricted movement.) If the chosen region of interest is outside the 16x16 array of detectors, the system returns a distance value of 8191 with a `103` status code. The region of interest is currently set internally on Misty's system and cannot be adjusted. You will not see this error until the ability to change the region of interest is exposed.
+`104`|`OutOfBounds`| The distance reading may not be accurate. The system sends this code when the sensor sees a target further away than 1.2 meters. While Misty's range time-of-flight sensors **do** return distance values for targets further away than 1.2 meters, the sensor's proximity calculations are less accurate when the target is outside this range. Bear this mind when using distance values that come back with this status code.
+`207`|`WrapTargetFail`| The distance reading is not accurate due to range aliasing. This can happen when the sensor's target is highly reflective and outside the sensor's measurable range. This error can cause the sensor to read the distance of an object further than ~1.3 meters as being within range of the sensor. When you receive a `207` error, you can calculate the approximate distance of the target by adding 1.3 meters to the measured distance that Misty returns.
+
+**Edge Sensor Status Codes**
+
+Event messages from Misty's range time-of-flight sensors include one of the following status codes:
+
+**Status Code**|**Name**|**Meaning**
+-----|-----|-----|-----
+`-1`|`Unknown`| An unknown error. The system uses this code as a catch-all for errors that do not map to one of the codes below.
+`0`|`RangeValid`| The distance reading is valid. The sensor received good data, and its readings fell within the thresholds set for both sigma and signal.
+`201`|`HardwareFail`| The sensor failed to initialize due to an internal error. Because the system automatically attempts to reinitialize the sensors, and because these sensors do not send messages until they are fully initialized, it is unlikely that you will see this code. Errors `201` - `205` only happen at time of initialization.
+`202`|`HardwareFail2`| The sensor failed to initialize due to an internal error. Because the system automatically attempts to reinitialize the sensors, and because these sensors do not send messages until they are fully initialized, it is unlikely that you will see this code. Errors `201` - `205` only happen at time of initialization.
+`203`|`HardwareFail3`| The sensor failed to initialize due to an internal error. Because the system automatically attempts to reinitialize the sensors, and because these sensors do not send messages until they are fully initialized, it is unlikely that you will see this code. Errors `201` - `205` only happen at time of initialization.
+`204`|`HardwareFail4`| The sensor failed to initialize due to an internal error. Because the system automatically attempts to reinitialize the sensors, and because these sensors do not send messages until they are fully initialized, it is unlikely that you will see this code. Errors `201` - `205` only happen at time of initialization.
+`205`|`HardwareFail5`| The sensor failed to initialize due to an internal error. Because the system automatically attempts to reinitialize the sensors, and because these sensors do not send messages until they are fully initialized, it is unlikely that you will see this code. Errors `201` - `205` only happen at time of initialization.
+`206`|`EarlyConvergence`| The sensor has not received a minimum number of return signals within 0.5 milliseconds. When this happens, the sensor cancels measurement to conserve power and returns this status code. You are most likely to see this code when there is nothing in view of the sensor within its range of detection.
+`207`|`MaxConvergence`| The sensor failed to detect a valid target after the maximum amount of time allowed for convergence.
+`208`|`RangeIgnore`| The number of returned signals is less than the threshold set in Misty's firmware, AND the measured distance of any returned signals is less than the crosstalk distance (7 mm) set in the firmware. You should only see this message if there are no solid objects within the sensor's range, causing the sensor to read its protective lens as the strongest signal. You might see this error if the sensor is over an edge, picked up in the air, or if Misty is tipped over.
+`211`|`Signal-To-NoiseRatioFail`| Too much ambient light is washing out the sensor's returned signals. You are most likely to see this error when shining a light directly into the sensor.
+`212`|`RawRangeUnderflow`|The system has produced a negative value for the proximity of the nearest target. This typically happens when the target is closer than the offset distance the system uses in proximity calculations (or, in other words, if the target is closer than 10mm). You might see this error if you place your finger on the sensor's lens, or when the sensor is measuring the distance of bright target between 1.2 and 1.5 meters away.
+`213`|`OutOfBounds`| The sensor's target is too far away and the system cannot calculate an accurate distance value. You should only see this status when the sensor's target is more than 200mm away from the sensor.
+`214`|`RangingUnderflow`|The system has produced a negative value for the proximity of the nearest target. This typically happens when the target is closer than the offset distance the system uses in proximity calculations (or, in other words, if the target is closer than 10mm). You might see this error if you place your finger on the sensor's lens, or when the sensor is measuring the distance of bright target between 1.2 and 1.5 meters away.
+
 
 ## FaceRecognition
 

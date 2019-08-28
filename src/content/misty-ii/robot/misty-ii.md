@@ -79,6 +79,25 @@ To use Misty's wireless charging pad, follow these steps:
 
 You can also charge Misty by plugging the power supply directly into the power port. Misty's power port is on the bottom of Misty, next to her power switch.
 
+## Hardware Notifications
+
+When you interact with Misty, she notifies you of certain events by playing sounds or changing the color of her chest LED. These notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+
+The following notifications are enabled by default:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+
+**LED Notifications**
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * If training fails, the LED blinks red three times.
+  * If Misty sees more than one face, the LED blinks yellow three times.
+  * If Misty doesn't see a face, the LED turns yellow.
+* **System Updates** While Misty is performing a system update, the LED blinks white.
+
 ## Misty II Specs
 
 Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.
@@ -172,13 +191,27 @@ We recommend you check for updates on a weekly basis.
 **Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
 {{box op="end"}}
 
-## Hazard System
+## Hazards System
 
-Misty's software includes a built-in hazard system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses that she has collided with an object.
+Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby or that she has collided with an object.
 
-In addition to protecting your robot from harm, the hazard system sends an event message each time Misty enters or exits a hazard state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the Sensor & Skill Data section of these docs for details on using this data in your skills.
+In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Sensor & Skill Data](../../../misty-ii/reference/sensor-data/#hazardnotification-alpha) section of these docs for details on using this data in your skills.
 
-By default, Misty enters a hazard state when she detects a drop distance of 0.06 meters (60 mm) or greater. She also enters a hazard state when one of her bump sensors becomes activated, indicating she has collided with an object. While in a hazard state, Misty ignores any commands that would make that hazard state worse. For example, when Misty is driving forward, if one of her front-facing bump sensors is pressed, or if the downward-facing time-of-flight sensors detect a high ledge in front of the robot, Misty stops driving. In this example situation, Misty would ignore any forward drive commands she receives until the sensors indicate that she's no longer in that hazard state.
+### Bump & Time-of-Flight Hazards
+
+By default, Misty's bump and time-of-flight sensors put the robot into a hazard state in the following circumstances:
+* when her edge time-of-flight sensors detect a drop distance of 0.06 meters (60 mm) or greater in the direction she is moving.
+* when her range time-of-flight sensors detect an obstacle 0.15 meters (150 mm) or closer in the direction she is moving.
+* when one of her bump sensors becomes activated, indicating she has collided with an object.
+
+When Misty detects an obstacle or an edge, she ignores any commands that would move her in the direction of the sensors that are in a hazard state. For example, when Misty is driving forward, she stops driving if one or more of the following happens:
+* if one of her front-facing bump sensors is pressed
+* if the front edge time-of-flight sensors detect a high ledge
+* if the front range sensors detect an obstacle nearby
+
+In this situation, after she stops driving, Misty ignores any forward drive commands until the system indicates none of her front bump or time-of-flight sensors are in a hazard state. This can be achieved by having the robot back up and change directions.
+
+### Misty's Max Speed
 
 To enable the hazards system to work effectively, Misty's max speed is limited to ~450 mm/s. This is the highest speed at which Misty can safely detect most ledges and stop moving, without being carried over the edge by any built-up momentum. The hazards system will be enhanced in future updates to allow for increased performance and to increase Misty's default max speed.
 

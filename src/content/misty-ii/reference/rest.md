@@ -1791,6 +1791,7 @@ Sample response data:
 ```
 
 ### GetDeviceInformation
+
 Obtains device-related information for the robot.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/device
@@ -1805,6 +1806,7 @@ Return Values
    * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
    * ipAddress - The IP address of the robot.
    * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
    * outputCapabilities - An array listing the output capabilities for this robot.
    * robotId - The robot's unique ID, if set. Default value is all zeros.
    * robotVersion - The version number for the HomeRobot app running on the robot.
@@ -2185,6 +2187,46 @@ Return Values
 
 * Results (bool) - Returns `true` if no errors related to this command.
 
+### SetNotificationSettings - BETA
+
+Changes the settings for Misty's default hardware notifications.
+
+Misty's default hardware notification settings are as follows:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
+
+**LED Notifications**
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * When training fails, the LED blinks red three times.
+  * When Misty sees more than one face, the LED blinks yellow three times.
+  * When Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/notification/settings
+
+Parameters:
+
+* RevertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
+* LedEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
+* KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
+* KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
+
+```JSON
+{
+  "LedEnabled": false,
+  "KeyPhraseEnabled": true,
+  "KeyPhraseFile": "<new-wakeword-sound>.wav"
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### UpdateBaseHazardManagementSettings - ALPHA
 
 Changes the hazard system settings for Misty's bump and time-of-flight sensors.
@@ -2214,12 +2256,10 @@ The default hazard settings for Misty's time-of-flight sensors are as follows:
 |`TOF_DownFrontLeft` | 0.06|
 |`TOF_DownBackRight` |0.06|
 |`TOF_DownBackLeft`|0.06|
-|`TOF_Right` |0 (disabled)|
-|`TOF_Left`|0 (disabled)|
-|`TOF_Center`|0 (disabled)|
-|`TOF_Back`|0 (disabled)|
-
-By default, the hazard system is currently disabled for Misty's front- and rear-facing time-of-flight sensors. The default values for these sensors will change in a future system update.
+|`TOF_Right` |0.15|
+|`TOF_Left`|0.15|
+|`TOF_Center`|0.15|
+|`TOF_Back`|0.15|
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The `UpdateBaseHazardManagementSettings` endpoint expects a JSON payload with a `Content-Type` of `application/json`.
@@ -2236,9 +2276,9 @@ Parameters:
   * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
   * threshold (double) - The minimum distance (in meters) that will trigger a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
 
-For example, this JSON payload sets the bump and time-of-flight hazard settings to their current default values:
-
 ```JSON
+// Example JSON payload. Sets bump and time-of-flight hazard settings
+// to their current default values.
 {
     "bumpSensorsEnabled":[
         {"sensorName":"Bump_FrontRight","enabled":true},
@@ -2251,10 +2291,10 @@ For example, this JSON payload sets the bump and time-of-flight hazard settings 
         {"sensorName":"TOF_DownFrontLeft","threshold":0.06},
         {"sensorName":"TOF_DownBackRight","threshold":0.06},
         {"sensorName":"TOF_DownBackLeft","threshold":0.06},
-        {"sensorName":"TOF_Right","threshold":0},
-        {"sensorName":"TOF_Left","threshold":0},
-        {"sensorName":"TOF_Center","threshold":0},
-        {"sensorName":"TOF_Back","threshold":0}
+        {"sensorName":"TOF_Right","threshold":0.15},
+        {"sensorName":"TOF_Left","threshold":0.15},
+        {"sensorName":"TOF_Center","threshold":0.15},
+        {"sensorName":"TOF_Back","threshold":0.15}
     ]
 }
 ```
