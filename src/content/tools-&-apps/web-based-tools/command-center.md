@@ -422,11 +422,12 @@ You can also use the [Command Center](http://sdk.mistyrobotics.com/command-cente
 
 ## Getting a Diagnostic Report
 
-The Command Center provides controls for downloading a diagnostic report from your robot to your PC. When troubleshooting issues with your Misty II, you can use these controls to download a copy of your robot’s log files from the previous seven days and a text file with your robot's device information to share with the Misty support team.
+The Command Center provides controls for downloading a diagnostic report from your robot to your PC. This report includes a copy of your robot’s log files from the previous seven days and a text file with your robot's device information. When you download this report via the Command Center, it is saved to the downloads folder on your PC in the form of a `diagnostic.zip` file.
 
-Follow these steps to get a diagnostic report:
+When troubleshooting issues with your Misty II, you may be asked to get a diagnostic report to share with the Misty support team. Follow these steps to get the report:
+
 1. Make sure Misty is already connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. Scroll down to the **Sensor Data** section and click **Advanced Options**.
-3. Scroll down to the **Get Diagnostic Report** section at the bottom of the **Advanced Options** modal/
-4. Click the **Run and Download** button to download a copy of your robot's log files and device information.
-![Get a report](../../../assets/images/command-center-diagnostic-report.png)
+3. Scroll down to the **Get Diagnostic Report** section at the bottom of the **Advanced Options** modal.
+4. Click the **Run and Download** button to download a compressed `diagnostic.zip` file with your robot's log files and device information. ![Get a report](../../../assets/images/command-center-diagnostic-report.png)
+5. Locate the downloaded `diagnostic.zip` file on your PC. Send this file to the Misty support team by attaching it in an email to help@mistyrobotics.com.
