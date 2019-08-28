@@ -733,7 +733,7 @@ Moves one or both of Misty's arms.
 
 Parameters
 * arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
-* position (integer) - The new position to move the arm to. Expects a value of 1-10. 0 points forward, directly in front of the robot.
+* position (integer) - The new position to move the arm to. Expects a value of 0 - 10. 5 Points the arms straight forward.
 * velocity (integer) - Optional. A value of 0 to 100, specifying the speed with which the arm should move.
 * duration (integer) - Unused at this time. Can use `null` or `0`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -749,8 +749,8 @@ misty.MoveArm("both", 0, 100);
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
 
 Parameters
-* leftArmPosition (double) - Optional. The new position of Misty's left arm. Expects a value of 1-10. 0 points forward, directly in front of the robot.
-* rightArmPosition (double) - Optional. The new position of Misty's right arm. 0 points forward, directly in front of the robot.
+* leftArmPosition (double) - Optional. The new position of Misty's left arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
+* rightArmPosition (double) - Optional. The new position of Misty's right arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
 * leftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move.
 * rightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move.
 * duration (integer) - Unused at this time. Can use `null` or `0`.
@@ -780,7 +780,7 @@ misty.MoveArmPosition(string arm, double position, double velocity, [int prePaus
 
 Arguments
 * arm (string) - The arm to move. Use `left`, `right`, or `both`.
-* position (double) - The position to move the arm to.
+* position (double) - The position to move the arm to. Expects a value of 0-10. 5 points forward, directly in front of the robot.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
