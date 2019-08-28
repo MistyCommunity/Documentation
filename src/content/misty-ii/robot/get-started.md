@@ -26,6 +26,8 @@ Follow this guide to learn:
 
 **Before getting started**, place Misty on the black foam block from her box. While Misty is designed to automatically detect obstacles and ledges, placing her on this foam block will ensure that she doesn’t accidentally roll off the table while you're coding.
 
+![Misty sits on her block stand](../../../assets/images/misty-stand.gif)
+
 ## Sending Basic Commands
 
 The [Command Center](http://sdk.mistyrobotics.com/command-center/index.html) is a graphic interface for sending commands to Misty without writing any code. Follow the steps in this section of the Getting Started guide to familiarize yourself with the different elements of the Command Center.

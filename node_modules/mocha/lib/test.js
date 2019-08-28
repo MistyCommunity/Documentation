@@ -1,29 +1,30 @@
 'use strict';
-
-/**
- * Module dependencies.
- */
-
 var Runnable = require('./runnable');
-var create = require('lodash.create');
-var isString = require('./utils').isString;
-
-/**
- * Expose `Test`.
- */
+var utils = require('./utils');
+var errors = require('./errors');
+var createInvalidArgumentTypeError = errors.createInvalidArgumentTypeError;
+var isString = utils.isString;
 
 module.exports = Test;
 
 /**
  * Initialize a new `Test` with the given `title` and callback `fn`.
  *
- * @api private
- * @param {String} title
- * @param {Function} fn
+ * @public
+ * @class
+ * @extends Runnable
+ * @param {String} title - Test title (required)
+ * @param {Function} [fn] - Test callback.  If omitted, the Test is considered "pending"
  */
-function Test (title, fn) {
+function Test(title, fn) {
   if (!isString(title)) {
-    throw new Error('Test `title` should be a "string" but "' + typeof title + '" was given instead.');
+    throw createInvalidArgumentTypeError(
+      'Test argument "title" should be a string. Received type "' +
+        typeof title +
+        '"',
+      'title',
+      'string'
+    );
   }
   Runnable.call(this, title, fn);
   this.pending = !fn;
@@ -33,11 +34,9 @@ function Test (title, fn) {
 /**
  * Inherit from `Runnable.prototype`.
  */
-Test.prototype = create(Runnable.prototype, {
-  constructor: Test
-});
+utils.inherits(Test, Runnable);
 
-Test.prototype.clone = function () {
+Test.prototype.clone = function() {
   var test = new Test(this.title, this.fn);
   test.timeout(this.timeout());
   test.slow(this.slow());

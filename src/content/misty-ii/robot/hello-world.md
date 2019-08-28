@@ -22,11 +22,19 @@ The Hello World tutorial series is divided into six parts:
 
 In the first part of the series, you learn how to create and upload the files Misty needs to run a skill. As you progress through the series, you add new lines of code to the original skill file and update the skill on Misty to see how the additions change her behavior. When you finish all of the sections, you'll have programmed your first fully working skill for the Misty robotics platform.
 
+Watch the video for a quick overview of each section in the tutorial series:
+
+{{box op="start" cssClass="videoBoxed youtubeBox"}}
+<iframe width="600" height="337" src="https://www.youtube.com/embed/xBV2U2QuK2o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{{box op="end"}}
+
 If you'd like to refer to the code files for this skill, you can [do so at any time on GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Hello%20World).
 
 ## Moving Misty's Head
 
 This part of the Hello World tutorial series teaches how to create skill files and upload them to Misty. You'll also write your first lines of code and teach Misty to move her head in a lifelike way.
+
+![Misty moves her head](../../../assets/images/hello-world-movehead.gif)
 
 ---
 
@@ -219,7 +227,11 @@ With the meta file saved, you're ready to install your skill on Misty. Follow th
 
 ## Changing Misty's LED
 
-This part of the Hello World tutorial series teaches how to fade Misty's chest LED fade on and off in a looping cycle. If you've already completed the [first part of this tutorial series](./#moving-misty-39-s-head), you can add this code to your original `HelloWorld.js` code file, beneath where you wrote the code for moving Misty's head. 
+This part of the Hello World tutorial series teaches how to fade Misty's chest LED fade on and off in a looping cycle. 
+
+![Misty's LED pulses purple](../../../assets/images/hello-world-changeled.gif)
+
+If you've already completed the [first part of this tutorial series](./#moving-misty-39-s-head), you can add this code to your original `HelloWorld.js` code file, beneath where you wrote the code for moving Misty's head. 
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
@@ -362,7 +374,11 @@ When the upload is complete, run the skill from the **Manage** section of the Sk
 
 ## Playing Sounds
 
-This part of the Hello World tutorial series teaches how to write code to have Misty play sounds. If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file, beneath where you wrote the code for changing Misty's LED.
+This part of the Hello World tutorial series teaches how to write code to have Misty play sounds.
+
+![Misty plays a sound](../../../assets/images/hello-world-play-audio.gif)
+
+If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file, beneath where you wrote the code for changing Misty's LED.
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
@@ -392,7 +408,12 @@ Save your changes and use the Skill Runner to [upload your modified `HelloWorld.
 
 ## Driving Misty
 
-This part of the Hello World tutorial series teaches how to programmatically drive Misty. When Misty executes the code from this section of the series, she slowly turns left and then right for a better view of her new home. If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for playing audio.
+This part of the Hello World tutorial series teaches how to programmatically drive Misty. When Misty executes the code from this section of the series, she slowly turns left and then right for a better view of her new home. 
+
+![Misty turns left and right](../../../assets/images/hello-world-drive.gif)
+
+
+If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for playing audio.
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
@@ -441,7 +462,12 @@ You're now ready to update your skill. Save your changes, and use the Skill Runn
 
 ## Teaching Misty to Wave
 
-This part of the Hello World tutorial series teaches how to programmatically move Misty's arms. When the code you write in this section executes, Misty raises her right arm and waves. If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for driving Misty.
+This part of the Hello World tutorial series teaches how to programmatically move Misty's arms. When the code you write in this section executes, Misty raises her right arm and waves.
+
+![Misty waves](../../../assets/images/hello-world-misty-wave.gif)
+
+
+If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for driving Misty.
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
@@ -478,6 +504,8 @@ You're now ready to update your skill. Save your changes, and use the Skill Runn
 ## Using Face Recognition
 
 This part of the Hello World tutorial series teaches how to use face recognition data in your skill code. When the code you write in this section executes, Misty attempts to detect and recognize faces. If you've trained Misty on your own face, then Misty waves when she sees you. If Misty sees a person she doesn't know, she raises her eyebrows and plays a sound.
+
+![Misty's LED pulses purple](../../../assets/images/hello-world-face-recognition.gif)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you haven't already trained Misty to recognize your face, [use the Command Center to do so](../../../tools-&-apps/web-based-tools/command-center/#face-training-amp-recognition) before working through this section of the tutorial.
