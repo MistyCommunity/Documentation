@@ -394,7 +394,7 @@ Within the callback (automatically named `_FaceRecognition()`) we should log a d
 function _FaceRecognition() {
    misty.Debug("Face detected!”);
 
-   misty.PlayAudio("005-OoAhhh.wav");
+   misty.PlayAudio("s_Joy3.wav");
    misty.ChangeLED(255, 255, 255); // white
    misty.StopFaceDetection();
 };
@@ -437,7 +437,7 @@ misty.StartFaceDetection();
 function _FaceRecognition() {
     misty.Debug("Face detected!");
     // Play an audio clip
-    misty.PlayAudio("005-OoAhhh.wav");
+    misty.PlayAudio("s_Joy3.wav");
     // Change LED to white
     misty.ChangeLED(255, 255, 255);
     // Stop face detection
