@@ -13,10 +13,6 @@ To avoid the risk of driving Misty off a high surface, we recommend either worki
 
 ![Misty sits on her stand](../../../assets/images/misty-stand.gif)
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note**: To read the full Misty II Reference Manual, or to download a digital version of the in-box User Guide, visit mistyrobotics.com/support/manuals.
-{{box op="end"}}
-
 ## Unpacking your Misty II
 
 Misty II arrives packed safely inside her carrying case. The easiest and safest way to remove Misty from her case is to open the latches and position the case vertically, so the robot is fully upright. With the case open, grip the Misty II by its torso (never by the arms) and gently slide it out of or into the case.
