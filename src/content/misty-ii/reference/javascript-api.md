@@ -1,5 +1,5 @@
 ---
-title: On-Robot JavaScript API
+title: JavaScript API
 layout: coding.hbs
 columns: three
 order: 1
@@ -7,7 +7,7 @@ order: 1
 
 # {{title}}
 
-Use Misty's on-robot JavaScript API to write skills that run locally on your robot. To learn about the architecture of this API, see [On-Robot JavaScript API Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture).
+Use Misty's on-robot JavaScript API to write skills that run locally on your robot. To learn about the architecture of this API, see [JavaScript SDK Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture).
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
