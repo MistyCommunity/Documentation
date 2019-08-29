@@ -1630,7 +1630,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
 Parameters
 
-* File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../coding-misty/local-skill-architecture/#file-structure-amp-code-architecture) section.
+* File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../coding-misty/javascript-sdk-architecture/#file-structure-amp-code-architecture) section.
 * ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
 * OverwriteExisting (boolean) - Indicates whether the skill should overwrite a skill with the same name, if one currently exists on Misty.
 

@@ -40,8 +40,8 @@ This part of the Hello World tutorial series teaches how to create skill files a
 
 Each skill you write with Misty's JavaScript SDK requires the following elements:
 
-* a [JavaScript "code" file](../../../misty-ii/coding-misty/local-skill-architecture/#code-file) with the logic and commands that Misty executes when the skill runs
-* a [JSON "meta" file](../../../misty-ii/coding-misty/local-skill-architecture/#meta-file) that provides the initial settings and parameters Misty needs to run the skill
+* a [JavaScript "code" file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#code-file) with the logic and commands that Misty executes when the skill runs
+* a [JSON "meta" file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#meta-file) that provides the initial settings and parameters Misty needs to run the skill
 
 To begin, open your favorite text editor. (If you don't have a preference, we suggest Visual Studio Code.) Create a new JavaScript file called `HelloWorld.js`, and save this file to a new directory called `HelloWorld`. Now you can start writing the code to bring Misty to life.
 

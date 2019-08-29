@@ -2,12 +2,12 @@
 title: Rest API & WebSocket Architecture
 layout: coding.hbs
 columns: three
-order: 3
+order: 4
 ---
 
 # {{title}}
 
-In addition to her on-robot JavaScript API, you can also write skills for Misty using her powerful REST API.
+In addition to her on-robot JavaScript SDK, you can also write skills for Misty using her powerful REST API.
 
 Writing a skill this way typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her REST API. This topic walks you through both sides of this process.
 
