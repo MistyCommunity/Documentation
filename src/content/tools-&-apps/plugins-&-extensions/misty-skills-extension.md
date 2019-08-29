@@ -65,9 +65,9 @@ To **upload and run** a skill:
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you run the **Upload** or **Upload and Run** command, the Misty Skills extension compresses the entire directory for the currently active file into a .zip and attempts to upload this .zip to Misty using the [SaveSkillToRobot](../../../misty-ii/reference/rest/#saveskilltorobot) endpoint. Loading a skill onto Misty this way also uploads any image and audio files from the compressed directory to Misty and associates them with the skill.
 
-An upload will fail if the directory you attempt to upload does not contain the [JSON `meta`](../../../misty-ii/coding-misty/local-skill-architecture/#file-structure-amp-code-architecture) file for the skill. If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click this notification to see more details about the error.
+An upload will fail if the directory you attempt to upload does not contain the [JSON `meta`](../../../misty-ii/coding-misty/javascript-sdk-architecture/#file-structure-amp-code-architecture) file for the skill. If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click this notification to see more details about the error.
 
-For more information about loading skills onto Misty, see [Loading & Running an On-Robot Skill.](../../../misty-ii/coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill)
+For more information about loading skills onto Misty, see [Loading & Running a JavaScript Skill.](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill)
 {{box op="end"}}
 
 To **stop skills**:

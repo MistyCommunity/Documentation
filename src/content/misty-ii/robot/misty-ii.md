@@ -9,33 +9,41 @@ order: 3
 
 Your Misty II robot has been designed and built by the Misty Robotics team. This document provides some quick, out-of-box setup steps and helpful details about using Misty II.
 
+To avoid the risk of driving Misty off a high surface, we recommend either working with your robot on the floor, or temporarily elevating the treads so the robot cannot drive. To do this, you can place Misty on the the foam block stand that arrived in the box. While Misty **is** designed to automatically detect obstacles and ledges, placing her on this foam block will ensure that she doesn’t accidentally roll off the table while you're coding.
+
+![Misty sits on her stand](../../../assets/images/misty-stand.gif)
+
+## Unpacking your Misty II
+
+Misty II arrives packed safely inside her carrying case. The easiest and safest way to remove Misty from her case is to open the latches and position the case vertically, so the robot is fully upright. With the case open, grip the Misty II by its torso (never by the arms) and gently slide it out of or into the case.
+
+![Unpacking Misty](../../../assets/images/unpacking-misty.jpg)
+
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with your robot on the floor, or temporarily elevating the treads so the robot cannot drive. To do this, you can place Misty on the the foam block stand that arrived in the box.
+**Note:** The robot’s arms and related components can become damaged under excessive force. To avoid damaging your robot, never remove the Misty II from its packaging by pulling on its arms.
 {{box op="end"}}
 
-## What's in the Box?
-
-Misty II arrives with her magnetic headpiece and "backpack" attached. In addition to Misty, your package arrives with the following items:
+Misty II arrives with her magnetic headpiece and backpack attachments connected. In addition to the robot, the carrying case includes the following items:
 
 * charging station
 * charging station AC power supply
-* Misty II AC power supply
 * foam block stand for Misty II
+* legal guide
 * printed User Guide
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty's packaging has been specially designed to protect your robot during shipping. If your robot is a Misty II field trial prototype, you will need to return your robot. Please keep all original packaging for use in shipment.
+**Note:** Misty's packaging has been specially designed to protect your robot during shipping. Please keep all original packaging for shipping or for traveling with your robot in the future.
 {{box op="end"}}
 
 ## Powering Up & Powering Down
 
-We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, place her foam block stand between her treads to elevate them above the surface of the table.
+We recommend powering up Misty on the floor, if possible, to avoid the risk of driving your robot off the edge of a table or other high surface. If you are experimenting with Misty on a table top, place her on the foam block stand that arrived in her carrying case to elevate her treads above the surface of the table.
 
 ### Turning Misty On
 
 1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](../../../assets/images/mii-power.jpg)
 2. The Misty Robotics logo first appears on the screen. Then Misty’s eyes appear, beginning in a closed state. The eyes gradually open as Misty boots up.![Misty II eyes closed](../../../assets/images/mii-waking.jpg)
-3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. **Important!** If after a few minutes, Misty's eyes still do not appear fully open, contact technical support for assistance.![Misty II eyes open](../../../assets/images/mii-awake.png)
+3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. ![Misty II eyes open](../../../assets/images/mii-awake.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Your Misty II arrives with her battery charged and should not require additional charging before first use. When her battery is low, Misty may fail to respond to some API commands. If this happens you can restore functionality by connecting your robot to a power source and performing a manual reboot.
@@ -59,7 +67,7 @@ To turn off your robot, turn off the power switch on Misty’s base.
 
 ## Connecting to Wi-Fi
 
-You send REST commands to Misty and install skills on her system over your local Wi-Fi connection. Now that you've turned on your robot, you can set up Misty's internet connection with the [Misty App](../../../tools-&-apps/mobile/misty-app/#connecting-misty-to-bluetooth-and-wi-fi).
+You send REST commands to Misty and install skills on her system over your local Wi-Fi connection. When your robot is powered on, you can set up Misty's internet connection with the [Misty App](../../../tools-&-apps/mobile/misty-app/#connecting-misty-to-bluetooth-and-wi-fi).
 
 ## Charging Misty II
 
@@ -171,14 +179,11 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the Misty App or Command Center.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** At this time, critical updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.
-{{box op="end"}}
 
 Updates can include:
 
-* Image and/or sound assets
-* Motor controller firmware
+* New images and audio assets
+* Motor controller firmware updates
 * Real-time controller firmware
 * Occipital Structure Core depth sensor firmware
 * Home Robot application (running on Windows IoT Core)

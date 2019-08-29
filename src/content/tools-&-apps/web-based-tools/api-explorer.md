@@ -59,9 +59,9 @@ Read more about lightClient.js [in the documentation](../../../misty-ii/coding-m
 
 You can use the API Explorer to generate code samples for many of the methods in Misty's on-robot JavaScript API. These code samples appear in the [**Skill Code** section](./#skill-code) of the request form.
 
-**Note:** Code samples for "Get" commands also include examples of the [callback function required to handle the data](../../../misty-ii/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
+**Note:** Code samples for "Get" commands also include examples of the [callback function required to handle the data](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
 
-You can run these code samples by copying them from the API Explorer and pasting them into the [code file](../../../misty-ii/coding-misty/local-skill-architecture/#code-file) for an on-robot skill. Then, [upload the code to Misty](../../../misty-ii/coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill) and [start the skill](../../../misty-ii/coding-misty/local-skill-architecture/#starting-amp-stopping-an-on-robot-skill).
+You can run these code samples by copying them from the API Explorer and pasting them into the [code file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#code-file) for an on-robot JavaScript skill. Then, [upload the code to Misty](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill) and [start the skill](../../../misty-ii/coding-misty/javascript-sdk-architecture/#starting-amp-stopping-a-javascript-skill).
 
 ## Parts of the API Explorer
 
@@ -102,7 +102,7 @@ For more information about the return values for Misty's REST API, see the [REST
 
 ### Skill Code
 
-The **Skill Code** section of the API Explorer shows sample code for using the command in Misty's [on-robot JavaScript API](../../../misty-ii/coding-misty/local-skill-architecture).
+The **Skill Code** section of the API Explorer shows sample code for using the command with Misty's [JavaScript SDK](../../../misty-ii/coding-misty/javascript-sdk-architecture).
 
 For information about using this code in your skills, see [On-Robot JavaScript API Code Samples](./#on-robot-javascript-api-code-samples).
 For details about each of the methods in Misty's on-robot JavaScript API, see the [on-robot JavaScript API reference documentation](../../../misty-ii/reference/javascript-api).
