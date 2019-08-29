@@ -1017,7 +1017,6 @@ function StartKeyPhraseRecognition() {
 
 // Callback function to execute when Misty hears the key phrase
 function _KeyPhraseRecognized() {
-   misty.PlayAudio("002-Weerp.wav", 100);
    waveRightArm();
    misty.Debug("Key phrase recognized!");
    misty.Debug("Audio recording stopped. Starting key phrase recognition again...");

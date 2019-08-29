@@ -531,7 +531,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.DisplayImage("Happy.png");
+misty.DisplayImage("e_Amazement.jpg");
 ```
 
 ### misty.PlayAudio
@@ -550,7 +550,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.PlayAudio("Play.wav", 100);
+misty.PlayAudio("s_Sadness.wav", 100);
 ```
 
 ### misty.SetFlashlight
@@ -1711,7 +1711,6 @@ function StartKeyPhraseRecognition() {
 
 // Callback function to execute when Misty hears the key phrase
 function _KeyPhraseRecognized() {
-   misty.PlayAudio("002-Weerp.wav", 100);
    waveRightArm();
    misty.Debug("Key phrase recognized!");
    misty.Debug("Audio recording stopped. Starting key phrase recognition again...");

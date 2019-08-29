@@ -229,7 +229,7 @@ function StartSkill() {
 function _GetImageList(response) {
     if (response.Result.length != _imageCount) {
         misty.Debug("Wrong number of expected images!");
-        misty.PlayAudio("SadSound.wav", 50);
+        misty.PlayAudio("s_Sadness.wav", 50);
     }
 }
 ```

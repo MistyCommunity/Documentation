@@ -134,7 +134,7 @@ Parameters
 
 ```json
 {
-  "FileName": "Content.jpg",
+  "FileName": "e_Amazement.jpg",
   "Base64": false
 }
 ```
@@ -368,7 +368,7 @@ Parameters
 ```json
 {
   "FileName": "e_Joy2.jpg",
-  "Alpha": 0.5
+  "Alpha": 1
 }
 ```
 
@@ -376,6 +376,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### PlayAudio
+
 Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
@@ -388,7 +389,7 @@ Parameters
 
 ```json
 {
-  "AssetId": "ExampleSong"
+  "FileName": "s_Amazement.wav"
 }
 ```
 
