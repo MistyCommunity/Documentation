@@ -697,8 +697,8 @@ code .comment {
 }
 
 .content iframe {
-  max-width: 320px;
-  margin-bottom: 50px;
+  max-width: 100%;
+  margin-bottom: 5px;
   position: relative;
   z-index: 1;
   display: block;
@@ -865,6 +865,10 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
       width: 100%
     }
 
+    div.videoBoxed > div.code-toolbar {
+      width: 100%
+    }
+
 body:not(.no-literate) .content img[alt="Connection sequence"],
     body:not(.no-literate) .content img[alt="Photon Reset Modes"]
     {
@@ -893,16 +897,25 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
     }
 
     body:not(.no-literate) .content iframe {
-      max-width: 400px;
+      max-width: 100%;
       margin: 0;
-      padding-left: 40px;
+      padding-left: 0px;
     }
 
+    // body:not(.no-literate) .content p.img {
+    //   padding: 0 40px;
+    //   margin-top: 10px;
+    //   float: right;
+    //   width: 55%;
+    //   clear: left;
+    // }
+
     body:not(.no-literate) .content p.img {
-      padding: 0 40px;
-      margin-top: 10px;
-      float: right;
-      width: 55%;
+      width: 37%;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin: 20px;
+      float: left;
       clear: left;
     }
 
@@ -911,6 +924,16 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
       width: 37%;
       padding-left: 20px;
       padding-right: 20px;
+      margin: 40px;
+      float: left;
+      clear: left;
+    }
+
+    body:not(.no-literate) div.videoBoxed {
+      box-sizing: border-box;
+      width: 37%;
+      padding-left: 5px;
+      padding-right: 5px;
       margin: 40px;
       float: left;
       clear: left;
@@ -1055,4 +1078,15 @@ body:not(.no-literate) .content img[alt="Connection sequence"],
 
 .table-scrollable {
   overflow-x: auto;
+}
+
+
+.content iframe.video {
+  position: relative;
+  top: 0;
+  left: 0;
+  // width: 37%;
+  // height: 100%;
+  max-width: 100%;
+  margin: auto;
 }

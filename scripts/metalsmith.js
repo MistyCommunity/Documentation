@@ -42,6 +42,7 @@ var javascriptDocsPreprocess = require('./javascript_docs_preprocess');
 var git = require('git-rev');
 var path = require('path');
 
+
 var handlebars = require('handlebars');
 var prettify = require('prettify');
 prettify.register(handlebars);
@@ -88,7 +89,6 @@ exports.metalsmith = function() {
     .use(cleanCSS({
       files: '**/*.css'
     }))
-    // Auto-generate documentation from the API using comments formatted in the apidoc format
     .use(
       apidoc({
         destFile: 'content/reference/api.md',

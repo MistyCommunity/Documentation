@@ -491,7 +491,7 @@ The `ActuatorPosition` data stream provides information about the position of th
 
 In the `ActuatorPosition` data object, the value of the `sensorName` property is the name of the actuator you are receiving information about (`Actuator_HeadPitch`, `Actuator_HeadYaw`, `Actuator_HeadRoll`, `Actuator_LeftArm`, or `Actuator_RightArm`).  The `value` property holds a number indicating the position of the actuator (in degrees).
 
-**Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following code from Misty's on-robot JavaScript API shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm:
+**Note:** When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following sample code shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm with the on-robot JavaScript API:
 
 ```JavaScript
 // Register for ActuatorPosition data for the actuator for Misty's right arm
@@ -525,7 +525,7 @@ ActuatorPosition {
 
 The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the Command Center documentation](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
 
-For an example that shows how to register for and use data from `BumpSensor` events with Misty's on-robot JavaScript API, see the [Bump Sensors skill tutorial](../../../misty-ii/coding-misty/local-skill-tutorials/#bump-sensors).
+For an example that shows how to register for and use data from `BumpSensor` events with Misty's on-robot JavaScript API, see the [Bump Sensors skill tutorial](../../../misty-ii/coding-misty/javascript-sdk-tutorials/#bump-sensors).
 
 Sample `BumpSensor` data:
 
@@ -730,7 +730,7 @@ function _SerialMessage(data) {
 }
 ```
 
-For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../misty-ii/coding-misty/local-skill-architecture/#data-handling-events-amp-callbacks) section of [On-Robot JavaScript API Architecture](../../../misty-ii/coding-misty/local-skill-architecture).
+For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#data-handling-events-amp-callbacks) section of [JavaScript SDK Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture).
 
 ## TouchSensor
 
@@ -862,7 +862,7 @@ AudioPlayComplete {
 
 ## SkillData
 
-Subscribe to the `SkillData` named object to see debug messages, error messages, and other data on-robot skills publish during skill execution. Use the `misty.Debug()` command in a skill to send a `SkillData` message.
+Subscribe to the `SkillData` named object to see debug messages, error messages, and other data JavaScript skills publish during skill execution. Use the `misty.Debug()` command in a skill to send a `SkillData` message.
 
 The value of the `BroadcastMode` parameter in a skill's .json meta file determines when the skill sends `SkillData` messages, and what kind of data those messages include.
 
@@ -986,8 +986,8 @@ Misty sends `KeyPhraseRecognized` event messages when she recognizes the "Hey, M
 **Note** 
 
 * When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
-* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](./#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
-* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
+* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](../../../misty-ii/refereence/rest/#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](../../../misty-ii/refereence/rest/#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
 {{box op="end"}}
 
 You must start key phrase recognition before Misty can send `KeyPhraseRecognized` event messages. Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
@@ -1017,7 +1017,6 @@ function StartKeyPhraseRecognition() {
 
 // Callback function to execute when Misty hears the key phrase
 function _KeyPhraseRecognized() {
-   misty.PlayAudio("002-Weerp.wav", 100);
    waveRightArm();
    misty.Debug("Key phrase recognized!");
    misty.Debug("Audio recording stopped. Starting key phrase recognition again...");

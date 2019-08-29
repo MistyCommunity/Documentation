@@ -242,8 +242,6 @@ function _GetAudioList(data) {
 ## Record Audio
 In this tutorial we learn how to record audio and play it back to the user. This involves two very simple commands: `StartRecordingAudio()` and `StopRecordingAudio()`.
 
-**Note:** Due to the low volume of audio playback on Misty I Developer Editions and Misty II field trial robots, the audio you record in this tutorial may be difficult to hear when played back through Misty's internal speakers.
-
 ### Writing the Meta File
 
 Create a new `.json` meta file for this skill. Set the value of `Name` to `"HelloWorld_RecordAudio`". Use the values in the example to fill out the remaining parameters. Save this file with the name `HelloWorld_RecordAudio.json`.
