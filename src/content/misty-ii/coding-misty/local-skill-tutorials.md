@@ -862,14 +862,14 @@ Then, use an `if` statement to check that the distance is less than `0.1m`. If s
 ```JS
 if (distance < 0.1) {
     // Play irritated audio clip
-    misty.PlayAudio("002-Ahhh.wav", 100);
+    misty.PlayAudio("s_Anger.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
     // Drive forward
     misty.DriveTime(50, 0, 1000);
 }
 else {
     // Play happy audio clip
-    misty.PlayAudio("004-WhaooooO.wav", 100);
+    misty.PlayAudio("s_Joy.wav", 100);
     misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
 }
 ```
@@ -888,14 +888,14 @@ function _BackTOF(data) {
     // Check the value of distance
     if (distance < 0.1) {
         // Play irritated audio clip
-        misty.PlayAudio("002-Ahhh.wav", 100);
+        misty.PlayAudio("s_Anger.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's too close!");
         // Drive forward
         misty.DriveTime(50, 0, 1000);
     }
     else {
         // Play happy audio clip
-        misty.PlayAudio("004-WhaooooO.wav", 100);
+        misty.PlayAudio("s_Joy.wav", 100);
         misty.Debug("An object was detected " + distance + " meters behind me. That's okay.");
     }
 }
