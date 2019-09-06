@@ -104,7 +104,7 @@ The following notifications are enabled by default:
   * If training fails, the LED blinks red three times.
   * If Misty sees more than one face, the LED blinks yellow three times.
   * If Misty doesn't see a face, the LED turns yellow.
-* **System Updates** While Misty is performing a system update, the LED blinks white.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
 
 ## Misty II Specs
 
