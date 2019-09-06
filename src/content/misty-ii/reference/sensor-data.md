@@ -102,6 +102,8 @@ The ```EventName``` value is the name you provide when you register the WebSocke
 
 If face recognition is running on the robot, and a previously trained face is recognized, the ```PersonName``` value is the name previously assigned to that face. The ```PersonName``` value is ```unknown_person``` if an untrained/unknown face is detected. The ```PersonName``` value is ```null``` if face recognition is not currently running.
 
+Note: In our own testing, a well lit room with the persons face being inline with Misty's optical axis developers can expect the max recognition and training distance for a 6ft tall person would be around 11ft. Beyond that distance, the pixels of the persons face fall below the threshold we're able to detect. As conditions change, the distance drops off pretty quickly, but our recommendation is it should work well between 1-6ft, and would recommend training within the desired range.
+
 ```TrackId``` is reserved data that may change in the future.
 
 Sample FaceRecognition data for a face recognition event:
