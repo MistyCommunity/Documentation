@@ -2,7 +2,7 @@
 title: Rest API & WebSocket Architecture
 layout: coding.hbs
 columns: three
-order: 4
+order: 5
 ---
 
 # {{title}}

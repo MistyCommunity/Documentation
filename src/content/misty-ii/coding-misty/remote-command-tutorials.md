@@ -2,7 +2,7 @@
 title: REST API & WebSocket Tutorials
 layout: coding.hbs
 columns: three
-order: 5
+order: 6
 ---
 
 # {{title}}
