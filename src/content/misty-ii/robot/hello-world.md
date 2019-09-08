@@ -2,7 +2,7 @@
 title: Hello World Tutorial Series
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
