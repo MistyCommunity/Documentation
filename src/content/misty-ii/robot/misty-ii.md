@@ -13,7 +13,7 @@ To avoid the risk of driving Misty off a high surface, we recommend either worki
 
 ![Misty sits on her stand](../../../assets/images/misty-stand.gif)
 
-## Unpacking your Misty II
+## Unpacking the Misty II
 
 Misty II arrives packed safely inside her carrying case. The easiest and safest way to remove Misty from her case is to open the latches and position the case vertically, so the robot is fully upright. With the case open, grip the Misty II by its torso (never by the arms) and gently slide it out of or into the case.
 
@@ -26,13 +26,19 @@ Misty II arrives packed safely inside her carrying case. The easiest and safest 
 Misty II arrives with her magnetic headpiece and backpack attachments connected. In addition to the robot, the carrying case includes the following items:
 
 * charging station
-* charging station AC power supply
+* charging station AC power supply (thin barrel jack)
 * foam block stand for Misty II
 * legal guide
 * printed User Guide
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty's packaging has been specially designed to protect your robot during shipping. Please keep all original packaging for shipping or for traveling with your robot in the future.
+{{box op="start" cssClass="boxed warningBox"}}
+**Warning:** Do not attempt to connect the AC power supply for the charging station to the port underneath Misty's base.
+
+A separate AC power supply for charging Misty II via a wired connection may be shipped as an optional accessory. The barrel jack on this power supply is thicker than the power supply for the wireless charging station, and is designed to fit the power port underneath Misty's base. This power supply uses a different voltage than the power supply for Misty's wireless charging station. **Do not** attempt to use these power supplies interchangeably.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty's packaging has been specially designed to protect your robot during shipping. You can keep the original packaging for shipping or for traveling with your robot in the future.
 {{box op="end"}}
 
 ## Powering Up & Powering Down
@@ -71,21 +77,33 @@ You send REST commands to Misty and install skills on her system over your local
 
 ## Charging Misty II
 
-There are two ways to charge Misty II. You can use the wireless charging pad that comes with your robot, or you can plug the power supply directly into the power port on Misty's base. Misty does not need to be turned on to charge.
+You can charge Misty with her wireless charging station, or you can plug Misty’s AC power supply (optional
+accessory) directly into the port on her base. When charging while powered on, Misty's chest LED pulses orange.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty's fans turn on while the robot is charging, even when Misty is turned off. These fans stay on for as long as the robot is charging.
+{{box op="end"}}
+
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Warning:** The AC power supply for charging Misty via a wired connection **is not** interchangeable with the power supply for the wireless charging station. **Do not** attempt to charge Misty by connecting her directly to the power supply for the wireless charging station, and **do not** attempt to connect the charging station to the AC power supply that connects directly to the port underneath Misty's base.
+{{box op="end"}}
 
 ### Wireless Charging
 
-To use Misty's wireless charging pad, follow these steps:
+To use Misty's wireless charging station, follow these steps:
 
-1. Connect the power supply to the power port on the back of the charging pad. ![Charging pad and power jack](../../../assets/images/mii-charging-pad-power-jack.jpg)
-2. To prevent tripping hazards, place the power brick inside the charging pad and wrap any extra length of the power cable around the nodes inside the rear compartment, as seen in the photo below. ![Charging pad cable storage](../../../assets/images/mii-charging-pad-snaked-cable.jpg)
-3. Place the charging pad on the floor.
-4. Plug the power cable into the wall.
-5. Place Misty on the center of the charging pad. Position her to be facing out, with her back against the rear compartment of the charging pad. ![Misty II on her charging pad](../../../assets/images/mii-charging.jpg)
+1. Connect the power supply for the wireless charging station to power. To prevent tripping hazards, wrap any extra length of the power cable around the nodes inside the rear compartment of the charging station.
+2. Place the charging station on the floor.
+3. Place Misty on the center of the charging station. Position her to be facing out, with her back against the rear compartment of the charging station, and make sure the arrows on Misty's base are lined up with the arrows on the charging station.![Misty II on her charging station](../../../assets/images/mii-charging.jpg)
 
 ### Wired Charging
 
-You can also charge Misty by plugging the power supply directly into the power port. Misty's power port is on the bottom of Misty, next to her power switch.
+Follow these steps to charge Misty via a wired connection:
+
+1. Remove the rubber flap covering the power port underneath Misty’s base.
+2. Connect Misty’s AC power supply (**not** the power supply for the wireless charging station) to her power port.
+3. Connect the power supply to an outlet.
 
 ## Hardware Notifications
 
@@ -159,7 +177,7 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 ### Connectivity
 
-* 2.4 and 5 Ghz WiFi connection
+* 2.4 and 5 Ghz Wi-Fi connection
 * Bluetooth and Bluetooth Low Energy capabilities 
 
 ### Extensibility
@@ -177,28 +195,27 @@ Misty is packed with sophisticated hardware and software features that contribut
 
 ## System Updates
 
-Misty checks for available system updates every time you turn her on or restart her. If you've not restarted her recently, you can check for and perform updates for Misty with the Misty App or Command Center.
-
+Misty’s software updates are delivered as over-the-air (OTA) updates, and Misty checks for updates each time she boots up.
 
 Updates can include:
 
 * New images and audio assets
 * Motor controller firmware updates
-* Real-time controller firmware
-* Occipital Structure Core depth sensor firmware
-* Home Robot application (running on Windows IoT Core)
-* Sensory Services application (running on Android)
-* OS updates
+* Real-time controller firmware updates
+* Occipital Structure Core depth sensor firmware updates
+* Home Robot application updates (running on Windows IoT Core)
+* Sensory Services application updates (running on Android)
+* Windows OS updates
 
-We recommend you check for updates on a weekly basis.
+We recommend you boot up Misty to check for updates on a weekly basis.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Important:** Please keep Misty plugged in for the entire duration of the update and do not attempt to send commands to her during this time.
+**Note:** Misty reboots once during a system update. All commands except `Halt` and `Stop` are disabled while Misty is updating. If Misty starts installing an update while she’s charging, do not disconnect her from her power source until the update is finished and her eyes are fully open.
 {{box op="end"}}
 
 ## Hazards System
 
-Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby or that she has collided with an object.
+Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby, or when she detects that she has bumped into an object.
 
 In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Sensor & Skill Data](../../../misty-ii/reference/sensor-data/#hazardnotification-alpha) section of these docs for details on using this data in your skills.
 
@@ -214,14 +231,14 @@ When Misty detects an obstacle or an edge, she ignores any commands that would m
 * if the front edge time-of-flight sensors detect a high ledge
 * if the front range sensors detect an obstacle nearby
 
-In this situation, after she stops driving, Misty ignores any forward drive commands until the system indicates none of her front bump or time-of-flight sensors are in a hazard state. This can be achieved by having the robot back up and change directions.
+In this situation, after she stops driving, Misty ignores any forward drive commands until the system indicates none of her front bump or time-of-flight sensors are in a hazard state. To get out of a hazards state, you can code Misty to reverse directions and choose a new path.
 
 ### Misty's Max Speed
 
 To enable the hazards system to work effectively, Misty's max speed is limited to ~450 mm/s. This is the highest speed at which Misty can safely detect most ledges and stop moving, without being carried over the edge by any built-up momentum. The hazards system will be enhanced in future updates to allow for increased performance and to increase Misty's default max speed.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazard system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
+**Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
 
 ## Hardware Extensibility
