@@ -148,319 +148,6 @@ LocomotionCommand{
 
 ```HaltCommand``` WebSocket data is sent every time the robot stops and contains the date and time of the event. It is not sent at timed intervals.
 
-## SelfState
-
-The ```SelfState``` WebSocket provides a variety of data about Misty’s current internal state, including:
-
-* battery charge, voltage, and charging status
-* IP address
-* affect
-* position and orientation ("pose")
-* SLAM status
-* sensor messages
-
-**Note:** There are a number of fields in the WebSocket data structure that are reserved for future use and which may be empty or contain ```null``` data:
-* ```Acceleration```
-* ```BumpedState```
-* ```CurrentGoal```
-* ```MentalState```
-* ```Personality```
-* ```PhysiologicalBehavior```
-
-```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
-
-Sample SelfState data:
-```JSON
-SelfState
-{
-  "eventName": "SelfState",
-  "message": {
-    "acceleration": {
-      "units": "None",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "battery": {
-      "chargePercent": null,
-      "created": "2019-08-14T21:17:53.7266429Z",
-      "current": -0.911,
-      "expiry": "2019-08-14T21:18:03.7266429Z",
-      "healthPercent": null,
-      "isCharging": false,
-      "sensorId": "charge",
-      "sensorName": "/Sensors/RTC/BatteryCharge",
-      "state": "Discharging",
-      "temperature": 21,
-      "trained": false,
-      "voltage": 6.612
-    },
-    "bumpedState": {
-      "disengagedSensorIds": [],
-      "disengagedSensorNames": [],
-      "disengagedSensors": [],
-      "engagedSensorIds": [],
-      "engagedSensorNames": [],
-      "engagedSensors": []
-    },
-    "cameraStatus": {
-      "isTakingPicture": false,
-      "onboardCameraStatus": "Streaming"
-    },
-    "currentGoal": {
-      "directedMotion": {
-        "commandGroups": [
-          {
-            "arguments": {
-              "apiCommand": "MoveHead",
-              "changeDisplayImageGesture": null,
-              "lookParameters": {
-                "actionDelayInSeconds": null,
-                "actionDurationInSeconds": 1,
-                "fractionalPupilUseLimit": null,
-                "rollInRadians": -0.7330382858376184,
-                "spatialPrecisionInMeters": null,
-                "targetPose": {
-                  "bearing": 0,
-                  "created": "2019-08-14T20:28:48.3341954Z",
-                  "distance": 10,
-                  "elevation": 0,
-                  "frameId": "RobotNeck",
-                  "framesProvider": {
-                    "rootFrame": {
-                      "created": "2019-08-14T16:21:18.1035121Z",
-                      "id": "RobotBaseCenter",
-                      "isStatic": true,
-                      "linkFromParent": {
-                        "isStatic": true,
-                        "parentFrameId": "",
-                        "transformFromParent": {
-                          "bearing": 0,
-                          "distance": 0,
-                          "elevation": 0,
-                          "pitch": 0,
-                          "quaternion": {
-                            "isIdentity": true,
-                            "w": 1,
-                            "x": 0,
-                            "y": 0,
-                            "z": 0
-                          },
-                          "roll": 0,
-                          "x": 0,
-                          "y": 0,
-                          "yaw": 0,
-                          "z": 0
-                        },
-                        "transformToParent": {
-                          "bearing": 3.141592653589793,
-                          "distance": 0,
-                          "elevation": 0,
-                          "pitch": 0,
-                          "quaternion": {
-                            "isIdentity": true,
-                            "w": 1,
-                            "x": 0,
-                            "y": 0,
-                            "z": 0
-                          },
-                          "roll": 0,
-                          "x": 0,
-                          "y": 0,
-                          "yaw": 0,
-                          "z": 0
-                        }
-                      }
-                    }
-                  },
-                  "homogeneousCoordinates": {
-                    "bearing": 0,
-                    "distance": 10,
-                    "elevation": 0,
-                    "pitch": 0,
-                    "quaternion": {
-                      "isIdentity": true,
-                      "w": 1,
-                      "x": 0,
-                      "y": 0,
-                      "z": 0
-                    },
-                    "roll": 0,
-                    "x": 10,
-                    "y": 0,
-                    "yaw": 0,
-                    "z": 0
-                  },
-                  "pitch": 0,
-                  "roll": 0,
-                  "x": 10,
-                  "y": 0,
-                  "yaw": 0,
-                  "z": 0
-                },
-                "worldObjectId": null
-              }
-            },
-            "name": "Misty2.AffectiveHeadEyeAction"
-          }
-        ],
-        "id": 8835
-      },
-      "directedMotionBehavior": "Update",
-      "haltActionSequence": false
-    },
-    "localIPAddress": "192.168.7.32",
-    "location": {
-      "bearing": 0,
-      "bearingThreshold": {
-        "lowerBound": 0,
-        "upperBound": 0
-      },
-      "distance": 0,
-      "distanceThreshold": {
-        "lowerBound": 0,
-        "upperBound": 0
-      },
-      "elevation": 0,
-      "elevationThreshold": {
-        "lowerBound": 0,
-        "upperBound": 0
-      },
-      "pose": {
-        "bearing": 0,
-        "created": "2019-08-14T21:17:53.9314769Z",
-        "distance": 0,
-        "elevation": 0,
-        "frameId": "WorldOrigin",
-        "framesProvider": {
-          "rootFrame": {
-            "created": "2019-08-14T16:21:18.1035121Z",
-            "id": "RobotBaseCenter",
-            "isStatic": true,
-            "linkFromParent": {
-              "isStatic": true,
-              "parentFrameId": "",
-              "transformFromParent": {
-                "bearing": 0,
-                "distance": 0,
-                "elevation": 0,
-                "pitch": 0,
-                "quaternion": {
-                  "isIdentity": true,
-                  "w": 1,
-                  "x": 0,
-                  "y": 0,
-                  "z": 0
-                },
-                "roll": 0,
-                "x": 0,
-                "y": 0,
-                "yaw": 0,
-                "z": 0
-              },
-              "transformToParent": {
-                "bearing": 3.141592653589793,
-                "distance": 0,
-                "elevation": 0,
-                "pitch": 0,
-                "quaternion": {
-                  "isIdentity": true,
-                  "w": 1,
-                  "x": 0,
-                  "y": 0,
-                  "z": 0
-                },
-                "roll": 0,
-                "x": 0,
-                "y": 0,
-                "yaw": 0,
-                "z": 0
-              }
-            }
-          }
-        },
-        "homogeneousCoordinates": {
-          "bearing": 0,
-          "distance": 0,
-          "elevation": 0,
-          "pitch": 0.10141706466674805,
-          "quaternion": {
-            "isIdentity": false,
-            "w": 0.619889557,
-            "x": -0.7773387,
-            "y": -0.041995585,
-            "z": 0.09861117
-          },
-          "roll": -1.7855754801963701,
-          "x": 0,
-          "y": 0,
-          "yaw": 0.18964907113092544,
-          "z": 0
-        },
-        "pitch": 0.10141706466674805,
-        "roll": -1.7855754801963701,
-        "x": 0,
-        "y": 0,
-        "yaw": 0.18964907113092544,
-        "z": 0
-      },
-      "unitOfMeasure": "None"
-    },
-    "mentalState": {
-      "affect": {
-        "arousal": 0,
-        "dominance": 0,
-        "valence": 0
-      },
-      "created": "2019-08-14T21:17:53.9314769Z",
-      "personality": {
-        "agreeableness": 0,
-        "conscientiousness": 0,
-        "extraversion": 0,
-        "neuroticism": 0,
-        "openness": 0
-      },
-      "physiologicalBehavior": {
-        "hunger": {
-          "isEating": false,
-          "level": 0
-        },
-        "sleepiness": {
-          "isSleeping": false,
-          "level": 0
-        }
-      }
-    },
-    "occupancyGridCell": {
-      "x": 0,
-      "y": 0
-    },
-    "occupancyGridCellMeters": 0,
-    "serialMessages": [],
-    "slamStatus": {
-      "runMode": "Uninitialized",
-      "sensorStatus": "Ready",
-      "status": 2,
-      "statusList": [
-        "Ready"
-      ]
-    },
-    "touchedState": {
-      "disengagedSensors": [],
-      "engagedSensors": []
-    }
-  }
-}
-```
-
-## WorldState
-
-The ```WorldState``` WebSocket sends data about the environment Misty is perceiving, including:
-* the locations of perceived objects
-* the times they were perceived
-
-```WorldState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```WorldState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
-
 ## BatteryCharge
 
 The `BatteryCharge` data stream provides information about the state of Misty's battery, including charge percentage, voltage, and charging status. By default, the `BatteryCharge` data stream sends messages at timed intervals of five seconds.
@@ -1296,3 +983,871 @@ function _Hazard(data) {
     misty.Debug(triggers);
 }
 ```
+
+## SelfState - ALPHA
+
+The ```SelfState``` WebSocket provides a variety of data about Misty’s current internal state, including:
+
+* battery charge, voltage, and charging status
+* IP address
+* affect
+* position and orientation ("pose")
+* SLAM status
+* sensor messages
+
+**Note:** There are a number of fields in the WebSocket data structure that are reserved for future use and which may be empty or contain ```null``` data:
+* ```Acceleration```
+* ```BumpedState```
+* ```CurrentGoal```
+* ```MentalState```
+* ```Personality```
+* ```PhysiologicalBehavior```
+
+```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
+
+Sample SelfState data:
+```JSON
+SelfState
+{
+  "eventName": "SelfState",
+  "message": {
+    "acceleration": {
+      "units": "None",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "battery": {
+      "chargePercent": null,
+      "created": "2019-08-14T21:17:53.7266429Z",
+      "current": -0.911,
+      "expiry": "2019-08-14T21:18:03.7266429Z",
+      "healthPercent": null,
+      "isCharging": false,
+      "sensorId": "charge",
+      "sensorName": "/Sensors/RTC/BatteryCharge",
+      "state": "Discharging",
+      "temperature": 21,
+      "trained": false,
+      "voltage": 6.612
+    },
+    "bumpedState": {
+      "disengagedSensorIds": [],
+      "disengagedSensorNames": [],
+      "disengagedSensors": [],
+      "engagedSensorIds": [],
+      "engagedSensorNames": [],
+      "engagedSensors": []
+    },
+    "cameraStatus": {
+      "isTakingPicture": false,
+      "onboardCameraStatus": "Streaming"
+    },
+    "currentGoal": {
+      "directedMotion": {
+        "commandGroups": [
+          {
+            "arguments": {
+              "apiCommand": "MoveHead",
+              "changeDisplayImageGesture": null,
+              "lookParameters": {
+                "actionDelayInSeconds": null,
+                "actionDurationInSeconds": 1,
+                "fractionalPupilUseLimit": null,
+                "rollInRadians": -0.7330382858376184,
+                "spatialPrecisionInMeters": null,
+                "targetPose": {
+                  "bearing": 0,
+                  "created": "2019-08-14T20:28:48.3341954Z",
+                  "distance": 10,
+                  "elevation": 0,
+                  "frameId": "RobotNeck",
+                  "framesProvider": {
+                    "rootFrame": {
+                      "created": "2019-08-14T16:21:18.1035121Z",
+                      "id": "RobotBaseCenter",
+                      "isStatic": true,
+                      "linkFromParent": {
+                        "isStatic": true,
+                        "parentFrameId": "",
+                        "transformFromParent": {
+                          "bearing": 0,
+                          "distance": 0,
+                          "elevation": 0,
+                          "pitch": 0,
+                          "quaternion": {
+                            "isIdentity": true,
+                            "w": 1,
+                            "x": 0,
+                            "y": 0,
+                            "z": 0
+                          },
+                          "roll": 0,
+                          "x": 0,
+                          "y": 0,
+                          "yaw": 0,
+                          "z": 0
+                        },
+                        "transformToParent": {
+                          "bearing": 3.141592653589793,
+                          "distance": 0,
+                          "elevation": 0,
+                          "pitch": 0,
+                          "quaternion": {
+                            "isIdentity": true,
+                            "w": 1,
+                            "x": 0,
+                            "y": 0,
+                            "z": 0
+                          },
+                          "roll": 0,
+                          "x": 0,
+                          "y": 0,
+                          "yaw": 0,
+                          "z": 0
+                        }
+                      }
+                    }
+                  },
+                  "homogeneousCoordinates": {
+                    "bearing": 0,
+                    "distance": 10,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 10,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "pitch": 0,
+                  "roll": 0,
+                  "x": 10,
+                  "y": 0,
+                  "yaw": 0,
+                  "z": 0
+                },
+                "worldObjectId": null
+              }
+            },
+            "name": "Misty2.AffectiveHeadEyeAction"
+          }
+        ],
+        "id": 8835
+      },
+      "directedMotionBehavior": "Update",
+      "haltActionSequence": false
+    },
+    "localIPAddress": "192.168.7.32",
+    "location": {
+      "bearing": 0,
+      "bearingThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "distance": 0,
+      "distanceThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "elevation": 0,
+      "elevationThreshold": {
+        "lowerBound": 0,
+        "upperBound": 0
+      },
+      "pose": {
+        "bearing": 0,
+        "created": "2019-08-14T21:17:53.9314769Z",
+        "distance": 0,
+        "elevation": 0,
+        "frameId": "WorldOrigin",
+        "framesProvider": {
+          "rootFrame": {
+            "created": "2019-08-14T16:21:18.1035121Z",
+            "id": "RobotBaseCenter",
+            "isStatic": true,
+            "linkFromParent": {
+              "isStatic": true,
+              "parentFrameId": "",
+              "transformFromParent": {
+                "bearing": 0,
+                "distance": 0,
+                "elevation": 0,
+                "pitch": 0,
+                "quaternion": {
+                  "isIdentity": true,
+                  "w": 1,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "roll": 0,
+                "x": 0,
+                "y": 0,
+                "yaw": 0,
+                "z": 0
+              },
+              "transformToParent": {
+                "bearing": 3.141592653589793,
+                "distance": 0,
+                "elevation": 0,
+                "pitch": 0,
+                "quaternion": {
+                  "isIdentity": true,
+                  "w": 1,
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "roll": 0,
+                "x": 0,
+                "y": 0,
+                "yaw": 0,
+                "z": 0
+              }
+            }
+          }
+        },
+        "homogeneousCoordinates": {
+          "bearing": 0,
+          "distance": 0,
+          "elevation": 0,
+          "pitch": 0.10141706466674805,
+          "quaternion": {
+            "isIdentity": false,
+            "w": 0.619889557,
+            "x": -0.7773387,
+            "y": -0.041995585,
+            "z": 0.09861117
+          },
+          "roll": -1.7855754801963701,
+          "x": 0,
+          "y": 0,
+          "yaw": 0.18964907113092544,
+          "z": 0
+        },
+        "pitch": 0.10141706466674805,
+        "roll": -1.7855754801963701,
+        "x": 0,
+        "y": 0,
+        "yaw": 0.18964907113092544,
+        "z": 0
+      },
+      "unitOfMeasure": "None"
+    },
+    "mentalState": {
+      "affect": {
+        "arousal": 0,
+        "dominance": 0,
+        "valence": 0
+      },
+      "created": "2019-08-14T21:17:53.9314769Z",
+      "personality": {
+        "agreeableness": 0,
+        "conscientiousness": 0,
+        "extraversion": 0,
+        "neuroticism": 0,
+        "openness": 0
+      },
+      "physiologicalBehavior": {
+        "hunger": {
+          "isEating": false,
+          "level": 0
+        },
+        "sleepiness": {
+          "isSleeping": false,
+          "level": 0
+        }
+      }
+    },
+    "occupancyGridCell": {
+      "x": 0,
+      "y": 0
+    },
+    "occupancyGridCellMeters": 0,
+    "serialMessages": [],
+    "slamStatus": {
+      "runMode": "Uninitialized",
+      "sensorStatus": "Ready",
+      "status": 2,
+      "statusList": [
+        "Ready"
+      ]
+    },
+    "touchedState": {
+      "disengagedSensors": [],
+      "engagedSensors": []
+    }
+  }
+}
+```
+
+## WorldState - ALPHA
+
+The ```WorldState``` named object exists to provide information about things Misty perceives in her environment, including:
+* the locations of perceived objects
+* the times they were perceived
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The `WorldState` event is still in early development and can't be used for much at this time. Many of the properties Misty sends in `WorldState` event messages are reserved for future use, and may have `null` or invalid values.
+{{box op="end"}}
+
+```JSON
+{
+  "eventName": "WorldState",
+  "message": {
+    "characteristics": [],
+    "objects": [
+      {
+        "class": null,
+        "id": 1,
+        "individual": null,
+        "isSensible": true,
+        "location": {
+          "bearing": -0.5584253393087596,
+          "bearingThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "distance": 0.15293597670901554,
+          "distanceThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "elevation": 0.38783942844582714,
+          "elevationThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "pose": {
+            "bearing": -0.5584253393087596,
+            "created": "2019-09-09T19:15:10.7842637Z",
+            "distance": 0.15293597670901554,
+            "elevation": 0.38783942844582714,
+            "frameId": "WorldOrigin",
+            "framesProvider": {
+              "rootFrame": {
+                "created": "2019-09-09T18:30:21.4398142Z",
+                "id": "RobotBaseCenter",
+                "isStatic": true,
+                "linkFromParent": {
+                  "isStatic": true,
+                  "parentFrameId": "",
+                  "transformFromParent": {
+                    "bearing": 0,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "transformToParent": {
+                    "bearing": 3.141592653589793,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  }
+                }
+              }
+            },
+            "homogeneousCoordinates": {
+              "bearing": -0.5584253393087596,
+              "distance": 0.15293597670901554,
+              "elevation": 0.38783942844582714,
+              "pitch": 1.5696512460708618,
+              "quaternion": {
+                "isIdentity": false,
+                "w": 0.7075245,
+                "x": -0.0000965454237,
+                "y": 0.7066889,
+                "z": -0.0000882303138
+              },
+              "roll": -0.21764267965049405,
+              "x": 0.12007024884223938,
+              "y": -0.0750148594379425,
+              "yaw": -0.21763145560213495,
+              "z": -0.05783873423933983
+            },
+            "pitch": 1.5696512460708618,
+            "roll": -0.21764267965049405,
+            "x": 0.12007024884223938,
+            "y": -0.0750148594379425,
+            "yaw": -0.21763145560213495,
+            "z": -0.05783873423933983
+          },
+          "unitOfMeasure": "None"
+        },
+        "statistics": {
+          "durationContinuouslyPerceived": "00:00:00",
+          "firstPerceived": "2019-09-09T19:15:08.9239249Z",
+          "mostRecentlyPerceived": "2019-09-09T19:15:10.7842637Z"
+        },
+        "timeStamp": "2019-09-09T19:15:10.7842637Z"
+      },
+      {
+        "class": null,
+        "id": 2,
+        "individual": null,
+        "isSensible": true,
+        "location": {
+          "bearing": -2.4473488655806275,
+          "bearingThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "distance": 0.1320835387735192,
+          "distanceThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "elevation": -0.4793232003535818,
+          "elevationThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "pose": {
+            "bearing": -2.4473488655806275,
+            "created": "2019-09-09T19:15:10.7842637Z",
+            "distance": 0.1320835387735192,
+            "elevation": -0.4793232003535818,
+            "frameId": "WorldOrigin",
+            "framesProvider": {
+              "rootFrame": {
+                "created": "2019-09-09T18:30:21.4398142Z",
+                "id": "RobotBaseCenter",
+                "isStatic": true,
+                "linkFromParent": {
+                  "isStatic": true,
+                  "parentFrameId": "",
+                  "transformFromParent": {
+                    "bearing": 0,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "transformToParent": {
+                    "bearing": 3.141592653589793,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  }
+                }
+              }
+            },
+            "homogeneousCoordinates": {
+              "bearing": -2.4473488655806275,
+              "distance": 0.1320835387735192,
+              "elevation": -0.4793232003535818,
+              "pitch": -1.5696512460708618,
+              "quaternion": {
+                "isIdentity": false,
+                "w": 0.00008819939,
+                "x": 0.7066889,
+                "y": 0.00009651453,
+                "z": 0.7075245
+              },
+              "roll": 0.21757214098211117,
+              "x": -0.09007161110639572,
+              "y": -0.07498423755168915,
+              "yaw": 2.924042367538678,
+              "z": 0.06091412156820297
+            },
+            "pitch": -1.5696512460708618,
+            "roll": 0.21757214098211117,
+            "x": -0.09007161110639572,
+            "y": -0.07498423755168915,
+            "yaw": 2.924042367538678,
+            "z": 0.06091412156820297
+          },
+          "unitOfMeasure": "None"
+        },
+        "statistics": {
+          "durationContinuouslyPerceived": "00:00:00",
+          "firstPerceived": "2019-09-09T19:15:08.9239249Z",
+          "mostRecentlyPerceived": "2019-09-09T19:15:10.7842637Z"
+        },
+        "timeStamp": "2019-09-09T19:15:10.7842637Z"
+      },
+      {
+        "class": null,
+        "id": 3,
+        "individual": null,
+        "isSensible": true,
+        "location": {
+          "bearing": 0.5579833753366954,
+          "bearingThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "distance": 0.17502626966973778,
+          "distanceThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "elevation": 0.6283228116298827,
+          "elevationThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "pose": {
+            "bearing": 0.5579833753366954,
+            "created": "2019-09-09T19:15:10.7842637Z",
+            "distance": 0.17502626966973778,
+            "elevation": 0.6283228116298827,
+            "frameId": "WorldOrigin",
+            "framesProvider": {
+              "rootFrame": {
+                "created": "2019-09-09T18:30:21.4398142Z",
+                "id": "RobotBaseCenter",
+                "isStatic": true,
+                "linkFromParent": {
+                  "isStatic": true,
+                  "parentFrameId": "",
+                  "transformFromParent": {
+                    "bearing": 0,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "transformToParent": {
+                    "bearing": 3.141592653589793,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  }
+                }
+              }
+            },
+            "homogeneousCoordinates": {
+              "bearing": 0.5579833753366954,
+              "distance": 0.17502626966973778,
+              "elevation": 0.6283228116298827,
+              "pitch": 1.5696512460708618,
+              "quaternion": {
+                "isIdentity": false,
+                "w": 0.7075245,
+                "x": -0.0000965454237,
+                "y": 0.7066889,
+                "z": -0.0000882303138
+              },
+              "roll": -0.21764267965049405,
+              "x": 0.12012173235416412,
+              "y": 0.07497323304414749,
+              "yaw": -0.21763145560213495,
+              "z": -0.10287846624851227
+            },
+            "pitch": 1.5696512460708618,
+            "roll": -0.21764267965049405,
+            "x": 0.12012173235416412,
+            "y": 0.07497323304414749,
+            "yaw": -0.21763145560213495,
+            "z": -0.10287846624851227
+          },
+          "unitOfMeasure": "None"
+        },
+        "statistics": {
+          "durationContinuouslyPerceived": "00:00:00",
+          "firstPerceived": "2019-09-09T19:15:08.9239249Z",
+          "mostRecentlyPerceived": "2019-09-09T19:15:10.7842637Z"
+        },
+        "timeStamp": "2019-09-09T19:15:10.7842637Z"
+      },
+      {
+        "class": null,
+        "id": 4,
+        "individual": null,
+        "isSensible": true,
+        "location": {
+          "bearing": -3.1415883669408133,
+          "bearingThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "distance": 0.4359997212269757,
+          "distanceThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "elevation": 0.0011690930720143118,
+          "elevationThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "pose": {
+            "bearing": -3.1415883669408133,
+            "created": "2019-09-09T19:15:10.7358941Z",
+            "distance": 0.4359997212269757,
+            "elevation": 0.0011690930720143118,
+            "frameId": "WorldOrigin",
+            "framesProvider": {
+              "rootFrame": {
+                "created": "2019-09-09T18:30:21.4398142Z",
+                "id": "RobotBaseCenter",
+                "isStatic": true,
+                "linkFromParent": {
+                  "isStatic": true,
+                  "parentFrameId": "",
+                  "transformFromParent": {
+                    "bearing": 0,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "transformToParent": {
+                    "bearing": 3.141592653589793,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  }
+                }
+              }
+            },
+            "homogeneousCoordinates": {
+              "bearing": -3.1415883669408133,
+              "distance": 0.4359997212269757,
+              "elevation": 0.0011690930720143118,
+              "pitch": 0.0011815604520961642,
+              "quaternion": {
+                "isIdentity": false,
+                "w": -0.00000487849775,
+                "x": -0.000590780866,
+                "y": 0.000133459544,
+                "z": 0.9999998
+              },
+              "roll": 0.00026692497608394846,
+              "x": -0.43599942326545715,
+              "y": -0.0000018689764829105115,
+              "yaw": -3.141582738898105,
+              "z": -0.0005097241373732686
+            },
+            "pitch": 0.0011815604520961642,
+            "roll": 0.00026692497608394846,
+            "x": -0.43599942326545715,
+            "y": -0.0000018689764829105115,
+            "yaw": -3.141582738898105,
+            "z": -0.0005097241373732686
+          },
+          "unitOfMeasure": "None"
+        },
+        "statistics": {
+          "durationContinuouslyPerceived": "00:00:00",
+          "firstPerceived": "2019-09-09T19:14:48.53128Z",
+          "mostRecentlyPerceived": "2019-09-09T19:15:10.7358941Z"
+        },
+        "timeStamp": "2019-09-09T19:15:10.7358941Z"
+      },
+      {
+        "class": null,
+        "id": 5,
+        "individual": null,
+        "isSensible": true,
+        "location": {
+          "bearing": 2.447178387656334,
+          "bearingThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "distance": 0.13446667538055293,
+          "distanceThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "elevation": -0.511962016172321,
+          "elevationThreshold": {
+            "lowerBound": 0,
+            "upperBound": 0
+          },
+          "pose": {
+            "bearing": 2.447178387656334,
+            "created": "2019-09-09T19:15:10.7842637Z",
+            "distance": 0.13446667538055293,
+            "elevation": -0.511962016172321,
+            "frameId": "WorldOrigin",
+            "framesProvider": {
+              "rootFrame": {
+                "created": "2019-09-09T18:30:21.4398142Z",
+                "id": "RobotBaseCenter",
+                "isStatic": true,
+                "linkFromParent": {
+                  "isStatic": true,
+                  "parentFrameId": "",
+                  "transformFromParent": {
+                    "bearing": 0,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  },
+                  "transformToParent": {
+                    "bearing": 3.141592653589793,
+                    "distance": 0,
+                    "elevation": 0,
+                    "pitch": 0,
+                    "quaternion": {
+                      "isIdentity": true,
+                      "w": 1,
+                      "x": 0,
+                      "y": 0,
+                      "z": 0
+                    },
+                    "roll": 0,
+                    "x": 0,
+                    "y": 0,
+                    "yaw": 0,
+                    "z": 0
+                  }
+                }
+              }
+            },
+            "homogeneousCoordinates": {
+              "bearing": 2.447178387656334,
+              "distance": 0.13446667538055293,
+              "elevation": -0.511962016172321,
+              "pitch": -1.5696512460708618,
+              "quaternion": {
+                "isIdentity": false,
+                "w": 0.00008819939,
+                "x": 0.7066889,
+                "y": 0.00009651453,
+                "z": 0.7075245
+              },
+              "roll": 0.21757214098211117,
+              "x": -0.09007984399795532,
+              "y": 0.07501709461212158,
+              "yaw": 2.924042367538678,
+              "z": 0.06587369740009308
+            },
+            "pitch": -1.5696512460708618,
+            "roll": 0.21757214098211117,
+            "x": -0.09007984399795532,
+            "y": 0.07501709461212158,
+            "yaw": 2.924042367538678,
+            "z": 0.06587369740009308
+          },
+          "unitOfMeasure": "None"
+        },
+        "statistics": {
+          "durationContinuouslyPerceived": "00:00:00",
+          "firstPerceived": "2019-09-09T19:15:08.9239249Z",
+          "mostRecentlyPerceived": "2019-09-09T19:15:10.7842637Z"
+        },
+        "timeStamp": "2019-09-09T19:15:10.7842637Z"
+      }
+    ]
+  }
+}
+```
+
+`WorldState` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The `WorldState` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the `DebounceMs` field, as shown in the `lightSocket.js` JavaScript helper.
