@@ -188,7 +188,7 @@ Returns
    * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 ### misty.SaveAudio
-Saves an audio file to Misty. Maximum size is 3 MB.
+Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 
 ```JavaScript
 // Syntax
@@ -196,7 +196,7 @@ misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool ove
 ```
 
 Arguments
-* fileName (string) - The name of the audio file. This command accepts all audio format types, however Misty currently cannot play OGG files.
+* fileName (string) - The name of the audio file.
 * data (string) - The audio data, passed as a string containing a base64 string .
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
 * overwriteExisting (boolean) - Optional. A value of `true` indicates the file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the file should not overwrite any existing files on Misty.
