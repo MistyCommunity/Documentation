@@ -293,7 +293,7 @@ function _breathingLED(){
         misty.ChangeLED(
             Math.floor(i * red), // red intensity
             Math.floor(i * green), // green intensity
-            Math.floor(i * blue)); // red intensity
+            Math.floor(i * blue)); // blue intensity
         // Pause before next iteration. Increase value for slower
         // breathing; decrease for faster breathing.
         misty.Pause(150);
@@ -336,7 +336,7 @@ function _breathingLED() {
         misty.ChangeLED(
             Math.floor(i * red), // red intensity
             Math.floor(i * green), // green intensity
-            Math.floor(i * blue)); // red intensity
+            Math.floor(i * blue)); // blue intensity
         // Pause before next iteration. Increase value for slower
         // breathing; decrease for faster breathing.
         misty.Pause(150);
@@ -625,7 +625,7 @@ function _FaceRec(data) {
         misty.PlayAudio("s_Joy3.wav");
         waveRightArm();
     }
-    // If misty sees someone she doesn't know, she raises her eyebrow
+    // If Misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
         misty.DisplayImage("e_Contempt.jpg");
@@ -659,7 +659,7 @@ function _FaceRec(data) {
         misty.PlayAudio("s_Joy3.wav");
         waveRightArm();
     }
-    // If misty sees someone she doesn't know, she raises her eyebrow
+    // If Misty sees someone she doesn't know, she raises her eyebrow
     // and plays a different sound.
     else if (faceDetected == "unknown person") {
         misty.DisplayImage("e_Contempt.jpg");
