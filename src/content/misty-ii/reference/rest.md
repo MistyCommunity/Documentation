@@ -1894,10 +1894,12 @@ Example JSON response for a successful request:
 
 ### GetLogFile
 
-Obtains log file data. Calling `GetLogFile` with no parameters returns log data from the current date. This command returns up to 3 MB of logs.
+Obtains log file data.
+
+The response object includes data from the current day (or the specified date, if one exists). It includes up to 3MB of data from log files up to 14 days old. Due to the 3MB limit, log data from the oldest date returned is typically truncated. Misty automatically deletes log files older than 14 days.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If you request the logs for a specific date, the results may include logs from the following date if less than 3 MB of logs exist for the date requested.
+**Note:** Misty returns the messages for each day in order from the earliest message logged to the latest message logged on that day. In the response object, the time jump from one day to the next is not demarcated in any way.
 {{box op="end"}}
 
 Endpoint:
@@ -1996,8 +1998,8 @@ Return Values
 Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
 
 **Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
- 
-Endpoint: 
+
+Endpoint:
 
 GET &lt;robot-ip-address&gt;/api/websockets for information about all of Misty’s available WebSocket connections.
 
