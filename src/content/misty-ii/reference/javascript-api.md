@@ -874,12 +874,17 @@ misty.MoveHead(0, 0, 0, 100);
 ```
 
 ### misty.MoveHeadDegrees
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the `misty.MoveHeadDegrees()` command can only control the up-down movement of Misty's head.
+
+Moves Misty's head in one of three axes (tilt, turn, or up-down).
 
 ```JavaScript
 // Syntax
 misty.MoveHeadDegrees(double pitch, double roll, double yaw, double velocity, [int prePauseMs], [int postPauseMs]);
 ```
+
+![Head movement range in pitch direction](../../../assets/images/head-pitch-range.png)
+![Head movement range in roll direction](../../../assets/images/head-roll-range.png)
+![Head movement range in yaw direction](../../../assets/images/head-yaw-range.png)
 
 Arguments
 

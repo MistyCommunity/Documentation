@@ -747,7 +747,7 @@ Return Values
 
 ### MoveHead
 
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
+Moves Misty's head in one of three axes (tilt, turn, or up-down).
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/head
 
@@ -770,7 +770,11 @@ Parameters
 
 **Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
 
-**Value Ranges (By Unit) for Each Direction of Head Movement**
+**Ranges for Head Movement**
+
+![Head movement range in pitch direction](../../../assets/images/head-pitch-range.png)
+![Head movement range in roll direction](../../../assets/images/head-roll-range.png)
+![Head movement range in yaw direction](../../../assets/images/head-yaw-range.png)
 
 || degrees | position | radians |
 |-----|---------|----------|---------|
