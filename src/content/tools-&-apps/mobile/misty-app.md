@@ -29,20 +29,19 @@ The Misty App is a mobile app for Android and iOS devices that you can use to se
 6. When the Bluetooth broadcast succeeds, the app displays a list of Misty robots that your app can connect to. Select your Misty from the list. **Note:** If you are in a room with more than one Misty, you may need to locate your Misty's serial number by checking the label on the bottom of your robot. ![Misty App Misty Serial Number Screen](../../../assets/images/companion_app_serial_number.png)
 7. When Misty connects to your device, the Misty App displays a list of nearby Wi-Fi networks. Select your network from the list, and follow the prompt to enter your password. The full sequence for connecting Misty looks like this: ![Connect to Misty flow](../../../assets/images/misty-app-animation-1.gif)
 8. If the connection fails initially or at any point when you are using the app, you'll see a screen that allows you to try reconnecting to Misty. If you cannot successfully connect Misty to Wi-Fi, check for and install any updates to the companion app. ![Misty App reconnect screen](../../../assets/images/companion_app_connection_fail.png)
-9. Once the Wi-Fi connection succeeds, you should see the Misty companion app **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. **Note:** You will need the IP address to use Misty with all of her web-based tools. ![Misty App connect animation](../../../assets/images/misty-app-animation-2.gif)
+9. Once the Wi-Fi connection succeeds, you should see the Misty App **Home** screen. Confirm that the Wi-Fi status is **Connected** and that a valid IP address for Misty appears onscreen. We suggest writing down this IP address, as you will need it to upload skills to Misty and connect to her web-based tools. ![Misty App connect animation](../../../assets/images/misty-app-animation-2.gif)
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Important!** While it’s usually easiest to use the companion app to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#connecting-wi-fi) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+**Note:** While it’s usually easiest to use the companion app to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#connecting-wi-fi) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
 {{box op="end"}}
 
 ## Changing Wi-Fi Networks
 
-Once connected to a local network, you can follow these steps to connect Misty to a different network.
+When Misty is already connected to a network, you can follow these steps to connect her to a different network:
 
 1. From the bottom of the **Home** screen, select the **Settings** icon.![Misty App home screen](../../../assets/images/companion_app_home_4.jpg)
 2. Tap your network name next to the **WiFi** field. ![Change Wi-Fi list](../../../assets/images/misty-app-change-wi-fi.jpg)
-3. Select the network you want to use from the list and [follow the steps to connect](../../../tools-&-apps/mobile/misty-app/#connecting-misty-to-bluetooth-and-wi-fi).
-
+3. Select your new network from the list, and follow the prompt to enter your password.
 
 
 ## Getting Information about Misty
