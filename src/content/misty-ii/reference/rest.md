@@ -689,7 +689,9 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
@@ -720,7 +722,9 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
@@ -778,9 +782,9 @@ Parameters
 
 || degrees | position | radians |
 |-----|---------|----------|---------|
-| pitch | -9.5 (up) to 34.9 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
-| roll | -43 (left) to 43 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
-| yaw | -90 (right) to 90 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
+| pitch | -40 (up) to 26 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
+| roll | -40 (left) to 40 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
+| yaw | -81 (right) to 81 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
