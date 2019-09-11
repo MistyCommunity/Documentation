@@ -774,6 +774,10 @@ misty.MoveArms(0, 0, 100, 100);
 
 Moves one of Misty's arms to a specified position.
 
+When moving Misty's arms, it's helpful to understand their movement limitations.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
+
 ```JavaScript
 // Syntax
 misty.MoveArmPosition(string arm, double position, double velocity, [int prePauseMs], [int postPauseMs])
@@ -797,12 +801,12 @@ Moves one of Misty's arms to a specified location in degrees.
 
 When moving Misty's arms, it's helpful to understand their orientation.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
@@ -824,6 +828,10 @@ misty.MoveArmDegrees("right", -90, 50);
 ### misty.MoveArmRadians
 
 Moves one of Misty's arms to a specified location in radians.
+
+When moving Misty's arms, it's helpful to understand their movement limitations.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
