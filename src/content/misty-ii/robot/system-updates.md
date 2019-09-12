@@ -18,8 +18,8 @@ Misty reboots once during a system update. The system disables all commands exce
 
 If you have issues with a system update or need technical assistance for other reasons, for the quickest response you can:
 
-* Post a message to the [Support](https://community.mistyrobotics.com/groups/support) category in the Community forums. Mention [@support](https://community.mistyrobotics.com/groups/support) in your post.
-* Contact the Misty support team through the chat embedded in this site, or by emailing [help@mistyrobotics.com](mailto:help@mistyrobotics.com).
+* Post a message to the [Support](https://community.mistyrobotics.com/groups/support) category in the Community forums.
+* Contact the Misty support team through the chat embedded in this site, or by emailing [support@mistyrobotics.com](mailto:support@mistyrobotics.com).
 
 ## Checking Software and Firmware Versions
 
