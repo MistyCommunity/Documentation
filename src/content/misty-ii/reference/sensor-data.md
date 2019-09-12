@@ -374,6 +374,7 @@ IMU {
 ```
 
 By default, Misty sends `IMU` data to listeners of `IMU` events once every five seconds.
+
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** Misty uses a **right-handed coordinate frame** to determine the value of each property returned in IMU event messages.
 {{box op="end"}}
