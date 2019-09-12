@@ -689,7 +689,9 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
@@ -720,7 +722,9 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, Misty's arms are not configured to move to this position.
+* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+
+![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
@@ -774,9 +778,9 @@ Parameters
 
 || degrees | position | radians |
 |-----|---------|----------|---------|
-| pitch | -9.5 (up) to 34.9 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
-| roll | -43 (left) to 43 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
-| yaw | -90 (right) to 90 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
+| pitch | -40 (up) to 26 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
+| roll | -40 (left) to 40 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
+| yaw | -81 (right) to 81 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -1894,10 +1898,12 @@ Example JSON response for a successful request:
 
 ### GetLogFile
 
-Obtains log file data. Calling `GetLogFile` with no parameters returns log data from the current date. This command returns up to 3 MB of logs.
+Obtains log file data.
+
+The response object includes data from the current day (or the specified date, if one exists). It includes up to 3MB of data from log files up to 14 days old. Due to the 3MB limit, log data from the oldest date returned is typically truncated. Misty automatically deletes log files older than 14 days.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If you request the logs for a specific date, the results may include logs from the following date if less than 3 MB of logs exist for the date requested.
+**Note:** Misty returns the messages for each day in order from the earliest message logged to the latest message logged on that day. In the response object, the time jump from one day to the next is not demarcated in any way.
 {{box op="end"}}
 
 Endpoint:
@@ -1996,8 +2002,8 @@ Return Values
 Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
 
 **Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
- 
-Endpoint: 
+
+Endpoint:
 
 GET &lt;robot-ip-address&gt;/api/websockets for information about all of Misty’s available WebSocket connections.
 

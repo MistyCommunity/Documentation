@@ -430,4 +430,4 @@ When troubleshooting issues with your Misty II, you may be asked to get a diagno
 2. Scroll down to the **Sensor Data** section and click **Advanced Options**.
 3. Scroll down to the **Get Diagnostic Report** section at the bottom of the **Advanced Options** modal.
 4. Click the **Run and Download** button to download a compressed `diagnostic.zip` file with your robot's log files and device information. ![Get a report](../../../assets/images/command-center-diagnostic-report.png)
-5. Locate the downloaded `diagnostic.zip` file on your PC. Send this file to the Misty support team by attaching it in an email to help@mistyrobotics.com.
+5. Locate the downloaded `diagnostic.zip` file on your PC. Send this file to the Misty support team by attaching it in an email to support@mistyrobotics.com.
