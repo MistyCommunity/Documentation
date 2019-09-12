@@ -49,7 +49,7 @@ When Misty is already connected to a network, you can follow these steps to conn
 The **My Misty** screen provides information on Misty’s Bluetooth and Wi-Fi connections, her IP address, software versions, and more.
 
 1. From the bottom of the **Home** screen, select the **My Misty** icon. ![Misty App home screen](../../../assets/images/companion_app_home_4.jpg)
-2. The **My Misty** screen allows you to view connectivity, software, and hardware information. ![Misty App My Misty screen](../../../assets/images/companion_app_my_misty.png)
+2. The **My Misty** screen allows you to view connectivity, software, and hardware information. ![Misty App My Misty screen](../../../assets/images/companion_app_my_misty.jpg)
 
 ## Driving Misty with the Misty App
 
