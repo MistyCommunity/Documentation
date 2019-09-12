@@ -124,6 +124,23 @@ The following notifications are enabled by default:
   * If Misty doesn't see a face, the LED turns yellow.
 * **System Updates** - While Misty is performing a system update, the LED blinks white.
 
+## Coordinate System & Movement Ranges
+
+As you develop skills and robot applications, it can be helpful to understand a few key details about Misty's coordinate system and the range of movement allowed for her head and arm motors.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For a graphical representation of Misty's coordinate system and movement ranges, be sure to download the [Misty II Coordinate System & Movement Ranges PDF](https://misty-releases.s3.amazonaws.com/resources/Misty+II+Coordinate+System+%26+Movement+Ranges+-+Misty+Robotics.pdf).
+{{box op="end"}}
+
+* Misty uses a **right-handed coordinate frame** when orienting her body, head, and arms relative to her surroundings, when interpreting movement and locomotion commands, and when publishing sensor data.
+* Most of Misty's commands and event types ingest and publish angular measurement data using degrees (instead of radians) as the default unit of measurement. As such, we recommend using degrees to calculate position and movement whenever you can.
+* Misty's inertial measurement unit (IMU) orients its heading to `0/360` degrees each time Misty boots up. For Misty, an IMU `yaw` value of `0/360` degrees does **not** represent true north unless Misty is facing true north when the IMU orients its heading.
+* Because the IMU is located in Misty's torso, readings from the IMU only change when Misty's body moves. They do not change relative to the position of Misty's head.
+* A positional value of 0 degrees orients Misty's arms to point horizontally forward, directly in front of the robot. To prevent interference between the arms and the plastic lens protecting Misty's display, her arms cannot move higher than -29 degrees. Additionally, they cannot move lower than 90 degrees (pointing straight down).
+* A positional value of 0 degrees for head movement in the roll, pitch, and yaw directions orients Misty's head to face straight forward, directly in front of the robot.
+* The system returns audio localization data relative to the direction Misty's head is facing (instead of her torso). The heading of Misty's face is the `0/360` angle relative to incoming audio localization data.
+
+
 ## Misty II Specs
 
 Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.

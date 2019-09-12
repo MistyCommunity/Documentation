@@ -374,6 +374,7 @@ IMU {
 ```
 
 By default, Misty sends `IMU` data to listeners of `IMU` events once every five seconds.
+
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** Misty uses a **right-handed coordinate frame** to determine the value of each property returned in IMU event messages.
 {{box op="end"}}
@@ -791,6 +792,7 @@ Each `HazardNotification` event message includes the following properties:
 * `motorStallHazard` - The contents of this property are still under implementation and, for now, can be safely ignored.
 * `timeOfFlightSensorsHazardState` - An array of objects that describe the hazard state for each of Misty's time-of-flight sensors. Each object in the array includes a `sensorName` property with a string value for a time-of-flight sensor name, and an `inHazard` property with a boolean value indicating whether that sensor is in a hazard state. The hazard system considers a time-of-flight sensor to be in a hazard state when the sensor detects a distance greater than a predetermined threshold. For downward-facing time-of-flight sensors, this threshold defaults to 0.06 meters. The hazard system is disabled for front- and rear-facing time-of-flight sensors at this time.
 <!-- * `motorStallHazard` - An array of objects that describe the hazard state for Misty's head, arm, and drive motors. Each object in the array includes a `sensorName` property with a string value for one of Misty's motors, and an `inHazard` property with a boolean value indicating whether that motor is in a hazard state. The `motorStallHazard` state triggers when Misty's sensor data indicates a motor is attempting and failing to enable movement. -->
+* `excessiveSpeedHazard` - An array of objects that describe whether the velocity for a motor has exceeded safe thresholds, thus triggering a hazard state for that motor. The contents of this property are still under implementation, and the `excessiveSpeedHazard` state is not yet enabled for Misty's head and arm motors. Currently, the system only engages this hazard state when it detects the robot turning at speeds greater than 100 degrees per second. This can sometimes happen as the result of the drive system losing communication with the IMU sensor.
 
 In the following example of a `HazardNotification` event message, the `TOF_DownBackLeft` and `TOF_DownBackRight` time-of-flight sensors are both in a hazard state.
 
