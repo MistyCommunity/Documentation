@@ -914,6 +914,28 @@ Example JSON response for a failed request:
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
+### GetCurrentSlamMap
+
+Obtains the key for the currently active map.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/current
+
+Parameters
+
+* None
+
+Return Values
+
+* result (string) - The unique key associated with the currently active map.
+
+```JSON
+{
+    "result": "Map_20190912_21.16.32.UTC",
+    "status": "Success"
+}
+```
+
+
 ### GetSlamMaps
 
 Obtains a list of keys and names for Misty's existing maps.
