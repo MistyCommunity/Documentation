@@ -1147,7 +1147,7 @@ Obtains the occupancy grid data for Misty's currently active map.
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks).
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/reference/rest/#setcurrentslammap-alpha) command in Misty's REST API.
+**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/reference/rest/#setcurrentslammap) command in Misty's REST API.
 {{box op="end"}}
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
