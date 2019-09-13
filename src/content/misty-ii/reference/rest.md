@@ -914,6 +914,27 @@ Example JSON response for a failed request:
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
+### DeleteSlamMap
+
+Deletes a map.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/slam/map
+
+Parameters
+
+* Key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
+
+```JSON
+{
+  "key": "Map_20190912_21.16.32.UTC",
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns true if no errors related to this command. 
+
+
 ### GetCurrentSlamMap
 
 Obtains the key for the currently active map.
