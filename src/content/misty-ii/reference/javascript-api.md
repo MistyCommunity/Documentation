@@ -731,10 +731,6 @@ misty.Halt();
 
 Moves one or both of Misty's arms.
 
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 Parameters
 * arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
 * position (integer) - The new position to move the arm to. Expects a value of 0 - 10. 5 Points the arms straight forward.

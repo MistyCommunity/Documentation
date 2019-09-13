@@ -958,7 +958,7 @@ Return Values
 
 ### GetSlamIrExposureAndGain
 
-Obtains the current exposure and gain settings for the infrared cameras in Misty's Occipital Structure Core depth sensor.
+Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
 
@@ -969,8 +969,8 @@ Parameters
 Return Values
 
 * result (object) - An object with the following key/value pairs:
-  * exposure (double) - The current exposure levels for the infrared cameras in Misty's depth sensor, in seconds.
-  * gain (integer) - The current gain levels for the infrared cameras in Misty's depth sensor, in dB.
+  * exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
+  * gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
 
 ```JSON
 {
@@ -1014,6 +1014,33 @@ Return Values
 }
 ```
 
+### GetSlamVisibleExposureAndGain
+
+Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/visible
+
+Parameters
+
+* None
+
+Return Values
+
+* result (object) - An object with the following key/value pairs:
+  * exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
+  * gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
+
+```JSON
+{
+    "result": {
+        "exposure": 0.007987,
+        "gain": 2
+    },
+    "status": "Success"
+}
+```
+
+
 ### RenameSlamMap
 
 Renames an existing map.
@@ -1056,6 +1083,61 @@ Parameters
 Return Values:
 
 * result (boolean) - Returns `true` if no errors related to this command.
+
+### SetSlamIrExposureAndGain
+
+Sets the exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
+
+You must issue a command to `StartSlamStreaming` before issuing a `SetSlamIrExposureAndGain` command. Failing to do will not update the settings.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/ir
+
+Parameters
+
+* Exposure (double) - Exposure levels for the infrared cameras in the depth sensor (in seconds). Range: `0.001` - `0.033`.
+* Gain (integer) - Gain levels for the infrared cameras in the depth sensor (in dB). Range: `0` - `3`.
+
+```JSON
+{
+  "Exposure": 0.014468,
+  "Gain": 3
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
+### SetSlamVisibleExposureAndGain
+
+Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must issue a command to `StartSlamStreaming` before issuing a `SetSlamVisibleExposureAndGain` request. Failing to do will reset the depth sensor and restart the SLAM service.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/visible
+
+Parameters
+
+* Exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
+* Gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
+
+```JSON
+{
+  "Exposure": 0.007987,
+  "Gain": 2
+}
+```
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
 
 ### StartSlamStreaming
 
@@ -1206,6 +1288,32 @@ Return Values
   * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
   * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
   * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
+### GetSlamNavigationDiagnostics - ALPHA
+
+Obtains diagnostic information about Misty's navigation system.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/diagnostics
+
+Parameters
+* None
+
+Return Values
+
+* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
+
+```JSON
+{
+  "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
+  "status": "Success"
+}
+```
+
+
 
 ### GetSlamPath - ALPHA
 
