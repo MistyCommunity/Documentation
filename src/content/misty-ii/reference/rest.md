@@ -956,6 +956,31 @@ Return Values
 }
 ```
 
+### GetSlamIrExposureAndGain
+
+Obtains the current exposure and gain settings for the infrared cameras in Misty's Occipital Structure Core depth sensor.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
+
+Parameters
+
+* None
+
+Return Values
+
+* result (object) - An object with the following key/value pairs:
+  * exposure (double) - The current exposure levels for the infrared cameras in Misty's depth sensor, in seconds.
+  * gain (integer) - The current gain levels for the infrared cameras in Misty's depth sensor, in dB.
+
+```JSON
+{
+    "result": {
+        "exposure": 0.014468,
+        "gain": 3
+    },
+    "status": "Success"
+}
+```
 
 ### GetSlamMaps
 
