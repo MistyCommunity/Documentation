@@ -748,10 +748,6 @@ misty.MoveArm("both", 0, 100);
 
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
 
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 Parameters
 * leftArmPosition (double) - Optional. The new position of Misty's left arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
 * rightArmPosition (double) - Optional. The new position of Misty's right arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
@@ -769,10 +765,6 @@ misty.MoveArms(0, 0, 100, 100);
 ### misty.MoveArmPosition
 
 Moves one of Misty's arms to a specified position.
-
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
@@ -802,8 +794,6 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 ```JavaScript
 // Syntax
 misty.MoveArmDegrees(string arm, double degrees, double velocity, [int prePauseMs], [int postPauseMs])
@@ -825,10 +815,6 @@ misty.MoveArmDegrees("right", -90, 50);
 
 Moves one of Misty's arms to a specified location in radians.
 
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 ```JavaScript
 // Syntax
 misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseMs], [int postPauseMs])
@@ -836,7 +822,7 @@ misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseM
 
 Arguments
 * arm (string) - The arm to move. Use `left`, `right`, or `both`.
-* radians (double) - The location in radians to move the arm to.
+* radians (double) - The position in `radians` to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.

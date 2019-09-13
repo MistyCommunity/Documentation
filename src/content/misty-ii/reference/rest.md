@@ -691,13 +691,11 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
-* Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
+* Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
@@ -724,14 +722,12 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
-* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
-* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
+* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
+* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
 * LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. Defaults to `null`.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
