@@ -968,6 +968,25 @@ Return Values
 }
 ```
 
+### SetCurrentSlamMap
+
+Sets a map to be Misty's currently active map for tracking and relocalization.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/current
+
+Parameters
+
+* Key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
+
+```JSON
+{
+  "key": "Map_20190912_21.16.32.UTC",
+}
+```
+
+Return Values:
+
+* result (boolean) - Returns `true` if no errors related to this command.
 
 ### StartSlamStreaming
 
@@ -1094,7 +1113,7 @@ Return Values
 Obtains the occupancy grid data for Misty's currently active map.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap-alpha) command.
+**Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap) command.
 {{box op="end"}}
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
