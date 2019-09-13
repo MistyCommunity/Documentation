@@ -914,6 +914,39 @@ Example JSON response for a failed request:
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
+### GetSlamMaps
+
+Obtains a list of keys and names for Misty's existing maps.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/ids
+
+Parameters
+
+* None
+
+Return Values
+
+* result (array) - A list of objects representing Misty's existing maps. Each object has the following key/value pairs:
+  * key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
+  * name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#renameslammap) command.
+
+```JSON
+{
+  "result": [
+    {
+      "key": "Map_20190912_21.16.06.UTC",
+      "name": "Map_20190912_21.16.06.UTC"
+    },
+    {
+      "key": "Map_20190912_21.16.32.UTC",
+      "name": "My Map"
+    }
+  ],
+  "status": "Success"
+}
+```
+
+
 ### StartSlamStreaming
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
@@ -1063,7 +1096,6 @@ Return Values
   * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
   * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
   * width (integer) - The width of the occupancy grid matrix (in number of cells). 
-
 
 ### GetSlamPath - ALPHA
 
