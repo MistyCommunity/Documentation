@@ -968,6 +968,29 @@ Return Values
 }
 ```
 
+### RenameSlamMap
+
+Renames an existing map.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/rename  
+
+Parameters
+
+* Key (string) - The unique `key` value of the map to rename.
+* Name (string) - A new `name` value for the map.
+
+```JSON
+{
+  "Key": "Map_20190912_21.16.32.UTC",
+  "Name": "KitchenMap3"
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if no errors related to this command. 
+
+
 ### SetCurrentSlamMap
 
 Sets a map to be Misty's currently active map for tracking and relocalization.
