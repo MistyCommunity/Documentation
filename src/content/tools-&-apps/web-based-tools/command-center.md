@@ -289,14 +289,7 @@ ReturnProperty: MentalState.Affect
 Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Important!** If you are mapping with a Misty I or Misty II prototype, please be aware of the following:
-
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
-
-**Note:** The software that runs the Occipital sensor for mapping and tracking is alpha. Experiment with mapping, but recognize that it is unreliable at this time.
+**Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed tipBox"}}
@@ -322,11 +315,7 @@ Before attempting to map or track, you must obtain pose.
 When mapping, drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness. When possible, making wider turns also improves mapping results.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Every time you create a new map, the former map is deleted. You can use the API to get a map and back it up, if desired.
-
-If Misty loses pose after generating a map, she will need to generate a new map and start over.
-
-It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
+**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
 {{box op="end"}}
 
 To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
