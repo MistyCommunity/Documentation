@@ -988,7 +988,13 @@ function _Hazard(data) {
 
 ## SlamStatus - ALPHA
 
-Misty's `SlamStatus` event messages provide information about the current status of Misty's simultaneous localization and mapping (SLAM) system. `SlamStatus` messages include the following properties:
+Misty's `SlamStatus` event messages provide information about the current status of Misty's simultaneous localization and mapping (SLAM) system.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
+{{box op="end"}}
+
+`SlamStatus` messages include the following properties:
 
 * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `SlamStatus` event message.) The following hexadecimal values correspond to bit fields for each possible status code:
   * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.

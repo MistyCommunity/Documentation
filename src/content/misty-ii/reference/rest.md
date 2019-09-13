@@ -691,13 +691,11 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
 Parameters
 * Arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
-* Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use position, degrees, or radians. Defaults to degrees.
+* Position (double) - The new position to move the arm to. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
@@ -724,14 +722,12 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
 Parameters
-* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
-* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use position, degrees, or radians.
+* LeftArmPosition (double) - Optional. The new position of Misty's left arm. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
+* RightArmPosition (double) - Optional. The new position of Misty's right arm. Use the `Units` parameter to determine whether to use `position`, `degrees`, or `radians`. Defaults to `degrees`.
 * LeftArmVelocity (double) - Optional. A value of 0 to 100 specifying the speed with which the left arm should move. Defaults to `null`.
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
@@ -910,13 +906,234 @@ Example JSON response for a failed request:
 ## Navigation
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
+{{box op="end"}}
 
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+### DeleteSlamMap
 
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+Deletes a map.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/slam/map
+
+Parameters
+
+* Key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
+
+```JSON
+{
+  "key": "Map_20190912_21.16.32.UTC",
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns true if no errors related to this command. 
+
+
+### GetCurrentSlamMap
+
+Obtains the key for the currently active map.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/current
+
+Parameters
+
+* None
+
+Return Values
+
+* result (string) - The unique key associated with the currently active map.
+
+```JSON
+{
+    "result": "Map_20190912_21.16.32.UTC",
+    "status": "Success"
+}
+```
+
+### GetSlamIrExposureAndGain
+
+Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
+
+Parameters
+
+* None
+
+Return Values
+
+* result (object) - An object with the following key/value pairs:
+  * exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
+  * gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
+
+```JSON
+{
+    "result": {
+        "exposure": 0.014468,
+        "gain": 3
+    },
+    "status": "Success"
+}
+```
+
+### GetSlamMaps
+
+Obtains a list of keys and names for Misty's existing maps.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/ids
+
+Parameters
+
+* None
+
+Return Values
+
+* result (array) - A list of objects representing Misty's existing maps. Each object has the following key/value pairs:
+  * key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
+  * name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#renameslammap) command.
+
+```JSON
+{
+  "result": [
+    {
+      "key": "Map_20190912_21.16.06.UTC",
+      "name": "Map_20190912_21.16.06.UTC"
+    },
+    {
+      "key": "Map_20190912_21.16.32.UTC",
+      "name": "My Map"
+    }
+  ],
+  "status": "Success"
+}
+```
+
+### GetSlamVisibleExposureAndGain
+
+Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/visible
+
+Parameters
+
+* None
+
+Return Values
+
+* result (object) - An object with the following key/value pairs:
+  * exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
+  * gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
+
+```JSON
+{
+    "result": {
+        "exposure": 0.007987,
+        "gain": 2
+    },
+    "status": "Success"
+}
+```
+
+
+### RenameSlamMap
+
+Renames an existing map.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/rename  
+
+Parameters
+
+* Key (string) - The unique `key` value of the map to rename.
+* Name (string) - A new `name` value for the map.
+
+```JSON
+{
+  "Key": "Map_20190912_21.16.32.UTC",
+  "Name": "KitchenMap3"
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if no errors related to this command. 
+
+
+### SetCurrentSlamMap
+
+Sets a map to be Misty's currently active map for tracking and relocalization.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/current
+
+Parameters
+
+* Key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
+
+```JSON
+{
+  "key": "Map_20190912_21.16.32.UTC",
+}
+```
+
+Return Values:
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+### SetSlamIrExposureAndGain
+
+Sets the exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
+
+You must issue a command to `StartSlamStreaming` before issuing a `SetSlamIrExposureAndGain` command. Failing to do will not update the settings.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/ir
+
+Parameters
+
+* Exposure (double) - Exposure levels for the infrared cameras in the depth sensor (in seconds). Range: `0.001` - `0.033`.
+* Gain (integer) - Gain levels for the infrared cameras in the depth sensor (in dB). Range: `0` - `3`.
+
+```JSON
+{
+  "Exposure": 0.014468,
+  "Gain": 3
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
+### SetSlamVisibleExposureAndGain
+
+Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must issue a command to `StartSlamStreaming` before issuing a `SetSlamVisibleExposureAndGain` request. Failing to do will reset the depth sensor and restart the SLAM service.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/visible
+
+Parameters
+
+* Exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
+* Gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
+
+```JSON
+{
+  "Exposure": 0.007987,
+  "Gain": 2
+}
+```
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
 
 ### StartSlamStreaming
 
@@ -1040,7 +1257,11 @@ Return Values
 
 ### GetMap - ALPHA
 
-Obtains occupancy grid data for the most recent map Misty has generated. **Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. 
+Obtains the occupancy grid data for Misty's currently active map.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap) command.
+{{box op="end"}}
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
@@ -1064,14 +1285,31 @@ Return Values
   * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
   * width (integer) - The width of the occupancy grid matrix (in number of cells). 
 
+### GetSlamNavigationDiagnostics - ALPHA
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
+Obtains diagnostic information about Misty's navigation system.
 
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/diagnostics
+
+Parameters
+* None
+
+Return Values
+
+* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
+
+```JSON
+{
+  "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
+  "status": "Success"
+}
+```
+
+
 
 ### GetSlamPath - ALPHA
 
@@ -1182,11 +1420,7 @@ Return Values
 
 Starts Misty mapping an area.
 
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](./#getslammaps) command.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
 

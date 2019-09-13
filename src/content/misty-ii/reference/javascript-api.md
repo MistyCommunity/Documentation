@@ -731,10 +731,6 @@ misty.Halt();
 
 Moves one or both of Misty's arms.
 
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 Parameters
 * arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
 * position (integer) - The new position to move the arm to. Expects a value of 0 - 10. 5 Points the arms straight forward.
@@ -751,10 +747,6 @@ misty.MoveArm("both", 0, 100);
 ### misty.MoveArms
 
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
-
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 Parameters
 * leftArmPosition (double) - Optional. The new position of Misty's left arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
@@ -773,10 +765,6 @@ misty.MoveArms(0, 0, 100, 100);
 ### misty.MoveArmPosition
 
 Moves one of Misty's arms to a specified position.
-
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
@@ -806,8 +794,6 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 ```JavaScript
 // Syntax
 misty.MoveArmDegrees(string arm, double degrees, double velocity, [int prePauseMs], [int postPauseMs])
@@ -829,10 +815,6 @@ misty.MoveArmDegrees("right", -90, 50);
 
 Moves one of Misty's arms to a specified location in radians.
 
-When moving Misty's arms, it's helpful to understand their movement limitations.
-
-![Arm movement range](../../../assets/images/arm-movement-range.png)
-
 ```JavaScript
 // Syntax
 misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseMs], [int postPauseMs])
@@ -840,7 +822,7 @@ misty.MoveArmRadians(string arm, double radians, double velocity, [int prePauseM
 
 Arguments
 * arm (string) - The arm to move. Use `left`, `right`, or `both`.
-* radians (double) - The location in radians to move the arm to.
+* radians (double) - The position in `radians` to move the arm to.
 * velocity (double) - The velocity with which to move the arm. Velocity value is a percentage of maximum velocity. Value range: 0 - 100.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -1030,12 +1012,9 @@ misty.DriveHeading(90, 0.5, 4000, false);
 ## Navigation
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
-
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
+{{box op="end"}}
 
 ### misty.StartSlamStreaming
 
@@ -1163,11 +1142,13 @@ misty.FollowPath("100:250,125:275...");
 
 ### misty.GetMap - ALPHA
 
-Obtains occupancy grid data for the most recent map Misty has generated. 
+Obtains the occupancy grid data for Misty's currently active map.
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks).
 
-**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/reference/rest/#setcurrentslammap) command in Misty's REST API.
+{{box op="end"}}
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
@@ -1331,13 +1312,15 @@ misty.ResetSlam();
 ```
 
 ### misty.StartMapping - ALPHA
+
 Starts Misty mapping an area.
 
-**Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](../../../misty-ii/reference/rest/#misty-getslammaps-alpha) command in Misty's REST API.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty's SLAM system can run out of memory, especially while mapping mapping large, complex areas. When this happens, the SLAM system shuts down, and Misty saves any progress made on the current map to her local storage.
+{{box op="end"}}
+
 
 ```JavaScript
 // Syntax
