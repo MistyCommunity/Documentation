@@ -2235,7 +2235,7 @@ Return Values
 
 Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
 
-**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
+**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/reference/sensor-data/).
 
 Endpoint:
 
