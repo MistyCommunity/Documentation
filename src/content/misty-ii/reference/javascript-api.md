@@ -270,9 +270,9 @@ misty.AddPropertyTest(string eventName, string property, string inequality, stri
 
 Arguments
 * eventName (string) - The name of the event to create a property comparison test for.
-* property (string) - The property of the event to compare. For the full list of properties for each event, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
+* property (string) - The property of the event to compare. For the full list of properties for each event, see the documentation for Misty's different [Event Types](../../../misty-ii/reference/sensor-data/).
 * inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
-* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data).
+* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Event Types](../../../misty-ii/reference/sensor-data).
 * valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -367,9 +367,9 @@ Arguments
 * messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed [here](../../../misty-ii/reference/sensor-data).
 * debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
 * keepAlive (boolean) - Optional. Pass `true` to keep the callback function registered to the event after the callback function is triggered. By default, when an event callback is triggered, the event unregisters the callback to prevent more commands from overriding the initial call. 
-* property (string) - The property of the event to compare. For the full list of properties for each event, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
+* property (string) - The property of the event to compare. For the full list of properties for each event, see [Event Types](../../../misty-ii/reference/sensor-data/).
 * inequality (string) - The comparison operator to use in the property comparison test, passed as a string. Accepts `"=>"`, `"=="`, `"!=="`, `">"`, `"<"`, `">="`, `"<="`, `"exists"`, `"empty"`, or `"delta"`.
-* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data).
+* valueAsString (string) - The value of the property to compare against, passed as a string. For the full list of values for each event property, see [Event Types](../../../misty-ii/reference/sensor-data).
 * valueType (string) - The type of the value specified in `"valueAsString"`. Accepts `"double"`, `"float"`, `"integer"`, "`string"`, `"datetime"`, or "`boolean`"
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -2392,7 +2392,7 @@ Example JSON object for a saved WiFi network:
 
 Obtains information about a specified WebSocket class. Calling `misty.GetWebsocketNames()` without specifying a class returns information about all of Misty’s available WebSocket connections.
 
-**Note:** For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data/).
+**Note:** For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/reference/sensor-data/).
 
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks).
 
