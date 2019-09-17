@@ -137,7 +137,7 @@ To use face training and recognition, follow these steps.
 8. When finished, click **Stop Face Recognition**.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The face detection and recognition data that Misty sends is described in detail in the [Sensor & Skill Data Types](../../../misty-ii/reference/sensor-data) section.
+**Note:** The face detection and recognition data that Misty sends is described in detail in the [Event Types](../../../misty-ii/reference/sensor-data) section.
 {{box op="end"}}
 
 ### Recording Video
