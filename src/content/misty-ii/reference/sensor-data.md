@@ -545,10 +545,10 @@ Right Front|`toF_Right`|`toffr`|`Range`
 Center Front|`toF_Left`|`toffl`|`Range`
 Left Front|`toF_Center`|`toffc`|`Range`
 Back|`toF_Back`|`tofr`|`Range`
-Downward Front Right|`toF_DownBackRight`|`tofdfr`|`Edge`
-Downward Front Left|`toF_DownBackLeft`|`tofdfl`|`Edge`
-Downward Back Right|`toF_DownFrontRight`|`tofdrr`|`Edge`
-Downward Back Left|`toF_DownFrontLeft`|`tofdrl`|`Edge`
+Downward Front Right|`toF_DownFrontRight`|`tofdfr`|`Edge`
+Downward Front Left|`toF_DownFrontLeft`|`tofdfl`|`Edge`
+Downward Back Right|`toF_DownBackRight`|`tofdrr`|`Edge`
+Downward Back Left|`toF_DownBackLeft`|`tofdrl`|`Edge`
 
 ### Time-of-Flight Status Codes
 
@@ -560,7 +560,7 @@ Event messages from Misty's range time-of-flight sensors include one of the foll
 -----|-----|-----|-----
 `-1`|`Unknown`| An unknown error. The system uses this code as a catch-all for errors that do not map to one of the codes below.
 `0`|`RangeValid`| The distance reading is valid. The sensor received good data, and its readings fell within the thresholds set for both sigma and signal.
-`101`|`SigmaFail`| The distance reading may not be accurate. The system sends this code when the standard deviation (sigma) of the sensor's readings is higher than the threshold set in Misty's firmware. You are more likely to see this code when Misty is operating in bright environments.
+`101`|`SigmaFail`| The distance reading may not be accurate. The system sends this code when the standard deviation (sigma) of the sensor's readings is higher than the threshold set in Misty's firmware. You are more likely to see this code when Misty is operating in bright environments, or when the sensor points toward a flat surface at an angle.
 `102`|`SignalFail`| The distance reading may not be accurate. The system sends this code when the return signal is too weak for the sensor to provide good data. You are more likely to see this code when the target of a sensor is too far away, not reflective enough, or too small.
 `103`|`ROIOutOfBounds`| Each range time-of-flight sensor is comprised of a 16x16 array of detectors. The region of interest for each sensor can be adjusted to allow a different area of the sensor to read return signals. This allows us to change which direction the sensor "sees". (This is similar to the way that you can move your eyes to look in different directions, albeit with more restricted movement.) If the chosen region of interest is outside the 16x16 array of detectors, the system returns a distance value of 8191 with a `103` status code. The region of interest is currently set internally on Misty's system and cannot be adjusted. You will not see this error until the ability to change the region of interest is exposed.
 `104`|`OutOfBounds`| The distance reading may not be accurate. The system sends this code when the sensor sees a target further away than 1.2 meters. While Misty's range time-of-flight sensors **do** return distance values for targets further away than 1.2 meters, the sensor's proximity calculations are less accurate when the target is outside this range. Bear this mind when using distance values that come back with this status code.
