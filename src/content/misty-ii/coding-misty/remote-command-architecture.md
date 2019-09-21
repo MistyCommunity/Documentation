@@ -1,5 +1,5 @@
 ---
-title: Rest API & WebSocket Architecture
+title: REST API & WebSocket Architecture
 layout: coding.hbs
 columns: three
 order: 5
