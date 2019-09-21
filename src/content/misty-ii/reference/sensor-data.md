@@ -542,8 +542,8 @@ A `TimeOfFlight` event message includes the following key/value pairs:
 **Sensor Position**|**`sensorName`**|**`sensorId`**|**`type`**
 -----|-----|-----|-----
 Right Front|`toF_Right`|`toffr`|`Range`
-Center Front|`toF_Left`|`toffl`|`Range`
-Left Front|`toF_Center`|`toffc`|`Range`
+Left Front|`toF_Left`|`toffl`|`Range`
+Center Front|`toF_Center`|`toffc`|`Range`
 Back|`toF_Back`|`tofr`|`Range`
 Downward Front Right|`toF_DownFrontRight`|`tofdfr`|`Edge`
 Downward Front Left|`toF_DownFrontLeft`|`tofdfl`|`Edge`
