@@ -13,7 +13,7 @@ You can use the Misty Skills extension for [Visual Studio Code](https://code.vis
 
 Follow these steps to install the Misty Skills extension:
 
-1. [Click here to download the extension](https://misty-releases.s3.amazonaws.com/vsc-extension/latest/mistyskills-0.0.5.vsix).
+1. [Click here to download the extension](https://marketplace.visualstudio.com/items?itemName=MistyRobotics.mistyjavascript).
 2. Open Visual Studio Code.
 3. Use **Ctrl** + **Shift** + **X** (Windows) or **Command** + **Shift** + **X** (Mac) to see your list of Installed extensions.
 4. Use the menu at the top of this list to select the option to **Install from VSIX...**
