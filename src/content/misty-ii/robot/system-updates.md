@@ -7,7 +7,7 @@ order: 4
 
 # {{title}}
 
-This topic provides information about Misty's system updates. Read this page to learn about Misty's update process, find links to release notes, and (soon) access documentation for historical software and firmware versions.
+This topic provides information about Misty's system updates. Read this page to learn about Misty's update process, find links to release notes, and access documentation for historical software and firmware versions.
 
 ## Installing System Updates
 
@@ -45,8 +45,6 @@ This is the current version of Misty's software.
 | `sensoryServicesAppVersion`  | 1.3.0  |  1.1.14.3 |
 
 ### 2019.09.12 System Update
-
-This is the current version of Misty's software.
 
 * [2019.09.12 Release Notes](https://community.mistyrobotics.com/t/9-12-2019-release-notes/1785)
 * View the [developer documentation](https://docs.mistyrobotics.com/v1.2.3.0) for this version of the robot's software.
