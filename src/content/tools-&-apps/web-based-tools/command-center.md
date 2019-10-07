@@ -384,9 +384,9 @@ To perform a targeted update, check the box next to each component to attempt to
 
 ## Connecting Wi-Fi
 
-While it’s usually easiest to use the [Misty App](../../../tools-&-apps/mobile/misty-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) and the USB-to-Ethernet adaptor that came with your robot to connect Misty instead.
+While it’s usually easiest to use the [Misty App](../../../tools-&-apps/mobile/misty-app) to connect Misty to your home Wi-Fi network, sometimes there can be issues with this method. In that case, you can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) and a USB-to-Ethernet adaptor to connect Misty instead. Please note that this adaptor does not arrive with Misty, and must be obtained from a retailer other than Misty Robotics.
 
-1. Connect the adapter from your network router to your computer. Do not connect the adapter to Misty yet.
+1. Connect a USB-to-Ethernet adapter from your network router to your computer. Do not connect the adapter to Misty yet.
 2. Use the command line to find the IP address of the adapter.
   * On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note**: On a Mac you may also be able to find the IP address under **System Preferences > Network**.
   * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
