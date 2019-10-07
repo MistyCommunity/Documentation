@@ -747,16 +747,32 @@ Return Values
 
 ### MoveHead
 
-Moves Misty's head in one of three axes (tilt, turn, or up-down). **Note:** For Misty I, the MoveHead command can only control the up-down movement of Misty's head.
+Moves Misty's head to a new position along its pitch, roll, and yaw axes.
+
+For the value ranges (by unit) for each direction of head movement, see the table below:
+
+|| degrees | position | radians |
+|-----|---------|----------|---------|
+| pitch | -40 (up) to 26 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
+| roll | -40 (left) to 40 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
+| yaw | -81 (right) to 81 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
+
+For more information about the range of movement in each direction, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must pass in a value for either the `Duration` OR the `Velocity` argument. If you pass in values for both arguments, or if you pass in values for neither arguments, the system throws an exception.
+{{box op="end"}}
+
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/head
 
 Parameters
 
-- Pitch (double) - Value that determines the up or down movement of Misty's head movement.
-- Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
-- Yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
+- Pitch (double) - Value that determines the up or down position of Misty's head movement.
+- Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head.
+- Yaw (double) - Number that determines the left to right turn position of Misty's head.
 - Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
+- Duration (double) - Optional. Time (in milliseconds) Misty takes to move her head from its current position to its new position.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
@@ -764,19 +780,9 @@ Parameters
   "Pitch": 3,
   "Roll": 3,
   "Yaw": -2,
-  "Velocity": 6
+  "Velocity": 60
 }
 ```
-
-**Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
-
-**Value Ranges (By Unit) for Each Direction of Head Movement**
-
-|| degrees | position | radians |
-|-----|---------|----------|---------|
-| pitch | -40 (up) to 26 (down) | -5 (up) to 5 (down) |-0.1662 (up) to 0.6094 (down) |
-| roll | -40 (left) to 40 (right) | -5 (left) to 5 (right) |-0.75 (left) to 0.75 (right) |
-| yaw | -81 (right) to 81 (left) | -5 (right) to 5 (left) |-1.57 (right) to 1.57 (left) |
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
