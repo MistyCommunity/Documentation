@@ -1123,7 +1123,10 @@ Returns
 ### misty.FollowPath - ALPHA
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
 
-**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
+{{box op="end"}}
+
 
 ```JavaScript
 // Syntax
@@ -1131,13 +1134,13 @@ misty.FollowPath(string path, [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
-* path (list of sets of integers) - A list containing 1 or more sets of integer pairs representing X and Y coordinates. You can obtain `path` values from a map that Misty has previously generated.  **Note:** X values specify directions forward and backward. Sideways directions are specified by Y values.
+* path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. You can use the `GetMap` command in Misty's REST API to access the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
 // Example
-misty.FollowPath("100:250,125:275...");
+misty.FollowPath("4:3,8:8,10:15");
 ```
 
 ### misty.GetMap - ALPHA

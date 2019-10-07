@@ -1229,7 +1229,7 @@ Drives to a designated waypoint.
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
 
 Parameters
-* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
 
 ```json
 “Destination": “10:25"
@@ -1239,22 +1239,21 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path.
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
 
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
 
 Parameters
-- Waypoints (array of objects) - A list of objects, where each object includes the X and Y coordinates for a waypoint on the path that Misty should follow. Misty travels to each waypoint in the order they appear in this array. **Note:** X values specify forward and backward movement, and Y values indicate movement to Misty's left or right.
+
+- Path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. Use `GetMap` to obtain the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
 
 ```json
 {
-  "Waypoints":[
-    {"X": 0, "Y": 0},
-    {"X": 5, "Y": 5},
-    {"X": 5, "Y": 10}
-    ]
+  "Path": "4:3,8:8,10:15"
 }
 ```
 
