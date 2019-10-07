@@ -97,6 +97,10 @@ To use Misty's wireless charging station, follow these steps:
 2. Place the charging station on the floor.
 3. Place Misty on the center of the charging station. Position her to be facing out, with her back against the rear compartment of the charging station, and make sure the arrows on Misty's base are lined up with the arrows on the charging station.![Misty II on her charging station](../../../assets/images/mii-charging.jpg)
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When Misty is turned off, she automatically stops receiving a charge from the wireless charging station after charging for about four hours. This timeout occurs whether the robot is fully charged or not. To make sure Misty receives a full charge, we recommend powering her on before setting her on the wireless charging station.
+{{box op="end"}}
+
 ### Wired Charging
 
 Follow these steps to charge Misty via a wired connection:
