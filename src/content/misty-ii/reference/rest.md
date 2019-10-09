@@ -688,8 +688,10 @@ When moving Misty's arms, it's helpful to understand their orientation.
 
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
-* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack; however, Misty's arms are not currently configured to move to this position.
+* At -90/+270 degrees, Misty's arms would point straight up towards her head, perpendicular to the ground; however, the upward movement of Misty's arm movement is currently limited to -29 degrees.
+
+For more information about Misty's arm movement ranges, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
@@ -704,7 +706,6 @@ Parameters
   "Arm": "left",
   "Position": -90,
   "Velocity": 100,
-  "Units": "degrees"
 }
 ```
 
@@ -719,9 +720,10 @@ When moving Misty's arms, it's helpful to understand their orientation.
 
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
-* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack; however, Misty's arms are not currently configured to move to this position.
+* At -90/+270 degrees, Misty's arms would point straight up towards her head, perpendicular to the ground; however, the upward movement of Misty's arm movement is currently limited to -29 degrees.
 
+For more information about Misty's arm movement ranges, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
