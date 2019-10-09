@@ -1510,7 +1510,7 @@ Return Values
 
 ### ForgetFaces
 
-Removes records trained faces from Misty's memory.
+Removes records of trained faces from Misty's memory.
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
 
