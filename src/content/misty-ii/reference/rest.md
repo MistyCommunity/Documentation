@@ -688,8 +688,10 @@ When moving Misty's arms, it's helpful to understand their orientation.
 
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
-* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack; however, Misty's arms are not currently configured to move to this position.
+* At -90/+270 degrees, Misty's arms would point straight up towards her head, perpendicular to the ground; however, the upward movement of Misty's arm movement is currently limited to -29 degrees.
+
+For more information about Misty's arm movement ranges, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
@@ -704,7 +706,6 @@ Parameters
   "Arm": "left",
   "Position": -90,
   "Velocity": 100,
-  "Units": "degrees"
 }
 ```
 
@@ -719,9 +720,10 @@ When moving Misty's arms, it's helpful to understand their orientation.
 
 * At 0 degrees, Misty's arms point straight forward along her X axis, parallel to the ground.
 * At +90 degrees, Misty's arms point straight down towards the ground.
-* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
-* At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
+* At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack; however, Misty's arms are not currently configured to move to this position.
+* At -90/+270 degrees, Misty's arms would point straight up towards her head, perpendicular to the ground; however, the upward movement of Misty's arm movement is currently limited to -29 degrees.
 
+For more information about Misty's arm movement ranges, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set
 
@@ -1506,29 +1508,15 @@ Return Values
 
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
-### ForgetAllFaces
+### ForgetFaces
 
-Removes records of previously trained faces from Misty's memory.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### ForgetFace
-
-Removes records of a specific trained face from Misty's memory.
+Removes records of trained faces from Misty's memory.
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
 
 Parameters
 
-* FaceId (string) - The name of the face to remove.
+* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
 
 Returns
 
