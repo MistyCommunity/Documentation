@@ -1394,39 +1394,22 @@ Arguments
 misty.CancelFaceTraining();
 ```
 
-### misty.ForgetAllFaces
-Removes records of previously trained faces from Misty's memory.
+### misty.ForgetFaces
+
+Removes records of trained faces from Misty's memory.
 
 ```JavaScript
 // Syntax
-misty.ForgetAllFaces([int prePauseMs], [int postPauseMs])
-```
-
-Arguments
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
-
-```JavaScript
-// Example
-misty.ForgetAllFaces();
-```
-
-### misty.ForgetFace
-
-Removes records of a specific trained face from Misty's memory.
-
-```JavaScript
-// Syntax
-misty.ForgetFace(string FaceId, [int prePauseMs], [int postPauseMs]);
+misty.ForgetFaces(string FaceId, [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
 
-* FaceId (string) - The name of the face to remove.
+* FaceId (string) - The ID of the face to remove. If `null`, clears all trained faces from Misty's memory.
 
 ```JavaScript
 // Example
-misty.ForgetFace("John");
+misty.ForgetFaces("John");
 ```
 
 ### misty.GetKnownFaces

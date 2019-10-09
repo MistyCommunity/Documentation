@@ -1508,29 +1508,15 @@ Return Values
 
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
-### ForgetAllFaces
+### ForgetFaces
 
-Removes records of previously trained faces from Misty's memory.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### ForgetFace
-
-Removes records of a specific trained face from Misty's memory.
+Removes records trained faces from Misty's memory.
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
 
 Parameters
 
-* FaceId (string) - The name of the face to remove.
+* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
 
 Returns
 
