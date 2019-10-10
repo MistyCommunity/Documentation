@@ -28,9 +28,9 @@ Before you connect Misty to an instance of the [Command Center](http://sdk.misty
 
 1. [Open up the Command Center](http://sdk.mistyrobotics.com/command-center) in a browser window.
 2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**. ![Connect to Misty](../../../assets/images/command-center-connect-animation.gif)
-3. Use the **Quick Commands** in the **System** section to experiment with changing the color of the LED on Misty's chest or changing the image on Misty's display.
-![Command Center Quick Commands](../../../assets/images/command-center-quick-commands.png)
-1. When Misty is connected, her serial number, battery level, and software version display under **Device Info** in the **System** section. ![Misty's Device Info](../../../assets/images/command_center_device_info.png)To see all data provided by the **Get All Device Info** button, open the web console for the browser window.
+3. When Misty is connected, her serial number, battery level, and software version display in the topmost section of the web page.![Device Info](../../../assets/images/command_center_device_info.png)
+
+To see more details about your robot, click **Get All Device Info**. Open the web console in your browser window to see the results.
 
 ## Movement
 
@@ -82,18 +82,18 @@ When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command
 **Note:** Pitch head movement is all that can be controlled for Misty I robots.
 {{box op="end"}}
 
-## Managing Audio and Image Files
+## Expression
 
-Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. You can use the **Asset** section of the Command Center to upload your own image and audio files to Misty, or to manage the files already on your robot.
+Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. Use the **Expression** controls to interact with these assets or to upload and manage your own image and audio files. You can also use this section to change the color of the LED on Misty's chest.
 
-![Asset management controls](../../../assets/images/command_center_asset.png)
+![Expression controls](../../../assets/images/command_center_expression.png)
 
 ### Adding a custom audio or image file to Misty
 
 Please read the following before uploading new image or audio files to Misty:
 
-* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the [Command Center](http://sdk.mistyrobotics.com/command-center/), for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels).
-* For audio, you can upload all file format types, however Misty cannot currently play OGG files.
+* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the [Command Center](http://sdk.mistyrobotics.com/command-center/), for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels)
+* For audio, valid file types are .wav, .mp4, .wma, and .aac.
 * The maximum size for both audio and image files is 3 MB.
 
 Follow these steps to add a custom audio or image file to Misty:
@@ -121,14 +121,16 @@ You can use the controls in the **Image** section to display, download, or delet
 
 ## Perception
 
-You can use the **Perception** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video.
+You can use the **Perception** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video. Additionally, this section provides an interface for visualizing data from audio localization events.
+
+![Command Center Perception controls](../../../assets/images/command_center_perception.png)
 
 ### Face Training & Recognition
 
 To use face training and recognition, follow these steps.
 
 1. Make sure that your robot is connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
-2. In the **Perception** section, go to **Face Training** and enter a name in the **Name to Train** input box. ![Face Training interface](../../../assets/images/command_center_face_training_interface.png)
+2. In the **Perception** section, go to **Face Training** and enter a name in the **Name to Train** input box.
 3. Position a single person’s face in a well-lit area 1-6 feet from Misty’s camera. Do not attempt to train Misty to recognize more than one person at the same time.
 4. Click **Start Face Training** and wait 10-15 seconds. There is no need to click **Stop Face Training**, unless you want to stop the process before it completes. You can observe the main [Command Center](http://sdk.mistyrobotics.com/command-center/) browser tab (not the JavaScript console) for pop-up status messages during the face training process. **Note**: Due to network variability, there can be up to several seconds of lag time between when you begin face training and when any status messages appear.
 5. Once you've trained Misty on a person's face, you can click **Start Face Recognition**.
@@ -144,9 +146,10 @@ To use face training and recognition, follow these steps.
 
 Misty can record a ten second video with her 4K camera. You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to start the recording, stop the recording, and download the recording to your web browser.
 
-Note that Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
 
-![Record Video](../../../assets/images/command_center_record_video.png)
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty records videos in .mp4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+{{box op="end"}}
 
 Click **Start Recording Video** to start Misty recording a video, and click **Stop Recording Video** to stop the recording. Note that if you do not click **Stop Recording Video**, Misty automatically stops recording after 10 seconds. Click **Download Recorded Video** to download the most recent recorded video recorded to your web browser.
 
@@ -155,28 +158,46 @@ Click **Start Recording Video** to start Misty recording a video, and click **St
 Misty can take pictures with her 4K camera as well as the ultra-wide vision camera on her Occipital Structure Core depth sensor.
 
 Use the **Take Photo** controls to take a picture with Misty's 4K camera.
-![Camera controls](../../../assets/images/command_center_take_photo.png)
-
-Click **Take + Display Photo** to take a picture and display it in your browser, or click **Take + Download Photo** to download the picture to your computer.
+* Click **Take + Display Photo** to take a picture and display it in your browser.
+* Click **Take + Download Photo** to download the picture to your computer.
 
 Use the **Wide-Angle Vision Camera** controls to take a black-and-white photo with the camera on Misty's Occipital Structure Core depth sensor.
-![Depth sensor camera controls](../../../assets/images/command_center_wide_angle.png)
-
-Click **Take + Display Photo** to take a picture and display it in your browser, or click **Take + Download Photo** to download the picture to your computer.
+* Click **Take + Display Photo** to take a picture and display it in your browser
+* Click **Take + Download Photo** to download the picture to your computer.
 
 ### Recording Audio
 
-Use the **Record Audio** controls to have Misty record an audio file with her microphone array.
-
-![Record audio controls](../../../assets/images/command_center_record_audio.png)
-
-Follow these steps to have Misty record an audio file:
+Use the **Record Audio** controls to have Misty record an audio file with her microphone array. Follow these steps to have Misty record an audio file:
 
 1. Enter a name to save the file with on Misty's local storage.
 2. Click the **Start Recording Audio** button to have Misty start recording audio.
 3. When you're finished recording, click the **Stop Recording Audio** button. **Note:** Misty automatically stops recording after 60 seconds.
 
 The new audio file will appear in the list of Misty's audio files in the **Assets** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+
+### Audio Localization Visualization
+
+Use the **Audio Localization** controls to have Misty start streaming voice and sound localization data from her microphone array. When you click **Start Recording Voice**, the **Audio Localization Visualization** interface provides a visualization of the location and volume of the noise or spoken voice that Misty can detect.
+
+![Command Center Audio Localization](../../../assets/images/command_center_audio_localization.gif)
+
+For audio localization data, the 0/360 degree heading represents the current direction Misty's head is facing. Misty returns audio localization data relative to this 0/360 degree heading, which appears at the top of the **Audio Localization Visualization**.
+
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** You can think of the Audio Localization Visualization as a circle drawn around your robot. Misty is positioned in the middle of this circle, with her head facing toward 0/360 degrees. Using this visualization is like looking straight down at the top of your robot's head and seeing where she detects different sound and voice activity.
+{{box op="end"}}
+
+
+The **Audio Localization Visualization** shows the following information:
+* **Voice Activity (Radar)** - Shows the level of voice activity detected at each angle relative to the direction Misty's head is facing. The further away from the center of the circle, the higher the level of detected voice activity.
+* **Voice Activity (Sector)** - Shows the sector in which Misty detects the most (loudest) voice activity. Each sector represents a 90 degree wedge of the area surrounding Misty. The front-facing wedge is offset, with Misty's face pointing toward the 45 degree angle down its center.
+* **Speaker** - Shows the position of the loudest human voice, relative to the direction Misty's head is facing.
+* **Noise** - Shows the angle where Misty detects the loudest noise, relative to the direction her head is facing.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For more information about how Misty determines her position relative to audio localization events, see [Coordinate System & Movement Ranges](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges).
+{{box op="end"}}
 
 ## Sensor Data
 
@@ -284,75 +305,22 @@ ReturnProperty: MentalState.Affect
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Too many socket subscriptions at a fast debounce can cause performance issues, so remember to unsubscribe when you don't need data and to set the debounce as high as is appropriate for your needs. {{box op="end"}}
 
-## Navigation - ALPHA
+## Navigation
 
-Misty can generate a map of your home or office, track her location on a map, and follow a path you specify. The first step in any of these is to ensure that Misty has "pose". Having pose means Misty knows her location and orientation in space, in X,Y coordinates.
+The Command Center provides access to a **Navigation Module** that you can use to interact with Misty's simultaneous localization and mapping (SLAM) system. Use this module to map a new area with Misty, track her location within a map, and follow a path to a new set of coordinates.
+
+![Command Center Navigation Module](../../../assets/images/command_center_nav_module.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
-{{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For Misty's maps, the origin is at the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
-{{box op="end"}}
+### Launching the Navigation Module
 
-### Obtaining Pose
+Follow these steps to launch the Navigation Module from the Command Center:
 
-Before attempting to map or track, you must obtain pose.
-
-1. Make sure Misty is already connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
-2. Ensure Misty is in a well-lit (not dark) environment.
-3. Scroll down to the **Navigation** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/). ![Mapping controls](../../../assets/images/command_center_navigation_controls.png)
-4. Click **Get Depth Sensor Status** and see what Misty's status is. You can see the results of clicking **Get Depth Sensor Status** either from a status message that pops up on the bottom of the page or by opening the browser's web console (how you open the console varies among browsers and platforms).
-5. If Misty's status is other than "Ready", click **Reset Depth Sensor**, then click **Get Depth Sensor Status** again. _Note: If Misty's status does not return as ready after multiple **Reset Depth Sensor** and **Get Depth Sensor Status** commands, restart Misty and start these instructions over._
-6. You are now ready to follow the instructions below and start either mapping or tracking. Once you do begin mapping or tracking, if the **Pose** indicator stays red:
-  * Verify that the mapping sensors are working. The Occipital Structure Core depth sensor near Misty’s right eye should be glowing blue.
-  * Increase the lighting.
-  * Confirm that Misty has not lost her Wi-Fi or Bluetooth connection. To do this, open Misty's companion app. If she has lost Bluetooth, the app will ask you to reconnect.
-
-### Mapping
-
-When mapping, drive slowly to give the mapping system the best chance to fill in all details. Slowing Misty down increases mapping effectiveness. When possible, making wider turns also improves mapping results.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** It can be difficult to drive Misty manually and maintain the low speeds required for her to map an area without losing [pose](./#obtaining-pose). If you are unable to successfully map an area with the [Command Center](http://sdk.mistyrobotics.com/command-center/), you may be able to generate a map programmatically by coding Misty to very slowly explore an area.
-{{box op="end"}}
-
-To map: ![Mapping controls](../../../assets/images/command_center_mapping.png)
-
-1. Before you start mapping, follow the above instructions to obtain pose.
-2. Click **Start Mapping**. After a few seconds, the **Pose** indicator should turn from red to green. If it does not turn green, follow the instructions to obtain pose above, then try again.
-3. Use the **Manual Driving** controls to drive Misty yourself. Move Misty SLOWLY around a small space (start with an area no more than 20’ x 20’).
-4. If **Pose** stays green, allow Misty to build a complete map of the area she's in. _If **Pose** turns from green to red while you are mapping, try the following:_
-    * Click **Stop**, then try driving Misty backward for a second. Wait a few seconds and see if she gets pose again.
-    * If that doesn't work, click **Stop Mapping**, then click **Start Mapping** again.
-5. When done driving, click **Stop**.
-6. Click **Stop Mapping**.
-7. Scroll down to the bottom of the **Mapping** section and click **Get Map**. The generated map appears in a modal in the [Command Center](http://sdk.mistyrobotics.com/command-center/) window.
-
-### Tracking & Following a Path - ALPHA
-
-You can have Misty track where she is on a map that she has already created or track without a map. You can also have Misty follow a set path by giving her X,Y map data from a map she has previously generated.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Important!** For Misty's maps, you read coordinates from the bottom right corner. X is the direction the robot is looking at the start of mapping and is read from the bottom of the map to the top of the map. Y is read from right to left, with zero being on the right side of the map.
-{{box op="end"}}
-
-To track: ![Tracking controls](../../../assets/images/command_center_tracking.png)
-
-1. Follow the above instructions to obtain pose.
-2. Click **Start Tracking** and begin driving Misty. Activating tracking provides pose data in the SelfState websocket for where Misty is on the map you previously generated. Or, if you have not previously generated a map, Misty sets her beginning tracking position as 0,0.
-3. If **Pose** turns from green to red while Misty is moving, try backing Misty up for a second and see if she gets pose again.
-4. Click **Stop Tracking**.
-
-To follow a path on a map: ![Path following controls](../../../assets/images/command_center_follow_path.png)
-
-1. Ensure that Misty still has pose.
-2. Either:
-  * Supply individual X,Y value pairs and click the **Add Waypoint** button to add these individual waypoints to a path.
-  * Use the field next to the **Follow Path** button to input an entire path of X,Y values, then click **Follow Path**. A path of waypoints should be entered in the form of X1:Y1,X2:Y2,X3:Y3.
-
-You can also have Misty attempt to drive to a specific X,Y coordinate without following a specific path by entering your coordinates in the fields beneath **Drive to Location** and clicking the **Drive** button.
+1. Make sure that your robot is connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+2. In the **Navigation** section, click **Launch Navigation Module.** ![Command Center Launch Navigation Module](../../../assets/images/command_center_launch_nav_module.png) This opens the module as a new tab in your web browser.
 
 ## System Updates
 
@@ -364,7 +332,7 @@ You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) t
 
 To perform an update:
 
-1. First make sure that Misty is plugged into a power source and is connected to the Internet.
+1. First make sure that Misty is plugged into a power source and is connected to the internet.
 2. If the [Command Center](http://sdk.mistyrobotics.com/command-center/) is not already connected to your robot: At the top of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window.
 3. Navigate to the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window and find the **System Update** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
 4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for `Halt` and `Stop`. It is NOT recommended to send any commands to Misty during the update process.**

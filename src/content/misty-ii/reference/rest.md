@@ -736,8 +736,8 @@ Parameters
 
 ```JSON
 {
-  "LeftArmPosition": -180,
-  "RightArmPosition": -180,
+  "LeftArmPosition": 90,
+  "RightArmPosition": 90,
   "LeftArmVelocity": 50,
   "RightArmVelocity": 5
 }
@@ -779,9 +779,9 @@ Parameters
 
 ```json
 {
-  "Pitch": 3,
-  "Roll": 3,
-  "Yaw": -2,
+  "Pitch": -40,
+  "Roll": 0,
+  "Yaw": 0,
   "Velocity": 60
 }
 ```
