@@ -42,7 +42,7 @@ Follow these steps to start using the Command Center:
 
 Once connected, you can experiment with Misty's functionality by interacting with different elements of the Command Center. Here are a few things to try:
 
-* Use the **Quick Commands** section to change the color of Misty's chest LED, show a different image on her display, and have her play a sound.
+* Use the **Expression** section to change the color of Misty's chest LED, show a different image on her display, and have her play a sound.
   * Use the color picker or type in different RGB values and click the **Change LED** button. For example, if you wanted Misty's LED to be purple, use **Red**: `101`; **Green**: `73`; and **Blue**: `157`. ![Change LED animation](../../../assets/images/command-center-change-led-animation.gif)
   * Change Misty's eyes by choosing a different file from the **Change Display Image** menu. For example, try changing her eyes to `e_JoyGoofy2.jpg` or `e_Surprise.jpg`. ![Change display image animation](../../../assets/images/command-center-display-image-animation.gif)
   * Play a sound by choosing a file from the **Play Audio File** menu, like `s_Boredom.wav` or `s_Sleepy.wav`.![Play audio animation](../../../assets/images/command-center-play-audio-animation.gif)
