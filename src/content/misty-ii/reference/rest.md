@@ -2141,11 +2141,15 @@ Example JSON response for a successful request:
 
 Obtains log file data.
 
-The response object includes data from the current day (or the specified date, if one exists). It includes up to 3MB of data from log files up to 14 days old. Due to the 3MB limit, log data from the oldest date returned is typically truncated. Misty automatically deletes log files older than 14 days.
+If no date is specified, pulls up to 3MB of the most recent log data from log files up to 14 days old. Log data returns in ascending order by date and time. If all log data exceeds 3MB, the oldest entry returned may be truncated.
+
+If a date is specified, pulls up to 3MB of log data from that date. If log data from that date exceeds 3MB, the oldest entry may be truncated.
+
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty returns the messages for each day in order from the earliest message logged to the latest message logged on that day. In the response object, the time jump from one day to the next is not demarcated in any way.
+**Note:** Misty stores log files only for the most recent 14 day period. Log files from before this period are automatically cleared from the robot's local storage.
 {{box op="end"}}
+
 
 Endpoint:
 
