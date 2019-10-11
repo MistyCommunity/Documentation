@@ -322,6 +322,39 @@ Follow these steps to launch the Navigation Module from the Command Center:
 1. Make sure that your robot is connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. In the **Navigation** section, click **Launch Navigation Module.** ![Command Center Launch Navigation Module](../../../assets/images/command_center_launch_nav_module.png) This opens the module as a new tab in your web browser.
 
+Once you've launched the module, you can use it to
+* create a new map
+* track Misty's location in the currently active map
+* follow a path
+* change which map is currently active
+
+### Mapping
+
+When you generate a map, Misty uses her Occipital Structure Core depth sensor to generate a 3D mesh of her environment. She converts this map into a two-dimensional occupancy grid that she can use to navigate her space. The Navigation Module displays a visualization of this map that uses different colors to represent unknown, open, occupied, and covered space.
+
+Follow these steps to create a new map with the Navigation Module:
+
+1. Connect Misty to the Command Center and launch the Navigation Module.
+2. Use the movement interface to set Misty's head position and adjust her velocity. ![Nav Module Movement](../../../assets/images/nav_module_movement.png)
+   1. Click **Set Head** to engage Misty's neck motors and position her visor for effective mapping. (For best results, avoid moving Misty's head while generating a map. Instead, use Misty's drive controls to move the entire robot.)
+   2. Enter `25` in the **Velocity** field and click **Set**. This sets Misty's speed while mapping to around 25% of max velocity. (For best results, use low speeds (less than or equal to 25% of max velocity) while mapping or tracking.)
+3. Click **Start Mapping** to start the mapping session. Then, wait for Misty to obtain **pose**.
+   1. Having **pose** means Misty knows her current orientation and location (in X,Y coordinates). Misty has pose when the **Misty's Pose** indicator changes from red to white. ![Misty's pose](../../../assets/images/nav_module_pose_indicator.png)
+   1. If Misty does not obtain pose after 10 seconds, try using the movement controls to slowly turn the robot until the pose indicator turns white.
+4. Map the environment. Start by using the **Spin 360** button to rotate Misty slowly in place. Then, drive Misty in straight lines around the room, stopping to spin in place at various points of open space to obtain full coverage of the room.
+   1. For best results, use the Navigation Module to observe the occupancy grid as it is formed. Move Misty to grey (unmapped) areas and perform a spin to fill out the map.
+   2. If Misty loses pose at any point, use the **Stop** button in the movement controls to stop her from driving. (Do not use **Halt All Motors**, as this disengages the neck motors and the head will have to be reset.) Then, reverse the actions Misty took prior to losing pose (for example, if the robot was driving straight, back up at the same speed; if it was turning to the right, turn back to the left). Do this until Misty regains pose. Once Misty has regained pose, proceed to an unmapped area.
+5. When mapping is complete (when the occupancy grid is developed to your satisfaction), click **Stop Mapping.**
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Losing and regaining pose multiple times in a mapping session can introduce artifacts (obstacles, false walls, etc.). If you lose and regain pose multiple times throughout a mapping session, you may need to create a new map.
+{{box op="end"}}
+
+
+
+
+
 ## System Updates
 
 You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).
