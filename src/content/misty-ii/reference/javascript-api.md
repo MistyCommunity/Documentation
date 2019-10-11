@@ -2195,12 +2195,11 @@ Returns
 
 Obtains log file data.
 
-The response object includes data from the current day (or the specified date, if one exists). It includes up to 3MB of data from log files up to 14 days old. Due to the 3MB limit, log data from the oldest date returned is typically truncated. Misty automatically deletes log files older than 14 days.
+Pulls up to 3MB of the most recent log data from log files up to 14 days old. Log data returns in ascending order by date and time. If all log data exceeds 3MB, the oldest entry returned may be truncated.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty returns the messages for each day in order from the earliest message logged to the latest message logged on that day. In the response object, the time jump from one day to the next is not demarcated in any way.
+**Note:** Misty stores log files only for the most recent 14 day period. Log files from before this period are automatically cleared from the robot's local storage.
 {{box op="end"}}
-
 
 With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetLogFile()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks).
 

@@ -1121,12 +1121,12 @@ Example `SlamStatus` event message:
 
 The ```SelfState``` WebSocket provides a variety of data about Misty’s current internal state, including:
 
-* battery charge, voltage, and charging status
-* IP address
-* affect
-* position and orientation ("pose")
-* SLAM status
-* sensor messages
+* `battery` - Provides information about the state of Misty's battery, including charge percentage, voltage, and charging status.
+* `cameraStatus`- Provides information about the status of Misty's RGB camera. This information can be useful when you need to check whether the RGB camera is ready or already in use before attempting to use it for another purpose.
+* `localIPAddress` - Misty's current local IP address. Use this IP address to send Misty REST requests or set up WebSocket connections.
+* `location` - A data object with information about Misty's current location and orientation ("pose") relative to her currently active occupancy grid.
+* `robotRunState` - Provides information about Misty's current run state. Misty's `currentState` is `Loading` when the system is booting up; `Running` when the system has fully booted and is not updating; and `Updating` when the system is installing an update.
+* `slamStatus` - The current status of Misty's simultaneous localization and mapping (SLAM) system. `SlamStatus` event messages can also be subscribed to independently. See the [`SlamStatus` docs](./#slamstatus-alpha) for more information.
 
 **Note:** There are a number of fields in the WebSocket data structure that are reserved for future use and which may be empty or contain ```null``` data:
 * ```Acceleration```

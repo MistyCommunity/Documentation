@@ -964,6 +964,10 @@ Return Values
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+{{box op="end"}}
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
 
 Parameters
@@ -1021,6 +1025,10 @@ Return Values
 ### GetSlamVisibleExposureAndGain
 
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/visible
 
@@ -1095,7 +1103,7 @@ Sets the exposure and gain settings for the infrared cameras in the Occipital St
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
 
-You must issue a command to `StartSlamStreaming` before issuing a `SetSlamIrExposureAndGain` command. Failing to do will not update the settings.
+If you issue a `SetSlamIrExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/ir
@@ -1121,7 +1129,7 @@ Return Values
 Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** You must issue a command to `StartSlamStreaming` before issuing a `SetSlamVisibleExposureAndGain` request. Failing to do will reset the depth sensor and restart the SLAM service.
+**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/visible
@@ -1245,6 +1253,8 @@ Drives Misty on a path defined by coordinates you specify. Note that Misty must 
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
+
+This command is under active development. As such, the parameters below are likely to change with future system updates.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
@@ -1252,6 +1262,10 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
 Parameters
 
 - Path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. Use `GetMap` to obtain the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
+- Velocity (double) - Optional. A fraction of Misty's max velocity. Determines how fast Misty moves when driving straight while following a path. Expects a decimal value greater than 0 and less than 1. Defaults to `0.5` (50% of max velocity) if not specified.
+- FullSpinDuration (double) - Optional. Number of seconds it takes for Misty to complete a full spin (360 degrees) while following a path. Determines how fast Misty pivots or spins when changing direction. Defaults to `15` if not specified.
+- WaypointAccuracy (double) - Optional. How close (in meters) the robot gets to a waypoint before considering itself to have reached that waypoint. Defaults to `0.1` if not specified.
+- RotateThreshold (double) - Optional. The angle (in degrees) Misty's path following algorithm uses to determine when Misty should pivot toward a waypoint instead of continuing to drive straight. When following a path, Misty drives straight toward her next waypoint until the bearing between the waypoint and her current heading is greater than `RotateThreshold` degrees. When the bearing reaches this threshold, Misty pivots in the direction of the waypoint until the bearing is lower than `RotateThreshold`. When Misty reaches a waypoint, she spins to face the next waypoint and drives straight. As she approaches the waypoint, any error in the original spin causes the bearing angle to grow, causing Misty to stop and turn toward the waypoint; thus, Misty may stop and pivot multiple times between one waypoint and the next. Defaults to `10` if not specified.
 
 ```json
 {
@@ -2127,11 +2141,15 @@ Example JSON response for a successful request:
 
 Obtains log file data.
 
-The response object includes data from the current day (or the specified date, if one exists). It includes up to 3MB of data from log files up to 14 days old. Due to the 3MB limit, log data from the oldest date returned is typically truncated. Misty automatically deletes log files older than 14 days.
+If no date is specified, pulls up to 3MB of the most recent log data from log files up to 14 days old. Log data returns in ascending order by date and time. If all log data exceeds 3MB, the oldest entry returned may be truncated.
+
+If a date is specified, pulls up to 3MB of log data from that date. If log data from that date exceeds 3MB, the oldest entry may be truncated.
+
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty returns the messages for each day in order from the earliest message logged to the latest message logged on that day. In the response object, the time jump from one day to the next is not demarcated in any way.
+**Note:** Misty stores log files only for the most recent 14 day period. Log files from before this period are automatically cleared from the robot's local storage.
 {{box op="end"}}
+
 
 Endpoint:
 
