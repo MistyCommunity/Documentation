@@ -964,6 +964,10 @@ Return Values
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+{{box op="end"}}
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
 
 Parameters
@@ -1021,6 +1025,10 @@ Return Values
 ### GetSlamVisibleExposureAndGain
 
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/visible
 
@@ -1095,7 +1103,7 @@ Sets the exposure and gain settings for the infrared cameras in the Occipital St
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
 
-You must issue a command to `StartSlamStreaming` before issuing a `SetSlamIrExposureAndGain` command. Failing to do will not update the settings.
+If you issue a `SetSlamIrExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/ir
@@ -1121,7 +1129,7 @@ Return Values
 Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** You must issue a command to `StartSlamStreaming` before issuing a `SetSlamVisibleExposureAndGain` request. Failing to do will reset the depth sensor and restart the SLAM service.
+**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/visible
