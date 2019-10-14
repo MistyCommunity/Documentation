@@ -346,14 +346,37 @@ Follow these steps to create a new map with the Navigation Module:
    2. If Misty loses pose at any point, use the **Stop** button in the movement controls to stop her from driving. (Do not use **Halt All Motors**, as this disengages the neck motors and the head will have to be reset.) Then, reverse the actions Misty took prior to losing pose (for example, if the robot was driving straight, back up at the same speed; if it was turning to the right, turn back to the left). Do this until Misty regains pose. Once Misty has regained pose, proceed to an unmapped area.
 5. When mapping is complete (when the occupancy grid is developed to your satisfaction), click **Stop Mapping.**
 
-
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Losing and regaining pose multiple times in a mapping session can introduce artifacts (obstacles, false walls, etc.). If you lose and regain pose multiple times throughout a mapping session, you may need to create a new map.
 {{box op="end"}}
 
+### Tracking & Following a Path
+When Misty has successfully generated a map, she can track within that map to know where she is and follow a path to a new location. The Navigation Module displays Misty's X and Y coordinates (relative to the currently active map) next to the **Misty's Pose** icon. Refer to these X, Y coordinates to get Misty's current location and generate new paths for Misty to follow within the active map.
 
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** To track effectively, Misty must first generate an adequate map of the space. The map should provide good coverage of the area, and it should provide an accurate representation of the actual environment. (For example, walls should appear to be squared, and no false walls or non-existent obstacles should be present in the map.)
+{{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty's mapping capabilities are still in early development, and there's a chance that Misty won't generate an adequate map of the space on the first try. In cases where Misty's best map is not the map that's currently active, you can set a different map to be active by using the controls in the Navigation Module or sending a request to the [`SetCurrentSlamMap`](../../../misty-ii/reference/rest/#setcurrentslammap) endpoint.
+{{box op="end"}}
 
+Once you've generated a good map (and set that map to be active), follow these steps to start tracking:
+
+1. If you haven't done so already, connect Misty to the Command Center and [launch the Navigation Module](./#launching-the-navigation-module).
+2. Click **Start Tracking** and wait for Misty to obtain pose.
+  1. Having pose means Misty knows her current orientation and location (in X,Y coordinates). Misty has pose when the **Misty's Pose** indicator changes from red to white.
+  2. If Misty does not obtain pose after 10-15 seconds, try using the movement controls to slowly turn the robot until the pose indicator turns white.
+3. When Misty obtains pose, the **Navigation Module** displays her current X, Y coordinates next to the pose icon. As Misty moves around the mapped environment, the values of these coordinates update to show her new position.
+
+When Misty is tracking, she can follow a path from her current location to a new set of coordinates. Misty follows a path by driving from one waypoint (a set of X, Y coordinates) to the next until she reaches the destination (the last waypoint in the path). To follow a path:
+
+1. Follow the steps to start tracking.
+2. Use the **Follow Path** section of the **Navigation Module** to define the path. Either:
+  1. Supply the X, Y coordinates of the target destination and click **Get Path**.
+  2. Supply individual X,Y value pairs and click **Add to Path** to add these individual waypoints to a path.
+  3. Use the path field to input an entire path of X,Y values. A path of waypoints should be entered in the form of "X1:Y1,X2:Y2,X3:Y3".
+3. Click **Follow Path**.
 
 ## System Updates
 
