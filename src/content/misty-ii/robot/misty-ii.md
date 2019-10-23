@@ -111,12 +111,12 @@ Follow these steps to charge Misty via a wired connection:
 
 ## Hardware Notifications
 
-When you interact with Misty, she notifies you of certain events by playing sounds or changing the color of her chest LED. These notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+When you interact with Misty, she notifies you of certain events by playing sounds or changing the color of her chest LED. These notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
 
 The following notifications are enabled by default:
 
 **Audio Notifications**
-* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings-beta) endpoint in Misty's REST API.
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
 
 **LED Notifications**
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
@@ -238,7 +238,7 @@ We recommend you boot up Misty to check for updates on a weekly basis.
 
 Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby, or when she detects that she has bumped into an object.
 
-In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Event Types](../../../misty-ii/reference/sensor-data/#hazardnotification-alpha) section of these docs for details on using this data in your skills.
+In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Event Types](../../../misty-ii/reference/sensor-data/#hazardnotification) section of these docs for details on using this data in your skills.
 
 ### Bump & Time-of-Flight Hazards
 

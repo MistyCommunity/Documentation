@@ -181,7 +181,7 @@ call the `misty.RegisterEvent()` method.
 
 This sample shows how to programmatically record and save a new video.
 
-**Note:** Video recordings cannot be longer than 10 seconds. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, you can use the Command Center, or you can send a request to the `GetRecordedVideo` endpoint in Misty's REST API.
+**Note:** Video recordings cannot be longer than 10 seconds. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, you can use the Command Center, or you can send a request to the `GetVideoFile` endpoint in Misty's REST API.
 
 ```JavaScript
 // Starts Misty recording a video with her RGB camera. Misty stops
@@ -192,7 +192,7 @@ misty.StartRecordingVideo();
 misty.Pause(5000);
 // Stops recording. The video is saved to Misty's local storage with
 // the filename MistyVideo.mp4, and can be downloaded via the Command
-// Center or retrieved with the GetRecordedVideo command.
+// Center or retrieved with the GetVideoFile command.
 misty.StopRecordingVideo();
 ```
 
@@ -214,7 +214,7 @@ misty.TakePicture("photoSaveTest", 375, 812, true, true);
 
 ## External Requests
 
-The code samples in this section show how to use the `misty.SendExternalRequest()` method to get data and media files from resources hosted on the web. To learn more about the arguments we pass into this method, see the [`misty.SendExternalRequest()`](../../../misty-ii/reference/javascript-api/#misty-sendexternalrequest-alpha) reference documentation.
+The code samples in this section show how to use the `misty.SendExternalRequest()` method to get data and media files from resources hosted on the web. To learn more about the arguments we pass into this method, see the [`misty.SendExternalRequest()`](../../../misty-ii/reference/javascript-api/#misty-sendexternalrequest) reference documentation.
 
 ### externalRequest_getAudio
 

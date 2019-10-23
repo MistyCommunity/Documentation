@@ -63,7 +63,7 @@ To issue a command to Misty in the local environment, we call methods on the `mi
 When we call this method in our Hello World skill, we pass in values for the first three arguments. The first argument (`eventName`) sets a name for the registered event; the second argument (`callbackTimeInMs`) sets the duration before the event triggers; and the third (`keepAlive`) sets whether Misty should remain registered for this event after it triggers a callback function.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about timed events, see the [`misty.RegisterTimerEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registertimerevent-alpha).
+**Tip:** For more information about timed events, see the [`misty.RegisterTimerEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registertimerevent).
 {{box op="end"}}
 
 Copy the following into your `HelloWorld` skill code. This registers for a timer event named `look_around` that invokes a callback after 5000 - 10000 milliseconds. The value for `keepAlive` is set to `false`.
@@ -236,7 +236,7 @@ If you've already completed the [first part of this tutorial series](./#moving-m
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
 {{box op="end"}}
 
-When we fade Misty's chest LED on and off, the visual effect is such that Misty appears to be "breathing". To achieve this in your skill code, start by calling the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent-alpha) method. Use `"breathingLED"` as the name of the timer event, and pass in a value of `1` for the `callbackTimeInMs` argument. Copy this method into your `HelloWorld.js` skill file, beneath where you wrote the code for moving Misty's head.
+When we fade Misty's chest LED on and off, the visual effect is such that Misty appears to be "breathing". To achieve this in your skill code, start by calling the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent) method. Use `"breathingLED"` as the name of the timer event, and pass in a value of `1` for the `callbackTimeInMs` argument. Copy this method into your `HelloWorld.js` skill file, beneath where you wrote the code for moving Misty's head.
 
 ```JavaScript
 // Registers for a timer event called breathingLED, and invokes the
@@ -518,7 +518,7 @@ function _registerFaceRec() {
 We can subscribe to data from Misty's face recognition system by registering for events from the [`FaceRecognition`](../../../misty-ii/reference/sensor-data/#facerecognition) named object. We use the `misty.RegisterEvent()` method to do this. The arguments we pass into the `misty.RegisterEvent()` method set a name for the event, specify the event type (in our case that's `FaceRecognition`), and set how often to receive event messages. We can also choose whether or not to keep the event registered after the first message is sent.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** To learn more about registering for events, see the [`misty.RegisterEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registerevent-alpha).
+**Tip:** To learn more about registering for events, see the [`misty.RegisterEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registerevent).
 {{box op="end"}}
 
 Copy the following method into your `_registerFaceRec()` function. Use `FaceRec` for `eventName`, `FaceRecognition` for `messageType`, and `1000` for `debounce`. Set `keepAlive` to `false`.
@@ -558,7 +558,7 @@ function _registerFaceRec() {
 ```
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** To learn more about property tests, see the [`misty.AddPropertyTest()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-addpropertytest-alpha).
+**Tip:** To learn more about property tests, see the [`misty.AddPropertyTest()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-addpropertytest).
 {{box op="end"}}
 
 Now we can define the `_FaceRec()` callback function. Each time a `FaceRec` event passes our property test, that event data is passed into the `_FaceRec()` callback. Define this function in your skill code.
@@ -570,7 +570,7 @@ function _FaceRec(data) {
 }
 ```
 
-We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/reference/javascript-api/#misty-debug-alpha) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
+We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/reference/javascript-api/#misty-debug) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
 
 Copy the following code into your `_FaceRec()` callback function:
 
@@ -639,7 +639,7 @@ function _FaceRec(data) {
 }
 ```
 
-At the end of the `_FaceRec()` function, call the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent-alpha) method to trigger the `_registerFaceRec()` function after 7000 milliseconds. This ensures that Misty will continue looking for faces, and will greet whomever she sees until the skill ends.
+At the end of the `_FaceRec()` function, call the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent) method to trigger the `_registerFaceRec()` function after 7000 milliseconds. This ensures that Misty will continue looking for faces, and will greet whomever she sees until the skill ends.
 
 The full `_FaceRec()` function should look like this:
 
