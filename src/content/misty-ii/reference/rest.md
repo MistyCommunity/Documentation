@@ -284,7 +284,7 @@ Return Values
 
 ### GetSerialSensorValues
 
-Obtains a list of the most recent messages Misty has received via her universal asynchronous receiver-transmitter (UART) serial port. This list of messages is cleared each time the system reboots.
+Obtains a list of the most recent messages Misty has received through the universal asynchronous receiver-transmitter (UART) serial port on her back. This list of messages clears each time the system reboots.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/serial
 
@@ -294,7 +294,7 @@ Parameters
 
 Return Values
 
-- Result (array) - A list of strings. Each string is a message that Misty received through her UART serial port. Messages are sequenced in reverse chronological order, with the most recent message being the last element in the array.
+- Result (array) - A list of string values, where each value is a message Misty received through the UART serial port on her back. Messages are sequenced in reverse chronological order, with the most recent message being the last value in the array.
 
 ### WriteSerial
 
