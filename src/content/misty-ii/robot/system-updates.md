@@ -31,8 +31,6 @@ You can check the software versions on your Misty by sending a request to the en
 
 ## Release History
 
-## Release History
-
 To see Misty's release history and find links to documentation for previous software versions, go to the [System Updates](https://docs.mistyrobotics.com/misty-ii/robot/system-updates/#release-history) page in the current version of the developer documentation.
 
 {{box op="start" cssClass="boxed noteBox"}}
