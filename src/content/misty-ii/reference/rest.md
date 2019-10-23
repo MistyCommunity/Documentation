@@ -282,6 +282,20 @@ Return Values
 
 ## Backpack
 
+### GetSerialSensorValues
+
+Obtains a list of the most recent messages Misty has received through the universal asynchronous receiver-transmitter (UART) serial port on her back. This list of messages clears each time the system reboots.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/serial
+
+Parameters
+
+* None
+
+Return Values
+
+- Result (array) - A list of string values, where each value is a message Misty received through the UART serial port on her back. Messages are sequenced in reverse chronological order, with the most recent message being the last value in the array.
+
 ### WriteSerial
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
