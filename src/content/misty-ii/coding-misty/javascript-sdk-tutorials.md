@@ -116,7 +116,7 @@ misty.Debug("ending skill helloworld_timeofflight");
 
 Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Time-of-Flight).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Time-of-Flight).
 
 ```JavaScript
 // Print a message to indicate the skill has started
@@ -210,7 +210,7 @@ Note: All of this logic needs to be contained within `_GetAudioList()` to ensure
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Play%20Audio).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Play%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -304,7 +304,7 @@ else {
 
 Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Record%20Audio).
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Record%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -419,7 +419,7 @@ function _FaceRecognitionTimeout() {
 
 Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Face%20Detection).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Face%20Detection).
 
 ```JavaScript
 
@@ -521,7 +521,7 @@ Using timed events, we have told Misty to change her chest LED to a random color
 
 Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Timer%20Events).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Timer%20Events).
 
 ```JavaScript
 
@@ -557,13 +557,13 @@ function _TimerEvent() {
 ```
 ## External Requests
 
-Even though your skills run locally on Misty, they can still send requests to use external data from the internet. This sample skill fetches the current weather conditions of a designated city, then sends it back Misty to print through a debug message. To do this, you’ll need to use the `misty.SendExternalRequest()` command to send a GET request to the [APIXU API](https://www.apixu.com/) to obtain the data.
+Even though your skills run locally on Misty, they can still send requests to use external data from the internet. This sample skill fetches the current weather conditions of a designated city, then prints those conditions in a debug message. To do this, we use the `misty.SendExternalRequest()` command to send a GET request to the [Weatherstack API](https://weatherstack.com/) to obtain the data.
 
-To run this skill, you must first create an account with APIXU and generate a key to use with their API. You can [create an account with APIXU on their web page](https://www.apixu.com/signup.aspx).
+To run this skill, you must first create an account with Weatherstack and generate an access key to use with their API. You can [create an account with Weatherstack on their web page](https://weatherstack.com/signup/free).
 
 ### Writing the Meta File
 
-Once you have your API key from APIXU, you can set up the meta file for the skill. For this tutorial, we set the API key and the city to query as parameters in the JSON meta file. Create a new meta file for this skill, and copy the following to fill out the parameters. Replace the `key` string with your APIXU API key, and change the value of the `city` key to a city of your choosing. Save this file with the name `HelloWorld_ExternalRequest.json`.
+Once you have your access key from Weatherstack, you can set up the meta file for the skill. For this tutorial, we set the API key and the city to query as parameters in the JSON meta file. Create a new meta file for this skill, and refer to the following example to fill out the parameters. In the `Parameters` object, replace the value of the`key` parameter with your Weatherstack API access key, and change the value of the `city` key to a city of your choosing. Save this file with the name `HelloWorld_ExternalRequest.json`.
 
 ```JSON
 {
@@ -577,7 +577,7 @@ Once you have your API key from APIXU, you can set up the meta file for the skil
     "CleanupOnCancel": false,
     "WriteToLog": false,
     "Parameters": {
-        "key": "<your-APIXU-api-key>",
+        "key": "<your-Weatherstack-api-key>",
         "city": "Boulder"
     }
 }
@@ -594,23 +594,26 @@ misty.SendExternalRequest(string method, string resource, [string authorizationT
 
 In this skill we are sending a `GET` request, so we use the string `GET` for the first (`method`) parameter.
 
-The second parameter (`resource`) should contain the full URL of the resource to access. In this example, the URL includes the API key from APIXU and the name of the city to query, both of which we stored in the JSON meta file. We can reference the `_params` object to use the `Parameters` values from the meta file in our skill code. 
+The second parameter (`resource`) should contain the full URL of the resource to access. In this example, the URL includes the Weatherstack API base URL, our Weatherstack access key, and the name of the city to query. Values for the access key and the city we want to use are stored in the `Parameters` object we defined in the JSON meta file. To reference these values from the meta file in our skill code, we can use the globally available `_params` object.
 
-In the meta file, we specified the key `city` to hold the city we want query and `key` to hold our API key from APIXU. Therefore, here in the code file, `_params.key` holds our API key, and `_params.city` holds the string `Boulder`. We can use this data in the `resource` arg by using a literals, passing the values `_params.key` and `_params.city` into the URL string. It should look like this:
+In our meta file, the `city` parameter holds the name of the city we want query, and the `key` parameter holds the access key from Weatherstack. Therefore, here in the code file, `_params.key` holds our access key, and `_params.city` holds the string `Boulder`. We can append these values to the Weatherstack API base URL when we pass in a value for the `resource` argument for `misty.SendExternalRequest()`. The value for that argument looks like this:
 
 ```JS
-"http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city
+"http://api.weatherstack.com/current?access_key="+_params.key+"&query="+_params.city
 ```
 
-When you send requests that require additional authorization, or when you want to return image or audio file data, you need to make use of the other parameters. Because APIXU doesn't require additional authorization, and because our data comes back as a JSON object, we can leave the remaining arguments empty.
+When you send requests that require additional authorization, or when you want to return image or audio file data, you need to make use of the other arguments in `misty.SendExternalRequest()`. In this example, because Weatherstack doesn't require additional authorization, and because our data comes back as a JSON object, we can leave the remaining arguments empty.
 
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
 ```JavaScript
-misty.SendExternalRequest("GET", "http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city)
+misty.SendExternalRequest(
+    "GET",
+    "http://api.weatherstack.com/current?access_key="+_params.key+"&query="+_params.city
+    )
 ```
 
-Once Misty receives the data back from APIXU, the callback -- which is automatically set to `_SendExternalRequest()` -- will run:
+When Misty receives response data from Weatherstack, that data is passed into the callback (which is automatically set to `_SendExternalRequest()`):
 
 ```JS
 function _SendExternalRequest(data) {
@@ -618,11 +621,11 @@ function _SendExternalRequest(data) {
 }
 ```
 
-Once the data comes back from the request, we parse the data to find the current condition in the queried city. We can assign that condition to a variable as shown below:
+In the callback, we parse the response data to find the current condition in the queried city. We can assign that condition to a variable as shown here:
 
-```JS
-_data = JSON.parse(data.Result.ResponseObject.Data)
-_condition = _data.current.condition.text
+```JavaScript
+    _data = JSON.parse(data.Result.ResponseObject.Data)
+    _condition = _data.current.weather_descriptions[0].toLowerCase();
 ```
 
 The final step is to have Misty send us the data back through a debug message:
@@ -634,18 +637,27 @@ misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _p
 The complete code file for the skill should look like this:
 
 ```JS
-misty.SendExternalRequest("GET","http://api.apixu.com/v1/current.json?key="+_params.key+"&q="+_params.city);
+// Send a request to the Weatherstack API, using parameters from the
+// skill's JSON meta file for the access_key and city params in the
+// resource URL.
+misty.SendExternalRequest(
+    "GET",
+    "http://api.weatherstack.com/current?access_key="+_params.key+"&query="+_params.city
+    )
 
+// Parse the response data to get the current condition in _params.city
+// and print this in a string to the dev console in the Skill Runner
+// web page.
 function _SendExternalRequest(data) {
     _data = JSON.parse(data.Result.ResponseObject.Data)
-    _condition = _data.current.condition.text
+    _condition = _data.current.weather_descriptions[0].toLowerCase();
     misty.Debug("Misty here! Just letting you know it's " + _condition + " in " + _params.city);
 }
 ```
 
 Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-You can [download the code for this skill from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20External%20Requests).
+You can also [download the code for this skill from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20External%20Requests).
 
 ## Trigger Skill
 
@@ -901,9 +913,9 @@ function _BackTOF(data) {
 }
 ```
 
-Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
+Congratulations! Triggering callbacks across skills is a valuable tool you can add to your Misty-programming toolkit. Save the code files, and see the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
 
-[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Trigger%20Skill)
+[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Trigger%20Skill)
 
 ## Head & Arm Movement
 
@@ -1053,7 +1065,7 @@ her arms and ends skill execution.
 
 Save the code file with the name `HelloWorld_HeadArms.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Head%20%26%20Arm%20Movement).
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Head%20%26%20Arm%20Movement).
 
 ```JavaScript
 // debug message to indicate the skill has started
@@ -1285,7 +1297,7 @@ When this skill runs, Misty retrieves the list of audio clips in her local stora
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the complete JavaScript code below or [download the code files from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Bump%20Sensors).
+See the complete JavaScript code below or [download the code files from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Bump%20Sensors).
 
 ```JavaScript
 misty.Debug("HelloWorld_BumpSensors is running")

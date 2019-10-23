@@ -390,47 +390,13 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### PlayAudio
+### GetBlinkSettings
 
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
+Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings) endpoint.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
-
-Parameters
-
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
-
-```json
-{
-  "FileName": "s_Amazement.wav"
-}
-```
-
-Return Values
-
-* Result (string) - Returns a string with any errors related to this command.
-
-### SetFlashlight
-
-Turns the LED flashlight on Misty's head on or off.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/flashlight
-
-Parameters
-
-* On (bool) - Turns the flashlight on (`true`) or off (`false`).
-
-```JSON
-{
-  "On": true
-}
-```
-
-### GetBlinkSettings - BETA
-
-Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings-beta) endpoint.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/blink/settings
 
@@ -490,9 +456,35 @@ Sample response data for a `GetBlinkSettings` request:
 }
 ```
 
-### RemoveBlinkMappings - BETA
+### PlayAudio
+
+Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
+
+Parameters
+
+- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
+
+```json
+{
+  "FileName": "s_Amazement.wav"
+}
+```
+
+Return Values
+
+* Result (string) - Returns a string with any errors related to this command.
+
+### RemoveBlinkMappings
 
 Removes blink mappings from one or more image assets.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/blink/images
 
@@ -510,12 +502,14 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
-### SetBlinking - BETA
+### SetBlinking
 
 Turns Misty's eye blinking behavior on or off.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** To customize Misty's blinking behavior, use the `SetBlinkSettings` command.
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+To customize Misty's blinking behavior, use the [`SetBlinkSettings`](../../../misty-ii/reference/rest/setblinksettings) command.
 {{box op="end"}}
 
 Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
@@ -532,16 +526,14 @@ Parameters
 }
 ```
 
-Return values
-
-* Result (string) - Returns `true` if no errors related to this request.
-
-### SetBlinkSettings - BETA
+### SetBlinkSettings
 
 Sets the duration that Misty's eyes stay open or closed while blinking. You can also use this command to add a blink mapping to an image asset. Optionally, reverts Misty's blink settings to their default configuration.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty saves your custom blink settings to her local database, so there's no need to re-configure these settings each time she boots up.
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+Misty saves your custom blink settings to her local database, so there's no need to re-configure these settings each time she boots up.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/blink/settings
@@ -573,11 +565,35 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### SetFlashlight
+
+Turns the LED flashlight on Misty's head on or off.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/flashlight
+
+Parameters
+
+* On (bool) - Turns the flashlight on (`true`) or off (`false`).
+
+```JSON
+{
+  "On": true
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
 ## External Requests
 
-### misty.SendExternalRequest - ALPHA
+### misty.SendExternalRequest
 
 Sends an HTTP request from Misty to an external server. You use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/request
 
@@ -642,8 +658,108 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DriveArc
+
+Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object. To calculate Misty's velocity, use: `((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/arc
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Radius (double) - The radius (in meters) of the arc.
+* TimeMs (double) -  The duration (in milliseconds) that Misty drives.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Radius": 1,
+  "TimeMs": 4000
+}
+```
+Return Values:
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
+
+### DriveHeading
+
+Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
+
+For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `DriveHeading` command. Variations of greater than two degrees result in large correction velocities. You can use the `DriveArc` command to face Misty in the direction of the heading you want her to maintain. Then, use the `DriveHeading` command to drive Misty forward or backward in a straight line.
+
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object. To calculate Misty's velocity, use `distance / (timeMs/1000)`.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/hdt
+
+Parameters
+
+* Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
+* Distance (double) - The distance (in meters) that Misty should drive.
+* TimeMs (double) - The duration (in milliseconds) that Misty should drive.
+* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+
+```JSON
+{
+  "Heading": 90,
+  "Distance": 1,
+  "TimeMs": 4000,
+}
+```
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+Example JSON response for a successful request:
+
+```JSON
+{
+  "result": "true",
+  "status": "Success"
+}
+```
+
+Example JSON response for a failed request:
+
+```JSON
+{
+  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
+  "status": "Failed"
+}
+```
 
 ### DriveTime
+
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
 
 When using the DriveTime command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
@@ -693,6 +809,18 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### Halt
+
+Stops all motor controllers, including drive motor, head/neck, and arm.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/halt
+
+Parameters
+* None
+
+Return Values
+* None
 
 ### MoveArm
 
@@ -803,18 +931,6 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### Halt
-
-Stops all motor controllers, including drive motor, head/neck, and arm.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/halt
-
-Parameters
-* None
-
-Return Values
-* None
-
 ### Stop
 Stops Misty's movement.
 
@@ -826,108 +942,10 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### DriveArc - ALPHA
-
-Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
-
-Misty's velocity is equal to:
-
-`((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
-
-Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
-
-To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/arc
-
-Parameters
-
-* Heading (double) - The absolute heading Misty should obtain when the arc is complete. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
-* Radius (double) - The radius (in meters) of the arc.
-* TimeMs (double) -  The duration (in milliseconds) that Misty drives.
-* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
-
-```JSON
-{
-  "Heading": 90,
-  "Radius": 1,
-  "TimeMs": 4000
-}
-```
-Return Values:
-
-* result (boolean) - Returns `true` if no errors related to this command.
-
-Example JSON response for a successful request:
-
-```JSON
-{
-  "result": "true",
-  "status": "Success"
-}
-```
-
-Example JSON response for a failed request:
-
-```JSON
-{
-  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
-  "status": "Failed"
-}
-```
-
-### DriveHeading - ALPHA
-
-Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
-
-For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `DriveHeading` command. Variations of greater than two degrees result in large correction velocities. You can use the `DriveArc` command to face Misty in the direction of the heading you want her to maintain. Then, use the `DriveHeading` command to drive Misty forward or backward in a straight line.
-
-To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object.
-
-**Note:** Misty's velocity is equal to `distance / (timeMs/1000)`. Misty's maximum angular velocity will not exceed 45 degrees per second, and her maximum linear velocity will not exceed 1 meter per second.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/hdt
-
-Parameters
-
-* Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
-* Distance (double) - The distance (in meters) that Misty should drive.
-* TimeMs (double) - The duration (in milliseconds) that Misty should drive.
-* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
-
-```JSON
-{
-  "Heading": 90,
-  "Distance": 1,
-  "TimeMs": 4000,
-}
-```
-
-Return Values
-
-* result (boolean) - Returns `true` if no errors related to this command.
-
-Example JSON response for a successful request:
-
-```JSON
-{
-  "result": "true",
-  "status": "Success"
-}
-```
-
-Example JSON response for a failed request:
-
-```JSON
-{
-  "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
-  "status": "Failed"
-}
-```
 
 ## Navigation
 
-"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
+"SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation).
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
@@ -952,6 +970,89 @@ Return Values
 
 * Result (boolean) - Returns true if no errors related to this command. 
 
+### DriveToLocation
+
+Drives to a designated waypoint.
+
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
+
+Parameters
+* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
+
+```json
+“Destination": “10:25"
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### FollowPath
+
+Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
+
+Parameters
+
+- Path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. Use `GetMap` to obtain the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
+- Velocity (double) - Optional. A fraction of Misty's max velocity. Determines how fast Misty moves when driving straight while following a path. Expects a decimal value greater than 0 and less than 1. Defaults to `0.5` (50% of max velocity) if not specified.
+- FullSpinDuration (double) - Optional. Number of seconds it takes for Misty to complete a full spin (360 degrees) while following a path. Determines how fast Misty pivots or spins when changing direction. Defaults to `15` if not specified.
+- WaypointAccuracy (double) - Optional. How close (in meters) the robot gets to a waypoint before considering itself to have reached that waypoint. Defaults to `0.1` if not specified.
+- RotateThreshold (double) - Optional. The angle (in degrees) Misty's path following algorithm uses to determine when Misty should pivot toward a waypoint instead of continuing to drive straight. When following a path, Misty drives straight toward her next waypoint until the bearing between the waypoint and her current heading is greater than `RotateThreshold` degrees. When the bearing reaches this threshold, Misty pivots in the direction of the waypoint until the bearing is lower than `RotateThreshold`. When Misty reaches a waypoint, she spins to face the next waypoint and drives straight. As she approaches the waypoint, any error in the original spin causes the bearing angle to grow, causing Misty to stop and turn toward the waypoint; thus, Misty may stop and pivot multiple times between one waypoint and the next. Defaults to `10` if not specified.
+
+```json
+{
+  "Path": "4:3,8:8,10:15"
+}
+```
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### GetMap
+
+Obtains the occupancy grid data for Misty's currently active map.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap) command.
+{{box op="end"}}
+
+Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
+
+The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
+
+Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
+
+Parameters
+ * None
+
+Return Values
+* Result (object) - An object containing the following key-value pairs:
+  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+
 
 ### GetCurrentSlamMap
 
@@ -973,6 +1074,8 @@ Return Values
     "status": "Success"
 }
 ```
+
+
 
 ### GetSlamIrExposureAndGain
 
@@ -1036,6 +1139,128 @@ Return Values
 }
 ```
 
+### GetSlamNavigationDiagnostics
+
+Obtains diagnostic information about Misty's navigation system.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/diagnostics
+
+Parameters
+* None
+
+Return Values
+
+* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
+
+```JSON
+{
+  "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
+  "status": "Success"
+}
+```
+
+### GetSlamPath
+
+Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
+
+**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
+
+Parameters
+* X (integer) - The X coordinate of the destination.
+* Y (integer) - The Y coordinate of the destination.
+
+```json
+{
+  "X": 13,
+  "Y": 37
+}
+```
+
+Return Values
+* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
+
+### GetSlamStatus
+
+Obtains values representing the current activity and status of Misty's SLAM system. Check these values for information about the current status of Misty's depth sensor, the SLAM system, and to see information relevant to any ongoing mapping or tracking activities.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** We suggest primarily using the values of `Status`/`StatusList` when coding SLAM functionality in your skills and robot applications, and only using the `SensorStatus` and `RunMode` values as supplemental information if needed or for debugging purposes.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
+
+Parameters
+
+- None
+
+Return Values
+
+* `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
+  * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
+  * 0x0001: `Initializing` - The SLAM system is initializing.
+  * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
+  * 0x0004: `Exploring` - The SLAM system is mapping.
+  * 0x0008: `Tracking` - The SLAM system is tracking.
+  * 0x0010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
+  * 0x0020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
+  * 0x0040: `Rebooting` - The SLAM system is rebooting.
+  * 0x0080: `HasPose` - The SLAM system has obtained pose.
+  * 0x0100: `LostPose` - The SLAM system has lost pose after having obtained it.
+  * 0x0200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
+  * 0x0400: `Error` - There is an error with the SLAM system or with the depth sensor.
+  * 0x0800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
+  * 0x1000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
+  * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
+  * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
+  * 0x8000: `Streaming` - The SLAM system is streaming.
+* `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
+* `runMode` (string) - Current status of the navigation system. Possible values are:
+  * `Uninitialized`
+  * `Tracking`
+  * `Exploring`
+  * `Relocalizing`
+  * `Paused`
+  * `ExportingScene`
+  * `NeedMoreMotionToInitMap`
+  * `NotAvailable`
+* `sensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
+  * `Uninitialized`
+  * `Connected`
+  * `Booting`
+  * `Ready`
+  * `Disconnected`
+  * `Error`
+  * `USBError`
+  * `LowPowerMode`
+  * `RecoveryMode`
+  * `ProdDataCorrupt`
+  * `CalibMissingOrInvalid`
+  * `FWVersionMismatch`
+  * `FWUpdate`
+  * `FWUpdateComplete`
+  * `FWUpdateFailed`
+  * `FWCorrupt`
+  * `EndOfFile`
+  * `USBDriverNotInstalled`
+  * `Streaming`
+
+
 ### GetSlamVisibleExposureAndGain
 
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
@@ -1089,6 +1314,23 @@ Return Values:
 
 * Result (boolean) - Returns `true` if no errors related to this command. 
 
+### ResetSlam
+
+Resets the SLAM sensors.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
+
+Parameters
+
+- None
+
+Return Values
+
+- Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### SetCurrentSlamMap
 
@@ -1164,6 +1406,23 @@ Return Values
 
 * result (boolean) - Returns `true` if no errors related to this command.
 
+### StartMapping
+
+Starts Misty mapping an area.
+
+Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](./#getslammaps) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StartSlamStreaming
 
@@ -1179,7 +1438,42 @@ Parameters
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StartTracking
+
+Starts Misty tracking her location.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
+
+Parameters
+- None
+
+Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopMapping
+
+Stops Misty mapping an area.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
+
+Parameters
+
+- None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### StopSlamStreaming
+
 Closes the data stream from the Occipital Structure Core depth sensor. This command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 **Important!** Always use this command to close the depth sensor data stream after using `StartSlamStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
@@ -1187,10 +1481,30 @@ Closes the data stream from the Occipital Structure Core depth sensor. This comm
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/stop
 
 Parameters
+
 - None
 
 Return Values
+
 - Results (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopTracking
+
+Stops Misty tracking her location.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
+
+Parameters
+
+- None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### TakeDepthPicture
 
@@ -1244,262 +1558,6 @@ Return Values
 }
 ```
 
-### DriveToLocation - ALPHA
-
-Drives to a designated waypoint.
-
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
-
-Parameters
-* Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
-
-```json
-“Destination": “10:25"
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### FollowPath - ALPHA
-Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the end of the path.
-
-This command is under active development. As such, the parameters below are likely to change with future system updates.
-{{box op="end"}}
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/drive/path
-
-Parameters
-
-- Path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. Use `GetMap` to obtain the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
-- Velocity (double) - Optional. A fraction of Misty's max velocity. Determines how fast Misty moves when driving straight while following a path. Expects a decimal value greater than 0 and less than 1. Defaults to `0.5` (50% of max velocity) if not specified.
-- FullSpinDuration (double) - Optional. Number of seconds it takes for Misty to complete a full spin (360 degrees) while following a path. Determines how fast Misty pivots or spins when changing direction. Defaults to `15` if not specified.
-- WaypointAccuracy (double) - Optional. How close (in meters) the robot gets to a waypoint before considering itself to have reached that waypoint. Defaults to `0.1` if not specified.
-- RotateThreshold (double) - Optional. The angle (in degrees) Misty's path following algorithm uses to determine when Misty should pivot toward a waypoint instead of continuing to drive straight. When following a path, Misty drives straight toward her next waypoint until the bearing between the waypoint and her current heading is greater than `RotateThreshold` degrees. When the bearing reaches this threshold, Misty pivots in the direction of the waypoint until the bearing is lower than `RotateThreshold`. When Misty reaches a waypoint, she spins to face the next waypoint and drives straight. As she approaches the waypoint, any error in the original spin causes the bearing angle to grow, causing Misty to stop and turn toward the waypoint; thus, Misty may stop and pivot multiple times between one waypoint and the next. Defaults to `10` if not specified.
-
-```json
-{
-  "Path": "4:3,8:8,10:15"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### GetMap - ALPHA
-
-Obtains the occupancy grid data for Misty's currently active map.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap) command.
-{{box op="end"}}
-
-Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
-
-The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
-
-Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
-
-Parameters
- * None
-
-Return Values
-* Result (object) - An object containing the following key-value pairs:
-  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates “unknown" space, 1 indicates “open" space, 2 indicates “occupied" space, and 3 indicates “covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
-  * height (integer) - The height of the occupancy grid matrix (in number of cells).
-  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
-  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
-  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
-  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
-  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
-  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
-
-### GetSlamNavigationDiagnostics - ALPHA
-
-Obtains diagnostic information about Misty's navigation system.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
-{{box op="end"}}
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/diagnostics
-
-Parameters
-* None
-
-Return Values
-
-* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
-
-```JSON
-{
-  "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
-  "status": "Success"
-}
-```
-
-
-
-### GetSlamPath - ALPHA
-
-Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
-
-**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
-
-Parameters
-* X (integer) - The X coordinate of the destination.
-* Y (integer) - The Y coordinate of the destination.
-
-```json
-{
-  "X": 13,
-  "Y": 37
-}
-```
-
-Return Values
-* Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
-
-
-### GetSlamStatus - ALPHA
-
-Obtains values representing the current activity and status of Misty's SLAM system. Check these values for information about the current status of Misty's depth sensor, the SLAM system, and to see information relevant to any ongoing mapping or tracking activities.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** We suggest primarily using the values of `Status`/`StatusList` when coding SLAM functionality in your skills and robot applications, and only using the `SensorStatus` and `RunMode` values as supplemental information if needed or for debugging purposes.
-{{box op="end"}}
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
-
-Parameters
-
-- None
-
-Return Values
-
-* `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
-  * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
-  * 0x0001: `Initializing` - The SLAM system is initializing.
-  * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
-  * 0x0004: `Exploring` - The SLAM system is mapping.
-  * 0x0008: `Tracking` - The SLAM system is tracking.
-  * 0x0010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
-  * 0x0020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
-  * 0x0040: `Rebooting` - The SLAM system is rebooting.
-  * 0x0080: `HasPose` - The SLAM system has obtained pose.
-  * 0x0100: `LostPose` - The SLAM system has lost pose after having obtained it.
-  * 0x0200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
-  * 0x0400: `Error` - There is an error with the SLAM system or with the depth sensor.
-  * 0x0800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
-  * 0x1000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
-  * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
-  * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
-  * 0x8000: `Streaming` - The SLAM system is streaming.
-* `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
-* `runMode` (string) - Current status of the navigation system. Possible values are:
-  * `Uninitialized`
-  * `Tracking`
-  * `Exploring`
-  * `Relocalizing`
-  * `Paused`
-  * `ExportingScene`
-  * `NeedMoreMotionToInitMap`
-  * `NotAvailable`
-* `sensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
-  * `Uninitialized`
-  * `Connected`
-  * `Booting`
-  * `Ready`
-  * `Disconnected`
-  * `Error`
-  * `USBError`
-  * `LowPowerMode`
-  * `RecoveryMode`
-  * `ProdDataCorrupt`
-  * `CalibMissingOrInvalid`
-  * `FWVersionMismatch`
-  * `FWUpdate`
-  * `FWUpdateComplete`
-  * `FWUpdateFailed`
-  * `FWCorrupt`
-  * `EndOfFile`
-  * `USBDriverNotInstalled`
-  * `Streaming`
-
-
-### ResetSlam - ALPHA
-
-Resets the SLAM sensors.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
-
-Parameters
-
-- None
-
-Return Values
-
-- Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StartMapping - ALPHA
-
-Starts Misty mapping an area.
-
-Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](./#getslammaps) command.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StartTracking - ALPHA
-Starts Misty tracking her location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StopMapping - ALPHA
-Stops Misty mapping an area.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
-
-Parameters
-- None
-
-Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StopTracking - ALPHA
-Stops Misty tracking her location.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
-
-Parameters
-
-- None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
 ## Perception
 
 The following commands allow you to programmatically take pictures, record sounds or videos, and have misty detect and learn to recognize faces. 
@@ -1535,6 +1593,27 @@ Parameters
 Return Values
 
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
+
+### GetVideoFile
+
+Downloads Misty's most recent video recording to your browser or REST client.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
+
+This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/video
+
+Parameters
+
+* None
+
+Return Values
+
+* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
 
 ### ForgetFaces
 
@@ -1604,6 +1683,37 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StartKeyPhraseRecognition
+
+Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes** 
+
+* When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
+* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](./#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
+{{box op="end"}}
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+1. Invoke the `StartKeyPhraseRecognition` command.
+2. Subscribe to `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
+3. Write the code to handle what Misty should do when she hears the key phrase. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to send another `StartKeyPhraseRecognition` command.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### StartRecordingAudio
 
 Starts Misty recording audio. Misty saves audio recordings to her local storage as .wav files. To stop recording, you must call the `StopRecordingAudio` command.
@@ -1611,17 +1721,41 @@ Starts Misty recording audio. Misty saves audio recordings to her local storage 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
 
 {{box op="start" cssClass="boxed warningBox"}}
-**Warning:** If you do not issue a `StopRecordingAudio` command, Misty will continue recording until the audio file is 1 GB. Attempting to retriev a file this large from Misty can cause the system to crash.
+**Warning:** If you do not issue a `StopRecordingAudio` command, Misty will continue recording until the audio file is 1 GB. Attempting to retrieve a file this large from Misty can cause the system to crash.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#startkeyphraserecognition-beta).
+**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#startkeyphraserecognition).
 {{box op="end"}}
 
 Parameters
 * FileName (string) - The name to assign to the audio recording. This parameter must include a `.wav` file type extension at the end of the string.
 
 Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StartRecordingVideo
+
+Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
+
+Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
+
+This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
+
+Parameters
+
+* None
+
+Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopFaceDetection
@@ -1650,6 +1784,21 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StopKeyPhraseRecognition
+
+Stops Misty listening for the "Hey, Misty!" key phrase.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
 ### StopRecordingAudio
 Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
 
@@ -1659,6 +1808,26 @@ Parameters
 * None
 
 Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopRecordingVideo
+
+Stops recording video with Misty's 4K camera.
+
+Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/stop
+
+Parameters
+
+* None
+
+Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### TakePicture
@@ -1702,102 +1871,7 @@ Return Values
   * Name (string) - The name of the image.  
   * Width (integer) - The width of the image in pixels. 
 
-### GetRecordedVideo - BETA
 
-Downloads Misty's most recent video recording to your browser or REST client.
-
-**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/video
-
-Parameters
-
-* None
-
-Return Values
-
-* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
-
-### StartRecordingVideo - BETA
-
-Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
-
-Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
-
-Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
-
-**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StartKeyPhraseRecognition - BETA
-
-Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized-beta) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note** 
-
-* When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
-* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](./#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
-* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
-{{box op="end"}}
-
-Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
-1. Invoke the `StartKeyPhraseRecognition` command.
-2. Subscribe to `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
-3. Write the code to handle what Misty should do when she hears the key phrase. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to send another `StartKeyPhraseRecognition` command.
-{{box op="end"}}
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StopKeyPhraseRecognition - BETA
-
-Stops Misty listening for the "Hey, Misty!" key phrase.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StopRecordingVideo - BETA
-
-Stops recording video with Misty's 4K camera.
-
-Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/stop
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## Skill Management
 
@@ -1880,8 +1954,49 @@ Parameters
 Return Values
 * Result (array) - An array containing the names and meta file information for all of the skills on the robot.
 
-<!-- RunSkill -->
+### LoadSkill
+
+Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/load
+
+Parameters
+
+* Skill (string) - The unique GUID identification string for the skill to load.
+
+```json
+{
+  "Skill": "491858a1-a022-41e3-92ad-7535db0ecfdd"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this request.
+
+### ReloadSkills
+
+Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
+
+Parameters
+* (None)
+
+Return Values
+* Result (boolean) - Returns `true` if no errors related to this request. 
+
+
 ### RunSkill
+
 Runs an on-robot skill that you have uploaded to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/start
@@ -1926,34 +2041,6 @@ Parameters
 Return Values
 * Result (array) - A list of key-value pairs with the names of the code and meta skill files saved to the robot.
 
-### LoadSkill - ALPHA
-Makes a previously uploaded skill available for the robot to run and updates the skill for any changes that have been made.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/load
-
-Parameters
-* Skill (string) - The name of the skill to load.
-
-```json
-{
-  "Skill": "SkillName"
-}
-```
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request.
-
-<!-- ReloadSkills --> 
-### ReloadSkills - ALPHA
-Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
-
-Parameters
-* (None)
-
-Return Values
-* Result (boolean) - Returns `true` if no errors related to this request. 
 
 
 ## System
@@ -2452,6 +2539,50 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### SetNotificationSettings
+
+Changes the settings for Misty's default hardware notifications.
+
+Misty's default hardware notification settings are as follows:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
+
+**LED Notifications**
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * When training fails, the LED blinks red three times.
+  * When Misty sees more than one face, the LED blinks yellow three times.
+  * When Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/notification/settings
+
+Parameters:
+
+* RevertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
+* LedEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
+* KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
+* KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
+
+```JSON
+{
+  "LedEnabled": false,
+  "KeyPhraseEnabled": true,
+  "KeyPhraseFile": "<new-wakeword-sound>.wav"
+}
+```
+
+Return Values:
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### SetWebsocketVersion
 
 Sets the active WebSocket system to the `Current` or `Deprecated` version of the system.
@@ -2475,47 +2606,7 @@ Return Values
 
 * Results (bool) - Returns `true` if no errors related to this command.
 
-### SetNotificationSettings - BETA
-
-Changes the settings for Misty's default hardware notifications.
-
-Misty's default hardware notification settings are as follows:
-
-**Audio Notifications**
-* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
-
-**LED Notifications**
-* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
-* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
-  * When the face detection phase of the training process is complete, the LED turns green.
-  * When training is complete, the LED blinks green three times.
-  * When training fails, the LED blinks red three times.
-  * When Misty sees more than one face, the LED blinks yellow three times.
-  * When Misty doesn't see a face, the LED turns yellow.
-* **System Updates** - While Misty is performing a system update, the LED blinks white.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/notification/settings
-
-Parameters:
-
-* RevertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
-* LedEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
-* KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
-* KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
-
-```JSON
-{
-  "LedEnabled": false,
-  "KeyPhraseEnabled": true,
-  "KeyPhraseFile": "<new-wakeword-sound>.wav"
-}
-```
-
-Return Values:
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### UpdateBaseHazardManagementSettings - ALPHA
+### UpdateBaseHazardManagementSettings
 
 Changes the hazard system settings for Misty's bump and time-of-flight sensors.
 
@@ -2525,6 +2616,8 @@ Changes the hazard system settings for Misty's bump and time-of-flight sensors.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The settings for Misty's hazard system reset to the default values listed in the tables below each time the robot boots up. The changes you apply with this command do not save across reboot cycles.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
 The default hazards settings for Misty's bump sensors are as follows:

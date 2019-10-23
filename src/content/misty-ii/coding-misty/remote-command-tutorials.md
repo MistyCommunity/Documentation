@@ -36,6 +36,7 @@ This tutorial uses Misty’s REST API to send a POST request that changes the co
 Alternately, you can download a compressed version of the Axios library to include in your project. Read more about Axios [here](https://github.com/axios/axios).
 
 ### Writing the Code
+
 Within `<script>` tags in the `<body>` of your .html document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We’ll reference this variable throughout the program to send commands to Misty. 
 
 ```JavaScript
@@ -109,7 +110,7 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Changing%20Misty's%20LED) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Changing%20Misty's%20LED) from GitHub.
 
 ## Using Sensors, WebSockets, and Locomotion
 
@@ -447,7 +448,7 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
 
 ## Exploring Computer Vision
 
@@ -857,7 +858,7 @@ When you load the `.html` file in your browser, the program:
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Exploring%20Computer%20Vision) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Exploring%20Computer%20Vision) from GitHub.
 
 ## Taking Pictures
 
@@ -1245,4 +1246,4 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Taking%20Pictures) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Taking%20Pictures) from GitHub.
