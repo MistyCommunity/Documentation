@@ -174,7 +174,7 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-### SaveAudio (Data String)
+### SaveAudio
 
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 
@@ -182,7 +182,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload.
-- Data (string) - The audio data, passed as a string containing base64 data.
+- Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
+- File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
@@ -200,31 +201,11 @@ Return Values
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### SaveImage
 
-### SaveAudio (Audio File)
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an image to Misty. Optionally, proportionately reduces the size of the saved image.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
-
-**Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
-
-Parameters
-- File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-Return Values
-- Result (array) - An array of information about the audio file, with the following fields:
-  - name (string) - The name of the file that was saved.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-
-
-### SaveImage (Data String)
-
-Saves an image to Misty in the form of a base64 string. Optionally, proportionately reduces the size of the saved image.
-
-Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
+Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Maximum file size is 3 MB.
 
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
@@ -232,7 +213,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
-* Data (string) - The image data, passed as a base64 string.
+* Data (string) - The image data, passed as a base64 string. You must either supply a value for `Data` **or** specify a `File` to upload.
+* File (object) - The image file to save to Misty. Valid image file types are `jpg`, `.jpeg`, `.gif`, and `.png`. **Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
@@ -255,30 +237,6 @@ Return Values
   * name (string) - The name of the saved file.
   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
   * width (integer) - The width of the image in pixels.
-
-### SaveImage (Image File)
-
-Saves an image file to Misty. Optionally, proportionately reduces the size of the saved image.
-
-**Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
-
-**Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/images
-
-Parameters
-* File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png. 
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). Important: To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
-* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
-* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-Return Values
-* Result (array) - Returns an array of information about the image with the following fields:
-* height (integer) - The height of the image in pixels.
-* name (string) - The name of the saved file.
-* userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-* width (integer) - The width of the image in pixels.
 
 ## Backpack
 
