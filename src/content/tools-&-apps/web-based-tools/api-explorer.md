@@ -16,8 +16,6 @@ Misty's [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) provides inte
 
 The API Explorer simplifies experimenting with different commands. It allows you to quickly see Misty's responses, so you can understand how your code works with Misty. For more information about using Misty's APIs, see the [REST API](../../../misty-ii/reference/rest) and [on-robot JavaScript API](../../../misty-ii/reference/javascript-api) reference documentation.
 
-**NOTE:** **The API Explorer is currently in a pre-release state**. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
-
 ## Setting Up the API Explorer
 
 Connect Misty to the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to start experimenting with her REST endpoints. Before you connect Misty to an instance of the API Explorer, **make sure your computer and Misty are on the same Wi-Fi network**.
@@ -44,22 +42,16 @@ You can use the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/) to ge
 
 ### REST API Code Samples
 
-The API Explorer generates code samples for Misty's REST API in JavaScript that are based on jQuery and the [lightClient.js](../../../misty-ii/coding-misty/remote-command-architecture/#using-the-lightclient-js-helper) helper tool. This tool simplifies the code required to send requests to Misty from your web browser.
+The API Explorer generates code samples for Misty's REST API in JavaScript that use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). You can run these code samples by pasting them into the `<script>` tags of an .html file and opening that file in your web browser.
 
-You can run these code samples by pasting them into the `<script>` tags of an .html file and opening that file in your web browser. **The .html file must include the following references**:
-
-* a reference to the [jQuery](https://jquery.com/) library (available from [Google](https://developers.google.com/speed/libraries/))
-* a reference to a local directory that contains the [lightClient.js](../../../misty-ii/coding-misty/remote-command-architecture/#using-the-lightclient-js-helper) helper tool
-
-Read more about lightClient.js [in the documentation](../../../misty-ii/coding-misty/remote-command-architecture/#using-the-lightclient-js-helper).
-
-[Download lightClient.js](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript) from GitHub.
-
-### On-Robot JavaScript API Code Samples
+### JavaScript API Code Samples
 
 You can use the API Explorer to generate code samples for many of the methods in Misty's on-robot JavaScript API. These code samples appear in the [**Skill Code** section](./#skill-code) of the request form.
 
-**Note:** Code samples for "Get" commands also include examples of the [callback function required to handle the data](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Code samples for "Get"-type commands also include examples of the [callback function required to handle the data](../../../misty-ii/coding-misty/javascript-sdk-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
+{{box op="end"}}
 
 You can run these code samples by copying them from the API Explorer and pasting them into the [code file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#code-file) for an on-robot JavaScript skill. Then, [upload the code to Misty](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill) and [start the skill](../../../misty-ii/coding-misty/javascript-sdk-architecture/#starting-amp-stopping-a-javascript-skill).
 
