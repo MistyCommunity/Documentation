@@ -932,15 +932,22 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### Stop
+
 Stops Misty's movement.
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Important:** Under most circumstances, it is best to avoid calling the `Stop` command with a `Hold` value of `true`. Holding Misty's position can strain Misty's drive motors. Stopping Misty's driving without holding her position should suffice under most circumstances and can prolong the life of your robot's drive motors.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/stop
 
 Parameters
-- None
+
+- Hold (boolean) - Optional. Defaults to `false`. If `true`, Misty's drive motors remain engaged after Misty stops moving and attempt to hold the robot in its current position. This can be useful when Misty needs to stop moving while she's on an incline; sending a `Stop` command with a `Hold` value of `true` keeps the motors engaged, so that Misty does not roll down the slope. It is generally recommended to ignore the `Hold` parameter. Stopping Misty's driving without holding her position should suffice under most circumstances and can prolong the life of your robot's drive motors.
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+- Result (boolean) - Returns `true` if there are no errors related to this command.
 
 
 ## Navigation
@@ -968,7 +975,7 @@ Parameters
 
 Return Values
 
-* Result (boolean) - Returns true if no errors related to this command. 
+* Result (boolean) - Returns true if no errors related to this command.
 
 ### DriveToLocation
 
