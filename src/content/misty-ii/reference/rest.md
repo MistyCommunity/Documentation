@@ -2041,6 +2041,186 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisableAudioService
+
+Disables the audio service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the audio service when the audio service is disabled. These commands and event types are listed below.
+
+**Audio Service Commands**
+* `GetAudioFile`
+* `GetAudioList`
+* `DeleteAudio`
+* `PlayAudio`
+* `SaveAudio`
+* `SetDefaultVolume`
+* `StartKeyPhraseRecognition`
+* `StartRecordingAudio`
+* `StopKeyPhraseRecognition`
+* `StopRecordingAudio`
+
+**Audio Service Event Types**
+* `AudioPlayComplete`
+* `KeyPhraseRecognized`
+* `SourceTrackDataMessage`
+* `SourceFocusConfigMessage`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DisableCameraService
+
+Disables the camera service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
+
+**Camera Service Commands**
+* `CancelFaceTraining`
+* `ForgetFaces`
+* `StartFaceDetection`
+* `StopFaceDetection`
+* `StartFaceTraining`
+* `StartRecordingVideo`
+* `StopFaceDetection`
+* `StopFaceRecognition`
+* `StopRecordingVideo`
+* `TakePicture`
+* `GetCameraData`
+* `GetKnownFaces`
+* `GetVideoFile`
+
+**Camera Service Event Types**
+* `FaceRecognition`
+* `FaceTraining`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DisableSlamService
+
+Disables the SLAM service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and SLAM services before you start face recognition to improve the performance of face recognition activities.
+
+Misty cannot run commands or stream messages from event types that use the SLAM service when the SLAM service is disabled. These commands and event types are listed below.
+
+**SLAM Service Commands**
+* `DeleteSlamMap`
+* `GetMap`
+* `GetCurrentSlamMap`
+* `GetSlamIrExposureAndGain`
+* `GetSlamMaps`
+* `GetSlamNavigationDiagnostics`
+* `GetSlamPath`
+* `GetSlamStatus`
+* `GetSlamVisibleExposureAndGain`
+* `RenameSlamMap`
+* `ResetSlam`
+* `SetCurrentSlamMap`
+* `SetSlamIrExposureAndGain`
+* `SetSlamVisibleExposureAndGain`
+* `StartMapping`
+* `StartSlamStreaming`
+* `StartTracking`
+* `StopMapping`
+* `StopSlamStreaming`
+* `StopTracking`
+* `TakeDepthPicture`
+* `TakeFisheyePicture`
+
+**SLAM Service Event Types**
+* `SlamStatus`
+
+Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableAudioService
+
+Enables the audio service running on Misty's 820 processor.
+
+For more information about disabling and enabling the audio service, see the [`DisableAudioService`](./#disableaudioservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableCameraService
+
+Enables the camera service running on Misty's 820 processor.
+
+For more information about disabling and enabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableSlamService
+
+Enables the SLAM service running on Misty's 820 processor.
+
+For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you send this command without any parameters, Misty deletes information for all of her saved networks.
@@ -2078,8 +2258,24 @@ Return Values
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
+### GetAudioServiceEnabled
+
+Describes whether the audio service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the audio service, see the [`DisableAudioService`](./#disableaudioservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/audio
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`.
 
 ### GetBatteryLevel
+
 Obtains Misty's current battery level, along with other information about the battery.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/battery
@@ -2123,6 +2319,22 @@ Sample response data:
  "status": "Success"
 }
 ```
+
+### GetCameraServiceEnabled
+
+Describes whether the camera service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/camera
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the camera service is enabled. Otherwise, `false`.
 
 ### GetDeviceInformation
 
@@ -2293,6 +2505,22 @@ Parameters
 Return Values
 
 * result (string) - A string value indicating the robot's current log level.
+
+### GetSlamServiceEnabled
+
+Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/slam
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the SLAM service is enabled. Otherwise, `false`.
 
 ### GetStoreUpdateAvailable
 
