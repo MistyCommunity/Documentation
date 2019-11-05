@@ -7,12 +7,21 @@ order: 4
 
 # {{title}}
 
-This topic provides information about Misty's system updates. Read this page to learn about Misty's update process, find links to release notes, and access documentation for historical software and firmware versions.
+This topic provides information about Misty's system updates. The sections below include information about the update process, links to release notes, and access to documentation for historical software and firmware versions.
+
+Misty's updates can include:
+
+* New images and audio assets
+* Motor controller firmware updates
+* Real-time controller firmware updates
+* Occipital Structure Core depth sensor firmware updates
+* Home Robot application updates (running on Windows IoT Core)
+* Sensory Services application updates (running on Android)
+* Windows OS updates
 
 ## Installing System Updates
 
-Misty’s software updates are delivered as over-the-air (“OTA”) updates, and Misty checks for updates each time she boots up. 
-[Release notes](https://community.mistyrobotics.com/c/announcements/releases) are published to the Community Forums each time we deploy a system update for the robot. New releases are typically available within 24-48 hours of being deployed (the precise timing varies by region). If Misty doesn’t automatically download a release when she boots up, you can check to see if the update is available via Misty’s [Command Center](http://sdk.mistyrobotics.com/command-center/).
+Misty’s software updates are delivered as over-the-air (“OTA”) updates, and Misty checks for updates each time she boots up. [Release notes](https://community.mistyrobotics.com/c/announcements/releases) are published to the Community Forums each time we deploy a system update for the robot. New releases are typically available within 24-48 hours of being deployed (the precise timing varies by region). If Misty doesn’t automatically download a release when she boots up, you can check to see if the update is available via Misty’s [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 Misty reboots once during a system update. The system disables all commands except `Halt` and `Stop` while Misty is updating. If Misty starts installing an update while she’s charging, do not disconnect her from her power source until the update is finished and her eyes are fully open.
 

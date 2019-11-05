@@ -109,25 +109,6 @@ Follow these steps to charge Misty via a wired connection:
 2. Connect Misty’s AC power supply (**not** the power supply for the wireless charging station) to her power port.
 3. Connect the power supply to an outlet.
 
-## Hardware Notifications
-
-When you interact with Misty, she notifies you of certain events by playing sounds or changing the color of her chest LED. These notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
-
-The following notifications are enabled by default:
-
-**Audio Notifications**
-* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
-
-**LED Notifications**
-* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
-* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
-  * When the face detection phase of the training process is complete, the LED turns green.
-  * When training is complete, the LED blinks green three times.
-  * If training fails, the LED blinks red three times.
-  * If Misty sees more than one face, the LED blinks yellow three times.
-  * If Misty doesn't see a face, the LED turns yellow.
-* **System Updates** - While Misty is performing a system update, the LED blinks white.
-
 ## Coordinate System & Movement Ranges
 
 As you develop skills and robot applications, it can be helpful to understand a few key details about Misty's coordinate system and the range of movement allowed for her head and arm motors.
@@ -144,103 +125,38 @@ As you develop skills and robot applications, it can be helpful to understand a 
 * A positional value of 0 degrees for head movement in the roll, pitch, and yaw directions orients Misty's head to face straight forward, directly in front of the robot.
 * The system returns audio localization data relative to the direction Misty's head is facing (instead of her torso). The heading of Misty's face is the `0/360` angle relative to incoming audio localization data.
 
+## Default Behaviors
 
-## Misty II Specs
+Misty II exhibits certain behaviors that override commands she receives from skills and robot applications. Some of these default behaviors are cosmetic, and others help prevent Misty from executing commands that could cause harm to Misty, the people around her, or her environment. The sections below describe some of these behaviors in detail, so you can understand how to work with (or around) them in your skill development.
 
-Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.
+### Chest LED Notifications
 
-### Size
+The following chest LED notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
 
-* Height: 35.56 cm / 14 in
-* Depth: 25.4 cm / 10 in
-* Width: 20.32 cm / 8 in
-* Weight: 2.7 kg / 6 lbs
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * If training fails, the LED blinks red three times.
+  * If Misty sees more than one face, the LED blinks yellow three times.
+  * If Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
 
-### Processors
+### Audio Notifications
 
-* Qualcomm® Snapdragon 820™ mobile processor
-* Qualcomm® Snapdragon 410™ processor
+The following audio notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
 
-### Computer Vision
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
 
-* Occipital Structure Core depth sensor for 3D maps
-* 166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
-* 4K camera
-* Facial recognition
-* Deep-learning AI using Qualcomm® Snapdragon™ Neural Processing
+### Scruff Reflex
 
-### Sound
+Misty ignores all commands she receives for as long as she detects someone touching the `CapTouch_Scruff` sensor in the handle on the back of her head. This behavior is designed is to prevent Misty from moving in ways that could damage her (or the human holding her) if she’s picked up while running a skill. This behavior does not cancel any running skills. It only causes Misty to ignore commands those skills invoke. When the `CapTouch_Scruff` touch sensor is released, Misty resumes execution of any new commands she receives.
 
-* 3 far-field microphones using Qualcomm® FluenceTM PRO 
-* 2 high-fidelity speakers with engineered sound box and bass port
-
-### Touch
-
-* 6 capacitive touch sensors on head and chin
-
-### Distance and Obstacle Detection
-
-* 8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
-* 10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
-
-### Movement
-
-* Patent-pending 3-degree of freedom neck
-* Easily customizable moving arms
-* Sturdy track-driving tread system
-* Trailer hitch to pull a payload
-
-### Display & Light
-
-* 4” LCD image display/screen
-* Bright LED flashlight
-* Multi-color LED chest light
-
-### Connectivity
-
-* 2.4 and 5 Ghz Wi-Fi connection
-* Bluetooth and Bluetooth Low Energy capabilities 
-
-### Extensibility
-
-* USB/Serial-connected backpack for hardware extension
-* Arduino-compatible Backpack (optional)
-* Magnetic helmet connection point
-
-### Operating Systems
-
-* Windows IoT Core™ (Main)
-* Android™ 8 (navigation/computer vision)
-
-![Misty II Specs](../../../assets/images/mii-specs.png)
-
-## System Updates
-
-Misty’s software updates are delivered as over-the-air (OTA) updates, and Misty checks for updates each time she boots up.
-
-Updates can include:
-
-* New images and audio assets
-* Motor controller firmware updates
-* Real-time controller firmware updates
-* Occipital Structure Core depth sensor firmware updates
-* Home Robot application updates (running on Windows IoT Core)
-* Sensory Services application updates (running on Android)
-* Windows OS updates
-
-We recommend you boot up Misty to check for updates on a weekly basis.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty reboots once during a system update. All commands except `Halt` and `Stop` are disabled while Misty is updating. If Misty starts installing an update while she’s charging, do not disconnect her from her power source until the update is finished and her eyes are fully open.
-{{box op="end"}}
-
-## Hazards System
+### Hazards System
 
 Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby, or when she detects that she has bumped into an object.
 
 In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Event Types](../../../misty-ii/reference/sensor-data/#hazardnotification) section of these docs for details on using this data in your skills.
-
-### Bump & Time-of-Flight Hazards
 
 By default, Misty's bump and time-of-flight sensors put the robot into a hazard state in the following circumstances:
 * when her edge time-of-flight sensors detect a drop distance of 0.06 meters (60 mm) or greater in the direction she is moving.
@@ -252,7 +168,7 @@ When Misty detects an obstacle or an edge, she ignores any commands that would m
 * if the front edge time-of-flight sensors detect a high ledge
 * if the front range sensors detect an obstacle nearby
 
-In this situation, after she stops driving, Misty ignores any forward drive commands until the system indicates none of her front bump or time-of-flight sensors are in a hazard state. To get out of a hazards state, you can code Misty to reverse directions and choose a new path.
+In this situation, after she stops driving, Misty ignores any forward drive commands until the system indicates none of her front bump or time-of-flight sensors are in a hazard state. To get out of a hazard state, you can code Misty to reverse directions and choose a new path.
 
 ### Misty's Max Speed
 
@@ -341,3 +257,72 @@ function _SerialMessage(data) {
 ```
 
 To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../misty-ii/reference/javascript-api/#misty-writeserial) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../misty-ii/reference/rest/#writeserial) command.
+
+## Misty II Specs
+
+Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.
+
+### Size
+
+* Height: 35.56 cm / 14 in
+* Depth: 25.4 cm / 10 in
+* Width: 20.32 cm / 8 in
+* Weight: 2.7 kg / 6 lbs
+
+### Processors
+
+* Qualcomm® Snapdragon 820™ mobile processor
+* Qualcomm® Snapdragon 410™ processor
+
+### Computer Vision
+
+* Occipital Structure Core depth sensor for 3D maps
+* 166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+* 4K camera
+* Facial recognition
+* Deep-learning AI using Qualcomm® Snapdragon™ Neural Processing
+
+### Sound
+
+* 3 far-field microphones using Qualcomm® FluenceTM PRO 
+* 2 high-fidelity speakers with engineered sound box and bass port
+
+### Touch
+
+* 6 capacitive touch sensors on head and chin
+
+### Distance and Obstacle Detection
+
+* 8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+* 10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+
+### Movement
+
+* Patent-pending 3-degree of freedom neck
+* Easily customizable moving arms
+* Sturdy track-driving tread system
+* Trailer hitch to pull a payload
+
+### Display & Light
+
+* 4” LCD image display/screen
+* Bright LED flashlight
+* Multi-color LED chest light
+
+### Connectivity
+
+* 2.4 and 5 Ghz Wi-Fi connection
+* Bluetooth and Bluetooth Low Energy capabilities 
+
+### Extensibility
+
+* USB/Serial-connected backpack for hardware extension
+* Arduino-compatible Backpack (optional)
+* Magnetic helmet connection point
+
+### Operating Systems
+
+* Windows IoT Core™ (Main)
+* Android™ 8 (navigation/computer vision)
+
+![Misty II Specs](../../../assets/images/mii-specs.png)
