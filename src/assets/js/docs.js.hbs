@@ -231,7 +231,7 @@ Created by Zach Supalla.
     lunr.tokenizer.separator = /[\s\-.]+/;
     lunr.Pipeline.registerFunction(Docs._removeEmptyTokens, 'removeEmptyTokens');
 
-    $.getJSON('/search-index.json', function(data) {
+    $.getJSON('/v1.4.4.0/search-index.json', function(data) {
       var store = data.store;
       var idx = lunr.Index.load(data.index);
       $('input.search-box').keyup(function() {
