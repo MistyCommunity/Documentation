@@ -178,11 +178,28 @@ To enable the hazards system to work effectively, Misty's max speed is limited t
 **Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
 
-## Hardware Extensibility
+## Extending Misty's Hardware
 
-You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills.
+You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills. Additionally, you can expand her physical form by 3D printing custom attachments and accessories.
 
-External hardware can connect to the Universal Asynchronous Receiver-Transmitter (UART) serial and Universal Serial Bus (USB) ports on Misty's back. Remove the magnetic backpack attachment to access these ports.
+### Designing Custom Attachments
+
+Misty's arms, backpack attachment, magnetic headpiece, and trailer hitch can all be removed and replaced with your own custom designs. In addition to these mounting points, you can modify your robot's appearance and functionality by designing attachments for placement anywhere on her exterior.
+
+Find CAD files for Misty's mounting points and exterior parts in the [Misty_II_CAD repository on GitHub](https://github.com/MistyCommunity/Misty_II_CAD).
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** When designing custom attachments for use with Misty, keep the following in mind:
+
+* Protect Misty's motors by keeping your custom attachments light.
+* Design your custom attachments to avoid interfering with Misty's [head and arm movement ranges](#coordinate-system-amp-movement-ranges). If possible, build your parts to easily detach from the robot in the event they catch on something while Misty is running a skill.
+* Avoid covering Misty's heat sinks and the fan intake areas on her head, neck, and chassis. Make sure your attachments do not interfere with Misty's treads, and avoid covering Misty's time-of-flight sensors to keep the hazards system functional.
+{{box op="end"}}
+
+
+### Using External Hardware
+
+External devices can connect to the Universal Asynchronous Receiver-Transmitter (UART) serial and Universal Serial Bus (USB) ports on Misty's back. Remove the magnetic backpack attachment to access these ports.
 
 The USB port can be used with a USB-to-Ethernet adapter to connect Misty to your local network. Misty’s API/SDK does not currently have access to the USB port’s data interface, but this port can be used to supply power to external devices. The UART serial port enables communication between Misty's skills and an external device. The configuration of the pins on this port simplifies connection between Misty and her [Arduino-compatible backpack](../../../misty-ii/robot/misty-ii/#misty-arduino-compatible-backpack). You can also connect your own microcontroller, a Raspberry Pi, or other UART serial-enabled hardware.
 
@@ -193,7 +210,7 @@ The UART serial and USB port channels have separate, isolated power controllers 
 * **TX (transmitter)**: Transmits messages from Misty to connected hardware.
 * **3V**: Supplies up to 1A of power to the connected hardware at 3.3v.
 
-## Misty (Arduino-Compatible) Backpack
+### Misty (Arduino-Compatible) Backpack
 
 The Misty (Arduino-Compatible) Backpack is a microcontroller designed to connect to the UART serial port on Misty’s back in a plug-and-play fashion, without any modification.
 
