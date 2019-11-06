@@ -2285,18 +2285,23 @@ Parameters
 
 Return Values
 * Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
-  * chargePercent (double)
-  * created (string)
-  * current (int)
-  * expiry (string)
+  * chargePercent (double) - Decimal value representing current charge percent.
+  * created (string) - Timestamp that describes when the system created this message.
+  * current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
   * healthPercent (double)
-  * isCharging (bool)
-  * sensorId (string)
-  * sensorName (string)
-  * state (string)
+  * isCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * sensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * sensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
+  * state (string) - The charge state of the battery. Possible values are:
+    *  `Charging` (if battery is receiving current)
+    *  `Discharging` (if battery is losing current)
+    *  `Charged` (if battery is fully charged)
+    *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
+    *  `Fault` (can occur if the charger does not detect the battery)
   * temperature (int)
-  * trained (bool)
-  * voltage (double)
+  * trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * voltage (double) - The battery's voltage.
 
 Sample response data:
 
