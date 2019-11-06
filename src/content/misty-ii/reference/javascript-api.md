@@ -610,7 +610,7 @@ misty.SetFlashlight(true);
 
 ### misty.SendExternalRequest
 
-Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+Sends an HTTP request from Misty to an external server. You can use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
 ```JavaScript
 // Syntax
@@ -620,7 +620,9 @@ misty.SendExternalRequest(string method, string resourceURL, [string authorizati
 In most cases, the external server's response to requests Misty sends must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command has the same name as the command, prefixed with an underscore: `_SendExternalRequest()`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../../../misty-ii/coding-misty/javascript-sdk-tutorials/#external-requests) tutorial.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+**Note:** This command does not currently support uploading data as `multipart/form-data`, nor can you reference a file on the robot to upload with your external request.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
 Arguments
