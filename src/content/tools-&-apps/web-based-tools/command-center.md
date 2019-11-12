@@ -378,6 +378,61 @@ When Misty is tracking, she can follow a path from her current location to a new
   3. Use the path field to input an entire path of X,Y values. A path of waypoints should be entered in the form of "X1:Y1,X2:Y2,X3:Y3".
 3. Click **Follow Path**.
 
+### Follow Path Advanced Settings
+
+The Navigation Module provides advanced settings for customizing Misty's path following behavior. To view these settings, click the purple gear icon next to the **Follow Path** button.
+
+The fields in the **Follow Path Advanced Settings** modal allow you to adjust the following parameters:
+
+![Follow Path Advanced Settings](../../../assets/images/nav-module-follow-path-advanced-settings.png)
+
+- `Velocity` - A fraction of Misty's max velocity that determines how fast Misty moves when driving straight while following a path. Expects a decimal value greater than 0 and less than 1. Defaults to `0.5` (50% of max velocity).
+- `FullSpinDuration` - Number of seconds it takes for Misty to complete a full spin (360 degrees) while following a path. Determines how fast Misty pivots or spins when changing direction. Defaults to `15`.
+- `WaypointAccuracy` - How close (in meters) Misty gets to a waypoint before considering herself to have reached that waypoint. Defaults to `0.1`.
+- `RotateThreshold` - The angular measurement (in degrees) Misty's path following algorithm uses to determine when Misty should pivot toward a waypoint instead of continuing to drive straight. Defaults to `10`.
+
+Click **Save Settings** to apply your changes, or click **Cancel** to close the modal without saving.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When following a path, Misty drives straight toward her next waypoint until the bearing between the waypoint and her current heading is greater than `RotateThreshold` degrees. When the bearing reaches this threshold, Misty pivots in the direction of the waypoint until the bearing is lower than `RotateThreshold`. When Misty reaches a waypoint, she spins to face the next waypoint and drives straight. As she approaches the waypoint, any error in the original spin causes the bearing angle to grow, causing Misty to stop and turn toward the waypoint; thus, Misty may stop and pivot multiple times between one waypoint and the next.
+{{box op="end"}}
+
+### Managing Misty's Maps
+
+Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. You can use the Navigation Module to change which map is currently active and to delete maps you no longer need.
+
+With this functionality, you can create more than one map of an area, review each map for accuracy, and set the best map as Misty’s currently active map. Once you have created more than one map, you can follow these steps to set a different map to be active:
+
+1. Connect Misty to the Command Center and [launch the Navigation Module](./#launching-the-navigation-module).
+2. Choose the key for the map you want to use from the drop-down menu beneath the graphic representation of Misty's currrent map. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`)
+3. Click **Select**.
+
+After you select a map, you can start Misty tracking within it. Additionally, you can click **Get Map** to generate a graphic representation of the map. Click **Download Map** to download the current graphic representation as a .jpg image file.
+
+To delete a map:
+
+1. Connect Misty to the Command Center and [launch the Navigation Module](./#launching-the-navigation-module).
+2. Choose the map you want to delete from the drop-down menu beneath the graphic representation of Misty's current map. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`)
+3. Click the red **Delete** button.
+
+
+
+### Navigation Diagnostics
+
+The **Diagnostics** section provides a stream of diagnostic information about Misty's navigation system.
+
+![Navigation Module Diagnostics Section](../../../assets/images/nav-module-diagnostics.png)
+
+To stream SLAM navigation diagnostics information:
+
+1. Connect Misty to the Command Center and [launch the Navigation Module](./#launching-the-navigation-module).
+2. Start Misty mapping, or have her start tracking within an existing map.
+3. Click **Show Diagnostics** to see the stream of diagnostic information.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+{{box op="end"}}
+
 ## System Updates
 
 You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to perform over-the-air (OTA) updates for Misty. We recommend you check for updates weekly. To find the version number(s) for the most recent system updates, see the release notes on our [Community site](https://community.mistyrobotics.com/c/development).

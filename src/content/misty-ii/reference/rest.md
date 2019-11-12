@@ -174,7 +174,7 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
-### SaveAudio (Data String)
+### SaveAudio
 
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 
@@ -182,7 +182,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
 - FileName (string) - The name of the audio file to upload.
-- Data (string) - The audio data, passed as a string containing base64 data.
+- Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
+- File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
 - OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
 
@@ -200,31 +201,11 @@ Return Values
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### SaveImage
 
-### SaveAudio (Audio File)
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an image to Misty. Optionally, proportionately reduces the size of the saved image.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio
-
-**Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
-
-Parameters
-- File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
-- FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-Return Values
-- Result (array) - An array of information about the audio file, with the following fields:
-  - name (string) - The name of the file that was saved.
-  - userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-
-
-### SaveImage (Data String)
-
-Saves an image to Misty in the form of a base64 string. Optionally, proportionately reduces the size of the saved image.
-
-Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
+Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Maximum file size is 3 MB.
 
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
 
@@ -232,7 +213,8 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
 * FileName (string) - The name of the image file to upload.
-* Data (string) - The image data, passed as a base64 string.
+* Data (string) - The image data, passed as a base64 string. You must either supply a value for `Data` **or** specify a `File` to upload.
+* File (object) - The image file to save to Misty. Valid image file types are `jpg`, `.jpeg`, `.gif`, and `.png`. **Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
@@ -255,30 +237,6 @@ Return Values
   * name (string) - The name of the saved file.
   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
   * width (integer) - The width of the image in pixels.
-
-### SaveImage (Image File)
-
-Saves an image file to Misty. Optionally, proportionately reduces the size of the saved image.
-
-**Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
-
-**Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/images
-
-Parameters
-* File (object) - The image file to save to Misty. Valid image file types are .jpg, .jpeg, .gif, and .png. 
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). Important: To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
-* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
-* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
-
-Return Values
-* Result (array) - Returns an array of information about the image with the following fields:
-* height (integer) - The height of the image in pixels.
-* name (string) - The name of the saved file.
-* userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
-* width (integer) - The width of the image in pixels.
 
 ## Backpack
 
@@ -589,10 +547,12 @@ Return values
 
 ### misty.SendExternalRequest
 
-Sends an HTTP request from Misty to an external server. You use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
+Sends an HTTP request from Misty to an external server. You can use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+**Note:** This command does not currently support uploading data as `multipart/form-data`, nor can you reference a file on the robot to upload with your external request.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/request
@@ -2083,6 +2043,186 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisableAudioService
+
+Disables the audio service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the audio service when the audio service is disabled. These commands and event types are listed below.
+
+**Audio Service Commands**
+* `GetAudioFile`
+* `GetAudioList`
+* `DeleteAudio`
+* `PlayAudio`
+* `SaveAudio`
+* `SetDefaultVolume`
+* `StartKeyPhraseRecognition`
+* `StartRecordingAudio`
+* `StopKeyPhraseRecognition`
+* `StopRecordingAudio`
+
+**Audio Service Event Types**
+* `AudioPlayComplete`
+* `KeyPhraseRecognized`
+* `SourceTrackDataMessage`
+* `SourceFocusConfigMessage`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DisableCameraService
+
+Disables the camera service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
+
+**Camera Service Commands**
+* `CancelFaceTraining`
+* `ForgetFaces`
+* `StartFaceDetection`
+* `StopFaceDetection`
+* `StartFaceTraining`
+* `StartRecordingVideo`
+* `StopFaceDetection`
+* `StopFaceRecognition`
+* `StopRecordingVideo`
+* `TakePicture`
+* `GetCameraData`
+* `GetKnownFaces`
+* `GetVideoFile`
+
+**Camera Service Event Types**
+* `FaceRecognition`
+* `FaceTraining`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DisableSlamService
+
+Disables the SLAM service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and SLAM services before you start face recognition to improve the performance of face recognition activities.
+
+Misty cannot run commands or stream messages from event types that use the SLAM service when the SLAM service is disabled. These commands and event types are listed below.
+
+**SLAM Service Commands**
+* `DeleteSlamMap`
+* `GetMap`
+* `GetCurrentSlamMap`
+* `GetSlamIrExposureAndGain`
+* `GetSlamMaps`
+* `GetSlamNavigationDiagnostics`
+* `GetSlamPath`
+* `GetSlamStatus`
+* `GetSlamVisibleExposureAndGain`
+* `RenameSlamMap`
+* `ResetSlam`
+* `SetCurrentSlamMap`
+* `SetSlamIrExposureAndGain`
+* `SetSlamVisibleExposureAndGain`
+* `StartMapping`
+* `StartSlamStreaming`
+* `StartTracking`
+* `StopMapping`
+* `StopSlamStreaming`
+* `StopTracking`
+* `TakeDepthPicture`
+* `TakeFisheyePicture`
+
+**SLAM Service Event Types**
+* `SlamStatus`
+
+Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableAudioService
+
+Enables the audio service running on Misty's 820 processor.
+
+For more information about disabling and enabling the audio service, see the [`DisableAudioService`](./#disableaudioservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableCameraService
+
+Enables the camera service running on Misty's 820 processor.
+
+For more information about disabling and enabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### EnableSlamService
+
+Enables the SLAM service running on Misty's 820 processor.
+
+For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you send this command without any parameters, Misty deletes information for all of her saved networks.
@@ -2120,8 +2260,24 @@ Return Values
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
+### GetAudioServiceEnabled
+
+Describes whether the audio service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the audio service, see the [`DisableAudioService`](./#disableaudioservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/audio
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`.
 
 ### GetBatteryLevel
+
 Obtains Misty's current battery level, along with other information about the battery.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/battery
@@ -2131,18 +2287,23 @@ Parameters
 
 Return Values
 * Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
-  * chargePercent (double)
-  * created (string)
-  * current (int)
-  * expiry (string)
+  * chargePercent (double) - Decimal value representing current charge percent.
+  * created (string) - Timestamp that describes when the system created this message.
+  * current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
   * healthPercent (double)
-  * isCharging (bool)
-  * sensorId (string)
-  * sensorName (string)
-  * state (string)
+  * isCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * sensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * sensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
+  * state (string) - The charge state of the battery. Possible values are:
+    *  `Charging` (if battery is receiving current)
+    *  `Discharging` (if battery is losing current)
+    *  `Charged` (if battery is fully charged)
+    *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
+    *  `Fault` (can occur if the charger does not detect the battery)
   * temperature (int)
-  * trained (bool)
-  * voltage (double)
+  * trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * voltage (double) - The battery's voltage.
 
 Sample response data:
 
@@ -2165,6 +2326,22 @@ Sample response data:
  "status": "Success"
 }
 ```
+
+### GetCameraServiceEnabled
+
+Describes whether the camera service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/camera
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the camera service is enabled. Otherwise, `false`.
 
 ### GetDeviceInformation
 
@@ -2335,6 +2512,22 @@ Parameters
 Return Values
 
 * result (string) - A string value indicating the robot's current log level.
+
+### GetSlamServiceEnabled
+
+Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/slam
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the SLAM service is enabled. Otherwise, `false`.
 
 ### GetStoreUpdateAvailable
 

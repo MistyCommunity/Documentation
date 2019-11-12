@@ -41,14 +41,14 @@ To view and use these commands:
 To **upload** a skill:
 
 1. Follow the steps above to view the list of commands.
-2. Select **Misty: Upload and Run**.
+2. Select **Misty: Upload**.
 3. Enter Misty's IP address. (You can find Misty's IP address in the [Misty companion app](../../../tools-&-apps/mobile/misty-app)).
 4. Watch for the notification that the upload is complete.
 
 To **upload and run** a skill:
 
 1. Follow the steps above to view the list of commands.
-2. Select **Misty: Upload**.
+2. Select **Misty: Upload and Run**.
 3. Enter Misty's IP address. (You can find the IP address in the [Misty companion app](../../../tools-&-apps/mobile/misty-app)).
 4. Watch for the notification that the upload is complete and wait for your skill to run.
 

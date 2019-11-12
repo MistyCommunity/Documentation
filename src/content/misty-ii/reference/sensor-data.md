@@ -83,7 +83,24 @@ AudioPlayComplete {
 
 ## BatteryCharge
 
-The `BatteryCharge` data stream provides information about the state of Misty's battery, including charge percentage, voltage, and charging status. By default, the `BatteryCharge` data stream sends messages at timed intervals of five seconds.
+The `BatteryCharge` event type provides a stream of information about the current state of Misty's battery, including charge percentage, voltage, and charging status. The `BatteryCharge` event message includes the following key/value pairs:
+
+  * `chargePercent` (double) - Decimal value representing current charge percent.
+  * `created` (string) - Timestamp that describes when the system created this message.
+  * `current` (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * `expiry` (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
+  * `healthPercent` (double)
+  * `isCharging` (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * `sensorId` (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * `state` (string) - The charge state of the battery. Possible values are:
+    *  `Charging` (if battery is receiving current)
+    *  `Discharging` (if battery is losing current)
+    *  `Charged` (if battery is fully charged)
+    *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
+    *  `Fault` (can occur if the charger does not detect the battery)
+  * `temperature` (int)
+  * `trained` (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * `voltage` (double) - The battery's voltage.
 
 Sample `BatteryCharge` data:
 
