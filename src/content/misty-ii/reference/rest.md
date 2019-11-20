@@ -303,39 +303,21 @@ Return Values
 
 ### ChangeLED
 
-Changes the color of the LED light on Misty's torso. Optionally, configures the LED to transition between two different colors.
-
-To change Misty's LED to a different color the instant she receives this command, you only need to pass in values for the `Red`, `Green`, and `Blue` parameters.
-
-To configure Misty's chest LED to transition between two colors, you must use the `Red2`, `Green2`, and `Blue2` parameters to specify a transition color. You must use the `Transition` argument to specify a transition type, and you must use the `Time` parameter to specify the duration (in seconds) between each transition. When Misty receives a command to continuously blink or breathe between two colors, she will continue to change her LED in the specified pattern until she turns off or receives another `ChangeLED` command.
+Changes the color of the LED light behind the logo on Misty's torso.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/led
 
 Parameters
 
-- Red (int) - Red RGB color value (range 0 to 255).
-- Green (int) - Green RGB color value (range 0 to 255).
-- Blue (int) - Blue RGB color value (range 0 to 255).
-- Red2 (int) - Optional. Red RGB color value (range 0 to 255) for the transition color.
-- Green2 (int) - Optional. A green RGB color value (range 0 to 255) for the transition color.
-- Blue2 (int) - Optional. A blue RGB color value (range 0 to 255) for the transition color.
-- Transition (string **or** int) - Optional. The type of transition to use when switching between colors. Accepts a string or a numerical value associated with a transition type. String values for `Transition` are case-sensitive. Transition types are: `None` (or `0`) - No transition, and LED color changes to values expressed in `Red`, `Green`, and `Blue` parameters; `TransitOnce` (or `64`) - LED fades one time from first color to transition color; `Breathe` (or `128`) - LED fades continuously between first color and transition color; and `Blink` (or `192`) - LED blinks continuously between first color and transition color.
-- Time (int) - Optional. Duration of transition (in seconds).
+- Red (byte) - The red RGB color value (range 0 to 255).
+- Green (byte) - The green RGB color value (range 0 to 255).
+- Blue (byte) - The blue RGB color value (range 0 to 255).
 
 ```json
-// Example: To configure Misty's LED to slowly fade between red and
-// blue, issue a POST request to <robot-ip-address>/api/led with the
-// following JSON payload:
-
 {
-  "red": 0,
+  "red": 255,
   "green": 0,
-  "blue": 255,
-  "red2": 0,
-  "green2": 255,
-  "blue2": 0,
-  "transition": "Breathe", // Can also use 128
-  "time": 10 // Takes 10 seconds to fade between colors
+  "blue": 0
 }
 ```
 
