@@ -16,10 +16,14 @@ To create skills for Misty, you'll need to send commands to Misty and get data b
 ## URL & Message Formats
 
 Use the following URL format when sending commands to the robot:
+
 ```markup
 http://<robot-ip-address>/api/<Endpoint>
 ```
+
 Misty uses JSON to format REST API data. Use this format when creating the payload:
+
+
 ```json
 {
   "key0": "value0",
@@ -27,16 +31,23 @@ Misty uses JSON to format REST API data. Use this format when creating the paylo
   "key2": "value2"
 }
 ```
-All successful commands return a status and the result of the call:
+
+The `Content-Type` for all POST requests should be `application/json`, unless otherwise specified in this documentation.
+
+All successful commands return a status and the result of the call.
+
 ```json
-[
-  {
-    "result": true,
-    "status": "Success"
-  }
-]
+{
+  "result": true,
+  "status": "Success"
+}
 ```
-If there is an issue, Misty returns an HTTP error code and error message.
+
+A `status` of `"Success"` indicates Misty received and was able to process the request. A status of `"Failed
+"` indicates there was a problem, and is typically paired with an `error` string instead of a `result` value.
+
+For most GET requests, the value for `result` is the response data from Misty. For example, when you send a request to the `GetImageList` endpoint, the value for `result` is an array of JSON-formatted objects with information about each image saved to Misty's local storage. Alternately, for most POST and DELETE requests, `result` returns a boolean value indicating whether the command was successful.
+
 
 ## Asset
 
