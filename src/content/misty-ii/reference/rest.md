@@ -876,7 +876,7 @@ Parameters
 - Roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head.
 - Yaw (double) - Number that determines the left to right turn position of Misty's head.
 - Velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
-- Duration (double) - Optional. Time (in milliseconds) Misty takes to move her head from its current position to its new position.
+- Duration (double) - Optional. Time (in seconds) Misty takes to move her head from its current position to its new position.
 - Units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 
 ```json
