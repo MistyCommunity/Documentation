@@ -25,7 +25,7 @@ var paths = require('metalsmith-paths');
 var partials = require('metalsmith-register-partials');
 var helpers = require('metalsmith-register-helpers');
 var deviceFeatureFlags = require('./device_feature_flags');
-// var redirects = require('./redirects');
+var redirects = require('./redirects');
 var metalsmithRedirect = require('metalsmith-redirect');
 var copy = require('metalsmith-copy');
 var fixLinks = require('./fixLinks');
@@ -195,15 +195,21 @@ exports.metalsmith = function() {
       config: '../config/device_features.json'
     }))
 
-    // TODO: take this out?
 	// Create HTML pages with meta http-equiv='refresh' redirects
-    // .use(redirects({
-    //     config: '../config/redirects.json'
-    // }))
-
+    .use(redirects({
+        config: '../config/redirects.json'
+    }))
     .use(metalsmithRedirect({
       preserveHash: true,
       redirections: {
+          "/casestudies" : "/casestudies/skills-developed/",
+          "/codesamples" : "/codesamples/sample1/",
+          "/faq" : "/faq/question/",
+          "/getstarted": "/misty-ii/robot/get-started",
+          "/get-started": "/misty-ii/robot/get-started",
+          "/gettingstarted": "/misty-ii/robot/get-started",
+          "/getting-started": "/misty-ii/robot/get-started",
+          "/onboarding": "/docs/robots/introduction",
           "/docs/robots/introduction": "/misty-ii/robot/get-started",
           "/docs/robots/misty-i": "/misty-i/robot/introduction",
           "/docs/robots/misty-ii": "/misty-ii/robot/get-started",
