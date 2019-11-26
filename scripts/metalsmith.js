@@ -25,7 +25,8 @@ var paths = require('metalsmith-paths');
 var partials = require('metalsmith-register-partials');
 var helpers = require('metalsmith-register-helpers');
 var deviceFeatureFlags = require('./device_feature_flags');
-var redirects = require('./redirects');
+// var redirects = require('./redirects');
+var metalsmithRedirect = require('metalsmith-redirect');
 var copy = require('metalsmith-copy');
 var fixLinks = require('./fixLinks');
 var inPlace = require('metalsmith-in-place');
@@ -168,6 +169,7 @@ exports.metalsmith = function() {
           'robot',
           'coding-misty',
           'reference',
+          `net-sdk`
         ]
       },
       tools_and_apps: {
@@ -192,10 +194,39 @@ exports.metalsmith = function() {
     .use(deviceFeatureFlags({
       config: '../config/device_features.json'
     }))
+
+    // TODO: take this out?
 	// Create HTML pages with meta http-equiv='refresh' redirects
-    .use(redirects({
-        config: '../config/redirects.json'
-    }))
+    // .use(redirects({
+    //     config: '../config/redirects.json'
+    // }))
+
+    .use(metalsmithRedirect({
+      preserveHash: true,
+      redirections: {
+          "/docs/robots/introduction": "/misty-ii/robot/get-started",
+          "/docs/robots/misty-i": "/misty-i/robot/introduction",
+          "/docs/robots/misty-ii": "/misty-ii/robot/get-started",
+          "/docs/skills/introduction": "/misty-ii/coding-misty/introduction",
+          "/docs/skills/local-skill-architecture": "/misty-ii/coding-misty/local-skill-architecture",
+          "/docs/skills/remote-command-architecture": "/misty-ii/coding-misty/remote-command-architecture",
+          "/docs/skills/local-skill-tutorials": "/misty-ii/coding-misty/local-skill-tutorials",
+          "/docs/skills/remote-command-tutorials": "/misty-ii/coding-misty/remote-command-tutorials",
+          "/docs/reference/rest": "/misty-ii/reference/rest",
+          "/docs/reference/javascript-api": "/misty-ii/reference/javascript-api",
+          "/docs/reference/sensor-data": "/misty-ii/reference/sensor-data",
+          "/docs/apps/introduction": "/tools-&-apps/tools-&-apps/introduction",
+          "/docs/apps/misty-app": "/tools-&-apps/mobile/misty-app",
+          "/docs/apps/command-center": "/tools-&-apps/web-based-tools/command-center",
+          "/docs/apps/api-explorer": "/tools-&-apps/web-based-tools/api-explorer",
+          "/docs/apps/skill-runner": "/tools-&-apps/web-based-tools/skill-runner",
+          "/docs/apps/misty-skills-extension": "/tools-&-apps/plugins-&-extensions/misty-skills-extension",
+          "/docs/apps/blockly": "/tools-&-apps/web-based-tools/blockly",
+          "/onboarding/3-ways-to-interact-with-misty/blockly/": "/tools-&-apps/web-based-tools/blockly"
+        },
+      }
+    ))
+
     // Replace the {{handlebar}} markers inside Markdown files before they are rendered into HTML and
     // any other files with a .hbs extension in the src folder
     .use(inPlace({
@@ -313,8 +344,8 @@ exports.server = function(callback) {
           '${source}/assets/js/*.js*' : true,
           '${source}/assets/images/**/*' : true,
           '../config/device_features.json': 'content/**/*.md',
-          '../api-node/lib/**/*.js': 'content/reference/api.md',
-          '../config/redirects.json': '**/*'
+          '../api-node/lib/**/*.js': 'content/reference/api.md'
+          // '../config/redirects.json': '**/*'
         },
         livereload: true
       }))
