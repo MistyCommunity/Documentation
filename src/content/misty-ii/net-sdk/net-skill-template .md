@@ -1,8 +1,8 @@
 ---
-title: Getting Started
+title: .NET Skill Template
 layout: onboarding.hbs
 columns: one
-order: 2
+order: 3
 ---
 
 # {{title}}
