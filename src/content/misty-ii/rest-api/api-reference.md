@@ -1,15 +1,15 @@
 ---
-title: REST API
+title: API Reference
 layout: coding.hbs
 columns: three
-order: 2
+order: 3
 ---
 
 # {{title}}
 
 With the REST API, you can send commands to Misty from a REST client or browser. There is also a community maintained [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) available for the Misty REST API.
 
-To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../coding-misty/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community Tutorials](https://github.com/MistyCommunity/Tutorials) repository for example skills.
+To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [Misty Community Tutorials](https://github.com/MistyCommunity/Tutorials) repository for example skills.
 
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 
@@ -269,7 +269,7 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../reference/sensor-data/#serialmessage) events.
+Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/serial
 
@@ -478,7 +478,7 @@ Turns Misty's eye blinking behavior on or off.
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 
-To customize Misty's blinking behavior, use the [`SetBlinkSettings`](../../../misty-ii/reference/rest/setblinksettings) command.
+To customize Misty's blinking behavior, use the [`SetBlinkSettings`](../../../misty-ii/rest-api/api-reference/setblinksettings) command.
 {{box op="end"}}
 
 Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
@@ -600,7 +600,7 @@ The following commands allow you to programmatically drive and stop Misty and mo
 
 If you want to directly drive Misty, you can use her [companion app](../../../tools-&-apps/mobile/misty-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../coding-misty/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -633,7 +633,7 @@ Return Values
 
 Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
 
-To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object. To calculate Misty's velocity, use: `((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/robot/sensor-data/#imu) named object. To calculate Misty's velocity, use: `((desired_heading - current_heading) * (π/180) * radius) / (timeMs/1000)`.
 
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -684,7 +684,7 @@ Drives Misty forward or backward in a straight line. While driving, Misty contin
 
 For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `DriveHeading` command. Variations of greater than two degrees result in large correction velocities. You can use the `DriveArc` command to face Misty in the direction of the heading you want her to maintain. Then, use the `DriveHeading` command to drive Misty forward or backward in a straight line.
 
-To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/reference/sensor-data/#imu) named object. To calculate Misty's velocity, use `distance / (timeMs/1000)`.
+To get Misty's current heading, use the value for `yaw` from the [`IMU`](../../../misty-ii/robot/sensor-data/#imu) named object. To calculate Misty's velocity, use `distance / (timeMs/1000)`.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1060,7 +1060,7 @@ Return Values
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/ir
@@ -1244,7 +1244,7 @@ Return Values
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/settings/visible
@@ -1337,7 +1337,7 @@ Sets the exposure and gain settings for the infrared cameras in the Occipital St
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
 
-If you issue a `SetSlamIrExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+If you issue a `SetSlamIrExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/ir
@@ -1363,7 +1363,7 @@ Return Values
 Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](../../../misty-ii/reference/rest/#startslamstreaming) command.
+**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/settings/visible
@@ -1542,7 +1542,7 @@ The following commands allow you to programmatically take pictures, record sound
 
 Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#perception).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../coding-misty/remote-command-architecture/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../reference/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### CancelFaceTraining
 
@@ -1663,7 +1663,7 @@ Return Values
 
 ### StartKeyPhraseRecognition
 
-Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/reference/sensor-data/#keyphraserecognized) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Notes** 
@@ -2004,7 +2004,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
 Parameters
 
-* File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../coding-misty/javascript-sdk-architecture/#file-structure-amp-code-architecture) section.
+* File (file) - A zipped file containing the two skill files and any images or audio files you want to associate with the skill. The code and meta files (one JSON meta file and one JavaScript code file) should have the same name. For more details, see the [File Structure & Code Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#file-structure-amp-code-architecture) section.
 * ImmediatelyApply (boolean) - Specifies whether Misty immediately runs the uploaded skill.
 * OverwriteExisting (boolean) - Indicates whether the skill should overwrite a skill with the same name, if one currently exists on Misty.
 
@@ -2558,7 +2558,7 @@ Return Values
 
 Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
 
-**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/reference/sensor-data/).
+**Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/robot/sensor-data/).
 
 Endpoint:
 

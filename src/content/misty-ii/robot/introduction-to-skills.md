@@ -2,7 +2,7 @@
 title: Introduction to Skills
 layout: onboarding.hbs
 columns: one
-order: 1
+order: 2
 ---
 
 # {{title}}
@@ -29,13 +29,13 @@ The first step in coding Misty is deciding what you want the robot to do. Then, 
 
 ## Using Misty's APIs
 
-At a high level, there are two different ways to write code for Misty. When you write a skill using Misty's [JavaScript SDK](../../coding-misty/javascript-sdk-architecture), you upload your code to the robot and it runs internally on Misty. This differs from using Misty's [REST API](../../coding-misty/remote-command-architecture), where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
+At a high level, there are two different ways to write code for Misty. When you write a skill using Misty's [JavaScript SDK](../../../misty-ii/javascript-sdk/javascript-skill-architecture), you upload your code to the robot and it runs internally on Misty. This differs from using Misty's [REST API](../../rest-api/overview), where your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
 
 Misty's JavaScript and REST APIs include many of the same commands, but they differ in architecture and implementation.
 
 ### Misty's JavaScript SDK
 
-When you use Misty's JavaScript SDK, your code runs locally on your robot. Each skill you write this way runs from a single JavaScript code file. You [upload this code file to Misty](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill) along with a .json meta file that defines some of the initial settings and parameters that Misty will use when running the skill. If the skill uses image or audio assets that don't yet exist on the robot, you can upload these assets at the same time you upload your skill code. Learn more about this process in the [File Structure & Code Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture/#file-structure-amp-code-architecture) section.
+When you use Misty's JavaScript SDK, your code runs locally on your robot. Each skill you write this way runs from a single JavaScript code file. You [upload this code file to Misty](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill) along with a .json meta file that defines some of the initial settings and parameters that Misty will use when running the skill. If the skill uses image or audio assets that don't yet exist on the robot, you can upload these assets at the same time you upload your skill code. Learn more about this process in the [File Structure & Code Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#file-structure-amp-code-architecture) section.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you're used to writing JavaScript for the web, you may be familiar with  manipulating the [DOM](https://developer.mozilla.org/en-US/docs/web/API/Document_Object_Model) in your code. With Misty, there is no DOM for your code to manipulate. Skills you write with Misty's JavaScript SDK cannot use the various [objects and data types](https://developer.mozilla.org/en-US/docs/web/API/Document_Object_Model/Introduction#Important_Data_Types) present in the DOM.
@@ -65,9 +65,9 @@ In addition to methods for using Misty's robot capabilities, the on-robot JavaSc
 
 Follow these links to learn more about coding with Misty's JavaScript SDK:
 
-* [Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture)
-* [Tutorials](../../../misty-ii/coding-misty/javascript-sdk-tutorials)
-* [Reference Documentation](../../../misty-ii/reference/javascript-api)
+* [Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture)
+* [Tutorials](../../../misty-ii/javascript-sdk/tutorials)
+* [Reference Documentation](../../../misty-ii/javascript-sdk/api-reference)
 
 #### When Should I Use Misty's JavaScript SDK?
 
@@ -86,7 +86,7 @@ Consider using Misty's JavaScript SDK when:
 
 #### Uploading Skill Files to Misty
 
-After you write the JavaScript code for a skill, you must upload your files onto the robot before you can run it. To learn how to load a skill onto Misty, see [Loading & Running On-Robot Skills](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill).
+After you write the JavaScript code for a skill, you must upload your files onto the robot before you can run it. To learn how to load a skill onto Misty, see [Loading & Running On-Robot Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
 ### Misty's REST API
 
@@ -97,7 +97,7 @@ Writing a robot application with Misty's REST API typically involves two things:
 * getting data from Misty's sensors via WebSocket connections
 * sending requests to Misty's REST API endpoints
 
-The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-ii/coding-misty/remote-command-architecture/#sending-commands-to-misty).
+The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-ii/rest-api/overview/#sending-commands-to-misty).
 
 #### When Should I Use Misty's REST API?
 
@@ -115,9 +115,9 @@ Consider using Misty's REST API when:
 
 Follow these links to learn more about Misty's REST API:
 
-* [Architecture](../../../misty-ii/coding-misty/remote-command-architecture)
-* [Tutorials](../../../misty-ii/coding-misty/remote-command-tutorials)
-* [Reference Documentation](../../../misty-ii/reference/rest)
+* [Architecture](../../../misty-ii/rest-api/overview)
+* [Tutorials](../../../misty-ii/rest-api/tutorials)
+* [Reference Documentation](../../../misty-ii/rest-api/api-reference)
 
 ### Integrating Misty's APIs
 

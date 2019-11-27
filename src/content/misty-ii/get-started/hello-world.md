@@ -40,8 +40,8 @@ This part of the Hello World tutorial series teaches how to create skill files a
 
 Each skill you write with Misty's JavaScript SDK requires the following elements:
 
-* a [JavaScript "code" file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#code-file) with the logic and commands that Misty executes when the skill runs
-* a [JSON "meta" file](../../../misty-ii/coding-misty/javascript-sdk-architecture/#meta-file) that provides the initial settings and parameters Misty needs to run the skill
+* a [JavaScript "code" file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#code-file) with the logic and commands that Misty executes when the skill runs
+* a [JSON "meta" file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file) that provides the initial settings and parameters Misty needs to run the skill
 
 To begin, open your favorite text editor. (If you don't have a preference, we suggest Visual Studio Code.) Create a new JavaScript file called `HelloWorld.js`, and save this file to a new directory called `HelloWorld`. Now you can start writing the code to bring Misty to life.
 
@@ -63,7 +63,7 @@ To issue a command to Misty in the local environment, we call methods on the `mi
 When we call this method in our Hello World skill, we pass in values for the first three arguments. The first argument (`eventName`) sets a name for the registered event; the second argument (`callbackTimeInMs`) sets the duration before the event triggers; and the third (`keepAlive`) sets whether Misty should remain registered for this event after it triggers a callback function.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about timed events, see the [`misty.RegisterTimerEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registertimerevent).
+**Tip:** For more information about timed events, see the [`misty.RegisterTimerEvent()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent).
 {{box op="end"}}
 
 Copy the following into your `HelloWorld` skill code. This registers for a timer event named `look_around` that invokes a callback after 5000 - 10000 milliseconds. The value for `keepAlive` is set to `false`.
@@ -86,7 +86,7 @@ We write the code to move Misty's head inside this `_look_around()` callback fun
 The arguments we pass in to the `misty.MoveHeadDegrees()` method tell Misty the positions on each axis (in degrees) to which the robot should move her head, as well as how fast the head movement should be. The value range for `pitch` is `29` (down) to `-40` (up); the range for `roll` is `-40` (left) to `40` (right); and the range for `yaw` is `-81` (right) to `81` (left). When all of these values are 0, Misty is looking straight ahead. The value we pass in for the `velocity` argument is a percentage of the head motors' max velocity, and should be a number from `0`-`100` 
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about this function, see the [`misty.MoveHeadDegrees()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-moveheaddegrees).
+**Tip:** For more information about this function, see the [`misty.MoveHeadDegrees()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees).
 {{box op="end"}}
 
 To achieve spontaneous head movement, we use the `getRandomInt()` helper function to return unique values for the `pitch`, `roll`, and `yaw` arguments each time our skill calls the `misty.MoveHeadDegrees()` method. Copy the following `misty.MoveHeadDegrees()` method into your `_look_around()` callback function:
@@ -236,7 +236,7 @@ If you've already completed the [first part of this tutorial series](./#moving-m
 **Tip:** While we recommend completing the Hello World Tutorial Series in order, the code you write in this section runs just fine without the code from earlier parts of the series. Just edit your code in a new JavaScript file and [generate a new JSON meta file](./#generating-the-meta-file) with the same skill name and filename.
 {{box op="end"}}
 
-When we fade Misty's chest LED on and off, the visual effect is such that Misty appears to be "breathing". To achieve this in your skill code, start by calling the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent) method. Use `"breathingLED"` as the name of the timer event, and pass in a value of `1` for the `callbackTimeInMs` argument. Copy this method into your `HelloWorld.js` skill file, beneath where you wrote the code for moving Misty's head.
+When we fade Misty's chest LED on and off, the visual effect is such that Misty appears to be "breathing". To achieve this in your skill code, start by calling the [`misty.RegisterTimerEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent) method. Use `"breathingLED"` as the name of the timer event, and pass in a value of `1` for the `callbackTimeInMs` argument. Copy this method into your `HelloWorld.js` skill file, beneath where you wrote the code for moving Misty's head.
 
 ```JavaScript
 // Registers for a timer event called breathingLED, and invokes the
@@ -273,7 +273,7 @@ Next, we create the two `for` loops that cause Misty's chest LED to "breathe". T
 When we call the `misty.ChangeLED()` method, we pass in a value between `0`- `255` for the intensity of the `red`, `green`, and `blue` colors in Misty's chest LED. Each iteration of the `for` loops in the `_breathingLED()` callback sends a `misty.changeLED()` command with slightly altered values for these arguments. We use the built-in `Math.floor()` JavaScript method to help with this, and we call the `misty.Pause()` method to briefly pause execution between iterations. Increasing the pause time decreases breathing speed, and decreasing pause time makes Misty breath faster.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about the `misty.ChangeLED()` method, see the [`misty.ChangeLED()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-changeled).
+**Tip:** For more information about the `misty.ChangeLED()` method, see the [`misty.ChangeLED()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-changeled).
 {{box op="end"}}
 
 Copy these `for` loops into your `_breathingLED()` callback function:
@@ -385,7 +385,7 @@ If you started at the beginning of the Hello World series, you can add this code
 When we bring Misty to life, she should greet the world with in her own robot voice. Misty comes with several default system audio files, which you can play in your skills by calling the `misty.PlayAudio()` method. When you call this method, you pass in the name of the file that you want Misty to play.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about this method, see the [`misty.PlayAudio()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-playaudio).
+**Tip:** For more information about this method, see the [`misty.PlayAudio()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-playaudio).
 {{box op="end"}}
 
 In our Hello World skill, Misty plays the `s_Amazement.wav` file at 100% of max volume. After she plays the sound, we use the `misty.Pause()` method to have Misty wait a few seconds before executing the next command. Copy the following into your `HelloWorld.js` code file:
@@ -429,7 +429,7 @@ To drive Misty in the Hello World tutorial, we use the `misty.DriveTime()` metho
 * If linear velocity is 0 and angular velocity is 100, Misty rotates counter-clockwise at full speed.
 * If linear velocity is not zero and angular velocity is not zero, Misty drives in a curve.
 
-For more information about this command, see the [`misty.DriveTime()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-drivetime)
+For more information about this command, see the [`misty.DriveTime()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-drivetime)
 {{box op="end"}}
 
 In our Hello World skill, we want Misty to turn slowly counter-clockwise, pause, then turn slowly clockwise. We do this with a sequence of `misty.DriveTime()` commands. We insert `misty.Pause()` commands after each call to `misty.DriveTime()` to prevent the next drive command from overriding the previous drive command before Misty has finished driving. We call the `misty.Stop()` method to ensure Misty's drive motors stop at the end of the sequence.
@@ -464,7 +464,7 @@ If you started at the beginning of the Hello World series, you can add this code
 In this tutorial, we use the `misty.MoveArmDegrees()` method to have Misty move her arms. This method specifies which arm should move (`left`, `right`, or `both`), the angle (in degrees) to which the arm should move, and how the velocity with which the movement should occur.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** For more information about this command, see the [`misty.MoveArmDegrees()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-movearmdegrees)
+**Tip:** For more information about this command, see the [`misty.MoveArmDegrees()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-movearmdegrees)
 {{box op="end"}}
 
 To have Misty wave, we send a command to move Misty's right arm up, then pause before returning the arm to Misty's side. We wrap all this in a function called `waveRightArm()`, so we can use it later in the skill. Copy the following into your `HelloWorld.js` skill code:
@@ -503,7 +503,7 @@ function _registerFaceRec() {
 }
 ```
 
-We call the [`misty.StartFaceRecognition()`](../../../misty-ii/reference/javascript-api/#misty-startfacerecognition) method to start Misty's face recognition process. Copy this function (along with a call to [`misty.StopFaceRecognition()`](../../../misty-ii/reference/javascript-api/#misty-stopfacerecognition), to cancel any face recognition that's already underway) into your `_registerFaceRec()` function.
+We call the [`misty.StartFaceRecognition()`](../../../misty-ii/javascript-sdk/api-reference/#misty-startfacerecognition) method to start Misty's face recognition process. Copy this function (along with a call to [`misty.StopFaceRecognition()`](../../../misty-ii/javascript-sdk/api-reference/#misty-stopfacerecognition), to cancel any face recognition that's already underway) into your `_registerFaceRec()` function.
 
 ```JavaScript
 // Invoke this function to start Misty recognizing faces.
@@ -515,10 +515,10 @@ function _registerFaceRec() {
 }
 ```
 
-We can subscribe to data from Misty's face recognition system by registering for events from the [`FaceRecognition`](../../../misty-ii/reference/sensor-data/#facerecognition) named object. We use the `misty.RegisterEvent()` method to do this. The arguments we pass into the `misty.RegisterEvent()` method set a name for the event, specify the event type (in our case that's `FaceRecognition`), and set how often to receive event messages. We can also choose whether or not to keep the event registered after the first message is sent.
+We can subscribe to data from Misty's face recognition system by registering for events from the [`FaceRecognition`](../../../misty-ii/robot/sensor-data/#facerecognition) named object. We use the `misty.RegisterEvent()` method to do this. The arguments we pass into the `misty.RegisterEvent()` method set a name for the event, specify the event type (in our case that's `FaceRecognition`), and set how often to receive event messages. We can also choose whether or not to keep the event registered after the first message is sent.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** To learn more about registering for events, see the [`misty.RegisterEvent()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-registerevent).
+**Tip:** To learn more about registering for events, see the [`misty.RegisterEvent()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-registerevent).
 {{box op="end"}}
 
 Copy the following method into your `_registerFaceRec()` function. Use `FaceRec` for `eventName`, `FaceRecognition` for `messageType`, and `1000` for `debounce`. Set `keepAlive` to `false`.
@@ -558,7 +558,7 @@ function _registerFaceRec() {
 ```
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** To learn more about property tests, see the [`misty.AddPropertyTest()` reference documentation](../../../misty-ii/reference/javascript-api/#misty-addpropertytest).
+**Tip:** To learn more about property tests, see the [`misty.AddPropertyTest()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-addpropertytest).
 {{box op="end"}}
 
 Now we can define the `_FaceRec()` callback function. Each time a `FaceRec` event passes our property test, that event data is passed into the `_FaceRec()` callback. Define this function in your skill code.
@@ -570,7 +570,7 @@ function _FaceRec(data) {
 }
 ```
 
-We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/reference/javascript-api/#misty-debug) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
+We place the code that describes how Misty should react when she sees a face inside this `_FaceRec()` callback function. First, let's print the value of the `"PersonName"` property to [`misty.Debug()`](../../../misty-ii/javascript-sdk/api-reference/#misty-debug) listeners, so we can compare Misty's reaction to the data she receives. Because we used a property test to check for the `"PersonName"` property, we can find the value of that property in the `data` object the callback function receives, at `data.PropertyTestResults[0].PropertyValue`.
 
 Copy the following code into your `_FaceRec()` callback function:
 
@@ -584,7 +584,7 @@ function _FaceRec(data) {
 }
 ```
 
-Next, we define how Misty should react when she recognizes your face. We can use the `waveRightArm()` function we wrote [in an earlier part of this tutorial](./#teaching-misty-to-wave) series to have Misty wave to you. We can use the [`misty.DisplayImage()`](../../../misty-ii/reference/javascript-api/#misty-displayimage) and [`misty.PlayAudio()`](../../../misty-ii/reference/javascript-api/#misty-playaudio) methods to have Misty show her happy eyes and play a greeting sound.
+Next, we define how Misty should react when she recognizes your face. We can use the `waveRightArm()` function we wrote [in an earlier part of this tutorial](./#teaching-misty-to-wave) series to have Misty wave to you. We can use the [`misty.DisplayImage()`](../../../misty-ii/javascript-sdk/api-reference/#misty-displayimage) and [`misty.PlayAudio()`](../../../misty-ii/javascript-sdk/api-reference/#misty-playaudio) methods to have Misty show her happy eyes and play a greeting sound.
 
 Let's package this code inside an `if` statement that runs when the value of the `faceDetected` variable is equal to your name. (The `"<Your-Name>"` string in this example is just a placeholder; make sure to replace this with your actual name for the skill to run properly.)
 
@@ -639,7 +639,7 @@ function _FaceRec(data) {
 }
 ```
 
-At the end of the `_FaceRec()` function, call the [`misty.RegisterTimerEvent()`](../../../misty-ii/reference/javascript-api/#misty-registertimerevent) method to trigger the `_registerFaceRec()` function after 7000 milliseconds. This ensures that Misty will continue looking for faces, and will greet whomever she sees until the skill ends.
+At the end of the `_FaceRec()` function, call the [`misty.RegisterTimerEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent) method to trigger the `_registerFaceRec()` function after 7000 milliseconds. This ensures that Misty will continue looking for faces, and will greet whomever she sees until the skill ends.
 
 The full `_FaceRec()` function should look like this:
 
@@ -696,4 +696,4 @@ After you finish the Hello World tutorial series, try customizing the skill to m
 * Experiment with different driving commands to have Misty drive around while she runs your skill.
 * In the JSON meta file, increase the value of the `"TimeoutInSeconds"` key to keep the skill running longer.
 
-The elements covered in this tutorial series just scratch the surface of what's possible with Misty. When you're ready, [read our introduction to coding Misty](../../../misty-ii/coding-misty/introduction) to learn more about all the different ways she can bring your code to life.
+The elements covered in this tutorial series just scratch the surface of what's possible with Misty. When you're ready, [read our introduction to coding Misty](../../../misty-ii/robot/introduction-to-skills) to learn more about all the different ways she can bring your code to life.

@@ -52,12 +52,12 @@ When you implement a new `NativeRobotSkill`, you can set values for the followin
 * `UniqueId` (Guid) - Required. The unique GUID that Misty uses to identify your skill.
 * `Name` (string) - Required. The name of the skill. Appears in the Skill Runner web page.
 * `Description` (string) - Optional. A description of your skill.
-* `BroadcastMode` (BroadcastMode) - Optional. Configures the contents and frequency of messages Misty sends to [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) WebSocket listeners.
+* `BroadcastMode` (BroadcastMode) - Optional. Configures the contents and frequency of messages Misty sends to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) WebSocket listeners.
   * `Off` - The skill does not send `SkillData` messages. This is the default setting.
   * `Debug` - The skill sends error and debug messages to `SkillData` listeners.
   * `Verbose` - In addition to error and debug messages, the skill sends a message to `SkillData` listeners for each command that Misty receives.
 * `StartupRules` (`IList<NativeStartupRule>`) - Optional. Configures how a skill can start. The following rules are currently implemented:
-  * `Manual` - Allows a user to start the skill from the Skill Runner web page or by sending a request to the [`RunSkill`](../../../misty-ii/reference/rest/#runskill) endpoint in Misty's REST API. By default, all skills are implemented with the Manual startup rule.
+  * `Manual` - Allows a user to start the skill from the Skill Runner web page or by sending a request to the [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) endpoint in Misty's REST API. By default, all skills are implemented with the Manual startup rule.
   * `Startup` - Configures the skill to start as soon as Misty boots up. **Note:** If more than one installed skill includes the `Startup` rule, then Misty randomly selects which to start when she boots up.
 * `TimeoutInSeconds` (int) - Optional. The number of seconds a skill runs before it times out. Defaults to 600 seconds (or 10 minutes).
 
@@ -454,9 +454,9 @@ if (!File.Exists("c:\\temp\\testfile.txt"))
 
 ## Running a .NET Skill
 
-Once you've installed a .NET skill on Misty, you can start and stop your skill by using the Skill Runner interface, or by using a REST client like Postman to issue [`RunSkill`](../../../misty-ii/rest/reference/#runskill) and [`CancelSkill`](../../../misty-ii/rest/reference/#cancelskill) commands. Alternately, you can write your own code to issue these commands from an external device.
+Once you've installed a .NET skill on Misty, you can start and stop your skill by using the Skill Runner interface, or by using a REST client like Postman to issue [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) and [`CancelSkill`](../../../misty-ii/rest-api/api-reference/#cancelskill) commands. Alternately, you can write your own code to issue these commands from an external device.
 
-To start a .NET skill, issue a [`RunSkill`](../../../misty-ii/rest/reference/#runskill) POST command with the following syntax. The value of the `Skill` key must be the GUID set in your [`NativeRobotSkill`](./#nativerobotskill) constructor. For example:
+To start a .NET skill, issue a [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) POST command with the following syntax. The value of the `Skill` key must be the GUID set in your [`NativeRobotSkill`](./#nativerobotskill) constructor. For example:
 
 ```
 Endpoint: POST http://<robot-ip-address>/api/skills/start
@@ -465,7 +465,7 @@ Endpoint: POST http://<robot-ip-address>/api/skills/start
 }
 ```
 
-To stop a skill, send the [`CancelSkill`](../../../misty-ii/rest/reference/#cancelskill) POST command to the following endpoint, passing in the GUID for the value of the `Skill` parameter in the payload.
+To stop a skill, send the [`CancelSkill`](../../../misty-ii/rest-api/api-reference/#cancelskill) POST command to the following endpoint, passing in the GUID for the value of the `Skill` parameter in the payload.
 
 ```
 Endpoint: POST http://<robot-ip-address>/api/skills/cancel

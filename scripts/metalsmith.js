@@ -166,10 +166,11 @@ exports.metalsmith = function() {
         pattern: 'misty-ii/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
+          'get-started',
           'robot',
-          'coding-misty',
-          'reference',
-          'net-sdk'
+          'javascript-sdk',
+          'net-sdk',
+          'rest-api'
         ]
       },
       tools_and_apps: {
@@ -229,7 +230,17 @@ exports.metalsmith = function() {
           "/docs/apps/misty-skills-extension": "/tools-&-apps/plugins-&-extensions/misty-skills-extension",
           "/docs/apps/blockly": "/tools-&-apps/web-based-tools/blockly",
           "/onboarding/3-ways-to-interact-with-misty/blockly/": "/tools-&-apps/web-based-tools/blockly",
-          "/misty-ii/robot/get-started": "/misty-ii/get-started/meet-misty"
+          "/misty-ii/robot/get-started": "/misty-ii/get-started/meet-misty",
+          "/misty-ii/robot/hello-world": "/misty-ii/get-started/hello-world",
+          "/misty-ii/reference/sensor-data": "/misty-ii/robot/sensor-data",
+          "/misty-ii/coding-misty/introduction": "/misty-ii/coding-misty/introduction-to-skills",
+          "/misty-ii/coding-misty/javascript-sdk-architecture": "/misty-ii/javascript-sdk/javascript-sdk-architecture",
+          "/misty-ii/coding-misty/javascript-sdk-code-samples": "/misty-ii/javascript-sdk/code-samples",
+          "/misty-ii/coding-misty/javascript-api": "/misty-ii/javascript-sdk/api-reference",
+          "/misty-ii/coding-misty/javascript-sdk-tutorials": "/misty-ii/javascript-sdk/api-reference",
+          "/misty-ii/coding-misty/remote-command-architecture": "/misty-ii/rest-api/overview",
+          "/misty-ii/coding-misty/remote-command-tutorials": "/misty-ii/rest-api/tutorials",
+          "/misty-ii/reference/rest": "/misty-ii/rest-api/api-reference"
         },
       }
     ))

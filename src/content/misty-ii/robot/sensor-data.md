@@ -16,7 +16,7 @@ When you register for event messages, you can:
 * apply conditions to receive messages only when the property values for an event meet specific criteria
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/reference/rest/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/reference/rest/#setwebsocketversion) to switch versions.
+**Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#setwebsocketversion) to switch versions.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed tipBox"}}
@@ -126,7 +126,7 @@ Sample `BatteryCharge` data:
 
 The `BumpSensor` data stream sends information each time one of the bump sensors on Misty's base is pressed or released. In the `BumpSensor` data object, the value of the `sensorName` property is the name of the bump sensor that triggered the event (`Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`). The value of the `isContacted` property is a boolean indicating whether the bump sensor was pressed (`true`) or released (`false`).The `BumpSensor` data object also provides “pose” information about Misty at the time of the event. For more about pose, see the [mapping section of the Command Center documentation](../../../tools-&-apps/web-based-tools/command-center/#navigation).
 
-For an example that shows how to register for and use data from `BumpSensor` events with Misty's on-robot JavaScript API, see the [Bump Sensors skill tutorial](../../../misty-ii/coding-misty/javascript-sdk-tutorials/#bump-sensors).
+For an example that shows how to register for and use data from `BumpSensor` events with Misty's on-robot JavaScript API, see the [Bump Sensors skill tutorial](../../../misty-ii/javascript-sdk/tutorials/#bump-sensors).
 
 Sample `BumpSensor` data:
 
@@ -277,7 +277,7 @@ FaceRecognition{
 The `FaceTraining` event type sends messages from Misty's computer vision service with information about the status the face training process.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** To start the face training process, you must issue a [`StartFaceTraining`](../../../misty-ii/reference/rest/#startfacetraining) command.
+**Tip:** To start the face training process, you must issue a [`StartFaceTraining`](../../../misty-ii/rest-api/api-reference/#startfacetraining) command.
 {{box op="end"}}
 
 In addition to `created` and `sensorId` fields, `FaceTraining` messages include the following properties:
@@ -590,13 +590,13 @@ Misty sends `KeyPhraseRecognized` event messages when she recognizes the "Hey, M
 **Note** 
 
 * When you call the `StartKeyPhraseRecognition` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
-* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](../../../misty-ii/refereence/rest/#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
-* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](../../../misty-ii/refereence/rest/#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
+* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a [`StartRecordingAudio`](../../../misty-ii/rest-api/api-reference#startrecordingaudio) command after receiving a `KeyPhraseRecognized` event. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](../../../misty-ii/rest-api/api-reference#startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `StartKeyPhraseRecognition` command.
 {{box op="end"}}
 
 You must start key phrase recognition before Misty can send `KeyPhraseRecognized` event messages. Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 
-1. Invoke the [`StartKeyPhraseRecognition`](../../../misty-ii/reference/javascript-api/#misty-startkeyphraserecognition) command.
+1. Invoke the [`StartKeyPhraseRecognition`](../../../misty-ii/javascript-sdk/api-reference/#misty-startkeyphraserecognition) command.
 2. Register for `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
 3. Write the code to handle what Misty should do when she hears the key phrase inside the `KeyPhrasedRecognized` event callback. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
 
@@ -1010,7 +1010,7 @@ function _SerialMessage(data) {
 }
 ```
 
-For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../misty-ii/coding-misty/javascript-sdk-architecture/#data-handling-events-amp-callbacks) section of [JavaScript SDK Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture).
+For more about events and callbacks, see the [Data Handling: Events & Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#data-handling-events-amp-callbacks) section of [JavaScript SDK Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
 
 ## SkillData
 
@@ -1264,7 +1264,7 @@ Sample `SourceFocusConfigMessage` response data:
 Misty has four edge and four range time-of-flight sensors that provide a single stream of raw proximity data. These sensors send `TimeOfFlight` messages that you can subscribe to in your skills and robot applications. 
 
 {{box op="start" cssClass="boxed noteBox"}}
-You can change how frequently a `TimeOfFlight` subscription gets messages by adjusting the value of the `debounceMS` parameter when you subscribe to the WebSocket connection or call the [`misty.RegisterEvent()`](../../../misty-ii/reference/javascript-api/#misty-registerevent) method in Misty's JavaScript API.
+You can change how frequently a `TimeOfFlight` subscription gets messages by adjusting the value of the `debounceMS` parameter when you subscribe to the WebSocket connection or call the [`misty.RegisterEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registerevent) method in Misty's JavaScript API.
 {{box op="end"}}
 
 A `TimeOfFlight` event message includes the following key/value pairs:

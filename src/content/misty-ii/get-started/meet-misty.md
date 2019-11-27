@@ -88,7 +88,7 @@ Create a new folder on your desktop called **mistySeesYou**. Download the `misty
 
 ## What's Next?
 
-Now that you've spent some time with Misty and her tools, you're ready to write your first robot skill. We suggest working through Misty's [Hello World Tutorial Series](../../../misty-ii/robot/hello-world) next. You can also explore how to use the [Visual Studio Code extension](../../../tools-&-apps/plugins-&-extensions/misty-skills-extension) for writing skills and deploying them to Misty from within Visual Studio Code.
+Now that you've spent some time with Misty and her tools, you're ready to write your first robot skill. We suggest working through Misty's [Hello World Tutorial Series](../../../misty-ii/get-started/hello-world) next. You can also explore how to use the [Visual Studio Code extension](../../../tools-&-apps/plugins-&-extensions/misty-skills-extension) for writing skills and deploying them to Misty from within Visual Studio Code.
 
 ## Getting Support
 

@@ -124,7 +124,7 @@ new HelloWorldSkill(),
 With the above steps completed, we're ready to deploy the skill to Misty. Follow these steps:
 
 1. Click **Run/Deploy** in Visual Studio, and wait for the skill to deploy. Deployment can take a few minutes. Check the Visual Studio console to know when deployment is complete.
-2. After deployment, you may need to reload Misty's skills before you can start the .NET skill from the Skill Runner web page. Reloading is also required anytime you make changes to a .NET skill and re-deploy it to Misty. To reload skills, send a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest/reference/#reloadskills) operation in Misty's REST API: `POST <robot-ip>/api/skills/reload`. The `IntroSkillsTask` repository includes a simple HTML page (`ReloadSkills.html`) that you can load in your web browser to help with this call.
+2. After deployment, you may need to reload Misty's skills before you can start the .NET skill from the Skill Runner web page. Reloading is also required anytime you make changes to a .NET skill and re-deploy it to Misty. To reload skills, send a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation in Misty's REST API: `POST <robot-ip>/api/skills/reload`. The `IntroSkillsTask` repository includes a simple HTML page (`ReloadSkills.html`) that you can load in your web browser to help with this call.
 3. Open up the [Skill Runner](sdk.mistyrobotics.com/skill-runner) web page in your browser and connect to your robot. Your .NET skill should appear in the Manage Section of the page. Click **Start** to start running the skill.
 
 {{box op="start" cssClass="boxed noteBox"}}

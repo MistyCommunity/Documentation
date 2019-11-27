@@ -1,8 +1,8 @@
 ---
-title: REST API & WebSocket Architecture
+title: Overview
 layout: coding.hbs
 columns: three
-order: 5
+order: 1
 ---
 
 # {{title}}
@@ -130,7 +130,7 @@ To subscribe to a WebSocket data stream, you must first open the WebSocket. Then
 
 The first thing the `tofApp.js` sample does is to construct the message that subscribes to the exact WebSocket data we want.
 
-The `Type` property is the name of the desired event type (or data stream) to receive messages from. Misty's available event types are described in detail in the [Event Types](../../../misty-ii/reference/sensor-data) documentation. You can subscribe to each of these event types via a WebSocket connection.
+The `Type` property is the name of the desired event type (or data stream) to receive messages from. Misty's available event types are described in detail in the [Event Types](../../../misty-ii/robot/sensor-data) documentation. You can subscribe to each of these event types via a WebSocket connection.
 
 The optional `DebounceMs` value specifies how frequently the data is sent. For time-of-flight data, if you don't specify a value, by default the data is sent every 250ms. In this case, we've set it to be sent every 100ms.
 

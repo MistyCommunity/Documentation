@@ -22,7 +22,7 @@ When Misty connects, the text on the button displays **Connected** and the **Man
 
 ## Viewing Debug Messages (and Other Skill Data)
 
-When Misty connects to Skill Runner, the web page subscribes to [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) events through a WebSocket connection to Misty. `SkillData` event messages include debug messages, error messages, and other data on-robot skills publish during skill execution. When you run a skill from the Skill Runner page, these messages print to the console in your web browser.
+When Misty connects to Skill Runner, the web page subscribes to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events through a WebSocket connection to Misty. `SkillData` event messages include debug messages, error messages, and other data on-robot skills publish during skill execution. When you run a skill from the Skill Runner page, these messages print to the console in your web browser.
 
 ![Skill Runner web console](../../../assets/images/skill-runner-run-skill.gif)
 
@@ -54,7 +54,7 @@ To update the code for an existing skill, or to associate new image and audio as
 
 ## Generating a JSON Meta File
 
-You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 128 bit GUID with the `UniqueID` parameter. For more information about `meta` files, see [JavaScript SDK Architecture](../../../misty-ii/coding-misty/javascript-sdk-architecture).
+You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 128 bit GUID with the `UniqueID` parameter. For more information about `meta` files, see [JavaScript SDK Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
 
 ![Skill Runner Generate animation](../../../assets/images/skill-runner-generate-meta-animation.gif)
 
@@ -94,6 +94,6 @@ To view the **Advanced Options** for a skill, select the **Advanced Options** bu
 
 ![Advanced Options Button](../../../assets/images/skill-runner-advanced.png)
 
-You can use the advanced options interface to start a skill with additional parameters that aren't specified in the skill's `meta` file, or to [send a user event](../../../misty-ii/reference/rest/#triggerskillevent) with a specific payload to the skill.
+You can use the advanced options interface to start a skill with additional parameters that aren't specified in the skill's `meta` file, or to [send a user event](../../../misty-ii/rest-api/api-reference/#triggerskillevent) with a specific payload to the skill.
 
 ![Advanced Options Modal](../../../assets/images/skill-runner-advanced-modal.png)
