@@ -520,7 +520,7 @@ misty.ChangeLED(0, 0, 0);
 
 ### misty.DisplayImage
 
-Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../misty-ii/rest-api/api-reference/#saveimage-data-string-) command in Misty's REST API to upload images to Misty.
+Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../misty-ii/rest-api/api-reference/#saveimage) command in Misty's REST API to upload images to Misty.
 
 Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
 

@@ -96,7 +96,7 @@ For more information about the return values for Misty's REST API, see the [REST
 
 The **Skill Code** section of the API Explorer shows sample code for using the command with Misty's [JavaScript SDK](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
 
-For information about using this code in your skills, see [On-Robot JavaScript API Code Samples](./#on-robot-javascript-api-code-samples).
+For information about using this code in your skills, see [On-Robot JavaScript API Code Samples](./#javascript-api-code-samples).
 For details about each of the methods in Misty's on-robot JavaScript API, see the [on-robot JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference).
 
 ![Skill Code section](../../../assets/images/api-explorer-skill-code.png)

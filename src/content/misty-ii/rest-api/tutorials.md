@@ -978,7 +978,7 @@ async function openCallback() {
 }
 ```
 
-Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#using-the-lightsocket-js-helper).
+Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#connecting-to-misty-with-lightsocket-js).
 
 ```js
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])

@@ -478,7 +478,7 @@ Turns Misty's eye blinking behavior on or off.
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 
-To customize Misty's blinking behavior, use the [`SetBlinkSettings`](../../../misty-ii/rest-api/api-reference/setblinksettings) command.
+To customize Misty's blinking behavior, use the [`SetBlinkSettings`](../../../misty-ii/rest-api/api-reference/#setblinksettings) command.
 {{box op="end"}}
 
 Misty stops blinking when there is an error message on her screen, and starts blinking again when the message clears.
