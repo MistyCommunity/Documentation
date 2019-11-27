@@ -178,6 +178,23 @@ To enable the hazards system to work effectively, Misty's max speed is limited t
 **Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
 
+## Connecting to Misty's File System
+
+You can access your robot's file system by connecting to the her file server over your local network connection.
+
+1. Power Misty on and make sure she is connected to the same network as your computer.
+2. Connect to your robot's file system.
+   1. On a Mac:
+      1. Open **Finder**
+      2. Select **Go &rarr; Connect to Server** from the top menu
+      3. Enter `smb://<robot-ip-address>/c$`
+   2. On Windows 10:
+      1. Open **File Explorer**
+      2. Navigate to the path `\\<robot-ip-address>\c$`
+3. When prompted, enter the username and password printed on the sticker on the bottom of your robot's base. ![Windows 10 Login Credentials](../../../assets/images/windows-credentials.jpg)
+
+
+
 ## Extending Misty's Hardware
 
 You can augment Misty's native capabilities by using external microcontrollers, sensors, and other third party hardware in your skills. Additionally, you can expand her physical form by 3D printing custom attachments and accessories.

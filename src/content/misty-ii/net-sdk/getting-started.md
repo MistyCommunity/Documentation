@@ -14,7 +14,7 @@ Misty's .NET SDK provides a powerful set of tools for building and debugging ski
 Follow the steps below to install Visual Studio and the components required to build .NET skills for Misty.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Note:** The focus of this guide is setting up Visual Studio for .NET skill development on a PC or virtual machine running Windows 10. If you need more information about configuring Visual Studio to work with your environment, consult [Microsoft's guide to installing Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019).
+**Note:** The focus of this guide is setting up Visual Studio for .NET skill development on a PC or virtual machine running Windows 10. If you need more information about configuring Visual Studio to work with your environment, consult [Microsoft's guide to installing Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2017).
 {{box op="end"}}
 
 1. Download Microsoft [Visual Studio 2017](https://visualstudio.microsoft.com/vs/older-downloads/). Misty's .NET SDK is compatible with Visual Studio Community, which is freely available.
@@ -27,11 +27,13 @@ Follow the steps below to install Visual Studio and the components required to b
 {{box op="end"}}
 
 
-With Visual Studio set up, you're ready to start building .NET skills for Misty. Follow the instructions below to install the C# skill template, or download the `IntroSkillsTask` solution to explore a sandbox of pre-built .NET skills!
+With Visual Studio set up, you're ready to start building .NET skills for Misty. Follow the instructions below to install the C# skill template, or download the [`IntroSkills` sandbox](../sample-project) to explore a sandbox of pre-built .NET skills!
 
 ## Using the C# Skill Template
 
-The quickest way to build a .NET skill from scratch is to use the C# skill template for Visual Studio. When you use this template, Visual Studio installs Misty's .NET SDK libraries and creates a new C# project with the background task and skill code files you need to build a .NET skill.
+Skills you build with the .NET SDK assemble into IoT background applications that run alongside Misty's software on Windows IoT Core. When Misty initiates a .NET skill, her software launches the corresponding background application, which instantiates the interface used to invoke commands and get data from the robot in your skill code.
+
+The quickest way to build a .NET skill from scratch is to use the C# skill template for Visual Studio. When you use this template to create a project, Visual Studio installs Misty's .NET SDK libraries and creates a new C# project with the background task and skill code files you need to build a .NET skill.
 
 ### Installing the Template
 
@@ -69,3 +71,50 @@ Visual Studio uses the template to create a solution and project for your C# ski
 |	|-- StartupTask.cs // Background task wrapper for your skill
 ```
 
+* The `StartupTask.cs` file is the background task wrapper for your skill code. This file is automatically populated with the methods required for running a .NET skill. You can deploy your skill to Misty without modifying this file. For more information about developing background applications, see [Microsoft's developer documentation on the subject](https://docs.microsoft.com/en-us/windows/iot-core/develop-your-app/backgroundapplications).
+* The `MistyNativeSkill.cs` file contains your skill code. It is configured such that you can immediately begin writing your skill code in the body of the `OnStart()` method. For more information about writing your skill code, see [.NET Skill Architecture](../net-skill-architecture).
+<!-- TODO: Add link -->
+
+You can customize and organize the contents of this project as needed to serve the functionality of your skill.
+
+### Building & Deploying a .NET Skill
+
+Once you've [customized the project with your own skill code](../net-skill-architecture), you can follow these steps to deploy your C# skill to Misty.
+<!-- TODO: Add instructions for ReloadSkills.html page -->
+1. Use the drop-down menus at the top of your Visual Studio window to set your solution configuration to **Debug** and the solution platform to **ARM**.
+2. Select **Project &rarr; Set As Startup Project** from the top menu in Visual Studio.
+3. Right-click the name of your project in the **Solution Explorer** and select **Properties**. Follow these steps to configure the project for deployment to Misty:
+   1. Select **Debug** from the left navigation menu.
+   2. From the **Target device** menu, select **Remote Machine**.
+   3. In the **Remote machine** field, enter Misty's IP address. **Important!** You **must** use the [IP address for Misty's USB-to-Ethernet adapter](./#connecting-to-misty-39-s-410-ip-address) if you want to use remote debugging. Otherwise, you can use IP address supplied in the Misty App.
+   4. From the **Authentication mode** menu, select **Universal (Unencrypted Protocol)**. Your configuration manager should look like this, with your robot's IP address in the **Remote Machine** field. ![Configuration Manager](../../../assets/images/configuration-manager-2.png)
+4. Make sure your robot is powered on and connected to the same network as your computer. Then, click **Run/Deploy** in Visual Studio. (Deployment can take a few minutes. Check the Visual Studio console to know when deployment is done.)
+5. After deployment, you may need to reload Misty's skills before you can access your .NET skill from the Skill Runner web page. To reload skills, issue a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest/reference/#reloadskills) operation: `POST <robot-ip>/api/skills/reload`.
+6. Open up the [Skill Runner](https://sdk.mistyrobotics.com/skill-runner) web page in your browser and connect to your robot. Your .NET skill should appear in the **Manage** section of the page. Click **Start** to start run the skill.
+
+## Important Notes & Workarounds
+
+Misty's .NET SDK is currently in **Beta**. Related software, libraries, and documentation are still under development and may not be reliable at this time. This section lists a few known issues with the .NET SDK. Refer to these items to troubleshoot issues you have while developing .NET skills. If you experience something that's not listed below, help us improve the SDK by [filing a bug in the Misty Community forums](https://community.mistyrobotics.com/c/bugs).
+
+* At this time, in order to use live debugging, Misty must be connected to a USB-to-Ethernet adapter, and you must deploy the skill you wish to debug using the IP address of the connected adapter. You can still deploy and run skills using the Wi-Fi IP address provided in the Misty App, but you cannot use line-by-line debugging to step through the skills you deploy this way. For more information about deploying skills via a hardwired connection, see [Connecting to Misty's 410 IP Address](./#connecting-to-misty-39-s-410-ip-address).
+* The first time you deploy a skill, it may fail to attach for debugging after deployment, and you may see a message in Visual Studio that indicates the skill is already running. If this happens and you want to walk through the debugger with your skill, you can generally just deploy the skill again, and it should attach for debugging the second time. If you don't care about walking through the debugger, you don't need to re-deploy before you run the skill. You can ignore this message from Visual Studio and start your skill from the Skill Runner web page..
+
+## Connecting to Misty's 410 IP Address
+
+Currently, you must deploy .NET skills using the IP address for connecting to Misty's 410 processor in order to debug your skills with Visual Studio. This means Misty must be connected to your router with a USB-to-Ethernet adapter. Please note that this adapter does **not** arrive with Misty, and must be obtained from a retailer other than Misty Robotics.
+
+Follow these steps to get the IP address for your USB-to-Ethernet adapter:
+
+1. Connect the USB end of a USB-to-Ethernet adapter to your computer. Connect the other end to your network router. Do not connect the adapter to Misty yet.
+2. Use the command line to find the IP address of the adapter.
+   1. On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
+   2. On Apple/Unix, open a command-line tool, enter `ifconfig` and find the Ethernet adapter and its IP address in the list of results. **Note:** On a Mac you may also be able to find the IP address under **System Preferences &rarr; Network**.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** If you have trouble finding the adapter's IP address, try disconnecting the adapter from your computer. Then:
+1. Run an `ipconfig` (or, for Mac users, `ifconfig`) command in the command prompt / terminal window.
+2. Plug the adapter back in
+3. Run the command again. Look for the difference between the results to find your adapter's IP.
+{{box op="end"}}
+
+When you locate the IP address for the adapter, save it for use when connecting to Misty. Unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the Ethernet end of the adapter connected to your router.

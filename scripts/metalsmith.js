@@ -169,7 +169,7 @@ exports.metalsmith = function() {
           'robot',
           'coding-misty',
           'reference',
-          `net-sdk`
+          'net-sdk'
         ]
       },
       tools_and_apps: {
