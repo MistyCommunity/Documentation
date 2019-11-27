@@ -228,7 +228,8 @@ exports.metalsmith = function() {
           "/docs/apps/skill-runner": "/tools-&-apps/web-based-tools/skill-runner",
           "/docs/apps/misty-skills-extension": "/tools-&-apps/plugins-&-extensions/misty-skills-extension",
           "/docs/apps/blockly": "/tools-&-apps/web-based-tools/blockly",
-          "/onboarding/3-ways-to-interact-with-misty/blockly/": "/tools-&-apps/web-based-tools/blockly"
+          "/onboarding/3-ways-to-interact-with-misty/blockly/": "/tools-&-apps/web-based-tools/blockly",
+          "/misty-ii/robot/get-started": "/misty-ii/get-started/meet-misty"
         },
       }
     ))

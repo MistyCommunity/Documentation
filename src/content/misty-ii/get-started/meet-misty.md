@@ -1,5 +1,5 @@
 ---
-title: Get Started
+title: Meet Misty
 layout: onboarding.hbs
 columns: one
 order: 1
