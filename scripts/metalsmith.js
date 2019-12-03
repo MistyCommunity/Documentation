@@ -26,6 +26,7 @@ var partials = require('metalsmith-register-partials');
 var helpers = require('metalsmith-register-helpers');
 var deviceFeatureFlags = require('./device_feature_flags');
 var redirects = require('./redirects');
+var metalsmithRedirect = require('metalsmith-redirect');
 var copy = require('metalsmith-copy');
 var fixLinks = require('./fixLinks');
 var inPlace = require('metalsmith-in-place');
@@ -165,9 +166,11 @@ exports.metalsmith = function() {
         pattern: 'misty-ii/:section/*.md',
         sortBy: 'order',
         orderDynamicCollections: [
+          'get-started',
           'robot',
-          'coding-misty',
-          'reference',
+          'javascript-sdk',
+          'net-sdk',
+          'rest-api'
         ]
       },
       tools_and_apps: {
@@ -192,10 +195,57 @@ exports.metalsmith = function() {
     .use(deviceFeatureFlags({
       config: '../config/device_features.json'
     }))
+
 	// Create HTML pages with meta http-equiv='refresh' redirects
     .use(redirects({
         config: '../config/redirects.json'
     }))
+    .use(metalsmithRedirect({
+      preserveHash: true,
+      redirections: {
+          "/casestudies" : "/casestudies/skills-developed/",
+          "/codesamples" : "/codesamples/sample1/",
+          "/faq" : "/faq/question/",
+          "/getstarted": "/misty-ii/robot/get-started",
+          "/get-started": "/misty-ii/robot/get-started",
+          "/gettingstarted": "/misty-ii/robot/get-started",
+          "/getting-started": "/misty-ii/robot/get-started",
+          "/onboarding": "/docs/robots/introduction",
+          "/docs/robots/introduction": "/misty-ii/robot/get-started",
+          "/docs/robots/misty-i": "/misty-i/robot/introduction",
+          "/docs/robots/misty-ii": "/misty-ii/robot/get-started",
+          "/docs/skills/introduction": "/misty-ii/coding-misty/introduction",
+          "/docs/skills/local-skill-architecture": "/misty-ii/coding-misty/local-skill-architecture",
+          "/docs/skills/remote-command-architecture": "/misty-ii/coding-misty/remote-command-architecture",
+          "/docs/skills/local-skill-tutorials": "/misty-ii/coding-misty/local-skill-tutorials",
+          "/docs/skills/remote-command-tutorials": "/misty-ii/coding-misty/remote-command-tutorials",
+          "/docs/reference/rest": "/misty-ii/reference/rest",
+          "/docs/reference/javascript-api": "/misty-ii/reference/javascript-api",
+          "/docs/reference/sensor-data": "/misty-ii/reference/sensor-data",
+          "/docs/apps/introduction": "/tools-&-apps/tools-&-apps/introduction",
+          "/docs/apps/misty-app": "/tools-&-apps/mobile/misty-app",
+          "/docs/apps/command-center": "/tools-&-apps/web-based-tools/command-center",
+          "/docs/apps/api-explorer": "/tools-&-apps/web-based-tools/api-explorer",
+          "/docs/apps/skill-runner": "/tools-&-apps/web-based-tools/skill-runner",
+          "/docs/apps/misty-skills-extension": "/tools-&-apps/plugins-&-extensions/misty-skills-extension",
+          "/docs/apps/blockly": "/tools-&-apps/web-based-tools/blockly",
+          "/onboarding/3-ways-to-interact-with-misty/blockly/": "/tools-&-apps/web-based-tools/blockly",
+          "/misty-ii/robot/get-started": "/misty-ii/get-started/meet-misty",
+          "/misty-ii/robot/hello-world": "/misty-ii/get-started/hello-world",
+          "/misty-ii/reference/sensor-data": "/misty-ii/robot/sensor-data",
+          "/misty-ii/coding-misty/introduction": "/misty-ii/coding-misty/introduction-to-skills",
+          "/misty-ii/coding-misty/javascript-sdk-architecture": "/misty-ii/javascript-sdk/javascript-sdk-architecture",
+          "/misty-ii/coding-misty/javascript-sdk-code-samples": "/misty-ii/javascript-sdk/code-samples",
+          "/misty-ii/coding-misty/javascript-api": "/misty-ii/javascript-sdk/api-reference",
+          "/misty-ii/coding-misty/javascript-sdk-tutorials": "/misty-ii/javascript-sdk/api-reference",
+          "/misty-ii/coding-misty/remote-command-architecture": "/misty-ii/rest-api/overview",
+          "/misty-ii/coding-misty/remote-command-tutorials": "/misty-ii/rest-api/tutorials",
+          "/misty-ii/reference/rest": "/misty-ii/rest-api/api-reference",
+          "/misty-ii/javascript-sdk/overview": "/misty-ii/javascript-sdk/javascript-skill-architecture"
+        },
+      }
+    ))
+
     // Replace the {{handlebar}} markers inside Markdown files before they are rendered into HTML and
     // any other files with a .hbs extension in the src folder
     .use(inPlace({
@@ -313,8 +363,8 @@ exports.server = function(callback) {
           '${source}/assets/js/*.js*' : true,
           '${source}/assets/images/**/*' : true,
           '../config/device_features.json': 'content/**/*.md',
-          '../api-node/lib/**/*.js': 'content/reference/api.md',
-          '../config/redirects.json': '**/*'
+          '../api-node/lib/**/*.js': 'content/reference/api.md'
+          // '../config/redirects.json': '**/*'
         },
         livereload: true
       }))

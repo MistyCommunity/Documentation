@@ -2,7 +2,7 @@
 title: Misty II Overview
 layout: onboarding.hbs
 columns: one
-order: 3
+order: 1
 ---
 
 # {{title}}
@@ -131,7 +131,7 @@ Misty II exhibits certain behaviors that override commands she receives from ski
 
 ### Chest LED Notifications
 
-The following chest LED notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
+The following chest LED notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/rest-api/api-reference/#setnotificationsettings) endpoint in Misty's REST API.
 
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
 * **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
@@ -144,9 +144,9 @@ The following chest LED notifications are enabled by default. You can turn them 
 
 ### Audio Notifications
 
-The following audio notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
+The following audio notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/rest-api/api-reference/#setnotificationsettings) endpoint in Misty's REST API.
 
-* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/reference/rest/#setnotificationsettings) endpoint in Misty's REST API.
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/rest-api/api-reference/#setnotificationsettings) endpoint in Misty's REST API.
 
 ### Scruff Reflex
 
@@ -156,7 +156,7 @@ Misty ignores all commands she receives for as long as she detects someone touch
 
 Misty's software includes a built-in hazards system that is intended to prevent your robot from executing commands that could cause her harm. This system uses data from Misty's sensors to prevent Misty from driving off of surfaces that could cause her to tip or fall, such as tables, desks, or stairs. It also stops Misty from continuing to drive when she senses an obstacle nearby, or when she detects that she has bumped into an object.
 
-In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Event Types](../../../misty-ii/reference/sensor-data/#hazardnotification) section of these docs for details on using this data in your skills.
+In addition to protecting your robot from harm, the hazards system sends an event message each time Misty enters or exits a hazards state. You can use these messages to programmatically alter Misty's course when she detects cliffs or obstacles while autonomously navigating her environment. See the [Event Types](../../../misty-ii/robot/sensor-data/#hazardnotification) section of these docs for details on using this data in your skills.
 
 By default, Misty's bump and time-of-flight sensors put the robot into a hazard state in the following circumstances:
 * when her edge time-of-flight sensors detect a drop distance of 0.06 meters (60 mm) or greater in the direction she is moving.
@@ -177,6 +177,23 @@ To enable the hazards system to work effectively, Misty's max speed is limited t
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
+
+## Connecting to Misty's File System
+
+You can access your robot's file system by connecting to the her file server over your local network connection.
+
+1. Power Misty on and make sure she is connected to the same network as your computer.
+2. Connect to your robot's file system.
+   1. On a Mac:
+      1. Open **Finder**
+      2. Select **Go &rarr; Connect to Server** from the top menu
+      3. Enter `smb://<robot-ip-address>/c$`
+   2. On Windows 10:
+      1. Open **File Explorer**
+      2. Navigate to the path `\\<robot-ip-address>\c$`
+3. When prompted, enter the username and password printed on the sticker on the bottom of your robot's base. ![Windows 10 Login Credentials](../../../assets/images/windows-credentials.jpg)
+
+
 
 ## Extending Misty's Hardware
 
@@ -247,7 +264,7 @@ void loop() {
 
 We recommend formatting data you send as JSON string to make it easier to parse in your skill code.
 
-To read messages sent to Misty, you register for [`SerialMessage`](../../../misty-ii/reference/sensor-data/#serialmessage) events in your skill code. `SerialMessage` events occur when Misty receives a message through the RX pin of her UART serial port. By default, the data for `SerialMessage` events is processed by a `_SerialMessage()` callback function. You define how this callback handles the message in your skill code.
+To read messages sent to Misty, you register for [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events in your skill code. `SerialMessage` events occur when Misty receives a message through the RX pin of her UART serial port. By default, the data for `SerialMessage` events is processed by a `_SerialMessage()` callback function. You define how this callback handles the message in your skill code.
 
 ```JS
 // Return the value of the "SerialMessage" property in the
@@ -273,7 +290,7 @@ function _SerialMessage(data) {
 }
 ```
 
-To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../misty-ii/reference/javascript-api/#misty-writeserial) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../misty-ii/reference/rest/#writeserial) command.
+To send messages from Misty to an external device, you can use the [`misty.WriteSerial()`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) function. If you are running your skill on a remote device, you can send a request to the REST endpoint for the [`WriteSerial`](../../../misty-ii/rest-api/api-reference/#writeserial) command.
 
 ## Misty II Specs
 

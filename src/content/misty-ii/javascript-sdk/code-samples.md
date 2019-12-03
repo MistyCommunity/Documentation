@@ -1,8 +1,8 @@
 ---
-title: JavaScript SDK Code Samples
+title: Code Samples
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
@@ -214,7 +214,7 @@ misty.TakePicture("photoSaveTest", 375, 812, true, true);
 
 ## External Requests
 
-The code samples in this section show how to use the `misty.SendExternalRequest()` method to get data and media files from resources hosted on the web. To learn more about the arguments we pass into this method, see the [`misty.SendExternalRequest()`](../../../misty-ii/reference/javascript-api/#misty-sendexternalrequest) reference documentation.
+The code samples in this section show how to use the `misty.SendExternalRequest()` method to get data and media files from resources hosted on the web. To learn more about the arguments we pass into this method, see the [`misty.SendExternalRequest()`](../../../misty-ii/javascript-sdk/api-reference/#misty-sendexternalrequest) reference documentation.
 
 ### externalRequest_getAudio
 

@@ -32,7 +32,7 @@ If you have issues with a system update or need technical assistance for other r
 
 ## Checking Software and Firmware Versions
 
-You can check the software versions on your Misty by sending a request to the endpoint for the [`GetDeviceInformation`](../../../misty-ii/reference/rest/#getdeviceinformation) command. Look for the values of the following properties in the JSON object that Misty returns:
+You can check the software versions on your Misty by sending a request to the endpoint for the [`GetDeviceInformation`](../../../misty-ii/rest-api/api-reference/#getdeviceinformation) command. Look for the values of the following properties in the JSON object that Misty returns:
 * `robotVersion`
 * `hardwareInfo.mcBoard.firmware`
 * `hardwareInfo.rtcBoard.firmware`

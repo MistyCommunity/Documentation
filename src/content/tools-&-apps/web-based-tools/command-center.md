@@ -13,7 +13,7 @@ You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) i
 **Note:** The Command Center is currently in a pre-release state. As such, not all features are fully functional, and the site may change before the release of Misty's SDK.
 {{box op="end"}}
 
-The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by sending requests to Misty's [REST API](../../../misty-ii/reference/rest) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
+The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by sending requests to Misty's [REST API](../../../misty-ii/rest-api/api-reference) endpoints. To see the full response for a request and other information about the commands you send to Misty, open the web console in your browser. **To open the web console in Chrome, use:**
 
 * **Ctrl + Shift + J** (Windows/Linux)
 * **Cmd + Option + J** (Mac)
@@ -44,7 +44,7 @@ Use the **Movement** section to send Misty drive commands, drive Misty manually,
 
 ### Locomotion
 
-Use this section to send a [**DriveTime**](../../../misty-ii/reference/rest/#drivetime) command to Misty. Using this command allows you to drive Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+Use this section to send a [**DriveTime**](../../../misty-ii/rest-api/api-reference/#drivetime) command to Misty. Using this command allows you to drive Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
 
 When using **Drive Time**, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
 
@@ -139,7 +139,7 @@ To use face training and recognition, follow these steps.
 8. When finished, click **Stop Face Recognition**.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The face detection and recognition data that Misty sends is described in detail in the [Event Types](../../../misty-ii/reference/sensor-data) section.
+**Note:** The face detection and recognition data that Misty sends is described in detail in the [Event Types](../../../misty-ii/robot/sensor-data) section.
 {{box op="end"}}
 
 ### Recording Video
@@ -211,7 +211,7 @@ Misty sends real-time data from her sensors and on-board events to the [Command 
 * actuator position data
 * drive encoder data
 
-The [Sensor & Event Data](../../../misty-ii/coding-misty/remote-command-architecture/#subscribing-amp-unsubscribing-to-a-websocket) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/coding-misty/remote-command-tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
+The [Sensor & Event Data](../../../misty-ii/rest-api/overview/#subscribing-amp-unsubscribing-to-a-websocket) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/rest-api/tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
 
 ### Opening a WebSocket
 
@@ -358,7 +358,7 @@ When Misty has successfully generated a map, she can track within that map to kn
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty's mapping capabilities are still in early development, and there's a chance that Misty won't generate an adequate map of the space on the first try. In cases where Misty's best map is not the map that's currently active, you can set a different map to be active by using the controls in the Navigation Module or sending a request to the [`SetCurrentSlamMap`](../../../misty-ii/reference/rest/#setcurrentslammap) endpoint.
+**Note:** Misty's mapping capabilities are still in early development, and there's a chance that Misty won't generate an adequate map of the space on the first try. In cases where Misty's best map is not the map that's currently active, you can set a different map to be active by using the controls in the Navigation Module or sending a request to the [`SetCurrentSlamMap`](../../../misty-ii/rest-api/api-reference/#setcurrentslammap) endpoint.
 {{box op="end"}}
 
 Once you've generated a good map (and set that map to be active), follow these steps to start tracking:

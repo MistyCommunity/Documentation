@@ -8,7 +8,7 @@ order: 1
 
 # {{title}}
 
-The following tools allow you to more easily interact with Misty, explore her APIs, and [build skills](../../../misty-ii/coding-misty/introduction).
+The following tools allow you to more easily interact with Misty, explore her APIs, and [build skills](../../../misty-ii/robot/introduction-to-skills).
 
 * The [Misty App](../../../tools-&-apps/mobile/misty-app) is the simplest way to get Misty onto your local Wi-Fi network and to test out driving Misty manually.
 * The [Command Center](../../../tools-&-apps/web-based-tools/command-center) provides a graphic UX that allows you to experiment with Misty’s API commands before you write any code.

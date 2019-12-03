@@ -1,15 +1,15 @@
 ---
-title: JavaScript SDK Architecture
+title: JavaScript Skill Architecture
 layout: coding.hbs
 columns: three
-order: 2
+order: 1
 ---
 
 # {{title}}
 
 When you write a skill using Misty's JavaScript SDK, your code takes advantage of Misty’s capabilities as a standalone "edge" computing device. You can also use Misty's JavaScript SDK to interact with external data and use non-Misty API calls to cloud services and other devices.
 
-You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [JavaScript SDK tutorials](../../coding-misty/javascript-sdk-tutorials) and just skim the following list to get an idea of what you might want to read about later:
+You can read this architecture section to understand the details of how to use Misty's on-robot JavaScript API. However, you can also simply start right in with the [JavaScript SDK tutorials](../../../misty-ii/javascript-sdk/tutorials) and just skim the following list to get an idea of what you might want to read about later:
 
 * Command Syntax. The on-robot JavaScript API command syntax differs slightly from that of REST API commands.
 * Data Handling: Events and Callbacks. Both stored and live data from the robot are made available to a JavaScript skill via callback functions.
@@ -102,7 +102,7 @@ function _GetAudioList(callbackData) {
 * `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). For "get" callbacks, using abort in this case would mean that the data requested would not be received.
 
 ### Sensor Event Callbacks
-For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../reference/sensor-data).
+For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../../misty-ii/robot/sensor-data).
 
 The `misty.RegisterEvent()` function has the following form:
 
@@ -259,13 +259,13 @@ You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTe
 
 You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
 
-Additional commands that operate on data across skills are described in the [Helper Commands](../../../misty-ii/coding-misty/javascript-sdk-architecture/#helper-commands) section.
+Additional commands that operate on data across skills are described in the [Helper Commands](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#helper-commands) section.
 
 ## Command Types
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
-Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `StartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../reference/javascript-api).
+Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `StartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference).
 
 ### Get Commands
 Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-quot-get-quot-data-callbacks) section for more usage details.
@@ -286,12 +286,12 @@ All of the event command types require you to implement a callback to be notifie
 The system supplies the following types of helper commands to assist you in writing skills with Misty's on-robot JavaScript API.
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `misty.Set()`, `misty.Get()`, `misty.Remove()`, `misty.Keys()`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
-* **External Data.** Another type of helper command allows your skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../../coding-misty/javascript-sdk-tutorials/#external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
-* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../reference/javascript-api). Note: An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
+* **External Data.** Another type of helper command allows your skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../../../misty-ii/javascript-sdk/tutorials/#external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
+* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference). Note: An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
 
-The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../misty-ii/reference/rest/#skill-management). These commands allow you to:
+The system provides REST commands that you can use to control and manage on-robot skills from an external device. For information about these commands, see [Skill Management Commands](../../../misty-ii/rest-api/api-reference/#skill-management). These commands allow you to:
 
 * Upload skills to the robot
 * Load, reload, or unload one or more skills
@@ -341,12 +341,12 @@ The `meta` file includes the following parameters:
 * `Description` (string) - A brief description of the skill.
 * `StartupRules` (array) - A list of strings that defines when and how the skill can start.
   * Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up.
-  * Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../misty-ii/reference/rest/#runskill) command or using [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner).
+  * Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) command or using [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner).
 * `Language` (string) - The language the skill is written in. Currently, Misty only supports `JavaScript` in on-robot skills.
-* `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. See the [documentation on Misty's `SkillData` named object](../../../misty-ii/reference/sensor-data/#skilldata) for more information.
-  * `Off` - The skill does not send [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) messages.
-  * `Debug` - The skill sends error and debug messages to [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) events.
-  * `Verbose` - In addition to error and debug messages, the skill sends a message to [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) events for each command that Misty receives.
+* `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. See the [documentation on Misty's `SkillData` named object](../../../misty-ii/robot/sensor-data/#skilldata) for more information.
+  * `Off` - The skill does not send [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) messages.
+  * `Debug` - The skill sends error and debug messages to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events.
+  * `Verbose` - In addition to error and debug messages, the skill sends a message to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events for each command that Misty receives.
 * `TimeoutInSeconds` (int) - The duration (in milliseconds) the skill runs before it automatically cancels.
 * `CleanupOnCancel` (boolean) - If `true`, Misty stops all processes (like mapping, tracking, face recognition, face detection, and other start/stop-type commands) that are in progress when the skill cancels.
 * `WriteToLog` (boolean) - If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
@@ -409,11 +409,11 @@ If `CleanupOnCancel` is set to `true` in the meta file, then when a skill is can
 Once you’ve created the files for your skill, you must load them onto your robot before you can run them. The two methods for loading skills onto Misty are:
 
 * the [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner/) web tool, which provides a simple upload feature
-* a REST tool such as Postman that can send a `POST` request to the dedicated [`SaveSkillToRobot`](../../../misty-ii/reference/rest/#saveskilltorobot) endpoint for skill deployment
+* a REST tool such as Postman that can send a `POST` request to the dedicated [`SaveSkillToRobot`](../../../misty-ii/rest-api/api-reference/#saveskilltorobot) endpoint for skill deployment
 
 The Skill Runner provides a graphic interface for uploading code, meta, image, and audio files for your skills. When you use the Skill Runner, you do not need to compress your files into a .zip before uploading them to Misty.
 
-When you use the [`SaveSkillToRobot`](../../../misty-ii/reference/rest/#saveskilltorobot) REST command to upload a skill, you must compress the code, meta, and asset files into a .zip file and send them to the robot with your request. The .zip you create for your skill files can include any image and audio files used in the skill.
+When you use the [`SaveSkillToRobot`](../../../misty-ii/rest-api/api-reference/#saveskilltorobot) REST command to upload a skill, you must compress the code, meta, and asset files into a .zip file and send them to the robot with your request. The .zip you create for your skill files can include any image and audio files used in the skill.
 
 Whether you use the Skill Runner web tool or Misty's REST API to upload skill files, Misty appends the names of the image and audio files that you upload this way with the `UniqueID` from the skill's `meta` file. Misty uses these unique, modified filenames to associate image and audio assets with the correct skill. **You do not need to use these modified filenames in the code for the original skill**.
 

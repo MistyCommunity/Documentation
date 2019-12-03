@@ -54,17 +54,17 @@ To **upload and run** a skill:
 
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** When you use the Misty JavaScript extension to run a skill, the extension connects to Misty's WebSocket server to stream debug messages and other [`SkillData`](../../../misty-ii/reference/sensor-data/#skilldata) event messages to your VSC console.
+**Tip:** When you use the Misty JavaScript extension to run a skill, the extension connects to Misty's WebSocket server to stream debug messages and other [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) event messages to your VSC console.
 {{box op="end"}}
 
 
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** When you run the **Upload** or **Upload and Run** command, the Misty JavaScript extension compresses the entire directory for the currently active file into a .zip file and attempts to upload this file to Misty using the [SaveSkillToRobot](../../../misty-ii/reference/rest/#saveskilltorobot) endpoint. Loading a skill onto Misty this way also uploads any image and audio files from the compressed directory to Misty and associates them with the skill.
+**Note:** When you run the **Upload** or **Upload and Run** command, the Misty JavaScript extension compresses the entire directory for the currently active file into a .zip file and attempts to upload this file to Misty using the [SaveSkillToRobot](../../../misty-ii/rest-api/api-reference/#saveskilltorobot) endpoint. Loading a skill onto Misty this way also uploads any image and audio files from the compressed directory to Misty and associates them with the skill.
 
-An upload will fail if the directory you attempt to upload does not contain the [JSON `meta`](../../../misty-ii/coding-misty/javascript-sdk-architecture/#file-structure-amp-code-architecture) file for the skill. If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click this notification to see more details about the error.
+An upload will fail if the directory you attempt to upload does not contain the [JSON `meta`](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#file-structure-amp-code-architecture) file for the skill. If there is a problem with an upload, the extension displays an error notification in your Visual Studio Code window. Click this notification to see more details about the error.
 
-For more information about loading skills onto Misty, see [Loading & Running a JavaScript Skill.](../../../misty-ii/coding-misty/javascript-sdk-architecture/#loading-amp-running-a-javascript-skill)
+For more information about loading skills onto Misty, see [Loading & Running a JavaScript Skill.](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill)
 {{box op="end"}}
 
 To **stop skills**:
@@ -75,5 +75,5 @@ To **stop skills**:
 4. Watch for the notification that the command was successful and wait for Misty to stop skill execution.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** When you use the **Misty: Stop Skills** command, the Misty JavaScript extension stops skill execution by sending a POST request to the REST endpoint for Misty's [CancelSkill](../../../misty-ii/reference/rest/#cancelskill) command.
+**Tip:** When you use the **Misty: Stop Skills** command, the Misty JavaScript extension stops skill execution by sending a POST request to the REST endpoint for Misty's [CancelSkill](../../../misty-ii/rest-api/api-reference/#cancelskill) command.
 {{box op="end"}}
