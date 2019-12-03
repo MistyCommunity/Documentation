@@ -50,10 +50,9 @@ When the download completes, you must restart Visual Studio for your changes to 
 
 With the template installed, you can follow these steps to create a new project for your C# skill:
 
-<!-- TODO: Update Misty Native Skill to new project name. -->
 1. Launch Visual Studio 2017
 2. Select **Create a new project…** from the **New project** section.
-3. Navigate to **Installed &rarr; Visual C#** in the left menu. Select **Misty Native Skill** from the results.
+3. Navigate to **Installed &rarr; Visual C#** in the left menu. Select **Misty C# Skill** from the results.
 4. Enter a name for you project and solution.
 5. Click **OK** to create the project.
 
@@ -73,14 +72,12 @@ Visual Studio uses the template to create a solution and project for your C# ski
 
 * The `StartupTask.cs` file is the background task wrapper for your skill code. This file is automatically populated with the methods required for running a .NET skill. You can deploy your skill to Misty without modifying this file. For more information about developing background applications, see [Microsoft's developer documentation on the subject](https://docs.microsoft.com/en-us/windows/iot-core/develop-your-app/backgroundapplications).
 * The `MistyNativeSkill.cs` file contains your skill code. It is configured such that you can immediately begin writing your skill code in the body of the `OnStart()` method. For more information about writing your skill code, see [.NET Skill Architecture](../net-skill-architecture).
-<!-- TODO: Add link -->
 
 You can customize and organize the contents of this project as needed to serve the functionality of your skill.
 
 ### Building & Deploying a .NET Skill
 
 Once you've [customized the project with your own skill code](../net-skill-architecture), you can follow these steps to deploy your C# skill to Misty.
-<!-- TODO: Add instructions for ReloadSkills.html page -->
 1. Use the drop-down menus at the top of your Visual Studio window to set your solution configuration to **Debug** and the solution platform to **ARM**.
 2. Select **Project &rarr; Set As Startup Project** from the top menu in Visual Studio.
 3. Right-click the name of your project in the **Solution Explorer** and select **Properties**. Follow these steps to configure the project for deployment to Misty:

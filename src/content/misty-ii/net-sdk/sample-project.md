@@ -8,11 +8,9 @@ order: 3
 # {{title}}
 
 
-The `IntroSkills` solution contains a sandbox of runnable C# skills for learning about Misty's .NET SDK. This guide walks through the steps required to deploy a C# skill from the `IntroSkills` solution to your Misty II robot. Once you understand the basics, you can explore the sandbox to find examples of how to perform different tasks wih Misty's .NET SDK. Customize these examples by adding your own code, or use them as inspiration for building your own skills for Misty.
+The `IntroSkills` solution contains a sandbox of runnable C# skills for learning about Misty's .NET SDK. This guide walks through the steps required to deploy a C# skill from the `IntroSkills` solution to your Misty II robot. Once you understand the basics, you can explore the sandbox to find examples of how to perform different tasks wih Misty's .NET SDK. Customize these examples by adding your own code, or use them as inspiration to build your own skills for Misty.
 
-You can clone or download the `IntroSkills` repository from the Misty Community GitHub. Locate the `IntroSkills.sln` file in your local copy of the repo, and open it in Visual Studio to start exploring the `IntroSkills` sandbox.
-
-<!-- TODO: Add link to GitHub repository -->
+You can get the `IntroSkills` solution from the [.NET-SDK repository in the Misty Community GitHub](https://github.com/MistyCommunity/.NET-SDK) organization. Locate the `C#/SampleProjects/IntroSkills/Misty.Skill.IntroSkills.sln` file in your local copy of the repo, and open it in Visual Studio to start exploring the `IntroSkills` sandbox.
 
 The `IntroSkills` solution includes the following projects:
 
@@ -124,7 +122,7 @@ new HelloWorldSkill(),
 With the above steps completed, we're ready to deploy the skill to Misty. Follow these steps:
 
 1. Click **Run/Deploy** in Visual Studio, and wait for the skill to deploy. Deployment can take a few minutes. Check the Visual Studio console to know when deployment is complete.
-2. After deployment, you may need to reload Misty's skills before you can start the .NET skill from the Skill Runner web page. Reloading is also required anytime you make changes to a .NET skill and re-deploy it to Misty. To reload skills, send a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation in Misty's REST API: `POST <robot-ip>/api/skills/reload`. The `IntroSkillsTask` repository includes a simple HTML page (`ReloadSkills.html`) that you can load in your web browser to help with this call.
+2. After deployment, you may need to reload Misty's skills before you can start the .NET skill from the Skill Runner web page. Reloading is also required anytime you make changes to a .NET skill and re-deploy it to Misty. To reload skills, send a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation in Misty's REST API: `POST <robot-ip>/api/skills/reload`. (The [.NET-SDK repository](https://github.com/MistyCommunity/.NET-SDK) includes a simple HTML page (`ReloadSkills.html`) that you can load in your web browser to help with this call.)
 3. Open up the [Skill Runner](https://sdk.mistyrobotics.com/skill-runner) web page in your browser and connect to your robot. Your .NET skill should appear in the Manage Section of the page. Click **Start** to start running the skill.
 
 {{box op="start" cssClass="boxed noteBox"}}
