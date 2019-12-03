@@ -9,7 +9,7 @@ order: 1
 
 Misty II's .NET SDK provides tools for building, debugging, and deploying skills with Microsoft Visual Studio and the .NET framework. Skills you build with the .NET SDK assemble into background applications that run alongside Misty's software on Windows IoT Core. With Misty's .NET SDK, you can:
 
-* Write skills in C# (support for other .NET-aware languages is coming soon)
+* Write skills in C#
 * Leverage features of Visual Studio and the .NET framework such as autocomplete, IntelliSense, and live remote debugging
 * Use external libraries in your skill code
 * Test code before deployment by simulating input from sensors and other robot data

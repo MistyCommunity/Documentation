@@ -59,13 +59,13 @@ With the template installed, you can follow these steps to create a new project 
 Visual Studio uses the template to create a solution and project for your C# skill. The project is structured as follows:
 
 ```
-|-- <MySkillName>
+|-- <YourSkillName>
 |	|-- Properties
 |	|	|-- AssemblyInfo.cs
 |	|	|-- Default.rd.xml
 |	|-- References  // MistyRobotics SDK & other libraries
-|	|-- MistyNativeSkill.cs // Your skill code
-|	|-- <MySkillName>_TemporaryKey.pfx
+|	|-- MistySkill.cs // Your skill code
+|	|-- <YourSkillName>_TemporaryKey.pfx
 |	|-- Package.appxmanifest
 |	|-- StartupTask.cs // Background task wrapper for your skill
 ```
@@ -88,6 +88,20 @@ Once you've [customized the project with your own skill code](../net-skill-archi
 4. Make sure your robot is powered on and connected to the same network as your computer. Then, click **Run/Deploy** in Visual Studio. (Deployment can take a few minutes. Check the Visual Studio console to know when deployment is done.)
 5. After deployment, you may need to reload Misty's skills before you can access your .NET skill from the Skill Runner web page. To reload skills, issue a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation: `POST <robot-ip>/api/skills/reload`.
 6. Open up the [Skill Runner](https://sdk.mistyrobotics.com/skill-runner) web page in your browser and connect to your robot. Your .NET skill should appear in the **Manage** section of the page. Click **Start** to start run the skill.
+
+## Creating a .NET Skill App Package
+
+In addition to deploying skills directly to Misty, you can use Visual Studio to create app packages for your .NET skills. This makes it possible to share runnable .NET skills without publishing the code for your skill project. You can install app packages for .NET skills using the Skill Runner web page.
+
+Follow these steps to create an app package for your .NET skill:
+
+1. Open your skill project in Visual Studio.
+2. In the Solution Explorer, right-click your project and select **Store &rarr; Create App Packages**.
+3. Select **I want to create packages for sideloading**, and deselect the option to **Enable automatic updates.** Then click **Next.** ![App Package Options](../../../assets/images/app-package-1.png)
+4. On the next screen, use the **Output location** field to select a local directory for your app package. Check the box next to **ARM**, and choose a solution configuration (Debug or Release). Then click **Create.** ![App Package Configuration Settings](../../../assets/images/app-package-2.png)
+5. Visual Studio notifies you when your app package is ready. The folder with your app package is stored at the location you choose in **step 4**. The name of the directory should resemble `<YourSkillName>_1.0.0.0_Debug_Test`.
+
+Once you've created an app package for your .NET skill, you can compress the entire directory into a single .zip file and [install the skill on Misty II using the Skill Runner web page](../../../tools-&-apps/web-based-tools/skill-runner/#uploading-a-net-skill).
 
 ## Important Notes & Workarounds
 
