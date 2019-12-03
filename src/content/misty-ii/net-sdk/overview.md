@@ -24,7 +24,7 @@ Using Misty's .NET SDK requires the following:
 
 * Misty II
 * PC (or virtual machine) with Windows 10
-* Microsoft Visual Studio 2017, with **Windows Universal Platform workload** and **Windows 10 SDK libraries** (build 17763) installed
+* Microsoft Visual Studio, with **Windows Universal Platform workload** and **Windows 10 SDK libraries** (build 17763) installed
 * **Optional:** USB-to-Ethernet adapter and ethernet cable (for live debugging)
 
 {{box op="start" cssClass="boxed noteBox"}}
