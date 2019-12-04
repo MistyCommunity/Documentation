@@ -32,13 +32,19 @@ We recommend using Skill Runner in Chrome browsers for best results. To open the
 
 ## Installing Skills with Skill Runner
 
-Use the **Install** interface to install and modify Misty's on-robot skills.
+Use the **Install** interface to install and update JavaScript or .NET skills.
 
 ![Skill Runner Install Interface](../../../assets/images/skill-runner-install.png)
 
-### Uploading a New Skill
+### Uploading a JavaScript Skill
 
-To upload a new skill, drag-and-drop your skill files onto the box, or click the box to find the files in your computer's file system.
+To upload a JavaScript skill:
+
+1. Make sure your robot is powered on, fully-booted, and connected to the same Wi-Fi network as your computer.
+2. Open the Skill Runner web page and connect to your robot using the IP address provided by the Misty App.
+3. Select **JavaScript** from the **Install** section. 
+4. Drag-and-drop your skill files onto the **Install** box, or click the box to find the files in your computer's file system.
+5. The Skill Runner web page displays a message when the upload is complete. You can then start, stop, or delete your skill from the **Manage** section.
 
 ![Skill Runner install animation](../../../assets/images/skill-runner-upload-skill-animation.gif)
 
@@ -46,11 +52,24 @@ To upload a new skill, drag-and-drop your skill files onto the box, or click the
 **Important!** When you install a new skill on Misty, you must upload the JavaScript `code` file and the JSON `meta` file at the same time. You can upload image and audio assets associated with a skill by including these asset files when you upload the skill.
 {{box op="end"}}
 
-### Updating an Existing Skill
+To update the code for an existing skill, or to associate new image and audio assets with that skill, upload the new or changed files to Misty along with the JSON `meta` file for the skill. Misty uses the `meta` file to identify which existing skill the new files belong to.
 
-To update the code for an existing skill, or to associate new image and audio assets with that skill, upload these files alongside the JSON `meta` file for that skill. Misty uses the `meta` file to identify which existing skill the new files belong to.
-
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** When updating an existing skill, make sure the JavaScript `code` file and the JSON `meta` file you upload use the same name as the original skill files.
+{{box op="end"}}
+
+### Uploading a .NET Skill
+
+To install a .NET skill using the Skill Runner web page, you must have access to the skill's app package. [Follow these steps to create the app package](../../../misty-ii/net-sdk/getting-started/#creating-a-net-skill-app-package). Then, use the instructions below to upload the app package to your robot. 
+
+1. If you haven't done so already, compress the entire app package directory into a .zip file.
+2. Make sure your robot is powered on, fully-booted, and connected to the same Wi-Fi network as your computer.
+3. Open the Skill Runner web page and connect to your robot using the IP address provided by the Misty App.
+4. Select **.NET** from the **Install** section. 
+5. Drag-and-drop the .zip file with the app package onto the **Install** box, or click the box to find the file in your computer's file system.
+6. When prompted, enter the credentials for accessing Misty's Windows Device Portal. These credentials are printed on the bottom of your robot, and are the same as the credentials used when [connecting to Misty's file system](../../../misty-ii/robot-misty-ii/#connecting-to-misty-39-s-file-system).
+7. Wait for the skill to upload. For .NET skills, this can take several seconds.
+8. The Skill Runner web page displays a message when the upload is complete. You can then start, stop, or delete your skill from the **Manage** section.
 
 ## Generating a JSON Meta File
 
@@ -70,6 +89,10 @@ Use the **Manage** interface to start, stop, and uninstall Misty's skills. The *
 
 ![Skill Runner manage interface](../../../assets/images/skill-runner-manage.png)
 
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** In the **Manage** section, each skill installed on the connected robot is labeled with either **JS** or **C#**. This label indicates whether the skill was built with Misty's JavaScript SDK or her .NET SDK.  
+{{box op="end"}}
+
 ### Starting a Skill
 
 To start a skill, select the **Start** button next to the skill's name.
@@ -87,6 +110,11 @@ When a skill is running, the **Start** button turns red and displays **Stop**. C
 To uninstall a skill, select the **Delete** button next to the skill's name.
 
 ![Uninstall a skill](../../../assets/images/skill-runner-delete.png)
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When you delete a .NET skill, the Skill Runner asks you for the credentials used to access Misty's Windows Device Portal. These credentials are printed on the bottom of your robot, and are the same as the credentials used when [connecting to Misty's file system](../../../misty-ii/robot-misty-ii/#connecting-to-misty-39-s-file-system).
+{{box op="end"}}
+
 
 ### Advanced Options
 

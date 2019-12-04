@@ -560,6 +560,34 @@ Arguments
 misty.PlayAudio("s_Sadness.wav", 100);
 ```
 
+### misty.TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+```JavaScript
+// Syntax
+misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+```
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Parameters
+
+* red (byte) - The red RGB color value for the first color (range 0 to 255).
+* green (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* timeMs (int) - The duation (in milliseconds) between each transition. Must be greater than `3`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
+```
+
 ### misty.SetBlinking
 
 Turns Misty's eye blinking behavior on or off.

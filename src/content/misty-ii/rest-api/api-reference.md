@@ -471,6 +471,43 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+
+### TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
+
+Parameters
+
+* Red (byte) - The red RGB color value for the first color (range 0 to 255).
+* Green (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* TimeMs (int) - The duation (in milliseconds) between each transition. Must be greater than `3`.
+
+```JSON
+{
+	"Red": 255,
+	"Green": 0,
+	"Blue": 0,
+	"Red2": 0,
+	"Green2": 255,
+	"Blue2": 0,
+	"TransitionType": "Breathe",
+	"TimeMS": 500
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
 ### SetBlinking
 
 Turns Misty's eye blinking behavior on or off.
@@ -494,6 +531,10 @@ Parameters
   "Blink": true
 }
 ```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ### SetBlinkSettings
 
@@ -556,7 +597,7 @@ Return values
 
 ## External Requests
 
-### misty.SendExternalRequest
+### SendExternalRequest
 
 Sends an HTTP request from Misty to an external server. You can use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
