@@ -476,6 +476,8 @@ Return values
 
 Sets Misty's LED to transition between two colors.
 
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
 
 Parameters
