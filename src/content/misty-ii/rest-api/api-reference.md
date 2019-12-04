@@ -556,7 +556,7 @@ Return values
 
 ## External Requests
 
-### misty.SendExternalRequest
+### SendExternalRequest
 
 Sends an HTTP request from Misty to an external server. You can use `SendExternalRequest` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
