@@ -7,7 +7,7 @@ order: 3
 
 # {{title}}
 
-In these tutorials you will learn everything you need to know to begin writing skills using Misty's on-robot JavaScript API. Each tutorial introduces a new aspect of skill development to expose the full breadth of Misty's capabilities and potential.
+The tutorials in this section provide detailed instructions on writing JavaScript skills that use different features of Misty II and her JavaScript SDK. Each tutorial introduces a new aspect of JavaScript skill development to expose the full breadth of Misty's capabilities and potential.
 
 ## Time-of-Flight
 
