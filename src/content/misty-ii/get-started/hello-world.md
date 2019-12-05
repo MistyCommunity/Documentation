@@ -7,7 +7,12 @@ order: 2
 
 # {{title}}
 
-Welcome to the Misty II Hello World tutorial series! This document provides a series of brief tutorials that teach how to write and upload a JavaScript skill that brings Misty (and your code) to life. When you finish this series, you can call yourself an experienced roboticist!
+Welcome to the Misty II Hello World tutorial series! The topics on this page provide a series of brief tutorials on how to write and upload a JavaScript skill that brings Misty (and your code) to life. Once you've completed the series, you'll have the knowledge required to start coding more complicated skills for your Misty II.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This tutorial series provides an introduction to Misty's JavaScript SDK. To learn about Misty's .NET SDK, see the [.NET SDK Getting Started guide](../../../misty-ii/net-sdk/getting-started/). 
+{{box op="end"}}
+
 
 ## Overview
 
@@ -20,7 +25,7 @@ The Hello World tutorial series is divided into six parts:
 5. [Teaching Misty to Wave](./#teaching-misty-to-wave)
 6. [Using Face Recognition](./#using-face-recognition)
 
-In the first part of the series, you learn how to create and upload the files Misty needs to run a skill. As you progress through the series, you add new lines of code to the original skill file and update the skill on Misty to see how the additions change her behavior. When you finish all of the sections, you'll have programmed your first fully working skill for the Misty robotics platform.
+In the first part of the series, you learn how to create and upload the files Misty needs to run a JavaScript skill. As you progress through the series, you add code to the original skill file, and update the skill on your robot to see how the additions change Misty's behavior. When you finish all of the sections, you'll have programmed your first fully working skill for the Misty II robotics development platform.
 
 Watch the video for a quick overview of each section in the tutorial series:
 
@@ -28,22 +33,22 @@ Watch the video for a quick overview of each section in the tutorial series:
 <iframe width="600" height="337" src="https://www.youtube.com/embed/xBV2U2QuK2o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {{box op="end"}}
 
-If you'd like to refer to the code files for this skill, you can [do so at any time on GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Hello%20World).
+A complete example of the Hello World skill is [hosted on GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Hello%20World). Feel free to refer to these files at any time.
 
 ## Moving Misty's Head
 
-This part of the Hello World tutorial series teaches how to create skill files and upload them to Misty. You'll also write your first lines of code and teach Misty to move her head in a lifelike way.
+This part of the Hello World tutorial series teaches how to create files for a JavaScript skill and upload them to Misty. You'll also write your first lines of code and teach Misty to move her head in a lifelike way.
 
 ![Misty moves her head](../../../assets/images/hello-world-movehead.gif)
 
 ---
 
-Each skill you write with Misty's JavaScript SDK requires the following elements:
+Each skill you write with Misty's JavaScript SDK requires two files:
 
 * a [JavaScript "code" file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#code-file) with the logic and commands that Misty executes when the skill runs
 * a [JSON "meta" file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file) that provides the initial settings and parameters Misty needs to run the skill
 
-To begin, open your favorite text editor. (If you don't have a preference, we suggest Visual Studio Code.) Create a new JavaScript file called `HelloWorld.js`, and save this file to a new directory called `HelloWorld`. Now you can start writing the code to bring Misty to life.
+To begin, open your favorite text editor. (If you don't have a preference, we suggest using [Visual Studio Code](https://code.visualstudio.com/), so that you can use the [Misty JavaScript Extension](../../../tools-&-apps/plugins-&-extensions/misty-skills-extension/); however, the extension is **not** required for this tutorial.) Create a new JavaScript file called `HelloWorld.js`, and save this file to a new directory called `HelloWorld`. Now you can start writing the code to bring Misty to life.
 
 To appear lifelike, Misty's head movement should be spontaneous and random. You can achieve this by registering for a "timer" event and configuring it to invoke a callback function after a random interval of time. In our Hello World skill, we code this callback function to send Misty a head movement command with randomized movement values.
 
@@ -178,7 +183,9 @@ misty.RegisterTimerEvent("look_around", getRandomInt(5, 10) * 1000, false);
 
 ### Generating the Meta File
 
-Next we create the JSON meta file and install the skill on Misty. Follow these steps to generate a JSON file for your Hello World skill:
+Next we create the JSON meta file and install the skill on Misty. 
+
+Follow these steps to generate a JSON file for your Hello World skill:
 
 1. Open the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page in a new browser window and find the **Generate** section.
 2. Type `HelloWorld` in the **New Skill Name** field.
@@ -211,7 +218,7 @@ Next we create the JSON meta file and install the skill on Misty. Follow these s
 Make sure the value of the `"Name"` parameter is `"HelloWorld"`. You can ignore the rest of the parameters for now.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** value of `"UniqueId"` is randomized for each meta file the Skill Runner generates, and should be unique for each skill on your robot. The `"TimeOutInSeconds"` parameter describes how long the skill runs (in seconds) before Misty automatically cancels it.
+**Note:** value of `"UniqueId"` is randomized for each meta file the Skill Runner generates, and should be unique for each skill on your robot. The `"TimeOutInSeconds"` parameter describes how long the skill runs (in seconds) before Misty automatically cancels it. For details on the rest of the key/value pairs in the meta file, see the [Meta File documentation](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file).
 {{box op="end"}}
 
 ### Installing the Hello World Skill
@@ -219,7 +226,7 @@ Make sure the value of the `"Name"` parameter is `"HelloWorld"`. You can ignore 
 With the meta file saved, you're ready to install your skill on Misty. Follow these steps to do so:
 
 1. In the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page, type Misty’s IP address into the Robot IP Address field in the upper right hand corner. (You can find Misty's IP address in the Misty App.) Click **Connect**.
-2. Once the connection is established, find the **Install** section on the Skill Runner page. Click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**, or drag and drop the files to upload them to Misty. ![Upload skill animation](../../../assets/images/skill-runner-upload-skill-animation.gif)
+2. Once the connection is established, find the **Install** section on the Skill Runner page. Make sure **JavaScript** is selected. Then, click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**, or drag and drop the files to upload them to Misty. ![Upload skill animation](../../../assets/images/skill-runner-upload-skill-animation.gif)
 3. When the upload is complete, your new `HelloWorld` skill appears under the **Manage** section of the Skill Runner page. Find it and click **Start** to begin execution!
 4. Open the web console to view additional information from the skills running on Misty (including debug messages). The keyboard shortcuts for opening the console in Chrome are **Ctrl + Shift + J** (Windows/Linux) or **Cmd + Option + J** (Mac). ![Run skill animation](../../../assets/images/skill-runner-run-skill.gif)
 5. Click **Stop** to stop running the skill.

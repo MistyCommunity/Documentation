@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-This document provides code samples for Misty's JavaScript SDK. Each sample shows how to use a different element of the robot's functionality in a JavaScript skill. You can run many of these samples on your robot without any modification, or you can refer to these samples when coding similar functionality in your own Misty skills.
+This document provides code samples for Misty's JavaScript SDK. Each sample shows how to use a different element of the robot's functionality in a JavaScript skill. You can run many of these samples on your robot without any modification, or you can refer to these samples when coding similar functionality in your own JavaScript skills for Misty II.
 
 To run the code samples from this page on your robot, you can [download the skill files for each sample from the Misty Community SampleCode repo on GitHub](https://github.com/MistyCommunity/SampleCode/tree/master/JavaScript%20SDK%20Code%20Samples). Install the skill files on your robot by [uploading them to Misty via the Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner/#uploading-a-new-skill) web tool. Alternately, refer to these code samples (or copy and paste them into your own skills) when working on similar functionality in your own skill development.
 

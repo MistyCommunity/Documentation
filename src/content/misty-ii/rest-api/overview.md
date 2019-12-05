@@ -7,14 +7,17 @@ order: 1
 
 # {{title}}
 
-In addition to the on-robot JavaScript SDK, you can also write skills for Misty using her powerful REST API. Writing a skill this way typically involves two things: getting data from Misty via WebSocket connections and sending commands to Misty using her REST API. This topic walks you through both sides of this process.
+In addition to writing skills with Misty's JavaScript and .NET SDKs, you can also write robot applications for Misty using her powerful REST API.
 
-The examples in this topic are written in JavaScript. Example requests use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), and example WebSocket connections use the `lightSocket.js` helper library to simplify subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) or a REST client such as Postman to send Misty commands.
+Writing a robot application with Misty's REST API typically involves two things: getting data from Misty via WebSocket connections and sending commands to the robot over a local network. The documentation in this article walks through both sides of this process.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The examples in this topic are written in JavaScript. Example requests use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), and example WebSocket connections use the `lightSocket.js` helper library to simplify subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) or a REST client such as [Postman](https://www.getpostman.com/downloads/) to send Misty commands.
+{{box op="end"}}
 
 ## Sending Commands to Misty
 
-Misty's API includes commands for:
+Misty's REST API includes commands for:
 
 * Display, LED, and flashlight control
 * Audio control

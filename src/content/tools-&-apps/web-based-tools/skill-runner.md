@@ -7,7 +7,7 @@ order: 3
 
 # {{title}}
 
-The Misty [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client.
+The Misty [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. Use the Skill Runner to install, start, stop, and delete JavaScript and .NET skills.
 
 ![Skill runner home page](../../../assets/images/skill-runner.png)
 

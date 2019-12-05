@@ -7,7 +7,7 @@ order: 2
 
 # {{title}}
 
-The tutorials in this section describe how to write skills for Misty that use her REST API. You can use the REST API to send Misty commands from an external device. These tutorials show how to use .html files and in-line JavaScript to write programs for Misty that run in your web browser.
+The tutorials in this section describe how to write remote-running robot applications using Misty's REST API and WebSocket connections. While Misty can receive REST API commands from any device on her local network, in these tutorials we use .html files and in-line JavaScript to build applications that you can run from any web browser.
 
 ## Changing Misty’s LED
 In this tutorial, you learn how to write a program that sends a REST command to change the color of Misty’s chest LED.

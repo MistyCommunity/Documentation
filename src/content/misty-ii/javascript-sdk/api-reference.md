@@ -7,9 +7,12 @@ order: 4
 
 # {{title}}
 
-Use Misty's on-robot JavaScript API to write skills that run locally on your robot. To learn about the architecture of this API, see [JavaScript SDK Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
+Misty's JavaScript API provides a powerful set of commands for writing JavaScript skills for your Misty II. To learn more about the architecture of a JavaScript skill, see [JavaScript SDK Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
 
-**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these beta and alpha commands, but realize they may behave unpredictably at this time, and their functionality is likely to change with future system updates.
+{{box op="end"}}
 
 ## Asset
 

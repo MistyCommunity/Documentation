@@ -38,7 +38,7 @@ Misty's JavaScript, .NET, and REST APIs include many of the same commands, but t
 
 ### JavaScript SDK
 
-When you use Misty's JavaScript SDK, your code runs locally on your robot. Each JavaScript skill runs from a single JavaScript code file. You [upload this code file to Misty](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill) along with a .json meta file that defines some of the initial settings and parameters that Misty will use when running the skill. If the skill uses image or audio assets that don't yet exist on the robot, you can upload these assets at the same time you upload your skill code. Learn more about this process in the [File Structure & Code Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#file-structure-amp-code-architecture) section.
+When you build a skill with Misty's JavaScript SDK, your code runs locally on your robot. Each JavaScript skill runs from a single JavaScript code file. You [upload this code file to Misty](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill) along with a .json meta file that defines some of the initial settings and parameters that Misty will use when running the skill. If the skill uses image or audio assets that don't yet exist on the robot, you can upload these assets at the same time you upload your skill code. Learn more about this process in the [File Structure & Code Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#file-structure-amp-code-architecture) section.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you're used to writing JavaScript for the web, you may be familiar with  manipulating the [DOM](https://developer.mozilla.org/en-US/docs/web/API/Document_Object_Model) in your code. With Misty, there is no DOM for your code to manipulate. Skills you write with Misty's JavaScript SDK cannot use the various [objects and data types](https://developer.mozilla.org/en-US/docs/web/API/Document_Object_Model/Introduction#Important_Data_Types) present in the DOM.
@@ -94,7 +94,7 @@ Misty II's .NET SDK provides tools for building, debugging, and deploying skills
 * Use external libraries in your skill code
 * Test code before deployment by simulating input from sensors and other robot data
 
-You build a .NET skill for Misty by wrapping your skill code in a background application and deploying the application to your robot. Your skill code implements the interface and methods for issuing commands and getting data from the. You can read more about the architecture of a .NET skill in the [.NET Skill Architecture documentation](../../../misty-ii/net-sdk/net-skill-architecture/).
+You build a .NET skill for Misty by wrapping your C# skill code in a background application and deploying the application to Misty's Windows 10 IoT Core device. Your skill code implements the interface and methods for issuing commands and getting data from the robot. You can read more about the architecture of a .NET skill in the [.NET Skill Architecture documentation](../../../misty-ii/net-sdk/net-skill-architecture/).
 
 Currently, Misty's .NET SDK includes the following libraries and templates:
 
@@ -165,6 +165,8 @@ Follow these links to learn more about Misty's REST API:
 You can find helper libraries, code samples, wrappers, and other useful tools for skill development in the [Misty Robotics Community](https://github.com/MistyCommunity) on GitHub.
 
 For examples of working skills that use a variety of Misty's capabilities, see [Misty Skill Samples](https://github.com/MistySampleSkills/) on GitHub.
+
+For a collection of skills that other Misty II developers have shared, see the [Misty Skills section of the community forums](https://community.mistyrobotics.com/c/misty-skills/none).
 
 ## Sharing Skills & Applications
 
