@@ -102,7 +102,7 @@ In this sample, we use the `misty.RegisterEvent()` method from Misty's JavaScrip
 {{box op="end"}}
 
 ```JavaScript
-/ This block sets Misty's arms and head to a neutral position, and
+// This block sets Misty's arms and head to a neutral position, and
 // prints a debug message that the movement is underway.
 misty.Debug("Moving arms and head to neutral position");
 _timeoutToNormal();
