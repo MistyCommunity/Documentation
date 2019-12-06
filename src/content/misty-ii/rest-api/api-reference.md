@@ -1727,7 +1727,10 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
 
 Parameters
 
-* None
+* CaptureSpeech (bool)
+* OverwriteExisting (bool)
+* MaxSpeechLength (int)
+* SilenceTimeout (int)
 
 Return Values
 
