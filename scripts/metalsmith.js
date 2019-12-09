@@ -214,7 +214,7 @@ exports.metalsmith = function() {
           "/docs/robots/introduction": "/misty-ii/robot/get-started",
           "/docs/robots/misty-i": "/misty-i/robot/introduction",
           "/docs/robots/misty-ii": "/misty-ii/robot/get-started",
-          "/docs/skills/introduction": "/misty-ii/coding-misty/introduction",
+          "/docs/skills/introduction": "/misty-ii/robot/introduction-to-skills",
           "/docs/skills/local-skill-architecture": "/misty-ii/coding-misty/local-skill-architecture",
           "/docs/skills/remote-command-architecture": "/misty-ii/coding-misty/remote-command-architecture",
           "/docs/skills/local-skill-tutorials": "/misty-ii/coding-misty/local-skill-tutorials",
@@ -241,6 +241,7 @@ exports.metalsmith = function() {
           "/misty-ii/coding-misty/remote-command-architecture": "/misty-ii/rest-api/overview",
           "/misty-ii/coding-misty/remote-command-tutorials": "/misty-ii/rest-api/tutorials",
           "/misty-ii/reference/rest": "/misty-ii/rest-api/api-reference",
+          "/misty-ii/reference/javascript-api": "/misty-ii/javascript-sdk/api-reference",
           "/misty-ii/javascript-sdk/overview": "/misty-ii/javascript-sdk/javascript-skill-architecture"
         },
       }
