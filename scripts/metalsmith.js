@@ -241,6 +241,7 @@ exports.metalsmith = function() {
           "/misty-ii/coding-misty/remote-command-architecture": "/misty-ii/rest-api/overview",
           "/misty-ii/coding-misty/remote-command-tutorials": "/misty-ii/rest-api/tutorials",
           "/misty-ii/reference/rest": "/misty-ii/rest-api/api-reference",
+          "/misty-ii/reference/javascript-api": "/misty-ii/javascript-sdk/api-reference",
           "/misty-ii/javascript-sdk/overview": "/misty-ii/javascript-sdk/javascript-skill-architecture"
         },
       }
