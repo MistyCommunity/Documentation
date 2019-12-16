@@ -2210,19 +2210,72 @@ misty.GetBatteryLevel();
 
 Returns
 
-* Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following properties:
-  * chargePercent (double)
-  * created (string)
-  * current (int)
-  * expiry (string)
+* Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
+  * chargePercent (double) - Decimal value representing current charge percent.
+  * created (string) - Timestamp that describes when the system created this message.
+  * current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
   * healthPercent (double)
-  * isCharging (bool)
-  * sensorId (string)
-  * sensorName (string)
-  * state (string)
+  * isCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * sensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * sensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
+  * state (string) - The charge state of the battery. Possible values are:
+    *  `Charging` (if battery is receiving current)
+    *  `Discharging` (if battery is losing current)
+    *  `Charged` (if battery is fully charged)
+    *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
+    *  `Fault` (can occur if the charger does not detect the battery)
   * temperature (int)
-  * trained (bool)
-  * voltage (double)
+  * trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * voltage (double) - The battery's voltage.
+
+### misty.GetCameraData
+
+Obtains current properties and settings for Misty's 4K camera.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetCameraData()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+{{box op="end"}}
+
+```JavaScript
+// Syntax
+misty.GetCameraData([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_GetCameraData()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+// Requests camera data and passes it into _GetCameraDataCallback()
+misty.GetCameraData("_GetCameraDataCallback");
+
+// Handles response from GetCameraData command
+function _GetCameraDataCallback(data) {
+    // Log debug messages with values from GetCameraData response
+    misty.Debug("width: " + data.Result.Width)
+    misty.Debug("height: " + data.Result.Height)
+    misty.Debug("fpsActual: " + data.Result.FpsActual)
+    misty.Debug("fpsRequested: " + data.Result.FpsRequested)
+    misty.Debug("droppedFrames: " + data.Result.DroppedFrames)
+}
+```
+
+Return Values
+
+* Result (object) - An object with details about the current properties and settings for Misty's 4K camera.  With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
+  * droppedFrames (int) - Number of dropped frames.
+  * fpsActual (double) -  Actual frames per second.
+  * fpsRequested (double) - Requested frames per second.
+  * height (double) - Camera image height (in pixels).
+  * width (double) - Camera image width (in pixels).
 
 ### misty.GetDeviceInformation
 
@@ -2236,6 +2289,7 @@ misty.GetDeviceInformation([string callback], [string callbackRule = "synchronou
 ```
 
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
