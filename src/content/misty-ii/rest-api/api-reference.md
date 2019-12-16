@@ -2398,6 +2398,25 @@ Return Values
 
 * Result (boolean) - Returns `true` if the camera service is enabled. Otherwise, `false`.
 
+### GetCameraData
+
+Obtains current properties and settings for Misty's 4K camera.
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/camera
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (object) - An object with details about the current properties and settings for Misty's 4K camera. Includes the following key/value pairs:
+  * droppedFrames (int) - Number of dropped frames.
+  * fpsActual (double) -  Actual frames per second.
+  * fpsRequested (double) - Requested frames per second.
+  * height (double) - Camera image height (in pixels).
+  * width (double) - Camera image width (in pixels).
+
 ### GetDeviceInformation
 
 Obtains device-related information for the robot.
