@@ -1477,6 +1477,78 @@ Arguments
 misty.CancelFaceTraining();
 ```
 
+### misty.CaptureSpeech
+
+Starts capturing speech in a new audio recording. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+```js
+// Syntax
+
+misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+*   OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (Note that Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is `true`, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* callback (string) - Optional. The name of the callback function to call when Misty starts capturing speech. If empty, a callback function with the default name (`_CaptureSpeech()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+*   skillToCall (string) - Optional. The unique ID of the skill to trigger for the callback function, if the callback is not defined in the current skill.
+*   prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+*   postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+// This sample illustrates using speech capture in a JavaScript skill
+
+/* Event Listeners */
+
+// Registers a listener for VoiceRecord event messages, and adds return
+// properties to event listener so that we get all this data in the
+// _VoiceRecord callback.
+misty.AddReturnProperty("VoiceRecord", "Filename");
+misty.AddReturnProperty("VoiceRecord", "Success");
+misty.AddReturnProperty("VoiceRecord", "ErrorCode");
+misty.AddReturnProperty("VoiceRecord", "ErrorMessage");
+misty.RegisterEvent("VoiceRecord", "VoiceRecord", 10, false);
+
+// Misty starts listening for key phrase. When recognized, Misty
+// starts a new speech recording.
+misty.CaptureSpeech(true);
+
+/* Callbacks */
+
+// Triggers when Misty finishes capturing a speech recording
+function _VoiceRecord(data) {
+   // Get data from AdditionalResults array
+   var filename = data.AdditionalResults[0];
+   var success = data.AdditionalResults[1];
+   var errorCode = data.AdditionalResults[2];
+   var errorMessage = data.AdditionalResults[3];
+
+   // If speech capture is successful, tell us and play the recording
+   if (success = true) {
+      misty.Debug("Successfully captured speech! Listen closely...")
+      misty.PlayAudio(filename);
+   }
+   // Otherwise, print the error message
+   else {
+      misty.Debug("Error: " + errorCode + ". " + errorMessage);
+   }
+}
+```
+
 ### misty.ForgetFaces
 
 Removes records of trained faces from Misty's memory.
