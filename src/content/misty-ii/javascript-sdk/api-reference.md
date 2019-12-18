@@ -945,7 +945,12 @@ misty.MoveArmRadians("left", -1.5708, 50);
 
 ### misty.MoveHead
 
-Moves Misty's head in one of three axes (tilt, turn, or up-down).
+Moves Misty's head to a new position along its pitch, roll, and yaw axes.
+
+```JavaScript
+// Syntax
+misty.MoveHead(double pitch, double roll, double yaw, double velocity, [double duration], [string units], [int prePauseMs], [int postPauseMs]);
+```
 
 **Value Ranges for Each Axis of Movement**
 
@@ -957,12 +962,18 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down).
 
 For more information about the range of movement in each direction, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must pass in a value for either the `duration` OR the `velocity` argument. If you pass in values for both arguments, or if you pass in values for neither arguments, the system throws an exception.
+{{box op="end"}}
+
 Arguments
 
 - pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
 - velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
+- duration (double) - Optional. Time (in seconds) Misty takes to move her head from its current position to its new position.
+- units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 - prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 

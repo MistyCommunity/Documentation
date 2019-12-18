@@ -2860,6 +2860,7 @@ Misty's default hardware notification settings are as follows:
 * **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
 
 **LED Notifications**
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED blinks blue.
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
 * **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
   * When the face detection phase of the training process is complete, the LED turns green.
@@ -2948,10 +2949,10 @@ The default hazard settings for Misty's time-of-flight sensors are as follows:
 |`TOF_DownFrontLeft` | 0.06|
 |`TOF_DownBackRight` |0.06|
 |`TOF_DownBackLeft`|0.06|
-|`TOF_Right` |0.15|
-|`TOF_Left`|0.15|
-|`TOF_Center`|0.15|
-|`TOF_Back`|0.15|
+|`TOF_Right` |0.215|
+|`TOF_Left`|0.215|
+|`TOF_Center`|0.215|
+|`TOF_Back`|0.215|
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The `UpdateBaseHazardManagementSettings` endpoint expects a JSON payload with a `Content-Type` of `application/json`.
@@ -2983,10 +2984,10 @@ Parameters:
         {"sensorName":"TOF_DownFrontLeft","threshold":0.06},
         {"sensorName":"TOF_DownBackRight","threshold":0.06},
         {"sensorName":"TOF_DownBackLeft","threshold":0.06},
-        {"sensorName":"TOF_Right","threshold":0.15},
-        {"sensorName":"TOF_Left","threshold":0.15},
-        {"sensorName":"TOF_Center","threshold":0.15},
-        {"sensorName":"TOF_Back","threshold":0.15}
+        {"sensorName":"TOF_Right","threshold":0.215},
+        {"sensorName":"TOF_Left","threshold":0.215},
+        {"sensorName":"TOF_Center","threshold":0.215},
+        {"sensorName":"TOF_Back","threshold":0.215}
     ]
 }
 ```
