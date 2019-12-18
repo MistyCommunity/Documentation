@@ -318,7 +318,7 @@ Each `HazardNotification` event message includes the following properties:
 * `currentSensorsHazard` - The contents of this property are still under implementation and, for now, can be safely ignored.
 * `driveStopped` - An array of objects that describe the hazard state for six zones around Misty. Each object in the array includes a `sensorName` property with a string value for a zone, and an `inHazard` property with a boolean value indicating whether that zone is in a hazard state. Data from Misty's time-of-flight and bump sensors can trigger a `driveStopped` hazard state.
 * `motorStallHazard` - The contents of this property are still under implementation and, for now, can be safely ignored.
-* `timeOfFlightSensorsHazardState` - An array of objects that describe the hazard state for each of Misty's time-of-flight sensors. Each object in the array includes a `sensorName` property with a string value for a time-of-flight sensor name, and an `inHazard` property with a boolean value indicating whether that sensor is in a hazard state. The hazard system considers a time-of-flight sensor to be in a hazard state when the sensor detects a distance greater than a predetermined threshold. For downward-facing time-of-flight sensors, this threshold defaults to 0.06 meters. The hazard system is disabled for front- and rear-facing time-of-flight sensors at this time.
+* `timeOfFlightSensorsHazardState` - An array of objects that describe the hazard state for each of Misty's time-of-flight sensors. Each object in the array includes a `sensorName` property with a string value for a time-of-flight sensor name, and an `inHazard` property with a boolean value indicating whether that sensor is in a hazard state. The hazard system considers a time-of-flight sensor to be in a hazard state when the sensor detects a distance greater than a predetermined threshold. The default hazard thresholds for Misty's time-of-flight sensors are 0.215 meters (range sensors) and 0.06 meters (edge sensors).
 <!-- * `motorStallHazard` - An array of objects that describe the hazard state for Misty's head, arm, and drive motors. Each object in the array includes a `sensorName` property with a string value for one of Misty's motors, and an `inHazard` property with a boolean value indicating whether that motor is in a hazard state. The `motorStallHazard` state triggers when Misty's sensor data indicates a motor is attempting and failing to enable movement. -->
 * `excessiveSpeedHazard` - An array of objects that describe whether the velocity for a motor has exceeded safe thresholds, thus triggering a hazard state for that motor. The contents of this property are still under implementation, and the `excessiveSpeedHazard` state is not yet enabled for Misty's head and arm motors. Currently, the system only engages this hazard state when it detects the robot turning at speeds greater than 100 degrees per second. This can sometimes happen as the result of the drive system losing communication with the IMU sensor.
 
@@ -1276,15 +1276,20 @@ A `TimeOfFlight` event message includes the following key/value pairs:
 * `type` - A string value indicating whether this message comes from a `Range` or `Edge` time-of-flight sensor. See the [Time-of-Flight Sensor Details](./#time-of-flight-sensor-details) table for a list of which sensors belong in each category.
 
 ```JSON
-// Example message from right front ToF sensor
+// Example message from Misty's front-right "edge" time-of-flight sensor
 {
   "eventName": "TimeOfFlight",
   "message": {
-    "created": "2019-08-22T20:29:30.7786174Z",
-    "distanceInMeters": 0.19,
-    "sensorId": "toffr",
+    "averageTimeMs": 31,
+    "created": "2019-12-18T18:37:17.3061319Z",
+    "distanceInMeters": 0.027,
+    "inHazard": false,
+    "sensorId": "tofdfr",
+    "sensorPosition": "DownFrontRight",
+    "sigma": null,
+    "signal": 18392,
     "status": 0,
-    "type": "Range"
+    "type": "Edge"
   }
 }
 ```
@@ -1455,6 +1460,32 @@ TouchSensor{
     },
     "type":"TouchSensor"
  }
+```
+## VoiceRecord
+
+The `VoiceRecord` event type provides information about the speech capture recordings that Misty creates with the `CaptureSpeech` or `StartKeyphraseRecognition` commands. `VoiceRecord` events trigger after the completion of a speech capture attempt.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This event type is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+`VoiceRecord` event messages include the following properties:
+
+* success (bool) - Whether Misty successfully detected speech and captured a distinct speech recording within the parameters you defined in the correlated `CaptureSpeech` or `StartKeyPhraseRecognition` command.
+* errorCode (int) - A number associated with a specific error that prevented Misty from creating a captured speech recording. The `ErrorMessage` property of this event type holds the message associated with this code. The value of the `errorCode` property is `"none"` if Misty successfully created a recording with captured speech.
+* filename (string) - The filename the system used to save the captured speech recording. 
+* errorMessage (string) - A message with more detailed information about what may have prevented the successful creation of a speech recording. 
+
+```JSON
+{
+  "eventName":"VoiceRecord",
+  "message": {
+    "errorCode":0,
+    "errorMessage":"Detected end of voice command.",
+    "filename":"capture_HeyMisty.wav",
+    "success":true
+  }
+}
 ```
 
 ## WorldState

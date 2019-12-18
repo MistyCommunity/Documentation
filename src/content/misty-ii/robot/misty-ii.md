@@ -133,6 +133,7 @@ Misty II exhibits certain behaviors that override commands she receives from ski
 
 The following chest LED notifications are enabled by default. You can turn them off by sending a request to the [`SetNotificationSettings`](../../../misty-ii/rest-api/api-reference/#setnotificationsettings) endpoint in Misty's REST API.
 
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED blinks blue.
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
 * **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
   * When the face detection phase of the training process is complete, the LED turns green.
@@ -160,7 +161,7 @@ In addition to protecting your robot from harm, the hazards system sends an even
 
 By default, Misty's bump and time-of-flight sensors put the robot into a hazard state in the following circumstances:
 * when her edge time-of-flight sensors detect a drop distance of 0.06 meters (60 mm) or greater in the direction she is moving.
-* when her range time-of-flight sensors detect an obstacle 0.15 meters (150 mm) or closer in the direction she is moving.
+* when her range time-of-flight sensors detect an obstacle 0.215 meters (215 mm) or closer in the direction she is moving.
 * when one of her bump sensors becomes activated, indicating she has collided with an object.
 
 When Misty detects an obstacle or an edge, she ignores any commands that would move her in the direction of the sensors that are in a hazard state. For example, when Misty is driving forward, she stops driving if one or more of the following happens:
