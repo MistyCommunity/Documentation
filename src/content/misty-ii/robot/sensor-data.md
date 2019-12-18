@@ -1456,6 +1456,32 @@ TouchSensor{
     "type":"TouchSensor"
  }
 ```
+## VoiceRecord
+
+The `VoiceRecord` event type provides information about the speech capture recordings that Misty creates with the `CaptureSpeech` or `StartKeyphraseRecognition` commands. `VoiceRecord` events trigger after the completion of a speech capture attempt.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This event type is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+`VoiceRecord` event messages include the following properties:
+
+* success (bool) - Whether Misty successfully detected speech and captured a distinct speech recording within the parameters you defined in the correlated `CaptureSpeech` or `StartKeyPhraseRecognition` command.
+* errorCode (int) - A number associated with a specific error that prevented Misty from creating a captured speech recording. The `ErrorMessage` property of this event type holds the message associated with this code. The value of the `errorCode` property is `"none"` if Misty successfully created a recording with captured speech.
+* filename (string) - The filename the system used to save the captured speech recording. 
+* errorMessage (string) - A message with more detailed information about what may have prevented the successful creation of a speech recording. 
+
+```JSON
+{
+  "eventName":"VoiceRecord",
+  "message": {
+    "errorCode":0,
+    "errorMessage":"Detected end of voice command.",
+    "filename":"capture_HeyMisty.wav",
+    "success":true
+  }
+}
+```
 
 ## WorldState
 
