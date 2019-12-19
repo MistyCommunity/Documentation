@@ -945,7 +945,12 @@ misty.MoveArmRadians("left", -1.5708, 50);
 
 ### misty.MoveHead
 
-Moves Misty's head in one of three axes (tilt, turn, or up-down).
+Moves Misty's head to a new position along its pitch, roll, and yaw axes.
+
+```JavaScript
+// Syntax
+misty.MoveHead(double pitch, double roll, double yaw, double velocity, [double duration], [string units], [int prePauseMs], [int postPauseMs]);
+```
 
 **Value Ranges for Each Axis of Movement**
 
@@ -957,12 +962,18 @@ Moves Misty's head in one of three axes (tilt, turn, or up-down).
 
 For more information about the range of movement in each direction, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must pass in a value for either the `duration` OR the `velocity` argument. If you pass in values for both arguments, or if you pass in values for neither arguments, the system throws an exception.
+{{box op="end"}}
+
 Arguments
 
 - pitch (double) - Value that determines the up or down movement of Misty's head movement.
 - roll (double) - Value that determines the tilt ("ear" to "shoulder") of Misty's head. Misty's head will tilt to the left or right.
 - yaw (double) - Number that determines the turning of Misty's head. Misty's head will turn left or right.
 - velocity (double) - Optional. The percentage of max velocity that indicates how quickly Misty should move her head. Value range: 0 to 100. Defaults to 10.
+- duration (double) - Optional. Time (in seconds) Misty takes to move her head from its current position to its new position.
+- units (string) -  Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's head. Defaults to `degrees`.
 - prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -1477,6 +1488,78 @@ Arguments
 misty.CancelFaceTraining();
 ```
 
+### misty.CaptureSpeech
+
+Starts capturing speech in a new audio recording. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+```js
+// Syntax
+
+misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+*   OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (Note that Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is `true`, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* callback (string) - Optional. The name of the callback function to call when Misty starts capturing speech. If empty, a callback function with the default name (`_CaptureSpeech()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+*   skillToCall (string) - Optional. The unique ID of the skill to trigger for the callback function, if the callback is not defined in the current skill.
+*   prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+*   postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+// This sample illustrates using speech capture in a JavaScript skill
+
+/* Event Listeners */
+
+// Registers a listener for VoiceRecord event messages, and adds return
+// properties to event listener so that we get all this data in the
+// _VoiceRecord callback.
+misty.AddReturnProperty("VoiceRecord", "Filename");
+misty.AddReturnProperty("VoiceRecord", "Success");
+misty.AddReturnProperty("VoiceRecord", "ErrorCode");
+misty.AddReturnProperty("VoiceRecord", "ErrorMessage");
+misty.RegisterEvent("VoiceRecord", "VoiceRecord", 10, false);
+
+// Misty starts listening for key phrase. When recognized, Misty
+// starts a new speech recording.
+misty.CaptureSpeech(true);
+
+/* Callbacks */
+
+// Triggers when Misty finishes capturing a speech recording
+function _VoiceRecord(data) {
+   // Get data from AdditionalResults array
+   var filename = data.AdditionalResults[0];
+   var success = data.AdditionalResults[1];
+   var errorCode = data.AdditionalResults[2];
+   var errorMessage = data.AdditionalResults[3];
+
+   // If speech capture is successful, tell us and play the recording
+   if (success = true) {
+      misty.Debug("Successfully captured speech! Listen closely...")
+      misty.PlayAudio(filename);
+   }
+   // Otherwise, print the error message
+   else {
+      misty.Debug("Error: " + errorCode + ". " + errorMessage);
+   }
+}
+```
+
 ### misty.ForgetFaces
 
 Removes records of trained faces from Misty's memory.
@@ -1582,69 +1665,105 @@ misty.StartFaceTraining("My_Face");
 
 ### misty.StartKeyPhraseRecognition
 
-Starts Misty listening for the "Hey, Misty!" key phrase. When Misty hears the key phrase, the system sends a message to [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event listeners. Misty is only configured to recognize the "Hey, Misty" key phrase, and at this time you can't teach her to respond to other key phrases.
+Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note** 
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` argument.
 
-* When you call the `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model (in this case, "Hey, Misty!"). Misty does **not** create or save audio recordings while listening for the key phrase.
-* To have Misty record what you say (for example, if you want to use speech to invoke other actions), you need to send a `misty.StartRecordingAudio()` command after receiving a `KeyPhraseRecognized` event message. You can then do something with that audio file in your code, like hand it off to a third-party service for additional processing.
-* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Sending a command to [start recording audio](./#misty-startrecordingaudio) automatically stops key phrase recognition. To have Misty start listening for the key phrase after recording an audio file, you must issue another `misty.StartKeyPhraseRecognition()` command.
-{{box op="end"}}
+There are two event types associated with key phrase recognition:
 
-Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
-1. Invoke the `misty.StartKeyPhraseRecognition()` command.
-2. Register for `KeyPhraseRecognized` events. When Misty hears the key phrase, she sends a message to `KeyPhraseRecognized` event listeners.
-3. Write the code to handle what Misty should do when she hears the key phrase inside the `KeyPhrasedRecognized` event callback. For example, you might have Misty turn to face you or start recording audio to hand off to a third-party service for additional processing.
+* Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
+* Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `misty.StartKeyPhraseRecognition()` command.
-{{box op="end"}}
-
-```JavaScript
+```js
 // Syntax
-misty.StartKeyPhraseRecognition([int prePauseMs], [int postPauseMs]);
+
+misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
 
+* captureSpeech (bool) - Optional. If `true`, Misty starts recording speech after recognizing the "Hey, Misty" key phrase. By default, Misty saves speech recordings under the filename `capture_heymisty.wav`. Defaults to `true`.
+* overwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the filename `capture_heymisty.wav`. If false, Misty saves the speech recording under a unique, timestamped filename: `capture_heymisty_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* maxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* silenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* callback (string) - Optional. The name of the callback function to call when Misty successfully invokes the `StartKeyPhraseRecognition` command. If empty, a callback function with the default name (`_StartKeyPhraseRecognition()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are "synchronous", "override", and "abort". Defaults to "synchronous". For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique ID of the skill to trigger for the callback function, if the callback is not defined in the current skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-As an example of how to use this functionality in your skill code, the following has Misty play a sound and wave when she hears the key phrase.
+```js
+// Example
 
-```JavaScript
-StartKeyPhraseRecognition();
+// The following illustrates how to use key phrase recognition in a
+// JavaScript skill for Misty II
 
-function StartKeyPhraseRecognition() {
-   misty.Debug("Starting key phrase recognition...");
-   // Starts Misty listening for the "Hey, Misty" key phrase
-   misty.StartKeyPhraseRecognition();
-   // Registers for KeyPhraseRecognized events
-	misty.RegisterEvent("KeyPhraseRecognized","KeyPhraseRecognized", 10, false);
-	misty.Debug("KeyPhraseRecognition started. Misty will play a sound and wave when she hears 'Hey Misty'.");
-}
+/* Event Listeners */
 
-// Callback function to execute when Misty hears the key phrase
+// Registers a listener for VoiceRecord event messages, and adds return
+// properties to event listener so that we get all this data in the
+// _VoiceRecord callback.
+misty.AddReturnProperty("VoiceRecord", "Filename");
+misty.AddReturnProperty("VoiceRecord", "Success");
+misty.AddReturnProperty("VoiceRecord", "ErrorCode");
+misty.AddReturnProperty("VoiceRecord", "ErrorMessage");
+misty.RegisterEvent("VoiceRecord", "VoiceRecord", 10, false);
+
+// Registers a listener for KeyPhraseRecognized event messages
+misty.RegisterEvent("KeyPhraseRecognized", "KeyPhraseRecognized", 10, false);
+
+misty.StartKeyPhraseRecognition();
+
+/* Callbacks */
+
+// Triggers when misty hears the key phrase
 function _KeyPhraseRecognized() {
-   waveRightArm();
-   misty.Debug("Key phrase recognized!");
-   misty.Debug("Audio recording stopped. Starting key phrase recognition again...");
-   // Starts Misty listening for the key phrase again
-   StartKeyPhraseRecognition();
+   misty.Debug("Key phrase recognized! Now listening for speech.");
 }
 
-// Helper function to wave Misty's arm
-function waveRightArm() {
-   misty.MoveArmDegrees("left", 90, 45); // Left arm fully down
-   misty.Pause(50);
-   misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
-   misty.Pause(50); // Pause for 3 seconds
-   misty.MoveArmDegrees("right", -45, 45); // Right arm fully up
-   misty.Pause(7000); // Pause with arm up for 5 seconds (wave!)
-   misty.MoveArmDegrees("right", 90, 45); // Right arm fully down
+// Triggers when Misty starts listening for the key phrase 
+function _StartKeyPhraseRecognition() {
+   misty.Debug("Now listening for the key phrase.");
+}
+
+// Triggers when Misty finishes capturing a speech recording
+function _VoiceRecord(data) {
+   // Get data from AdditionalResults array
+   var filename = data.AdditionalResults[0];
+   var success = data.AdditionalResults[1];
+   var errorCode = data.AdditionalResults[2];
+   var errorMessage = data.AdditionalResults[3];
+
+   // If speech capture is successful, tell us and play the recording
+   if (success = true) {
+      misty.Debug("Successfully captured speech! Listen closely...")
+      misty.PlayAudio(filename);
+   }
+   // Otherwise, print the error message
+   else {
+      misty.Debug("Error: " + errorCode + ". " + errorMessage);
+   }
 }
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes**
+
+* When you issue a `misty.StartKeyPhraseRecognition()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model ("Hey, Misty!"). Misty does **not** create or save audio recordings until **after** she recognizes the key phrase.
+* Because Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time, she stops listening for the key phrase when issued a separate command to start recording audio. To have Misty start listening for the key phrase after capturing speech, you must issue another `misty.StartKeyPhraseRecognition()` command.
+* When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `,misty.StartKeyPhraseRecognition()` command.
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+
+1. Invoke the `misty.StartKeyPhraseRecognition()` command. If needed, use the optional parameters to configure Misty's speech capture settings.
+2. Register an event listener for `KeyPhraseRecognized` event messages to trigger a callback function when Misty recognizes the key phrase.
+3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
+4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
+{{box op="end"}}
 
 ### misty.StartRecordingAudio
 
@@ -2210,19 +2329,72 @@ misty.GetBatteryLevel();
 
 Returns
 
-* Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following properties:
-  * chargePercent (double)
-  * created (string)
-  * current (int)
-  * expiry (string)
+* Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
+  * chargePercent (double) - Decimal value representing current charge percent.
+  * created (string) - Timestamp that describes when the system created this message.
+  * current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
   * healthPercent (double)
-  * isCharging (bool)
-  * sensorId (string)
-  * sensorName (string)
-  * state (string)
+  * isCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * sensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * sensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
+  * state (string) - The charge state of the battery. Possible values are:
+    *  `Charging` (if battery is receiving current)
+    *  `Discharging` (if battery is losing current)
+    *  `Charged` (if battery is fully charged)
+    *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
+    *  `Fault` (can occur if the charger does not detect the battery)
   * temperature (int)
-  * trained (bool)
-  * voltage (double)
+  * trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * voltage (double) - The battery's voltage.
+
+### misty.GetCameraData
+
+Obtains current properties and settings for Misty's 4K camera.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetCameraData()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+{{box op="end"}}
+
+```JavaScript
+// Syntax
+misty.GetCameraData([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_GetCameraData()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+// Requests camera data and passes it into _GetCameraDataCallback()
+misty.GetCameraData("_GetCameraDataCallback");
+
+// Handles response from GetCameraData command
+function _GetCameraDataCallback(data) {
+    // Log debug messages with values from GetCameraData response
+    misty.Debug("width: " + data.Result.Width)
+    misty.Debug("height: " + data.Result.Height)
+    misty.Debug("fpsActual: " + data.Result.FpsActual)
+    misty.Debug("fpsRequested: " + data.Result.FpsRequested)
+    misty.Debug("droppedFrames: " + data.Result.DroppedFrames)
+}
+```
+
+Return Values
+
+* Result (object) - An object with details about the current properties and settings for Misty's 4K camera.  With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
+  * droppedFrames (int) - Number of dropped frames.
+  * fpsActual (double) -  Actual frames per second.
+  * fpsRequested (double) - Requested frames per second.
+  * height (double) - Camera image height (in pixels).
+  * width (double) - Camera image width (in pixels).
 
 ### misty.GetDeviceInformation
 
@@ -2236,6 +2408,7 @@ misty.GetDeviceInformation([string callback], [string callbackRule = "synchronou
 ```
 
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
