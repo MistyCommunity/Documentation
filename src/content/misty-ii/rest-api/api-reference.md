@@ -1846,7 +1846,7 @@ Return Values
 
 Stops Misty listening for the "Hey, Misty!" key phrase.
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/stop
 
 Parameters
 
