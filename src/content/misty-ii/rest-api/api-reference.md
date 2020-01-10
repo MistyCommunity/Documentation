@@ -1673,6 +1673,184 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### Speak
+
+Misty speaks a string of text out loud. By default, Misty speaks in US English.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+
+The `Speak` command uses the text-to-speech (TTS) engine on Misty's 820 processor. At this time Misty's TTS engine supports a limited subset of [Speech Synthesis Markup Language (SSML) Version 1.0](https://www.w3.org/TR/2004/REC-speech-synthesis-20040907/). This includes support for the following SSML tags:
+
+**`<speak>`**
+
+The root SSML element. Required to engage SSML.
+
+**`<speak>` Supported Attributes**
+
+- `xml:lang`
+
+Example:
+
+```
+<speak>
+    How do you say <lang xml:lang=\"fr-FR\">Bonjour le monde</lang> in English?
+</speak>
+```
+
+**`<p>`**
+
+Represents a paragraph. Adds a pause at the end of a paragraph.
+
+**`<p>` Supported Attributes**
+
+- N/A
+
+Example:
+
+```
+<speak>                                         
+    <p>This is the first paragraph. There should be a pause after this text is spoken.</p>       
+    <p>This is the second paragraph.</p> 
+</speak>
+```
+
+**`<s>`**
+
+Represents a sentence. Provides strong breaks before and after the tag.
+
+**`<s>` Supported Attributes**
+
+- N/A
+
+Example:
+
+```
+<speak>
+  <s>This is a sentence</s>
+  <s>There should be a short pause before this second sentence</s>
+  This sentence ends with a period and should have the same pause.
+</speak>
+```
+
+**`<phoneme>`**
+
+Manually control the pronunciation of a single phoneme. Only supports IPA and XSAMPA phonetic alphabets.
+
+**`<phoneme>` Alphabets**
+
+- IPA
+  - Due to text encoding issues, some implementations that use IPA may not work. When this happens, you may try using XSAMPA instead.
+- XSAMPA
+
+
+
+**`<phoneme>` Supported Attributes**
+
+- `alphabet` (followed by alphabet type)
+- `ph` (`' '` and `\#` delimit multiple phonemes inside the `ph` attribute)
+
+Example:
+
+```
+<speak>
+  You say, <phoneme alphabet="ipa" ph="pɪˈkɑːn">pecan</phoneme>. 
+  I say, <phoneme alphabet="ipa" ph="ˈpi.kæn">pecan</phoneme>.
+</speak>
+```
+
+**`<break>`**
+
+Pauses speech.
+
+**`<break>` Supported Attributes**
+
+**Note:** Use one of these attributes, but not both.
+
+- `time`: milliseconds of pause
+- `strength`: 
+  - `none` = 0 ms
+  - `x-weak` = 100 ms
+  - `weak` = 300 ms
+  - `medium` = 600 ms
+  - `strong` = 1000 ms
+  - `x-strong` = 3000 ms
+  
+```
+<speak>
+  It's gonna be legen <break strength=\"x-strong\"/> wait for it <break strength=\"x-strong\"/> dary!
+</speak>
+```
+
+**`<prosody>`**
+Allows for adjusting pitch, rate and volume mid-speech.
+
+**`<prosody>` Supported Attributes**
+
+- `pitch`: Can use integer as percentage, or predefined values below.
+  - `x-low` = 50
+  - `low` = 75
+  - `medium` = 100
+  - `default` = 100 
+  - `high` = 150
+  - `x-high` = 200
+- `rate`: Can use integer as milliseconds or predefined values below.
+  - `x-slow` = 30 ms
+  - `slow` = 60 ms
+  - `medium` = 100 ms
+  - `default` = 100 ms
+  - `fast` = 250 ms
+  - `x-fast` = 500 ms
+- `volume`: Can use integer as percentage or predefined values below.
+  - `silent` = 0
+  - `x-low` = 25
+  - `low` = 70
+  - `medium` = 120
+  - `default` = 120
+  - `loud` = 300
+  - `x-loud` = 450
+
+Example:
+
+```
+<speak>
+  I can talk at different speeds.
+  <prosody rate=\"fast\">I can talk really fast</prosody>.
+  <prosody rate=\"x-slow\">Or I can talk really slow</prosody>.
+  I can talk at different volumes. 
+  This is the default volume.
+  <prosody volume=\"x-low\">I can whisper.</prosody>.
+  <prosody volume=\"x-loud\">Or I can yell!</prosody>
+</speak>
+```
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You can enqueue many `Speak` commands without interrupting the text that Misty is currently speaking out loud. Each `Speak` command is added to a queue, and Misty speaks enqueued text in order until she receives a `Speak` command with `Flush = true` (which clears all previous `Speak` commands from the queue).
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-addres&gt;/api/tts/speak
+
+Parameters
+
+* Text (string) - The text to speak, along with any relevant SSML tags to customize speech synthesis.
+* Flush (bool) - Optional. Whether to flush all previously enqueued `Speak` commands. Default is `false`.
+* UtteranceId (string) - Optional. The identifier for this instance of the `Speak` command. For use with additional features not yet implemented.
+
+```JSON
+{ 
+  "Text": "<speak>You say, <phoneme alphabet=\"XSAMPA\" ph=\"pI`kA:n\">pecan</phoneme>. I say, <phoneme alphabet=\"XSAMPA\" ph=\"pi.k{n\">pecan</phoneme>. </speak>",
+  "Flush": false,
+  "UtteranceId": "First"
+}
+```
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
 
 ### StartFaceDetection
 
