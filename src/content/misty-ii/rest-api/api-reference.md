@@ -2464,9 +2464,11 @@ Parameters
 
 Return Values
 * Result (object) - An object containing information about the robot, with the following fields.
-   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * androidHardwareId - The identification string for the Android hardware on this device.
+   * androidOSVersion - A string that identifies the version of Android installed on this robot. Includes labels for any applied scripts and patches.
+   * batteryLevel - An object with details about Misty's battery level. Includes the same key/value pairs as the [`GetBatteryLevel` response](https://docs.mistyrobotics.com/misty-ii/rest-api/api-reference/#getbatterylevel).
    * currentProfileName - The name of the network that the robot is on.
-   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * hardwareInfo - An object with hardware and firmware version information for Misty's Real Time Controller (RTC) board and Motor Controller (MC) board.
    * ipAddress - The IP address of the robot.
    * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
    * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
@@ -2477,6 +2479,119 @@ Return Values
    * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
    * serialNumber - The unique serial number for the robot.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
+
+Example response:
+
+```JSON
+{
+  "result": {
+    "androidHardwareId": "2d41343ad7a9c631",
+    "androidOSVersion": "OpenQ820_O_v4.1-OPM1.171019.026-scripts1.0.1-patch1.0.5",
+    "batteryLevel": {
+      "chargePercent": 1,
+      "created": "2020-01-10T20:31:40.5321323Z",
+      "current": -0.431,
+      "healthPercent": 0.37,
+      "isCharging": false,
+      "sensorId": "charge",
+      "state": "Charged",
+      "temperature": 0,
+      "trained": true,
+      "voltage": 8.303
+    },
+    "currentNetworkId": 0,
+    "currentProfileName": "DiamondMondays",
+    "hardwareInfo": {
+      "rtcBoard": {
+        "boardId": "622607-540160565",
+        "firmware": "1.9.2.171",
+        "hardware": "75.0"
+      },
+      "mcBoard": {
+        "boardId": "3407904-540488760",
+        "firmware": "1.9.2.171",
+        "hardware": "74.0"
+      }
+    },
+    "ipAddress": "192.168.7.183",
+    "networkConnectivity": "InternetAccess",
+    "occipitalDeviceInfo": {
+      "occipitalDriverVersion": null,
+      "occipitalFirmwareVersion": null,
+      "occipitalSerialNumber": null
+    },
+    "outputCapabilities": {
+      "locomotion": "VyExVx",
+      "actuator_HeadYaw": "2ABzJD",
+      "actuator_HeadPitch": "Awb61F",
+      "/Robot/DriveRaw/": "3nQDqK",
+      "actuator_HeadRoll": "QSygCx",
+      "actuator_RightArm": "dYV1Vt",
+      "/Robot/HardwareController/": "v1wxLR",
+      "actuator_LeftArm": "NBQEA0",
+      "/Robot/AudioPlayback/speaker": "uDbbHh",
+      "illumination": "KGBxV2",
+      "/Robot/HdtDrive/": "KSV8O7",
+      "resetImu": "a8RSHl",
+      "/Robot/Display": "GHZjI7",
+      "flashlight": "fi1CLM",
+      "/Robot/TorsoRaw/": "VvNiY3",
+      "halt": "y8arjY",
+      "messageStream": "DypFfI",
+      "user1": "QUZZTJ",
+      "locomotionTrack": "a4Sia0",
+      "firmwareConfiguration": "a7nu1I",
+      "user2": "XXMSQe"
+    },
+    "robotId": "00A0C633B7CC-00800F117000~2d41343ad7a9c631~622607-540160565~3407904-540488760~x",
+    "robotVersion": "1.9.2.10155",
+    "sensorCapabilities": {
+      "toF_Right": "toffr",
+      "toF_Left": "toffl",
+      "actuator_HeadYaw": "ahy",
+      "actuator_HeadPitch": "ahp",
+      "toF_DownBackRight": "tofdrr",
+      "/Sensors/RTC/BatteryCharge": "charge",
+      "currentSensor_HeadRoll": "cshr",
+      "currentSensor_LeftArm": "csla",
+      "currentSensor_RightTrack": "csrt",
+      "actuator_HeadRoll": "ahr",
+      "/Sensors/RTC/IMU": "imu",
+      "actuator_RightArm": "ara",
+      "bump_RearRight": "brr",
+      "/Sensors/HardwareInfo/RtcBoard": "RtcBoard",
+      "/Sensors/RTC/FirmwareLoggingReceiver": "fwlrec",
+      "toF_DownFrontLeft": "tofdfl",
+      "actuator_LeftArm": "ala",
+      "hazardNotificationSensor": "hzrd",
+      "/Sensors/HardwareInfo/McBoard": "McBoard",
+      "/Sensors/OccipitalSlam": "slam",
+      "hallucinated_OnlyOne": "hallucinated",
+      "/Sensors/Microphone": "mic",
+      "/Sensors/CapTouch": "cap",
+      "currentSensor_LeftTrack": "cslt",
+      "/Sensors/Pru": "pru",
+      "currentSensor_HeadYaw": "cshy",
+      "/Sensors/StringSensor": "string",
+      "bump_FrontRight": "bfr",
+      "toF_Back": "tofr",
+      "driveEncoders": "enc",
+      "toF_Center": "toffc",
+      "bump_RearLeft": "brl",
+      "bump_FrontLeft": "bfl",
+      "toF_DownFrontRight": "tofdfr",
+      "toF_DownBackLeft": "tofdrl",
+      "currentSensor_RightArm": "csra",
+      "currentSensor_HeadPitch": "cshp",
+      "cV_4k": "cv"
+    },
+    "sensoryServiceAppVersion": "1.9.2",
+    "serialNumber": "20193402645",
+    "windowsOSVersion": "10.0.17763.253"
+  },
+  "status": "Success"
+}
+```
 
 ### GetHelp
 

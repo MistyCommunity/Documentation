@@ -2423,9 +2423,11 @@ misty.GetDeviceInformation();
 Returns
 
 * Result (object) - An object containing information about the robot, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * androidHardwareId - The identification string for the Android hardware on this device.
+   * androidOSVersion - A string that identifies the version of Android installed on this robot. Includes labels for any applied scripts and patches.
+   * batteryLevel - An object with details about Misty's battery level. Includes the same key/value pairs as the [`GetBatteryLevel` response](https://docs.mistyrobotics.com/misty-ii/rest-api/api-reference/#getbatterylevel).
    * currentProfileName - The name of the network that the robot is on.
-   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * hardwareInfo - An object with hardware and firmware version information for Misty's Real Time Controller (RTC) board and Motor Controller (MC) board.
    * ipAddress - The IP address of the robot.
    * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
    * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
