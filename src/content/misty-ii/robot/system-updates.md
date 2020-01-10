@@ -40,9 +40,20 @@ You can check the software versions on your Misty by sending a request to the en
 
 ## Release History
 
-### 2019.12.17
+### 2020.01.09
 
 This is the current version of Misty's software.
+
+* [2020.01.09 Release Notes](https://community.mistyrobotics.com/t/2020-01-09-system-update/2423)
+
+| Device Information  | Misty II |  Misty I |
+|---|---|---|
+| `robotVersion`  | 1.9.2.10155  |  1.1.14.0 |
+| `hardwareInfo.mcBoard.firmware`  | 1.9.2.171 |  1.1.14.3 |
+| `hardwareInfo.rtcBoard.firmware` | 1.9.2.171 |  1.1.14.3 |
+| `sensoryServicesAppVersion`  | 1.9.2 |  1.1.14.3 |
+
+### 2019.12.17
 
 * [2019.12.17 Release Notes](https://community.mistyrobotics.com/t/2019-12-17-system-update/2380)
 
