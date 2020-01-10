@@ -1490,7 +1490,7 @@ misty.CancelFaceTraining();
 
 ### misty.CaptureSpeech
 
-Starts capturing speech in a new audio recording. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
 
@@ -1665,7 +1665,7 @@ misty.StartFaceTraining("My_Face");
 
 ### misty.StartKeyPhraseRecognition
 
-Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` argument.
 

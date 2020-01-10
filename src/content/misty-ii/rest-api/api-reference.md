@@ -1601,7 +1601,7 @@ Return Values
 
 ### CaptureSpeech
 
-Starts capturing speech in a new audio recording. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
 
@@ -2975,7 +2975,7 @@ Misty's default hardware notification settings are as follows:
 * **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
 
 **LED Notifications**
-* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED blinks blue.
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED pulses blue.
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
 * **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
   * When the face detection phase of the training process is complete, the LED turns green.
