@@ -2866,50 +2866,46 @@ Return Values
 
 ### GetLogLevel
 
-Obtains Misty's current log level.
+Obtains the current local and remote log level.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how Misty's log level determines where different message types are published.
+These log levels determine where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how the log level determines where different message types are published.
 
-If Misty's log level is set to `Debug`:
+If the log level is set to `Debug`:
 
-| Message Type: | Logged Locally | Logged Remotely |
+| Message Type: | Local Logs | Remote Logs |
 |--------|:------------:|:-------------:|
 | Debug  |    &#x2713;      |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
 
-If Misty's log level is set to `Info`:
+If the log level is set to `Info`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
+| Debug  |          |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
- If Misty's log level is set to `Warn`:
+ If the log level is set to `Warn`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
-| Info   |     &#x2713;     |              |
+| Debug  |          |             |
+| Info   |          |              |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
- If Misty's log level is set to `Error`:
+ If the log level is set to `Error`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:-----------:|:------------:|
-| Debug  |    &#x2713;      |              |
-| Info   |    &#x2713;      |              |
-| Warn   |    &#x2713;      |              |
+| Debug  |          |              |
+| Info   |          |              |
+| Warn   |          |              |
 | Error  |    &#x2713;      |&#x2713;             |
-| Remote |    &#x2713;      |&#x2713;             |
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/logs/level
 
@@ -2919,7 +2915,19 @@ Parameters
 
 Return Values
 
-* result (string) - A string value indicating the robot's current log level.
+* result (string) - A an object with values indicating the current remote and local log levels. Includes the following key/value pairs:
+  *  `local` (string) - The current local log level.
+  *  `remote` (string) - The current remote log level.
+
+```json
+{
+ "result": {
+  "local": "Debug",
+  "remote": "Info"
+ },
+ "status": "Success"
+}
+```
 
 ### GetSlamServiceEnabled
 
@@ -3073,57 +3081,65 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's remote logging level. Use this to determine which messages the system writes to the remote logging database owned by Misty Robotics. The purpose of collecting this data is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
 
 Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
 
-* **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are written locally but never remotely, and are flagged in Misty's local log file with the `DBG` label.
+* **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.
 * **Warn** messages include details about issues the system is able to recover from on its own, without requiring user intervention. In Misty's local log file, Warn-type messages are flagged with the `WRN` label.
 * **Error** messages include information the system writes when it encounters an issue that it cannot recover from or handle gracefully. They may also include an exception message. In Misty's local log file, Error-type messages are flagged with the `ERR` label.
 
-Each logged statement includes a timestamp, a flag indicating the level of the message, the serial number for the robot that created the statement, and a label indicating which part of the system sent the message. In addition to these details, the system always logs the following information remotely, regardless of the log level you set:
+Each logged statement includes a timestamp, a flag indicating the level of the message, the serial number for the robot that created the statement, and a label indicating which part of the system sent the message. In addition to these details, the system always logs the following information remotely for each log message, regardless of the log level you set:
 * Product SKU
 * Robot serial number (unique for each Misty II robot)
 * The robot's "friendly name"
 * Version details about the software and firmware installed on the robot
 
-**Note:** The system always writes every type of message (Debug, Info, Warn, and Error) to Misty's local log file, regardless of the robot's remote log level. The log level you set with this command does not persist across reboots. Misty sets her log level to Debug each time she boots up.
+You can use the following options to set Misty's log level: `Debug`, `Info`, `Warn`, `Error`, or `None`. Note that Misty does not log Debug-type messages remotely. Setting the remote log level to Debug or Info is effectively the same.
 
-You can use the following options to set Misty's log level: `Debug`, `Info`, `Warn`, or `Error`. Note that when the log level is set to Debug, Misty does not log Debug-type messages remotely; setting the level to Debug or Info is effectively the same.
+If the log level is set to `Debug`:
 
-If Misty's log level is set to `Debug` or `Info`:
-
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
 | Debug  |    &#x2713;      |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
 
- If Misty's log level is set to `Warn`:
+If the log level is set to `Info`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
-| Info   |     &#x2713;     |              |
+| Debug  |          |             |
+| Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
 
- If Misty's log level is set to `Error`:
+ If the log level is set to `Warn`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
+|--------|:------------:|:-------------:|
+| Debug  |          |             |
+| Info   |          |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+
+ If the log level is set to `Error`:
+
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:-----------:|:------------:|
-| Debug  |    &#x2713;      |              |
-| Info   |    &#x2713;      |              |
-| Warn   |    &#x2713;      |              |
+| Debug  |          |              |
+| Info   |          |              |
+| Warn   |          |              |
 | Error  |    &#x2713;      |&#x2713;             |
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/logs/level
 
 Parameters:
 
-* LogLevel (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`.
+* LocalLogLevel (string) - The level to set for Misty's local logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
+* RemoteLogLevel (string) - The level to set for Misty's remote logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
 
 Return Values
 
