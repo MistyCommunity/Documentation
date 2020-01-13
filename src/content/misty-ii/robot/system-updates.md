@@ -56,6 +56,7 @@ This is the current version of Misty's software.
 ### 2019.12.17
 
 * [2019.12.17 Release Notes](https://community.mistyrobotics.com/t/2019-12-17-system-update/2380)
+* View the [developer documentation](https://docs.mistyrobotics.com/v1.8.4.10075) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
