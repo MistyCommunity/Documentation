@@ -1601,7 +1601,7 @@ Return Values
 
 ### CaptureSpeech
 
-Starts capturing speech in a new audio recording. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
 
@@ -1673,6 +1673,184 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### Speak
+
+Misty speaks a string of text out loud. By default, Misty speaks in US English.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+
+The `Speak` command uses the text-to-speech (TTS) engine on Misty's 820 processor. At this time Misty's TTS engine supports a limited subset of [Speech Synthesis Markup Language (SSML) Version 1.0](https://www.w3.org/TR/2004/REC-speech-synthesis-20040907/). This includes support for the following SSML tags:
+
+**`<speak>`**
+
+The root SSML element. Required to engage SSML.
+
+**`<speak>` Supported Attributes**
+
+- `xml:lang`
+
+Example:
+
+```
+<speak>
+    How do you say <lang xml:lang=\"fr-FR\">Bonjour le monde</lang> in English?
+</speak>
+```
+
+**`<p>`**
+
+Represents a paragraph. Adds a pause at the end of a paragraph.
+
+**`<p>` Supported Attributes**
+
+- N/A
+
+Example:
+
+```
+<speak>                                         
+    <p>This is the first paragraph. There should be a pause after this text is spoken.</p>       
+    <p>This is the second paragraph.</p> 
+</speak>
+```
+
+**`<s>`**
+
+Represents a sentence. Provides strong breaks before and after the tag.
+
+**`<s>` Supported Attributes**
+
+- N/A
+
+Example:
+
+```
+<speak>
+  <s>This is a sentence</s>
+  <s>There should be a short pause before this second sentence</s>
+  This sentence ends with a period and should have the same pause.
+</speak>
+```
+
+**`<phoneme>`**
+
+Manually control the pronunciation of a single phoneme. Only supports IPA and XSAMPA phonetic alphabets.
+
+**`<phoneme>` Alphabets**
+
+- IPA
+  - Due to text encoding issues, some implementations that use IPA may not work. When this happens, you may try using XSAMPA instead.
+- XSAMPA
+
+
+
+**`<phoneme>` Supported Attributes**
+
+- `alphabet` (followed by alphabet type)
+- `ph` (`' '` and `\#` delimit multiple phonemes inside the `ph` attribute)
+
+Example:
+
+```
+<speak>
+  You say, <phoneme alphabet="ipa" ph="pɪˈkɑːn">pecan</phoneme>. 
+  I say, <phoneme alphabet="ipa" ph="ˈpi.kæn">pecan</phoneme>.
+</speak>
+```
+
+**`<break>`**
+
+Pauses speech.
+
+**`<break>` Supported Attributes**
+
+**Note:** Use one of these attributes, but not both.
+
+- `time`: milliseconds of pause
+- `strength`: 
+  - `none` = 0 ms
+  - `x-weak` = 100 ms
+  - `weak` = 300 ms
+  - `medium` = 600 ms
+  - `strong` = 1000 ms
+  - `x-strong` = 3000 ms
+  
+```
+<speak>
+  It's gonna be legen <break strength=\"x-strong\"/> wait for it <break strength=\"x-strong\"/> dary!
+</speak>
+```
+
+**`<prosody>`**
+Allows for adjusting pitch, rate and volume mid-speech.
+
+**`<prosody>` Supported Attributes**
+
+- `pitch`: Can use integer as percentage, or predefined values below.
+  - `x-low` = 50
+  - `low` = 75
+  - `medium` = 100
+  - `default` = 100 
+  - `high` = 150
+  - `x-high` = 200
+- `rate`: Can use integer as milliseconds or predefined values below.
+  - `x-slow` = 30 ms
+  - `slow` = 60 ms
+  - `medium` = 100 ms
+  - `default` = 100 ms
+  - `fast` = 250 ms
+  - `x-fast` = 500 ms
+- `volume`: Can use integer as percentage or predefined values below.
+  - `silent` = 0
+  - `x-low` = 25
+  - `low` = 70
+  - `medium` = 120
+  - `default` = 120
+  - `loud` = 300
+  - `x-loud` = 450
+
+Example:
+
+```
+<speak>
+  I can talk at different speeds.
+  <prosody rate=\"fast\">I can talk really fast</prosody>.
+  <prosody rate=\"x-slow\">Or I can talk really slow</prosody>.
+  I can talk at different volumes. 
+  This is the default volume.
+  <prosody volume=\"x-low\">I can whisper.</prosody>.
+  <prosody volume=\"x-loud\">Or I can yell!</prosody>
+</speak>
+```
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You can enqueue many `Speak` commands without interrupting the text that Misty is currently speaking out loud. Each `Speak` command is added to a queue, and Misty speaks enqueued text in order until she receives a `Speak` command with `Flush = true` (which clears all previous `Speak` commands from the queue).
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-addres&gt;/api/tts/speak
+
+Parameters
+
+* Text (string) - The text to speak, along with any relevant SSML tags to customize speech synthesis.
+* Flush (bool) - Optional. Whether to flush all previously enqueued `Speak` commands. Default is `false`.
+* UtteranceId (string) - Optional. The identifier for this instance of the `Speak` command. For use with additional features not yet implemented.
+
+```JSON
+{ 
+  "Text": "<speak>You say, <phoneme alphabet=\"XSAMPA\" ph=\"pI`kA:n\">pecan</phoneme>. I say, <phoneme alphabet=\"XSAMPA\" ph=\"pi.k{n\">pecan</phoneme>. </speak>",
+  "Flush": false,
+  "UtteranceId": "First"
+}
+```
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
 
 ### StartFaceDetection
 
@@ -1794,11 +1972,13 @@ Return Values
 
 ### StartRecordingVideo
 
-Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 x 1920 pixels.
+Starts recording video with Misty's 4K Camera.
 
-Use the `StopRecordingVideo` command to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `StopRecordingVideo`.
+Misty only saves the most recent video recording to her local storage. Misty saves videos with the filename `MistyVideo.mp4`, and overwrites this file with each new recording.
 
-Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Valid resolutions (as `Width` x `Height`) include: 4160 x 3120, 4000 x 3000, 3840 x 2160, 3264 x 2448, 3200 x 2400, 2976 x 2976, 2592 x 1944, 2688 x 1512, 2048 x 1536, 1920 x 1080,1600 x 1200, 1440 x 1080, 1280 x 960, 1280 x 768, 1280 x 720, 1200 x 1200, 1024 x 768,	800 x 600, 864 x 480,	800 x 480, 720 x 480,	640 x 480, 640 x 360,	480 x 640, 480 x 360,	480 x 320, 352 x 288, 320 x 240,	240 x 320, 176 x 144, 160 x 120, and 144 x 176     
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
@@ -1810,7 +1990,10 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 
 Parameters
 
-* None
+* Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`. 
+* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0` and less than `10`. Max duration is 10 seconds. If you do not specify a value, Misty automatically stops recording after 10 seconds, or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
+* Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. If you supply a value for `Width`, you must also supply a value for `Height`. See the note in the description of this command for valid resolutions.
+* Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. If you supply a value for `Height`, you must also supply a value for `Width`. See the note in the description of this command for valid resolutions.
 
 Return Values
 
@@ -2464,9 +2647,11 @@ Parameters
 
 Return Values
 * Result (object) - An object containing information about the robot, with the following fields.
-   * batteryLevel - The battery charge percentage (in decimal format) and the current battery voltage.
+   * androidHardwareId - The identification string for the Android hardware on this device.
+   * androidOSVersion - A string that identifies the version of Android installed on this robot. Includes labels for any applied scripts and patches.
+   * batteryLevel - An object with details about Misty's battery level. Includes the same key/value pairs as the [`GetBatteryLevel` response](https://docs.mistyrobotics.com/misty-ii/rest-api/api-reference/#getbatterylevel).
    * currentProfileName - The name of the network that the robot is on.
-   * hardwareInfo - Hardware and firmware version information for both the Real Time Controller board and the Motor Controller board. 
+   * hardwareInfo - An object with hardware and firmware version information for Misty's Real Time Controller (RTC) board and Motor Controller (MC) board.
    * ipAddress - The IP address of the robot.
    * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
    * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
@@ -2477,6 +2662,119 @@ Return Values
    * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
    * serialNumber - The unique serial number for the robot.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
+
+Example response:
+
+```JSON
+{
+  "result": {
+    "androidHardwareId": "2d41343ad7a9c631",
+    "androidOSVersion": "OpenQ820_O_v4.1-OPM1.171019.026-scripts1.0.1-patch1.0.5",
+    "batteryLevel": {
+      "chargePercent": 1,
+      "created": "2020-01-10T20:31:40.5321323Z",
+      "current": -0.431,
+      "healthPercent": 0.37,
+      "isCharging": false,
+      "sensorId": "charge",
+      "state": "Charged",
+      "temperature": 0,
+      "trained": true,
+      "voltage": 8.303
+    },
+    "currentNetworkId": 0,
+    "currentProfileName": "DiamondMondays",
+    "hardwareInfo": {
+      "rtcBoard": {
+        "boardId": "622607-540160565",
+        "firmware": "1.9.2.171",
+        "hardware": "75.0"
+      },
+      "mcBoard": {
+        "boardId": "3407904-540488760",
+        "firmware": "1.9.2.171",
+        "hardware": "74.0"
+      }
+    },
+    "ipAddress": "192.168.7.183",
+    "networkConnectivity": "InternetAccess",
+    "occipitalDeviceInfo": {
+      "occipitalDriverVersion": null,
+      "occipitalFirmwareVersion": null,
+      "occipitalSerialNumber": null
+    },
+    "outputCapabilities": {
+      "locomotion": "VyExVx",
+      "actuator_HeadYaw": "2ABzJD",
+      "actuator_HeadPitch": "Awb61F",
+      "/Robot/DriveRaw/": "3nQDqK",
+      "actuator_HeadRoll": "QSygCx",
+      "actuator_RightArm": "dYV1Vt",
+      "/Robot/HardwareController/": "v1wxLR",
+      "actuator_LeftArm": "NBQEA0",
+      "/Robot/AudioPlayback/speaker": "uDbbHh",
+      "illumination": "KGBxV2",
+      "/Robot/HdtDrive/": "KSV8O7",
+      "resetImu": "a8RSHl",
+      "/Robot/Display": "GHZjI7",
+      "flashlight": "fi1CLM",
+      "/Robot/TorsoRaw/": "VvNiY3",
+      "halt": "y8arjY",
+      "messageStream": "DypFfI",
+      "user1": "QUZZTJ",
+      "locomotionTrack": "a4Sia0",
+      "firmwareConfiguration": "a7nu1I",
+      "user2": "XXMSQe"
+    },
+    "robotId": "00A0C633B7CC-00800F117000~2d41343ad7a9c631~622607-540160565~3407904-540488760~x",
+    "robotVersion": "1.9.2.10155",
+    "sensorCapabilities": {
+      "toF_Right": "toffr",
+      "toF_Left": "toffl",
+      "actuator_HeadYaw": "ahy",
+      "actuator_HeadPitch": "ahp",
+      "toF_DownBackRight": "tofdrr",
+      "/Sensors/RTC/BatteryCharge": "charge",
+      "currentSensor_HeadRoll": "cshr",
+      "currentSensor_LeftArm": "csla",
+      "currentSensor_RightTrack": "csrt",
+      "actuator_HeadRoll": "ahr",
+      "/Sensors/RTC/IMU": "imu",
+      "actuator_RightArm": "ara",
+      "bump_RearRight": "brr",
+      "/Sensors/HardwareInfo/RtcBoard": "RtcBoard",
+      "/Sensors/RTC/FirmwareLoggingReceiver": "fwlrec",
+      "toF_DownFrontLeft": "tofdfl",
+      "actuator_LeftArm": "ala",
+      "hazardNotificationSensor": "hzrd",
+      "/Sensors/HardwareInfo/McBoard": "McBoard",
+      "/Sensors/OccipitalSlam": "slam",
+      "hallucinated_OnlyOne": "hallucinated",
+      "/Sensors/Microphone": "mic",
+      "/Sensors/CapTouch": "cap",
+      "currentSensor_LeftTrack": "cslt",
+      "/Sensors/Pru": "pru",
+      "currentSensor_HeadYaw": "cshy",
+      "/Sensors/StringSensor": "string",
+      "bump_FrontRight": "bfr",
+      "toF_Back": "tofr",
+      "driveEncoders": "enc",
+      "toF_Center": "toffc",
+      "bump_RearLeft": "brl",
+      "bump_FrontLeft": "bfl",
+      "toF_DownFrontRight": "tofdfr",
+      "toF_DownBackLeft": "tofdrl",
+      "currentSensor_RightArm": "csra",
+      "currentSensor_HeadPitch": "cshp",
+      "cV_4k": "cv"
+    },
+    "sensoryServiceAppVersion": "1.9.2",
+    "serialNumber": "20193402645",
+    "windowsOSVersion": "10.0.17763.253"
+  },
+  "status": "Success"
+}
+```
 
 ### GetHelp
 
@@ -2568,50 +2866,46 @@ Return Values
 
 ### GetLogLevel
 
-Obtains Misty's current log level.
+Obtains the current local and remote log level.
 
-Misty's log level determines where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how Misty's log level determines where different message types are published.
+These log levels determine where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how the log level determines where different message types are published.
 
-If Misty's log level is set to `Debug`:
+If the log level is set to `Debug`:
 
-| Message Type: | Logged Locally | Logged Remotely |
+| Message Type: | Local Logs | Remote Logs |
 |--------|:------------:|:-------------:|
 | Debug  |    &#x2713;      |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
 
-If Misty's log level is set to `Info`:
+If the log level is set to `Info`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
+| Debug  |          |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
- If Misty's log level is set to `Warn`:
+ If the log level is set to `Warn`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
-| Info   |     &#x2713;     |              |
+| Debug  |          |             |
+| Info   |          |              |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-| Remote |       &#x2713;   |   &#x2713;        |
 
- If Misty's log level is set to `Error`:
+ If the log level is set to `Error`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:-----------:|:------------:|
-| Debug  |    &#x2713;      |              |
-| Info   |    &#x2713;      |              |
-| Warn   |    &#x2713;      |              |
+| Debug  |          |              |
+| Info   |          |              |
+| Warn   |          |              |
 | Error  |    &#x2713;      |&#x2713;             |
-| Remote |    &#x2713;      |&#x2713;             |
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/logs/level
 
@@ -2621,7 +2915,19 @@ Parameters
 
 Return Values
 
-* result (string) - A string value indicating the robot's current log level.
+* result (string) - A an object with values indicating the current remote and local log levels. Includes the following key/value pairs:
+  *  `local` (string) - The current local log level.
+  *  `remote` (string) - The current remote log level.
+
+```json
+{
+ "result": {
+  "local": "Debug",
+  "remote": "Info"
+ },
+ "status": "Success"
+}
+```
 
 ### GetSlamServiceEnabled
 
@@ -2775,57 +3081,65 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's remote logging level. Use this to determine which messages the system writes to the remote logging database owned by Misty Robotics. The purpose of collecting this data is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
 
 Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
 
-* **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are written locally but never remotely, and are flagged in Misty's local log file with the `DBG` label.
+* **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.
 * **Warn** messages include details about issues the system is able to recover from on its own, without requiring user intervention. In Misty's local log file, Warn-type messages are flagged with the `WRN` label.
 * **Error** messages include information the system writes when it encounters an issue that it cannot recover from or handle gracefully. They may also include an exception message. In Misty's local log file, Error-type messages are flagged with the `ERR` label.
 
-Each logged statement includes a timestamp, a flag indicating the level of the message, the serial number for the robot that created the statement, and a label indicating which part of the system sent the message. In addition to these details, the system always logs the following information remotely, regardless of the log level you set:
+Each logged statement includes a timestamp, a flag indicating the level of the message, the serial number for the robot that created the statement, and a label indicating which part of the system sent the message. In addition to these details, the system always logs the following information remotely for each log message, regardless of the log level you set:
 * Product SKU
 * Robot serial number (unique for each Misty II robot)
 * The robot's "friendly name"
 * Version details about the software and firmware installed on the robot
 
-**Note:** The system always writes every type of message (Debug, Info, Warn, and Error) to Misty's local log file, regardless of the robot's remote log level. The log level you set with this command does not persist across reboots. Misty sets her log level to Debug each time she boots up.
+You can use the following options to set Misty's log level: `Debug`, `Info`, `Warn`, `Error`, or `None`. Note that Misty does not log Debug-type messages remotely. Setting the remote log level to Debug or Info is effectively the same.
 
-You can use the following options to set Misty's log level: `Debug`, `Info`, `Warn`, or `Error`. Note that when the log level is set to Debug, Misty does not log Debug-type messages remotely; setting the level to Debug or Info is effectively the same.
+If the log level is set to `Debug`:
 
-If Misty's log level is set to `Debug` or `Info`:
-
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
 | Debug  |    &#x2713;      |             |
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
 
- If Misty's log level is set to `Warn`:
+If the log level is set to `Info`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:------------:|:-------------:|
-| Debug  |    &#x2713;      |             |
-| Info   |     &#x2713;     |              |
+| Debug  |          |             |
+| Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
 
- If Misty's log level is set to `Error`:
+ If the log level is set to `Warn`:
 
-|    Message Type:    | Logged Locally    | Logged Remotely    |
+|    Message Type:    | Local Logs    | Remote Logs    |
+|--------|:------------:|:-------------:|
+| Debug  |          |             |
+| Info   |          |              |
+| Warn   |     &#x2713;     | &#x2713;          |
+| Error  |      &#x2713;    |  &#x2713;         |
+
+ If the log level is set to `Error`:
+
+|    Message Type:    | Local Logs    | Remote Logs    |
 |--------|:-----------:|:------------:|
-| Debug  |    &#x2713;      |              |
-| Info   |    &#x2713;      |              |
-| Warn   |    &#x2713;      |              |
+| Debug  |          |              |
+| Info   |          |              |
+| Warn   |          |              |
 | Error  |    &#x2713;      |&#x2713;             |
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/logs/level
 
 Parameters:
 
-* LogLevel (string) - The level to set the log to. Accepts `Debug`, `Info`, `Warn`, or `Error`.
+* LocalLogLevel (string) - The level to set for Misty's local logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
+* RemoteLogLevel (string) - The level to set for Misty's remote logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
 
 Return Values
 
@@ -2860,7 +3174,7 @@ Misty's default hardware notification settings are as follows:
 * **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
 
 **LED Notifications**
-* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED blinks blue.
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED pulses blue.
 * **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
 * **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
   * When the face detection phase of the training process is complete, the LED turns green.

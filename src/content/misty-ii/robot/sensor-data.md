@@ -1120,6 +1120,28 @@ ws.send(JSON.stringify(
 ws.close();
 ```
 
+## SkillSystemStateChange
+
+The system triggers a new `SkillSystemStateChange` event each time you add, start, stop, or remove a skill from the robot. Each `SkillSystemStateChange` message includes the following properties:
+
+
+* action - The action (`Initiatlized`, `Started`, `Stopped`, `Added`, or `Deleted`) that triggered the `SkillSystemStateChange` event. `Initialized` means the skill was loaded into the robot's skill system; `Started` means the skill started running; `Stopped` means the skill was cancelled; `Added` means the skill was added to the skill system; `Deleted` means the skill was removed from the robot.
+* guid - The unique GUID for the skill that triggered the `SkillSystemStateChange` event.
+* name - The name of the skill that triggered the `SkillSystemStateChange` event.
+* timestamp - When this event occurred.
+
+```JSON
+{
+  "eventName": "SkillSystemStateChange",
+  "message": {
+    "action": "Stopped",
+    "guid": "8426260c-2b6b-41e8-bd3f-2ca611a61774",
+    "name": "capTouch",
+    "timestamp": "2020-01-10T20:44:15.383797Z"
+  }
+}
+```
+
 ## SlamStatus
 
 Misty's `SlamStatus` event messages provide information about the current status of Misty's simultaneous localization and mapping (SLAM) system.
