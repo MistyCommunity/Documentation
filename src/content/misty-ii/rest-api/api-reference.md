@@ -382,6 +382,47 @@ Returns:
   * closedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
   * closedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
+```json
+{
+ "result": {
+  "blinkImages": {
+   "e_ApprehensionConcerned.jpg": "e_SystemBlinkStandard.jpg",
+   "e_EcstacyStarryEyed.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Fear.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Rage4.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Surprise.jpg": "e_SystemBlinkLarge.jpg",
+   "e_ContentLeft.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Joy2.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Terror.jpg": "e_SystemBlinkLarge.jpg",
+   "e_SystemCamera.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Anger.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Rage.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Rage3.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Love.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy2.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Joy.jpg": "e_SystemBlinkStandard.jpg",
+   "e_ContentRight.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Terror2.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Amazement.jpg": "e_SystemBlinkLarge.jpg",
+   "e_TerrorLeft.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Sleepy3.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Disoriented.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy4.jpg": "e_SystemBlinkStandard.jpg",
+   "e_JoyGoofy2.jpg": "e_SystemBlinkLarge.jpg",
+   "e_TerrorRight.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Sadness.jpg": "e_SystemBlinkStandard.jpg",
+   "e_DefaultContent.jpg": "e_SystemBlinkStandard.jpg"
+  },
+  "closedEyeMaxMs": 200,
+  "closedEyeMinMs": 100,
+  "openEyeMaxMs": 8000,
+  "openEyeMinMs": 1000
+ },
+ "status": "Success"
+}
+```
+
 Sample response data for a `GetBlinkSettings` request:
 
 ```JSON
