@@ -675,6 +675,32 @@ Arguments
 misty.SetBlinking(true);
 ```
 
+### misty.SetBlinkSettings
+
+Sets the duration that Misty's eyes stay open or closed while blinking. You can also use this command to add a blink mapping to an image asset. Optionally, reverts Misty's blink settings to their default configuration.
+
+```javascript
+// Syntax
+misty.SetBlinkSettings(bool revertToDefault, [int closedEyeMinMs], [int closedEyeMaxMs], [int openEyeMinMs], [int openEyeMaxMs], [string blinkImages], [int prePause], [int postPause])
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+Misty saves your custom blink settings to her local database, so there's no need to re-configure these settings each time she boots up.
+{{box op="end"}}
+
+Arguments
+
+* RevertToDefault (boolean) - Use `true` to revert Misty's blink settings to the default configuration. Use `false` to continue using your custom settings.
+* ClosedEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay closed while blinking.
+* ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
+* OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
+* OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
+* BlinkImages (string) - Optional. A stringified JSON object that assigns a blink mapping for one or more image assets.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.SetFlashlight
 
 Turns the LED flashlight on Misty's head on or off.
