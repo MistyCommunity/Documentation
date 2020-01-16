@@ -382,6 +382,47 @@ Returns:
   * closedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
   * closedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
+```json
+{
+ "result": {
+  "blinkImages": {
+   "e_ApprehensionConcerned.jpg": "e_SystemBlinkStandard.jpg",
+   "e_EcstacyStarryEyed.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Fear.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Rage4.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Surprise.jpg": "e_SystemBlinkLarge.jpg",
+   "e_ContentLeft.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Joy2.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Terror.jpg": "e_SystemBlinkLarge.jpg",
+   "e_SystemCamera.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Anger.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Rage.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Rage3.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Love.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy2.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Joy.jpg": "e_SystemBlinkStandard.jpg",
+   "e_ContentRight.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Terror2.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Amazement.jpg": "e_SystemBlinkLarge.jpg",
+   "e_TerrorLeft.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Sleepy3.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Disoriented.jpg": "e_SystemBlinkStandard.jpg",
+   "e_Sleepy4.jpg": "e_SystemBlinkStandard.jpg",
+   "e_JoyGoofy2.jpg": "e_SystemBlinkLarge.jpg",
+   "e_TerrorRight.jpg": "e_SystemBlinkLarge.jpg",
+   "e_Sadness.jpg": "e_SystemBlinkStandard.jpg",
+   "e_DefaultContent.jpg": "e_SystemBlinkStandard.jpg"
+  },
+  "closedEyeMaxMs": 200,
+  "closedEyeMinMs": 100,
+  "openEyeMaxMs": 8000,
+  "openEyeMinMs": 1000
+ },
+ "status": "Success"
+}
+```
+
 Sample response data for a `GetBlinkSettings` request:
 
 ```JSON
@@ -1425,6 +1466,33 @@ Return Values
 
 * result (boolean) - Returns `true` if no errors related to this command.
 
+### StartLocatingDockingStation
+
+Starts Misty locating the position and orientation (pose) of the docking station.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+To use information about the pose of Misty's docking station in your skills and robot applications, you must both issue a `StartLocatingDockingStation` command and register a listener for the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type. We do not recommend that you attempt to locate the docking station while Misty is actively creating a map.
+{{box op="end"}}
+
+When you issue a `StartLocatingDockingStation` command, Misty uses the right infrared (IR) camera in the depth sensor to locate the front four IR reflectors embedded in the docking station. The system uses the location of these reflectors to calculate the pose for the point on the docking station where Misty should be centered to receive the best charge.
+
+When Misty locates the station, `ChargerPoseMessage` event listeners receive relative pose data in the form of a column major homogeneous coordinate matrix. The right IR camera in Misty's depth sensor (from the robot's perspective) is the origin point for all docking station pose data. Read more about interpreting this data in the documentation for the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
+
+To get docking station pose, Misty must be between 0.5 and 2 meters away from the docking station. The robot should also be facing in the general direction of the docking station. The station should be inside a cone of +/- 45 degrees originating from the robot's right IR camera.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/start
+
+Parameters
+
+* startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
 ### StartMapping
 
 Starts Misty mapping an area.
@@ -1471,6 +1539,27 @@ Parameters
 - None
 
 Return Values
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopLocatingDockingStation
+
+Stops Misty locating the docking station.
+
+For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/stop
+
+Parameters
+
+* StopStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming enabled before the `StopLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't stop before these status checks complete, then the `StopLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* DisableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) enabled before the `StopLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StopLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+
+Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopMapping
@@ -3231,6 +3320,59 @@ Parameters
 Return Values
 
 * Results (bool) - Returns `true` if no errors related to this command.
+
+### StartWifiHotspot
+
+Starts Misty II broadcasting its own wireless network.
+
+This command lets you use Misty II as a soft access point, which is useful in environments with no local networks, or networks that Misty can't connect to (such as captive networks).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Follow these steps to use Misty as a WiFi hotspot:
+
+1. Boot up the robot.
+2. Issue a `StartWifiHotspot` command.
+3. Issue a [`GetDeviceInformation`](./#getdeviceinformation) command to access the network ID and password for Misty's access point. In the `GetDeviceInformation` response data, the network ID is stored in the `currentProfileName` field, and the password is stored in the `currentPreSharedKey` field. Use these credentials to connect your computer or another WiFi enabled device to Misty's access point.
+4. Use Misty's standard IP address - `192.168.43.1` - to connect to the robot and issue commands from your connected device.
+5. When you are finished using Misty as an access point, issue a `StopWifiHotspot` command.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** If you plan to use Misty as a hotspot in an environment where you are unable to connect to any wireless networks, you may consider writing a JavaScript or .NET skill that runs on startup to issue the commands that create the access point. You can code Misty to display the credentials for the access point on her screen, or even to speak them out loud. Otherwise you must find a way to issue the REST API commands to start broadcasting WiFi over a separate network connection.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/networks/hotspot/start
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+### StopWifiHotspot
+
+Stops Misty II broadcasting its own wireless network.
+
+To enable Misty as a soft access point, follow the steps in the documentation for the [`StartWifiHotspot`](./#startwifihotspot) command.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/networks/hotspot/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
 
 ### UpdateBaseHazardManagementSettings
 
