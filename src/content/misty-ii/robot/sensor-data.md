@@ -222,6 +222,93 @@ BumpSensor {
 }
 ```
 
+## ChargerPoseMessage
+
+The `ChargerPoseMessage` event type returns location data for Misty's docking station (also referred to as the *charger* or *charging station*).
+
+To use information about the pose of Misty's docking station in your skills and robot applications, you must **both** issue a [`StartLocatingDockingStation`](../../../misty-ii/rest-api/api-reference/#startlocatingdockingstation) command **and** register a listener for the `ChargerPoseMessage` event type.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This event type is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this data in your skills, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+`ChargerPoseMessage` events include the following key/value pairs:
+
+* created (string) - Timestamp describing when the robot created the message.
+* homogenousMatrix (array) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is a rotation matrix. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
+* sensorId (string) - The ID of the sensor associated with this message.
+
+```JSON
+/*
+The HomogeneousMatrix array represents the pose of the docking station
+as column major 4x4 homogeneous coordinate matrix, relative to the
+front right infrared camera in the depth sensor (origin). 
+
+R = rotation matrix
+Z is forward, X is to the right, and Y is down.
+
+[R00 R01 R02 Tx]
+[R10 R11 R12 Ty]
+[R20 R21 R22 Tz]
+[0   0   0   1 ]
+
+In the sample ChargerPoseMessage data below, the homogenousMatrix array
+represents the following matrix:
+
+[ 0.023716189 -0.612703741  0.789956748  -0.01907847 ]
+[-0.918981254 -0.3244532   -0.2240616     0.214029372]
+[ 0.393587381 -0.720641553 -0.570758045   0.140833944]
+[ 0            0            0             1          ]
+*/
+
+{
+    "eventName": "ChargerPoseMessage",
+    "message":
+    {
+        "created": "2020-01-15T16:23:32.0550722Z",
+        "homogeneousMatrix":
+        [
+            0.023716189,
+            -0.918981254,
+            0.393587381,
+            0,
+            -0.612703741,
+            -0.3244532,
+            -0.720641553,
+            0,
+            0.789956748,
+            -0.2240616,
+            -0.570758045,
+            0,
+            -0.01907847,
+            0.214029372,
+            0.140833944,
+            1
+        ],
+        "sensorId": "slam"
+    }
+}
+```
+
+When you issue a `StartLocatingDockingStation` command, Misty uses the right infrared (IR) camera in the depth sensor to locate the front four IR reflectors embedded in the docking station. The system uses the location of these reflectors to calculate the pose for the point on the docking station where Misty should be centered to receive the best charge. This point is at the intersection of an imaginary line down the center of the station and the line that connects the two positioning icons on either side.
+
+![Docking station "sweet spot"](../../../../assets/images/docking-station-sweet-spot.png)
+
+When the robot locates the docking station, `ChargerPoseMessage` event listeners receive pose data in the form of a column major homogeneous coordinate matrix. The right IR camera in Misty's depth sensor (from the robot's perspective) is the origin point for all docking station pose data.
+
+![Origin for docking station pose](../../../../assets/images/docking-station-pose-origin.png)
+
+Once you have obtained the X, Y, and Z coordinates for the docking station's pose relative to the front right IR camera (represented by the values at index 12, 13, and 14 in the `homogeneousMatrix` array), you can use dead reckoning to calculate drive commands and navigate the robot onto the charger.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Important Notes:** 
+* For best results, we recommend that you do not attempt to locate the docking station while Misty is actively creating a map.
+* To get docking station pose, Misty must be between 0.5 and 2 meters away from the docking station. The robot should also be facing in the general direction of the docking station. The station should be inside a cone of +/- 45 degrees originating from the robot's right IR camera.
+
+{{box op="end"}}
+
+
 ## DriveEncoders
 
 The `DriveEncoders` data stream provides information about the angular velocity (in degrees per second) and rotation (in degrees) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
