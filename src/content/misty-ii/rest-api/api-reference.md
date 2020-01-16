@@ -3321,6 +3321,59 @@ Return Values
 
 * Results (bool) - Returns `true` if no errors related to this command.
 
+### StartWifiHotspot
+
+Starts Misty II broadcasting its own wireless network.
+
+This command lets you use Misty II as a soft access point, which is useful in environments with no local networks, or networks that Misty can't connect to (such as captive networks).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Follow these steps to use Misty as a WiFi hotspot:
+
+1. Boot up the robot.
+2. Issue a `StartWifiHotspot` command.
+3. Issue a [`GetDeviceInformation`](./#getdeviceinformation) command to access the network ID and password for Misty's access point. In the `GetDeviceInformation` response data, the network ID is stored in the `currentProfileName` field, and the password is stored in the `currentPreSharedKey` field. Use these credentials to connect your computer or another WiFi enabled device to Misty's access point.
+4. Use Misty's standard IP address - `192.168.43.1` - to connect to the robot and issue commands from your connected device.
+5. When you are finished using Misty as an access point, issue a `StopWifiHotspot` command.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** If you plan to use Misty as a hotspot in an environment where you are unable to connect to any wireless networks, you may consider writing a JavaScript or .NET skill that runs on startup to issue the commands that create the access point. You can code Misty to display the credentials for the access point on her screen, or even to speak them out loud. Otherwise you must find a way to issue the REST API commands to start broadcasting WiFi over a separate network connection.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/networks/hotspot/start
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
+### StopWifiHotspot
+
+Stops Misty II broadcasting its own wireless network.
+
+To enable Misty as a soft access point, follow the steps in the documentation for the [`StartWifiHotspot`](./#startwifihotspot) command.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/networks/hotspot/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
 ### UpdateBaseHazardManagementSettings
 
 Changes the hazard system settings for Misty's bump and time-of-flight sensors.
