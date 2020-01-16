@@ -1466,6 +1466,33 @@ Return Values
 
 * result (boolean) - Returns `true` if no errors related to this command.
 
+### StartLocatingDockingStation
+
+Starts Misty locating the position and orientation (pose) of the docking station.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+To use information about the pose of Misty's docking station in your skills and robot applications, you must both issue a `StartLocatingDockingStation` command and register a listener for the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type. We do not recommend that you attempt to locate the docking station while Misty is actively creating a map.
+{{box op="end"}}
+
+When you issue a `StartLocatingDockingStation` command, Misty uses the right infrared (IR) camera in the depth sensor to locate the front four IR reflectors embedded in the docking station. The system uses the location of these reflectors to calculate the pose for the point on the docking station where Misty should be centered to receive the best charge.
+
+When Misty locates the station, `ChargerPoseMessage` event listeners receive relative pose data in the form of a column major homogeneous coordinate matrix. The right IR camera in Misty's depth sensor (from the robot's perspective) is the origin point for all docking station pose data. Read more about interpreting this data in the documentation for the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
+
+To get docking station pose, Misty must be between 0.5 and 2 meters away from the docking station. The robot should also be facing in the general direction of the docking station. The station should be inside a cone of +/- 45 degrees originating from the robot's right IR camera.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/start
+
+Parameters
+
+* startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command.
+
 ### StartMapping
 
 Starts Misty mapping an area.
