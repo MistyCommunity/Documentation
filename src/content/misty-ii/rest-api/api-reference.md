@@ -1541,6 +1541,27 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StopLocatingDockingStation
+
+Stops Misty locating the docking station.
+
+For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/stop
+
+Parameters
+
+* StopStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming enabled before the `StopLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't stop before these status checks complete, then the `StopLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* DisableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) enabled before the `StopLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StopLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### StopMapping
 
 Stops Misty mapping an area.
