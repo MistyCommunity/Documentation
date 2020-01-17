@@ -647,6 +647,24 @@ Parameters
 misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
 ```
 
+### misty.RemoveBlinkMappings
+
+Removes blink mappings from one or more image assets.
+
+```JS
+misty.RemoveBlinkMappings(string blinkImages, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* BlinkImages (string) - A stringified list of images to remove blink mappings from.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.SetBlinking
 
 Turns Misty's eye blinking behavior on or off.
@@ -681,7 +699,7 @@ Sets the duration that Misty's eyes stay open or closed while blinking. You can 
 
 ```javascript
 // Syntax
-misty.SetBlinkSettings(bool revertToDefault, [int closedEyeMinMs], [int closedEyeMaxMs], [int openEyeMinMs], [int openEyeMaxMs], [string blinkImages], [int prePause], [int postPause])
+misty.SetBlinkSettings(bool revertToDefault, [int closedEyeMinMs], [int closedEyeMaxMs], [int openEyeMinMs], [int openEyeMaxMs], [string blinkImages], [int prePauseMs], [int postPauseMs])
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -1134,6 +1152,26 @@ misty.Stop();
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
+### misty.DeleteSlamMap
+
+Deletes a map.
+
+```js
+// Syntax
+misty.DeleteSlamMap(string key, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.DeleteSlamMap("Map_20190912_21.16.32.UTC");
+```
+
 ### misty.FollowPath
 
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
@@ -1207,7 +1245,164 @@ Returns
   * width (integer) - The width of the occupancy grid matrix (in number of cells). 
 
 
+### misty.GetCurrentSlamMap
 
+Obtains the key for the currently active map.
+
+```js
+// Syntax
+misty.GetCurrentSlamMap([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSerialSensorValues()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetCurrentSlamMap()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+misty.GetCurrentSlamMap();
+
+function _GetCurrentSlamMap(data) {
+    // Prints key for current map to SkillData event listeners
+    // For example: Map_20191011_18.06.52.UTC
+    misty.Debug(data.Result)
+}
+```
+
+Returns
+
+* result (string) - The unique key associated with the currently active map. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.GetSlamIrExposureAndGain
+
+Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.GetSlamIrExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/javascript-sdk/api-reference/#misty-startslamstreaming) command.
+{{box op="end"}}
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamIrExposureAndGain()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamIrExposureAndGain()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.StartSlamStreaming();
+misty.Pause(1000);
+misty.GetSlamIrExposureAndGain();
+
+function _GetSlamIrExposureAndGain(data) {
+    // Prints gain and exposure data
+    misty.Debug("Gain: " + data.Result.Gain + ", Exposure: " + data.Result.Exposure);
+}
+misty.StopSlamStreaming();
+```
+
+Returns
+
+* Result (object) - An object with the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
+  * Gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
+
+### misty.GetSlamMaps
+
+Obtains a list of keys and names for Misty's existing maps.
+
+```JavaScript
+// Syntax
+misty.GetSlamMaps([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamMaps()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamMaps()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+misty.GetSlamMaps();
+
+function _GetSlamMaps(data) {
+    // Prints  the name and key for each map to SkillData event listeners
+    for (var i = 0; i <= data.Result.length; i ++) {
+        misty.Debug("Map " + (i + 1) + " Key: " + JSON.stringify(data.Result[i].Key) + ", Name: " + JSON.stringify(data.Result[i].Name));
+    }
+}
+```
+
+Returns
+
+* Result (array) - A list of objects representing Misty's existing maps. Each object has the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
+  * Name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#misty-renameslammap) command.
+
+```JSON
+{
+  "Result": [
+    {
+      "Key": "Map_20190912_21.16.06.UTC",
+      "Name": "Map_20190912_21.16.06.UTC"
+    },
+    {
+      "Key": "Map_20190912_21.16.32.UTC",
+      "Name": "My Map"
+    }
+  ]
+}
+```
+
+### misty.GetSlamNavigationDiagnostics
+
+Obtains diagnostic information about Misty's navigation system.
+
+```JavaScript
+// Syntax
+misty.GetSlamNavigationDiagnostics([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+{{box op="end"}}
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a calfunction to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamNavigationDiagnostics()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamNavigationDiagnostics()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+Returns
+
+* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.GetSlamPath
 
@@ -1270,12 +1465,18 @@ Arguments
 
 ```JavaScript
 // Example
+
 misty.GetSlamStatus();
+
+function _GetSlamStatus(data) {
+    // Prints StatusList array to SkillData listeners
+    misty.Debug(JSON.stringify(data.Result.StatusList))
+}
 ```
 
 Returns
 * Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
+  * `Status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `SensorStatus` and `RunMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `StatusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
     * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
     * 0x0001: `Initializing` - The SLAM system is initializing.
     * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
@@ -1293,8 +1494,8 @@ Returns
     * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
     * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
     * 0x8000: `Streaming` - The SLAM system is streaming.
-  * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
-  * `runMode` (string) - Current status of the navigation system. Possible values are:
+  * `StatusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
+  * `RunMode` (string) - Current status of the navigation system. Possible values are:
     * `Uninitialized`
     * `Tracking`
     * `Exploring`
@@ -1303,7 +1504,7 @@ Returns
     * `ExportingScene`
     * `NeedMoreMotionToInitMap`
     * `NotAvailable`
-  * `sensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
+  * `SensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
     * `Uninitialized`
     * `Connected`
     * `Booting`
@@ -1323,6 +1524,78 @@ Returns
     * `EndOfFile`
     * `USBDriverNotInstalled`
     * `Streaming`
+
+### misty.GetSlamVisibleExposureAndGain
+
+Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.GetSlamVisibleExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
+{{box op="end"}}
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamVisibleExposureAndGain()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamVisibleExposureAndGain()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.StartSlamStreaming();
+misty.Pause(1000);
+misty.GetSlamVisibleExposureAndGain();
+
+function _GetSlamVisibleExposureAndGain(data) {
+    // Prints gain and exposure data
+    misty.Debug("Gain: " + data.Result.Gain + ", Exposure: " + data.Result.Exposure);
+}
+misty.SlamStopStreaming();
+```
+
+Returns
+
+* Result (object) - An object with the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
+  * Gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
+
+```JSON
+{
+   "Result": {
+      "Exposure": 0.007987,
+      "Gain": 2
+   }
+}
+```
+
+### misty.RenameSlamMap
+
+Renames an existing map.
+
+```js
+// Syntax
+misty.RenameSlamMap(string key, string name, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` value of the map to rename.
+* name (string) - A new `name` value for the map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JS
+// Example
+misty.RenameSlamMap("Map_20190912_21.16.06.UTC", "NewName");
+```
 
 ### misty.ResetSlam
 
@@ -1346,13 +1619,33 @@ Arguments
 misty.ResetSlam();
 ```
 
+### misty.SetCurrentSlamMap
+
+Sets a map to be Misty's currently active map for tracking and relocalization.
+
+```JavaScript
+// Syntax
+misty.SetCurrentSlamMap(string key, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetCurrentSlamMap("Map_20190912_21.16.06.UTC");
+```
+
 ### misty.StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
 
 ```JavaScript
 // Syntax
-misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePause], [int postPause]);
+misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -1451,7 +1744,7 @@ Stops Misty locating the docking station.
 
 ```JavaScript
 // Syntax
-misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePause], [int postPause])
+misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePauseMs], [int postPauseMs])
 ```
 
 For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#misty-startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
@@ -1636,7 +1929,7 @@ Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecor
 ```js
 // Syntax
 
-misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
@@ -1645,11 +1938,8 @@ Arguments
 *   OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (Note that Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is `true`, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
 * MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
 * SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
-* callback (string) - Optional. The name of the callback function to call when Misty starts capturing speech. If empty, a callback function with the default name (`_CaptureSpeech()`) is called.
-* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-*   skillToCall (string) - Optional. The unique ID of the skill to trigger for the callback function, if the callback is not defined in the current skill.
-*   prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-*   postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```js
 // Example
@@ -2347,7 +2637,7 @@ Obtains a list of the skills currently running on Misty.
 
 ```JavaScript
 //Syntax
-misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int PostPause])
+misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
@@ -2523,6 +2813,75 @@ and in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ## System
 
+### misty.AudioServiceEnabled
+
+Describes whether the audio service running on Misty's 820 processor is currently enabled.
+
+```JS
+// Syntax
+misty.AudioServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_AudioServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+For more information about enabling and disabling the audio service, see the [`DisableAudioService`](./#misty-disableaudioservice) command description.
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_AudioServiceEnabled()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JS
+// Example
+
+misty.AudioServiceEnabled();
+
+function _AudioServiceEnabled(data) {
+    misty.Debug(JSON.stringify(data.Result));
+}
+```
+
+Returns
+
+* Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+### misty.CameraServiceEnabled
+
+Describes whether the camera service running on Misty's 820 processor is currently enabled.
+
+```JavaScript
+// Syntax
+misty.CameraServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#misty-disablecameraservice) command description.
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_CameraServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_CameraServiceEnabled()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+misty.CameraServiceEnabled();
+
+function _CameraServiceEnabled(data) {
+    misty.Debug(JSON.stringify(data.Result));
+}
+```
+
+Returns
+
+* Result (boolean) - Returns `true` if the camera service is enabled. Otherwise, `false`. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
 ### misty.ClearDisplayText
 
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
@@ -2560,6 +2919,183 @@ Arguments
 // Example
 misty.ConnectToSavedWifi("MyHomeWifi")
 ```
+
+### misty.DisableAudioService
+
+Disables the audio service running on Misty's 820 processor.
+
+```JS
+misty.DisableAudioService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the audio service when the audio service is disabled. These commands and event types are listed below.
+
+**Audio Service Commands**
+* `GetAudioFile`
+* `GetAudioList`
+* `DeleteAudio`
+* `PlayAudio`
+* `SaveAudio`
+* `SetDefaultVolume`
+* `StartKeyPhraseRecognition`
+* `StartRecordingAudio`
+* `StopKeyPhraseRecognition`
+* `StopRecordingAudio`
+
+**Audio Service Event Types**
+* `AudioPlayComplete`
+* `KeyPhraseRecognized`
+* `SourceTrackDataMessage`
+* `SourceFocusConfigMessage`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.DisableCameraService
+
+Disables the camera service running on Misty's 820 processor.
+
+```JS
+misty.DisableCameraService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
+
+**Camera Service Commands**
+* `CancelFaceTraining`
+* `ForgetFaces`
+* `StartFaceDetection`
+* `StopFaceDetection`
+* `StartFaceTraining`
+* `StartRecordingVideo`
+* `StopFaceDetection`
+* `StopFaceRecognition`
+* `StopRecordingVideo`
+* `TakePicture`
+* `GetCameraData`
+* `GetKnownFaces`
+* `GetVideoFile`
+
+**Camera Service Event Types**
+* `FaceRecognition`
+* `FaceTraining`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.DisableSlamService
+
+Disables the SLAM service running on Misty's 820 processor.
+
+```JS
+misty.DisableSlamService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and SLAM services before you start face recognition to improve the performance of face recognition activities.
+
+Misty cannot run commands or stream messages from event types that use the SLAM service when the SLAM service is disabled. These commands and event types are listed below.
+
+**SLAM Service Commands**
+* `DeleteSlamMap`
+* `GetMap`
+* `GetCurrentSlamMap`
+* `GetSlamIrExposureAndGain`
+* `GetSlamMaps`
+* `GetSlamNavigationDiagnostics`
+* `GetSlamPath`
+* `GetSlamStatus`
+* `GetSlamVisibleExposureAndGain`
+* `RenameSlamMap`
+* `ResetSlam`
+* `SetCurrentSlamMap`
+* `SetSlamIrExposureAndGain`
+* `SetSlamVisibleExposureAndGain`
+* `StartMapping`
+* `StartSlamStreaming`
+* `StartTracking`
+* `StopMapping`
+* `StopSlamStreaming`
+* `StopTracking`
+* `TakeDepthPicture`
+* `TakeFisheyePicture`
+
+**SLAM Service Event Types**
+* `SlamStatus`
+
+Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.EnableAudioService
+
+Enables the audio service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableAudioService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about disabling and enabling the audio service, see the [`DisableAudioService`](./#misty-disableaudioservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.EnableCameraService
+
+Enables the camera service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableCameraService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about disabling and enabling the camera service, see the [`DisableCameraService`](./#misty-disablecameraservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.EnableSlamService
+
+Enables the SLAM service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableSlamService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ### misty.ForgetWifi
 
@@ -2973,6 +3509,25 @@ Returns
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
 
+### misty.RestartRobot
+
+Restarts Misty's 410 or 820 processor.
+
+```JS
+misty.RestartRobot([bool core], [bool sensoryServices], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* core (boolean): If `true`, restarts Misty's 410 processor.
+* sensoryServices (boolean): If `true`, restarts Misty's 820 processor.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JS
+misty.RestartRobot(false, true);
+```
+
 ### misty.SetDefaultVolume
 
 Sets the default loudness of Misty's speakers for audio playback.
@@ -3085,13 +3640,87 @@ Arguments
 misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
 ```
 
+### misty.SetNotificationSettings
+
+Changes the settings for Misty's default hardware notifications.
+
+```JavaScript
+// Syntax
+misty.SetNotificationSettings([bool revertToDefault], [bool LEDEnabled], [bool keyPhraseEnabled], [string keyPhraseFile], [int prePauseMs], [int postPauseMs])
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Misty's default hardware notification settings are as follows:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
+
+**LED Notifications**
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED pulses blue.
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * When training fails, the LED blinks red three times.
+  * When Misty sees more than one face, the LED blinks yellow three times.
+  * When Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
+
+Arguments
+
+* revertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
+* ledEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
+* keyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
+* keyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.SlamServiceEnabled
+
+Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
+
+```JavaScript
+// Syntax
+misty.SlamServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_SlamServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SlamServiceEnabled()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+misty.SlamServiceEnabled();
+
+function _SlamServiceEnabled(data) {
+    misty.Debug(data.Result)
+}
+```
+
+Returns
+
+* Result (boolean) - Returns `true` if the SLAM service is enabled. Otherwise, `false`. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
+
 ### misty.StartWifiHotspot
 
 Starts Misty II broadcasting its own wireless network.
 
 ```js
 // Syntax
-misty.StartWifiHotspot([int prePause], [int postPause]);
+misty.StartWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
 
 This command lets you use Misty II as a soft access point, which is useful in environments with no local networks, or networks that Misty can't connect to (such as captive networks).
@@ -3123,7 +3752,7 @@ Stops Misty II broadcasting its own wireless network.
 
 ```JS
 // Syntax
-misty.StopWifiHotspot([int prePause], [int postPause]);
+misty.StopWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
 
 To enable Misty as a soft access point, follow the steps in the documentation for the [`StartWifiHotspot`](./#misty-startwifihotspot) command.
