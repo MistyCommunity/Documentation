@@ -3477,6 +3477,25 @@ Returns
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
 
+### misty.RestartRobot
+
+Restarts Misty's 410 or 820 processor.
+
+```JS
+misty.RestartRobot([bool core], [bool sensoryServices], [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* core (boolean): If `true`, restarts Misty's 410 processor.
+* sensoryServices (boolean): If `true`, restarts Misty's 820 processor.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JS
+misty.RestartRobot(false, true);
+```
+
 ### misty.SetDefaultVolume
 
 Sets the default loudness of Misty's speakers for audio playback.
