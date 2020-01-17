@@ -2066,7 +2066,7 @@ Starts recording video with Misty's 4K Camera.
 Misty only saves the most recent video recording to her local storage. Misty saves videos with the filename `MistyVideo.mp4`, and overwrites this file with each new recording.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Valid resolutions (as `Width` x `Height`) include: 4160 x 3120, 4000 x 3000, 3840 x 2160, 3264 x 2448, 3200 x 2400, 2976 x 2976, 2592 x 1944, 2688 x 1512, 2048 x 1536, 1920 x 1080,1600 x 1200, 1440 x 1080, 1280 x 960, 1280 x 768, 1280 x 720, 1200 x 1200, 1024 x 768,	800 x 600, 864 x 480,	800 x 480, 720 x 480,	640 x 480, 640 x 360,	480 x 640, 480 x 360,	480 x 320, 352 x 288, 320 x 240,	240 x 320, 176 x 144, 160 x 120, and 144 x 176     
+**Tip:** Valid resolutions (as `Width` x `Height`) include: 2160 x 3840, 2448 x 3264, 2400 x 3200, 1944 x 2592, 1512 x 2688, 1536 x 2048, 1080 x 1920, 1200 x 1600, 1080 x 1440, 1200 x 1200, 960 x 1280, 768 x 1280, 720 x 1280, 768 x 1024, 600 x 800, 480 x 864, 480 x 800, 480 x 720, 480 x 640, 360 x 640, 640 x 480, 360 x 480, 320 x 480, 288 x 352, 240 x 320, 320 x 240, 144 x 176, 120 x 160, and 176 x 144.    
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
