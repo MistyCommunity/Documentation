@@ -2886,6 +2886,56 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.DisableSlamService
+
+Disables the SLAM service running on Misty's 820 processor.
+
+```JS
+misty.DisableSlamService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and SLAM services before you start face recognition to improve the performance of face recognition activities.
+
+Misty cannot run commands or stream messages from event types that use the SLAM service when the SLAM service is disabled. These commands and event types are listed below.
+
+**SLAM Service Commands**
+* `DeleteSlamMap`
+* `GetMap`
+* `GetCurrentSlamMap`
+* `GetSlamIrExposureAndGain`
+* `GetSlamMaps`
+* `GetSlamNavigationDiagnostics`
+* `GetSlamPath`
+* `GetSlamStatus`
+* `GetSlamVisibleExposureAndGain`
+* `RenameSlamMap`
+* `ResetSlam`
+* `SetCurrentSlamMap`
+* `SetSlamIrExposureAndGain`
+* `SetSlamVisibleExposureAndGain`
+* `StartMapping`
+* `StartSlamStreaming`
+* `StartTracking`
+* `StopMapping`
+* `StopSlamStreaming`
+* `StopTracking`
+* `TakeDepthPicture`
+* `TakeFisheyePicture`
+
+**SLAM Service Event Types**
+* `SlamStatus`
+
+Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
