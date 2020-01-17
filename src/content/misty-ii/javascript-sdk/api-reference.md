@@ -1572,6 +1572,26 @@ Arguments
 misty.ResetSlam();
 ```
 
+### misty.SetCurrentSlamMap
+
+Sets a map to be Misty's currently active map for tracking and relocalization.
+
+```JavaScript
+// Syntax
+misty.SetCurrentSlamMap(string key, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetCurrentSlamMap("Map_20190912_21.16.06.UTC");
+```
+
 ### misty.StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
