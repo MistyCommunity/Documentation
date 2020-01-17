@@ -1416,12 +1416,18 @@ Arguments
 
 ```JavaScript
 // Example
+
 misty.GetSlamStatus();
+
+function _GetSlamStatus(data) {
+    // Prints StatusList array to SkillData listeners
+    misty.Debug(JSON.stringify(data.Result.StatusList))
+}
 ```
 
 Returns
 * Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
+  * `Status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `SensorStatus` and `RunMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `StatusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
     * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
     * 0x0001: `Initializing` - The SLAM system is initializing.
     * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
@@ -1439,8 +1445,8 @@ Returns
     * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
     * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
     * 0x8000: `Streaming` - The SLAM system is streaming.
-  * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
-  * `runMode` (string) - Current status of the navigation system. Possible values are:
+  * `StatusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
+  * `RunMode` (string) - Current status of the navigation system. Possible values are:
     * `Uninitialized`
     * `Tracking`
     * `Exploring`
@@ -1449,7 +1455,7 @@ Returns
     * `ExportingScene`
     * `NeedMoreMotionToInitMap`
     * `NotAvailable`
-  * `sensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
+  * `SensorStatus` (string) - Current status of the depth sensor sensor. Possible values are:
     * `Uninitialized`
     * `Connected`
     * `Booting`
