@@ -1302,6 +1302,59 @@ Returns
   * Exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
   * Gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
 
+### misty.GetSlamMaps
+
+Obtains a list of keys and names for Misty's existing maps.
+
+```JavaScript
+// Syntax
+misty.GetSlamMaps([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamMaps()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamMaps()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+misty.GetSlamMaps();
+
+function _GetSlamMaps(data) {
+    // Prints  the name and key for each map to SkillData event listeners
+    for (var i = 0; i <= data.Result.length; i ++) {
+        misty.Debug("Map " + (i + 1) + " Key: " + JSON.stringify(data.Result[i].Key) + ", Name: " + JSON.stringify(data.Result[i].Name));
+    }
+}
+```
+
+Returns
+
+* Result (array) - A list of objects representing Misty's existing maps. Each object has the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
+  * Name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#misty-renameslammap) command.
+
+```JSON
+{
+  "Result": [
+    {
+      "Key": "Map_20190912_21.16.06.UTC",
+      "Name": "Map_20190912_21.16.06.UTC"
+    },
+    {
+      "Key": "Map_20190912_21.16.32.UTC",
+      "Name": "My Map"
+    }
+  ]
+}
+```
+
 ### misty.GetSlamPath
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
