@@ -1529,6 +1529,27 @@ Returns
 }
 ```
 
+### misty.RenameSlamMap
+
+Renames an existing map.
+
+```js
+// Syntax
+misty.RenameSlamMap(string key, string name, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` value of the map to rename.
+* name (string) - A new `name` value for the map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JS
+// Example
+misty.RenameSlamMap("Map_20190912_21.16.06.UTC", "NewName");
+```
+
 ### misty.ResetSlam
 
 Resets Misty's SLAM sensors.
