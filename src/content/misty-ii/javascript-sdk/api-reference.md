@@ -1287,13 +1287,15 @@ Arguments
 
 ```js
 // Example
-
+misty.StartSlamStreaming();
+misty.Pause(1000);
 misty.GetSlamIrExposureAndGain();
 
 function _GetSlamIrExposureAndGain(data) {
     // Prints gain and exposure data
     misty.Debug("Gain: " + data.Result.Gain + ", Exposure: " + data.Result.Exposure);
 }
+misty.StopSlamStreaming();
 ```
 
 Returns
@@ -1475,6 +1477,57 @@ Returns
     * `EndOfFile`
     * `USBDriverNotInstalled`
     * `Streaming`
+
+### misty.GetSlamVisibleExposureAndGain
+
+Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.GetSlamVisibleExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
+{{box op="end"}}
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamVisibleExposureAndGain()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetSlamVisibleExposureAndGain()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.StartSlamStreaming();
+misty.Pause(1000);
+misty.GetSlamVisibleExposureAndGain();
+
+function _GetSlamVisibleExposureAndGain(data) {
+    // Prints gain and exposure data
+    misty.Debug("Gain: " + data.Result.Gain + ", Exposure: " + data.Result.Exposure);
+}
+misty.SlamStopStreaming();
+```
+
+Returns
+
+* Result (object) - An object with the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
+  * Gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
+
+```JSON
+{
+   "Result": {
+      "Exposure": 0.007987,
+      "Gain": 2
+   }
+}
+```
 
 ### misty.ResetSlam
 
