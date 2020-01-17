@@ -647,6 +647,24 @@ Parameters
 misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
 ```
 
+### misty.RemoveBlinkMappings
+
+Removes blink mappings from one or more image assets.
+
+```JS
+misty.RemoveBlinkMappings(string blinkImages, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* BlinkImages (string) - A stringified list of images to remove blink mappings from.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.SetBlinking
 
 Turns Misty's eye blinking behavior on or off.
