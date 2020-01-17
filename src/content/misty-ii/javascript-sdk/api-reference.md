@@ -2846,6 +2846,46 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.DisableCameraService
+
+Disables the camera service running on Misty's 820 processor.
+
+```JS
+misty.DisableCameraService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
+
+**Camera Service Commands**
+* `CancelFaceTraining`
+* `ForgetFaces`
+* `StartFaceDetection`
+* `StopFaceDetection`
+* `StartFaceTraining`
+* `StartRecordingVideo`
+* `StopFaceDetection`
+* `StopFaceRecognition`
+* `StopRecordingVideo`
+* `TakePicture`
+* `GetCameraData`
+* `GetKnownFaces`
+* `GetVideoFile`
+
+**Camera Service Event Types**
+* `FaceRecognition`
+* `FaceTraining`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
