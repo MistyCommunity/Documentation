@@ -3002,6 +3002,22 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.EnableSlamService
+
+Enables the SLAM service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableSlamService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
