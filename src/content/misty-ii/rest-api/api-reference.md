@@ -1136,7 +1136,6 @@ Return Values
 ```
 
 
-
 ### GetSlamIrExposureAndGain
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
