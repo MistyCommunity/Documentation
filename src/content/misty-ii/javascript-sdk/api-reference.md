@@ -3181,6 +3181,41 @@ Example JSON object for a saved WiFi network:
 }
 ```
 
+### misty.SlamServiceEnabled
+
+Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
+
+```JavaScript
+// Syntax
+misty.SlamServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_SlamServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+
+For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_SlamServiceEnabled()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+misty.SlamServiceEnabled();
+
+function _SlamServiceEnabled(data) {
+    misty.Debug(data.Result)
+}
+```
+
+Returns
+
+* Result (boolean) - Returns `true` if the SLAM service is enabled. Otherwise, `false`. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+
 ### misty.GetWebsocketNames
 
 Obtains information about a specified WebSocket class. Calling `misty.GetWebsocketNames()` without specifying a class returns information about all of Misty’s available WebSocket connections.
