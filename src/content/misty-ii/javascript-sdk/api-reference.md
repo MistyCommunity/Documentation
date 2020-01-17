@@ -2970,6 +2970,22 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.EnableAudioService
+
+Enables the audio service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableAudioService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about disabling and enabling the audio service, see the [`DisableAudioService`](./#misty-disableaudioservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.ForgetWifi
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
