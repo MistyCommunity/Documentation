@@ -3085,6 +3085,44 @@ Arguments
 misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
 ```
 
+### misty.SetNotificationSettings
+
+Changes the settings for Misty's default hardware notifications.
+
+```JavaScript
+// Syntax
+misty.SetNotificationSettings([bool revertToDefault], [bool LEDEnabled], [bool keyPhraseEnabled], [string keyPhraseFile], [int prePause], [int postPause])
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Misty's default hardware notification settings are as follows:
+
+**Audio Notifications**
+* **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`
+
+**LED Notifications**
+* **Recording Audio** - While Misty is recording audio or listening for the "Hey, Misty!" key phrase, her chest LED pulses blue.
+* **Charging** - While Misty is powered on and charging, her chest LED pulses orange. When her battery is fully charged and she is on/connected to her charger, the LED turns solid orange.
+* **Face Training** - When you are training Misty on a new face, her chest LED displays the following notifications:
+  * When the face detection phase of the training process is complete, the LED turns green.
+  * When training is complete, the LED blinks green three times.
+  * When training fails, the LED blinks red three times.
+  * When Misty sees more than one face, the LED blinks yellow three times.
+  * When Misty doesn't see a face, the LED turns yellow.
+* **System Updates** - While Misty is performing a system update, the LED blinks white.
+
+Arguments
+
+* revertToDefault (bool) - Optional. Sets Misty's hardware notifications to the default settings (`true`).
+* ledEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the default LED notifications.
+* keyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
+* keyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.StartWifiHotspot
 
 Starts Misty II broadcasting its own wireless network.
