@@ -681,7 +681,7 @@ Sets the duration that Misty's eyes stay open or closed while blinking. You can 
 
 ```javascript
 // Syntax
-misty.SetBlinkSettings(bool revertToDefault, [int closedEyeMinMs], [int closedEyeMaxMs], [int openEyeMinMs], [int openEyeMaxMs], [string blinkImages], [int prePause], [int postPause])
+misty.SetBlinkSettings(bool revertToDefault, [int closedEyeMinMs], [int closedEyeMaxMs], [int openEyeMinMs], [int openEyeMaxMs], [string blinkImages], [int prePauseMs], [int postPauseMs])
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -1134,6 +1134,26 @@ misty.Stop();
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
+### misty.DeleteSlamMap
+
+Deletes a map.
+
+```js
+// Syntax
+misty.DeleteSlamMap(string key, [int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.DeleteSlamMap("Map_20190912_21.16.32.UTC");
+```
+
 ### misty.FollowPath
 
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
@@ -1352,7 +1372,7 @@ Starts Misty locating the position and orientation (pose) of the docking station
 
 ```JavaScript
 // Syntax
-misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePause], [int postPause]);
+misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -1451,7 +1471,7 @@ Stops Misty locating the docking station.
 
 ```JavaScript
 // Syntax
-misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePause], [int postPause])
+misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePauseMs], [int postPauseMs])
 ```
 
 For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#misty-startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
@@ -2347,7 +2367,7 @@ Obtains a list of the skills currently running on Misty.
 
 ```JavaScript
 //Syntax
-misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int PostPause])
+misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
@@ -3091,7 +3111,7 @@ Changes the settings for Misty's default hardware notifications.
 
 ```JavaScript
 // Syntax
-misty.SetNotificationSettings([bool revertToDefault], [bool LEDEnabled], [bool keyPhraseEnabled], [string keyPhraseFile], [int prePause], [int postPause])
+misty.SetNotificationSettings([bool revertToDefault], [bool LEDEnabled], [bool keyPhraseEnabled], [string keyPhraseFile], [int prePauseMs], [int postPauseMs])
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -3129,7 +3149,7 @@ Starts Misty II broadcasting its own wireless network.
 
 ```js
 // Syntax
-misty.StartWifiHotspot([int prePause], [int postPause]);
+misty.StartWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
 
 This command lets you use Misty II as a soft access point, which is useful in environments with no local networks, or networks that Misty can't connect to (such as captive networks).
@@ -3161,7 +3181,7 @@ Stops Misty II broadcasting its own wireless network.
 
 ```JS
 // Syntax
-misty.StopWifiHotspot([int prePause], [int postPause]);
+misty.StopWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
 
 To enable Misty as a soft access point, follow the steps in the documentation for the [`StartWifiHotspot`](./#misty-startwifihotspot) command.
