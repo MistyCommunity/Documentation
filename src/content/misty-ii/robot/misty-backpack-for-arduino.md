@@ -70,7 +70,7 @@ You can connect the spacer shield to Misty's Arduino-compatible backpack to crea
 
 ## Programming the Misty Backpack for Arduino
 
-The Misty Backpack for Arduino uses an [ATmega328P microcontroller](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf) pre-programmed with a bootloader that allows you to upload code directly from the [Arduino IDE](https://www.arduino.cc/en/Main/Software).  When you upload your code, you must target the Arduino Pro or Pro Mini board and the ATPmega328P (3.3v, 8MHz) processor.
+The Misty Backpack for Arduino uses an [ATmega328P microcontroller](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf) pre-programmed with a bootloader that allows you to upload code directly from the [Arduino IDE](https://www.arduino.cc/en/Main/Software).  When you upload your code, you must target the Arduino Pro or Pro Mini board and the ATmega328P (3.3v, 8MHz) processor.
 
 Follow these steps to configure the Arduino IDE to upload code to Misty's Arduino-compatible backpack:
 
@@ -107,9 +107,8 @@ void setup() {
   
 void loop() {
     delay(1000);
-    Serial.println("{\"message\":"Hello, Misty! This is your backpack talking.");
+    Serial.println("{\"message\":\"Hello, Misty! This is your backpack talking.\"}");
 ```
-
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This example assumes that you are using the default pins for transmitting and receiving data over hardware serial (pins D0 and D1). If you are using the pins for software serial (pins D8 and D9), you must use the [SoftwareSerial](https://www.arduino.cc/en/Reference/SoftwareSerial) library to send and receive data from Misty.
