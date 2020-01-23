@@ -2,7 +2,7 @@
 title: Event Types
 layout: coding.hbs
 columns: three
-order: 3
+order: 5
 ---
 
 # {{title}}

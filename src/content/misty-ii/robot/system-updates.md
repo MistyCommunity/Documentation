@@ -2,7 +2,7 @@
 title: System Updates
 layout: onboarding.hbs
 columns: one
-order: 4
+order: 6
 ---
 
 # {{title}}
