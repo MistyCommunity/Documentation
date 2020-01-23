@@ -48,7 +48,7 @@ The QWIIC system makes it easy to connect SparkFun sensors and other kinds of ha
 
 ### Input & Output
 
-You can use the digital pins on the Misty Backpack for Arduino for either input or output. These pins operate at 3.3v logic. With the exception of the difference in voltage, the pinout for the Misty microcontroller is the same as the pinout for the Arduino Uno. For more information about the function of each pin, see the Input and Output section of the documentation for the Arduino Uno.
+You can use the digital pins on the Misty Backpack for Arduino for either input or output. These pins operate at 3.3v logic. With the exception of the difference in voltage, the pinout for this board is the same as the pinout for the Arduino Uno. For more information about the function of each pin, see the [Input and Output section of the documentation for the Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3).
 
 ![Misty Backpack for Arduino Pinout Diagram](../../../../assets/images/backpack_for_arduino_web.jpg)
 
@@ -66,7 +66,7 @@ The Misty backpack has Arduino-compatible headers. It has a similar pinout to th
 You can connect the spacer shield to Misty's Arduino-compatible backpack to create extra space between the backpack and any connected shields. This helps prevent larger shields from interfering with Misty's chassis.
 
 ![Spacer shield connected to microcontroller](../../../../assets/images/backpack-spacer-shield.jpg)
-*A spacer shield connected to the Misty Backpack for Arduino backpack.*
+*A spacer shield connected to the Misty Backpack for Arduino.*
 
 ## Programming the Misty Backpack for Arduino
 
@@ -86,12 +86,17 @@ Follow these steps to configure the Arduino IDE to upload code to Misty's Arduin
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** When using hardware serial to communicate with Misty (pins D0 and D1), you must remove the board for Misty before you can load a new sketch onto the Misty Backpack for Arduino. If you are using the software serial pins (D8 and D9), you can upload a new sketch without disconnecting the board.
+**Note:** When using hardware serial to communicate with Misty (pins D0 and D1), you must remove the board from Misty before you can upload a new sketch. If you are using the software serial pins (D8 and D9), you can upload a new sketch without disconnecting the board.
 {{box op="end"}}
 
 ## Serial APIs
 
-When you write code for Misty's Arduino-compatible backpack (or any other Arduino microcontroller), you can use the [Serial](https://www.arduino.cc/reference/en/language/functions/communication/serial/) library to configure communication between the external development board and your robot.
+When you write code for Misty's Arduino-compatible backpack (or any other Arduino microcontroller), you can use the [Serial](https://www.arduino.cc/reference/en/language/functions/communication/serial/) library to configure communication between the external development board and your robot. 
+
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For runnable examples of .ino sketches and JavaScript skill code for serial communication, see the [`serialReadWrite` sample code on GitHub](https://github.com/MistyCommunity/SampleCode/tree/master/JavaScript%20SDK%20Code%20Samples/serialReadWrite)
+{{box op="end"}}
 
 In the `setup()` function for your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to `9600` baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty. We recommend formatting data you send as JSON string to make it easier to parse in your skill code. Here is a brief example:
 

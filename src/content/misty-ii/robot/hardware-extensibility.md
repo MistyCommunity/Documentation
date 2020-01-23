@@ -19,7 +19,7 @@ The UART serial and USB port channels have separate, isolated power controllers 
 **Note:** In the current software, you cannot use a skill to read or write data over Misty's USB port. The primary use for the USB port at this time is to supply power to external devices. You can also use the port with a flash drive or a USB-to-Ethernet adapter to [connect Misty to your local Wi-Fi network](../../../tools-&-apps/web-based-tools/command-center/#connecting-wi-fi).
 {{box op="end"}}
 
-The UART serial port enables communication between Misty's skills and an external device. When you use the Misty Backpack for Arduino, Misty's UART pins interface with the metal pads on the backpack's mount to send and receive data from the board. You can also connect your own microcontroller, a Raspberry Pi, or other UART serial-enabled hardware.
+The UART serial port enables communication between Misty's skills and an external device. When you use the [Misty Backpack for Arduino](../../../misty-ii/robot/misty-backpack-for-arduino), Misty's UART pins interface with the metal pads on the backpack's mount to send and receive data from the board. You can also connect your own microcontroller, a Raspberry Pi, or other UART serial-enabled hardware.
 
 The pins for Misty's UART serial port are configured as follows:
  
