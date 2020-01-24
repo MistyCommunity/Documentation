@@ -179,9 +179,109 @@ To enable the hazards system to work effectively, Misty's max speed is limited t
 **Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
 
+## Connecting to adb
+
+You can use the Android Debug Bridge (adb) command line tool to communicate with the Android operating system running on Misty's 820 processor. This is useful when you want to access assets stored on the 820, view additional logs, or configure settings exposed through Misty's Android device. You can [download adb for free from the Android developer documentation](https://developer.android.com/studio/command-line/adb).
+
+Once you have installed adb, you can use it to establish a connection to your Misty II robot. There are two different methods we recommend for establishing this connection. Which method to use depends on the changes you have applied to your robot's Android operating system.
+
+* If you have **not** applied the [Android patch for improved SLAM performance](https://community.mistyrobotics.com/t/2020-01-07-misty-ii-android-patch-for-improved-slam-performance/2415), you can connect to adb using Misty's Wi-Fi IP address. 
+* If you **have** applied the Android patch **and** you created an `unblockwifiadb` file in the `\data\misty\` directory on the SDcard for Misty's 820 processor, you can connect to adb using Misty's Wi-Fi IP address.
+* If you **have** applied the Android patch for improved SLAM performance and did **not** create an `unblockwifiadb` file in the `\data\misty\` directory on the SDcard for Misty's 820 processor, you can connect to adb using the IP address for a USB-to-Ethernet adapter connected to the USB port on Misty's back.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When the Android patch for improved SLAM performance has been applied, you can enable or disable adb over Wi-Fi at any time by following the steps in [Toggling adb over Wi-Fi](./#toggling-adb-over-wi-fi) below. 
+{{box op="end"}}
+
+### adb Over Wi-Fi
+
+Once you have installed adb on your computer, you can connect to adb using your robot's Wi-Fi IP address. This is the same IP address that appears in the Misty App. Follow these steps:
+
+1. Open a new command prompt / terminal window.
+   * On Windows operating systems, you can open a new command prompt by launching the Start menu and searching for "command prompt".
+   * On Mac operating systems, you can open a new terminal window by pressing **Command + Space**, searching for "terminal", and pressing **Enter**.
+2. Enter `adb connect <Misty-Wi-Fi-ip-address>:5555`
+
+You can now use adb to communicate with your robot's Android device.
+
+### adb With a USB-to-Ethernet Adapter
+
+You can connect to adb with the IP address for a USB-to-Ethernet adapter by following these steps:
+
+1. [Follow these instructions](../../../misty-ii/net-sdk/getting-started/#connecting-to-misty-39-s-410-ip-address) to get an IP address for connecting to Misty's 410 processor. This requires a USB-to-Ethernet adapter, which does not arrive with Misty and must be purchased separately.
+2. Connect the USB end of the adapter to the port on your robot's back.
+3. Open a new command prompt / terminal window.
+4. Enter `ssh -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
+   * **Note:** If you get an error that indicates ssh is using an obsolete cypher, your robot may be using an older version of Windows IoT. You can get around the issue by entering the following: `ssh -c aes256-cbc -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
+5. Enter your robot's Windows administrator password to log in to the 410 via ssh. The Windows administrator password is [printed on the sticker underneath your robot](../../../misty-ii/robot/misty-ii/#connecting-to-misty-39-s-file-system).
+6. Keep this connection established and open a second command line / terminal window. Enter: `adb connect 127.0.0.1:5555`
+
+You can now use adb as normal until the initial connection is lost.
+
+### Toggling adb Over Wi-Fi
+
+If you have applied the [Android patch for improved SLAM performance](https://community.mistyrobotics.com/t/2020-01-07-misty-ii-android-patch-for-improved-slam-performance/2415), then you can enable adb over Wi-Fi by creating an `unblockwifiadb` file in the `\data\misty\` directory on the SDcard for Misty's 820 processor. If the `unblockwifiadb` file does not exist in the correct directory, then using adb with Misty's Wi-Fi IP address is disabled by default after you apply the patch.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The steps to create this file require an adb connection. You can create the file before **or** after you apply the Android patch. However, if you want to create the file **after** you apply the patch, then you must connect to adb using the IP address for a USB-to-Ethernet adapter. If you have not applied the patch, you can connect to adb using the Wi-Fi IP address provided in the Misty App.
+{{box op="end"}}
+
+**To enable adb over Wi-Fi:**
+
+1. Open a new command prompt / terminal window.
+2. Connect to adb.
+   * If you have already applied the patch, then adb connections over Wi-Fi are disabled by default, and you must connect to adb using the IP address for Misty's USB-to-Ethernet adapter. Follow the steps in  **[adb With a USB-to-Ethernet Adapter](./#adb-with-a-usb-to-ethernet-adapter)**.
+   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <Wi-Fi-IP-Address>:5555` 
+3. Create a new adb shell: `adb shell`
+4. Enter the following commands:
+   1. `su`
+   2. `touch /data/misty/unblockWi-Fiadb` (Note that the name of the file is case-sensitive.)
+   3. `reboot`
+
+Connecting to adb over Wi-Fi is now enabled.
+
+**To disable adb over Wi-Fi:**
+
+1. Open a new command prompt / terminal window.
+2. Connect to adb.
+   * If you have already applied the patch, then adb connections over Wi-Fi are disabled by default, and you must connect to adb using the IP address for Misty's USB-to-Ethernet adapter. Follow the steps in  **[adb With a USB-to-Ethernet Adapter](./#adb-with-a-usb-to-ethernet-adapter)**.
+   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <Wi-Fi-IP-Address>:5555` 
+3. Create a new adb shell: `adb shell`
+4. Enter the following commands:
+   1. `su`
+   2. `rm /data/misty/unblockWi-Fiadb`
+   3. `reboot`
+
+Connecting to adb over Wi-Fi is now disabled by default. You can connect to adb (and recreate the file to enable adb over Wi-Fi) by connecting to adb with the IP address for a USB-to-Ethernet Adapter.
+
+### Wake Word Configuration
+
+You can change Misty’s default wake word from "Hey, Misty" to "Hey, Snapdragon" by creating a configuration file on Misty’s 820 at `/sdcard/audio/audio_config.json`. Under conditions with low ambient noise, Misty can respond up to 40-80% more often when using "Hey, Snapdragon" than when using "Hey, Misty." Consider using "Hey, Snapdragon" when your skills and robot applications require more responsive wake word performance than the "Hey, Misty" key phrase provides.
+
+Follow these steps to configure Misty to use "Hey, Snapdragon" as her default wake word:
+
+1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents:
+```JSON
+{
+    misty_settings: {
+        keyphrase: "HeySnapdragon"
+    }
+}
+```
+2. Open a new command prompt / terminal window. Navigate to the path where `audio_config.json` is saved: `cd </path/to/audio_config.json>`
+3. With Misty turned on and fully booted, connect to adb.
+4. Enter the following command to upload the file to Misty: `adb push audio_config.json /sdcard/audio`
+
+You can change the default wake word back to "Hey, Misty" by removing the `audio_config.json` file. Follow these steps:
+
+1. With Misty turned on and fully booted, connect to adb.
+2. Enter the following:
+   1. `adb shell`
+   2. `rm sdcard/audio/audio_config.json`
+
 ## Connecting to Misty's File System
 
-You can access your robot's file system by connecting to the her file server over your local network connection.
+You can access your robot's Windows file system by connecting to the robot's 410 processor over your local network connection.
 
 1. Power Misty on and make sure she is connected to the same network as your computer.
 2. Connect to your robot's file system.
