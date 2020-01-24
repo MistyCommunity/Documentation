@@ -3169,6 +3169,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/component
 
 Parameters
 - Components (array) - A list of strings indicating the specific components to update. Use `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
+- OverrideBatteryCheck (boolean) - Optional. Whether to override the default battery level check when attempting to perform a targeted update.
 
 ```json
 {
