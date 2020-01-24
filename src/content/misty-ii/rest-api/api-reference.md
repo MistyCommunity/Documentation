@@ -2374,7 +2374,7 @@ Return Values
 
 ### AllowRobotUpdates
 
-Changes the robot's settings to allow Misty II to automatically install system updates. Misty is configured to automatically download and install system updates by default. To prevent system updates, you must issue a `PreventSystemUpdates` command.
+Changes the robot's settings to allow Misty II to automatically install system updates. Misty is configured to automatically download and install system updates by default. To prevent system updates, you must issue a `PreventRobotUpdates` command.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.

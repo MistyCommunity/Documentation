@@ -2813,6 +2813,24 @@ and in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ## System
 
+### misty.AllowRobotUpdates
+
+Changes the robot's settings to allow Misty II to automatically install system updates. Misty is configured to automatically download and install system updates by default. To prevent system updates, you must issue a `PreventRobotUpdates` command.
+
+```js
+// Syntax
+misty.AllowRobotUpdates([int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.AudioServiceEnabled
 
 Describes whether the audio service running on Misty's 820 processor is currently enabled.
@@ -3420,6 +3438,35 @@ Returns
   *  `local` (string) - The current local log level.
   *  `remote` (string) - The current remote log level.
 
+### misty.GetRobotUpdateSettings
+
+Obtains the robot's update settings and a timestamp for the last update attempt.
+
+```JavaScript
+// Syntax
+misty.GetRobotUpdateSettings([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetRobotUpdateSettings()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetRobotUpdateSettings()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+Returns
+
+* Result - An object with the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * allowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
+  * lastUpdateAttempt (string) - Timestamp for the last update attempt.
+
 ### misty.GetSavedWifiNetworks
 
 Obtains Misty's list of saved network IDs.
@@ -3508,6 +3555,34 @@ Returns
 * result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. The data object for each WebSocket class includes the following information:
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
+
+### misty.PreventRobotUpdates
+
+Changes the robot's settings to prevent Misty II from automatically installing system updates. To re-enable system updates, you must issue an `AllowRobotUpdates` command.
+
+```js
+// Example
+misty.PreventRobotUpdates([int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Important:** Prevent Misty from automatically installing system updates at your own risk. 
+
+Misty’s system updates include significant feature improvements and address performance, reliability, and security issues. The Misty Robotics organization provides customer support for the **current release only**. If you must prevent Misty from taking system updates, we recommend re-enabling updates at the earliest possible convenience.
+
+You may choose to temporarily prevent system updates when a release includes breaking API changes that you have not had time to update in the skills and robot applications you are using in production, or when you plan to use Misty in a setting where downloading and installing a system update may be disruptive. We do not recommend preventing system updates as a long-term solution for your skills and robot applications.
+
+When you are troubleshooting issues with your skills and applications, always make sure the current software and firmware is installed on your robot. You can find the current software and firmware versions on the [System Updates](../../../misty-ii/robot/system-updates) page in Misty’s developer documentation.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ### misty.RestartRobot
 
