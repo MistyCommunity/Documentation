@@ -58,7 +58,7 @@ When you implement a new `NativeRobotSkill`, you can set values for the followin
   * `Verbose` - In addition to error and debug messages, the skill sends a message to `SkillData` listeners for each command that Misty receives.
 * `StartupRules` (`IList<NativeStartupRule>`) - Optional. Configures how a skill can start. The following rules are currently implemented:
   * `Manual` - Allows a user to start the skill from the Skill Runner web page or by sending a request to the [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) endpoint in Misty's REST API. By default, all skills are implemented with the Manual startup rule.
-  * `Startup` - Configures the skill to start as soon as Misty boots up. **Note:** If more than one installed skill includes the `Startup` rule, then Misty randomly selects which to start when she boots up.
+  * `Startup` - Configures the skill to start as soon as Misty boots up. **Note:** Misty runs **all** skills set to run on startup when she boots up. 
 * `TimeoutInSeconds` (int) - Optional. The number of seconds a skill runs before it times out. Defaults to 600 seconds (or 10 minutes).
 
 ### `LoadRobotConnection`
