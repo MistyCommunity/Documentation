@@ -2372,7 +2372,26 @@ Return Values
 
 ## System
 
+### AllowRobotUpdates
+
+Changes the robot's settings to allow Misty II to automatically install system updates. Misty is configured to automatically download and install system updates by default. To prevent system updates, you must issue a `PreventRobotUpdates` command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/allow
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### ClearDisplayText
+
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
@@ -3015,6 +3034,35 @@ Return Values
 }
 ```
 
+### GetRobotUpdateSettings
+
+Obtains the robot's update settings and a timestamp for the last update attempt.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/system/update/settings
+
+Parameters
+
+* None
+
+Return Values
+
+* allowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
+* lastUpdateAttempt (string) - Timestamp for the last update attempt.
+
+```JSON
+{
+    "result": {
+        "allowRobotUpdates": true,
+        "lastUpdateAttempt": "2020-01-24T03:40:42.5573222Z"
+    },
+    "status": "Success"
+}
+```
+
 ### GetSlamServiceEnabled
 
 Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
@@ -3121,6 +3169,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/component
 
 Parameters
 - Components (array) - A list of strings indicating the specific components to update. Use `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
+- OverrideBatteryCheck (boolean) - Optional. Whether to override the default battery level check when attempting to perform a targeted update.
 
 ```json
 {
@@ -3131,11 +3180,40 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### PreventRobotUpdates
+
+Changes the robot's settings to prevent Misty II from automatically installing system updates. To re-enable system updates, you must issue an `AllowRobotUpdates` command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Important:** Prevent Misty from automatically installing system updates at your own risk. 
+
+Misty’s system updates include significant feature improvements and address performance, reliability, and security issues. The Misty Robotics organization provides customer support for the **current release only**. If you must prevent Misty from taking system updates, we recommend re-enabling updates at the earliest possible convenience.
+
+You may choose to temporarily prevent system updates when a release includes breaking API changes that you have not had time to update in the skills and robot applications you are using in production, or when you plan to use Misty in a setting where downloading and installing a system update may be disruptive. We do not recommend preventing system updates as a long-term solution for your skills and robot applications.
+
+When you are troubleshooting issues with your skills and applications, always make sure the current software and firmware is installed on your robot. You can find the current software and firmware versions on the [System Updates](../../../misty-ii/robot/system-updates) page in Misty’s developer documentation.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/prevent
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### RestartRobot
 
 Restarts Misty's 410 or 820 processor.
 
-Endpoint: POST &lt;<robot-ip-address>/api/reboot&gt;
+Endpoint: POST &lt;robot-ip-address&gt;/api/reboot
 
 Parameters:
 

@@ -340,7 +340,7 @@ The `meta` file includes the following parameters:
 * `UniqueId` (string) - A unique 128-bit GUID that Misty will use to identify the skill. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
 * `Description` (string) - A brief description of the skill.
 * `StartupRules` (array) - A list of strings that defines when and how the skill can start.
-  * Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up.
+  * Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up. Misty runs **all** skills set to run on startup when she boots up. 
   * Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) command or using [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner).
 * `Language` (string) - The language the skill is written in. Currently, Misty only supports `JavaScript` in on-robot skills.
 * `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. See the [documentation on Misty's `SkillData` named object](../../../misty-ii/robot/sensor-data/#skilldata) for more information.
