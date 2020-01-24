@@ -231,11 +231,11 @@ If you have applied the [Android patch for improved SLAM performance](https://co
 1. Open a new command prompt / terminal window.
 2. Connect to adb.
    * If you have already applied the patch, then adb connections over Wi-Fi are disabled by default, and you must connect to adb using the IP address for Misty's USB-to-Ethernet adapter. Follow the steps in  **[adb With a USB-to-Ethernet Adapter](./#adb-with-a-usb-to-ethernet-adapter)**.
-   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <Wi-Fi-IP-Address>:5555` 
+   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <wifi-ip-address>:5555` 
 3. Create a new adb shell: `adb shell`
 4. Enter the following commands:
    1. `su`
-   2. `touch /data/misty/unblockWi-Fiadb` (Note that the name of the file is case-sensitive.)
+   2. `touch /data/misty/unblockwifiadb` (Note that the name of the file is case-sensitive.)
    3. `reboot`
 
 Connecting to adb over Wi-Fi is now enabled.
@@ -245,7 +245,7 @@ Connecting to adb over Wi-Fi is now enabled.
 1. Open a new command prompt / terminal window.
 2. Connect to adb.
    * If you have already applied the patch, then adb connections over Wi-Fi are disabled by default, and you must connect to adb using the IP address for Misty's USB-to-Ethernet adapter. Follow the steps in  **[adb With a USB-to-Ethernet Adapter](./#adb-with-a-usb-to-ethernet-adapter)**.
-   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <Wi-Fi-IP-Address>:5555` 
+   * If you have not applied the patch, you can connect to adb using Misty's Wi-Fi IP address. In your prompt / terminal window, enter: `adb connect <wifi-ip-address>:5555` 
 3. Create a new adb shell: `adb shell`
 4. Enter the following commands:
    1. `su`
