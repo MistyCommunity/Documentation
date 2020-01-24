@@ -249,7 +249,7 @@ Connecting to adb over Wi-Fi is now enabled.
 3. Create a new adb shell: `adb shell`
 4. Enter the following commands:
    1. `su`
-   2. `rm /data/misty/unblockWi-Fiadb`
+   2. `rm /data/misty/unblockwifiadb`
    3. `reboot`
 
 Connecting to adb over Wi-Fi is now disabled by default. You can connect to adb (and recreate the file to enable adb over Wi-Fi) by connecting to adb with the IP address for a USB-to-Ethernet Adapter.
