@@ -336,7 +336,11 @@ You can subscribe to the ```FaceRecognition``` WebSocket to obtain data on both 
 
 The ```EventName``` value is the name you provide when you register the WebSocket connection.
 
-If face recognition is running on the robot, and a previously trained face is recognized, the ```PersonName``` value is the name previously assigned to that face. The ```PersonName``` value is ```unknown_person``` if an untrained/unknown face is detected. The ```PersonName``` value is ```null``` if face recognition is not currently running.
+If face recognition is running on the robot, and a previously trained face is recognized, the ```Label``` value is the name previously assigned to that face. The ```Label``` value is ```unknown_person``` if an untrained/unknown face is detected. The ```Label``` value is ```null``` if face recognition is not currently running.
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Note:** The `PersonName` and `Label` properties currently provide the same information. `PersonName` will be removed from `FaceRecognition` events in a future system update, and you should avoid using it in your skills and robot applications.
+{{box op="end"}}
 
 ```TrackId``` is reserved data that may change in the future.
 
@@ -345,15 +349,16 @@ Sample FaceRecognition data for a face recognition event:
 FaceRecognition{
 	"EventName":"MyFaceRecognition",
 	"Message":{
-		"Bearing":-3,
-		"Created":"2018-07-02T16:26:20.1718422Z",
-		"Distance":71,
-		"Elevation":3,
-		"Expiry":"2018-07-02T16:26:20.9218446Z",
-		"PersonName":"Barkley",
-		"SensorId":null,
-		"SensorName":null,
-		"TrackId":0
+      "Bearing":-3,
+      "Created":"2018-07-02T16:26:20.1718422Z",
+      "Distance":71,
+      "Elevation":3,
+      "Expiry":"2018-07-02T16:26:20.9218446Z",
+      "PersonName":"Face_1",
+      "Label": "Face_1",
+      "SensorId":null,
+      "SensorName":null,
+      "TrackId":0
 	},
 	"Type":"FaceRecognition"
 }
