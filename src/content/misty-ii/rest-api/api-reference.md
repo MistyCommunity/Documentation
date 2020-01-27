@@ -779,7 +779,7 @@ Parameters
 * Heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
 * Distance (double) - The distance (in meters) that Misty should drive.
 * TimeMs (double) - The duration (in milliseconds) that Misty should drive.
-* Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* Reverse (boolean) - If `true`, Misty drives in reverse. Default is `false`.
 
 ```JSON
 {
