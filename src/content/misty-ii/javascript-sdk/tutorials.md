@@ -979,7 +979,7 @@ function _FrontTOF() {
 }
 ```
 
-Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadDegrees()`](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees). We pass in values for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePauseMs` and `postPauseMs` values. For example, in the following command we’re telling Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-40`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePauseMs` and `postPauseMs` values to tell Misty to pause for a second and a half after executing the command.
+Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadDegrees()`](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees). We pass in values for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePauseMs` and `postPauseMs` values. For example, in the following command we tell Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-40`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePauseMs` and `postPauseMs` values to tell Misty to pause for a second and a half after executing the command.
 
 ```JavaScript
 misty.MoveHeadDegrees(-40, 0, 0, 60, 0, 1500);
