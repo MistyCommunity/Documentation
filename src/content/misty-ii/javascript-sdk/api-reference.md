@@ -843,7 +843,7 @@ Drives Misty forward or backward in a straight line. While driving, Misty contin
 
 ```JavaScript
 // Syntax
-misty.DriveHeading(double heading, double distance, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
+misty.DriveHeading(double heading, double distance, double timeMs, bool reverse, [int prePauseMs], [int postPauseMs])
 ```
 
 For a smooth driving experience, Misty's current heading should be within two degrees of the desired absolute heading before she executes the `misty.DriveHeading()` command. A variation of greater than two degrees results in large correction velocities. You can use the `misty.DriveArc()` command to face Misty in the direction of the heading you want her to maintain. Then, use the `misty.DriveHeading()` command to drive Misty forward or backward in a straight line.
@@ -860,7 +860,7 @@ Arguments
 * heading (double) - The absolute heading Misty should maintain. To set the absolute heading, use either: 0 - 360, where 0 is straight ahead, 90 is directly to the left, 180 is straight behind, and 270 is directly to the right, or: -180 to 180, where 0 is straight ahead, 90 is directly to the left, 180 and -180 are straight behind, and -90 is directly to the right.
 * distance (double) - The distance (in meters) that Misty should drive.
 * timeMs (double) - The duration (in milliseconds) that Misty should drive.
-* reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
+* reverse (boolean) - If `true`, Misty drives in reverse. Default is `false`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
