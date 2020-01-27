@@ -979,10 +979,12 @@ function _FrontTOF() {
 }
 ```
 
-Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadDegrees()`](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees). We pass in values for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity`, and for the optional `prePauseMs` and `postPauseMs` values. For example, in the following command we tell Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-40`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we specify `0` and `1500` for the `prePauseMs` and `postPauseMs` values to tell Misty to pause for a second and a half after executing the command.
+Inside the `_FrontTOF()` callback, we call [`misty.MoveHeadDegrees()`](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees). We pass in values for each axis of movement (`pitch`, `roll`, and `yaw`), for `velocity` or `duration`, and for the optional `prePauseMs` and `postPauseMs` arguments.
+
+For example, in the following command we tell Misty to tilt her head upward to the limit of her motion in the `pitch` direction (`-40`), but not to move along the `roll` (`0`) or `yaw` (`0`) axes. We also tell Misty to move her head at a moderate velocity (`60`), and we pass in a `null` value for the `duration` argument. (If we didn't specify a `velocity`, we could use `duration` to indicate how long the movement should take.) specify `0` and `1500` for the `prePauseMs` and `postPauseMs` values to tell Misty to pause for a second and a half after executing the command.
 
 ```JavaScript
-misty.MoveHeadDegrees(-40, 0, 0, 60, 0, 1500);
+misty.MoveHeadDegrees(-40, 0, 0, 60, null, 0, 1500);
 ```
 
 Within the `_FrontTOF()` callback, we actually call `misty.MoveHeadDegrees()` multiple times with a variety of parameters, so we can move Misty’s head in different ways. To make things interesting, we can also add in commands to change the LED and make sounds in between the head movement commands.
@@ -992,25 +994,25 @@ misty.ChangeLED(0, 255, 255); // aqua
 misty.PlayAudio("s_Awe.wav");
 
 // pitch
-misty.MoveHeadDegrees(-40, 0, 0, 60, 0, 1500); // pitch up
-misty.MoveHeadDegrees(26, 0, 0, 60, 0, 1500); // pitch down
-misty.MoveHeadDegrees(0, 0, 0, 60, 0, 1500); // pitch center
+misty.MoveHeadDegrees(-40, 0, 0, 90, null, 0, 1500); // pitch up
+misty.MoveHeadDegrees(26, 0, 0, 90, null, 0, 1500); // pitch down
+misty.MoveHeadDegrees(0, 0, 0, 90, null, 0, 1500); // pitch center
 
 misty.ChangeLED(255, 0, 255); // magenta
 misty.PlayAudio("s_Awe2.wav");
 
 // yaw
-misty.MoveHeadDegrees(0, 0, -81, 60, 0, 1500); // yaw left
-misty.MoveHeadDegrees(0, 0, 81, 60, 0, 1500); // yaw right
-misty.MoveHeadDegrees(0, 0, 0, 60, 0, 1500); // yaw center
+misty.MoveHeadDegrees(0, 0, -81, 90, null, 0, 1500); // yaw left
+misty.MoveHeadDegrees(0, 0, 81, 90, null, 0, 1500); // yaw right
+misty.MoveHeadDegrees(0, 0, 0, 90, null, 0, 1500); // yaw center
 
 misty.ChangeLED(255, 255, 0); // yellow
 misty.PlayAudio("s_Awe3.wav");
 
 // roll
-misty.MoveHeadDegrees(0, -40, 0, 60, 0, 1500); // roll left
-misty.MoveHeadDegrees(0, 40, 0, 60, 0, 1500); // roll right
-misty.MoveHeadDegrees(0, 0, 0, 60, 0, 1500); // roll center
+misty.MoveHeadDegrees(0, -40, 0, 90, null, 0, 1500); // roll left
+misty.MoveHeadDegrees(0, 40, 0, 90, null, 0, 1500); // roll right
+misty.MoveHeadDegrees(0, 0, 0, 90, null, 0, 1500); // roll center
 
 misty.ChangeLED(0, 0, 0); // off
 misty.PlayAudio("s_DisorientedConfused.wav"");
@@ -1029,10 +1031,10 @@ misty.RegisterEvent("BackTOF", "TimeOfFlight", 100);
 
 We register for `BackTOF` events by adding property tests checking that `SensorPosition` equals `Back` and the `DistanceInMeters` is less than or equal to `0.2`. We then call `misty.RegisterEvent()` and pass in the name for the event, `BackTOF`. When `BackTOF` is triggered, the callback runs. And it’s within the `_BackTOF()` callback that we send the actual commands to move Misty’s arms.
 
-Like head movement, arm movement can be controlled three ways, by position, radians, or degrees. In this example, we’ll use position via the `misty.MoveArmDegrees()` command. With this command you can designate which arm to move (`left` or `right`), the position to move it to (a range from `90` to `-29`), the velocity (a percentage of max speed), and provide optional `prePauseMs` and `postPauseMs` values (in ms). Here, we tell Misty to move her left arm up at a moderate speed to the limit of her motion.
+Like head movement, arm movement can be controlled three ways, by position, radians, or degrees. In this example, we’ll use position via the `misty.MoveArmDegrees()` command. With this command you can designate which arm to move (`left` or `right`), the position to move it to (a range from `90` to `-29`), the velocity or duration, and provide optional `prePauseMs` and `postPauseMs` values (in ms). Here, we tell Misty to move her left arm up at a moderate speed to the limit of her motion.
 
 ```JavaScript
-misty.MoveArmDegrees("left", -29, 60, 0, 1500);
+misty.MoveArmDegrees("left", -29, 60, null, 0, 1500);
 ```
 
 As we did with head movement, within the callback we can call `misty.MoveArmDegrees()` multiple times with different parameters to move her arms in a variety of ways. And we can again include commands to change the LED and make sounds in between the arm movement commands. Once the movements are finished, we log a debug message indicating the skill is complete.
@@ -1043,15 +1045,15 @@ function _BackTOF() {
     misty.PlayAudio("s_Joy.wav");
 
     // left
-    misty.MoveArmDegrees("left", -29, 60, 0, 1500); // up
-    misty.MoveArmDegrees("left", 90, 60, 0, 1500); // down
+    misty.MoveArmDegrees("left", -29, 60, null, 0, 1500); // up
+    misty.MoveArmDegrees("left", 90, 60, null, 0, 1500); // down
 
     misty.ChangeLED(128, 0, 0) // maroon
     misty.PlayAudio("s_Joy2.wav");
 
     // right
-    misty.MoveArmDegrees("right", -29, 60, 0, 1500); // up
-    misty.MoveArmDegrees("right", 90, 60, 0, 1500); // down
+    misty.MoveArmDegrees("right", -29, 60, null, 0, 1500); // up
+    misty.MoveArmDegrees("right", 90, 60, null, 0, 1500); // down
 
     misty.ChangeLED(0, 0, 0); // off
     misty.PlayAudio("s_Joy3.wav");
