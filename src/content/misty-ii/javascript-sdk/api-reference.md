@@ -2716,12 +2716,16 @@ misty.Debug("Message")
 
 ### misty.Get
 
-Returns data saved to the robot using `misty.Set()`. 
+Returns data that a skill has saved to Misty's database with the `Set` command. Call the `misty.Get()` method to access data created by the current skill, or to access cross-skill data. 
 
 ```JavaScript
 // Syntax
 misty.Get(string key, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Before a skill can access keys saved by another skill, the skill that created the keys must grant read permission to the skill that wants to read the keys. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
+{{box op="end"}}
 
 Arguments
 
@@ -2895,7 +2899,16 @@ misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 
 ### misty.Set
 
-Saves data that can be validly updated and used across threads or shared between skills.
+Saves data that can be validly updated and used across threads or shared between skills. Call the `misty.Set()` method to save or update data associated with the current skill, or to update cross-skill data.
+
+```JavaScript
+// Syntax
+misty.Set(string key, string value, [bool longTermStorage], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Before a skill can update keys created by another skill, the skill that created the keys must grant write permission to the skill that wants to update them. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
+{{box op="end"}}
 
 Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
@@ -2903,14 +2916,9 @@ By default, long term data saved by the `misty.Set()` command clears from Misty'
 
 * `Skill` - The data clears when the skill stops running.
 * `Reboot` - The data clears the next time Misty reboots.
-* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the mi`sty.Remove()` command.
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](./#misty-remove) command.
 
 You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default behavior of persistent data for that skill.
-
-```JavaScript
-// Syntax
-misty.Set(string key, string value, [bool longTermStorage], [int prePauseMs], [int postPauseMs]);
-```
 
 Arguments
 
