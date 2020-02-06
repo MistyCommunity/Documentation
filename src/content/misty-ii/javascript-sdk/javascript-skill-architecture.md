@@ -202,16 +202,20 @@ With a JSON body similar to:
 
 The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
 
-## Data Handling: Variables
+## Data Handling
 
 There are two ways to store persistent data with on-robot JavaScript skills:
 
 * In a global variable, where the data is available (but not updated) across threads in a single skill
 * As "set" data, where the data is available (and updated) across threads in a single skill and is shareable among skills.
 
+### Using Global Variables
+
 You can create global variables and use them across all "get" and "event" callbacks within a single skill. Global variables are copied over to new threads as they are created from callbacks. Global variables must be declared at the top of a skill, are prefixed with an underscore, and are not declared as `var`, `const`, etc.
 
-Note that the value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The value of a global variable is only preserved going forward. That is, if you have a thread running that spawns a new thread (via a "get" or "event" callback) but then continues to process, the global value will not update for the original thread; only the child thread will update that value going forward.
+{{box op="end"}}
 
 In this example, `_imageCount` is declared and used as a global variable:
 
@@ -232,16 +236,18 @@ function _GetImageList(response) {
 }
 ```
 
-### Persistent Data
+### Using the "Set" Command
 
-In cases where you need persistent data that can be (a) validly updated across threads and/or (b) shared between skills, you need to use the cross-skill `misty.Set()` command:
+In cases where you need to save persistent data that can be validly updated across threads and/or shared between skills, you can use the `Set` command.
+
+In Misty's JavaScript SDK, the syntax for invoking the `Set` command is as follows:
 
 ```js
 // Syntax
 misty.Set(string key, string value, [bool longTermStorage]);
 ```
 
-Data saved with `misty.Set()` must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. 
+Values you save with the [`misty.Set()`](../../../misty-ii/javascript-sdk/api-reference/#misty-set) method must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
 When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
 
@@ -249,25 +255,65 @@ When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument t
 misty.Set("key", "my long term data", true);
 ```
 
-By default, data saved by the `misty.Set()` command clears from Misty's memory when Misty reboots. To change this, you need to include an additional `SkillStorageLifetime` key in the meta file for your skill. The `SkillStorageLifetime` key determines how long data saved to Misty with the `misty.Set()` command remains available for use in your skills.
+By default, data you save with the `misty.Set()` method is cleared from Misty's memory when the robot reboots. To change this behavior, you must include an additional `SkillStorageLifetime` attribute in the [meta file](./#meta-file) for your skill. The value you assign to the `SkillStorageLifetime` attribute determines how long the data you save for a particular skill remains on the robot.
 
 You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
 
 * `Skill` - The data clears when the skill stops running.
 * `Reboot` - The data clears the next time Misty reboots (default).
-* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `misty.Remove()` command.
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](../../../misty-ii/javascript-sdk/api-reference/#misty-remove) command.
 
 You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
 
 Additional commands that operate on data across skills are described in the [Helper Commands](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#helper-commands) section.
 
+### Reading and Writing Data Across Skills
+
+When you store data with the `Set` command, you can allow other skills to read and modify that data by listing those skills in the `ReadPermissions` and `WritePermissions` attributes for the original skill's [meta file](./#meta-file).
+
+The `ReadPermissions` attribute is a list of skills allowed to **read** the data a skill saves. It is formatted as an array of comma separated strings, where each string is the `UniqueId` for a skill that can read the original skill's data.
+
+Similarly, the `WritePermissions` attribute is a list of skills allowed to **change** the data a skill saves. It, too, is formatted as an array of comma separated strings, where each string is the `UniqueId` for a skill that can update the original skill's data.
+
+As an example of how this works, the sample `ReadPermissions` and `WritePermissions` attributes below allow the following:
+
+* The skill associated with the `UniqueId` of `"d7f88ecf-6538-49c0-a89b-55ae4adcb5c4"` can read the data this skill saves with the `misty.Set()` method.
+* The skill associated with the `UniqueId` of `"c43cd2e1-70ab-4130-b2e0-027d5bda42b8"` can both read **and** modify the data this skill saves with the `misty.Set()` method.
+
+```json
+    "ReadPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
+    "WritePermissions": [
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ]
+```
+
+You must use the `Get` command to access the data associated with a particular key. In Misty's JavaScript SDK, the syntax for invoking the `Get` command is as follows:
+
+```JavaScript
+// Syntax
+misty.Get(string key, [int prePauseMs], [int postPauseMs]);
+```
+
+It is helpful to understand how the system manages instances where two (or more) skills read and write data to the same key.
+
+* Any keys a skill creates with the `Set` command are associated in Misty's database with the `UniqueId` (or `SkillId`) for that skill. When a skill uses `Get` or `Set` to retrieve or update a particular key, the system automatically filters the data the skill can access by using the `SkillId`s associated with each key in the database.
+* If a skill does not have read or write permissions for other skills that use the same keys, then the skill can only return and modify the values associated with the keys it has created.
+* If a skill grants read or write permissions to other skills that use the same keys **after** those skills have already assigned values to those keys on the robot's database, then those skills are not guaranteed to return the data associated with the original skill.
+* To avoid situations where the system returns data associated with the wrong skill, it is a good practice to use unique key names for the data you want to share and update across skills. Set values for these keys in a "parent" skill (that runs first) to grant read and write access to "child" skills (that run later).
+
 ## Command Types
+
 The following briefly describe the categories of commands you have available to work with Misty.
 
 ### Action Commands
+
 Action commands tell the robot to do something, but do not return data, so they do not require you to implement a callback. Most action commands -- such as `ChangeLED` or `Halt` -- are extremely simple to use. However calling others -- such as `StartTracking` -- can require a specific pattern of calls (this first, that second) to work. For details on all action commands, see the [JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference).
 
 ### Get Commands
+
 Get commands obtain data from the robot, so they require you to implement a callback to be notified when they return. The callback should contain exactly one parameter, to hold the data being returned. See the ["Get" Data Callbacks](./#-quot-get-quot-data-callbacks) section for more usage details.
 
 <!-- TODO: add link to GET DATA CALLBACKS section -->
@@ -314,13 +360,19 @@ Roam.js
 
 ### Meta File
 
-Every on-robot skill must include a named meta file with a `.json` extension. The meta file must have the same name as the code file for the skill. This brief meta file provides the initial settings and parameters Misty needs to run the skill. For example:
+Each JavaScript skill must include a JSON meta file with the same name as the JavaScript file for your skill code. This meta file provides the initial settings and parameters Misty needs to run the skill. 
+
+Example meta file:
 
 ```json
 {
+    "Name": "HelloWorld",
     "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
     "Description": "My skill is amazing!",
-    "StartupRules": ["Manual"],
+    "StartupRules": [
+        "Manual",
+        "Robot"
+        ],
     "Language": "javascript",
     "BroadcastMode": "verbose",
     "TimeoutInSeconds": 300,
@@ -331,34 +383,116 @@ Every on-robot skill must include a named meta file with a `.json` extension. Th
         "double":20.5,
         "String":"twenty"
         "foo": "bar"
-    }
+    },
+    "ReadPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
+    "WritePermissions": [
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ]
 }
 ```
 
-The `meta` file includes the following parameters:
+Each `meta` file includes the following attributes:
 
-* `UniqueId` (string) - A unique 128-bit GUID that Misty will use to identify the skill. To get up and running quickly with your own skill, you can use the [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) tool to automatically generate a meta file that includes a unique GUID for the `UniqueID` value.
-* `Description` (string) - A brief description of the skill.
-* `StartupRules` (array) - A list of strings that defines when and how the skill can start.
-  * Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up. Misty runs **all** skills set to run on startup when she boots up. 
-  * Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) command or using [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner).
-* `Language` (string) - The language the skill is written in. Currently, Misty only supports `JavaScript` in on-robot skills.
-* `BroadcastMode` (string) - A rule that sets when Misty sends `SkillData` messages and what kind of data those messages contain. See the [documentation on Misty's `SkillData` named object](../../../misty-ii/robot/sensor-data/#skilldata) for more information.
-  * `Off` - The skill does not send [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) messages.
-  * `Debug` - The skill sends error and debug messages to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events.
-  * `Verbose` - In addition to error and debug messages, the skill sends a message to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events for each command that Misty receives.
-* `TimeoutInSeconds` (int) - The duration (in milliseconds) the skill runs before it automatically cancels.
-* `CleanupOnCancel` (boolean) - If `true`, Misty stops all processes (like mapping, tracking, face recognition, face detection, and other start/stop-type commands) that are in progress when the skill cancels.
-* `WriteToLog` (boolean) - If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
-* `Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the `meta` sample above:
+`Name` (string) - The name of the skill as it appears in the Skill Runner web page. The value of the `Name` attribute must be the same name you use for the skill code and meta files associated with the skill. If you do not include the `Name` attribute, Misty automatically uses the name of the skill code and meta files to assign a name to the skill.
 
-```js
-_global = _params.foo;
-// Sends a debug message with the string "bar"
-misty.Debug(_global)
+```JSON
+    "Name": "HelloWorld",
 ```
 
-**Note:** The `WriteToLog` value is optional. Any example meta files in this documentation may include additional key/value pairs that are not currently in active use and may change in the future.
+`UniqueId` (string) - The unique 128-bit GUID that Misty uses to identify the skill (also referred to as the `SkillId`). To get up and running quickly, you can use the [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) tool to automatically generate a meta file with a unique GUID value for this property.
+
+```JSON
+    "UniqueId" : "f34a3aa0-8341-4047-8b54-59d658620ecf",
+```
+
+`Description` (string) - A brief description of the skill. You can use whatever you like.
+
+```JSON
+    "Description": "My skill is amazing!",
+```
+
+`StartupRules` (array) - A list of strings that defines when and how the skill can start.
+
+* Add `"Startup"` to the `StartupRules` array to have Misty start the skill as soon as she boots up. Misty runs **all** skills set to run on startup when she boots up. 
+* Add `"Manual"` to the `StartupRules` array to be able to start the skill manually, by sending a [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) command or using [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner).
+
+```JSON
+    "StartupRules": [
+        "Manual",
+        "Robot"
+        ],
+```
+
+`Language` (string) - The language the skill is written in.
+
+```JSON
+    "Language": "javascript",
+```
+
+`BroadcastMode` (string) - Sets the verbosity for `SkillData` event messages. See the [documentation on Misty's `SkillData` event type](../../../misty-ii/robot/sensor-data/#skilldata) for more information.
+* `off` - The skill does not send [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) messages.
+* `debug` - The skill sends error and debug messages to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events.
+* `verbose` - In addition to error and debug messages, the skill sends a message to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events for each command that Misty receives.
+
+```JSON
+    "BroadcastMode": "verbose",
+```
+
+`TimeoutInSeconds` (int) - The duration (in seconds) the skill runs before it automatically cancels.
+
+```JSON
+    "TimeoutInSeconds": 600,
+```
+
+`CleanupOnCancel` (boolean) - If `true`, Misty stops all processes (like mapping, tracking, face recognition, face detection, and other start/stop-type commands) that are in progress when the skill cancels.
+
+```JSON
+    "CleanupOnCancel": true,
+```
+
+`WriteToLog` (boolean) - Optional. If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
+
+```JSON
+    "WriteToLog": false,
+```
+
+`ReadPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to read the data this skill creates with the `misty.Set()` method.
+
+```JSON
+    "ReadPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
+```
+
+`WritePermissions` (array) - A list of `SkillId`s for each skill that is allowed to change the data this skill creates with the `misty.Set()` method.
+
+```JSON
+    "WritePermissions": [
+        "d43ae072-720c-469e-8b58-5cdbf4a7721a"
+    ]
+```
+
+`Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the meta file for a skill, we can assign the following object to the `Parameters` property:
+
+```JSON
+    "Parameters": {
+        "int":10,
+        "double":20.5,
+        "String":"twenty"
+        "foo": "bar"
+    },
+```
+
+Then, in our JavaScript skill code, we can access the value of the `"foo"` property by calling on the global `_params` variable `"bar"`, as follows:
+
+```js
+// JavaScript skill code:
+misty.Debug(_params.foo); // prints "bar"
+```
 
 ### Code File
 The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:

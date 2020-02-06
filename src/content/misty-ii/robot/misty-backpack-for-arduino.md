@@ -36,6 +36,7 @@ The box for your Misty Backpack for Arduino includes:
 The Misty Backpack for Arduino:
 
 * uses a 3.3v logic board (**not** 5v)
+* uses a baud rate of 9600/8-N-1 for serial data transmission
 * includes a [Sparkfun QWIIC connector](https://www.sparkfun.com/qwiic) wired to the SCL and SDA pins on the microcontroller
 * has a USB micro port for programming
 * includes built-in pins configured to interface with Misty's UART serial port
