@@ -2599,16 +2599,16 @@ misty.StopRecordingAudio();
 
 Stops recording video with Misty's 4K camera.
 
-Use this command after calling `misty.StartRecordingVideo()`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command. To download a video from your robot, use the [`GetVideoFile`](../../../misty-ii/rest-api/api-reference/#getvideofile) REST command.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
 ```JavaScript
 // Syntax
 misty.StopRecordingVideo([int prePauseMs], [int postPauseMs]);
 ```
+
+If you do not call the `misty.StopRecordingVideo()` method, Misty automatically stops recording after the duration for the recording has elapsed. You set this duration when you call the [`misty.StartRecordingVideo()`](./#misty-startrecordingvideo) method. The default duration for a video recording is 10 seconds.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
 

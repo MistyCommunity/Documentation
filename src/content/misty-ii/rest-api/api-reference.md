@@ -2141,13 +2141,14 @@ Return Values
 
 Stops recording video with Misty's 4K camera.
 
-Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+If you do not call the `StopRecordingVideo` command, Misty automatically stops recording after the duration for the recording has elapsed. You set this duration when you call the [`StartRecordingVideo`](./#startrecordingvideo) command. The default duration for a video recording is 10 seconds.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/stop<br>
+**Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/videos/record/stop
 
 Parameters
 
