@@ -715,7 +715,7 @@ Arguments
 * ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
 * OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
 * OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
-* BlinkImages (string) - Optional. A stringified JSON object that assigns a blink mapping for one or more image assets.
+* BlinkImages (string) - Optional. The blink mapping for one or more image assets, formatted as a comma-separated string of image asset pairs. You set a new blink mapping for an image asset by using an "=" sign. (For example, to set the blink mapping for `e_SystemLogoPrompt.jpg` to `e_Sleepy4.jpg`, use `"e_SystemLogoPrompt.jpg=e_Sleepy4.jpg"`).  
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 

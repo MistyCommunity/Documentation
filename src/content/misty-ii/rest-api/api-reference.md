@@ -591,7 +591,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/blink/settings
 
 Parameters
 
-* BlinkImages (JSON object) - Optional. Adds a blink mapping for one or more image assets.
+* BlinkImages (string) - Optional. The blink mapping for one or more image assets, formatted as a comma-separated string of image asset pairs. You set a new blink mapping for an image asset by using an "=" sign. (For example, to set the blink mapping for `e_SystemLogoPrompt.jpg` to `e_Sleepy4.jpg`, use `"e_SystemLogoPrompt.jpg=e_Sleepy4.jpg"`).  
 * OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
 * OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
 * ClosedEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay closed while blinking.
@@ -600,10 +600,7 @@ Parameters
 
 ```JSON
 {
-  "BlinkImages": {
-    "Green.jpg": "Red.jpg",
-    "Wonder.png": "blink.png"
-    },
+  "BlinkImages": "e_SystemLogoPrompt.jpg=e_Sleepy4.jpg,e_SystemGearPrompt.jpg=e_Sleepy3.jpg,MyPic.jpg=e_Sleepy4.jpg",
   "OpenEyeMinMs" : 1000,
   "OpenEyeMaxMs" : 7000,
   "ClosedEyeMinMs" : 100,
