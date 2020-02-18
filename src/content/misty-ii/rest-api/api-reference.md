@@ -2074,7 +2074,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 Parameters
 
 * Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`. 
-* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0` and less than `10`. Max duration is 10 seconds. If you do not specify a value, Misty automatically stops recording after 10 seconds, or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
+* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0`. Max duration is 3 minutes. If you do not specify a value, Misty automatically stops recording after 30 seconds, or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
 * Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. If you supply a value for `Width`, you must also supply a value for `Height`. See the note in the description of this command for valid resolutions.
 * Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. If you supply a value for `Height`, you must also supply a value for `Width`. See the note in the description of this command for valid resolutions.
 
@@ -2138,7 +2138,7 @@ Return Values
 
 Stops recording video with Misty's 4K camera.
 
-If you do not call the `StopRecordingVideo` command, Misty automatically stops recording after the duration for the recording has elapsed. You set this duration when you call the [`StartRecordingVideo`](./#startrecordingvideo) command. The default duration for a video recording is 10 seconds.
+If you do not call the `StopRecordingVideo` command, Misty automatically stops recording after the duration for the recording has elapsed. You set this duration when you call the [`StartRecordingVideo`](./#startrecordingvideo) command. The default video recording duration is 30 seconds.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
