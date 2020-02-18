@@ -2502,32 +2502,46 @@ misty.StartRecordingAudio("RecordingExample.wav");
 
 ### misty.StartRecordingVideo
 
-Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels.
-
-Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
-
-Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, use the [`GetVideoFile`](../../../misty-ii/rest-api/api-reference/#getvideofile) REST command.
-
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** When you call the `misty.StartRecordingVideo()` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
-
-This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
+Starts recording video with Misty's 4K Camera.
 
 ```JavaScript
 // Syntax
-misty.StartRecordingVideo([int prePauseMs], [int postPauseMs])
+misty.StartRecordingVideo([string fileName], [bool mute], [int duration], [int width], [int height], [int prePauseMs], [int postPauseMs])
 ```
+
+Valid resolutions (as `Width` x `Height`) for recording videos are: 3840 x 2160, 1920 x 1080, 1280 x 960, 640 x 480, and 320 x 240.
+
+The videos Misty records with her RGB camera are rotated 90 degrees counterclockwise, and the width and height values listed above may be swapped for the actual video that Misty returns when you call this command. Video recordings that Misty creates have orientation information that enables media players to rotate and play back the video using the correct orientation; however, if you play the video in certain players, you will see that the actual video file itself is rotated 90 degrees counterclockwise.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+When Misty powers on, she starts a new camera session with a default resolution setting of 1920 x 1080 for recording videos. If you record a video without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for recording videos. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
 
+* fileName (string) - Optional. The filename for the recorded video. Video recordings can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically adds an extension of `.mp4`. If you do not supply a filename, the video recording is saved with the default filename of `misty_video`. **Important:** When you record a video with the same filename of a video that already exists on the robot, the new video recording automatically overwrites the existing recording.
+* mute (bool) - Optional. Whether to mute audio while recording. Default is `false`.
+* duration (int) - Optional. How long (in seconds) to record. Must be greater than `0`. The max duration for a video recording is 180 seconds (3 minutes). If you do not specify a value, Misty automatically stops recording after 30 seconds (default), or upon receiving a [`StopRecordingVideo`](./#misty-stoprecordingvideo) command.
+* width (int) - Optional. Sets the resolution width (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `width` and `weight`. See the command description for a list of valid resolutions.
+* height (int) - Optional. Sets the resolution height (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `width` and `height`. See the command description for a list of valid resolutions. 
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
 // Example
-misty.StartRecordingVideo();
+
+// Records a 60-second video at recording resolution
+// for current camera session
+misty.StartRecordingVideo("MyVideo", false, 60);
 ```
 
 ### misty.StopFaceDetection
