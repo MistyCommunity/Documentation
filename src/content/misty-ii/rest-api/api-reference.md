@@ -2057,26 +2057,43 @@ Return Values
 
 Starts recording video with Misty's 4K Camera.
 
-Misty only saves the most recent video recording to her local storage. Misty saves videos with the filename `MistyVideo.mp4`, and overwrites this file with each new recording.
+Valid resolutions (as `Width` x `Height`) for recording videos are: 3840 x 2160, 1920 x 1080, 1280 x 960, 640 x 480, and 320 x 240.
 
-{{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Valid resolutions (as `Width` x `Height`) include: 2160 x 3840, 2448 x 3264, 2400 x 3200, 1944 x 2592, 1512 x 2688, 1536 x 2048, 1080 x 1920, 1200 x 1600, 1080 x 1440, 1200 x 1200, 960 x 1280, 768 x 1280, 720 x 1280, 768 x 1024, 600 x 800, 480 x 864, 480 x 800, 480 x 720, 480 x 640, 360 x 640, 640 x 480, 360 x 480, 320 x 480, 288 x 352, 240 x 320, 320 x 240, 144 x 176, 120 x 160, and 176 x 144.    
+The videos Misty records with her RGB camera are rotated 90 degrees counterclockwise, and the width and height values listed above may be swapped for the actual video that Misty returns when you call this command. Video recordings that Misty creates have orientation information that enables media players to rotate and play back the video using the correct orientation; however, if you play the video in certain players, you will see that the actual video file itself is rotated 90 degrees counterclockwise.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+When Misty powers on, she starts a new camera session with a default resolution setting of 1920 x 1080 for recording videos. If you record a video without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for recording videos. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
-
-This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/start
+**Deprecated**: POST &lt;robot-ip-address&gt;/api/video/record/start
 
 Parameters
 
-* Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`. 
-* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0`. Max duration is 3 minutes. If you do not specify a value, Misty automatically stops recording after 30 seconds, or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
-* Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. If you supply a value for `Width`, you must also supply a value for `Height`. See the note in the description of this command for valid resolutions.
-* Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. If you supply a value for `Height`, you must also supply a value for `Width`. See the note in the description of this command for valid resolutions.
+* Name (string) - Optional. The filename for the recorded video. Video recordings can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically adds an extension of `.mp4`. If you do not supply a filename, the video recording is saved with the default filename of `misty_video`. **Important:** When you record a video with the same filename of a video that already exists on the robot, the new video recording automatically overwrites the existing recording.
+* Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`.
+* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0`. The max duration for a video recording is 180 seconds (3 minutes). If you do not specify a value, Misty automatically stops recording after 30 seconds (default), or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
+* Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `Width` and `Height`. See the command description for a list of valid resolutions.
+* Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `Width` and `Height`. See the command description for a list of valid resolutions. 
+
+```json
+{
+	"FileName": "MyVideo",
+	"Mute": false,
+	"Duration": 60,
+	"Width": 1920,
+	"Height": 1080
+}
+```
 
 Return Values
 
