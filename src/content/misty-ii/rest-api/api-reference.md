@@ -2470,7 +2470,7 @@ Misty cannot run commands or stream messages from event types that use the audio
 * `SourceFocusConfigMessage`
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the audio service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/disable
@@ -2489,6 +2489,11 @@ Disables the camera service running on Misty's 820 processor.
 
 Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
+
 Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
 
 **Camera Service Commands**
@@ -2504,14 +2509,17 @@ Misty cannot run commands or stream messages from event types that use the camer
 * `TakePicture`
 * `GetCameraData`
 * `GetKnownFaces`
-* `GetVideoFile`
+* `GetVideoRecording`
+* `GetVideoRecordingsList`
+* `DeleteVideoRecording`
+* `RenameVideoRecording`
 
 **Camera Service Event Types**
 * `FaceRecognition`
 * `FaceTraining`
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the camera service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/disable
@@ -2562,7 +2570,7 @@ Misty cannot run commands or stream messages from event types that use the SLAM 
 Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the SLAM service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/disable
