@@ -3011,9 +3011,15 @@ Describes whether the camera service running on Misty's 820 processor is current
 misty.CameraServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
+
 For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#misty-disablecameraservice) command description.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_CameraServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 

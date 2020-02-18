@@ -2742,6 +2742,10 @@ Sample response data:
 
 Describes whether the camera service running on Misty's 820 processor is currently enabled.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
+
 For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/services/camera
