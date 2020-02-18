@@ -149,6 +149,25 @@ The following audio notifications are enabled by default. You can turn them off 
 
 * **Wake Word** - When Misty recognizes the "Hey, Misty!" key phrase, she plays the system audio file `s_SystemWakeWord.wav`. You can change the default wake word sound by sending a request to the [`SetNotificationSettings`](../../../misty-ii/rest-api/api-reference/#setnotificationsettings) endpoint in Misty's REST API.
 
+### Tally Light Notifications
+
+The blue tally light beneath Misty's flashlight automatically turns on during certain activities to notify users that the robot is collecting personally identifiable information (PII) such as video recordings, audio recordings, and pictures. You cannot override tally light notifications. By default, the tally light turns on while Misty is:
+
+* recording a video
+* AV streaming
+* creating a SLAM sensor (OCC) recording
+* recording audio (both during manual audio recordings **and** during speech capture recordings)
+* recognizing faces
+* taking pictures with her RGB or fisheye camera
+* taking a depth image
+
+The tally light does **not** turn on when Misty is:
+
+* **detecting** faces (without face recognition)
+* mapping or  tracking
+* listening for the wake word
+
+
 ### Scruff Reflex
 
 Misty ignores all commands she receives for as long as she detects someone touching the `CapTouch_Scruff` sensor in the handle on the back of her head. This behavior is designed is to prevent Misty from moving in ways that could damage her (or the human holding her) if she’s picked up while running a skill. This behavior does not cancel any running skills. It only causes Misty to ignore commands those skills invoke. When the `CapTouch_Scruff` touch sensor is released, Misty resumes execution of any new commands she receives.
