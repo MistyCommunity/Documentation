@@ -3236,6 +3236,10 @@ Enables the camera service running on Misty's 820 processor.
 misty.EnableCameraService([int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
+
 For more information about disabling and enabling the camera service, see the [`DisableCameraService`](./#misty-disablecameraservice) command description.
 
 Arguments
