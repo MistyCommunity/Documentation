@@ -1707,6 +1707,24 @@ Return Values
 
 * Result (bool) - Returns `true` if no issues related to this command.
 
+### DeleteVideoRecording
+
+Deletes a video recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes video recordings that Misty has created. To delete a user-uploaded video asset, you must use the [`DeleteVideo`](./#deletevideo) command.
+{{box op="end"}}
+
+Endpoint: Delete <robot-ip-address>/api/videos/recordings
+
+Parameters:
+
+* Name (string) - The filename of the video to delete. Does not include the filetype extension.
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
 ### GetKnownFaces
 
 Obtains a list of the names of faces on which Misty has been successfully trained.
