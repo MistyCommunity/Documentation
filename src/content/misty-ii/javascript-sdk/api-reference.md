@@ -2622,22 +2622,35 @@ misty.StopRecordingVideo();
 
 ### misty.TakePicture
 
-Takes a photo with Misty’s 4K camera.
-
-**Note:** When you call the `misty.TakePicture()` command immediately after using the camera to record a video, there may be a few seconds delay before Misty takes the photograph.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+Takes a picture with Misty’s RGB camera. Optionally, saves the picture to Misty's local storage.
 
 ```JavaScript
 // Syntax
 misty.TakePicture([string fileName], [int width], [int height], [bool displayOnScreen = false], [bool overwriteExisting = false], [string callback = _TakePicture()], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+Valid resolutions (as `Width` x `Height`) for taking pictures are: 4160 x 3120, 3840 x 2160, 3264 x 2448, 3200 x 2400, 2592 x 1944, 2048 x 1536, 1920 x 1080, 1600 x 1200, 1440 x 1080, 1280 x 960, 1024 x 768, 800 x 600, 640 x 480, and 320 x 240.
+
+These width and height values are reversed for the actual image that Misty returns when you call this command. The pictures Misty takes with her RGB camera are rotated 90 degrees counterclockwise. Misty reorients each picture 90 degrees clockwise during the encoding process.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+When Misty powers on, she starts a new camera session with a default resolution setting of 4160 x 3120 for taking pictures. If you take a picture without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for taking pictures. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
 
 * fileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
-* width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
-* height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
+* width (integer) - Optional. Optional. The desired image width (in pixels). When you specify a resolution, you must pass in values for both width and height. See the command description for a list of valid resolutions.
+* height (integer) - Optional. The desired image height (in pixels). When you specify a resolution, you must pass in values for both width and height. See the command description for a list of valid resolutions.
 * displayOnScreen (boolean) - Optional. If `true` **and** a `fileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `fileName` value is provided, does nothing. Defaults to `false`.
 * overwriteExisting (boolean) - Optional. Indicates whether Misty should overwrite an image with the same filename as the captured photo if one exists on her local storage. Passing in `true` overwrites a file with the same name. Passing in `false` prevents an existing file with the same name from being overwritten. In the case that `overwriteExisting` is set to `false` and a photo already exists with the same filename as the newly captured photo, the new photo is not saved to Misty. Defaults to `false`.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_TakePicture()`) is called.
@@ -2648,7 +2661,7 @@ Arguments
 
 ```JavaScript
 // Example
-misty.TakePicture("newImage", 1200, 1600, false, true);
+misty.TakePicture("newImage", 1600, 1200, false, true);
 ```
 
 Returns
@@ -2660,19 +2673,11 @@ Returns
    * Name (string) - The name of the image.
    * Width (integer) - The width of the image in pixels.
 
-
-
-
-
 ## Skill Management
 
-
-
-
-
 ### misty.CancelSkill
-Cancel execution a specified skill.
 
+Cancel execution a specified skill.
 
 ```JavaScript
 // Syntax

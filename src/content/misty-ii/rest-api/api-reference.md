@@ -2164,12 +2164,12 @@ Valid resolutions (as `Width` x `Height`) for taking pictures are: 4160 x 3120, 
 These width and height values are reversed for the actual image that Misty returns when you call this command. The pictures Misty takes with her RGB camera are rotated 90 degrees counterclockwise. Misty reorients each picture 90 degrees clockwise during the encoding process.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 and your current snapshot resolution is set to the highest resolution, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
 
 When Misty powers on, she starts a new camera session with a default resolution setting of 4160 x 3120 for taking pictures. If you take a picture without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for taking pictures. This has the following implications:
 
 * Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
-* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on Picture and Video Resolution.
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
 {{box op="end"}}
 
 
@@ -2188,8 +2188,8 @@ Parameters
 {
   "Base64": true,
   "FileName": "MyPicture",
-  "Width": 300,
-  "Height": 200,
+  "Width": 800,
+  "Height": 600,
   "DisplayOnScreen": true,
   "OverwriteExisting": true
 }
