@@ -179,6 +179,35 @@ To enable the hazards system to work effectively, Misty's max speed is limited t
 **Note:** While edge detection has proven effective in most of our testing, there are still situations in which the robot may fail to catch herself. It's more difficult for the hazards system to detect an edge when Misty is driving backwards or on tables with rounded edges. The larger the radius of the curve, the harder it is for Misty to stop moving in time to prevent falling. Until further enhancements to the hazards system are in place, we recommend you continue to operate Misty using the foam block on high surfaces like tables, counter-tops, and desks, unless you are supervising Misty and can safely catch her in the event of a fall and have also done extensive testing with the robot in your specific environments.
 {{box op="end"}}
 
+## Using Misty's RGB Camera
+
+This section provides an overview of Misty's RGB camera and the services used for different camera functions. For detailed descriptions of the commands you call to use these functions, see the API reference documentation. 
+
+Misty's RGB camera is embedded in the center of her visor. Misty uses this camera to take pictures, record videos, and stream image data for computer vision (CV) activities like face training, face detection, and face recognition. You can also stream video from Misty's camera to an external media server, or directly to a streaming client on the same network as your robot.
+
+
+### Camera Service
+
+To use the camera for taking pictures, recording videos, and for CV activities, Misty's camera service must be enabled. By default, the camera service is enabled when Misty boots up. You can enable and disable the camera service manually by using the [`EnableCameraService`](../../../misty-ii/rest-api/api-reference/#enablecameraservice) and [`DisableCameraService`](../../../misty-ii/rest-api/api-reference/#disablecameraservice) commands.
+
+The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. Misty cannot run commands that use the camera service, or stream messages from any event types that use the camera service, when the camera service is disabled. You can find the full list of these commands and event types in the documentation for the [`DisableCameraService`](../../../misty-ii/rest-api/api-reference/#disablecameraservice) command.
+
+### AV Streaming Service
+
+To use the camera for AV streaming, Misty's AV streaming service must be enabled. **By default, the AV streaming service is disabled when Misty boots up.** You can enable and disable the camera service manually by using the [`EnableAvStreamingService`](../../../misty-ii/rest-api/api-reference/#enableavstreamingservice) and [`DisableAvStreamingService`](../../../misty-ii/rest-api/api-reference/#disableavstreamingservice) commands.
+
+The AV streaming service and the camera service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+
+### Picture and Video Resolution
+
+When Misty powers on, she starts up a new camera session with default resolution settings of 1920 x 1080 for recording videos and 4160 x 3120 for taking pictures. When you take a picture or start recording video without specifying a resolution, the system defaults to using the resolution already set for that action in the current camera session. When you specify a different resolution than what is set for that action in the current camera session, the session resets to use the new resolution settings. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready.
+* Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest possible resolution for taking pictures. If you record a video at 3840 x 2160 when the resolution for taking pictures is set to the highest resolution, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+A camera session remains active with the new resolution settings until **a)** Misty receives a command to take a picture or record a video with different resolution settings, **b)** Misty reboots, or **c)** you disable and re-enable the camera service.
+
 ## Connecting to adb
 
 You can use the Android Debug Bridge (adb) command line tool to communicate with the Android operating system running on Misty's 820 processor. This is useful when you want to access assets stored on the 820, view additional logs, or configure settings exposed through Misty's Android device. You can [download adb for free from the Android developer documentation](https://developer.android.com/studio/command-line/adb).
