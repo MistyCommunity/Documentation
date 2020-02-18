@@ -1741,6 +1741,29 @@ Return Values
 
 * An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
+### GetVideoRecording
+
+Downloads a video recording to your browser or REST client.
+
+You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
+
+Parameters
+
+* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+
+Return Values
+
+* An .mp4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### ForgetFaces
 
