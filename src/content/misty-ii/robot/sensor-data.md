@@ -781,7 +781,6 @@ There are a number of fields in the event message data structure that are reserv
 
 Sample SelfState data:
 ```JSON
-SelfState
 {
   "eventName": "SelfState",
   "message": {
@@ -792,18 +791,16 @@ SelfState
       "z": 0
     },
     "battery": {
-      "chargePercent": null,
-      "created": "2019-08-14T21:17:53.7266429Z",
-      "current": -0.911,
-      "expiry": "2019-08-14T21:18:03.7266429Z",
-      "healthPercent": null,
+      "chargePercent": 0.99,
+      "created": "2020-02-18T16:47:56.4404619Z",
+      "current": -0.724,
+      "healthPercent": 0.55,
       "isCharging": false,
       "sensorId": "charge",
-      "sensorName": "/Sensors/RTC/BatteryCharge",
       "state": "Discharging",
-      "temperature": 21,
-      "trained": false,
-      "voltage": 6.612
+      "temperature": 0,
+      "trained": true,
+      "voltage": 8.127
     },
     "bumpedState": {
       "disengagedSensorIds": [],
@@ -815,7 +812,7 @@ SelfState
     },
     "cameraStatus": {
       "isTakingPicture": false,
-      "onboardCameraStatus": "Streaming"
+      "onboardCameraStatus": "Ready"
     },
     "currentGoal": {
       "directedMotion": {
@@ -823,128 +820,46 @@ SelfState
           {
             "arguments": {
               "apiCommand": "MoveHead",
-              "changeDisplayImageGesture": null,
-              "lookParameters": {
-                "actionDelayInSeconds": null,
-                "actionDurationInSeconds": 1,
-                "fractionalPupilUseLimit": null,
-                "rollInRadians": -0.7330382858376184,
-                "spatialPrecisionInMeters": null,
-                "targetPose": {
-                  "bearing": 0,
-                  "created": "2019-08-14T20:28:48.3341954Z",
-                  "distance": 10,
-                  "elevation": 0,
-                  "frameId": "RobotNeck",
-                  "framesProvider": {
-                    "rootFrame": {
-                      "created": "2019-08-14T16:21:18.1035121Z",
-                      "id": "RobotBaseCenter",
-                      "isStatic": true,
-                      "linkFromParent": {
-                        "isStatic": true,
-                        "parentFrameId": "",
-                        "transformFromParent": {
-                          "bearing": 0,
-                          "distance": 0,
-                          "elevation": 0,
-                          "pitch": 0,
-                          "quaternion": {
-                            "isIdentity": true,
-                            "w": 1,
-                            "x": 0,
-                            "y": 0,
-                            "z": 0
-                          },
-                          "roll": 0,
-                          "x": 0,
-                          "y": 0,
-                          "yaw": 0,
-                          "z": 0
-                        },
-                        "transformToParent": {
-                          "bearing": 3.141592653589793,
-                          "distance": 0,
-                          "elevation": 0,
-                          "pitch": 0,
-                          "quaternion": {
-                            "isIdentity": true,
-                            "w": 1,
-                            "x": 0,
-                            "y": 0,
-                            "z": 0
-                          },
-                          "roll": 0,
-                          "x": 0,
-                          "y": 0,
-                          "yaw": 0,
-                          "z": 0
-                        }
-                      }
-                    }
-                  },
-                  "homogeneousCoordinates": {
-                    "bearing": 0,
-                    "distance": 10,
-                    "elevation": 0,
-                    "pitch": 0,
-                    "quaternion": {
-                      "isIdentity": true,
-                      "w": 1,
-                      "x": 0,
-                      "y": 0,
-                      "z": 0
-                    },
-                    "roll": 0,
-                    "x": 10,
-                    "y": 0,
-                    "yaw": 0,
-                    "z": 0
-                  },
-                  "pitch": 0,
-                  "roll": 0,
-                  "x": 10,
-                  "y": 0,
-                  "yaw": 0,
-                  "z": 0
-                },
-                "worldObjectId": null
-              }
+              "pitch": -0.6632251157578452,
+              "roll": 0.20943951023931953,
+              "time": 6.300000000000001,
+              "velocity": null,
+              "yaw": 0.3141592653589793
             },
-            "name": "Misty2.AffectiveHeadEyeAction"
+            "name": "Misty2.HeadActionPlan"
           }
         ],
-        "id": 8835
+        "id": 425
       },
-      "directedMotionBehavior": "Update",
+      "directedMotionBehavior": "SupersedeOverlapping",
       "haltActionSequence": false
     },
-    "localIPAddress": "192.168.7.32",
+    "localIPAddress": "192.168.7.183",
     "location": {
-      "bearing": 0,
+      "bearing": -0.007485523933617791,
       "bearingThreshold": {
         "lowerBound": 0,
         "upperBound": 0
       },
-      "distance": 0,
+      "distance": 0.33650338286734793,
       "distanceThreshold": {
         "lowerBound": 0,
         "upperBound": 0
       },
-      "elevation": 0,
+      "elevation": -1.3027658231301418,
       "elevationThreshold": {
         "lowerBound": 0,
         "upperBound": 0
       },
       "pose": {
-        "bearing": 0,
-        "created": "2019-08-14T21:17:53.9314769Z",
-        "distance": 0,
-        "elevation": 0,
+        "bearing": -0.007485523933617791,
+        "created": "2020-02-18T16:47:56.6928792Z",
+        "distance": 0.33650338286734793,
+        "elevation": -1.3027658231301418,
         "frameId": "WorldOrigin",
         "framesProvider": {
           "rootFrame": {
-            "created": "2019-08-14T16:21:18.1035121Z",
+            "created": "2020-02-18T16:34:14.5996575Z",
             "id": "RobotBaseCenter",
             "isStatic": true,
             "linkFromParent": {
@@ -990,31 +905,30 @@ SelfState
           }
         },
         "homogeneousCoordinates": {
-          "bearing": 0,
-          "distance": 0,
-          "elevation": 0,
-          "pitch": 0.10141706466674805,
+          "bearing": -0.007485523933617791,
+          "distance": 0.33650338286734793,
+          "elevation": -1.3027658231301418,
+          "pitch": -0.6325809359550476,
           "quaternion": {
             "isIdentity": false,
-            "w": 0.619889557,
-            "x": -0.7773387,
-            "y": -0.041995585,
-            "z": 0.09861117
+            "w": 0.932397366,
+            "x": 0.1152967,
+            "y": -0.295654356,
+            "z": 0.173003957
           },
-          "roll": -1.7855754801963701,
-          "x": 0,
-          "y": 0,
-          "yaw": 0.18964907113092544,
-          "z": 0
+          "roll": 0.1402051281565929,
+          "x": 0.08911462873220444,
+          "y": -0.0006670821458101273,
+          "yaw": 0.32096892986530595,
+          "z": 0.3244883120059967
         },
-        "pitch": 0.10141706466674805,
-        "roll": -1.7855754801963701,
-        "x": 0,
-        "y": 0,
-        "yaw": 0.18964907113092544,
-        "z": 0
-      },
-      "unitOfMeasure": "None"
+        "pitch": -0.6325809359550476,
+        "roll": 0.1402051281565929,
+        "x": 0.08911462873220444,
+        "y": -0.0006670821458101273,
+        "yaw": 0.32096892986530595,
+        "z": 0.3244883120059967
+      }
     },
     "mentalState": {
       "affect": {
@@ -1022,7 +936,7 @@ SelfState
         "dominance": 0,
         "valence": 0
       },
-      "created": "2019-08-14T21:17:53.9314769Z",
+      "created": "2020-02-18T16:47:56.6928792Z",
       "personality": {
         "agreeableness": 0,
         "conscientiousness": 0,
@@ -1046,13 +960,21 @@ SelfState
       "y": 0
     },
     "occupancyGridCellMeters": 0,
+    "robotRunState": {
+      "currentState": "Running",
+      "message": "Robot is operational.",
+      "previousState": "Loading",
+      "timestamp": "2020-02-18T16:34:23.974733Z"
+    },
     "serialMessages": [],
     "slamStatus": {
-      "runMode": "Uninitialized",
-      "sensorStatus": "Ready",
-      "status": 2,
+      "runMode": "Exploring",
+      "sensorStatus": "Streaming",
+      "status": 32900,
       "statusList": [
-        "Ready"
+        "Exploring",
+        "HasPose",
+        "Streaming"
       ]
     },
     "touchedState": {
