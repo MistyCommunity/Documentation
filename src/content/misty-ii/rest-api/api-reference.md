@@ -2145,7 +2145,7 @@ If you do not call the `StopRecordingVideo` command, Misty automatically stops r
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/stop<br>
-**Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/videos/record/stop
+**Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/video/record/stop
 
 Parameters
 
