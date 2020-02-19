@@ -3040,8 +3040,7 @@ For more information about enabling and disabling the AV streaming service, see 
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_AudioServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_AvStreamingServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -3056,7 +3055,17 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+```JavaScript
+// Example
 
+misty.AvStreamingServiceEnabled();
+
+// Prints debug message with status of AV streaming service
+function _AvStreamingServiceEnabled(data) {
+    misty.Debug(JSON.stringify(data.Result));
+}
+
+```
 
 Returns
 
