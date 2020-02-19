@@ -1725,6 +1725,20 @@ Return Values
 
 * Result (boolean) - Returns `true` if no errors related to this command.
 
+### ForgetFaces
+
+Removes records of trained faces from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
+
+Parameters
+
+* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
+
 ### GetKnownFaces
 
 Obtains a list of the names of faces on which Misty has been successfully trained.
@@ -1800,20 +1814,6 @@ Parameters
 Return Values
 
 * result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files.
-
-### ForgetFaces
-
-Removes records of trained faces from Misty's memory.
-
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
-
-Parameters
-
-* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
-
-Returns
-
-* Result (array) - Returns `true` if no errors related to this command.
 
 ### RenameVideoRecording
 
