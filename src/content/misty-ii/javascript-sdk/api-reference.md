@@ -2093,6 +2093,28 @@ function _VoiceRecord(data) {
 }
 ```
 
+### misty.DeleteVideoRecording
+
+Deletes a video recording.
+
+```JavaScript
+// Syntax
+misty.DeleteVideoRecording(string name, [int prePause], [int postPause]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes video recordings that Misty has created. To delete a user-uploaded video asset, you must use the [`DeleteVideo`](./#misty-deletevideo) command.
+{{box op="end"}}
+
+Arguments
+
+* name (string) - The filename of the video to delete. Does not include the filetype extension.
+
+```JavaScript
+// Example
+misty.DeleteVideoRecording("misty_video");
+```
+
 ### misty.ForgetFaces
 
 Removes records of trained faces from Misty's memory.
