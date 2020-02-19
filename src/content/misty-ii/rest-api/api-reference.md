@@ -591,7 +591,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/blink/settings
 
 Parameters
 
-* BlinkImages (JSON object) - Optional. Adds a blink mapping for one or more image assets.
+* BlinkImages (string) - Optional. The blink mapping for one or more image assets, formatted as a comma-separated string of image asset pairs. You set a new blink mapping for an image asset by using an "=" sign. (For example, to set the blink mapping for `e_SystemLogoPrompt.jpg` to `e_Sleepy4.jpg`, use `"e_SystemLogoPrompt.jpg=e_Sleepy4.jpg"`).  
 * OpenEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay open while blinking.
 * OpenEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay open while blinking.
 * ClosedEyeMinMs (integer) - Optional. Sets the minimum duration that Misty's eyes stay closed while blinking.
@@ -600,10 +600,7 @@ Parameters
 
 ```JSON
 {
-  "BlinkImages": {
-    "Green.jpg": "Red.jpg",
-    "Wonder.png": "blink.png"
-    },
+  "BlinkImages": "e_SystemLogoPrompt.jpg=e_Sleepy4.jpg,e_SystemGearPrompt.jpg=e_Sleepy3.jpg,MyPic.jpg=e_Sleepy4.jpg",
   "OpenEyeMinMs" : 1000,
   "OpenEyeMaxMs" : 7000,
   "ClosedEyeMinMs" : 100,
@@ -1697,7 +1694,7 @@ Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecor
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/audio/speech/capture
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/capture
 
 Parameters
 
@@ -1709,6 +1706,38 @@ Parameters
 Return Values
 
 * Result (bool) - Returns `true` if no issues related to this command.
+
+### DeleteVideoRecording
+
+Deletes a video recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes video recordings that Misty has created. To delete a user-uploaded video asset, you must use the [`DeleteVideo`](./#deletevideo) command.
+{{box op="end"}}
+
+Endpoint: Delete &lt;robot-ip-address&gt;/api/videos/recordings
+
+Parameters
+
+* Name (string) - The filename of the video to delete. Does not include the filetype extension.
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
+### ForgetFaces
+
+Removes records of trained faces from Misty's memory.
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
+
+Parameters
+
+* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
+
+Returns
+
+* Result (array) - Returns `true` if no errors related to this command.
 
 ### GetKnownFaces
 
@@ -1744,20 +1773,73 @@ Return Values
 
 * An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
+### GetVideoRecording
 
-### ForgetFaces
+Downloads a video recording to your browser or REST client.
 
-Removes records of trained faces from Misty's memory.
+You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
 
-Endpoint: DELETE &lt;robot-ip-address&gt;/api/faces?FaceId=&lt;"FaceId"&gt;
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
-* FaceId (string) - Optional. The ID of the face to remove. If you do not pass in a value for this parameter, clears all trained faces from Misty's memory.
+* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
 
-Returns
+Return Values
 
-* Result (array) - Returns `true` if no errors related to this command.
+* An .mp4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
+### GetVideoRecordingsList
+
+Obtains a list of filenames for each video recording saved to Misty's local storage.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only returns a list of the video recordings that Misty has created. This list does not include user-uploaded video files. User-uploaded video assets appear in the response for the [`GetVideoList`](./#GetVideoList) command.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings/list
+
+Parameters
+
+* None
+
+Return Values
+
+* result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files.
+
+### RenameVideoRecording
+
+Renames an existing video recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only renames a video recording that Misty has created. You cannot use this command to rename a user-uploaded video file.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/rename
+
+Parameters
+
+* OldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
+* NewName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
+
+```JSON
+{
+  "OldName": "oldVideoRecordingName",
+  "NewName": "newVideoRecordingName"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
 
 ### Speak
 
@@ -1938,6 +2020,64 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### StartAvStreaming
+
+Starts Misty streaming audio and video from her microphones and RGB camera to an external source.
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Important!** Misty's AV stream is **NOT** encrypted at this time. Devices on the same network as your robot (or in between your robot and the streaming server or client) can intercept the stream, play back the content, and re-publish the stream outside of your local network. Additionally, you are responsible for securing and encrypting any media content you choose to stream from Misty to services or devices outside of your local network.
+{{box op="end"}}
+
+Valid resolutions (as `width` x `height`) for AV streaming are: 1920 x 1280, 1280 x 960, 640 x 480, and 320 x 240.
+
+Misty supports the following modes for AV streaming:
+
+* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Media Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
+* Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For lowest latency use RTSP instead of RTMP. To decrease latency further, adjust the network caching settings for your streaming client.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes:**
+
+* By default, Misty's AV streaming service is disabled when the robot boots up. You must enable this service before you can start AV streaming. You can enable the AV streaming service with the [`EnableAvStreamingService`](./#enableavstreamingservice) command.
+* Enabling the AV streaming service automatically disables Misty's camera service. Misty cannot take pictures, record videos, or use computer vision functionality (such as face detection or face recognition) while the AV streaming service is enabled. For more information, see [AV Streaming Service](../../../misty-ii/robot/misty-ii/#av-streaming-service).
+* Misty's AV streaming service is unidirectional at this time. You can stream audio and video from Misty to an external device, but the robot cannot play live media streams.
+* Misty's video stream is rotated 90 degrees counterclockwise. You can rotate the stream to the orientation you prefer by changing the settings in your streaming client.
+* This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/avstreaming/start
+
+Parameters
+
+* URL (string) - **Option 1**: If transmitting a stream from Misty to an external media server, this value is the URL address for the streaming server. This value **must** match the URL used when you set up the streaming server. You must prefix the URL with either `rtmp://` or `rtsp://`, depending on the streaming protocol you want to use. **Option 2:** To use Misty as her own media server, use `rtspd:<port-number>`, where `<port-number>` is the port through which to publish the stream (for example, `rtspd:1935`). When the stream is live, you can view it in your media client by connecting to `rtsp://<robot-ip-address>:<port-number>` (for example, `rtsp://192.168.7.30:1935`).
+* Width (int) - Optional. The width (in pixels) of the video stream. The default resolution for video streaming (as `width` x `height`) is 1920 x 1080.
+* Height (int) - Optional. The height (in pixels) of the video stream. The default resolution for video streaming (as `width` x `height`) is 1920 x 1080.
+* FrameRate (int) - Optional. The frame rate at which Misty streams video. You must use a value greater than `1` and less than `30`. Default is `30`.  
+* VideoBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed video data. Defaults to `5000000` (5 mbps). Valid values are between `256000` (256 kbps) and `20000000` (20 mbps).  
+* AudioBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed audio data. Defaults to `128000` (128 kbps). Valid values are between `32000` (32 kbps) and `1000000` (1 mbps). 
+* AudioSampleRateHz (int) - Optional. The sample rate (in hz) at which to record audio for the audio stream. Defaults to `44100` (44.1 kHz).
+* UserName (string) - Optional. The username a stream must supply to transmit media to your external server. Not all servers require a username and password. You can change whether to require credentials when you set up your server.
+* Password (string) - Optional. The password for connecting to your external media server.
+
+```JSON
+// This example sets Misty up to act as her own media server. Connect
+// to this stream from a client on the same network as Misty. The URL
+// for this stream would be: rtsp://<robot-ip-address>:1936
+{
+  "URL": "rtspd:1936",
+  "Width": 640,
+  "Height": 480
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
 ### StartFaceDetection
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
@@ -2007,7 +2147,7 @@ There are two event types associated with key phrase recognition:
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/audio/keyphrase/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
 
 Parameters
 
@@ -2060,30 +2200,61 @@ Return Values
 
 Starts recording video with Misty's 4K Camera.
 
-Misty only saves the most recent video recording to her local storage. Misty saves videos with the filename `MistyVideo.mp4`, and overwrites this file with each new recording.
+Valid resolutions (as `Width` x `Height`) for recording videos are: 3840 x 2160, 1920 x 1080, 1280 x 960, 640 x 480, and 320 x 240.
 
-{{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Valid resolutions (as `Width` x `Height`) include: 2160 x 3840, 2448 x 3264, 2400 x 3200, 1944 x 2592, 1512 x 2688, 1536 x 2048, 1080 x 1920, 1200 x 1600, 1080 x 1440, 1200 x 1200, 960 x 1280, 768 x 1280, 720 x 1280, 768 x 1024, 600 x 800, 480 x 864, 480 x 800, 480 x 720, 480 x 640, 360 x 640, 640 x 480, 360 x 480, 320 x 480, 288 x 352, 240 x 320, 320 x 240, 144 x 176, 120 x 160, and 176 x 144.    
+The videos Misty records with her RGB camera are rotated 90 degrees counterclockwise, and the width and height values listed above may be swapped for the actual video that Misty returns when you call this command. Video recordings that Misty creates have orientation information that enables media players to rotate and play back the video using the correct orientation; however, if you play the video in certain players, you will see that the actual video file itself is rotated 90 degrees counterclockwise.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+When Misty powers on, she starts a new camera session with a default resolution setting of 1920 x 1080 for recording videos. If you record a video without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for recording videos. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
-
-This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/start
+**Deprecated**: POST &lt;robot-ip-address&gt;/api/video/record/start
 
 Parameters
 
-* Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`. 
-* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0` and less than `10`. Max duration is 10 seconds. If you do not specify a value, Misty automatically stops recording after 10 seconds, or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
-* Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. If you supply a value for `Width`, you must also supply a value for `Height`. See the note in the description of this command for valid resolutions.
-* Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. If you supply a value for `Height`, you must also supply a value for `Width`. See the note in the description of this command for valid resolutions.
+* FileName (string) - Optional. The filename for the recorded video. Video recordings can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically adds an extension of `.mp4`. If you do not supply a filename, the video recording is saved with the default filename of `misty_video`. **Important:** When you record a video with the same filename of a video that already exists on the robot, the new video recording automatically overwrites the existing recording.
+* Mute (bool) - Optional. Whether to mute audio while recording. Default is `false`.
+* Duration (int) - Optional. How long (in seconds) to record. Must be greater than `0`. The max duration for a video recording is 180 seconds (3 minutes). If you do not specify a value, Misty automatically stops recording after 30 seconds (default), or upon receiving a [`StopRecordingVideo`](./#stoprecordingvideo) command.
+* Width (int) - Optional. Sets the resolution width (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `Width` and `Height`. See the command description for a list of valid resolutions.
+* Height (int) - Optional. Sets the resolution height (in pixels) for the video recording. When you specify a resolution, you must pass in values for both `Width` and `Height`. See the command description for a list of valid resolutions. 
+
+```json
+{
+	"FileName": "MyVideo",
+	"Mute": false,
+	"Duration": 60,
+	"Width": 1920,
+	"Height": 1080
+}
+```
 
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopAvStreaming
+
+Stops Misty streaming audio and video.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/avstreaming/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (bool) - Returns `true` if no errors related to this command.
 
 ### StopFaceDetection
 
@@ -2141,13 +2312,14 @@ Return Values
 
 Stops recording video with Misty's 4K camera.
 
-Use this command after calling `StartRecordingVideo`. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call this command.
+If you do not call the `StopRecordingVideo` command, Misty automatically stops recording after the duration for the recording has elapsed. You set this duration when you call the [`StartRecordingVideo`](./#startrecordingvideo) command. The default video recording duration is 30 seconds.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/stop
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/stop<br>
+**Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/video/record/stop
 
 Parameters
 
@@ -2159,22 +2331,30 @@ Return Values
 
 ### TakePicture
 
-Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
+Takes a picture with Misty’s RGB camera. Optionally, saves the picture to Misty's local storage.
 
-**Note:** When you call the `TakePicture` command immediately after using the RGB camera to record a video, there may be a few seconds delay before Misty takes the photograph.
+Valid resolutions (as `Width` x `Height`) for taking pictures are: 4160 x 3120, 3840 x 2160, 3264 x 2448, 3200 x 2400, 2592 x 1944, 2048 x 1536, 1920 x 1080, 1600 x 1200, 1440 x 1080, 1280 x 960, 1024 x 768, 800 x 600, 640 x 480, and 320 x 240.
+
+These width and height values are reversed for the actual image that Misty returns when you call this command. The pictures Misty takes with her RGB camera are rotated 90 degrees counterclockwise. Misty reorients each picture 90 degrees clockwise during the encoding process.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Recording videos at 3840 x 2160 changes the max resolution for taking pictures to 3840 x 2160. If you record video at 1920 x 1080 (or lower), then Misty can use the highest resolution for taking pictures. If you try to record at 3840 x 2160 while using the highest resolution for taking pictures, the system automatically lowers the resolution for taking pictures to 3840 x 2160.
+
+When Misty powers on, she starts a new camera session with a default resolution setting of 4160 x 3120 for taking pictures. If you take a picture without specifying a resolution, Misty uses the resolution that's already set in the current camera session. When you specify a different resolution than what is set in the current camera session, Misty resets the camera session to use the new resolution for taking pictures. This has the following implications:
+
+* Misty cannot reset the camera session while actively recording video. If you try to take a picture at a new resolution while Misty is recording video, she takes a picture with the resolution settings for the current camera session (instead of the new resolution that you asked for).
+* If Misty is already performing computer vision (CV) activities when the camera session resets, these activities automatically resume when the new camera session is ready. For more information, see the article on [Picture and Video Resolution](../../../misty-ii/robot/misty-ii/#picture-and-video-resolution).
+{{box op="end"}}
+
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
-
-Example:
-
-`http://<robot-ip-address>/api/cameras/rgb?base64=false&FileName=MyPicture&Width=300&Height=200&DisplayOnScreen=true&OverwriteExisting=true`
 
 Parameters
 
 * Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`.
-* FileName (string) - Optional. The filename to assign to the image file for the captured photo. Note that if you do not specify a filename, Misty does not save the photo to her local storage.
-* Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
-* Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of a photo you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
+* FileName (string) - Optional. The filename to assign to the image file for the captured photo. If you do not supply a filename, Misty does not save the photo.
+* Width (integer) - Optional. The desired image width (in pixels). When you specify a resolution, you must pass in values for both width and height. See the command description for a list of valid resolutions.
+* Height (integer) -  Optional. The desired image height (in pixels). When you specify a resolution, you must pass in values for both width and height. See the command description for a list of valid resolutions.
 * DisplayOnScreen (boolean) - Optional. If `true` **and** a `FileName` is provided, displays the captured photo on Misty’s screen. If `false` or no `FileName` value is provided, does nothing.
 * OverwriteExisting (boolean) - Optional. Indicates whether Misty should overwrite an image with the same filename as the captured photo if one exists on her local storage. Passing in `true` overwrites a file with the same name. Passing in `false` prevents an existing file with the same name from being overwritten. In the case that `OverwriteExisting` is set to `false` and a photo already exists with the same filename as the newly captured photo, the new photo is not saved to Misty. Defaults to `false`.
 
@@ -2182,8 +2362,8 @@ Parameters
 {
   "Base64": true,
   "FileName": "MyPicture",
-  "Width": 300,
-  "Height": 200,
+  "Width": 800,
+  "Height": 600,
   "DisplayOnScreen": true,
   "OverwriteExisting": true
 }
@@ -2197,8 +2377,6 @@ Return Values
   * Height (integer) - The height of the image in pixels.
   * Name (string) - The name of the image.  
   * Width (integer) - The width of the image in pixels. 
-
-
 
 ## Skill Management
 
@@ -2449,7 +2627,7 @@ Misty cannot run commands or stream messages from event types that use the audio
 * `SourceFocusConfigMessage`
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the audio service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/audio/disable
@@ -2462,11 +2640,44 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisableAvStreamingService
+
+Disables the audio and video (AV) streaming service running on Misty's 820 processor.
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the AV streaming service before calling commands that use Misty's simultaneous localization and mapping (SLAM) system to improve the performance of SLAM activities.
+
+Misty cannot execute commands that use the AV streaming service when the service is disabled. These commands include:
+
+* `StartAvStreaming`
+* `StopAvStreaming`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:**  By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/avstreaming/disable
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command. 
+
 ### DisableCameraService
 
 Disables the camera service running on Misty's 820 processor.
 
 Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the audio and camera services before you start mapping or tracking within a map to improve the performance of Misty's simultaneous localization and mapping (SLAM) activities.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
 
 Misty cannot run commands or stream messages from event types that use the camera service when the camera service is disabled. These commands and event types are listed below.
 
@@ -2483,14 +2694,17 @@ Misty cannot run commands or stream messages from event types that use the camer
 * `TakePicture`
 * `GetCameraData`
 * `GetKnownFaces`
-* `GetVideoFile`
+* `GetVideoRecording`
+* `GetVideoRecordingsList`
+* `DeleteVideoRecording`
+* `RenameVideoRecording`
 
 **Camera Service Event Types**
 * `FaceRecognition`
 * `FaceTraining`
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the camera service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/camera/disable
@@ -2541,7 +2755,7 @@ Misty cannot run commands or stream messages from event types that use the SLAM 
 Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with all services enabled.
+**Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the SLAM service enabled.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/disable
@@ -2570,9 +2784,37 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### EnableAvStreamingService
+
+Enables the audio and video (AV) streaming service running on Misty's 820 processor.
+
+For more information about enabling and disabling the AV streaming service, see the [`DisableAvStreamingService`](.#disableavstreamingservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/avstreaming/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command. 
+
 ### EnableCameraService
 
 Enables the camera service running on Misty's 820 processor.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
 
 For more information about disabling and enabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
 
@@ -2639,7 +2881,7 @@ Return Values
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
-### GetAudioServiceEnabled
+### AudioServiceEnabled
 
 Describes whether the audio service running on Misty's 820 processor is currently enabled.
 
@@ -2654,6 +2896,30 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`.
+
+### AvStreamingServiceEnabled
+
+Describes whether the audio and video (AV) streaming service that runs on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the AV streaming service, see the [`DisableAvStreamingService`](./#disableavstreamingservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. 
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/avstreaming
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the AV streaming service is enabled. Otherwise, `false`.
 
 ### GetBatteryLevel
 
@@ -2706,9 +2972,13 @@ Sample response data:
 }
 ```
 
-### GetCameraServiceEnabled
+### CameraServiceEnabled
 
 Describes whether the camera service running on Misty's 820 processor is currently enabled.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. By default, the camera service is enabled when Misty boots up. 
+{{box op="end"}}
 
 For more information about enabling and disabling the camera service, see the [`DisableCameraService`](./#disablecameraservice) command description.
 
@@ -3063,7 +3333,7 @@ Return Values
 }
 ```
 
-### GetSlamServiceEnabled
+### SlamServiceEnabled
 
 Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
 
@@ -3135,7 +3405,7 @@ Returns a string indicating which version of Misty's WebSocket system is current
 * If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs. 
 * If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
 
-Endpoint: GET <robot-ip-address>/api/websocket/version
+Endpoint: GET &lt;robot-ip-address&gt;/api/websocket/version
 
 Parameters
 
@@ -3380,7 +3650,7 @@ Sets the active WebSocket system to the `Current` or `Deprecated` version of the
 * If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs.
 * If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
 
-Endpoint: POST <robot-ip-address>/api/websocket/version
+Endpoint: POST &lt;robot-ip-address&gt;/api/websocket/version
 
 Parameters
 
