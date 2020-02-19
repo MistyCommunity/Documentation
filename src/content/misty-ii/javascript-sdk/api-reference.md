@@ -3142,6 +3142,34 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.DisableAvStreamingService
+
+Disables the audio and video (AV) streaming service running on Misty's 820 processor.
+
+```JavaScript
+// Syntax
+misty.DisableAvStreamingService([int prePauseMs], [int postPauseMs]);
+```
+
+Disabling a specific service frees up memory on the 820 processor for other tasks, and can improve the performance of other services that use the same processor. As an example, you may consider disabling the AV streaming service before calling commands that use Misty's simultaneous localization and mapping (SLAM) system to improve the performance of SLAM activities.
+
+Misty cannot execute commands that use the AV streaming service when the service is disabled. These commands include:
+
+* `StartAvStreaming`
+* `StopAvStreaming`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:**  By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* None
+
 ### misty.DisableCameraService
 
 Disables the camera service running on Misty's 820 processor.
