@@ -1815,6 +1815,21 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### RenameVideoRecording
+
+Renames an existing video recording.
+
+Endpoint: POST <robot-ip-address>/api/videos/recordings/rename
+
+Parameters
+
+* OldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
+* NewName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
 ### Speak
 
 Misty speaks a string of text out loud. By default, Misty speaks in US English.
