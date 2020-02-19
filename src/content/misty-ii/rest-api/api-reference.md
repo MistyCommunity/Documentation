@@ -2668,6 +2668,30 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### EnableAvStreamingService
+
+Enables the audio and video (AV) streaming service running on Misty's 820 processor.
+
+For more information about enabling and disabling the AV streaming service, see the [`DisableAvStreamingService`](.#disableavstreamingservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST <robot-ip-address>/api/services/avstreaming/enable
+
+Parameters
+
+* None
+
+Return Values
+
+* result (boolean) - Returns `true` if no errors related to this command. 
+
 ### EnableCameraService
 
 Enables the camera service running on Misty's 820 processor.

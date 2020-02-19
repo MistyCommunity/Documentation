@@ -3168,7 +3168,8 @@ Misty cannot execute commands that use the AV streaming service when the service
 
 Arguments
 
-* None
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ### misty.DisableCameraService
 
@@ -3277,6 +3278,30 @@ misty.EnableAudioService([int prePauseMs], [int postPauseMs]);
 ```
 
 For more information about disabling and enabling the audio service, see the [`DisableAudioService`](./#misty-disableaudioservice) command description.
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.EnableAvStreamingService
+
+Enables the audio and video (AV) streaming service running on Misty's 820 processor.
+
+```JS
+// Syntax
+misty.EnableAvStreamingService([int prePauseMs], [int postPauseMs]);
+```
+
+For more information about enabling and disabling the AV streaming service, see the [`DisableAvStreamingService`](.#misty-disableavstreamingservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:**  By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
 
