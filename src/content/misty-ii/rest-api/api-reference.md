@@ -1717,7 +1717,7 @@ Deletes a video recording.
 
 Endpoint: Delete <robot-ip-address>/api/videos/recordings
 
-Parameters:
+Parameters
 
 * Name (string) - The filename of the video to delete. Does not include the filetype extension.
 
