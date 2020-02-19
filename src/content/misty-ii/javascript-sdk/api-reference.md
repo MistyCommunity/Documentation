@@ -630,6 +630,33 @@ Arguments
 misty.DisplayVideo("VideoAssetFilename.mp4", "MyVideoLayer");
 ```
 
+### misty.DisplayWebView
+
+Displays a webpage on Misty's display.
+
+```js
+// Syntax
+misty.DisplayWebView(string URL, [string layer], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#misty-setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+
+Displaying webviews can consume a lot of computational resources. If you notice Misty's performance decrease while multiple webviews layers are active, you may consider deleting one or more webview layers.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* URL (string) - The URL for the web page to display.
+* layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the webview displays on the default webview layer (named `DefaultWebViewLayer`). 
+
+```js
+// Example
+misty.DisplayWebView("https://mistyrobotics.com");
+```
+
 ### misty.GetBlinkSettings
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`misty.SetBlinkSettings()`](./#misty-setblinksettings) method.

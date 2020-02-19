@@ -373,7 +373,7 @@ Misty uses the default text layer settings the first time she draws content with
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-POST &lt;robot-ip-address&gt;/api/text/display
+Endpoint: POST &lt;robot-ip-address&gt;/api/text/display
 
 Parameters
 
@@ -408,7 +408,7 @@ The `DisplayVideo` command has the following limitations at this time:
 * Misty does not play audio for the videos she plays on her display.
 {{box op="end"}}
 
-POST &lt;robot-ip-address&gt;/api/videos/display
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/display
 
 Parameters
 
@@ -427,6 +427,34 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisplayWebView
+
+Displays a webpage on Misty's display.
+
+Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+
+Displaying webviews can consume a lot of computational resources. If you notice Misty's performance decrease while multiple webviews layers are active, you may consider deleting one or more webview layers.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/webviews/display
+
+Parameters
+
+* URL (string) - The URL for the web page to display.
+* Layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the webview displays on the default webview layer (named `DefaultWebViewLayer`). 
+
+```json
+{
+  "URL": "https://www.mistyrobotics.com/"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### GetBlinkSettings
 
