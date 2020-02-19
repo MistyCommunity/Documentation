@@ -1819,6 +1819,10 @@ Return Values
 
 Renames an existing video recording.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only renames a video recording that Misty has created. You cannot use this command to rename a user-uploaded video file.
+{{box op="end"}}
+
 Endpoint: POST <robot-ip-address>/api/videos/recordings/rename
 
 Parameters
