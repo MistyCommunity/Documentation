@@ -2020,6 +2020,64 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### StartAvStreaming
+
+Starts Misty streaming audio and video from her microphones and RGB camera to an external source.
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Important!** Misty's AV stream is **NOT** encrypted at this time. Devices on the same network as your robot (or in between your robot and the streaming server or client) can intercept the stream, play back the content, and re-publish the stream outside of your local network. Additionally, you are responsible for securing and encrypting any media content you choose to stream from Misty to services or devices outside of your local network.
+{{box op="end"}}
+
+Valid resolutions (as `width` x `height`) for AV streaming are: 1920 x 1280, 1280 x 960, 640 x 480, and 320 x 240.
+
+Misty supports the following modes for AV streaming:
+
+* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Media Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
+* Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For lowest latency use RTSP instead of RTMP. To decrease latency further, adjust the network caching settings for your streaming client.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes:**
+
+* By default, Misty's AV streaming service is disabled when the robot boots up. You must enable this service before you can start AV streaming. You can enable the AV streaming service with the [`EnableAvStreamingService`](./#enableavstreamingservice) command.
+* Enabling the AV streaming service automatically disables Misty's camera service. Misty cannot take pictures, record videos, or use computer vision functionality (such as face detection or face recognition) while the AV streaming service is enabled. For more information, see [AV Streaming Service](../../../misty-ii/robot/misty-ii/#av-streaming-service).
+* Misty's AV streaming service is unidirectional at this time. You can stream audio and video from Misty to an external device, but the robot cannot play live media streams.
+* Misty's video stream is rotated 90 degrees counterclockwise. You can rotate the stream to the orientation you prefer by changing the settings in your streaming client.
+* This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/avstreaming/start
+
+Parameters
+
+* URL (string) - **Option 1**: If transmitting a stream from Misty to an external media server, this value is the URL address for the streaming server. This value **must** match the URL used when you set up the streaming server. You must prefix the URL with either `rtmp://` or `rtsp://`, depending on the streaming protocol you want to use. **Option 2:** To use Misty as her own media server, use `rtspd:<port-number>`, where `<port-number>` is the port through which to publish the stream (for example, `rtspd:1935`). When the stream is live, you can view it in your media client by connecting to `rtsp://<robot-ip-address>:<port-number>` (for example, `rtsp://192.168.7.30:1935`).
+* Width (int) - Optional. The width (in pixels) of the video stream. The default resolution for video streaming (as `width` x `height`) is 1920 x 1080.
+* Height (int) - Optional. The height (in pixels) of the video stream. The default resolution for video streaming (as `width` x `height`) is 1920 x 1080.
+* FrameRate (int) - Optional. The frame rate at which Misty streams video. You must use a value greater than `1` and less than `30`. Default is `30`.  
+* VideoBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed video data. Defaults to `5000000` (5 mbps). Valid values are between `256000` (256 kbps) and `20000000` (20 mbps).  
+* AudioBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed audio data. Defaults to `128000` (128 kbps). Valid values are between `32000` (32 kbps) and `1000000` (1 mbps). 
+* AudioSampleRateHz (int) - Optional. The sample rate (in hz) at which to record audio for the audio stream. Defaults to `44100` (44.1 kHz).
+* UserName (string) - Optional. The username a stream must supply to transmit media to your external server. Not all servers require a username and password. You can change whether to require credentials when you set up your server.
+* Password (string) - Optional. The password for connecting to your external media server.
+
+```JSON
+// This example sets Misty up to act as her own media server. Connect
+// to this stream from a client on the same network as Misty. The URL
+// for this stream would be: rtsp://<robot-ip-address>:1936
+{
+  "URL": "rtspd:1936",
+  "Width": 640,
+  "Height": 480
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if no errors related to this command.
+
 ### StartFaceDetection
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
