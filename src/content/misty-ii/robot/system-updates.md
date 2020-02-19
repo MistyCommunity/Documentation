@@ -209,7 +209,7 @@ This patch greatly improves Misty's ability to map an area and track within an e
 Applying this patch makes the following changes to Misty’s Android OS:
 
 * Modifies Android OS settings and limits verbosity of kernel debug messages to greatly improve Misty’s simultaneous localization and mapping (SLAM) performance.
-* Adds new ports to the list that Misty’s 820 WiFi connection forwards to the robot’s 410 processor. The new ports make it possible to use Misty’s Wi-Fi IP address – instead of her 410 IP address – when you deploy .NET skills and attach a debugger from Visual Studio.
+* Adds new ports to the list that Misty’s 820 Wi-Fi connection forwards to the robot’s 410 processor. The new ports make it possible to use Misty’s Wi-Fi IP address – instead of her 410 IP address – when you deploy .NET skills and attach a debugger from Visual Studio.
 * Applies a fix for an issue wherein playing a loud sound from Misty’s speakers would prevent the robot from recording audio.
-* Disables the default setting to allow adb connections over Misty’s WiFi IP address. You can still use adb over a connection to your robot’s hardwired USB-to-Ethernet IP address. (If you want to enable adb over WiFi after you apply this patch, you can do so by following the instructions later on in this post.)
+* Disables the default setting to allow adb connections over Misty’s Wi-Fi IP address. You can still use adb over a connection to your robot’s hardwired USB-to-Ethernet IP address. If you want to manually enable adb over Wi-Fi before or after you apply this patch, you can do so by [following the instructions in the Community Forums](https://community.mistyrobotics.com/t/2020-01-07-misty-ii-android-patch-for-improved-slam-performance/2415).
 * Enables Misty to run scripts (like the one for this patch) as part of the OTA update process.
