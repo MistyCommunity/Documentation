@@ -2200,6 +2200,27 @@ Return Values
 
 * result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
+### misty.RenameVideoRecording
+
+Renames an existing video recording.
+
+```JavaScript
+misty.RenameVideoRecording(string oldName, string newName, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only renames a video recording that Misty has created. You cannot use this command to rename a user-uploaded video file.
+{{box op="end"}}
+
+Arguments
+
+* oldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
+* newName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
+
+```JavaScript
+// Example
+misty.RenameVideoRecording("MyOldName", "MyNewName");
+```
 
 ### misty.Speak
 

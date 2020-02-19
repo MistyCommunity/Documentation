@@ -1823,12 +1823,19 @@ Renames an existing video recording.
 **Note:** This command only renames a video recording that Misty has created. You cannot use this command to rename a user-uploaded video file.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/videos/recordings/rename
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/recordings/rename
 
 Parameters
 
 * OldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
 * NewName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
+
+```JSON
+{
+  "OldName": "oldVideoRecordingName",
+  "NewName": "newVideoRecordingName"
+}
+```
 
 Return Values
 
