@@ -363,6 +363,35 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisplayText
+
+Displays text on Misty's screen.
+
+Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/text/display
+
+Parameters
+
+* Text (string) - The text to display.
+* Layer (string) - Optional. The layer on which to display the text. You can use this parameter to create a new text layer or to update an existing text layer. If not supplied, the text displays on the default text layer (named `DefaultTextLayer`).
+
+```json
+{
+	"Text": "Hello, world!",
+	"Layer": "MyTextLayer",
+}
+```
+
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### GetBlinkSettings
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings) endpoint.
@@ -2572,11 +2601,14 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### ClearDisplayText
+### ClearErrorText
 
-Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
+Force-clears an error message from Misty’s display. 
 
-Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
+**Note:** This command is provided as a convenience. You should not typically need to call `ClearErrorText`.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/text/error/clear <br>
+**Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/text/clear
 
 Parameters
 - None

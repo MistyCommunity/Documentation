@@ -571,6 +571,31 @@ Arguments
 misty.DisplayImage("e_Amazement.jpg");
 ```
 
+### misty.DisplayText
+
+Displays text on Misty's screen.
+
+```JavaScript
+// Syntax
+misty.DisplayText(string text, [string layer], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#misty-settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* text (string) - The text to display.
+* layer (string) - Optional. The layer on which to display the text. You can use this parameter to create a new text layer or to update an existing text layer. If not supplied, the text displays on the default text layer (named `DefaultTextLayer`).
+
+```javascript
+// Example
+misty.DisplayText("Hello, world", "MyTextLayer");
+```
+
 ### misty.GetBlinkSettings
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`misty.SetBlinkSettings()`](./#misty-setblinksettings) method.
@@ -3252,7 +3277,13 @@ Returns
 
 ### misty.ClearDisplayText
 
-Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
+{{box op="start" cssClass="boxed warningBox"}}
+**Deprecation Notice:** This command has been deprecated in favor of [`misty.ClearErrorText()`](./#misty-clearerrortext) and will be removed from Misty's JavaScript API in a future release.
+{{box op="end"}}
+
+Force-clears an error message from Misty’s display. 
+
+**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
 
 ```JavaScript
 // Syntax
@@ -3266,6 +3297,26 @@ Arguments
 ```JavaScript
 // Example
 misty.ClearDisplayText();
+```
+
+### misty.ClearErrorText
+
+Force-clears an error message from Misty’s display. 
+
+**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearErrorText()`.
+
+```JavaScript
+// Syntax
+misty.ClearErrorText ([int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ClearErrorText();
 ```
 
 ### misty.ConnectToSavedWifi
