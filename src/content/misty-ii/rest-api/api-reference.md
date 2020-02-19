@@ -2765,7 +2765,7 @@ Return Values
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns a value of `true` if the network is secure. Otherwise, `false`.
 
-### GetAudioServiceEnabled
+### AudioServiceEnabled
 
 Describes whether the audio service running on Misty's 820 processor is currently enabled.
 
@@ -2781,7 +2781,7 @@ Return Values
 
 * Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`.
 
-### GetAvStreamingServiceEnabled
+### AvStreamingServiceEnabled
 
 Describes whether the audio and video (AV) streaming service that runs on Misty's 820 processor is currently enabled.
 
@@ -2856,7 +2856,7 @@ Sample response data:
 }
 ```
 
-### GetCameraServiceEnabled
+### CameraServiceEnabled
 
 Describes whether the camera service running on Misty's 820 processor is currently enabled.
 
@@ -3217,7 +3217,7 @@ Return Values
 }
 ```
 
-### GetSlamServiceEnabled
+### SlamServiceEnabled
 
 Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
 
