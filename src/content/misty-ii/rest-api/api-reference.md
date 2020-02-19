@@ -392,6 +392,42 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### DisplayVideo
+
+Plays a video on Misty's screen.
+
+You can use this command to play videos you upload to Misty or videos that are hosted on the web. Use the [`SaveVideo`](./#savevideo) command to upload a new video asset to your robot.
+
+Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+The `DisplayVideo` command has the following limitations at this time:
+* You cannot use the `DisplayVideo` command to play video recordings that Misty creates with the `StartRecordingVideo` command. Misty can only play user-uploaded videos on her display.
+* Misty does not play audio for the videos she plays on her display.
+{{box op="end"}}
+
+POST &lt;robot-ip-address&gt;/api/videos/display
+
+Parameters
+
+* FileName (string) - Filename for the video to play, with the file type extension. Valid video file types are .`mp4` and `.wmv`. Alternatively, if `IsURL` is `true`, the URL path for the video to play.
+* Layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the video plays on the default video layer (named `DefaultVideoLayer`). 
+* IsUrl (boolean) - Optional. If `true`, the system treats the string you pass in for `FileName` as the URL address for a video hosted online.
+
+```json
+{
+	"URL": "VideoAssetFilename.mp4",
+	"Layer": "MyVideoLayer"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
 ### GetBlinkSettings
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`SetBlinkSettings`](./#setblinksettings) endpoint.

@@ -596,6 +596,40 @@ Arguments
 misty.DisplayText("Hello, world", "MyTextLayer");
 ```
 
+### misty.DisplayVideo
+
+Plays a video on Misty's screen.
+
+```js
+// Syntax
+misty.DisplayVideo(string fileName, [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
+```
+
+You can use this command to play videos you upload to Misty or videos that are hosted on the web. Use the [`SaveVideo`](./#misty-savevideo) command to upload a new video asset to your robot.
+
+Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#misty-setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+The `DisplayVideo` command has the following limitations at this time:
+* You cannot use the `DisplayVideo` command to play video recordings that Misty creates with the `StartRecordingVideo` command. Misty can only play user-uploaded videos on her display.
+* Misty does not play audio for the videos she plays on her display.
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - Filename for the video to play, with the file type extension. Valid video file types are .`mp4` and `.wmv`. Alternatively, if `IsURL` is `true`, the URL path for the video to play.
+* layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the video plays on the default video layer (named `DefaultVideoLayer`). 
+* isUrl (boolean) - Optional. If `true`, the system treats the string you pass in for `fileName` as the URL address for a video hosted online.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.DisplayVideo("VideoAssetFilename.mp4", "MyVideoLayer");
+```
+
 ### misty.GetBlinkSettings
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`misty.SetBlinkSettings()`](./#misty-setblinksettings) method.
