@@ -1783,6 +1783,24 @@ Return Values
 
 * An .mp4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
+### GetVideoRecordingsList
+
+Obtains a list of filenames for each video recording saved to Misty's local storage.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only returns a list of the video recordings that Misty has created. This list does not include user-uploaded video files. User-uploaded video assets appear in the response for the [`GetVideoList`](./#GetVideoList) command.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings/list
+
+Parameters
+
+* None
+
+Return Values
+
+* result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files.
+
 ### ForgetFaces
 
 Removes records of trained faces from Misty's memory.
