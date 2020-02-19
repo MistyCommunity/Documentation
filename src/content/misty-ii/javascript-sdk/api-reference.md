@@ -2685,7 +2685,22 @@ Arguments
 misty.StartRecordingVideo("MyVideo", false, 60);
 ```
 
+### misty.StopAvStreaming
+
+Stops Misty streaming audio and video.
+
+```JavaScript
+// Syntax
+misty.StopAvStreaming([int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
 ### misty.StopFaceDetection
+
 Stops Misty's detection of faces in her line of vision.
 
 ```JavaScript

@@ -2242,6 +2242,20 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StopAvStreaming
+
+Stops Misty streaming audio and video.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/avstreaming/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (bool) - Returns `true` if no errors related to this command.
+
 ### StopFaceDetection
 
 Stops Misty's detection of faces in her line of vision.
