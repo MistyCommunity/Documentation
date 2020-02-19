@@ -1694,7 +1694,7 @@ Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecor
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/audio/speech/capture
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/capture
 
 Parameters
 
@@ -1715,7 +1715,7 @@ Deletes a video recording.
 **Note:** This command only deletes video recordings that Misty has created. To delete a user-uploaded video asset, you must use the [`DeleteVideo`](./#deletevideo) command.
 {{box op="end"}}
 
-Endpoint: Delete <robot-ip-address>/api/videos/recordings
+Endpoint: Delete &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
@@ -2045,7 +2045,7 @@ There are two event types associated with key phrase recognition:
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/audio/keyphrase/start
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/start
 
 Parameters
 
@@ -2543,7 +2543,7 @@ Misty cannot execute commands that use the AV streaming service when the service
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/services/avstreaming/disable
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/avstreaming/disable
 
 Parameters
 
@@ -2682,7 +2682,7 @@ For more information about enabling and disabling the AV streaming service, see 
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-Endpoint: POST <robot-ip-address>/api/services/avstreaming/enable
+Endpoint: POST &lt;robot-ip-address&gt;/api/services/avstreaming/enable
 
 Parameters
 
@@ -2780,6 +2780,30 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if the audio service is enabled. Otherwise, `false`.
+
+### GetAvStreamingServiceEnabled
+
+Describes whether the audio and video (AV) streaming service that runs on Misty's 820 processor is currently enabled.
+
+For more information about enabling and disabling the AV streaming service, see the [`DisableAvStreamingService`](./#disableavstreamingservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** By default, the AV streaming service is disabled when Misty boots up. The camera service and the AV streaming service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. 
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/services/avstreaming
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if the AV streaming service is enabled. Otherwise, `false`.
 
 ### GetBatteryLevel
 
@@ -3265,7 +3289,7 @@ Returns a string indicating which version of Misty's WebSocket system is current
 * If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs. 
 * If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
 
-Endpoint: GET <robot-ip-address>/api/websocket/version
+Endpoint: GET &lt;robot-ip-address&gt;/api/websocket/version
 
 Parameters
 
@@ -3510,7 +3534,7 @@ Sets the active WebSocket system to the `Current` or `Deprecated` version of the
 * If `Current`, WebSocket event messages do not include the `SensorName` or `Type` key/value pairs.
 * If `Deprecated`, Websocket event messages do include the `SensorName` and `Type` key/value pairs.
 
-Endpoint: POST <robot-ip-address>/api/websocket/version
+Endpoint: POST &lt;robot-ip-address&gt;/api/websocket/version
 
 Parameters
 
