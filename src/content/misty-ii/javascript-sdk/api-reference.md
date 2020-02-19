@@ -848,6 +848,58 @@ Parameters
 misty.SetFlashlight(true);
 ```
 
+### misty.SetTextDisplaySettings
+
+Updates settings for a text display layer.
+
+```js
+misty.SetTextDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [int opacity], [int size], [int weight], [bool wrap], [string horizontalAlignment], [string verticalAlignment], [string style], [int red], [int green], [int blue], [int width], [int height], [bool placeOnTop], [string fontFamily], [int rotation], [int padLeft], [int padTop], [int padRight], [int padBottom], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#misty-displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To change the color of the font, you must supply RGB values for each of the `Red`, `Green`, and `Blue` parameters. Supplying a value for just one of these parameters does not apply a new color to the text.
+{{box op="end"}}
+
+Arguments
+
+* layer (string) - The name of the text layer to adjust the settings for. If `null`, adjusts the settings for the default text layer (named `DefaultTextLayer`).
+* revertToDefault (boolean) - Optional. If `true`, updates layer to use default text layer settings.
+* deleted (boolean) - Optional. If `true`, completely deletes the layer and all clears all of the layer's settings. Deleted layers no longer consume computational resources.
+* visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`
+* size (int) - Optional. Font size (in px). Must be greater than 0. Defaults to 50.
+* weight (int) - Optional. Numerical value between 0-1000 that specifies font thickness. Use higher values for thicker font. Defaults to 400.
+* wrap (boolean) - Optional. Whether strings of text longer than the width of the text display element should wrap onto the next line. Defaults to `true`.
+* horizontalAlignment (string) - Optional. Horizontal alignment of the text within the text display element. Options are: `Left` - aligns the text to the left of the element; `Right` - aligns the text to the right of the element; and `Center` - centers the text horizontally in the element. Defaults to `Center`. **Note:** This property only applies to the alignment of text within the text display element. The text display element itself is always center-aligned relative to the edges of Misty's display.  
+* verticalAlignment (string) - Optional. Vertical alignment of the text display element. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; and `Center` - centers the element vertically within Misty's display. Defaults to `Center`. 
+* style (string) - Optional. Applies an `Italic`, `Oblique`, or `Normal` style to the font. Defaults to `Normal`.
+* red (int) - The red RGB color value for the font (0 - 255). Default is 255.
+* green (int) - The green RGB color value for the font (0 - 255). Default is 255.
+* blue (int) - The blue RGB color value for the font (0 - 255). Default is 255.
+* width (int) - Optional. The width (in pixels) of the text display element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* height (int) - Optional. The height (in pixels) of the text display element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* placeOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time you update the text or settings for this layer. Defaults to `true`.
+* fontFamily (string) - Optional. The font family to use for the text on this layer. No definitive list of supported fonts is available at this time. Defaults to Century Gothic.
+* rotation (int) - Optional. The rotation (in degrees) for the text display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* padLeft (int) - Optional. The left padding (in pixels) of the text within the text display element. Default is 0.
+* padTop (int) - Optional. The top padding (in pixels) of the text within the text display element. Default is 0. The `PadTop` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* padRight (int) - The right padding (in pixels) of the text within the text display element. The `PadRight` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* padBottom (int) - Optional. The bottom padding (in pixels) of the text within the text display element. Default is 0. The `PadBottom` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+// Makes the text layer called "MyTextLayer" invisible
+misty.SetTextDisplaySettings("MyTextLayer", null, false, false);
+```
+
 ## External Requests
 
 ### misty.SendExternalRequest

@@ -748,6 +748,67 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### SetTextDisplaySettings
+
+Updates settings for a text display layer.
+
+Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To change the color of the font, you must supply RGB values for each of the `Red`, `Green`, and `Blue` parameters. Supplying a value for just one of these parameters does not apply a new color to the text.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/text/settings
+
+Parameters
+
+* Layer (string) - The name of the text layer to adjust the settings for. If `null`, adjusts the settings for the default text layer (named `DefaultTextLayer`).
+* RevertToDefault (boolean) - Optional. If `true`, updates layer to use default text layer settings.
+* Deleted (boolean) - Optional. If `true`, completely deletes the layer and all clears all of the layer's settings. Deleted layers no longer consume computational resources.
+* Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* Opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`
+* Size (int) - Optional. Font size (in px). Must be greater than 0. Defaults to 50.
+* Weight (int) - Optional. Numerical value between 0-1000 that specifies font thickness. Use higher values for thicker font. Defaults to 400.
+* Wrap (boolean) - Optional. Whether strings of text longer than the width of the text display element should wrap onto the next line. Defaults to `true`.
+* HorizontalAlignment (string) - Optional. Horizontal alignment of the text within the text display element. Options are: `Left` - aligns the text to the left of the element; `Right` - aligns the text to the right of the element; and `Center` - centers the text horizontally in the element. Defaults to `Center`. **Note:** This property only applies to the alignment of text within the text display element. The text display element itself is always center-aligned relative to the edges of Misty's display.  
+* VerticalAlignment (string) - Optional. Vertical alignment of the text display element. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; and `Center` - centers the element vertically within Misty's display. Defaults to `Center`. 
+* Style (string) - Optional. Applies an `Italic`, `Oblique`, or `Normal` style to the font. Defaults to `Normal`.
+* Red (int) - The red RGB color value for the font (0 - 255). Default is 255.
+* Green (int) - The green RGB color value for the font (0 - 255). Default is 255.
+* Blue (int) - The blue RGB color value for the font (0 - 255). Default is 255.
+* Width (int) - Optional. The width (in pixels) of the text display element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* Height (int) - Optional. The height (in pixels) of the text display element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* PlaceOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time you update the text or settings for this layer. Defaults to `true`.
+* FontFamily (string) - Optional. The font family to use for the text on this layer. No definitive list of supported fonts is available at this time. Defaults to Century Gothic.
+* Rotation (int) - Optional. The rotation (in degrees) for the text display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* PadLeft (int) - Optional. The left padding (in pixels) of the text within the text display element. Default is 0.
+* PadTop (int) - Optional. The top padding (in pixels) of the text within the text display element. Default is 0. The `PadTop` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* PadRight (int) - The right padding (in pixels) of the text within the text display element. The `PadRight` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* PadBottom (int) - Optional. The bottom padding (in pixels) of the text within the text display element. Default is 0. The `PadBottom` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+
+```json
+{
+  "Layer": "MyTextLayer",
+  "Size": 25,
+  "Weight": 400,
+  "Style": "Oblique",
+  "Wrap": true,
+  "HorizontalAlignment": "Center",
+  "VerticalAlignment": "Center",
+  "Red": 255,
+  "Green": 150,
+  "Blue": 0
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ## External Requests
 
 ### SendExternalRequest
