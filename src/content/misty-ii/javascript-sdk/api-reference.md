@@ -809,6 +809,27 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.SetDisplaySettings
+
+Adjusts general display settings. Currently, this command is only used to revert the display settings, redraw the default image display layer, and set the image to Misty's default startup eyes.
+
+```js
+misty.SetDisplaySettings(bool revertToDefault, [int postPauseMs], [int prePauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* revertToDefault (boolean) - If `true`, deletes all display layers, and re-draws the default image display layer with Misty's default startup eyes.
+
+```js
+// Example
+misty.SetDisplaySettings(true);
+```
+
 ### misty.SetFlashlight
 
 Turns the LED flashlight on Misty's head on or off.

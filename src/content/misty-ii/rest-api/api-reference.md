@@ -710,6 +710,24 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### SetDisplaySettings
+
+Adjusts general display settings. Currently, this command is only used to revert the display settings, redraw the default image display layer, and set the image to Misty's default startup eyes.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/display/settings
+
+Parameters
+
+* RevertToDefault (boolean) - If true, deletes all display layers, and re-draws the default image display layer with Misty's default startup eyes.
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### SetFlashlight
 
 Turns the LED flashlight on Misty's head on or off.
