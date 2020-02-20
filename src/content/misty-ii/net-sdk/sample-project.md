@@ -41,7 +41,7 @@ Follow the steps below to configure Visual Studio to deploy .NET skills from the
    1. Right-click the `IntroSkillsTask` project in the **Solution Explorer** and select **Properties**.
    2. Select **Debug** from the left navigation menu.
    3. From the **Target device** menu, select **Remote Machine**.
-   4. In the **Remote machine** field, enter Misty's IP address. **Important!** You must use the [IP address for Misty's USB-to-Ethernet adapter](../../../misty-ii/net-sdk/getting-started/#connecting-to-misty-39-s-410-ip-address) if you want to use remote debugging. Otherwise, you can use the IP address supplied in the Misty App.
+   4. In the **Remote machine** field, enter Misty's IP address. **Important!** If you have not manually applied Misty's [2020.01.07 Android patch](../../../misty-ii/robot/system-updates/#2020-01-07-android-patch), then you must use the [IP address for Misty's USB-to-Ethernet adapter](./#connecting-to-misty-39-s-410-ip-address) in order to attach a remote debugger. If you have applied the patch, you can attach a debugger using Misty's Wi-Fi IP address (supplied in the Misty App).
    5. From the **Authentication mode** menu, select **Universal (Unencrypted Protocol)**. Save your changes. The configuration properties should look similar to the image below, with your own robot's address in the Remote machine field: ![Configuration manager](../../../assets/images/configuration-manager-2.png).
 
 ### 2. Installing Misty's .NET SDK Libraries

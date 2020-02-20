@@ -25,7 +25,6 @@ Using Misty's .NET SDK requires the following:
 * Misty II
 * PC (or virtual machine) with Windows 10
 * Microsoft Visual Studio, with **Windows Universal Platform workload** and **Windows 10 SDK libraries** (build 17763) installed
-* **Optional:** USB-to-Ethernet adapter and ethernet cable (for live debugging)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** You cannot use Misty's .NET SDK with Visual Studio for MacOS. Before you can build .NET skills on a Mac, you need to [use a tool like Boot Camp Assistant to install Windows 10 on your computer](https://support.apple.com/en-us/HT201468). You can then boot into Windows 10 and continue with this guide.
