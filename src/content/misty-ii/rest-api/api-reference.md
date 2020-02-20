@@ -74,7 +74,8 @@ Return Values
 
 
 ### DeleteImage
-Enables you to remove an image file from Misty that you have previously uploaded.
+
+Deletes an image file from Misty's storage.
 
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
 
@@ -92,6 +93,31 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### DeleteVideo
+
+Deletes a user-uploaded video file from Misty's storage.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes user-uploaded video assets. To delete a video recording that Misty has created, you must use the [`DeleteVideoRecording`](./#deletevideorecording) command.
+{{box op="end"}}
+
+Endpoint: DELETE &lt;robot-ip-address&gt;/api/videos
+
+Parameters
+
+* FileName (string) - The name of the video file to delete, with the file type extension.
+
+```json
+{
+  "FileName": "MyVid.mp4"
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 
 ### GetAudioFile
 

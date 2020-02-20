@@ -58,6 +58,28 @@ Arguments
 misty.DeleteImage("DeleteMe.png");
 ```
 
+### misty.DeleteVideo
+
+Deletes a user-uploaded video file from Misty's storage.
+
+```js
+// Syntax
+misty.DeleteVideo(string fileName, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes user-uploaded video assets. To delete a video recording that Misty has created, you must use the [`DeleteVideoRecording`](./#misty-deletevideorecording) command.
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - The name of the video file to delete, with the file type extension.
+
+```js
+// Example
+misty.DeleteVideo("MyVid.mp4");
+```
+
 ### misty.GetAudioFile
 
 Obtains a system or user-uploaded audio file currently stored on Misty.
