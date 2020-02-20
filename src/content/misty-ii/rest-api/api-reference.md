@@ -758,7 +758,9 @@ Misty uses the default image layer settings the first time she draws content wit
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-POST &lt;robot-ip-address&gt;/api/images/settings
+Endpoint: POST &lt;robot-ip-address&gt;/api/images/settings
+
+Parameters
 
 * Layer (string) - The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default image layer (named `DefaultImageLayer`).
 * RevertToDefault (boolean) - Optional. If `true`, updates layer to use default image layer settings.
