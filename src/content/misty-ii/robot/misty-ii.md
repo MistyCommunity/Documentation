@@ -227,6 +227,42 @@ When Misty powers on, she starts up a new camera session with default resolution
 
 A camera session remains active with the new resolution settings until **a)** Misty receives a command to take a picture or record a video with different resolution settings, **b)** Misty reboots, or **c)** you disable and re-enable the camera service.
 
+## Using Misty's Display
+
+Misty's API enables you to show images, text, videos, and animated `.gifs` on the robot's display.
+
+Misty uses a layering system to show different types of content. You can create as many layers as you like, and each layer can display one piece of content. The commands for displaying each type of content are:
+
+* [`DisplayImage`](../../../misty-ii/rest-api/api-reference/#displayimage)
+* [`DisplayText`](../../../misty-ii/rest-api/api-reference/#displaytext)
+* [`DisplayVideo`](../../../misty-ii/rest-api/api-reference/#displayvideo)
+* [`DisplayWebView`](../../../misty-ii/rest-api/api-reference/#displaywebview)
+
+You can use the following commands to adjust the settings for each layer you create:
+
+* [`SetImageDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setimagedisplaysettings)
+* [`SetTextDisplaySettings`](../../../misty-ii/rest-api/api-reference/#settextdisplaysettings)
+* [`SetVideoDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setvideodisplaysettings)
+* [`SetWebviewDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setwebviewdisplaysettings)
+
+Additionally, you can use the [`SetDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setdisplaysettings) command to revert the display to its default settings. This command clears all layers and resets the display to show Misty's default `e_Content.jpg` eyes.
+
+If you do not specify a layer when you call a display command, the content displays on the default layer for that command. The default layers for each media type are:
+* `ErrorDisplayLayer`
+* `DefaultImageLayer`
+* `DefaultTextLayer`
+* `DefaultVideoLayer`
+* `DefaultWebViewLayer`
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes:**
+
+* The `ErrorDisplayLayer` is reserved for system error messages. You cannot write new content or change the settings for the `ErrorDisplayLayer`.
+* The `DefaultImageLayer` is the only layer that does not automatically draw on top of other layers when the layer updates. `PlaceOnTop` is set to `false` for this layer by default, so that Misty's eyes do not re-draw on top of other media when Misty blinks. If you write to another layer and then update the `DefaultImageLayer`, the `DefaultImageLayer` updates *behind* the more recently updated layers, unless you use the [`SetImageDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setimagedisplaysettings) command to change the default setting for the `PlaceOnTop` attribute for that layer.
+* The `DefaultImageLayer` is the only layer on which Misty's default blinking behavior works. 
+{{box op="end"}}
+
+
 ## Connecting to adb
 
 You can use the Android Debug Bridge (adb) command line tool to communicate with the Android operating system running on Misty's 820 processor. This is useful when you want to access assets stored on the 820, view additional logs, or configure settings exposed through Misty's Android device. You can [download adb for free from the Android developer documentation](https://developer.android.com/studio/command-line/adb).
