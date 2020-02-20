@@ -240,6 +240,46 @@ Return Values
   * name (string) - The name of the video file.
   * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
 
+### GetVideoList
+
+Obtains a list of the user-uploaded video assets saved to Misty's storage. 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only obtains a list of user-uploaded video assets. To obtain a list of video recordings that Misty created, you must use the [`GetVideoRecordingsList`](./#getvideorecordingslist) command.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos/list
+
+Parameters
+
+* None
+
+Return Values
+
+* result (array) - A list of objects with information about the user-uploaded videos on Misty's storage. Each object includes the following key/value pairs:
+  * name (string) - The name of the video asset, with the file type extension.
+  * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
+
+```json
+{
+  "result": [
+    {
+      "name": "SampleVideo1.mp4",
+      "systemAsset": false
+    },
+    {
+      "name": "SampleVideo2.mp4",
+      "systemAsset": false
+    },
+    {
+      "name": "SampleVideo3.mp4",
+      "systemAsset": false
+    }
+  ],
+  "status": "Success"
+}
+```
+
 ### SaveAudio
 
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
@@ -2142,7 +2182,7 @@ Return Values
 Obtains a list of filenames for each video recording saved to Misty's local storage.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command only returns a list of the video recordings that Misty has created. This list does not include user-uploaded video files. User-uploaded video assets appear in the response for the [`GetVideoList`](./#GetVideoList) command.
+**Note:** This command only returns a list of the video recordings that Misty has created. This list does not include user-uploaded video files. User-uploaded video assets appear in the response for the [`GetVideoList`](./#getvideolist) command.
 {{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings/list
