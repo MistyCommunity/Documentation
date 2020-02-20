@@ -344,6 +344,43 @@ Return Values
   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
   * width (integer) - The width of the image in pixels.
 
+### SaveVideo
+
+Saves a video to Misty. 
+
+Accepted video file types are `.mp4` and `.wmv`. Maximum file size is 6 MB
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos
+
+Parameters
+
+* FileName (string) - The name of the video file to upload, with the file type extension.
+* Data (string or file) - **Option 1**: A Base64-encoded string of the video file data. **Option 2**: The video file. Valid video file types are `.mp4` and `.wmv`. When using option 2, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded video, while a value of `false` tells Misty not to play the video.
+* OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of false indicates the uploaded file should not overwrite any existing files on Misty.
+
+Return Values
+
+* Result (array) - Returns an array that contains an object with information about the video. This object includes the following key/value pairs:
+  * height (integer) - This property is not currently used in the response for uploaded video files, and can safely be ignored.
+  * name (string) - The name of the saved file.
+  * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+  * width (integer) - This property is not currently used in the response for uploaded video files, and can safely be ignored.
+
+```json
+{
+    "result": [
+        {
+            "height": 0,
+            "name": "MyNewVid.mp4",
+            "systemAsset": false,
+            "width": 0
+        }
+    ],
+    "status": "Success"
+}
+```
+
 ## Backpack
 
 ### GetSerialSensorValues

@@ -331,7 +331,7 @@ misty.SaveImage(string fileName, string data, [int width], [int height], [bool i
 
 Arguments
 * fileName (string) - The name of the image file to save.
-* data (string) - The image data, passed as a string containing a base64 string.
+* data (string) - A Base64-encoded string of the image data.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
@@ -343,6 +343,26 @@ Arguments
 // Example
 misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
 ```
+
+### misty.SaveVideo
+
+Saves a video to Misty. 
+
+```JS
+// Syntax
+misty.SaveVideo(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]);
+```
+
+Accepted video file types are `.mp4` and `.wmv`. Maximum file size is 6 MB
+
+Arguments
+
+* fileName (string) - The name of the video file to upload, with the file type extension.
+* data (string) - A Base64-encoded string of the video data.
+* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded video, while a value of `false` tells Misty not to play the video.
+* overwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of false indicates the uploaded file should not overwrite any existing files on Misty.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ## Backpack
 
