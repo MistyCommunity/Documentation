@@ -766,7 +766,7 @@ Parameters
 * RevertToDefault (boolean) - Optional. If `true`, updates layer to use default image layer settings.
 * Deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
 * Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
-* Opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
+* Opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
 * Width (int) - Optional. The width (in pixels) of the image display element. Defaults to the width of Misty's display (480). Must be greater than 0.
 * Height (int) - Optional. The height (in pixels) of the image display element. Defaults to the height of Misty's display (272). Must be greater than 0.
 * Stretch (string) - Optional. How to resize the image to fill the image display element. Options are: `None` - does not resize the image; `Fill` - resizes image to fill the display element without preserving aspect ratio; `Uniform` - resizes image to fill the dimensions of the display element while preserving aspect ratio; and `UniformToFill` - resizes image to fill the dimensions of the display element while preserving the aspect ratio (if the aspect ratio of the image and the display element rectangles are different, the image is clipped to fit in the display element). Defaults to `UniformToFill`.
@@ -801,7 +801,7 @@ Parameters
 * RevertToDefault (boolean) - Optional. If `true`, updates layer to use default text layer settings.
 * Deleted (boolean) - Optional. If `true`, completely deletes the layer and all clears all of the layer's settings. Deleted layers no longer consume computational resources.
 * Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
-* Opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`
+* Opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`
 * Size (int) - Optional. Font size (in px). Must be greater than 0. Defaults to 50.
 * Weight (int) - Optional. Numerical value between 0-1000 that specifies font thickness. Use higher values for thicker font. Defaults to 400.
 * Wrap (boolean) - Optional. Whether strings of text longer than the width of the text display element should wrap onto the next line. Defaults to `true`.
@@ -858,7 +858,7 @@ Properties
 * RevertToDefault (boolean) - Optional. If `true`, updates layer to use default video layer settings.
 * Deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
 * Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
-* Opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
+* Opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
 * Width (int) - Optional. The width (in pixels) of the video display element on this layer. Defaults to the width of Misty's display (480). Must be greater than 0.
 * Height (int) - Optional. The height (in pixels) of the video display element on this layer. Defaults to the height of Misty's display (272). Must be greater than 0.
 * Stretch (string) - Optional. How to resize the video to fill the allotted space. Options are: `None` - does not resize the video; `Fill` - resizes video to fill the space without preserving aspect ratio; `Uniform` - resizes video to fill the alloted space while preserving aspect ratio; and `UniformToFill` - resizes video to fill the dimensions of the alloted space while preserving the aspect ratio (if the aspect ratio of the video and the destination rectangles are different, the video is clipped to fit in the alloted space). Defaults to `UniformToFill`.
@@ -882,6 +882,41 @@ Return Values
 
 * Result (boolean) - Returns true if there are no errors related to this command.
 
+### SetWebViewDisplaySettings
+
+Updates settings for a webview display layer.
+
+Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/webviews/settings
+
+Parameters
+
+* Layer (string) - Optional. The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default webview layer (named `DefaultWebViewLayer`).
+* RevertToDefault (boolean) - Optional. If `true`, updates layer to use default webview layer settings.
+* Deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
+* Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* Width (int) - Optional. The width (in pixels) of the webview element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* Height (int) - Optional. The height (in pixels) of the webview element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* Stretch (string) - Optional. How to resize the webview to fill the provided space. Options are: `None` - does not resize the webview; `Fill` - resizes webview to fill the provided space without preserving the aspect ratio; `Uniform` - resizes webview to fill the provided space while preserving aspect ratio; and `UniformToFill` - resizes webview to fill the provided space while preserving the aspect ratio (if the aspect ratio of the media and destination rectangles are different, the media is clipped to fit in the destination). The default setting for a webview layer is `UniformToFill`.
+* PlaceOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time the layer, the webview, or the settings are updated. By default, the system draws all images on top of Misty's display when they are drawn the first time. Defaults to `true`.
+* HorizontalAlignment (string) - Optional. Horizontal alignment for the webview on this layer. Options are: `Left` - aligns the content to the left of the provided space; `Right` - aligns the content to the right of the provided space; `Stretch` - resizes the content to fill the provided horizontal space; and `Center` - centers the content horizontally in the provided space. The default `HorizontalAlignment` setting for a webview layer is `Center`.
+* VerticalAlignment (string) - Optional. Vertical alignment for the webview on this layer. Options are: `Bottom` - aligns the content to the bottom of the provided space; `Top` - aligns the content to the top of the provided space; `Stretch` - resizes the content to fill the provided vertical space; and `Center` - centers the content vertically in the provided space.
+
+```json
+{
+  "Layer": "MyWebViewLayer",
+  "Visible": false 
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ## External Requests
 
