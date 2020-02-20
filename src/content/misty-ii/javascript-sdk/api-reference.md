@@ -673,21 +673,42 @@ misty.ChangeLED(0, 0, 0);
 
 ### misty.DisplayImage
 
+Displays an image on Misty's screen. You can use the [`SaveImage`](../../../misty-ii/rest-api/api-reference/#saveimage) command in Misty's REST API to upload images to Misty.
+
+By default, images you display with the `misty.DisplayImage()` method draw on the `DefaultImageLayer`. To display an image on a custom layer, use the [`misty.DisplayLayerImage()`](./#misty-displaylayerimage) method. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
+
+```JavaScript
+// Syntax
+misty.DisplayImage(string fileName, [double alpha], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
+* alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to 1.
+* prePauseMsMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.DisplayLayerImage
+
 Displays an image on Misty's screen.
 
 ```JavaScript
 // Syntax
-misty.DisplayImage(string fileName, [double alpha], [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
+misty.DisplayImage(string fileName, [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
 ```
 
 You can use this command to display images from Misty's local storage or to display images that are hosted on the web.
 
-Misty uses the default image layer settings the first time she draws content with the `DisplayImage` command. You can use the [`SetImageDisplaySettings`](./#misty-setimagedisplaysettings) command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default image layer settings the first time she draws content with the `misty.DisplayLayerImage()` method. You can use the [`SetImageDisplaySettings`](./#misty-setimagedisplaysettings) command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The `DefaultImageLayer` is the only layer that does not automatically draw on top of other layers when the layer updates. `PlaceOnTop` is set to `false` for this layer by default, so that Misty's eyes do not re-draw on top of other media when Misty blinks. If you write to another layer and then update the `DefaultImageLayer`, the `DefaultImageLayer` updates *behind* the more recently updated layers, unless you use the [`SetImageDisplaySettings`](../../../misty-ii/rest-api/api-reference/#setimagedisplaysettings) command to change the default setting for the `PlaceOnTop` attribute for that layer. The `DefaultImageLayer` is the only layer on which Misty's default blinking behavior works. 
+{{box op="end"}}
 
 Arguments
 
 * fileName (string) - Filename for the image to display. Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Alternately, if `IsUrl` is true, the URL path for the image to display.
-* alpha (double) - Optional. Opacity for the layer on which the image displays. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to 1.
 * layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the image displays on the default image layer (named `DefaultImageLayer`). 
 * isUrl (boolean) - Optional. If `true`, the system treats the string you pass in for `FileName` as the URL address for an image hosted online.
 * prePauseMsMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -707,7 +728,7 @@ Displays text on Misty's screen.
 misty.DisplayText(string text, [string layer], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#misty-settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#misty-settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -734,7 +755,7 @@ misty.DisplayVideo(string fileName, [string layer], [bool isUrl], [int prePauseM
 
 You can use this command to play videos you upload to Misty or videos that are hosted on the web. Use the [`SaveVideo`](./#misty-savevideo) command to upload a new video asset to your robot.
 
-Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#misty-setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#misty-setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -766,7 +787,7 @@ Displays a webpage on Misty's display.
 misty.DisplayWebView(string URL, [string layer], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#misty-setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#misty-setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 Displaying webviews can consume a lot of computational resources. If you notice Misty's performance decrease while multiple webviews layers are active, you may consider deleting one or more webview layers.
 
@@ -984,7 +1005,7 @@ Updates settings for an image display layer.
 misty.SetImageDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [bool placeOnTop], [int rotation], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default image layer settings the first time she draws content with the [`DisplayImage`](./#misty-displayimage) command. You can use the `SetImageDisplaySettings` command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default image layer settings the first time she draws content with the [`DisplayImage`](./#misty-displayimage) command. You can use the `SetImageDisplaySettings` command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1022,7 +1043,7 @@ Updates settings for a text display layer.
 misty.SetTextDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int size], [int weight], [bool wrap], [string horizontalAlignment], [string verticalAlignment], [string style], [int red], [int green], [int blue], [int width], [int height], [bool placeOnTop], [string fontFamily], [int rotation], [int padLeft], [int padTop], [int padRight], [int padBottom], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#misty-displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display.
+Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#misty-displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1076,7 +1097,7 @@ Updates settings for a video display layer.
 misty.SetVideoDisplaySettings(layer string, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [int rotation], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [bool repeat], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#misty-displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#misty-displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1114,7 +1135,7 @@ Updates settings for a webview display layer.
 misty.SetWebViewDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [int width], [int height], [string stretch], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
 ```
 
-Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.

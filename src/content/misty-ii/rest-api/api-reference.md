@@ -474,7 +474,7 @@ Displays an image on Misty's screen.
 
 You can use this command to display images from Misty's local storage or to display images that are hosted on the web.
 
-Misty uses the default image layer settings the first time she draws content with the `DisplayImage` command. You can use the [`SetImageDisplaySettings`](./#setimagedisplaysettings) command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default image layer settings the first time she draws content with the `DisplayImage` command. You can use the [`SetImageDisplaySettings`](./#setimagedisplaysettings) command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images/display
 
@@ -499,7 +499,7 @@ Return Values
 
 Displays text on Misty's screen.
 
-Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -530,7 +530,7 @@ Plays a video on Misty's screen.
 
 You can use this command to play videos you upload to Misty or videos that are hosted on the web. Use the [`SaveVideo`](./#savevideo) command to upload a new video asset to your robot.
 
-Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -563,7 +563,7 @@ Return Values
 
 Displays a webpage on Misty's display.
 
-Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 Displaying webviews can consume a lot of computational resources. If you notice Misty's performance decrease while multiple webviews layers are active, you may consider deleting one or more webview layers.
 
@@ -884,7 +884,7 @@ Return values
 
 Updates settings for an image display layer.
 
-Misty uses the default image layer settings the first time she draws content with the [`DisplayImage`](./#displayimage) command. You can use the `SetImageDisplaySettings` command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
+Misty uses the default image layer settings the first time she draws content with the [`DisplayImage`](./#displayimage) command. You can use the `SetImageDisplaySettings` command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -915,7 +915,7 @@ Return values
 
 Updates settings for a text display layer.
 
-Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display.
+Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -976,7 +976,7 @@ Return Values
 
 Updates settings for a video display layer.
 
-Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1018,7 +1018,7 @@ Return Values
 
 Updates settings for a webview display layer.
 
-Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2169,26 +2169,6 @@ Parameters
 Return Values
 
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
-
-### GetVideoFile
-
-Downloads Misty's most recent video recording to your browser or REST client.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
-
-This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/video
-
-Parameters
-
-* None
-
-Return Values
-
-* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### GetVideoRecording
 

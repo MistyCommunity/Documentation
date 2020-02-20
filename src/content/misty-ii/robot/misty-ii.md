@@ -233,7 +233,7 @@ Misty's API enables you to show images, text, videos, and animated `.gifs` on th
 
 Misty uses a layering system to show different types of content. You can create as many layers as you like, and each layer can display one piece of content. The commands for displaying each type of content are:
 
-* [`DisplayImage`](../../../misty-ii/rest-api/api-reference/#displayimage)
+* [`DisplayImage`](../../../misty-ii/rest-api/api-reference/#displayimage) (or [`DisplayLayerImage`](../../../misty-ii/javascript-sdk/api-reference/#misty-displaylayerimage) in Misty's JavaScript SDK)
 * [`DisplayText`](../../../misty-ii/rest-api/api-reference/#displaytext)
 * [`DisplayVideo`](../../../misty-ii/rest-api/api-reference/#displayvideo)
 * [`DisplayWebView`](../../../misty-ii/rest-api/api-reference/#displaywebview)
