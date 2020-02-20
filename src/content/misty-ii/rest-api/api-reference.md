@@ -2170,26 +2170,6 @@ Return Values
 
 * Result (array) - A list of the user-supplied names for faces that Misty has been trained to recognize.
 
-### GetVideoFile
-
-Downloads Misty's most recent video recording to your browser or REST client.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
-
-This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-Endpoint: GET &lt;robot-ip-address&gt;/api/video
-
-Parameters
-
-* None
-
-Return Values
-
-* An MP4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
-
 ### GetVideoRecording
 
 Downloads a video recording to your browser or REST client.

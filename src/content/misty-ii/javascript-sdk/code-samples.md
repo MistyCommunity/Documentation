@@ -177,25 +177,6 @@ method by passing in a different name as an optional argument when you
 call the `misty.RegisterEvent()` method.
 {{box op="end"}}
 
-### recordVideo
-
-This sample shows how to programmatically record and save a new video.
-
-**Note:** Video recordings cannot be longer than 10 seconds. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, you can use the Command Center, or you can send a request to the `GetVideoFile` endpoint in Misty's REST API.
-
-```JavaScript
-// Starts Misty recording a video with her RGB camera. Misty stops
-// recording automatically if a video reaches 10 seconds before you
-// call misty.StopRecordingVideo().
-misty.StartRecordingVideo();
-// Pauses execution for five seconds.
-misty.Pause(5000);
-// Stops recording. The video is saved to Misty's local storage with
-// the filename MistyVideo.mp4, and can be downloaded via the Command
-// Center or retrieved with the GetVideoFile command.
-misty.StopRecordingVideo();
-```
-
 ### takePicture
 This sample shows how to code Misty to take a picture with her RGB camera, save the picture to her local storage, and show it on her display. We also have Misty play her default camera shutter sound, so you can hear (as well as see) when she's taken the picture.
 
