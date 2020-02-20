@@ -58,6 +58,28 @@ Arguments
 misty.DeleteImage("DeleteMe.png");
 ```
 
+### misty.DeleteVideo
+
+Deletes a user-uploaded video file from Misty's storage.
+
+```js
+// Syntax
+misty.DeleteVideo(string fileName, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only deletes user-uploaded video assets. To delete a video recording that Misty has created, you must use the [`DeleteVideoRecording`](./#misty-deletevideorecording) command.
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - The name of the video file to delete, with the file type extension.
+
+```js
+// Example
+misty.DeleteVideo("MyVid.mp4");
+```
+
 ### misty.GetAudioFile
 
 Obtains a system or user-uploaded audio file currently stored on Misty.
@@ -190,6 +212,91 @@ Returns
    * Width (integer) - The width of the image file.
    * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### misty.GetVideo
+
+Obtains the Base64-encoded data for a user-uploaded video file currently stored on Misty.
+
+```JavaScript
+// Syntax
+misty.GetVideo(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideo()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - The name of the video to obtain, with the file type extension.
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideo()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+misty.GetVideo("MyVid.mp4");
+
+function _GetVideo(data) {
+    // Prints Base64-encoded video data as debug message
+    misty.Debug(JSON.stringify(data.Result));
+}
+```
+
+Return Values
+
+* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. This object includes the following key/value pairs:
+  * base64 (string) - A string containing the Base64-encoded video data.
+  * contentType (string) - The type and format of the video returned.
+  * name (string) - The name of the video file.
+  * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
+
+### misty.GetVideoList
+
+Obtains a list of the user-uploaded video assets saved to Misty's storage. 
+
+```JavaScript
+// Syntax
+misty.GetVideoList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only obtains a list of user-uploaded video assets. To obtain a list of video recordings that Misty created, you must use the [`GetVideoRecordingsList`](./#misty-getvideorecordingslist) command.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideoList()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideoList()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.GetVideoList();
+
+function _GetVideoList(data) {
+    // Prints name of each user-uploaded video as a debug message
+    for (var i = 0; i <= data.Result.length; i ++) {
+        misty.Debug(data.Result[i].Name);
+    }
+}
+```
+
+Return Values
+
+* Result (array) - A list of objects with information about the user-uploaded videos on Misty's storage. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each object includes the following key/value pairs:
+  * Name (string) - The name of the video asset, with the file type extension.
+  * SystemAsset (boolean) - Whether the video is one of Misty's default system assets.
+
+
 ### misty.SaveAudio
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 
@@ -224,7 +331,7 @@ misty.SaveImage(string fileName, string data, [int width], [int height], [bool i
 
 Arguments
 * fileName (string) - The name of the image file to save.
-* data (string) - The image data, passed as a string containing a base64 string.
+* data (string) - A Base64-encoded string of the image data.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * height (integer) - Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the saved image file, while a value of `false` tells Misty not to display the image.
@@ -236,6 +343,26 @@ Arguments
 // Example
 misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
 ```
+
+### misty.SaveVideo
+
+Saves a video to Misty. 
+
+```JS
+// Syntax
+misty.SaveVideo(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]);
+```
+
+Accepted video file types are `.mp4` and `.wmv`. Maximum file size is 6 MB
+
+Arguments
+
+* fileName (string) - The name of the video file to upload, with the file type extension.
+* data (string) - A Base64-encoded string of the video data.
+* immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded video, while a value of `false` tells Misty not to play the video.
+* overwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of false indicates the uploaded file should not overwrite any existing files on Misty.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ## Backpack
 
@@ -546,25 +673,115 @@ misty.ChangeLED(0, 0, 0);
 
 ### misty.DisplayImage
 
-Displays an image on Misty's screen. Optionally, `misty.DisplayImage()` can display an image for a specific length of time and/or transparently overlay an image on Misty's eyes. You can use the [`SaveImage`](../../../misty-ii/rest-api/api-reference/#saveimage) command in Misty's REST API to upload images to Misty.
-
-Note that it's not possible for a custom image to overlay another custom image. Misty's eyes always appear as the base image, behind an overlay.
+Displays an image on Misty's screen.
 
 ```JavaScript
 // Syntax
-misty.DisplayImage(string fileName, [double alpha], [int prePauseMs], [int postPauseMs])
+misty.DisplayImage(string fileName, [double alpha], [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
 ```
+
+You can use this command to display images from Misty's local storage or to display images that are hosted on the web.
+
+Misty uses the default image layer settings the first time she draws content with the `DisplayImage` command. You can use the [`SetImageDisplaySettings`](./#misty-setimagedisplaysettings) command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
 
 Arguments
 
-* fileName (string) - Name of the file containing the image to display. Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3MB. To clear the image from the screen, pass an empty string ```""```.
-* alpha (double) - Optional. The transparency of the image. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the image appears but is transparent, and Misty's eyes appear behind the specified image. Defaults to 1.
+* fileName (string) - Filename for the image to display. Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Alternately, if `IsUrl` is true, the URL path for the image to display.
+* alpha (double) - Optional. Opacity for the layer on which the image displays. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to 1.
+* layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the image displays on the default image layer (named `DefaultImageLayer`). 
+* isUrl (boolean) - Optional. If `true`, the system treats the string you pass in for `FileName` as the URL address for an image hosted online.
 * prePauseMsMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
 // Example
 misty.DisplayImage("e_Amazement.jpg");
+```
+
+### misty.DisplayText
+
+Displays text on Misty's screen.
+
+```JavaScript
+// Syntax
+misty.DisplayText(string text, [string layer], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default text layer settings the first time she draws content with the `DisplayText` command. You can use the [`SetTextDisplaySettings`](./#misty-settextdisplaysettings) command to adjust the settings and change the appearance for a specific text layer. Issuing a `SetTextDisplaySettings` command redraws the updated image layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* text (string) - The text to display.
+* layer (string) - Optional. The layer on which to display the text. You can use this parameter to create a new text layer or to update an existing text layer. If not supplied, the text displays on the default text layer (named `DefaultTextLayer`).
+
+```javascript
+// Example
+misty.DisplayText("Hello, world", "MyTextLayer");
+```
+
+### misty.DisplayVideo
+
+Plays a video on Misty's screen.
+
+```js
+// Syntax
+misty.DisplayVideo(string fileName, [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
+```
+
+You can use this command to play videos you upload to Misty or videos that are hosted on the web. Use the [`SaveVideo`](./#misty-savevideo) command to upload a new video asset to your robot.
+
+Misty uses the default video layer settings the first time she draws content with the `DisplayVideo` command. You can use the [`SetVideoDisplaySettings`](./#misty-setvideodisplaysettings) command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+
+The `DisplayVideo` command has the following limitations at this time:
+* You cannot use the `DisplayVideo` command to play video recordings that Misty creates with the `StartRecordingVideo` command. Misty can only play user-uploaded videos on her display.
+* Misty does not play audio for the videos she plays on her display.
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - Filename for the video to play, with the file type extension. Valid video file types are .`mp4` and `.wmv`. Alternatively, if `IsURL` is `true`, the URL path for the video to play.
+* layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the video plays on the default video layer (named `DefaultVideoLayer`). 
+* isUrl (boolean) - Optional. If `true`, the system treats the string you pass in for `fileName` as the URL address for a video hosted online.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+misty.DisplayVideo("VideoAssetFilename.mp4", "MyVideoLayer");
+```
+
+### misty.DisplayWebView
+
+Displays a webpage on Misty's display.
+
+```js
+// Syntax
+misty.DisplayWebView(string URL, [string layer], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default webview layer settings the first time she draws content with the `DisplayWebView` command. You can use the [`SetWebViewDisplaySettings`](./#misty-setwebviewdisplaysettings) command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+
+Displaying webviews can consume a lot of computational resources. If you notice Misty's performance decrease while multiple webviews layers are active, you may consider deleting one or more webview layers.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* URL (string) - The URL for the web page to display.
+* layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the webview displays on the default webview layer (named `DefaultWebViewLayer`). 
+
+```js
+// Example
+misty.DisplayWebView("https://mistyrobotics.com");
 ```
 
 ### misty.GetBlinkSettings
@@ -719,6 +936,27 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
+### misty.SetDisplaySettings
+
+Adjusts general display settings. Currently, this command is only used to revert the display settings, redraw the default image display layer, and set the image to Misty's default startup eyes.
+
+```js
+misty.SetDisplaySettings(bool revertToDefault, [int postPauseMs], [int prePauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* revertToDefault (boolean) - If `true`, deletes all display layers, and re-draws the default image display layer with Misty's default startup eyes.
+
+```js
+// Example
+misty.SetDisplaySettings(true);
+```
+
 ### misty.SetFlashlight
 
 Turns the LED flashlight on Misty's head on or off.
@@ -735,6 +973,172 @@ Parameters
 ```JavaScript
 // Example
 misty.SetFlashlight(true);
+```
+
+### misty.SetImageDisplaySettings
+
+Updates settings for an image display layer.
+
+```js
+// Syntax
+misty.SetImageDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [bool placeOnTop], [int rotation], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default image layer settings the first time she draws content with the [`DisplayImage`](./#misty-displayimage) command. You can use the `SetImageDisplaySettings` command to adjust the settings and change the appearance for a specific image layer. Issuing a `SetImageDisplaySettings` command redraws the updated image layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* layer (string) - The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default image layer (named `DefaultImageLayer`).
+* revertToDefault (boolean) - Optional. If `true`, updates layer to use default image layer settings.
+* deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
+* visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
+* width (int) - Optional. The width (in pixels) of the image display element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* height (int) - Optional. The height (in pixels) of the image display element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* stretch (string) - Optional. How to resize the image to fill the image display element. Options are: `None` - does not resize the image; `Fill` - resizes image to fill the display element without preserving aspect ratio; `Uniform` - resizes image to fill the dimensions of the display element while preserving aspect ratio; and `UniformToFill` - resizes image to fill the dimensions of the display element while preserving the aspect ratio (if the aspect ratio of the image and the display element rectangles are different, the image is clipped to fit in the display element). Defaults to `UniformToFill`.
+* placeOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time you update the image or settings for this layer. Defaults to `true` for all layers **except** the `DefaultImageLayer`. To prevent Misty's eyes from redrawing on top of other layers each time Misty blinks, the `PlaceOnTop` property is set to `false` by default for the `DefaultImageLayer`.
+* rotation (int) - Optional. The rotation (in degrees) for the image display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* horizontalAlignment (string) - Optional. Horizontal alignment of the image display element relative to the edges of Misty's display. Options are: `Left` - aligns the element to the left of Misty's display; `Right` - aligns the element to the right of Misty's display; `Center` - centers the element horizontally within Misty's display; and `Stretch` - resizes the image to fill the provided horizontal space. Defaults to `Center`.
+* verticalAlignment (string) - Optional. Vertical alignment of the image display element relative to the edges of Misty's display. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; `Center` - centers the element vertically within Misty's display; and `Stretch` - resizes the element to fill the provided vertical space. Defaults to `Center`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time n milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+// Makes the image layer called "MyImageLayer" invisible
+misty.SetImageDisplaySettings("MyImageLayer", null, false, false);
+```
+
+### misty.SetTextDisplaySettings
+
+Updates settings for a text display layer.
+
+```js
+// Syntax
+misty.SetTextDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int size], [int weight], [bool wrap], [string horizontalAlignment], [string verticalAlignment], [string style], [int red], [int green], [int blue], [int width], [int height], [bool placeOnTop], [string fontFamily], [int rotation], [int padLeft], [int padTop], [int padRight], [int padBottom], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default text layer settings the first time she draws content with the [`DisplayText`](./#misty-displaytext) command. You can use the `SetTextDisplaySettings` command to adjust the settings and change the appearance for a specific text display layer. Issuing a `SetTextDisplaySettings` command redraws the updated text layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To change the color of the font, you must supply RGB values for each of the `Red`, `Green`, and `Blue` parameters. Supplying a value for just one of these parameters does not apply a new color to the text.
+{{box op="end"}}
+
+Arguments
+
+* layer (string) - The name of the text layer to adjust the settings for. If `null`, adjusts the settings for the default text layer (named `DefaultTextLayer`).
+* revertToDefault (boolean) - Optional. If `true`, updates layer to use default text layer settings.
+* deleted (boolean) - Optional. If `true`, completely deletes the layer and all clears all of the layer's settings. Deleted layers no longer consume computational resources.
+* visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`
+* size (int) - Optional. Font size (in px). Must be greater than 0. Defaults to 50.
+* weight (int) - Optional. Numerical value between 0-1000 that specifies font thickness. Use higher values for thicker font. Defaults to 400.
+* wrap (boolean) - Optional. Whether strings of text longer than the width of the text display element should wrap onto the next line. Defaults to `true`.
+* horizontalAlignment (string) - Optional. Horizontal alignment of the text within the text display element. Options are: `Left` - aligns the text to the left of the element; `Right` - aligns the text to the right of the element; and `Center` - centers the text horizontally in the element. Defaults to `Center`. **Note:** This property only applies to the alignment of text within the text display element. The text display element itself is always center-aligned relative to the edges of Misty's display.  
+* verticalAlignment (string) - Optional. Vertical alignment of the text display element. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; and `Center` - centers the element vertically within Misty's display. Defaults to `Center`. 
+* style (string) - Optional. Applies an `Italic`, `Oblique`, or `Normal` style to the font. Defaults to `Normal`.
+* red (int) - The red RGB color value for the font (0 - 255). Default is 255.
+* green (int) - The green RGB color value for the font (0 - 255). Default is 255.
+* blue (int) - The blue RGB color value for the font (0 - 255). Default is 255.
+* width (int) - Optional. The width (in pixels) of the text display element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* height (int) - Optional. The height (in pixels) of the text display element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* placeOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time you update the text or settings for this layer. Defaults to `true`.
+* fontFamily (string) - Optional. The font family to use for the text on this layer. No definitive list of supported fonts is available at this time. Defaults to Century Gothic.
+* rotation (int) - Optional. The rotation (in degrees) for the text display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* padLeft (int) - Optional. The left padding (in pixels) of the text within the text display element. Default is 0.
+* padTop (int) - Optional. The top padding (in pixels) of the text within the text display element. Default is 0. The `PadTop` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* padRight (int) - The right padding (in pixels) of the text within the text display element. The `PadRight` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* padBottom (int) - Optional. The bottom padding (in pixels) of the text within the text display element. Default is 0. The `PadBottom` property is still under implementation. Feel free to experiment with different values, but recognize that this property may behave unpredictably at this time.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+// Makes the text layer called "MyTextLayer" invisible
+misty.SetTextDisplaySettings("MyTextLayer", null, false, false);
+```
+
+
+### misty.SetVideoDisplaySettings
+
+Updates settings for a video display layer.
+
+```js
+// Syntax
+misty.SetVideoDisplaySettings(layer string, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [int rotation], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [bool repeat], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#misty-displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* layer (string) - The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default video layer (named `DefaultVideoLayer`).
+* revertToDefault (boolean) - Optional. If `true`, updates layer to use default video layer settings.
+* deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
+* visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* opacity (double) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
+* width (int) - Optional. The width (in pixels) of the video display element on this layer. Defaults to the width of Misty's display (480). Must be greater than 0.
+* height (int) - Optional. The height (in pixels) of the video display element on this layer. Defaults to the height of Misty's display (272). Must be greater than 0.
+* stretch (string) - Optional. How to resize the video to fill the allotted space. Options are: `None` - does not resize the video; `Fill` - resizes video to fill the space without preserving aspect ratio; `Uniform` - resizes video to fill the alloted space while preserving aspect ratio; and `UniformToFill` - resizes video to fill the dimensions of the alloted space while preserving the aspect ratio (if the aspect ratio of the video and the destination rectangles are different, the video is clipped to fit in the alloted space). Defaults to `UniformToFill`.
+* rotation (int) - Optional. The rotation (in degrees) for the video display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* placeOnTop (boolean) - Optional. If `true`, this layer redraws on top of Misty's display each time you update the video or layer settings. Defaults to `true`.
+* horizontalAlignment (string) - Optional. Horizontal alignment of the video display element relative to the edges of Misty's display. Options are: `Left` - aligns the element to the left of Misty's display; `Right` - aligns the element to the right of Misty's display; `Center` - centers the element horizontally within Misty's display; and `Stretch` - resizes the element to fill the provided horizontal space. Defaults to `Center`.
+* verticalAlignment (string) - Optional. Vertical alignment of the video display element relative to the edges of Misty's display. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; `Center` - centers the element vertically within Misty's display; and `Stretch` - resizes the element to fill the provided vertical space. Defaults to `Center`.
+* repeat (boolean) - Optional. When `true`, the video on this layer repeats after it finishes playing. Defaults to `true`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+// Makes the video layer called "MyVideoLayer" invisible
+misty.SetVideoDisplaySettings("MyVideoLayer", null, false, false);
+```
+
+### misty.SetWebViewDisplaySettings
+
+Updates settings for a webview display layer.
+
+```JavaScript
+misty.SetWebViewDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [int width], [int height], [string stretch], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
+```
+
+Misty uses the default webview layer settings the first time she draws content with the [`DisplayWebView`](./#displaywebview) command. You can use the `SetWebViewDisplaySettings` command to adjust the settings and change the appearance for a specific webview layer. Issuing a `SetWebViewDisplaySettings` command redraws the updated webview layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* layer (string) - Optional. The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default webview layer (named `DefaultWebViewLayer`).
+* revertToDefault (boolean) - Optional. If `true`, updates layer to use default webview layer settings.
+* deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
+* visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* width (int) - Optional. The width (in pixels) of the webview element. Defaults to the width of Misty's display (480). Must be greater than 0.
+* height (int) - Optional. The height (in pixels) of the webview element. Defaults to the height of Misty's display (272). Must be greater than 0.
+* stretch (string) - Optional. How to resize the webview to fill the provided space. Options are: `None` - does not resize the webview; `Fill` - resizes webview to fill the provided space without preserving the aspect ratio; `Uniform` - resizes webview to fill the provided space while preserving aspect ratio; and `UniformToFill` - resizes webview to fill the provided space while preserving the aspect ratio (if the aspect ratio of the media and destination rectangles are different, the media is clipped to fit in the destination). The default setting for a webview layer is `UniformToFill`.
+* placeOnTop (boolean) - Optional. If `true`, the layer redraws on top of Misty's display each time the layer, the webview, or the settings are updated. By default, the system draws all images on top of Misty's display when they are drawn the first time. Defaults to `true`.
+* horizontalAlignment (string) - Optional. Horizontal alignment for the webview on this layer. Options are: `Left` - aligns the content to the left of the provided space; `Right` - aligns the content to the right of the provided space; `Stretch` - resizes the content to fill the provided horizontal space; and `Center` - centers the content horizontally in the provided space. The default `HorizontalAlignment` setting for a webview layer is `Center`.
+* verticalAlignment (string) - Optional. Vertical alignment for the webview on this layer. Options are: `Bottom` - aligns the content to the bottom of the provided space; `Top` - aligns the content to the top of the provided space; `Stretch` - resizes the content to fill the provided vertical space; and `Center` - centers the content vertically in the provided space.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+// Example
+// Makes the webview layer called "MyWebViewLayer" invisible
+misty.SetWebViewDisplaySettings("MyWebViewLayer", null, false, false);
 ```
 
 ## External Requests
@@ -3248,7 +3652,13 @@ Returns
 
 ### misty.ClearDisplayText
 
-Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
+{{box op="start" cssClass="boxed warningBox"}}
+**Deprecation Notice:** This command has been deprecated in favor of [`misty.ClearErrorText()`](./#misty-clearerrortext) and will be removed from Misty's JavaScript API in a future release.
+{{box op="end"}}
+
+Force-clears an error message from Misty’s display. 
+
+**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
 
 ```JavaScript
 // Syntax
@@ -3262,6 +3672,26 @@ Arguments
 ```JavaScript
 // Example
 misty.ClearDisplayText();
+```
+
+### misty.ClearErrorText
+
+Force-clears an error message from Misty’s display. 
+
+**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearErrorText()`.
+
+```JavaScript
+// Syntax
+misty.ClearErrorText ([int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.ClearErrorText();
 ```
 
 ### misty.ConnectToSavedWifi
