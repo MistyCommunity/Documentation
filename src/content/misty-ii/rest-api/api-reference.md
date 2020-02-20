@@ -840,6 +840,49 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### SetVideoDisplaySettings
+
+Updates settings for a video display layer.
+
+Misty uses the default video layer settings the first time she draws content with the [`DisplayVideo`](./#displayvideo) command. You can use the `SetVideoDisplaySettings` command to adjust the settings and change the appearance for a specific video layer. Issuing a `SetVideoDisplaySettings` command redraws the updated video layer on Misty's display.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videos/settings
+
+Properties
+
+* Layer (string) - The name of the layer to adjust the settings for. If `null`, adjusts the settings for the default video layer (named `DefaultVideoLayer`).
+* RevertToDefault (boolean) - Optional. If `true`, updates layer to use default video layer settings.
+* Deleted (boolean) - Optional. If `true`, completely deletes the layer and all associated settings. Deleted layers no longer consume computational resources.
+* Visible (boolean) - Optional. If `false`, hides the layer, but does not delete it. Note that a layer continues to consume computational resources, even when it is not visible.
+* Opacity (int) - Optional. Opacity for this layer. A value of 0 is completely transparent; 1 is completely opaque. When you specify a value greater than 0 and less than 1, the layer appears but is transparent. Defaults to `1`.
+* Width (int) - Optional. The width (in pixels) of the video display element on this layer. Defaults to the width of Misty's display (480). Must be greater than 0.
+* Height (int) - Optional. The height (in pixels) of the video display element on this layer. Defaults to the height of Misty's display (272). Must be greater than 0.
+* Stretch (string) - Optional. How to resize the video to fill the allotted space. Options are: `None` - does not resize the video; `Fill` - resizes video to fill the space without preserving aspect ratio; `Uniform` - resizes video to fill the alloted space while preserving aspect ratio; and `UniformToFill` - resizes video to fill the dimensions of the alloted space while preserving the aspect ratio (if the aspect ratio of the video and the destination rectangles are different, the video is clipped to fit in the alloted space). Defaults to `UniformToFill`.
+* Rotation (int) - Optional. The rotation (in degrees) for the video display element on this layer. Positive values apply a clockwise rotation; negative values apply a counter-clockwise rotation. Defaults to 0.
+* PlaceOnTop (boolean) - Optional. If `true`, this layer redraws on top of Misty's display each time you update the video or layer settings. Defaults to `true`.
+* HorizontalAlignment (string) - Optional. Horizontal alignment of the video display element relative to the edges of Misty's display. Options are: `Left` - aligns the element to the left of Misty's display; `Right` - aligns the element to the right of Misty's display; `Center` - centers the element horizontally within Misty's display; and `Stretch` - resizes the element to fill the provided horizontal space. Defaults to `Center`.
+* VerticalAlignment (string) - Optional. Vertical alignment of the video display element relative to the edges of Misty's display. Options are: `Bottom` - aligns the element to the bottom of Misty's display; `Top` - aligns the element to the top Misty's display; `Center` - centers the element vertically within Misty's display; and `Stretch` - resizes the element to fill the provided vertical space. Defaults to `Center`.
+* Repeat (boolean) - Optional. When `true`, the video on this layer repeats after it finishes playing. Defaults to `true`.
+
+```json
+{
+  "Layer": "MyVideoLayer",
+  "Width": 200,
+  "Height": 200,
+  "Rotation": 180,
+  "Repeat": false
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns true if there are no errors related to this command.
+
+
 ## External Requests
 
 ### SendExternalRequest
