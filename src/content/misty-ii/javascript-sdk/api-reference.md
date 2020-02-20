@@ -212,6 +212,47 @@ Returns
    * Width (integer) - The width of the image file.
    * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### misty.GetVideo
+
+Obtains the Base64-encoded data for a user-uploaded video file currently stored on Misty.
+
+```JavaScript
+// Syntax
+misty.GetVideo(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideo()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
+* fileName (string) - The name of the video to obtain, with the file type extension.
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideo()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```js
+// Example
+
+misty.GetVideo("MyVid.mp4");
+
+function _GetVideo(data) {
+    // Prints Base64-encoded video data as debug message
+    misty.Debug(JSON.stringify(data.Result));
+}
+```
+
+Return Values
+
+* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. This object includes the following key/value pairs:
+  * base64 (string) - A string containing the Base64-encoded video data.
+  * contentType (string) - The type and format of the video returned.
+  * name (string) - The name of the video file.
+  * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
+
 ### misty.SaveAudio
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 

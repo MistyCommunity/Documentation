@@ -211,6 +211,35 @@ Return Values
    * Width (integer) - the width of the image file
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
+### GetVideo
+
+Obtains a user-uploaded video file currently stored on Misty. 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command only obtains user-uploaded video assets. To obtain a video recording that Misty created, you must use the [`GetVideoRecording`](./#getvideorecording) command.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/videos
+
+Parameters
+
+* FileName (string) - The name of the video to obtain, with the file type extension.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
+
+```json
+{
+  "FileName": "MyVid.mp4"
+}
+```
+
+Return Values
+
+* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. It includes the following key/value pairs:
+  * base64 (string) - A string containing the Base64-encoded video data.
+  * contentType (string) - The type and format of the video returned.
+  * name (string) - The name of the video file.
+  * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
+
 ### SaveAudio
 
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
