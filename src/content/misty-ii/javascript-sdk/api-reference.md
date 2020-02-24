@@ -2174,6 +2174,58 @@ Arguments
 misty.SetCurrentSlamMap("Map_20190912_21.16.06.UTC");
 ```
 
+### misty.SetSlamIrExposureAndGain
+
+Sets the exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.SetSlamIrExposureAndGain(double exposure, int gain, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
+
+If you issue a `SetSlamIrExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start SLAM streaming, issue a [`StartSlamStreaming`](./#misty-startslamstreaming) command.
+{{box op="end"}}
+
+Arguments
+
+* Exposure (double) - Exposure levels for the infrared cameras in the depth sensor (in seconds). Range: `0.001` - `0.033`.
+* Gain (integer) - Gain levels for the infrared cameras in the depth sensor (in dB). Range: `0` - `3`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetSlamIrExposureAndGain(0.014468, 3);
+```
+
+### misty.SetSlamVisibleExposureAndGain
+
+Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.SetSlamVisibleExposureAndGain(double exposure, double gain, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](./#misty-startslamstreaming) command.
+{{box op="end"}}
+
+Arguments
+
+* exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
+* gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetSlamVisibleExposureAndGain(0.007987, 2);
+```
+
 ### misty.StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
@@ -2453,19 +2505,23 @@ misty.CancelFaceTraining();
 
 Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
+```js
+// Syntax
+misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
+```
+
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
 
 Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
 {{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-```js
-// Syntax
-
-misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
-```
 
 Arguments
 
@@ -2837,7 +2893,7 @@ Valid resolutions (as `width` x `height`) for AV streaming are: 1920 x 1280, 128
 
 Misty supports the following modes for AV streaming:
 
-* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Media Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
+* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Messaging Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
 * Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot.
 
 {{box op="start" cssClass="boxed tipBox"}}
@@ -2849,6 +2905,7 @@ Misty supports the following modes for AV streaming:
 
 * By default, Misty's AV streaming service is disabled when the robot boots up. You must enable this service before you can start AV streaming. You can enable the AV streaming service with the [`EnableAvStreamingService`](./#misty-enableavstreamingservice) command.
 * Enabling the AV streaming service automatically disables Misty's camera service. Misty cannot take pictures, record videos, or use computer vision functionality (such as face detection or face recognition) while the AV streaming service is enabled. For more information, see [AV Streaming Service](../../../misty-ii/robot/misty-ii/#av-streaming-service).
+* Misty cannot use her microphones for wake word detection, recording audio, or capturing speech while actively streaming audio and video. 
 * Misty's AV streaming service is unidirectional at this time. You can stream audio and video from Misty to an external device, but the robot cannot play live media streams.
 * Misty's video stream is rotated 90 degrees counterclockwise. You can rotate the stream to the orientation you prefer by changing the settings in your streaming client.
 * This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2941,6 +2998,11 @@ misty.StartFaceTraining("My_Face");
 
 Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
+```js
+// Syntax
+misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` argument.
 
 There are two event types associated with key phrase recognition:
@@ -2948,11 +3010,9 @@ There are two event types associated with key phrase recognition:
 * Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
 * Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
-```js
-// Syntax
-
-misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
-```
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -3053,7 +3113,10 @@ misty.StartRecordingAudio(string filename, [int prePauseMs], [int postPauseMs]);
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#misty-startkeyphraserecognition).
+**Notes:**
+
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#misty-startkeyphraserecognition).
+* Misty cannot use her microphones to record audio while actively streaming audio and video. 
 {{box op="end"}}
 
 Arguments
@@ -4416,6 +4479,30 @@ Returns
 * result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. The data object for each WebSocket class includes the following information:
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
+
+### misty.PerformTargetedUpdate
+
+Attempts to install updates for specified components of your robot. 
+
+```JavaScript
+// Syntax
+misty.PerformTargetedUpdate(string components, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the [`GetDeviceInformation`](./#misty-getdeviceinformation) command. You can make sure individual components are up-to-date by comparing these version numbers to the current release on the [System Updates](../../../misty-ii/robot/system-updates) page.
+{{box op="end"}}
+
+Arguments
+
+* Components (string) - A comma-separated list of the specific components to update. Include `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.PerformTargetedUpdate("MC,SensoryServices,RT");
+```
 
 ### misty.PreventRobotUpdates
 
