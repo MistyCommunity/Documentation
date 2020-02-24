@@ -2108,6 +2108,10 @@ Misty waits to start recording until she detects speech. She then records until 
 Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
 {{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
@@ -2441,6 +2445,7 @@ Misty supports the following modes for AV streaming:
 
 * By default, Misty's AV streaming service is disabled when the robot boots up. You must enable this service before you can start AV streaming. You can enable the AV streaming service with the [`EnableAvStreamingService`](./#enableavstreamingservice) command.
 * Enabling the AV streaming service automatically disables Misty's camera service. Misty cannot take pictures, record videos, or use computer vision functionality (such as face detection or face recognition) while the AV streaming service is enabled. For more information, see [AV Streaming Service](../../../misty-ii/robot/misty-ii/#av-streaming-service).
+* Misty cannot use her microphones for wake word detection, recording audio, or capturing speech while actively streaming audio and video. 
 * Misty's AV streaming service is unidirectional at this time. You can stream audio and video from Misty to an external device, but the robot cannot play live media streams.
 * Misty's video stream is rotated 90 degrees counterclockwise. You can rotate the stream to the orientation you prefer by changing the settings in your streaming client.
 * This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2539,6 +2544,9 @@ There are two event types associated with key phrase recognition:
 * Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
 * Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2584,7 +2592,10 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio/record/start
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#startkeyphraserecognition).
+**Notes:**
+
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#startkeyphraserecognition).
+* Misty cannot use her microphones to record audio while actively streaming audio and video. 
 {{box op="end"}}
 
 Parameters

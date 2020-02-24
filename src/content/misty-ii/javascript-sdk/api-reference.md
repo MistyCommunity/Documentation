@@ -2453,19 +2453,23 @@ misty.CancelFaceTraining();
 
 Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
+```js
+// Syntax
+misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
+```
+
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
 
 Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
 {{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-```js
-// Syntax
-
-misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
-```
 
 Arguments
 
@@ -2849,6 +2853,7 @@ Misty supports the following modes for AV streaming:
 
 * By default, Misty's AV streaming service is disabled when the robot boots up. You must enable this service before you can start AV streaming. You can enable the AV streaming service with the [`EnableAvStreamingService`](./#misty-enableavstreamingservice) command.
 * Enabling the AV streaming service automatically disables Misty's camera service. Misty cannot take pictures, record videos, or use computer vision functionality (such as face detection or face recognition) while the AV streaming service is enabled. For more information, see [AV Streaming Service](../../../misty-ii/robot/misty-ii/#av-streaming-service).
+* Misty cannot use her microphones for wake word detection, recording audio, or capturing speech while actively streaming audio and video. 
 * Misty's AV streaming service is unidirectional at this time. You can stream audio and video from Misty to an external device, but the robot cannot play live media streams.
 * Misty's video stream is rotated 90 degrees counterclockwise. You can rotate the stream to the orientation you prefer by changing the settings in your streaming client.
 * This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2941,6 +2946,11 @@ misty.StartFaceTraining("My_Face");
 
 Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
+```js
+// Syntax
+misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` argument.
 
 There are two event types associated with key phrase recognition:
@@ -2948,11 +2958,9 @@ There are two event types associated with key phrase recognition:
 * Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
 * Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
 
-```js
-// Syntax
-
-misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
-```
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -3053,7 +3061,10 @@ misty.StartRecordingAudio(string filename, [int prePauseMs], [int postPauseMs]);
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#misty-startkeyphraserecognition).
+**Notes:**
+
+* Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time. Recording audio automatically disables [key phrase recognition](./#misty-startkeyphraserecognition).
+* Misty cannot use her microphones to record audio while actively streaming audio and video. 
 {{box op="end"}}
 
 Arguments

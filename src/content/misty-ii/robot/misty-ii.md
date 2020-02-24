@@ -209,13 +209,24 @@ Misty's RGB camera is embedded in the center of her visor. Misty uses this camer
 
 To use the camera for taking pictures, recording videos, and for CV activities, Misty's camera service must be enabled. By default, the camera service is enabled when Misty boots up. You can enable and disable the camera service manually by using the [`EnableCameraService`](../../../misty-ii/rest-api/api-reference/#enablecameraservice) and [`DisableCameraService`](../../../misty-ii/rest-api/api-reference/#disablecameraservice) commands.
 
-The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other. Misty cannot run commands that use the camera service, or stream messages from any event types that use the camera service, when the camera service is disabled. You can find the full list of these commands and event types in the documentation for the [`DisableCameraService`](../../../misty-ii/rest-api/api-reference/#disablecameraservice) command.
+Misty cannot run commands that use the camera service, or stream messages from any event types that use the camera service, when the camera service is disabled. You can find the full list of these commands and event types in the documentation for the [`DisableCameraService`](../../../misty-ii/rest-api/api-reference/#disablecameraservice) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The camera service and the AV streaming service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+{{box op="end"}}
 
 ### AV Streaming Service
 
 To use the camera for AV streaming, Misty's AV streaming service must be enabled. **By default, the AV streaming service is disabled when Misty boots up.** You can enable and disable the camera service manually by using the [`EnableAvStreamingService`](../../../misty-ii/rest-api/api-reference/#enableavstreamingservice) and [`DisableAvStreamingService`](../../../misty-ii/rest-api/api-reference/#disableavstreamingservice) commands.
 
-The AV streaming service and the camera service cannot be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes:**
+
+* The AV streaming service and the camera service **cannot** be enabled at the same time. Issuing a command to enable one of these services automatically disables the other.
+* Misty cannot use her microphones for wake word detection, recording audio, or recording speech while actively streaming audio and video.
+{{box op="end"}}
 
 ### Picture and Video Resolution
 

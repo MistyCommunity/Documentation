@@ -662,6 +662,10 @@ By default, Misty sends `IMU` data to listeners of `IMU` events once every five 
 Misty sends `KeyPhraseRecognized` event messages when she recognizes the "Hey, Misty!" key phrase. 
 
 {{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** This event type is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this event type, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
@@ -1500,6 +1504,10 @@ TouchSensor{
 ## VoiceRecord
 
 The `VoiceRecord` event type provides information about the speech capture recordings that Misty creates with the `CaptureSpeech` or `StartKeyphraseRecognition` commands. `VoiceRecord` events trigger after the completion of a speech capture attempt.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for recording speech while actively streaming audio and video.
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This event type is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
