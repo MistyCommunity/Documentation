@@ -4428,6 +4428,30 @@ Returns
   * class (string) - The name of a given WebSocket class.
   * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
 
+### misty.PerformTargetedUpdate
+
+Attempts to install updates for specified components of your robot. 
+
+```JavaScript
+// Syntax
+misty.PerformTargetedUpdate(string components, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the [`GetDeviceInformation`](./#misty-getdeviceinformation) command. You can make sure individual components are up-to-date by comparing these version numbers to the current release on the [System Updates](../../../misty-ii/robot/system-updates) page.
+{{box op="end"}}
+
+Arguments
+
+* Components (string) - A comma-separated list of the specific components to update. Include `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.PerformTargetedUpdate("MC,SensoryServices,RT");
+```
+
 ### misty.PreventRobotUpdates
 
 Changes the robot's settings to prevent Misty II from automatically installing system updates. To re-enable system updates, you must issue an `AllowRobotUpdates` command.

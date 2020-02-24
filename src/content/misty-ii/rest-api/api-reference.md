@@ -3844,11 +3844,14 @@ Return Values
 
 Attempts to install updates for specified components of your robot. 
 
-**Note:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the `GetDeviceInformation` command. You can make sure individual components are up-to-date by comparing these version numbers to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the `GetDeviceInformation` command. You can make sure individual components are up-to-date by comparing these version numbers to the current release on the [System Updates](../../../misty-ii/robot/system-updates) page.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/component
 
 Parameters
+
 - Components (array) - A list of strings indicating the specific components to update. Use `"MC"` to update the motor controller firmware, `"RT"` to update the real-time controller firmware, and `"SensoryServices"` to update the Sensory Services application. Updates to the Sensory Services application include firmware updates for the Occipital Structure Core depth sensor.
 - OverrideBatteryCheck (boolean) - Optional. Whether to override the default battery level check when attempting to perform a targeted update.
 
@@ -3859,6 +3862,7 @@ Parameters
 ```
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### PreventRobotUpdates
