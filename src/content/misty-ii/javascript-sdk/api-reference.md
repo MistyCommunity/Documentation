@@ -2868,7 +2868,7 @@ Valid resolutions (as `width` x `height`) for AV streaming are: 1920 x 1280, 128
 
 Misty supports the following modes for AV streaming:
 
-* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Media Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
+* Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Messaging Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
 * Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot.
 
 {{box op="start" cssClass="boxed tipBox"}}
