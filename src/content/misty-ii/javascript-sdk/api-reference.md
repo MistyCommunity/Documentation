@@ -2201,6 +2201,31 @@ Arguments
 misty.SetSlamIrExposureAndGain(0.014468, 3);
 ```
 
+### misty.SetSlamVisibleExposureAndGain
+
+Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
+
+```JavaScript
+// Syntax
+misty.SetSlamVisibleExposureAndGain(double exposure, double gain, [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](./#misty-startslamstreaming) command.
+{{box op="end"}}
+
+Arguments
+
+* exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
+* gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.SetSlamVisibleExposureAndGain(0.007987, 2);
+```
+
 ### misty.StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
