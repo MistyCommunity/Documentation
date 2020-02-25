@@ -19,7 +19,7 @@ Follow the steps below to install Visual Studio and the components required to b
 
 1. Download [Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/). Misty's .NET SDK is compatible with Visual Studio Community, which is freely available.
 2. Install and run the Visual Studio Installer.
-3. When choosing the workloads and components to install with your Visual Studio installation, check the box to install the **Universal Windows Platform development workload**. Under **Installation details**, make sure there is a checkmark next to the required **Windows 10 SDK** library (build 10.0.17763). ![Visual Studio Installer for .NET SDK](../../../assets/images/vs-installer.png)
+3. When choosing the workloads and components to install with your Visual Studio installation, check the box to install the **Universal Windows Platform development workload**. Under **Installation details**, make sure there is a checkmark next to the required **Windows 10 SDK** library (build 10.0.17763). ![Visual Studio Installer for .NET SDK](../../../../assets/images/vs-installer.png)
 4. Choose any additional workloads and components you'd like to use with Visual Studio and click **Install**.
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -84,7 +84,7 @@ Once you've [customized the project with your own skill code](../net-skill-archi
    1. Select **Debug** from the left navigation menu.
    2. From the **Target device** menu, select **Remote Machine**.
    3. In the **Remote machine** field, enter Misty's IP address. **Important!** If you have not manually applied Misty's [2020.01.07 Android patch](../../../misty-ii/robot/system-updates/#2020-01-07-android-patch), then you must use the [IP address for Misty's USB-to-Ethernet adapter](./#connecting-to-misty-39-s-410-ip-address) in order to attach a remote debugger. If you have applied the patch, you can attach a debugger using Misty's Wi-Fi IP address (supplied in the Misty App).
-   4. From the **Authentication mode** menu, select **Universal (Unencrypted Protocol)**. Your configuration manager should look like this, with your robot's IP address in the **Remote Machine** field. ![Configuration Manager](../../../assets/images/configuration-manager-2.png)
+   4. From the **Authentication mode** menu, select **Universal (Unencrypted Protocol)**. Your configuration manager should look like this, with your robot's IP address in the **Remote Machine** field. ![Configuration Manager](../../../../assets/images/configuration-manager-2.png)
 4. Make sure your robot is powered on and connected to the same network as your computer. Then, click **Run/Deploy** in Visual Studio. (Deployment can take a few minutes. Check the Visual Studio console to know when deployment is done.)
 5. After deployment, you may need to reload Misty's skills before you can access your .NET skill from the Skill Runner web page. To reload skills, issue a POST request to the API Endpoint for the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation: `POST <robot-ip>/api/skills/reload`.
 6. Open up the [Skill Runner](https://sdk.mistyrobotics.com/skill-runner) web page in your browser and connect to your robot. Your .NET skill should appear in the **Manage** section of the page. Click **Start** to start run the skill.
@@ -97,8 +97,8 @@ Follow these steps to create an app package for your .NET skill:
 
 1. Open your skill project in Visual Studio.
 2. In the Solution Explorer, right-click your project and select **Store &rarr; Create App Packages**.
-3. Select **I want to create packages for sideloading**, and deselect the option to **Enable automatic updates.** Then click **Next.** ![App Package Options](../../../assets/images/app-package-1.png)
-4. On the next screen, use the **Output location** field to select a local directory for your app package. Check the box next to **ARM**, and choose a solution configuration (Debug or Release). Then click **Create.** ![App Package Configuration Settings](../../../assets/images/app-package-2.png)
+3. Select **I want to create packages for sideloading**, and deselect the option to **Enable automatic updates.** Then click **Next.** ![App Package Options](../../../../assets/images/app-package-1.png)
+4. On the next screen, use the **Output location** field to select a local directory for your app package. Check the box next to **ARM**, and choose a solution configuration (Debug or Release). Then click **Create.** ![App Package Configuration Settings](../../../../assets/images/app-package-2.png)
 5. Visual Studio notifies you when your app package is ready. The folder with your app package is stored at the location you choose in **step 4**. The name of the directory should resemble `<YourSkillName>_1.0.0.0_Debug_Test`.
 
 Once you've created an app package for your .NET skill, you can compress the entire directory into a single .zip file and [install the skill on Misty II using the Skill Runner web page](../../../tools-&-apps/web-based-tools/skill-runner/#uploading-a-net-skill).
