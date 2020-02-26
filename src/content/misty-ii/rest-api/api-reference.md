@@ -142,17 +142,20 @@ Return Values
   - `name`: The filename of the returned audio file.
 
 ### GetAudioList
+
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio/list
 
 Parameters
-- None
+
+* None
 
 Return Values
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+
+* Result (array) - An array of objects with information about each of Misty's audio files. Each object in the array contains the following key/value pairs:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+   * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio assets. If `false`, a user created the file.
 
 ### GetImage
 Obtains a system or user-uploaded image file currently stored on Misty
