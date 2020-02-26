@@ -84,22 +84,23 @@ When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command
 
 ## Expression
 
-Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. Use the **Expression** controls to interact with these assets or to upload and manage your own image and audio files. You can also use this section to change the color of the LED on Misty's chest.
+Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. Use the **Expression** controls to interact with these assets or to upload and manage your own image, video, and audio files. You can also use this section to change the color of the LED on Misty's chest.
 
 ![Expression controls](/assets/images/command_center_expression.png)
 
-### Adding a custom audio or image file to Misty
+### Adding custom image, video, and audio files to Misty
 
-Please read the following before uploading new image or audio files to Misty:
+Please read the following before uploading custom assets to Misty:
 
-* For images, valid file types are .jpg, .jpeg, .gif, and .png. Because Misty does not adjust the scaling of images you upload with the [Command Center](http://sdk.mistyrobotics.com/command-center/), for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels)
-* For audio, valid file types are .wav, .mp4, .wma, and .aac.
-* The maximum size for both audio and image files is 3 MB.
+* Valid image file types are `.jpg`, `.jpeg`, `.gif`, and `.png`. Because Misty does not adjust the scaling of images you upload with the [Command Center](http://sdk.mistyrobotics.com/command-center/), for best results use an image with proportions similar to that of Misty's screen (480 x 272 pixels)
+* Valid video file types are `.mp4` and `.wmv`.
+* Valid audio file types are `.wav`, `.mp4`, `.wma`, and `.aac`.
+* The maximum size for files you upload with the command center is 6 MB.
 
-Follow these steps to add a custom audio or image file to Misty:
+Follow these steps to upload an image, video, or audio file to Misty:
 
-1. To select a file to upload to Misty, either drag a file into the rectangular drop area, or click the text in the drop area browse for the file on your computer.
-2. Once the upload is complete, you can locate the file in the dropdown list of images or audio files to confirm the upload was successful.
+1. To select a file to upload to Misty, either drag a file into the rectangular drop area, or click the text in the drop area browse for the file on your computer. **Note:** Use the **Image** section to upload both image files **and** video files.   
+2. Once the upload is complete, you can locate the file in the relevant dropdown list to confirm the upload was successful.
 
 ### Working with audio files
 
@@ -110,14 +111,14 @@ You can use the controls in the **Audio** section to play, download, or delete t
 * **To download an audio file from Misty to your computer**, choose the file to download from the list and click the purple download button.
 * **To delete an audio file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty.The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
 
-### Working with image files
+### Working with image and video files
 
-You can use the controls in the **Image** section to display, download, or delete the images on Misty. The list of image files currently on Misty automatically populates in the **Image** section when Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+You can use the controls in the **Image** section to display, download, or delete the images and videos you have uploaded to Misty. The list of image and video files currently stored on Misty automatically populates in the **Image** section when Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
-* **To have Misty display an image**, choose the file to display from the list and click the **Display on Robot** button.
-* **To display an image in your web browser**, choose the file to display from the list and click the **Display Image** button.
-* **To download an image file from Misty to your computer**, choose the file to download from the list and click the purple download button.
-* **To delete an image file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty. The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
+* **To have Misty display an image or play a video**, choose the file from the list and click the **Display on Robot** button.
+* **To display an image or play a video in your web browser**, choose the file from the list and click the **Display Image** button.
+* **To download an image or video from Misty to your computer**, choose the file from the list and click the purple download button.
+* **To delete an image or video from Misty**, choose the file from the list and click the red delete button. **Note:** You can only delete files that you have uploaded to  Misty. The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error if you attempt to remove one of Misty's default system files.
 
 ## Perception
 
@@ -144,14 +145,13 @@ To use face training and recognition, follow these steps.
 
 ### Recording Video
 
-Misty can record a ten second video with her 4K camera. You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to start the recording, stop the recording, and download the recording to your web browser.
-
+Misty can use the RGB camera on her visor to create custom video recordings. You can use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to start  recording, stop recording, and download recorded videos.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty records videos in .mp4 format at a resolution of 1080 × 1920 pixels. Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
+**Note:** Misty records videos in `.mp4` format. Use the dropdown menu to set the recording resolution. By default, recordings you create with the Command Center are saved with the filename `misty_video`, and these files are overwritten with each new recording. To create multiple video recordings with unique filenames, use the [`StartRecordingVideo`](../../../misty-ii/rest-api/api-reference/#startrecordingvideo) command in Misty's API.
 {{box op="end"}}
 
-Click **Start Recording Video** to start Misty recording a video, and click **Stop Recording Video** to stop the recording. Note that if you do not click **Stop Recording Video**, Misty automatically stops recording after 10 seconds. Click **Download Recorded Video** to download the most recent recorded video recorded to your web browser.
+Click **Start Recording Video** to start Misty recording a video, and click **Stop Recording Video** to stop the recording. Click **Download Recorded Video** to download the most recent recorded video with the name `misty_video`.
 
 ### Taking Pictures
 
