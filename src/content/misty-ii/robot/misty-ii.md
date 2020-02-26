@@ -349,28 +349,36 @@ Connecting to adb over Wi-Fi is now enabled.
 
 Connecting to adb over Wi-Fi is now disabled by default. You can connect to adb (and recreate the file to enable adb over Wi-Fi) by connecting to adb with the IP address for a USB-to-Ethernet Adapter.
 
-### Wake Word Configuration
+## Configuring Misty's Wake Word & Voice Activity Detection Engine
 
-You can change Misty’s default wake word from "Hey, Misty" to "Hey, Snapdragon" by creating a configuration file on Misty’s 820 at `/sdcard/audio/audio_config.json`. Under conditions with low ambient noise, Misty can respond up to 40-80% more often when using "Hey, Snapdragon" than when using "Hey, Misty." Consider using "Hey, Snapdragon" when your skills and robot applications require more responsive wake word performance than the "Hey, Misty" key phrase provides.
+You can create an audio configuration file on Misty's 820 processor to change the robot's default wake word from "Hey, Misty" to "Hey, Snapdragon". You can also use this file to set Misty to use the WebRTC voice activity detection (VAD) engine for speech capture activities, instead of her default VAD engine.
 
-Follow these steps to configure Misty to use "Hey, Snapdragon" as her default wake word:
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Under conditions with low ambient noise, using "Hey, Snapdragon" can improve Misty's responsiveness during key phrase recognition by 40-80%. Additionally, using WebRTC for voice activity detection can improve end-of-speech detection and allow Misty to record human speech more accurately. We are still testing the advantages and disadvantages of using WebRTC for voice activity detection, and chose to release this implementation so that Misty's community of developers can experiment with us.
+{{box op="end"}}
 
-1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents:
+To change Misty's default wake word and VAD engine, create (or update) a configuration file with the name `audio_config.json` in the `/sdcard/audio/` directory of Misty's 820 processor. 
+
+Follow these steps to create the configuration file and upload it to Misty. Use the `keyphrase` attribute to change Misty's default wake word, and use the `vad_engine` attribute to change the default VAD engine.
+
+1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents. You can omit key/value pairs for the attributes you don't want to change.
+
 ```JSON
 {
-    misty_settings: {
-        keyphrase: "HeySnapdragon"
+    "misty_settings": {
+        "keyphrase": "HeySnapdragon",
+        "vad_engine": "WebRTC"
     }
 }
 ```
 2. Open a new command prompt / terminal window. Navigate to the path where `audio_config.json` is saved: `cd </path/to/audio_config.json>`
-3. With Misty turned on and fully booted, connect to adb.
-4. Enter the following command to upload the file to Misty: `adb push audio_config.json /sdcard/audio`
+3. With Misty turned on and fully booted, [connect to adb](./#connecting-to-adb).
+4. Enter the following command in your command prompt / terminal window to upload the file to Misty: `adb push audio_config.json /sdcard/audio`
 
-You can change the default wake word back to "Hey, Misty" by removing the `audio_config.json` file. Follow these steps:
+You can revert Misty to use her default wake word or VAD engine by updating the `audio_config.json` file to remove the relevant key/value pairs. Alternatively, you can follow these steps to remove the `audio_config.json` file entirely:
 
-1. With Misty turned on and fully booted, connect to adb.
-2. Enter the following:
+1. With Misty turned on and fully booted, [connect to adb](./#connecting-to-adb).
+2. Open a new command prompt / terminal window and enter the following:
    1. `adb shell`
    2. `rm sdcard/audio/audio_config.json`
 
