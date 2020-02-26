@@ -2176,7 +2176,7 @@ Return Values
 
 ### GetVideoRecording
 
-Downloads a video recording to your browser or REST client.
+Obtains a video recording that Misty has created.
 
 You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
 
@@ -2193,6 +2193,7 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 Parameters
 
 * Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
 
 Return Values
 
