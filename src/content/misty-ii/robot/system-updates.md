@@ -40,11 +40,23 @@ You can check the software versions on your Misty by sending a request to the en
 
 ## Release History
 
-### 2020.02.20
+### 2020.02.25
 
 This is the current version of Misty's software.
 
+* [2020.02.25 Release Notes](https://community.mistyrobotics.com/t/2020-02-25-system-update/2607)
+
+| Device Information  | Misty II |  Misty I |
+|---|---|---|
+| `robotVersion`  | 1.13.0.10362 |  1.1.14.0 |
+| `hardwareInfo.mcBoard.firmware`  | 1.13.0.122 |  1.1.14.3 |
+| `hardwareInfo.rtcBoard.firmware` | 1.12.8.122|  1.1.14.3 |
+| `sensoryServicesAppVersion`  | 1.13.0 |  1.1.14.3 |
+
+### 2020.02.20
+
 * [2020.02.20 Release Notes](https://community.mistyrobotics.com/t/2020-02-20-system-update/2581)
+* View the [developer documentation](/v1.12.8.10353) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -56,7 +68,7 @@ This is the current version of Misty's software.
 ### 2020.02.18
 
 * [2020.02.18 Release Notes](https://community.mistyrobotics.com/t/2020-02-18-system-update/2566)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.12.7.10330) for this version of the robot's software.
+* View the [developer documentation](/v1.12.7.10330) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -69,7 +81,7 @@ This is the current version of Misty's software.
 
 
 * [2020.01.23 Release Notes](https://community.mistyrobotics.com/t/2020-01-23-system-update/2472)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.11.0.10219) for this version of the robot's software.
+* View the [developer documentation](/v1.11.0.10219) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -81,7 +93,7 @@ This is the current version of Misty's software.
 ### 2020.01.15
 
 * [2020.01.15 Release Notes](https://community.mistyrobotics.com/t/2020-01-15-system-update/2434)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.10.1.10188) for this version of the robot's software.
+* View the [developer documentation](/v1.10.1.10188) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -93,7 +105,7 @@ This is the current version of Misty's software.
 ### 2020.01.09
 
 * [2020.01.09 Release Notes](https://community.mistyrobotics.com/t/2020-01-09-system-update/2423)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.9.2.10155) for this version of the robot's software.
+* View the [developer documentation](/v1.9.2.10155) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -105,7 +117,7 @@ This is the current version of Misty's software.
 ### 2019.12.17
 
 * [2019.12.17 Release Notes](https://community.mistyrobotics.com/t/2019-12-17-system-update/2380)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.8.4.10075) for this version of the robot's software.
+* View the [developer documentation](/v1.8.4.10075) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -117,7 +129,7 @@ This is the current version of Misty's software.
 ### 2019.12.03
 
 * [2019.12.03 Release Notes](https://community.mistyrobotics.com/t/2019-12-03-system-update/2313)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.7.4.9986) for this version of the robot's software.
+* View the [developer documentation](/v1.7.4.9986) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -129,7 +141,7 @@ This is the current version of Misty's software.
 ### 2019.11.20
 
 * [2019.11.20 Release Notes](https://community.mistyrobotics.com/t/2019-11-19-release-notes/2209)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.6.2.9915) for this version of the robot's software.
+* View the [developer documentation](/v1.6.2.9915) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -141,7 +153,7 @@ This is the current version of Misty's software.
 ### 2019.11.05
 
 * [2019.11.05 Release Notes](https://community.mistyrobotics.com/t/2019-11-05-system-update/2117)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.5.3.9838) for this version of the robot's software.
+* View the [developer documentation](/v1.5.3.9838) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---| 
@@ -153,7 +165,7 @@ This is the current version of Misty's software.
 ### 2019.10.22
 
 * [2019.10.22 Release Notes](https://community.mistyrobotics.com/t/2019-10-22-release-notes/2041)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.4.4.0) for this version of the robot's software.
+* View the [developer documentation](/v1.4.4.0) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -165,7 +177,7 @@ This is the current version of Misty's software.
 ### 2019.10.08
 
 * [2019.10.08 Release Notes](https://community.mistyrobotics.com/t/2019-10-08-release-notes/1948)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.3.9.0) for this version of the robot's software.
+* View the [developer documentation](/v1.3.9.0) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
@@ -177,7 +189,7 @@ This is the current version of Misty's software.
 ### 2019.09.24
 
 * [2019.09.24 Release Notes](https://community.mistyrobotics.com/t/9-24-2019-release-notes/1833)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.3.0.0) for this version of the robot's software.
+* View the [developer documentation](/v1.3.0.0) for this version of the robot's software.
 
 | Device Information  | Misty II|  Misty I |
 |---|---|---|
@@ -189,7 +201,7 @@ This is the current version of Misty's software.
 ### 2019.09.12
 
 * [2019.09.12 Release Notes](https://community.mistyrobotics.com/t/9-12-2019-release-notes/1785)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.2.3.0) for this version of the robot's software.
+* View the [developer documentation](/v1.2.3.0) for this version of the robot's software.
 
 | Device Information  | Misty II|  Misty I |
 |---|---|---|
@@ -201,7 +213,7 @@ This is the current version of Misty's software.
 ### 2019.09.10
 
 * [2019.09.10 Release Notes](https://community.mistyrobotics.com/t/9-10-2019-release-notes/1759)
-* View the [developer documentation](https://docs.mistyrobotics.com/v1.1.1.0) for this version of the robot's software.
+* View the [developer documentation](/v1.1.1.0) for this version of the robot's software.
 
 | Device Information  | Misty II|  Misty I |
 |---|---|---|
