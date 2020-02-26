@@ -142,17 +142,20 @@ Return Values
   - `name`: The filename of the returned audio file.
 
 ### GetAudioList
+
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio/list
 
 Parameters
-- None
+
+* None
 
 Return Values
-* Result (array) - Returns an array of audio file information. Each item in the array contains the following:
+
+* Result (array) - An array of objects with information about each of Misty's audio files. Each object in the array contains the following key/value pairs:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+   * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio assets. If `false`, a user created the file.
 
 ### GetImage
 Obtains a system or user-uploaded image file currently stored on Misty
@@ -2176,7 +2179,7 @@ Return Values
 
 ### GetVideoRecording
 
-Downloads a video recording to your browser or REST client.
+Obtains a video recording that Misty has created.
 
 You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
 
@@ -2193,10 +2196,23 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 Parameters
 
 * Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
+
+```json
+{
+  "Name": "MyVideoRecording",
+  "Base64": true
+}
+```
 
 Return Values
 
-* An .mp4 video file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+If `Base64` is `null`, `false`, or not supplied, returns the `.mp4` video file to your browser or REST client. Otherwise, returns the following:
+
+* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. It includes the following key/value pairs:
+  * base64 (string) - A string containing the Base64-encoded video data.
+  * contentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * name (string) - The name of the video file.
 
 ### GetVideoRecordingsList
 

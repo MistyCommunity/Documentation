@@ -11,13 +11,13 @@ Your Misty II robot has been designed and built by the Misty Robotics team. This
 
 To avoid the risk of driving Misty off a high surface, we recommend either working with your robot on the floor, or temporarily elevating the treads so the robot cannot drive. To do this, you can place Misty on the the foam block stand that arrived in the box. While Misty **is** designed to automatically detect obstacles and ledges, placing her on this foam block will ensure that she doesn’t accidentally roll off the table while you're coding.
 
-![Misty sits on her stand](../../../assets/images/misty-stand.gif)
+![Misty sits on her stand](/assets/images/misty-stand.gif)
 
 ## Unpacking the Misty II
 
 Misty II arrives packed safely inside her carrying case. The easiest and safest way to remove Misty from her case is to open the latches and position the case vertically, so the robot is fully upright. With the case open, grip the Misty II by its torso (never by the arms) and gently slide it out of or into the case.
 
-![Unpacking Misty](../../../assets/images/unpacking-misty.jpg)
+![Unpacking Misty](/assets/images/unpacking-misty.jpg)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The robot’s arms and related components can become damaged under excessive force. To avoid damaging your robot, never remove the Misty II from its packaging by pulling on its arms.
@@ -47,9 +47,9 @@ We recommend powering up Misty on the floor, if possible, to avoid the risk of d
 
 ### Turning Misty On
 
-1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](../../../assets/images/mii-power.jpg)
-2. The Misty Robotics logo first appears on the screen. Then Misty’s eyes appear, beginning in a closed state. The eyes gradually open as Misty boots up.![Misty II eyes closed](../../../assets/images/mii-waking.jpg)
-3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. ![Misty II eyes open](../../../assets/images/mii-awake.png)
+1. Toggle the power switch on Misty's base (located between the treads beneath the rear time-of-flight sensor).![Misty II power switch](/assets/images/mii-power.jpg)
+2. The Misty Robotics logo first appears on the screen. Then Misty’s eyes appear, beginning in a closed state. The eyes gradually open as Misty boots up.![Misty II eyes closed](/assets/images/mii-waking.jpg)
+3. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. ![Misty II eyes open](/assets/images/mii-awake.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Your Misty II arrives with her battery charged and should not require additional charging before first use. When her battery is low, Misty may fail to respond to some API commands. If this happens you can restore functionality by connecting your robot to a power source and performing a manual reboot.
@@ -95,7 +95,7 @@ To use Misty's wireless charging station, follow these steps:
 
 1. Connect the power supply for the wireless charging station to power. To prevent tripping hazards, wrap any extra length of the power cable around the nodes inside the rear compartment of the charging station.
 2. Place the charging station on the floor.
-3. Place Misty on the center of the charging station. Position her to be facing out, with her back against the rear compartment of the charging station, and make sure the arrows on Misty's base are lined up with the arrows on the charging station.![Misty II on her charging station](../../../assets/images/mii-charging.jpg)
+3. Place Misty on the center of the charging station. Position her to be facing out, with her back against the rear compartment of the charging station, and make sure the arrows on Misty's base are lined up with the arrows on the charging station.![Misty II on her charging station](/assets/images/mii-charging.jpg)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When Misty is turned off, she automatically stops receiving a charge from the wireless charging station after charging for about four hours. This timeout occurs whether the robot is fully charged or not. To make sure Misty receives a full charge, we recommend powering her on before setting her on the wireless charging station.
@@ -349,28 +349,36 @@ Connecting to adb over Wi-Fi is now enabled.
 
 Connecting to adb over Wi-Fi is now disabled by default. You can connect to adb (and recreate the file to enable adb over Wi-Fi) by connecting to adb with the IP address for a USB-to-Ethernet Adapter.
 
-### Wake Word Configuration
+## Configuring Misty's Wake Word & Voice Activity Detection Engine
 
-You can change Misty’s default wake word from "Hey, Misty" to "Hey, Snapdragon" by creating a configuration file on Misty’s 820 at `/sdcard/audio/audio_config.json`. Under conditions with low ambient noise, Misty can respond up to 40-80% more often when using "Hey, Snapdragon" than when using "Hey, Misty." Consider using "Hey, Snapdragon" when your skills and robot applications require more responsive wake word performance than the "Hey, Misty" key phrase provides.
+You can create an audio configuration file on Misty's 820 processor to change the robot's default wake word from "Hey, Misty" to "Hey, Snapdragon". You can also use this file to set Misty to use the WebRTC voice activity detection (VAD) engine for speech capture activities, instead of her default VAD engine.
 
-Follow these steps to configure Misty to use "Hey, Snapdragon" as her default wake word:
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Under conditions with low ambient noise, using "Hey, Snapdragon" can improve Misty's responsiveness during key phrase recognition by 40-80%. Additionally, using WebRTC for voice activity detection can improve end-of-speech detection and allow Misty to record human speech more accurately. We are still testing the advantages and disadvantages of using WebRTC for voice activity detection, and chose to release this implementation so that Misty's community of developers can experiment with us.
+{{box op="end"}}
 
-1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents:
+To change Misty's default wake word and VAD engine, create (or update) a configuration file with the name `audio_config.json` in the `/sdcard/audio/` directory of Misty's 820 processor. 
+
+Follow these steps to create the configuration file and upload it to Misty. Use the `keyphrase` attribute to change Misty's default wake word, and use the `vad_engine` attribute to change the default VAD engine.
+
+1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents. You can omit key/value pairs for the attributes you don't want to change.
+
 ```JSON
 {
-    misty_settings: {
-        keyphrase: "HeySnapdragon"
+    "misty_settings": {
+        "keyphrase": "HeySnapdragon",
+        "vad_engine": "WebRTC"
     }
 }
 ```
 2. Open a new command prompt / terminal window. Navigate to the path where `audio_config.json` is saved: `cd </path/to/audio_config.json>`
-3. With Misty turned on and fully booted, connect to adb.
-4. Enter the following command to upload the file to Misty: `adb push audio_config.json /sdcard/audio`
+3. With Misty turned on and fully booted, [connect to adb](./#connecting-to-adb).
+4. Enter the following command in your command prompt / terminal window to upload the file to Misty: `adb push audio_config.json /sdcard/audio`
 
-You can change the default wake word back to "Hey, Misty" by removing the `audio_config.json` file. Follow these steps:
+You can revert Misty to use her default wake word or VAD engine by updating the `audio_config.json` file to remove the relevant key/value pairs. Alternatively, you can follow these steps to remove the `audio_config.json` file entirely:
 
-1. With Misty turned on and fully booted, connect to adb.
-2. Enter the following:
+1. With Misty turned on and fully booted, [connect to adb](./#connecting-to-adb).
+2. Open a new command prompt / terminal window and enter the following:
    1. `adb shell`
    2. `rm sdcard/audio/audio_config.json`
 
@@ -387,7 +395,7 @@ You can access your robot's Windows file system by connecting to the robot's 410
    2. On Windows 10:
       1. Open **File Explorer**
       2. Navigate to the path `\\<robot-ip-address>\c$`
-3. When prompted, enter the username and password printed on the sticker on the bottom of your robot's base. ![Windows 10 Login Credentials](../../../assets/images/windows-credentials.jpg)
+3. When prompted, enter the username and password printed on the sticker on the bottom of your robot's base. ![Windows 10 Login Credentials](/assets/images/windows-credentials.jpg)
 
 ## Misty II Specs
 
@@ -456,4 +464,4 @@ Misty is packed with sophisticated hardware and software features that contribut
 * Windows IoT Core™ (Main)
 * Android™ 8 (navigation/computer vision)
 
-![Misty II Specs](../../../assets/images/mii-specs.png)
+![Misty II Specs](/assets/images/mii-specs.png)

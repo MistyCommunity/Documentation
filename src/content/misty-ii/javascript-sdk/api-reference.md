@@ -135,15 +135,17 @@ Arguments
 ```JavaScript
 // Example
 misty.GetAudioList();
+
+function _GetAudioList(data) {
+  misty.Debug(data.Result);
+}
 ```
 
 Returns
 
-<!-- TODO: review return values -->
-
-* Result (array) - Returns an array of audio file information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each item in the array contains the following:
+* Result (array) - An array of objects with information about each of Misty's audio files. Each object in the array contains the key/value pairs listed below. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each item in the array contains the following:
    * Name (string) - The name of the audio file.
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+   * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio files. If `false`, a user created the file.
 
 ### misty.GetImage
 Obtains a system or user-uploaded image file currently stored on Misty.
@@ -173,6 +175,8 @@ function _GetImage(data)
 	misty.Debug(JSON.stringify(data));
 }
 ```
+Returns
+
 - Result (object) - An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
   - Name (string) - The name of the image
   - Height (integer) - The height of the image in pixels.
@@ -221,6 +225,8 @@ Obtains the Base64-encoded data for a user-uploaded video file currently stored 
 misty.GetVideo(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+You can only use this command to obtain a user-uploaded video asset. To obtain a video recording that Misty has created, use the [`GetVideoRecording`](./#misty-getvideorecording) command.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideo()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 {{box op="end"}}
@@ -245,13 +251,13 @@ function _GetVideo(data) {
 }
 ```
 
-Return Values
+Returns
 
 * Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. This object includes the following key/value pairs:
-  * base64 (string) - A string containing the Base64-encoded video data.
-  * contentType (string) - The type and format of the video returned.
-  * name (string) - The name of the video file.
-  * systemAsset (boolean) - Whether the video is one of Misty's default system assets.
+  * Base64 (string) - A string containing the Base64-encoded video data.
+  * ContentType (string) - The type and format of the video returned.
+  * Name (string) - The name of the video file.
+  * SystemAsset (boolean) - Whether the video is one of Misty's default system assets.
 
 ### misty.GetVideoList
 
@@ -290,14 +296,65 @@ function _GetVideoList(data) {
 }
 ```
 
-Return Values
+Returns
 
 * Result (array) - A list of objects with information about the user-uploaded videos on Misty's storage. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each object includes the following key/value pairs:
   * Name (string) - The name of the video asset, with the file type extension.
   * SystemAsset (boolean) - Whether the video is one of Misty's default system assets.
 
+### misty.GetVideoRecording
+
+Obtains a video recording that Misty has created.
+
+```JavaScript
+// Syntax
+misty.GetVideoRecording([string name], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#misty-getvideo) command.
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideoRecording()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideoRecording()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.GetVideoRecording("Feb1000");
+
+function _GetVideoRecording(data) {
+	// Prints video content type, name, and Base64-encoded data
+	misty.Debug(JSON.stringify(data.Result.ContentType));
+	misty.Debug(JSON.stringify(data.Result.Name));
+	misty.Debug(JSON.stringify(data.Result.Base64));
+}
+```
+
+Returns
+
+* Result (object) - An object with the Base64-encoded video data and other information about the file. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Base64 (string) - A string containing the Base64-encoded video data.
+  * ContentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * Name (string) - The name of the video file.
 
 ### misty.SaveAudio
+
 Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
 
 ```JavaScript
@@ -306,6 +363,7 @@ misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool ove
 ```
 
 Arguments
+
 * fileName (string) - The name of the audio file.
 * data (string) - The audio data, passed as a string containing a base64 string .
 * immediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the audio file, while a value of `false` tells Misty not to play the file.
@@ -385,7 +443,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-Return Values
+Returns
 
 - Result (array) - A list of string values, where each value is a message Misty received through the UART serial port on her back. Messages are sequenced in reverse chronological order, with the most recent message being the last value in the array. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
@@ -828,14 +886,14 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-Return Values
+Returns
 
 * Result (object) - A data object with the following key/value pairs. (Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information).
-  * blinkImages (object) - A set of key/value pairs indicating the blink mappings for each image on the robot. Each property in this object is the filename of an image asset saved to Misty. Each value is the image that Misty will "blink" when displaying that image on her screen.
-  * openEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
-  * openEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
-  * closedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
-  * closedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
+  * BlinkImages (object) - A set of key/value pairs indicating the blink mappings for each image on the robot. Each property in this object is the filename of an image asset saved to Misty. Each value is the image that Misty will "blink" when displaying that image on her screen.
+  * OpenEyeMinMs (integer) - The minimum duration that Misty's eyes stay open while blinking.
+  * OpenEyeMaxMs (integer) - The maximum duration that Misty's eyes stay open while blinking.
+  * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
+  * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
 ### misty.PlayAudio
 
@@ -1770,14 +1828,14 @@ misty.GetMap();
 Returns
 
 * Result (object) - An object containing the following key-value pairs. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
-  * height (integer) - The height of the occupancy grid matrix (in number of cells).
-  * isValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
-  * metersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
-  * originX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
-  * originY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
-  * size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
-  * width (integer) - The width of the occupancy grid matrix (in number of cells). 
+  * Grid (array of arrays) - The occupancy grid for the most recent map Misty has generated, represented by a matrix of cells. The number of arrays is equal to the value of the `height` parameter. The number of cells is equal to the product of `height` x `width`. Each individual value (0, 1, 2, or 3) in the matrix represents a single cell of space. 0 indicates "unknown" space, 1 indicates "open" space, 2 indicates "occupied" space, and 3 indicates "covered" space. Each cell corresponds to an X,Y coordinate on the occupancy grid. The first cell in the first array is the X,Y origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. If no map is available, grid returns `null`.
+  * Height (integer) - The height of the occupancy grid matrix (in number of cells).
+  * IsValid (boolean) - Returns a value of `true` if the data returned represents a valid map. If no valid map data is available, returns a value of `false`.
+  * MetersPerCell (integer) - A value in square meters stating the size of each cell in the occupancy grid matrix.
+  * OriginX (float) - The distance in meters from the X value of the occupancy grid origin (0,0) to the X coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to an X coordinate on the occupancy grid, use the formula 0 - (`originX` / `metersPerCell`). Round the result to the nearest whole number. 
+  * OriginY (float) - The distance in meters from the Y value of the occupancy grid origin (0,0) to the Y coordinate of the physical location where Misty started mapping. The X,Y coordinates of Misty's starting point are always at the center of the occupancy grid. To convert this value to a Y coordinate on the occupancy grid, use the formula 0 - (`originY` / `metersPerCell`). Round the result to the nearest whole number. 
+  * Size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
+  * Width (integer) - The width of the occupancy grid matrix (in number of cells). 
 
 
 ### misty.GetCurrentSlamMap
@@ -1813,7 +1871,7 @@ function _GetCurrentSlamMap(data) {
 
 Returns
 
-* result (string) - The unique key associated with the currently active map. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (string) - The unique key associated with the currently active map. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.GetSlamIrExposureAndGain
 
@@ -1937,7 +1995,7 @@ Arguments
 
 Returns
 
-* result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.GetSlamPath
 
@@ -2073,7 +2131,9 @@ misty.GetSlamVisibleExposureAndGain([string callback], [string callbackRule = "s
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamVisibleExposureAndGain()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -2439,9 +2499,9 @@ misty.TakeDepthPicture();
 Returns
 
 - Result (object) - An object containing depth information about the image matrix, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - height (integer) - The height of the matrix.
-  - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
-  - width (integer) - The width of the matrix.
+  - Height (integer) - The height of the matrix.
+  - Image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
+  - Width (integer) - The width of the matrix.
 
 ### misty.TakeFisheyePicture
 
@@ -2464,16 +2524,23 @@ Arguments
 ```JavaScript
 // Example
 misty.TakeFisheyePicture();
+
+function _TakeFisheyePicture(data) {
+  // Print the name and Base64-encoded data for the fisheye picture
+  misty.Debug(JSON.stringify(data.Result.Name))
+  misty.Debug(JSON.stringify(data.Result.Base64))
+}
 ```
 
 Returns
 
 - Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - base64 (string) - A string containing the Base64-encoded image data.
-  - contentType (string) - The type and format of the image returned.
-  - height (integer) - The height of the picture in pixels.
-  - name (string) - The name of the picture.
-  - width (integer) - The width of the picture in pixels.
+  - Base64 (string) - A string containing the Base64-encoded image data.
+  - ContentType (string) - The type and format of the image returned. For pictures you take with the fisheye camera, this is `image/png`.
+  - Height (integer) - The height of the picture in pixels.
+  - Name (string) - The name of the picture. For pictures you take with the fisheye camera, this value is `OccipitalVisibleImage`.
+  - Width (integer) - The width of the picture in pixels.
+  - SystemAsset (bool) - Whether the image is a one of Misty's default system assets. For pictures you take with Misty's fisheye camera, this value is `false`.
 
 
 ## Perception
@@ -2653,7 +2720,6 @@ misty.GetVideoRecordingsList([string callback], [string callbackRule = "synchron
 **Note:** This command only returns a list of the video recordings that Misty has created. This list does not include user-uploaded video files. User-uploaded video assets appear in the response for the [`GetVideoList`](./#misty-getvideolist) command.
 {{box op="end"}}
 
-
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetVideoRecordingsList()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 {{box op="end"}}
@@ -2677,9 +2743,9 @@ function _GetVideoRecordingsList(data) {
 }
 ```
 
-Return Values
+Returns
 
-* result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (array) - A comma-separated list of filenames for each video recording saved to Misty's local storage. Filenames do not include the file type extension. Misty saves all video recordings as `.mp4` files. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.RenameVideoRecording
 
@@ -3428,16 +3494,19 @@ Arguments
 ```JavaScript
 //Example
 misty.GetRunningSkills();
+
+function _GetRunningSkills(data) {
+  misty.Debug(JSON.stringify(data.Result));
+}
 ```
 
 Returns
 
-* result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this command returns an empty array. Note that in a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill (see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information). Each object in the list includes the following key-value pairs:
-  * description (string) - The description of the skill as it appears in the skill's meta file.
-  * name (string) - the name of the skill, as it appears in the skill's meta file.
-  * startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
-  * uniqueId (string) - The unique id of the skill, from the skill's meta file.
-
+* Result (array) - A list of objects with meta information about the skills currently running on Misty. If no skills are currently running, this command returns an empty array. Note that in a local skill, data returned by this command must be passed into a callback function to be processed and made available for use in your skill (see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information). Each object in the list includes the following key-value pairs:
+  * Description (string) - The description of the skill as it appears in the skill's meta file.
+  * Name (string) - The name of the skill, as it appears in the skill's meta file.
+  * StartupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
+  * UniqueId (string) - The unique ID of the skill, from the skill's meta file.
 
 ### misty.Keys
 
@@ -3460,7 +3529,7 @@ misty.Keys();
 
 Returns
 
-* keys (list) - A list of the keys and values for all available persistent data stored on the robot.
+* Keys (list) - A list of the keys and values for all available persistent data stored on the robot.
 
 ### misty.Pause
 
@@ -4109,30 +4178,35 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
-// Example
-misty.GetBatteryLevel();
+///Example
+misty.GetBatteryLevel()
+
+function _GetBatteryLevel(data) {
+	// Prints bool value that tells us if Misty is charging
+	misty.Debug(data.Result.IsCharging);
+}
 ```
 
 Returns
 
 * Result (object) - An object with information about Misty's battery. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
-  * chargePercent (double) - Decimal value representing current charge percent.
-  * created (string) - Timestamp that describes when the system created this message.
-  * current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
-  * expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
-  * healthPercent (double)
-  * isCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
-  * sensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
-  * sensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
-  * state (string) - The charge state of the battery. Possible values are:
+  * ChargePercent (double) - Decimal value representing current charge percent.
+  * Created (string) - Timestamp that describes when the system created this message.
+  * Current (int) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+  * Expiry (string) - Timestamp describing the moment after which the values in this message should no longer be considered valid.
+  * HealthPercent (double)
+  * IsCharging (bool) - Returns `true` if the battery is charging. Otherwise, `false`.
+  * SensorId (string) - The `sensorId` of the system component that returns the battery charge message (`charge`).
+  * SensorName (string) - The `sensorName` of the system component that returns the battery charge message (`/Sensors/RTC/BatteryCharge`)
+  * State (string) - The charge state of the battery. Possible values are:
     *  `Charging` (if battery is receiving current)
     *  `Discharging` (if battery is losing current)
     *  `Charged` (if battery is fully charged)
     *  `Unknown` (if you check the charge levels before Misty is fully booted, or if the RT board resets and the system has not yet learned the actual battery state)
     *  `Fault` (can occur if the charger does not detect the battery)
-  * temperature (int)
-  * trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
-  * voltage (double) - The battery's voltage.
+  * Temperature (int)
+  * Trained (bool) - Returns `true` if the battery has been trained. Otherwise, `false`.
+  * Voltage (double) - The battery's voltage.
 
 ### misty.GetCameraData
 
@@ -4173,14 +4247,14 @@ function _GetCameraDataCallback(data) {
 }
 ```
 
-Return Values
+Returns
 
 * Result (object) - An object with details about the current properties and settings for Misty's 4K camera.  With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
-  * droppedFrames (int) - Number of dropped frames.
-  * fpsActual (double) -  Actual frames per second.
-  * fpsRequested (double) - Requested frames per second.
-  * height (double) - Camera image height (in pixels).
-  * width (double) - Camera image width (in pixels).
+  * DroppedFrames (int) - Number of dropped frames.
+  * FpsActual (double) -  Actual frames per second.
+  * FpsRequested (double) - Requested frames per second.
+  * Height (double) - Camera image height (in pixels).
+  * Width (double) - Camera image width (in pixels).
 
 ### misty.GetDeviceInformation
 
@@ -4202,28 +4276,35 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
-// Example
-misty.GetDeviceInformation();
+//Example
+
+// Use GetDeviceInformation to get robot's IP address
+misty.GetDeviceInformation()
+
+function _GetDeviceInformation(data) {
+	// Prints IP address to debug listeners
+	misty.Debug(data.Result.IPAddress);
+}
 ```
 
 Returns
 
 * Result (object) - An object containing information about the robot, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-   * androidHardwareId - The identification string for the Android hardware on this device.
-   * androidOSVersion - A string that identifies the version of Android installed on this robot. Includes labels for any applied scripts and patches.
-   * batteryLevel - An object with details about Misty's battery level. Includes the same key/value pairs as the [`GetBatteryLevel` response](https://docs.mistyrobotics.com/misty-ii/rest-api/api-reference/#getbatterylevel).
-   * currentProfileName - The name of the network that the robot is on.
-   * hardwareInfo - An object with hardware and firmware version information for Misty's Real Time Controller (RTC) board and Motor Controller (MC) board.
-   * ipAddress - The IP address of the robot.
-   * networkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
-   * occipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
-   * outputCapabilities - An array listing the output capabilities for this robot.
-   * robotId - The robot's unique ID, if set. Default value is all zeros.
-   * robotVersion - The version number for the HomeRobot app running on the robot.
-   * sensorCapabilities - An array listing the sensor capabilities for this robot.
-   * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
-   * serialNumber - The unique serial number for the robot.
-   * windowsOSVersion - The version of Windows IoT Core running on the robot.
+   * AndroidHardwareId - The identification string for the Android hardware on this device.
+   * AndroidOSVersion - A string that identifies the version of Android installed on this robot. Includes labels for any applied scripts and patches.
+   * BatteryLevel - An object with details about Misty's battery level. Includes the same key/value pairs as the [`GetBatteryLevel` response](https://docs.mistyrobotics.com/misty-ii/rest-api/api-reference/#getbatterylevel).
+   * CurrentProfileName - The name of the network that the robot is on.
+   * HardwareInfo - An object with hardware and firmware version information for Misty's Real Time Controller (RTC) board and Motor Controller (MC) board.
+   * IPAddress - The IP address of the robot.
+   * NetworkConnectivity - The status of the robot's network connection. Possible values are Unknown, None, LocalAccess, LimitedInternetAccess, InternetAccess.
+   * OccipitalDeviceInfo - An object with driver, firmware, and serial information for the robot's Occipital Structure Core depth sensor.
+   * OutputCapabilities - An array listing the output capabilities for this robot.
+   * RobotId - The robot's unique ID, if set. Default value is all zeros.
+   * RobotVersion - The version number for the HomeRobot app running on the robot.
+   * SensorCapabilities - An array listing the sensor capabilities for this robot.
+   * SensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
+   * SerialNumber - The unique serial number for the robot.
+   * WindowsOSVersion - The version of Windows IoT Core running on the robot.
 
 ### misty.GetHelp
 Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
@@ -4294,12 +4375,10 @@ Returns
 
 Obtains the current local and remote log level.
 
-
 ```JavaScript
 // Syntax
 misty.GetLogLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
-
 
 These log levels determine where the system writes different types of messages. Misty can write messages to her local log file and to a remote log file on a server owned by Misty Robotics. See the tables below for information about how the log level determines where different message types are published.
 
@@ -4311,7 +4390,6 @@ If the log level is set to `Debug`:
 | Info   |     &#x2713;     | &#x2713;          |
 | Warn   |     &#x2713;     | &#x2713;          |
 | Error  |      &#x2713;    |  &#x2713;         |
-
 
 If the log level is set to `Info`:
 
@@ -4352,15 +4430,22 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
-// Example
-misty.GetLogLevel();
+//Example
+misty.GetLogLevel()
+
+function _GetLogLevel(data) {
+	// Prints local log level
+	misty.Debug(JSON.stringify(data.Result.Local));
+	// Prints remote log level
+	misty.Debug(JSON.stringify(data.Result.Remote));
+}
 ```
 
 Returns
 
-* result (string) - A an object with values indicating the current remote and local log levels. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
-  *  `local` (string) - The current local log level.
-  *  `remote` (string) - The current remote log level.
+* Result (string) - A an object with values indicating the current remote and local log levels. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
+  *  `Local` (string) - The current local log level.
+  *  `Remote` (string) - The current remote log level.
 
 ### misty.GetRobotUpdateSettings
 
@@ -4388,8 +4473,8 @@ Arguments
 Returns
 
 * Result - An object with the following key/value pairs. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  * allowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
-  * lastUpdateAttempt (string) - Timestamp for the last update attempt.
+  * AllowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
+  * LastUpdateAttempt (string) - Timestamp for the last update attempt.
 
 ### misty.GetSavedWifiNetworks
 
@@ -4476,9 +4561,9 @@ function _GetWebsocketNames(data) {
 
 Returns
 
-* result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. The data object for each WebSocket class includes the following information:
-  * class (string) - The name of a given WebSocket class.
-  * nestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
+* Result (array) - An array of data objects with information about the WebSocket connections to which you can subscribe. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. The data object for each WebSocket class includes the following information:
+  * Class (string) - The name of a given WebSocket class.
+  * NestedProperties (array) - A list of properties for a given WebSocket class. Use these properties to declare conditions for events you want to receive information about when subscribing to messages from a WebSocket data stream.
 
 ### misty.PerformTargetedUpdate
 
