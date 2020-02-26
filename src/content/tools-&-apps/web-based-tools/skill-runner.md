@@ -9,7 +9,7 @@ order: 3
 
 The Misty [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web tool is a graphic interface for some of the skill-management actions that you would otherwise need to handle via a REST client. Use the Skill Runner to install, start, stop, and delete JavaScript and .NET skills.
 
-![Skill runner home page](../../../../assets/images/skill-runner.png)
+![Skill runner home page](/assets/images/skill-runner.png)
 
 ## Setting up Skill Runner
 
@@ -24,7 +24,7 @@ When Misty connects, the text on the button displays **Connected** and the **Man
 
 When Misty connects to Skill Runner, the web page subscribes to [`SkillData`](../../../misty-ii/robot/sensor-data/#skilldata) events through a WebSocket connection to Misty. `SkillData` event messages include debug messages, error messages, and other data on-robot skills publish during skill execution. When you run a skill from the Skill Runner page, these messages print to the console in your web browser.
 
-![Skill Runner web console](../../../../assets/images/skill-runner-run-skill.gif)
+![Skill Runner web console](/assets/images/skill-runner-run-skill.gif)
 
 We recommend using Skill Runner in Chrome browsers for best results. To open the web console in Chrome, use:
 * **Ctrl + Shift + J** (Windows/Linux)
@@ -34,7 +34,7 @@ We recommend using Skill Runner in Chrome browsers for best results. To open the
 
 Use the **Install** interface to install and update JavaScript or .NET skills.
 
-![Skill Runner Install Interface](../../../../assets/images/skill-runner-install.png)
+![Skill Runner Install Interface](/assets/images/skill-runner-install.png)
 
 ### Uploading a JavaScript Skill
 
@@ -46,7 +46,7 @@ To upload a JavaScript skill:
 4. Drag-and-drop your skill files onto the **Install** box, or click the box to find the files in your computer's file system.
 5. The Skill Runner web page displays a message when the upload is complete. You can then start, stop, or delete your skill from the **Manage** section.
 
-![Skill Runner install animation](../../../../assets/images/skill-runner-upload-skill-animation.gif)
+![Skill Runner install animation](/assets/images/skill-runner-upload-skill-animation.gif)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Important!** When you install a new skill on Misty, you must upload the JavaScript `code` file and the JSON `meta` file at the same time. You can upload image and audio assets associated with a skill by including these asset files when you upload the skill.
@@ -75,7 +75,7 @@ To install a .NET skill using the Skill Runner web page, you must have access to
 
 You can use the Skill Runner to generate JSON `meta` files for your skills. The Skill Runner **Generate** interface automatically populates various fields in the `meta` file and associates a randomized 128 bit GUID with the `UniqueID` parameter. For more information about `meta` files, see [JavaScript SDK Architecture](../../../misty-ii/javascript-sdk/javascript-skill-architecture).
 
-![Skill Runner Generate animation](../../../../assets/images/skill-runner-generate-meta-animation.gif)
+![Skill Runner Generate animation](/assets/images/skill-runner-generate-meta-animation.gif)
 
 To generate a `meta` template for your skill:
 
@@ -87,7 +87,7 @@ To generate a `meta` template for your skill:
 
 Use the **Manage** interface to start, stop, and uninstall Misty's skills. The **Manage** section automatically populates with a list of the skills on your robot when you connect Misty to the Skill Runner page.
 
-![Skill Runner manage interface](../../../../assets/images/skill-runner-manage.png)
+![Skill Runner manage interface](/assets/images/skill-runner-manage.png)
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** In the **Manage** section, each skill installed on the connected robot is labeled with either **JS** or **C#**. This label indicates whether the skill was built with Misty's JavaScript SDK or her .NET SDK.  
@@ -97,19 +97,19 @@ Use the **Manage** interface to start, stop, and uninstall Misty's skills. The *
 
 To start a skill, select the **Start** button next to the skill's name.
 
-![Start a skill](../../../../assets/images/skill-runner-start-skill.png)
+![Start a skill](/assets/images/skill-runner-start-skill.png)
 
 ### Stopping a Skill
 
 When a skill is running, the **Start** button turns red and displays **Stop**. Click this button to stop the skill.
 
-![Stop a skill](../../../../assets/images/skill-runner-stop-skill.png)
+![Stop a skill](/assets/images/skill-runner-stop-skill.png)
 
 ### Uninstalling a Skill
 
 To uninstall a skill, select the **Delete** button next to the skill's name.
 
-![Uninstall a skill](../../../../assets/images/skill-runner-delete.png)
+![Uninstall a skill](/assets/images/skill-runner-delete.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you delete a .NET skill, the Skill Runner asks you for the credentials used to access Misty's Windows Device Portal. These credentials are printed on the bottom of your robot, and are the same as the credentials used when [connecting to Misty's file system](../../../misty-ii/robot-misty-ii/#connecting-to-misty-39-s-file-system).
@@ -120,8 +120,8 @@ To uninstall a skill, select the **Delete** button next to the skill's name.
 
 To view the **Advanced Options** for a skill, select the **Advanced Options** button.
 
-![Advanced Options Button](../../../../assets/images/skill-runner-advanced.png)
+![Advanced Options Button](/assets/images/skill-runner-advanced.png)
 
 You can use the advanced options interface to start a skill with additional parameters that aren't specified in the skill's `meta` file, or to [send a user event](../../../misty-ii/rest-api/api-reference/#triggerskillevent) with a specific payload to the skill.
 
-![Advanced Options Modal](../../../../assets/images/skill-runner-advanced-modal.png)
+![Advanced Options Modal](/assets/images/skill-runner-advanced-modal.png)

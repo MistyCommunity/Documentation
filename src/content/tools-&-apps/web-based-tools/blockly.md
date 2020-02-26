@@ -11,13 +11,13 @@ Blockly is a block-based, visual programming language editor that runs in your b
 
 **Note:** We recommend the following browsers for running Blockly with Misty: Chrome, Safari, Firefox, and Microsoft Edge (latest versions).
 
-![Blockly](../../../../assets/images/blockly_1.png)
+![Blockly](/assets/images/blockly_1.png)
 
 ## Blockly Controls
 
 The following controls are available on Misty's Blockly editor.
 
-![Blockly controls](../../../../assets/images/menu_blockly_2.png)
+![Blockly controls](/assets/images/menu_blockly_2.png)
 
 * **Robot IP Address**: Enter your Misty's IP address here; you can get this value from the Misty companion app.
 * **Connect/Connected button**: Indicates whether Blockly can communicate with Misty. After entering Misty's IP address, click the **Connect** button. When Misty is connected to Blockly, the button changes to **Connected**.
@@ -38,7 +38,7 @@ Follow the steps below to set up Blockly with Misty.
 1. Make sure Misty and your computer are on the same Wi-Fi network and that your computer has Bluetooth turned on.
 2. [Open up Blockly](http://sdk.mistyrobotics.com/blockly) in a browser window.
 3. Enter the IP address of your robot in Blockly and click **Connect**. You can get Misty's IP address from the **Info** tab in the companion app. The **Connect** button should change to **Connected**. **Note:** If you cannot connect, double-check that Misty and your computer are on the same Wi-Fi network. If necessary, reload the page.
-4. Open your browser's JavaScript console. Misty has some Blockly commands for which the results are shown in the console. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, then click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**. If the Blockly controls disappear when you open the JavaScript console, select the icon in the upper left side of the page to display them again. ![Blockly window showing hamburger menu and open JavaScript console](../../../../assets/images/blockly_js_console.png)
+4. Open your browser's JavaScript console. Misty has some Blockly commands for which the results are shown in the console. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, then click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**. If the Blockly controls disappear when you open the JavaScript console, select the icon in the upper left side of the page to display them again. ![Blockly window showing hamburger menu and open JavaScript console](/assets/images/blockly_js_console.png)
 5. Select a simple Misty-specific block such as "ChangeEyes" (in the "Display" category).
 6. Test that Blockly is set up by clicking **Run** and seeing how Misty reacts. **Note:** After clicking **Run**, there may be a short delay before Misty initially reacts. When multiple block commands are run in a row, by default there is no delay between commands. You can use the "Pause" block to add a delay between commands when running multiple commands in a row.
 
@@ -96,7 +96,7 @@ Then:
 
 These commands are mainly informational. To see results with some commands, you must have the JavaScript Console for the Blockly page open. For Chrome, select **View** > **Developer** > **JavaScript Console**. For Safari, go to **Preferences...**, click the checkbox for **Show Develop menu in menu bar**, then go to the **Develop** menu and select **Show JavaScript Console**.
 
-![Misty Blockly - general commands](../../../../assets/images/blockly_general_commands.png)
+![Misty Blockly - general commands](/assets/images/blockly_general_commands.png)
 
 
 ### SetNetworkConnection
@@ -180,7 +180,7 @@ Parameters
 ## Speaker Commands
 These commands direct Misty to play different sounds and allow you to upload custom sounds to Misty.
 
-![Misty Blockly - speaker commands](../../../../assets/images/blockly_speaker_commands.png)
+![Misty Blockly - speaker commands](/assets/images/blockly_speaker_commands.png)
 
 
 ### SaveFileToRobot
@@ -230,7 +230,7 @@ Parameters
 ## Display Commands
 These commands direct Misty to display different images and allow you to upload custom images to Misty.
 
-![Misty Blockly - display commands](../../../../assets/images/blockly_display_commands.png)
+![Misty Blockly - display commands](/assets/images/blockly_display_commands.png)
 
 
 ### DeleteImageAssetFromRobot
@@ -287,7 +287,7 @@ Use these commands to drive Misty forward and backward, straight or in a curve, 
 
 **Note:** Before using any locomotion commands, have Misty on a flat surface with plenty of room to move. It's also a good idea to experiment with small velocity values before getting her going at full speed.
 
-![Misty Blockly - locomotion commands](../../../../assets/images/blockly_locomotion_commands2.png)
+![Misty Blockly - locomotion commands](/assets/images/blockly_locomotion_commands2.png)
 
 
 ### Drive

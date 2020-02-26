@@ -39,7 +39,7 @@ A complete example of the Hello World skill is [hosted on GitHub](https://github
 
 This part of the Hello World tutorial series teaches how to create files for a JavaScript skill and upload them to Misty. You'll also write your first lines of code and teach Misty to move her head in a lifelike way.
 
-![Misty moves her head](../../../../assets/images/hello-world-movehead.gif)
+![Misty moves her head](/assets/images/hello-world-movehead.gif)
 
 ---
 
@@ -189,7 +189,7 @@ Follow these steps to generate a JSON file for your Hello World skill:
 
 1. Open the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page in a new browser window and find the **Generate** section.
 2. Type `HelloWorld` in the **New Skill Name** field.
-3. Select the option to **Download** option and click **Generate JSON Meta Template**. The full sequence for generating a meta file looks like this: ![Generate meta file animation](../../../../assets/images/skill-runner-generate-meta-animation.gif)
+3. Select the option to **Download** option and click **Generate JSON Meta Template**. The full sequence for generating a meta file looks like this: ![Generate meta file animation](/assets/images/skill-runner-generate-meta-animation.gif)
 4. Locate the downloaded `HelloWorld.json` file save it to the `HelloWorld` directory you created for this skill earlier.
 5. Open the `HelloWorld.json` file in your text editor. It should look something like this, with a different value for the `"UniqueID"` key:
 
@@ -226,16 +226,16 @@ Make sure the value of the `"Name"` parameter is `"HelloWorld"`. You can ignore 
 With the meta file saved, you're ready to install your skill on Misty. Follow these steps to do so:
 
 1. In the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) web page, type Misty’s IP address into the Robot IP Address field in the upper right hand corner. (You can find Misty's IP address in the Misty App.) Click **Connect**.
-2. Once the connection is established, find the **Install** section on the Skill Runner page. Make sure **JavaScript** is selected. Then, click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**, or drag and drop the files to upload them to Misty. ![Upload skill animation](../../../../assets/images/skill-runner-upload-skill-animation.gif)
+2. Once the connection is established, find the **Install** section on the Skill Runner page. Make sure **JavaScript** is selected. Then, click **Choose files** and navigate to the `HelloWorld` directory where you saved the `HelloWorld.js` and `HelloWorld.json` files. Select both files and click **Open**, or drag and drop the files to upload them to Misty. ![Upload skill animation](/assets/images/skill-runner-upload-skill-animation.gif)
 3. When the upload is complete, your new `HelloWorld` skill appears under the **Manage** section of the Skill Runner page. Find it and click **Start** to begin execution!
-4. Open the web console to view additional information from the skills running on Misty (including debug messages). The keyboard shortcuts for opening the console in Chrome are **Ctrl + Shift + J** (Windows/Linux) or **Cmd + Option + J** (Mac). ![Run skill animation](../../../../assets/images/skill-runner-run-skill.gif)
+4. Open the web console to view additional information from the skills running on Misty (including debug messages). The keyboard shortcuts for opening the console in Chrome are **Ctrl + Shift + J** (Windows/Linux) or **Cmd + Option + J** (Mac). ![Run skill animation](/assets/images/skill-runner-run-skill.gif)
 5. Click **Stop** to stop running the skill.
 
 ## Changing Misty's LED
 
 This part of the Hello World tutorial series teaches how to fade Misty's chest LED fade on and off in a looping cycle. 
 
-![Misty's LED pulses purple](../../../../assets/images/hello-world-changeled.gif)
+![Misty's LED pulses purple](/assets/images/hello-world-changeled.gif)
 
 If you've already completed the [first part of this tutorial series](./#moving-misty-39-s-head), you can add this code to your original `HelloWorld.js` code file, beneath where you wrote the code for moving Misty's head. 
 
@@ -381,7 +381,7 @@ When the upload is complete, run the skill from the **Manage** section of the Sk
 
 This part of the Hello World tutorial series teaches how to write code to have Misty play sounds.
 
-![Misty plays a sound](../../../../assets/images/hello-world-play-audio.gif)
+![Misty plays a sound](/assets/images/hello-world-play-audio.gif)
 
 If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file, beneath where you wrote the code for changing Misty's LED.
 
@@ -412,7 +412,7 @@ Save your changes and use the Skill Runner to [upload your modified `HelloWorld.
 
 This part of the Hello World tutorial series teaches how to programmatically drive Misty. When Misty executes the code from this section of the series, she slowly turns left and then right for a better view of her new home. 
 
-![Misty turns left and right](../../../../assets/images/hello-world-drive.gif)
+![Misty turns left and right](/assets/images/hello-world-drive.gif)
 
 
 If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for playing audio.
@@ -459,7 +459,7 @@ You're now ready to update your skill. Save your changes, and use the Skill Runn
 
 This part of the Hello World tutorial series teaches how to programmatically move Misty's arms. When the code you write in this section executes, Misty raises her right arm and waves.
 
-![Misty waves](../../../../assets/images/hello-world-misty-wave.gif)
+![Misty waves](/assets/images/hello-world-misty-wave.gif)
 
 
 If you started at the beginning of the Hello World series, you can add this code to the same `HelloWorld.js` code file you've been working on, beneath where you wrote the code for driving Misty.
@@ -493,7 +493,7 @@ You're now ready to update your skill. Save your changes, and use the Skill Runn
 
 This part of the Hello World tutorial series teaches how to use face recognition data in your skill code. When the code you write in this section executes, Misty attempts to detect and recognize faces. If you've trained Misty on your own face, then Misty waves when she sees you. If Misty sees a person she doesn't know, she raises her eyebrows and plays a sound.
 
-![Misty sees a face](../../../../assets/images/hello-world-face-recognition.gif)
+![Misty sees a face](/assets/images/hello-world-face-recognition.gif)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you haven't already trained Misty to recognize your face, [use the Command Center to do so](../../../tools-&-apps/web-based-tools/command-center/#face-training-amp-recognition) before working through this section of the tutorial.

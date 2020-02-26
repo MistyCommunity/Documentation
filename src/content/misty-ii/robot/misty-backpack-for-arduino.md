@@ -10,8 +10,8 @@ order: 4
 The Misty Backpack for Arduino is a microcontroller embedded in a magnetic mount that communicates with your skills via the UART serial port on Misty's back. You can use the Arduino-compatible backpack with sensors and other hardware to extend the capabilities of Misty's native hardware.
 
 **Schematics**
-* [Processor Schematics PDF](../../../../../assets/images/Processor_SchDoc.pdf)
-* [Power & Connectors Schematic PDF](../../../../../assets/images/Power_Connectors_SchDoc.pdf)
+* [Processor Schematics PDF](..//assets/images/Processor_SchDoc.pdf)
+* [Power & Connectors Schematic PDF](..//assets/images/Power_Connectors_SchDoc.pdf)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The backpack cover that arrives with Misty II does not include a development board. The Misty Backpack for Arduino must be purchased separately. 
@@ -25,7 +25,7 @@ The box for your Misty Backpack for Arduino includes:
 * Misty Backpack for Arduino & Magnetic Mount
 * Spacer Shield
 
-![Misty Backpack for Arduino Box Contents](../../../../../assets/images/backpack-box-contents.jpeg)
+![Misty Backpack for Arduino Box Contents](..//assets/images/backpack-box-contents.jpeg)
 
 {{box op="start" cssClass="boxed warningBox"}}
 **Important Note:** If you are having trouble sending messages to Misty from your backpack, check the position of the **Misty TX/RX** switch. Most boards arrive with the switch at D0/1 (hardware serial), but some boards may arrive with the switch at D8/9 (software serial). See the images in the [Misty TX/RX](./#misty-tx-rx-switch) section below for more information.
@@ -51,7 +51,7 @@ The QWIIC system makes it easy to connect SparkFun sensors and other kinds of ha
 
 You can use the digital pins on the Misty Backpack for Arduino for either input or output. These pins operate at 3.3v logic. With the exception of the difference in voltage, the pinout for this board is the same as the pinout for the Arduino Uno. For more information about the function of each pin, see the [Input and Output section of the documentation for the Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3).
 
-![Misty Backpack for Arduino Pinout Diagram](../../../../../assets/images/backpack_for_arduino_web.jpg)
+![Misty Backpack for Arduino Pinout Diagram](..//assets/images/backpack_for_arduino_web.jpg)
 
 ## Shield Compatibility
 
@@ -66,7 +66,7 @@ The Misty backpack has Arduino-compatible headers. It has a similar pinout to th
 
 You can connect the spacer shield to Misty's Arduino-compatible backpack to create extra space between the backpack and any connected shields. This helps prevent larger shields from interfering with Misty's chassis.
 
-![Spacer shield connected to microcontroller](../../../../../assets/images/backpack-spacer-shield.jpg)
+![Spacer shield connected to microcontroller](..//assets/images/backpack-spacer-shield.jpg)
 *A spacer shield connected to the Misty Backpack for Arduino.*
 
 ## Programming the Misty Backpack for Arduino
@@ -80,7 +80,7 @@ Follow these steps to configure the Arduino IDE to upload code to Misty's Arduin
 3. Open the IDE and select **Tools** from the top menu.
    1. From the **Board** sub-menu, select **Arduino Pro or Pro Mini**. 
    2. From the **Processor** sub-menu, select **ATmega328P (3.3V, 8MHz)**.
-   3. From the **Port** sub-menu, select the port that the microcontroller is connected to. (Your port number may be different than what is pictured here). ![Port selection menu](../../../../../assets/images/arduino-ide-port-selection.png)
+   3. From the **Port** sub-menu, select the port that the microcontroller is connected to. (Your port number may be different than what is pictured here). ![Port selection menu](..//assets/images/arduino-ide-port-selection.png)
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** For more information about writing sketches for Arduino microcontrollers, see the [reference materials](https://www.arduino.cc/reference/en/) and [tutorials](https://www.arduino.cc/en/Tutorial/HomePage) hosted on the Arduino website.
@@ -155,9 +155,9 @@ The Misty Backpack for Arduino supports hardware serial communication over pins 
 
 In addition to this default, you can use the **Misty TX/RX** switch on Misty's Arduino-compatible backpack to toggle the receiver and transmitter pins from D0 and D1 (hardware serial) to D8 and D9 (software serial). This is useful when you want to connect a shield that uses serial communication over the default hardware serial pins.
 
-![Switch set to hardware serial](../../../../../assets/images/misty-tx-rx-switch-hardware-serial.jpg)
+![Switch set to hardware serial](..//assets/images/misty-tx-rx-switch-hardware-serial.jpg)
 
-![Switch set to software serial](../../../../../assets/images/misty-tx-rx-switch-software-serial.jpg)
+![Switch set to software serial](..//assets/images/misty-tx-rx-switch-software-serial.jpg)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** When using pins D8 and D9 for software serial communication, you must use the [SoftwareSerial](https://www.arduino.cc/en/Reference/SoftwareSerial) library (instead of the Serial library) to communicate with Misty.
