@@ -11,7 +11,7 @@ You can augment Misty's native capabilities by using external microcontrollers, 
 
 External hardware can connect to the Universal Asynchronous Receiver-Transmitter (UART) serial and Universal Serial Bus (USB) ports on Misty's back. Remove Misty's magnetic backpack cover to access these ports.
 
-![Misty's USB and Serial Ports](../../../../assets/images/misty-ii-backpack.png)
+![Misty's USB and Serial Ports](/assets/images/misty-ii-backpack.png)
 
 The UART serial and USB port channels have separate, isolated power controllers that allow Misty to supply power to external hardware. The 3.3v output supplies up to 1A of power, and the USB port supplies up to 500 mA.
 
