@@ -171,9 +171,9 @@ Use the **Record Audio** controls to have Misty record an audio file with her mi
 
 1. Enter a name to save the file with on Misty's local storage.
 2. Click the **Start Recording Audio** button to have Misty start recording audio.
-3. When you're finished recording, click the **Stop Recording Audio** button. **Note:** Misty automatically stops recording after 60 seconds.
+3. When you're finished recording, click the **Stop Recording Audio** button.
 
-The new audio file will appear in the list of Misty's audio files in the **Assets** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
+The new audio file appears in the list of Misty's audio files in the **Assets** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
 ### Audio Localization Visualization
 
