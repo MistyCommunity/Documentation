@@ -173,6 +173,15 @@ exports.metalsmith = function() {
           'rest-api'
         ]
       },
+      net_sdk: {
+        pattern: 'net-sdk/:section/*.md',
+        sortBy: 'order',
+        orderDynamicCollections: [
+          'mistyrobotics-common',
+          'mistyrobotics-sdk',
+          'mistyrobotics-tools'
+        ]
+      },
       tools_and_apps: {
         pattern: 'tools-&-apps/:section/*md',
         sortBy: 'order',
