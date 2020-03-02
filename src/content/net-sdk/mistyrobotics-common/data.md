@@ -41,19 +41,19 @@ Data and metadata for an audio file.
 public string Name { get; set; }
 ```
 
-* `ContentType` (string) - The content type of the audio file.
+* `ContentType` (string) - The content-type of the audio file.
 
 ```csharp
 public string ContentType { get; set; }
 ```
 
-* `Base64` (string) - A string with the Base64-encoded audio file data. This data returns when you specify that the audio file data should be returned as Base64 data.
+* `Base64` (string) - A string with the Base64-encoded audio file data. This data returns when you specify that the system should return the audio file data as a Base64-encoded string.
 
 ```csharp
 public string Base64 { get; set; }
 ```
 
-* Audio (IEnumerable<byte>) - A byte array of the audio file data. This data returns when you do not specify that the audio file should be returned as a Base64 string.
+* Audio (IEnumerable<byte>) - A byte array of the audio file data. This data returns when you don't specify that the system should return the audio file data as a Base64-encoded string.
 
 ```csharp
 [JsonConverter(typeof(ByteArrayConverter))]
@@ -68,7 +68,7 @@ Misty's current battery charge and other details about the battery.
 
 ### BatteryChargeDetails Properties
 
-* `ChargePercent` (double) - Decimal value representing current charge percent.
+* `ChargePercent` (double) - Decimal value representing the current charge percentage.
 
 ```csharp
 public double? ChargePercent { get; set; }
@@ -88,7 +88,7 @@ public int Temperature { get; set; }
 public BatteryChargingState State { get; set; }
 ```
 
-* `Trained` (bool) - Returns `true` if the battery has been trained. Otherwise, `false`. If the battery has not been trained, the value provided for `ChargePercent` is an approximation.
+* `Trained` (bool) - Returns `true` if the battery is trained. Otherwise, `false`. If the battery isn't trained, the value provided for `ChargePercent` is an approximation.
 
 ```csharp
 public bool Trained { get; set; }
@@ -100,7 +100,7 @@ public bool Trained { get; set; }
 public double Voltage { get; set; }
 ```
 
-* `Current` (double) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is being charged.
+* `Current` (double) - The current flowing into or discharging from the battery. This value is negative when the battery is discharging, and positive when the battery is charging.
 
 ```csharp
 public double Current { get; set; }
@@ -132,7 +132,7 @@ The current settings for Misty's blinking behavior.
 
 ### BlinkSettings Properties
 
-* `BlinkImages` (`IDictionary<string, string>`) - A dictionary of blink mappings for each image on the robot. When blinking is enabled, these are the mappings that each image alternates between.
+* `BlinkImages` (`IDictionary<string, string>`) - A dictionary of blink mappings for each image on the robot. The first image in each dictionary pair is the "open-eye" image; the second image is the "closed-eye" image.
 
 ```csharp
 public IDictionary<string, string> BlinkImages { get; set; } = new Dictionary<string, string>();
@@ -264,7 +264,7 @@ The status and current activity of Misty's RGB camera.
 
 ### CameraState Properties
 
-* `IsTakingPicture` (bool) - If `true`, Misty is currently taking a picture with her RGB camera.
+* `IsTakingPicture` (bool) - If `true`, Misty is taking a picture with her RGB camera.
 
 ```csharp
 public bool IsTakingPicture { get; set; }
@@ -313,7 +313,7 @@ Location data for Misty's docking station (also referred to as the *charger* or 
 
 ### ChargerPose Properties
 
-* `HomogeneousMatrix` (`float[]`) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is a rotation matrix. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
+* `HomogeneousMatrix` (`float[]`) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4×4 homogeneous coordinate matrix. The 3×3 matrix of values in the upper left is a rotation matrix. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
 
 ```csharp
 public float[] HomogeneousMatrix { get; set; }
@@ -344,7 +344,7 @@ public int Width { get; set; }
 public int Height { get; set; }
 ```
 
-* `Image` (`IList<float>`) - A matrix of size `Height` x `Width` containing individual values of type `float`. Each value represents the distance (in millimeters) from Misty's depth sensor for a pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. **Note:** As Misty moves further away from objects, each pixel value represents a larger surface area. Conversely, if Misty moves closer to an object, each pixel represents a smaller surface area.
+* `Image` (`IList<float>`) - A matrix of size `Height`×`Width` containing individual values of type `float`. Each value represents the distance (in millimeters) from Misty's depth sensor for a pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. **Note:** As Misty moves further away from objects, each pixel value represents a larger surface area. Conversely, if Misty moves closer to an object, each pixel represents a smaller surface area.
 
 ```csharp
 public IList<float> Image { get; set; }
