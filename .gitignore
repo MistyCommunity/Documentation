@@ -6,3 +6,5 @@ npm-debug.log
 api-node
 api-service-libraries
 _pdf-datasheets-build/
+.vale.ini
+/styles/*
