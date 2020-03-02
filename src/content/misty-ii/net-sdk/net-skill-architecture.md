@@ -38,7 +38,7 @@ private IRobotMessenger _misty
 ### `NativeRobotSkill`
 
 You must also implement a new `NativeRobotSkill`. The constructor for this class requires two parameters:
-* a name for skill (used in the Skill Runner web page)
+* a name for the skill (used in the Skill Runner web page)
 * a unique GUID (used by Misty to identify your skill)
 
 In this example, we pass in a name of `MySkill` and set a unique GUID.
@@ -146,7 +146,7 @@ public void OnResume(object sender, IDictionary<string, object> parameters)
 
 There are two main techniques for issuing commands in your skill code. Both techniques require calling commands as methods on the variable that holds Misty's interface.
 
-The first technique is to issue the command to Misty and continue execution without waiting response data from the robot. When you use this technique, you have the option to specify a callback function that runs when the command completes.
+The first technique is to issue the command to Misty and continue execution without waiting for response data from the robot. When you use this technique, you have the option to specify a callback function that runs when the command completes.
 
 ```csharp
 // Changes Misty's LED to green; calls CommandCallback when complete
