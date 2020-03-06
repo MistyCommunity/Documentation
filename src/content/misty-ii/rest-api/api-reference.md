@@ -1431,6 +1431,8 @@ Return Values
 
 Deletes a map.
 
+This command is not functional with the Misty II Basic Edition.
+
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/slam/map
 
 Parameters
@@ -1502,17 +1504,19 @@ Return Values
 
 Obtains the occupancy grid data for Misty's currently active map.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+This command is not functional with the Misty II Basic Edition.
 
 To obtain a valid response from `GetMap`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](./#setcurrentslammap) command.
-{{box op="end"}}
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
 The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `FollowPath`, `DriveToLocation`, and `GetSlamPath` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map
 
@@ -1535,6 +1539,8 @@ Return Values
 
 Obtains the key for the currently active map.
 
+This command is not functional with the Misty II Basic Edition.
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/current
 
 Parameters
@@ -1555,6 +1561,8 @@ Return Values
 ### GetSlamIrExposureAndGain
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
@@ -1585,6 +1593,8 @@ Return Values
 ### GetSlamMaps
 
 Obtains a list of keys and names for Misty's existing maps.
+
+This command is not functional with the Misty II Basic Edition.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/map/ids
 
@@ -1618,15 +1628,18 @@ Return Values
 
 Obtains diagnostic information about Misty's navigation system.
 
+The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-
-The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
 {{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/diagnostics
 
 Parameters
+
 * None
 
 Return Values
@@ -1644,17 +1657,18 @@ Return Values
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
+This command is not functional with the Misty II Basic Edition.
 
 **Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
 
+{{box op="start" cssClass="boxed noteBox"}}
 This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
 
 Parameters
+
 * X (integer) - The X coordinate of the destination.
 * Y (integer) - The Y coordinate of the destination.
 
@@ -1666,11 +1680,14 @@ Parameters
 ```
 
 Return Values
+
 * Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path.
 
 ### GetSlamStatus
 
 Obtains values representing the current activity and status of Misty's SLAM system. Check these values for information about the current status of Misty's depth sensor, the SLAM system, and to see information relevant to any ongoing mapping or tracking activities.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** We suggest primarily using the values of `Status`/`StatusList` when coding SLAM functionality in your skills and robot applications, and only using the `SensorStatus` and `RunMode` values as supplemental information if needed or for debugging purposes.
@@ -1740,6 +1757,8 @@ Return Values
 
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
@@ -1770,6 +1789,8 @@ Return Values
 
 Renames an existing map.
 
+This command is not functional with the Misty II Basic Edition.
+
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/rename  
 
 Parameters
@@ -1790,7 +1811,9 @@ Return Values:
 
 ### ResetSlam
 
-Resets the SLAM sensors.
+Resets Misty's SLAM sensors.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1809,6 +1832,8 @@ Return Values
 ### SetCurrentSlamMap
 
 Sets a map to be Misty's currently active map for tracking and relocalization.
+
+This command is not functional with the Misty II Basic Edition.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/current
 
@@ -1829,6 +1854,8 @@ Return Values:
 ### SetSlamIrExposureAndGain
 
 Sets the exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
@@ -1858,6 +1885,8 @@ Return Values
 
 Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
@@ -1883,6 +1912,8 @@ Return Values
 ### StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1913,6 +1944,8 @@ Starts Misty mapping an area.
 
 Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](./#getslammaps) command.
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
@@ -1929,19 +1962,25 @@ Return Values
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
+This command is not functional with the Misty II Basic Edition.
+
 **Important!** Always use `StopSlamStreaming` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Using `StopSlamStreaming` turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/start
 
 Parameters 
-- None
+
+* None
 
 Return Values
-- Result (boolean) - Returns `true` if there are no errors related to this command.
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StartTracking
 
 Starts Misty tracking her location.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -1950,14 +1989,18 @@ Starts Misty tracking her location.
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
 
 Parameters
+
 - None
 
 Return Values
+
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopLocatingDockingStation
 
 Stops Misty locating the docking station.
+
+This command is not functional with the Misty II Basic Edition.
 
 For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
 
@@ -1980,6 +2023,8 @@ Return Values
 
 Stops Misty mapping an area.
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
@@ -1988,7 +2033,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/stop
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -1998,21 +2043,25 @@ Return Values
 
 Closes the data stream from the Occipital Structure Core depth sensor. This command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
+This command is not functional with the Misty II Basic Edition.
+
 **Important!** Always use this command to close the depth sensor data stream after using `StartSlamStreaming` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/streaming/stop
 
 Parameters
 
-- None
+* None
 
 Return Values
 
-- Results (boolean) - Returns `true` if there are no errors related to this command.
+* Results (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopTracking
 
 Stops Misty tracking her location.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
@@ -2030,18 +2079,22 @@ Return Values
 
 ### TakeDepthPicture
 
-Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of “unknown” values in the form of `NaN` (“not a number”) values.
+Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
+
+This command is not functional with the Misty II Basic Edition.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/depth
 
 Parameters
-- None
+
+* None
 
 Return Values
-- Result (object) - An object containing depth information about the image matrix, with the following fields.
-    - height (integer) - The height of the matrix.
-    - image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around `2000`. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value would represent a smaller area.
-    - width (integer) - The width of the matrix.
+
+* Result (object) - An object containing depth information about the image matrix, with the following fields.
+    * height (integer) - The height of the matrix.
+    * image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around `2000`. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value would represent a smaller area.
+    * width (integer) - The width of the matrix.
 
 ```json
 {
@@ -2055,12 +2108,19 @@ Return Values
 
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
+This command is not functional with the Misty II Basic Edition.
+
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye
 
 Parameters
 
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
+
+**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen here:
+
+```markup
+<robot-ip-address>/api/cameras/fisheye?Base64=false
+```
 
 Return Values
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
@@ -3181,6 +3241,8 @@ Misty cannot run commands or stream messages from event types that use the SLAM 
 
 Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the SLAM service enabled.
 {{box op="end"}}
@@ -3260,6 +3322,8 @@ Return Values
 Enables the SLAM service running on Misty's 820 processor.
 
 For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+This command is not functional with the Misty II Basic Edition.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/services/slam/enable
 
@@ -3765,6 +3829,8 @@ Return Values
 Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
 
 For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#disableslamservice) command description.
+
+This command is not functional with the Misty II Basic Edition.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/services/slam
 

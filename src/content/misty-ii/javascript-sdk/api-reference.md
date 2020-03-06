@@ -1749,10 +1749,12 @@ misty.Stop();
 
 Deletes a map.
 
-```js
+```javascript
 // Syntax
 misty.DeleteSlamMap(string key, [int prePauseMs], [int postPauseMs]);
 ```
+
+This command is not functional with the Misty II Basic Edition.
 
 Arguments
 
@@ -1781,6 +1783,7 @@ This command is currently in **Alpha**, and related hardware, firmware, or softw
 {{box op="end"}}
 
 Arguments
+
 * path (string) - A string of comma-separated X:Y coordinates representing waypoints on a path for Misty to track through her currently active map. Each waypoint is a colon-separated integer pair representing the X and Y coordinates of a location on Misty's currently active map. You can use the `GetMap` command in Misty's REST API to access the occupancy grid for Misty's current map, and use this grid to determine the X and Y coordinates of the destination.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -1799,13 +1802,9 @@ Obtains the occupancy grid data for Misty's currently active map.
 misty.GetMap([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+This command is not functional with the Misty II Basic Edition
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/rest-api/api-reference/#setcurrentslammap) command in Misty's REST API.
-
-This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
+To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/rest-api/api-reference/#setcurrentslammap) command in Misty's REST API.
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
@@ -1813,7 +1812,16 @@ The occupancy grid for the map is represented by a two-dimensional matrix. Each 
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.GetSlamPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1847,7 +1855,11 @@ Obtains the key for the currently active map.
 misty.GetCurrentSlamMap([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSerialSensorValues()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetCurrentSlamMap()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1882,11 +1894,15 @@ Obtains the current exposure and gain settings for the infrared cameras in the O
 misty.GetSlamIrExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/javascript-sdk/api-reference/#misty-startslamstreaming) command.
 {{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamIrExposureAndGain()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1924,7 +1940,11 @@ Obtains a list of keys and names for Misty's existing maps.
 misty.GetSlamMaps([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamMaps()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1977,13 +1997,17 @@ Obtains diagnostic information about Misty's navigation system.
 misty.GetSlamNavigationDiagnostics([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
+
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-
-The information in the data object for this command is primarily used by the Misty Robotics engineering and support staff to troubleshoot and root-cause issues with Misty's SLAM system. The contents of this data object are likely to change without notice in future system updates.
 {{box op="end"}}
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a calfunction to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamNavigationDiagnostics()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamNavigationDiagnostics()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -2001,7 +2025,12 @@ Returns
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+```JavaScript
+// Syntax
+misty.GetSlamPath(double X, double Y, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+This command is not functional with the Misty II Basic Edition.
 
 **Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
 
@@ -2009,12 +2038,12 @@ Obtain a path from Misty’s current location to a specified set of X,Y coordina
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-```JavaScript
-// Syntax
-misty.GetSlamPath(double X, double Y, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
-```
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
+
 * X (double) - The X coordinate of the destination.
 * Y (double) - The Y coordinate of the destination.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -2036,20 +2065,25 @@ Returns
 
 Obtains values representing the current activity and status of Misty's SLAM system. Check these values for information about the current status of Misty's depth sensor, the SLAM system, and to see information relevant to any ongoing mapping or tracking activities.
 
+```JavaScript
+// Syntax
+misty.GetSlamStatus([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** We suggest primarily using the values of `Status`/`StatusList` when coding SLAM functionality in your skills and robot applications, and only using the `SensorStatus` and `RunMode` values as supplemental information if needed or for debugging purposes.
 
 This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSlamStatus()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetSlamStatus([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
-```
+{{box op="end"}}
 
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_GetSlamStatus()>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -2127,6 +2161,8 @@ Obtains the current exposure and gain settings for the fisheye camera in the Occ
 misty.GetSlamVisibleExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/rest-api/api-reference/#startslamstreaming) command.
 {{box op="end"}}
@@ -2180,6 +2216,8 @@ Renames an existing map.
 misty.RenameSlamMap(string key, string name, [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
 Arguments
 
 * key (string) - The unique `key` value of the map to rename.
@@ -2196,16 +2234,19 @@ misty.RenameSlamMap("Map_20190912_21.16.06.UTC", "NewName");
 
 Resets Misty's SLAM sensors.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
 ```JavaScript
 // Syntax
 misty.ResetSlam([int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -2222,6 +2263,8 @@ Sets a map to be Misty's currently active map for tracking and relocalization.
 // Syntax
 misty.SetCurrentSlamMap(string key, [int prePauseMs], [int postPauseMs]);
 ```
+
+This command is not functional with the Misty II Basic Edition.
 
 Arguments
 
@@ -2242,6 +2285,8 @@ Sets the exposure and gain settings for the infrared cameras in the Occipital St
 // Syntax
 misty.SetSlamIrExposureAndGain(double exposure, int gain, [int prePauseMs], [int postPauseMs]);
 ```
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Changing the gain and exposure levels for the infrared cameras in the depth sensor can impact the performance of Misty's SLAM system. We recommend that you avoid changing these settings unless working with a member of the Misty support team.
@@ -2270,6 +2315,8 @@ Sets the exposure and gain settings for the fisheye camera in the Occipital Stru
 misty.SetSlamVisibleExposureAndGain(double exposure, double gain, [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you issue a `SetSlamVisibleExposureAndGain` command when the SLAM system is not in a `streaming` state, the camera's settings will not update. To start streaming, you can issue a [`StartSlamStreaming`](./#misty-startslamstreaming) command.
 {{box op="end"}}
@@ -2295,6 +2342,8 @@ Starts Misty locating the position and orientation (pose) of the docking station
 misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 
@@ -2318,19 +2367,20 @@ Arguments
 
 Starts Misty mapping an area.
 
+```JavaScript
+// Syntax
+misty.StartMapping([int prePauseMs], [int postPauseMs]);
+```
+
 Misty saves each map she creates to local storage. Each map is associated with a unique key at the time of the map's creation. Map keys are formatted as date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). To obtain a list of Misty's existing maps, use the [`GetSlamMaps`](../../../misty-ii/rest-api/api-reference/#getslammaps) command in Misty's REST API.
+
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty's SLAM system can run out of memory, especially while mapping mapping large, complex areas. When this happens, the SLAM system shuts down, and Misty saves any progress made on the current map to her local storage.
 
 This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
-
-
-```JavaScript
-// Syntax
-misty.StartMapping([int prePauseMs], [int postPauseMs]);
-```
 
 Arguments
 
@@ -2346,14 +2396,17 @@ misty.StartMapping();
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-**Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption.
-
 ```JavaScript
 // Syntax
 misty.StartSlamStreaming([int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Editi
+
+**Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption.
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -2362,19 +2415,20 @@ Arguments
 misty.StartSlamStreaming();
 ```
 
-
 ### misty.StartTracking
 
 Starts Misty tracking her location.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
 
 ```JavaScript
 // Syntax
 misty.StartTracking([int prePauseMs], [int postPauseMs]);
 ```
+
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -2394,6 +2448,8 @@ Stops Misty locating the docking station.
 misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePauseMs], [int postPauseMs])
 ```
 
+This command is not functional with the Misty II Basic Editi
+
 For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#misty-startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -2411,16 +2467,19 @@ Arguments
 
 Stops Misty mapping an area.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
 ```JavaScript
 // Syntax
 misty.StopMapping([int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
 command, `postPauseMs` is not used.
@@ -2431,16 +2490,20 @@ misty.StopMapping();
 ```
 
 ### misty.StopSlamStreaming
-Closes the data stream from the Occipital Structure Core depth sensor. Calling this command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
-**Important!** Always use this command to close the depth sensor data stream after using `misty.StartSlamStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+Closes the data stream from the Occipital Structure Core depth sensor. Calling this command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
 ```JavaScript
 // Syntax
 misty.StopSlamStreaming([int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+**Important!** Always use this command to close the depth sensor data stream after using `misty.StartSlamStreaming()` and any commands that use Misty's Occipital Structure Core depth sensor. Note that Misty's 4K camera may not work while the depth sensor data stream is open.
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
 command, `postPauseMs` is not used.
@@ -2454,17 +2517,19 @@ misty.StopSlamStreaming();
 
 Stops Misty tracking her location.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-
 ```JavaScript
 // Syntax
 misty.StopTracking([int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -2477,15 +2542,20 @@ misty.StopTracking();
 
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```JavaScript
 // Syntax
 misty.TakeDepthPicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+This command is not functional with the Misty II Basic Edition
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_TakeDepthPicture()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
-* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
+
+* callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_TakeDepthPicture()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
@@ -2498,23 +2568,28 @@ misty.TakeDepthPicture();
 
 Returns
 
-- Result (object) - An object containing depth information about the image matrix, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - Height (integer) - The height of the matrix.
-  - Image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
-  - Width (integer) - The width of the matrix.
+* Result (object) - An object containing depth information about the image matrix, with the following fields. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Height (integer) - The height of the matrix.
+  * Image (array) - A matrix of size `height` x `width` containing individual values of type float. Each value is the distance in millimeters from the sensor for each pixel in the captured image. For example, if you point the sensor at a flat wall 2 meters away, most of the values in the matrix should be around 2000. Note that as the robot moves further away from a scene being viewed, each pixel value will represent a larger surface area. Conversely, if it moves closer, each pixel value will represent a smaller area.
+  * Width (integer) - The width of the matrix.
 
 ### misty.TakeFisheyePicture
 
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```JavaScript
 // Syntax
 misty.TakeFisheyePicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -4023,6 +4098,8 @@ Misty cannot run commands or stream messages from event types that use the SLAM 
 
 Additionally, when the SLAM service is disabled, Misty does not stream valid data to event types that publish information from `SlamStatus` messages (such as `SelfState`).
 
+This command is not functional with the Misty II Basic Edition.
+
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** The effects of this command do not persist across reboot. The 820 processor always boots with the SLAM service enabled.
 {{box op="end"}}
@@ -4102,6 +4179,8 @@ misty.EnableSlamService([int prePauseMs], [int postPauseMs]);
 ```
 
 For more information about disabling and enabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+This command is not functional with the Misty II Basic Edition.
 
 Arguments
 
@@ -4795,9 +4874,13 @@ Describes whether the SLAM service running on Misty's 820 processor is currently
 misty.SlamServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_SlamServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
 For more information about enabling and disabling the SLAM service, see the [`DisableSlamService`](./#misty-disableslamservice) command description.
+
+This command is not functional with the Misty II Basic Edition.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_SlamServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
