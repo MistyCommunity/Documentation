@@ -33,7 +33,7 @@ Watch the video for a quick overview of each section in the tutorial series:
 <iframe width="600" height="337" src="https://www.youtube.com/embed/xBV2U2QuK2o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {{box op="end"}}
 
-A complete example of the Hello World skill is [hosted on GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Hello%20World). Feel free to refer to these files at any time.
+A complete example of the Hello World skill is [hosted on GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Hello%20World). Feel free to refer to these files at any time.
 
 ## Moving Misty's Head
 

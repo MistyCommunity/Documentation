@@ -110,7 +110,7 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Changing%20Misty's%20LED) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Changing%20Misty's%20LED) from GitHub.
 
 ## Using Sensors, WebSockets, and Locomotion
 
@@ -123,7 +123,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 ### Setting Up Your Project
 
-In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -448,7 +448,7 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
 
 ## Exploring Computer Vision
 
@@ -858,7 +858,7 @@ When you load the `.html` file in your browser, the program:
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Exploring%20Computer%20Vision) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Exploring%20Computer%20Vision) from GitHub.
 
 ## Taking Pictures
 
@@ -869,7 +869,7 @@ This tutorial describes how to write a remote-running program for Misty that tak
 * how to control the flow of a program to trigger commands when specific environmental circumstances are met
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -1246,4 +1246,4 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Taking%20Pictures) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Taking%20Pictures) from GitHub.
