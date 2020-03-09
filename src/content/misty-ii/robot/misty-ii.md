@@ -25,8 +25,9 @@ Misty II arrives packed safely inside her carrying case. The easiest and safest 
 
 Misty II arrives with her magnetic headpiece and backpack attachments connected. In addition to the robot, the carrying case includes the following items:
 
-* charging station
-* charging station AC power supply (thin barrel jack)
+* charging station - *Misty II Standard and Enhanced Editions only*
+* charging station AC power supply (thin barrel jack) - *Misty II Standard and Enhanced Editions only*
+* Misty II AC power supply (thick barrel jack) - *Misty II Basic only*
 * foam block stand for Misty II
 * legal guide
 * printed User Guide
@@ -34,7 +35,7 @@ Misty II arrives with her magnetic headpiece and backpack attachments connected.
 {{box op="start" cssClass="boxed warningBox"}}
 **Warning:** Do not attempt to connect the AC power supply for the charging station to the port underneath Misty's base.
 
-A separate AC power supply for charging Misty II via a wired connection may be shipped as an optional accessory. The barrel jack on this power supply is thicker than the power supply for the wireless charging station, and is designed to fit the power port underneath Misty's base. This power supply uses a different voltage than the power supply for Misty's wireless charging station. **Do not** attempt to use these power supplies interchangeably.
+If you purchased the Misty II Basic Edition, your robot arrives with a wired AC power supply that connects to the port underneath Misty's base. The barrel jack on this power supply is thicker than the power supply for the wireless charging station, and is designed to fit the power port underneath Misty's base. This power supply uses a different voltage than the power supply for Misty's wireless charging station. **Do not** attempt to use these power supplies interchangeably.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed tipBox"}}
@@ -399,7 +400,7 @@ You can access your robot's Windows file system by connecting to the robot's 410
 
 ## Misty II Specs
 
-Misty is packed with sophisticated hardware and software features that contribute to her ruggedness and extensibility as a platform.
+Misty is packed with sophisticated hardware and software features that contribute to the platform's ruggedness and extensibility. This section provides a bit more detail about the hardware and technology behind the Misty II development platform.
 
 ### Size
 
@@ -411,12 +412,14 @@ Misty is packed with sophisticated hardware and software features that contribut
 ### Processors
 
 * Qualcomm® Snapdragon 820™ mobile processor
+  * **Open-Q™ 820 µSOM** for Misty II Basic and Standard Editions
+  * **Open-Q™ 820Pro µSOM** for Misty II Enhanced Edition 
 * Qualcomm® Snapdragon 410™ processor
 
 ### Computer Vision
 
-* Occipital Structure Core depth sensor for 3D maps
-* 166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+* Occipital Structure Core depth sensor for 3D maps (Misty II Standard and Misty II Enhanced Editions only)
+* 166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical) (Misty II Standard and Misty II Enhanced Editions only)
 * 4K camera
 * Facial recognition
 * Deep-learning AI using Qualcomm® Snapdragon™ Neural Processing
@@ -462,6 +465,14 @@ Misty is packed with sophisticated hardware and software features that contribut
 ### Operating Systems
 
 * Windows IoT Core™ (Main)
-* Android™ 8 (navigation/computer vision)
+* Android™ 8 (Sensory Services)
 
-![Misty II Specs](/assets/images/mii-specs.png)
+## Misty II Variations
+
+You can choose between three models of the Misty II platform. They are:
+
+* Misty II Basic Edition
+* Misty II Standard Edition
+* Misty II Enhanced Edition
+
+### Model Comparison
