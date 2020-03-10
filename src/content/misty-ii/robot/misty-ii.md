@@ -400,79 +400,310 @@ You can access your robot's Windows file system by connecting to the robot's 410
 
 ## Misty II Specs
 
-Misty is packed with sophisticated hardware and software features that contribute to the platform's ruggedness and extensibility. This section provides a bit more detail about the hardware and technology behind the Misty II development platform.
+The Misty II platform is available in three models: *Basic*, *Standard*, and *Enhanced*. Each model is packed with sophisticated hardware and software features that contribute to the platform's ruggedness and extensibility. This section provides a bit more detail about the hardware, technologies, and capabilities you'll find in each model.
 
-### Size
+### Misty II Basic Edition
 
-* Height: 35.56 cm / 14 in
-* Depth: 25.4 cm / 10 in
-* Width: 20.32 cm / 8 in
-* Weight: 2.7 kg / 6 lbs
+The **Misty II Basic Edition** provides a professional-grade platform robot at an affordable price. This model comes with all of the hardware and functionality of the Standard Edition **except** the Occipital Structure Core Depth Sensor and wireless charging pad. 
 
-### Processors
+This model is designed for tasks that do not require the functionality that the depth sensor provides, such as auto-docking, sophisticated mapping, simultaneous localization and mapping (SLAM), and the creation of 3D images for use with CAD software. You can use this model to invent your own system for mapping and navigating within a space, but the API commands, event types, and data responses that require the depth sensor are not functional with the Misty II Basic Edition.
 
-* Qualcomm® Snapdragon 820™ mobile processor
-  * **Open-Q™ 820 µSOM** for Misty II Basic and Standard Editions
-  * **Open-Q™ 820Pro µSOM** for Misty II Enhanced Edition 
-* Qualcomm® Snapdragon 410™ processor
+### Misty II Standard Edition
 
-### Computer Vision
+The **Misty II Standard Edition** is the original Misty II. It provides organizations and individual developers with a professional-grade platform robot that can take on a wide variety of assignments, including use cases that require auto-docking, SLAM, and the creation of 3D images for use with CAD software. This model is fully compatible with the APIs, event types, and data responses that Misty's depth sensor provides.
 
-* Occipital Structure Core depth sensor for 3D maps (Misty II Standard and Misty II Enhanced Editions only)
-* 166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical) (Misty II Standard and Misty II Enhanced Editions only)
-* 4K camera
-* Facial recognition
-* Deep-learning AI using Qualcomm® Snapdragon™ Neural Processing
+### Misty II Enhanced Edition
 
-### Sound
+The **Misty II Enhanced Edition** has all the hardware and capabilities of the Standard Edition, **plus** an upgraded 820 processor. The Enhanced Edition features an **Open-Q™ 820Pro µSOM** (which replaces the Open-Q™ 820 µSOM used in the Standard Edition). This upgrade improves Misty's response time by about 10% during CPU-intensive tasks (like face recognition), and enables Misty to cover a much larger space during a single mapping session.
 
-* 3 far-field microphones using Qualcomm® FluenceTM PRO 
-* 2 high-fidelity speakers with engineered sound box and bass port
+The Misty II Enhanced Edition can actively map for ~10 minutes, and can produce individual maps of 1600 to 2000 square feet, depending on environmental variables. By comparison, the Misty II Standard Edition can actively map for ~5 minutes, and can produce individual maps of around 800 to 1000 square feet.*
 
-### Touch
+This model provides organizations and individual developers with a platform robot that can take on a wide variety of assignments, especially use cases that require the robot to create maps and navigate within a larger space. This model is fully compatible with the APIs, event types, and data responses that Misty's depth sensor provides.
 
-* 6 capacitive touch sensors on head and chin
-
-### Distance and Obstacle Detection
-
-* 8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
-* 10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
-
-### Movement
-
-* Patent-pending 3-degree of freedom neck
-* Easily customizable moving arms
-* Sturdy track-driving tread system
-* Trailer hitch to pull a payload
-
-### Display & Light
-
-* 4” LCD image display/screen
-* Bright LED flashlight
-* Multi-color LED chest light
-
-### Connectivity
-
-* 2.4 and 5 Ghz Wi-Fi connection
-* Bluetooth and Bluetooth Low Energy capabilities 
-
-### Extensibility
-
-* USB/Serial-connected backpack for hardware extension
-* Arduino-compatible Backpack (optional)
-* Magnetic helmet connection point
-
-### Operating Systems
-
-* Windows IoT Core™ (Main)
-* Android™ 8 (Sensory Services)
-
-## Misty II Variations
-
-You can choose between three models of the Misty II platform. They are:
-
-* Misty II Basic Edition
-* Misty II Standard Edition
-* Misty II Enhanced Edition
+{{box op="start" cssClass="boxed noteBox"}}
+&ast; **Note:** Actual mapping duration and coverage depends on variables like environmental complexity and many other factors. While individual maps may not provide full coverage of the environment in which you plan to use the robot, the Misty II Standard and Enhanced Editions can create multiple maps that span across a larger environment, and you can use the robot's API to intelligently switch between maps within your skills and robot applications.
+{{box op="end"}}
 
 ### Model Comparison
+
+This table provides more information about the specifications for each Misty II model. Use it to select the model that best fits your needs.
+<br><br><br>
+
+<table>
+  <tr>
+   <td>
+   </td>
+   <td><strong>Basic Edition</strong>
+   </td>
+   <td><strong>Standard Edition</strong>
+   </td>
+   <td><strong>Enhanced Edition</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Price
+   </td>
+   <td>$1,999 MSRP
+   </td>
+   <td>$2,999 MSRP
+   </td>
+   <td>$3,299 MSRP
+   </td>
+  </tr>
+  <tr>
+   <td>Size
+   </td>
+   <td><strong>Height:</strong> 35.56 cm / 14 in
+<br>
+<strong>Depth:</strong> 25.4 cm / 10 in
+<br>
+<strong>Width:</strong> 20.32 cm / 8 in
+<br>
+<strong>Weight:</strong> 2.6 kg / 5.7 lbs
+   </td>
+   <td><strong>Height:</strong> 35.56 cm / 14 in
+<br>
+<strong>Depth:</strong> 25.4 cm / 10 in
+<br>
+<strong>Width:</strong> 20.32 cm / 8 in
+<br>
+<strong>Weight:</strong> 2.7 kg / 6 lbs
+   </td>
+   <td><strong>Height:</strong> 35.56 cm / 14 in
+<br>
+<strong>Depth:</strong> 25.4 cm / 10 in
+<br>
+<strong>Width:</strong> 20.32 cm / 8 in
+<br>
+<strong>Weight:</strong> 2.7 kg / 6 lbs
+   </td>
+  </tr>
+  <tr>
+   <td>Windows IoT Core Processor
+   </td>
+   <td>Qualcomm® Snapdragon 410™
+   </td>
+   <td>Qualcomm® Snapdragon 410™
+   </td>
+   <td>Qualcomm® Snapdragon 410™
+   </td>
+  </tr>
+  <tr>
+   <td>Android 8 Processor
+   </td>
+   <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
+   </td>
+   <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
+   </td>
+   <td>Qualcomm® Snapdragon Open-Q™ 820Pro µSOM
+   </td>
+  </tr>
+  <tr>
+   <td>Programmability
+   </td>
+   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools. 
+<br><br>
+<strong>Note: </strong>API commands, event types, data, and tools that make use of the depth sensor are not functional with the Misty II Basic Edition. 
+   </td>
+   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+   </td>
+   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+   </td>
+  </tr>
+  <tr>
+   <td>Cameras
+   </td>
+   <td>4K RGB camera
+   </td>
+   <td>4K RGB Camera
+<br><br>
+166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+   </td>
+   <td>4K RGB Camera
+<br><br>
+166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+   </td>
+  </tr>
+  <tr>
+   <td>Depth Sensor
+   </td>
+   <td>None
+   </td>
+   <td>Occipital Structure Core depth sensor 
+   </td>
+   <td>Occipital Structure Core depth sensor 
+   </td>
+  </tr>
+  <tr>
+   <td>Audio Recording & Playback
+   </td>
+   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+<br><br>
+2 high-fidelity speakers with engineered sound box and bass port
+   </td>
+   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+<br><br>
+2 high-fidelity speakers with engineered sound box and bass port
+   </td>
+   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+<br><br>
+2 high-fidelity speakers with engineered sound box and bass port
+   </td>
+  </tr>
+  <tr>
+   <td>Touch Sensors
+   </td>
+   <td>6 capacitive touch sensors on head and chin
+   </td>
+   <td>6 capacitive touch sensors on head and chin
+   </td>
+   <td>6 capacitive touch sensors on head and chin
+   </td>
+  </tr>
+  <tr>
+   <td>Distance & Obstacle Detection
+   </td>
+   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+<br><br>
+10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+   </td>
+   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+<br><br>
+10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+   </td>
+   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+<br><br>
+10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+   </td>
+  </tr>
+  <tr>
+   <td>Movement & Locomotion
+   </td>
+   <td>Patent-pending 3-degree of freedom neck
+<br><br>
+Customizable moving arms
+<br><br>
+Sturdy track-driving tread system
+   </td>
+   <td>Patent-pending 3-degree of freedom neck
+<br><br>
+Customizable moving arms
+<br><br>
+Sturdy track-driving tread system
+   </td>
+   <td>Patent-pending 3-degree of freedom neck
+<br><br>
+Customizable moving arms
+<br><br>
+Sturdy track-driving tread system
+   </td>
+  </tr>
+  <tr>
+   <td>Display
+   </td>
+   <td>4” LCD display for images, animated .gifs, text, and videos playback
+   </td>
+   <td>4” LCD display for images, animated .gifs, text, and videos playback
+   </td>
+   <td>4” LCD display for images, animated .gifs, text, and videos playback
+   </td>
+  </tr>
+  <tr>
+   <td>Lights
+   </td>
+   <td>White LED flashlight
+<br><br>
+Blue LED "tally light"
+<br><br>
+Multi-color programmable LED chest light
+   </td>
+   <td>White LED flashlight
+<br><br>
+Blue LED "tally light"
+<br><br>
+Multi-color programmable LED chest light
+   </td>
+   <td>White LED flashlight
+<br><br>
+Blue LED "tally light"
+<br><br>
+Multi-color programmable LED chest light
+   </td>
+  </tr>
+  <tr>
+   <td>Connectivity
+   </td>
+   <td>2.4 and 5 Ghz Wi-Fi connection
+<br><br>
+Bluetooth and Bluetooth Low Energy capabilities
+   </td>
+   <td>2.4 and 5 Ghz Wi-Fi connection
+<br><br>
+Bluetooth and Bluetooth Low Energy capabilities
+   </td>
+   <td>2.4 and 5 Ghz Wi-Fi connection
+<br><br>
+Bluetooth and Bluetooth Low Energy capabilities
+   </td>
+  </tr>
+  <tr>
+   <td>Extensibility
+   </td>
+   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+<br><br>
+Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+<br><br>
+Compatible with Misty Backpack for Arduino and other microcontrollers
+   </td>
+   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+<br><br>
+Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+<br><br>
+Compatible with Misty Backpack for Arduino and other microcontrollers
+   </td>
+   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+<br><br>
+Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+<br><br>
+Compatible with Misty Backpack for Arduino and other microcontrollers
+   </td>
+  </tr>
+    <tr>
+   <td>Charging
+   </td>
+   <td>AC adapter for wired charging included with purchase
+<br><br>
+Wireless charging pad for wireless charging sold separately
+   </td>
+   <td>Wireless charging pad for wireless charging included with purchase
+<br><br>
+AC adapter for wired charging sold separately
+   </td>
+   <td>Wireless charging pad for wireless charging included with purchase
+<br><br>
+AC adapter for wired charging sold separately
+   </td>
+  </tr>
+  <tr>
+   <td> Purchase
+   </td>
+   <td text-align="center">
+      <div>
+      <br />
+         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+      </div>
+   </td>
+      <td text-align="center">
+      <div>
+      <br />
+         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+      </div>
+   </td>
+      <td text-align="center">
+      <div>
+      <br />
+         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+      </div>
+   </td>
+
+</table>
