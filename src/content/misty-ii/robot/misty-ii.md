@@ -429,281 +429,282 @@ This model provides organizations and individual developers with a platform robo
 This table provides more information about the specifications for each Misty II model. Use it to select the model that best fits your needs.
 <br><br><br>
 
-<table>
-  <tr>
-   <td>
-   </td>
-   <td><strong>Basic Edition</strong>
-   </td>
-   <td><strong>Standard Edition</strong>
-   </td>
-   <td><strong>Enhanced Edition</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>Price
-   </td>
-   <td>$1,999 MSRP
-   </td>
-   <td>$2,999 MSRP
-   </td>
-   <td>$3,299 MSRP
-   </td>
-  </tr>
-  <tr>
-   <td>Size
-   </td>
-   <td><strong>Height:</strong> 35.56 cm / 14 in
-<br>
-<strong>Depth:</strong> 25.4 cm / 10 in
-<br>
-<strong>Width:</strong> 20.32 cm / 8 in
-<br>
-<strong>Weight:</strong> 2.6 kg / 5.7 lbs
-   </td>
-   <td><strong>Height:</strong> 35.56 cm / 14 in
-<br>
-<strong>Depth:</strong> 25.4 cm / 10 in
-<br>
-<strong>Width:</strong> 20.32 cm / 8 in
-<br>
-<strong>Weight:</strong> 2.7 kg / 6 lbs
-   </td>
-   <td><strong>Height:</strong> 35.56 cm / 14 in
-<br>
-<strong>Depth:</strong> 25.4 cm / 10 in
-<br>
-<strong>Width:</strong> 20.32 cm / 8 in
-<br>
-<strong>Weight:</strong> 2.7 kg / 6 lbs
-   </td>
-  </tr>
-  <tr>
-   <td>Windows IoT Core Processor
-   </td>
-   <td>Qualcomm® Snapdragon 410™
-   </td>
-   <td>Qualcomm® Snapdragon 410™
-   </td>
-   <td>Qualcomm® Snapdragon 410™
-   </td>
-  </tr>
-  <tr>
-   <td>Android 8 Processor
-   </td>
-   <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
-   </td>
-   <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
-   </td>
-   <td>Qualcomm® Snapdragon Open-Q™ 820Pro µSOM
-   </td>
-  </tr>
-  <tr>
-   <td>Programmability
-   </td>
-   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools. 
-<br><br>
-<strong>Note: </strong>API commands, event types, data, and tools that make use of the depth sensor are not functional with the Misty II Basic Edition. 
-   </td>
-   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
-   </td>
-   <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
-   </td>
-  </tr>
-  <tr>
-   <td>Cameras
-   </td>
-   <td>4K RGB camera
-   </td>
-   <td>4K RGB Camera
-<br><br>
-166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
-   </td>
-   <td>4K RGB Camera
-<br><br>
-166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
-   </td>
-  </tr>
-  <tr>
-   <td>Depth Sensor
-   </td>
-   <td>None
-   </td>
-   <td>Occipital Structure Core depth sensor 
-   </td>
-   <td>Occipital Structure Core depth sensor 
-   </td>
-  </tr>
-  <tr>
-   <td>Audio Recording & Playback
-   </td>
-   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
-<br><br>
-2 high-fidelity speakers with engineered sound box and bass port
-   </td>
-   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
-<br><br>
-2 high-fidelity speakers with engineered sound box and bass port
-   </td>
-   <td>3 far-field microphones using Qualcomm® FluenceTM PRO
-<br><br>
-2 high-fidelity speakers with engineered sound box and bass port
-   </td>
-  </tr>
-  <tr>
-   <td>Touch Sensors
-   </td>
-   <td>6 capacitive touch sensors on head and chin
-   </td>
-   <td>6 capacitive touch sensors on head and chin
-   </td>
-   <td>6 capacitive touch sensors on head and chin
-   </td>
-  </tr>
-  <tr>
-   <td>Distance & Obstacle Detection
-   </td>
-   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
-<br><br>
-10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
-   </td>
-   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
-<br><br>
-10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
-   </td>
-   <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
-<br><br>
-10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
-   </td>
-  </tr>
-  <tr>
-   <td>Movement & Locomotion
-   </td>
-   <td>Patent-pending 3-degree of freedom neck
-<br><br>
-Customizable moving arms
-<br><br>
-Sturdy track-driving tread system
-   </td>
-   <td>Patent-pending 3-degree of freedom neck
-<br><br>
-Customizable moving arms
-<br><br>
-Sturdy track-driving tread system
-   </td>
-   <td>Patent-pending 3-degree of freedom neck
-<br><br>
-Customizable moving arms
-<br><br>
-Sturdy track-driving tread system
-   </td>
-  </tr>
-  <tr>
-   <td>Display
-   </td>
-   <td>4” LCD display for images, animated .gifs, text, and videos playback
-   </td>
-   <td>4” LCD display for images, animated .gifs, text, and videos playback
-   </td>
-   <td>4” LCD display for images, animated .gifs, text, and videos playback
-   </td>
-  </tr>
-  <tr>
-   <td>Lights
-   </td>
-   <td>White LED flashlight
-<br><br>
-Blue LED "tally light"
-<br><br>
-Multi-color programmable LED chest light
-   </td>
-   <td>White LED flashlight
-<br><br>
-Blue LED "tally light"
-<br><br>
-Multi-color programmable LED chest light
-   </td>
-   <td>White LED flashlight
-<br><br>
-Blue LED "tally light"
-<br><br>
-Multi-color programmable LED chest light
-   </td>
-  </tr>
-  <tr>
-   <td>Connectivity
-   </td>
-   <td>2.4 and 5 Ghz Wi-Fi connection
-<br><br>
-Bluetooth and Bluetooth Low Energy capabilities
-   </td>
-   <td>2.4 and 5 Ghz Wi-Fi connection
-<br><br>
-Bluetooth and Bluetooth Low Energy capabilities
-   </td>
-   <td>2.4 and 5 Ghz Wi-Fi connection
-<br><br>
-Bluetooth and Bluetooth Low Energy capabilities
-   </td>
-  </tr>
-  <tr>
-   <td>Extensibility
-   </td>
-   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
-<br><br>
-Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
-<br><br>
-Compatible with Misty Backpack for Arduino and other microcontrollers
-   </td>
-   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
-<br><br>
-Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
-<br><br>
-Compatible with Misty Backpack for Arduino and other microcontrollers
-   </td>
-   <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
-<br><br>
-Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
-<br><br>
-Compatible with Misty Backpack for Arduino and other microcontrollers
-   </td>
-  </tr>
-    <tr>
-   <td>Charging
-   </td>
-   <td>AC adapter for wired charging included with purchase
-<br><br>
-Wireless charging pad for wireless charging sold separately
-   </td>
-   <td>Wireless charging pad for wireless charging included with purchase
-<br><br>
-AC adapter for wired charging sold separately
-   </td>
-   <td>Wireless charging pad for wireless charging included with purchase
-<br><br>
-AC adapter for wired charging sold separately
-   </td>
-  </tr>
-  <tr>
-   <td> Purchase
-   </td>
-   <td text-align="center">
-      <div>
-      <br />
-         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
-      </div>
-   </td>
+<div class="table-scrollable">
+   <table>
+   <tr>
+      <td>
+      </td>
+      <td><strong>Basic Edition</strong>
+      </td>
+      <td><strong>Standard Edition</strong>
+      </td>
+      <td><strong>Enhanced Edition</strong>
+      </td>
+   </tr>
+   <tr>
+      <td>Price
+      </td>
+      <td>$1,999 MSRP
+      </td>
+      <td>$2,999 MSRP
+      </td>
+      <td>$3,299 MSRP
+      </td>
+   </tr>
+   <tr>
+      <td>Size
+      </td>
+      <td><strong>Height:</strong> 35.56 cm / 14 in
+   <br>
+   <strong>Depth:</strong> 25.4 cm / 10 in
+   <br>
+   <strong>Width:</strong> 20.32 cm / 8 in
+   <br>
+   <strong>Weight:</strong> 2.6 kg / 5.7 lbs
+      </td>
+      <td><strong>Height:</strong> 35.56 cm / 14 in
+   <br>
+   <strong>Depth:</strong> 25.4 cm / 10 in
+   <br>
+   <strong>Width:</strong> 20.32 cm / 8 in
+   <br>
+   <strong>Weight:</strong> 2.7 kg / 6 lbs
+      </td>
+      <td><strong>Height:</strong> 35.56 cm / 14 in
+   <br>
+   <strong>Depth:</strong> 25.4 cm / 10 in
+   <br>
+   <strong>Width:</strong> 20.32 cm / 8 in
+   <br>
+   <strong>Weight:</strong> 2.7 kg / 6 lbs
+      </td>
+   </tr>
+   <tr>
+      <td>Windows IoT Core Processor
+      </td>
+      <td>Qualcomm® Snapdragon 410™
+      </td>
+      <td>Qualcomm® Snapdragon 410™
+      </td>
+      <td>Qualcomm® Snapdragon 410™
+      </td>
+   </tr>
+   <tr>
+      <td>Android 8 Processor
+      </td>
+      <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
+      </td>
+      <td>Qualcomm® Snapdragon Open-Q™ 820 µSOM
+      </td>
+      <td>Qualcomm® Snapdragon Open-Q™ 820Pro µSOM
+      </td>
+   </tr>
+   <tr>
+      <td>Programmability
+      </td>
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools. 
+   <br><br>
+   <strong>Note: </strong>API commands, event types, data, and tools that make use of the depth sensor are not functional with the Misty II Basic Edition. 
+      </td>
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+      </td>
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+      </td>
+   </tr>
+   <tr>
+      <td>Cameras
+      </td>
+      <td>4K RGB camera
+      </td>
+      <td>4K RGB Camera
+   <br><br>
+   166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+      </td>
+      <td>4K RGB Camera
+   <br><br>
+   166° diagonal field of view wide-angle Structure Core camera (106° horizontal x 60° vertical)
+      </td>
+   </tr>
+   <tr>
+      <td>Depth Sensor
+      </td>
+      <td>None
+      </td>
+      <td>Occipital Structure Core depth sensor 
+      </td>
+      <td>Occipital Structure Core depth sensor 
+      </td>
+   </tr>
+   <tr>
+      <td>Audio Recording & Playback
+      </td>
+      <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+   <br><br>
+   2 high-fidelity speakers with engineered sound box and bass port
+      </td>
+      <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+   <br><br>
+   2 high-fidelity speakers with engineered sound box and bass port
+      </td>
+      <td>3 far-field microphones using Qualcomm® FluenceTM PRO
+   <br><br>
+   2 high-fidelity speakers with engineered sound box and bass port
+      </td>
+   </tr>
+   <tr>
+      <td>Touch Sensors
+      </td>
+      <td>6 capacitive touch sensors on head and chin
+      </td>
+      <td>6 capacitive touch sensors on head and chin
+      </td>
+      <td>6 capacitive touch sensors on head and chin
+      </td>
+   </tr>
+   <tr>
+      <td>Distance & Obstacle Detection
+      </td>
+      <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+   <br><br>
+   10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+      </td>
+      <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+   <br><br>
+   10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+      </td>
+      <td>8 IR-based time-of-flight sensors (3 forward, 1 rear, 4 edge/downward)
+   <br><br>
+   10 bump sensors (3 tied in parallel on each front corner, 2 tied in parallel on each rear corner)
+      </td>
+   </tr>
+   <tr>
+      <td>Movement & Locomotion
+      </td>
+      <td>Patent-pending 3-degree of freedom neck
+   <br><br>
+   Customizable moving arms
+   <br><br>
+   Sturdy track-driving tread system
+      </td>
+      <td>Patent-pending 3-degree of freedom neck
+   <br><br>
+   Customizable moving arms
+   <br><br>
+   Sturdy track-driving tread system
+      </td>
+      <td>Patent-pending 3-degree of freedom neck
+   <br><br>
+   Customizable moving arms
+   <br><br>
+   Sturdy track-driving tread system
+      </td>
+   </tr>
+   <tr>
+      <td>Display
+      </td>
+      <td>4” LCD display for images, animated .gifs, text, and videos playback
+      </td>
+      <td>4” LCD display for images, animated .gifs, text, and videos playback
+      </td>
+      <td>4” LCD display for images, animated .gifs, text, and videos playback
+      </td>
+   </tr>
+   <tr>
+      <td>Lights
+      </td>
+      <td>White LED flashlight
+   <br><br>
+   Blue LED "tally light"
+   <br><br>
+   Multi-color programmable LED chest light
+      </td>
+      <td>White LED flashlight
+   <br><br>
+   Blue LED "tally light"
+   <br><br>
+   Multi-color programmable LED chest light
+      </td>
+      <td>White LED flashlight
+   <br><br>
+   Blue LED "tally light"
+   <br><br>
+   Multi-color programmable LED chest light
+      </td>
+   </tr>
+   <tr>
+      <td>Connectivity
+      </td>
+      <td>2.4 and 5 Ghz Wi-Fi connection
+   <br><br>
+   Bluetooth and Bluetooth Low Energy capabilities
+      </td>
+      <td>2.4 and 5 Ghz Wi-Fi connection
+   <br><br>
+   Bluetooth and Bluetooth Low Energy capabilities
+      </td>
+      <td>2.4 and 5 Ghz Wi-Fi connection
+   <br><br>
+   Bluetooth and Bluetooth Low Energy capabilities
+      </td>
+   </tr>
+   <tr>
+      <td>Extensibility
+      </td>
+      <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+   <br><br>
+   Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+   <br><br>
+   Compatible with Misty Backpack for Arduino and other microcontrollers
+      </td>
+      <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+   <br><br>
+   Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+   <br><br>
+   Compatible with Misty Backpack for Arduino and other microcontrollers
+      </td>
+      <td>Universal Serial Bus (USB) - up to 500 mA power supply for external hardware
+   <br><br>
+   Universal Asynchronous Transmitter and Receiver (UART) serial port for data transfer between Misty and external devices
+   <br><br>
+   Compatible with Misty Backpack for Arduino and other microcontrollers
+      </td>
+   </tr>
+      <tr>
+      <td>Charging
+      </td>
+      <td>AC adapter for wired charging included with purchase
+   <br><br>
+   Wireless charging pad for wireless charging sold separately
+      </td>
+      <td>Wireless charging pad for wireless charging included with purchase
+   <br><br>
+   AC adapter for wired charging sold separately
+      </td>
+      <td>Wireless charging pad for wireless charging included with purchase
+   <br><br>
+   AC adapter for wired charging sold separately
+      </td>
+   </tr>
+   <tr>
+      <td> Purchase
+      </td>
       <td text-align="center">
-      <div>
-      <br />
-         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
-      </div>
-   </td>
-      <td text-align="center">
-      <div>
-      <br />
-         <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
-      </div>
-   </td>
-
-</table>
+         <div>
+         <br />
+            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+         </div>
+      </td>
+         <td text-align="center">
+         <div>
+         <br />
+            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+         </div>
+      </td>
+         <td text-align="center">
+         <div>
+         <br />
+            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+         </div>
+      </td>
+   </table>
+</div>
