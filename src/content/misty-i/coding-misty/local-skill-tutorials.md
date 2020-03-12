@@ -116,7 +116,7 @@ misty.Debug("ending skill helloworld_timeofflight");
 
 Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill). 
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Time-of-Flight).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Time-of-Flight).
 
 ```JavaScript
 // Print a message to indicate the skill has started
@@ -210,7 +210,7 @@ Note: All of this logic needs to be contained within `_GetAudioList()` to ensure
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Play%20Audio).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Play%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -304,7 +304,7 @@ else {
 
 Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Record%20Audio).
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Record%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -419,7 +419,7 @@ function _FaceRecognitionTimeout() {
 
 Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Face%20Detection).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Face%20Detection).
 
 ```JavaScript
 
@@ -521,7 +521,7 @@ Using timed events, we have told Misty to change her chest LED to a random color
 
 Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Timer%20Events).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Timer%20Events).
 
 ```JavaScript
 
@@ -920,4 +920,4 @@ function _BackTOF(data) {
 
 Congratulations, triggering callbacks across skills is a valuable tool you can add to your Misty-programming experience! Save the code files, and see the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
-[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20%7C%20Trigger%20Skill)
+[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Trigger%20Skill)

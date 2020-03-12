@@ -99,4 +99,4 @@ If you get stuck or have questions while developing for and interacting with you
 
 ## Additional Resources
 
-You can find helper libraries, code samples, wrappers, CAD files for Misty's exterior parts and mounting points, and other useful resources for building with Misty in the [Misty Robotics Community](https://github.com/MistyCommunity) on GitHub. For examples of working skills that use a variety of Misty's capabilities, see [Misty Skill Samples](https://github.com/MistySampleSkills/) on GitHub.
+You can find sample code, tools, wrappers, CAD files for Misty's exterior parts and mounting points, and other useful resources for building with Misty in the [MistyCommunity organization](https://github.com/MistyCommunity) on GitHub. For a curated collection of templates, skills, and robot applications from the community of Misty II developers, see [MistySampleSkills](https://github.com/MistySampleSkills/) on GitHub.
