@@ -421,7 +421,7 @@ The Misty II Enhanced Edition can actively map for ~10 minutes, and can produce 
 This model provides organizations and individual developers with a platform robot that can take on a wide variety of assignments, especially use cases that require the robot to create maps and navigate within a larger space. This model is fully compatible with the APIs, event types, and data responses that Misty's depth sensor provides.
 
 {{box op="start" cssClass="boxed noteBox"}}
-&ast; **Note:** Actual mapping duration and coverage depends on variables like environmental complexity and many other factors. While individual maps may not provide full coverage of the environment in which you plan to use the robot, the Misty II Standard and Enhanced Editions can create multiple maps that span across a larger environment, and you can use the robot's API to intelligently switch between maps within your skills and robot applications.
+&ast; **Note:** Actual mapping duration and coverage depends on variables like environmental complexity and many other factors.
 {{box op="end"}}
 
 ### Model Comparison
@@ -691,19 +691,19 @@ This table provides more information about the specifications for each Misty II 
       <td text-align="center">
          <div>
          <br />
-            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+            <a href="https://shop.mistyrobotics.com/products/misty-ii-basic-edition" target="_blank" class="button button--purple">Buy Now</a>
          </div>
       </td>
          <td text-align="center">
          <div>
          <br />
-            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+            <a href="https://shop.mistyrobotics.com/products/misty-ii-standard-edition" target="_blank" class="button button--purple">Buy Now</a>
          </div>
       </td>
          <td text-align="center">
          <div>
          <br />
-            <a href="https://shop.mistyrobotics.com/?__hstc=181257784.2aeb9b498abc3256740ae1e56a22b2e1.1575397818855.1583870680452.1583873822813.65&__hssc=181257784.36.1583873822813&__hsfp=3106700895" target="_blank" class="button button--purple">Buy Now</a>
+            <a href="https://shop.mistyrobotics.com/products/misty-ii-enhanced-edition" target="_blank" class="button button--purple">Buy Now</a>
          </div>
       </td>
    </table>
