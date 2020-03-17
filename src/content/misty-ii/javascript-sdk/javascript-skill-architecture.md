@@ -244,24 +244,26 @@ In Misty's JavaScript SDK, the syntax for invoking the `Set` command is as follo
 
 ```js
 // Syntax
-misty.Set(string key, string value, [bool longTermStorage]);
+misty.Set(string key, string value, [bool longTermStorage], [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
+
+You can call the `misty.Set()` method to save or update data that's associated with the current skill, or you can use the `skillUniqueId` argument to modify data that's associated with another skill. To save or update data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Set()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Values you save with the [`misty.Set()`](../../../misty-ii/javascript-sdk/api-reference/#misty-set) method must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
-When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
-
-```JavaScript
-misty.Set("key", "my long term data", true);
-```
-
-By default, data you save with the `misty.Set()` method is cleared from Misty's memory when the robot reboots. To change this behavior, you must include an additional `SkillStorageLifetime` attribute in the [meta file](./#meta-file) for your skill. The value you assign to the `SkillStorageLifetime` attribute determines how long the data you save for a particular skill remains on the robot.
-
-You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+By default, the data you save with the `misty.Set()` method clears from Misty's memory when Misty reboots. To enable long term storage, you must include an additional `SkillStorageLifetime` attribute in the skill's meta file. This attribute determines how long Misty can store data associated with a particular skill. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
 
 * `Skill` - The data clears when the skill stops running.
 * `Reboot` - The data clears the next time Misty reboots (default).
-* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](../../../misty-ii/javascript-sdk/api-reference/#misty-remove) command.
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](./#misty-remove) command. 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To save a piece of data that persists across reboots, you must:
+
+* Set the `SkillStorageLifetime` attribute to `LongTerm` in the meta file for the skill to which the data belongs.
+* Call the `misty.Set()` method with a value of `true` for the `longTermStorage` argument. If you fail to declare that a piece of data should be saved to long term storage when you call the `misty.Set()` method, that data will be cleared when Misty reboots, even if you have enabled long term storage in the meta file for your skill.
+* Call the `misty.Set()` argument from within the skill with which to associate the data.
+{{box op="end"}}
 
 You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
 
@@ -294,15 +296,10 @@ You must use the `Get` command to access the data associated with a particular k
 
 ```JavaScript
 // Syntax
-misty.Get(string key, [int prePauseMs], [int postPauseMs]);
+misty.Get(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
 
-It is helpful to understand how the system manages instances where two (or more) skills read and write data to the same key.
-
-* Any keys a skill creates with the `Set` command are associated in Misty's database with the `UniqueId` (or `SkillId`) for that skill. When a skill uses `Get` or `Set` to retrieve or update a particular key, the system automatically filters the data the skill can access by using the `SkillId`s associated with each key in the database.
-* If a skill does not have read or write permissions for other skills that use the same keys, then the skill can only return and modify the values associated with the keys it has created.
-* If a skill grants read or write permissions to other skills that use the same keys **after** those skills have already assigned values to those keys on the robot's database, then those skills are not guaranteed to return the data associated with the original skill.
-* To avoid situations where the system returns data associated with the wrong skill, it is a good practice to use unique key names for the data you want to share and update across skills. Set values for these keys in a "parent" skill (that runs first) to grant read and write access to "child" skills (that run later).
+You can call the `misty.Get()` method to access data created by the current skill, or you can use the `skillUniqueId` argument to access data associated with another skill. To read data from another skill, that skill must grant *read permissions* to the skill that calls the `misty.Get()` method.
 
 ## Command Types
 

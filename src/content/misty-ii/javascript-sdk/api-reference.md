@@ -3520,20 +3520,19 @@ misty.Debug("Message")
 
 ### misty.Get
 
-Returns data that a skill has saved to Misty's database with the `Set` command. Call the `misty.Get()` method to access data created by the current skill, or to access cross-skill data. 
+Returns data that a skill has saved to Misty's database with the `misty.Set()` method.
 
 ```JavaScript
 // Syntax
-misty.Get(string key, [int prePauseMs], [int postPauseMs]);
+misty.Get(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Before a skill can access keys saved by another skill, the skill that created the keys must grant read permission to the skill that wants to read the keys. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
-{{box op="end"}}
+Call the `misty.Get()` method to access data created by the current skill, or to access data associated with another skill. To read data from another skill, that skill must grant *read permissions* to the skill that calls the `misty.Get()` method. You declare read permissions by updating the `ReadPermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Arguments
 
-* key (string) - The key name of the data to return.
+* key (string) - The key name for the data to return.
+* skillUniqueId (string) - Optional. The Unique ID of the skill associated with the data to obtain. If `null` or empty, obtains the value for the `key` associated with the skill that calls the `misty.Get()` method. **Note:** In order to obtain data that's associated with another skill, that skill must [grant *read permissions* to the skill that calls the `misty.Get()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -3585,15 +3584,18 @@ Returns
 
 ### misty.Keys
 
-Returns a list of all the available persistent data stored on the robot. 
+Obtains a list of all existing keys for the long term data associated with a particular skill.
 
 ```JavaScript
 // Syntax
-misty.Keys([int prePauseMs], [int postPauseMs]);
+misty.Keys([string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
+
+Call the `misty.Keys()` method to access a list of the data keys associated with the current skill, or to access a list of the keys associated with another skill. To access a list of keys associated with another skill, that skill must grant *read permissions* to the skill that calls the `misty.Keys()` method. You declare read permissions by updating the `ReadPermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Arguments
 
+* skillUniqueId (string) - Optional. The Unique ID of the skill for which to return data keys. If `null` or empty, Misty returns keys associated with the skill that calls the `misty.Keys()` method. **Note:** In order to get the keys associated with another skill, that skill must [grant *read permissions* to the skill that calls the `misty.Keys()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -3604,7 +3606,7 @@ misty.Keys();
 
 Returns
 
-* Keys (list) - A list of the keys and values for all available persistent data stored on the robot.
+* Keys (list) - A list of the data keys associated with the chosen skill.
 
 ### misty.Pause
 
@@ -3665,16 +3667,19 @@ misty.RandomPause(1000, 2000);
 
 ### misty.Remove
 
-Removes data that has been saved to the robot under a specific key with `misty.Set()`. 
+Removes data that has been saved to the robot under a specific key with the `misty.Set()` method. 
 
 ```JavaScript
 // Syntax
-misty.Remove(string key, [int prePauseMs], [int postPauseMs])
+misty.Remove(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs])
 ```
+
+Call the `misty.Remove()` method to delete keys associated with the current skill or another skill on the robot. To delete data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Remove()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Arguments
 
 * key (string) - The key name of the data to remove.
+* skillUniqueId (string) - Optional. The Unique ID of the skill associated with the key to remove. If `null` or empty, Misty removes the key associated with the skill that calls the `misty.Remove()` method. **Note:** In order to delete data that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Remove()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -3706,32 +3711,37 @@ misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 
 ### misty.Set
 
-Saves data that can be validly updated and used across threads or shared between skills. Call the `misty.Set()` method to save or update data associated with the current skill, or to update cross-skill data.
+Saves data that can be validly updated and used across threads or shared between skills.
 
 ```JavaScript
 // Syntax
-misty.Set(string key, string value, [bool longTermStorage], [int prePauseMs], [int postPauseMs]);
+misty.Set(string key, string value, [string skillUniqueId], [bool longTermStorage], [int prePauseMs], [int postPauseMs]);
 ```
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** Before a skill can update keys created by another skill, the skill that created the keys must grant write permission to the skill that wants to update them. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
-{{box op="end"}}
+Call the `misty.Set()` method to save or update data that's associated either with the current skill or with another skill. To save or update data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Set()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
-By default, long term data saved by the `misty.Set()` command clears from Misty's memory when Misty reboots. To change this, you need to include an additional `SkillStorageLifetime` key in the meta file for your skill. The `SkillStorageLifetime` key determines how long data saved to Misty with the `misty.Set()` command remains available for use in your skills. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+By default, the data you save with the `misty.Set()` method clears from Misty's memory when Misty reboots. To enable long term storage, you must include an additional `SkillStorageLifetime` attribute in the skill's meta file. This attribute determines how long Misty can store data associated with a particular skill. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
 
 * `Skill` - The data clears when the skill stops running.
-* `Reboot` - The data clears the next time Misty reboots.
-* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](./#misty-remove) command.
+* `Reboot` - The data clears the next time Misty reboots (default).
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](./#misty-remove) command. 
 
-You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default behavior of persistent data for that skill.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To save a piece of data that persists across reboots, you must:
+
+* Set the `SkillStorageLifetime` attribute to `LongTerm` in the meta file for the skill to which the data belongs.
+* Call the `misty.Set()` method with a value of `true` for the `longTermStorage` argument. If you fail to declare that a piece of data should be saved to long term storage when you call the `misty.Set()` method, that data will be cleared when Misty reboots, even if you have enabled long term storage in the meta file for your skill.
+* Call the `misty.Set()` argument from within the skill with which to associate the data.
+{{box op="end"}}
 
 Arguments
 
 * key (string) - The key name for the data to save.
-* value (value) - The data to save. Data saved using `misty.Set()` must be one of these types: `string`, `bool`, `int`, or `double`.
-* longTermStorage (boolean) - Whether to save the data to long term storage. Defaults to `false`.
+* value (string, bool, int, or double) - The data to save. Data Misty saves with the `misty.Set()` method must be one of these types: `string`, `bool`, `int`, or `double`.
+* skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
+* longTermStorage (boolean) - Optional. Whether this piece of data persists across reboots. To save a piece of data that persists across reboots, you must set the `SkillStorageLifetime` attribute for the skill to `LongTerm` **in addition** to setting the value of this argument to `true`. Defaults to `false`. 
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next comm
 and in the skill. If no command follows this command, `postPauseMs` is not used.
