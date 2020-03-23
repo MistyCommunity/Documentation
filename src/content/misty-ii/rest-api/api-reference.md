@@ -294,7 +294,7 @@ Parameters
 - Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
 - File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
+- OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -327,7 +327,7 @@ Parameters
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * Height (integer) -  Optional. A whole number greater than 0 specifying the desired image height (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image.
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately display the uploaded image file, while a value of `false` tells  Misty not to display the image.
-- OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` indicates the uploaded file should not overwrite any existing files on Misty.
+- OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -360,7 +360,7 @@ Parameters
 * FileName (string) - The name of the video file to upload, with the file type extension.
 * Data (string or file) - **Option 1**: A Base64-encoded string of the video file data. **Option 2**: The video file. Valid video file types are `.mp4` and `.wmv`. When using option 2, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
 * ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded video, while a value of `false` tells Misty not to play the video.
-* OverwriteExisting (boolean) - Optional. A value of `true` indicates the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of false indicates the uploaded file should not overwrite any existing files on Misty.
+* OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of false means the uploaded file should not overwrite any existing files on Misty.
 
 Return Values
 
@@ -1499,6 +1499,91 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### GetHazardSettings
+
+Obtains the current hazards system settings for Misty's time-of-flight and bump sensors.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: GET &lt;robot-ip-address&gt;/api/hazards/settings
+
+Parameters
+
+* None
+
+Return Values
+
+* result (object) - Describes the current hazards system settings for Misty's time-of-flight and bump sensors. Includes the following key/value pairs:
+  * bumpSensors (array) - An array of objects that describe whether each bump sensor is enabled or disabled. Each object in the `bumpSensors` array includes the following key/value pairs:
+    * enabled (boolean) - Hazards are enabled for this bump sensor if `true`, and are disabled if `false`.
+    * sensorName (string) - The name of this bump sensor. One of the following: `Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`.
+  * timeOfFlightSensors (array) - An array of objects that describe the distance threshold that triggers a hazard response for each of Misty's time-of-flight sensors. Includes the following key/value pairs:
+    * sensorName (string) - The name of this time-of-flight sensor. One of the following: `TOF_Right`, `TOF_Center`, `TOF_Left`, `TOF_Back`, `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`.
+    * threshold (double) - The minimum distance (in meters) that triggers a hazard state for this time-of-flight sensor. A `threshold` value of `0` means hazards are disabled for this sensor.
+
+```JSON
+// Example Response:
+{
+    "result": {
+        "bumpSensors": [
+            {
+                "enabled": true,
+                "sensorName": "Bump_FrontRight"
+            },
+            {
+                "enabled": true,
+                "sensorName": "Bump_FrontLeft"
+            },
+            {
+                "enabled": true,
+                "sensorName": "Bump_RearRight"
+            },
+            {
+                "enabled": true,
+                "sensorName": "Bump_RearLeft"
+            }
+        ],
+        "timeOfFlightSensors": [
+            {
+                "sensorName": "TOF_Right",
+                "threshold": 0.215
+            },
+            {
+                "sensorName": "TOF_Center",
+                "threshold": 0.215
+            },
+            {
+                "sensorName": "TOF_Left",
+                "threshold": 0.215
+            },
+            {
+                "sensorName": "TOF_Back",
+                "threshold": 0.215
+            },
+            {
+                "sensorName": "TOF_DownFrontRight",
+                "threshold": 0.06
+            },
+            {
+                "sensorName": "TOF_DownFrontLeft",
+                "threshold": 0.06
+            },
+            {
+                "sensorName": "TOF_DownBackRight",
+                "threshold": 0.06
+            },
+            {
+                "sensorName": "TOF_DownBackLeft",
+                "threshold": 0.06
+            }
+        ]
+    },
+    "status": "Success"
+}
+```
 
 ### GetMap
 
