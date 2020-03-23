@@ -493,6 +493,15 @@ Each `meta` file includes the following attributes:
     "WriteToLog": false,
 ```
 
+`SkillStorageLifetime` (string) - Optional. Determines how long the system saves the shared data this skill creates.
+* `Skill` - The data clears when the skill stops running.
+* `Reboot` - The data clears the next time Misty reboots (default).
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `DeleteSharedData` (.NET) or `misty.Remove()` (JavaScript) command.
+
+```JSON
+    "SkillStorageLifetime": "LongTerm"
+```
+
 `ReadPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to read the data this skill creates with the `misty.Set()` method.
 
 ```JSON

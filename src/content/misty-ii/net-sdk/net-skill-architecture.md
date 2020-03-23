@@ -60,6 +60,14 @@ When you implement a new `NativeRobotSkill`, you can set values for the followin
   * `Manual` - Allows a user to start the skill from the Skill Runner web page or by sending a request to the [`RunSkill`](../../../misty-ii/rest-api/api-reference/#runskill) endpoint in Misty's REST API. By default, all skills are implemented with the Manual startup rule.
   * `Startup` - Configures the skill to start as soon as Misty boots up. **Note:** Misty runs **all** skills set to run on startup when she boots up. 
 * `TimeoutInSeconds` (int) - Optional. The number of seconds a skill runs before it times out. Defaults to 600 seconds (or 10 minutes).
+* `SkillStorageLifetime` (`SkillStorageLifetime`) - Determines how long the system saves the shared data this skill creates.
+  * `Skill` - The data clears when the skill stops running.
+  * `Reboot` - The data clears the next time Misty reboots (default).
+  * `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `DeleteSharedData` (.NET) or `misty.Remove()` (JavaScript) command.
+* `ReadPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to read the shared data this skill creates. If empty, any skill can read this skill's shared data. If an empty Guid, no outside skills can read this skill's shared data. If the list includes one or more `UniqueId`s, only those skills (and this one) can read this skill's shared data. 
+* `WritePermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to create, update, and remove shared data associated with this skill. If empty, any skill can write to this skill's shared data. If an empty Guid, no outside skills can write to this skill's shared data. If the list includes one or more `UniqueId`s, only those skills (and this one) can write to this skill's shared data. 
+* `StartPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to start or cancel this skill. If empty, any skill can start or cancel this skill. If an empty Guid, no skill can start or cancel this skill. If the list includes one or more `UniqueId`s, only those skills (and this one) can start or stop this skill.
+* `TriggerPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to trigger user events in this skill. If empty, all skills can trigger events in this skill. If an empty Guid, only this skill can only trigger user events within itself. If the array contains one or more `SkillId`s, only those skills (and this skill) can trigger user events within this skill.
 
 ### `LoadRobotConnection`
 
