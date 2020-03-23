@@ -669,6 +669,42 @@ Returns
 
 * Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
 
+### misty.TriggerEvent
+
+Broadcasts a custom event message (with custom event data) to event listeners in any running JavaScript or .NET skill.
+
+```JavaScript
+// Syntax
+misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* eventName (string) - A name of your choice for the custom event. Use this name to register a listener for this event in other JavaScript or .NET skills.
+* source (string) - A name of your choice that describes the source of the event.
+* data (string) - The data to send with the event. JSON data must be passed in as a string (for example, using `JSON.stringify({"Data": "Value"})`).
+* allowedSkills (string) - A comma-separated list of one or more `UniqueId`s for each skill that is allowed to receive this event. To allow all skills to receive this event, use an empty string: `""`. **Note:** To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 
+
+```JavaScript
+// Example
+
+// For the "broadcasting" skill:
+misty.Debug("Starting skill: Sender");
+misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
+
+// For the "listening" skill:
+misty.Debug("Starting skill: Listener");
+misty.RegisterUserEvent("MyEvent", true);
+
+function _MyEvent(data) {
+    misty.Debug("Event received: MyEvent");
+    misty.Debug(JSON.stringify(data));
+    // Do something
+}
+```
+
 ### misty.UnregisterAllEvents
 
 Unregisters from all events for the skill in which this command is called.
