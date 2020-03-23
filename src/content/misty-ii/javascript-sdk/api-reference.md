@@ -669,6 +669,42 @@ Returns
 
 * Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
 
+### misty.TriggerEvent
+
+Broadcasts a custom event message (with custom event data) to event listeners in the current skill, and to listeners in other JavaScript or .NET skills that are running at the same time.
+
+```JavaScript
+// Syntax
+misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
+```
+
+Arguments
+
+* eventName (string) - A name of your choice for the custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
+* source (string) - A name of your choice that describes the source of the event.
+* data (string) - The data to send with the event. JSON data must be passed in as a string (for example, using `JSON.stringify({"Data": "Value"})`).
+* allowedSkills (string) - A comma-separated list of one or more `UniqueId`s for each skill that is allowed to receive this event. To allow all skills to receive this event, use an empty string: `""`. **Note:** To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 
+
+```JavaScript
+// Example
+
+// For the "broadcasting" skill:
+misty.Debug("Starting skill: Sender");
+misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
+
+// For the "listening" skill:
+misty.Debug("Starting skill: Listener");
+misty.RegisterUserEvent("MyEvent", true);
+
+function _MyEvent(data) {
+    misty.Debug("Event received: MyEvent");
+    misty.Debug(JSON.stringify(data));
+    // Do something
+}
+```
+
 ### misty.UnregisterAllEvents
 
 Unregisters from all events for the skill in which this command is called.
@@ -1885,6 +1921,49 @@ Returns
 
 * Result (string) - The unique key associated with the currently active map. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
+### misty.GetHazardSettings
+
+Obtains the current hazards system settings for Misty's time-of-flight and bump sensors.
+
+```JavaScript
+// Syntax
+misty.GetHazardSettings([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetHazardSettings()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetHazardSettings()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Syntax
+misty.GetHazardSettings();
+
+function _GetHazardSettings(data) {
+    misty.Debug(JSON.stringify(data));
+}
+```
+
+Returns
+* Result (object) - Describes the current hazards system settings for Misty's time-of-flight and bump sensors. Includes the following key/value pairs:
+  * BumpSensors (array) - An array of objects that describe whether each bump sensor is enabled or disabled. Each object in the `bumpSensors` array includes the following key/value pairs:
+    * Enabled (boolean) - Hazards are enabled for this bump sensor if `true`, and are disabled if `false`.
+    * SensorName (string) - The name of this bump sensor. One of the following: `Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`.
+  * TimeOfFlightSensors (array) - An array of objects that describe the distance threshold that triggers a hazard response for each of Misty's time-of-flight sensors. Includes the following key/value pairs:
+    * SensorName (string) - The name of this time-of-flight sensor. One of the following: `TOF_Right`, `TOF_Center`, `TOF_Left`, `TOF_Back`, `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`.
+    * Threshold (double) - The minimum distance (in meters) that triggers a hazard state for this time-of-flight sensor. A `threshold` value of `0` means hazards are disabled for this sensor.
+
 ### misty.GetSlamIrExposureAndGain
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
@@ -2617,6 +2696,84 @@ Returns
   - Width (integer) - The width of the picture in pixels.
   - SystemAsset (bool) - Whether the image is a one of Misty's default system assets. For pictures you take with Misty's fisheye camera, this value is `false`.
 
+### misty.UpdateHazardSettings
+
+Changes the hazard system settings for Misty's bump and time-of-flight sensors. Use this command to enable or disable hazard triggers for all bump or time-of-flight sensors, or to adjust the hazard trigger settings for each sensor individually.
+
+```JavaScript
+// Syntax
+misty.UpdateHazardSettings(bool revertToDefault, [bool disableTimeOfFlights], [bool disableBumpSensors], [string bumpSensorsEnabled], [string timeOfFlightThresholds], [int prePauseMs], [int postPauseMs])
+```
+
+{{box op="start" cssClass="boxed warningBox"}}
+**Warning:** Our testing shows that Misty cannot safely drive over ledges of greater than 0.06 meters. Navigating drops higher than 0.06 meters can cause Misty to tip or fall and become damaged. You may find it useful to customize these settings while testing and developing your robot's skills, but DO SO AT YOUR OWN RISK. We always recommend working with Misty on her foam block while she's operating on a high surface like a desk or table. Always supervise your robot while she is operating in a new environment, and be ready to catch her in the event that she tips over a high ledge.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** The settings for Misty's hazard system reset to the default values listed in the tables below each time the robot boots up. The changes you apply with this command do not save across reboot cycles.
+
+This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+The default hazards settings for Misty's bump sensors are as follows:
+
+| **`sensorName`** | **`enabled`** |
+| -- | -- |
+| `Bump_FrontRight` | `true` |
+| `Bump_FrontLeft` | `true` |
+| `Bump_RearRight` | `true` |
+| `Bump_RearLeft` | `true` |
+
+The default hazard settings for Misty's time-of-flight sensors are as follows:
+
+|**`sensorName`**| **`threshold`** (in meters) |
+|--|--|
+|`TOF_DownFrontRight`| 0.06|
+|`TOF_DownFrontLeft` | 0.06|
+|`TOF_DownBackRight` |0.06|
+|`TOF_DownBackLeft`|0.06|
+|`TOF_Right` |0.215|
+|`TOF_Left`|0.215|
+|`TOF_Center`|0.215|
+|`TOF_Back`|0.215|
+
+Arguments:
+
+* revertToDefault (boolean) - If `true`, sets Misty to use the default hazard system settings (listed above). No effect if `false`. Default is `false`.
+* disableTimeOfFlights (boolean) - Optional. If `true`, disables hazards for all time-of-flight sensors by setting the `threshold` for each sensor to `0`. No effect if `false`. Default is `false`.
+* disableBumpSensors (boolean) - Optional. If `true`, disables hazards for all bump sensors. No effect if `false`. Default is `false`. 
+* bumpSensorsEnabled (string) - Optional. An array (passed in as a string) of up to four objects that you can use to turn hazards on or off for each of Misty's bump sensors. The `BumpSensorsEnabled` array only needs to include objects for the sensors that you want to adjust. The order of these objects in the array does not matter. Each object must include the following key/value pairs: 
+  * sensorName (string) - The name of one of Misty's bump sensors. Expects `Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`.
+  * enabled (boolean) - Enables or disables hazards for the correlated bump sensor. Bump sensor hazards are enabled (`true`) by default.
+* timeOfFlightThresholds (array) - Optional. An array (passed in as a string) of up to eight objects that set the minimum distance threshold to trigger a hazard state for each of Misty's time-of-flight sensors. The `TimeOfFlightThresholds` array only needs to include objects for the sensors that you want to adjust. The order of these objects in the array does not matter. Each object must include the following key/value pairs: 
+  * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
+  * threshold (double) - The minimum distance (in meters) that triggers a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+
+// Disables front right and rear right bump sensors
+// Sets custom thresholds for all ToF sensors
+misty.UpdateHazardSettings(false, false, false, 
+	`[
+        {"sensorName":"Bump_FrontRight","enabled":false},
+        {"sensorName":"Bump_FrontLeft","enabled":true},
+        {"sensorName":"Bump_RearRight","enabled":false},
+        {"sensorName":"Bump_RearLeft","enabled":true}
+	]`,
+	`[
+        {"sensorName":"TOF_DownFrontRight","threshold":0.05},
+        {"sensorName":"TOF_DownFrontLeft","threshold":0.01},
+        {"sensorName":"TOF_DownBackRight","threshold":1.0},
+        {"sensorName":"TOF_DownBackLeft","threshold":0.01},
+        {"sensorName":"TOF_Right","threshold": 0.01},
+        {"sensorName":"TOF_Left","threshold":2.0},
+        {"sensorName":"TOF_Center","threshold":0.5},
+		{"sensorName":"TOF_Back","threshold":0.4}
+	]`);
+```
 
 ## Perception
 
