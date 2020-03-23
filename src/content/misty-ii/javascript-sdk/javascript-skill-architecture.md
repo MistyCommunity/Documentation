@@ -167,8 +167,9 @@ Finally, when an event callback is triggered, note that by default it unregister
 * You can re-register the event in the event callback function.
 * To keep the event alive and not unregister on a callback, you can pass `true` for the `keepAlive` parameter when you register the event.
 
-### Timed or Triggered Event Callbacks
-Using the `RegisterTimerEvent()` function, you can create an event that sends a callback after a certain period of time:
+### Timed Event Callbacks
+
+Using the [`misty.RegisterTimerEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent) method, you can create an event that sends a callback after a certain period of time:
 
 ```js
 misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
@@ -178,16 +179,23 @@ By default, that event is triggered once and removed, but you can choose to have
 
 For example, you can set the `callbackTimeInMs` parameter to 5 seconds and specify `keepAlive` to be `true`. Then, after the callback is triggered, the timer resets and the callback will be called again every 5 seconds until the timer event is unregistered with `UnregisterEvent` or is automatically unregistered when the skill ends.
 
-You can also create a triggered event to call back to the skill when a specific command is called. That event is triggered once and removed, but you can immediately re-register as needed in the callback:
+### Triggered Event Callbacks
 
-```js
-misty.RegisterUserEvent(string eventName, string callback);
+You can also register a listener for custom user events by using the [`misty.RegisterUserEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registeruserevent) method.
+
+```JavaScript
+// Syntax
+misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
-You can also trigger an event by making a REST call to the event endpoint with a POST command:
+To trigger a user event, you can:
+* issue a POST request to the endpoint for the `TriggerSkillEvent` command, or
+* invoke the `TriggerEvent` command from a JavaScript or .NET skill.
+
+To trigger a user event with Misty's REST API, issue a POST request to the endpoint for the [`TriggerSkillEvent`](../../../misty-ii/rest-api/api-reference/#triggerskillevent) command:
 
 ```html
-POST <robot-ip-address>api/coding-misty/event
+POST <robot-ip-address>api/skills/event
 ```
 
 With a JSON body similar to:
@@ -200,7 +208,38 @@ With a JSON body similar to:
 }
 ```
 
-The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
+The `UniqueId` and `EventName` values are required, and they must match the ID of the skill to call and the event name that you registered a listener for in that skill. You should place any payload data you wish to send to the skill in the `Payload` field. You can process this data in the event callback.
+
+Additionally, you can use the [TriggerEvent](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks across running skills. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
+
+```JavaScript
+// Syntax
+misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
+```
+
+To trigger user events from a skill, you must invoke the `TriggerSkill` command. You must also register event listeners in any skills you want to receive the event. 
+
+Sending a custom event from a JavaScript skill might look like this:
+
+```JavaScript
+misty.Debug("Starting skill: Sender");
+misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
+```
+
+Any JavaScript or .NET skill that registers a listener for the custom `MyEvent` event in this example can receive and handle this event. For example, to handle this event in a separate JavaScript skill, you might use:
+
+```JavaScript
+misty.Debug("Starting skill: Listener");
+misty.RegisterUserEvent("MyEvent", true);
+
+function _MyEvent(data) {
+    misty.Debug("Event received: MyEvent");
+    misty.Debug(JSON.stringify(data));
+    // Do something
+}
+```
+
+To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
 
 ## Data Handling
 
@@ -320,9 +359,7 @@ All of the event command types require you to implement a callback to be notifie
 
 * **Sensor Events.** These commands (such as `RegisterEvent` and `AddPropertyTest`) allow you to be notified when sensor data that meets your criteria is available from Misty. See the [Sensor Event Callbacks](./#sensor-event-callbacks) section for more usage details.
 * **Timed Events.** Using the `RegisterTimerEvent` command, you can create timed events that call back to the skill after a certain period of time.
-* **Triggered Events.** With the `RegisterUserEvent` command, you can also create a triggered event to call back to the skill when an specific command is called. See the [Timed or Triggered Event Callbacks](./#timed-or-triggered-event-callbacks) section for more details on using user-defined event callbacks.
-
-<!-- TODO: Add link to Timed or Triggered Event Callbacks section -->
+* **Triggered Events.** With the `TriggerEvent` and `RegisterUserEvent` commands, you can create custom event messages  that trigger event callbacks in other JavaScript or .NET skills. See the [Timed or Triggered Event Callbacks](./#timed-or-triggered-event-callbacks) section for more details on using user-defined event callbacks.
 
 ### Helper Commands
 
