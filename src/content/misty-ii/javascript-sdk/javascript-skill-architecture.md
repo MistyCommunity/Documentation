@@ -210,7 +210,7 @@ With a JSON body similar to:
 
 The `UniqueId` and `EventName` values are required, and they must match the ID of the skill to call and the event name that you registered a listener for in that skill. You should place any payload data you wish to send to the skill in the `Payload` field. You can process this data in the event callback.
 
-Additionally, you can use the [TriggerEvent](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks across running skills. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
+Additionally, you can use the [TriggerEvent](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
 
 ```JavaScript
 // Syntax
@@ -502,12 +502,30 @@ Each `meta` file includes the following attributes:
     ],
 ```
 
-`WritePermissions` (array) - A list of `SkillId`s for each skill that is allowed to change the data this skill creates with the `misty.Set()` method.
+`WritePermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to change the data this skill creates with the `misty.Set()` method.
 
 ```JSON
     "WritePermissions": [
         "d43ae072-720c-469e-8b58-5cdbf4a7721a"
     ]
+```
+
+`StartPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to start or cancel this skill. If the array is empty, any other skill can start or cancel this skill. If the array contains an empty string (`""`), only this skill can cancel itself. If the array contains one or more `SkillId`s, only those skills (and this skill) can start or cancel this skill.
+
+```JSON
+    "StartPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
+```
+
+`TriggerPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to trigger user events in this skill. If empty, **all** skills can trigger events in this skill. If the array contains an empty string (`""`), **only this skill** can only trigger user events within itself. If the array contains one or more `SkillId`s, only those skills (and this skill) can trigger user events within this skill.
+
+```JSON
+    "TriggerPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
 ```
 
 `Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the meta file for a skill, we can assign the following object to the `Parameters` property:
