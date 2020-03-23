@@ -4216,9 +4216,9 @@ Return Values
 
 * result (boolean) - Returns `true` if no errors related to this command.
 
-### UpdateBaseHazardManagementSettings
+### UpdateHazardSettings
 
-Changes the hazard system settings for Misty's bump and time-of-flight sensors.
+Changes the hazard system settings for Misty's bump and time-of-flight sensors. Use this command to enable or disable hazard triggers for all bump or time-of-flight sensors, or to adjust the hazard trigger settings for each sensor individually.
 
 {{box op="start" cssClass="boxed warningBox"}}
 **Warning:** Our testing shows that Misty cannot safely drive over ledges of greater than 0.06 meters. Navigating drops higher than 0.06 meters can cause Misty to tip or fall and become damaged. You may find it useful to customize these settings while testing and developing your robot's skills, but DO SO AT YOUR OWN RISK. We always recommend working with Misty on her foam block while she's operating on a high surface like a desk or table. Always supervise your robot while she is operating in a new environment, and be ready to catch her in the event that she tips over a high ledge.
@@ -4253,19 +4253,22 @@ The default hazard settings for Misty's time-of-flight sensors are as follows:
 |`TOF_Back`|0.215|
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The `UpdateBaseHazardManagementSettings` endpoint expects a JSON payload with a `Content-Type` of `application/json`.
+**Note:** The `UpdateHazardSettings` endpoint expects a JSON payload with a `Content-Type` of `application/json`.
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/hazard/updatebasesettings
 
 Parameters:
 
-* BumpSensorsEnabled (array) - A four element array of objects that turn hazards on or off for each of Misty's bump sensors. You must include an object for each of Misty's bump sensors, but the order of these objects in the `BumpSensorsEnabled` array does not matter. Each object must include the following key/value pairs: 
+* RevertToDefault (boolean) - Optional. If `true`, sets Misty to use the default hazard system settings (listed above). Default is `false`.
+* DisableTimeOfFlights (boolean) - Optional. If `true`, disables hazards for all time-of-flight sensors. Default is `false`.
+* DisableBumpSensors (boolean) - Optional. If `true`, disables hazards for all bump sensors. Default is `false`. 
+* BumpSensorsEnabled (array) - Optional. An array of up to four objects that you can use to turn hazards on or off for each of Misty's bump sensors. The `BumpSensorsEnabled` array only needs to include objects for the sensors that you want to adjust. The order of these objects in the array does not matter. Each object must include the following key/value pairs: 
   * sensorName (string) - The name of one of Misty's bump sensors. Expects `Bump_FrontRight`, `Bump_FrontLeft`, `Bump_RearRight`, or `Bump_RearLeft`.
   * enabled (boolean) - Enables or disables hazards for the correlated bump sensor. Bump sensor hazards are enabled (`true`) by default.
-* TimeOfFlightThresholds (array) - An eight element array of objects that set the minimum distance that will trigger a hazard state for each of Misty's time-of-flight sensors. You must include an object for each of Misty's time-of-flight sensors, but the order of these objects in the `TimeOfFlightThresholds` array does not matter. Each object must include the following key/value pairs: 
+* TimeOfFlightThresholds (array) - Optional. An array of up to eight objects that set the minimum distance threshold to trigger a hazard state for each of Misty's time-of-flight sensors. The `TimeOfFlightThresholds` array only needs to include objects for the sensors that you want to adjust. The order of these objects in the array does not matter. Each object must include the following key/value pairs: 
   * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
-  * threshold (double) - The minimum distance (in meters) that will trigger a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
+  * threshold (double) - The minimum distance (in meters) that triggers a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
 
 ```JSON
 // Example JSON payload. Sets bump and time-of-flight hazard settings
