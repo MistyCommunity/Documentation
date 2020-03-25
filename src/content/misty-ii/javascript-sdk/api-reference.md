@@ -3887,7 +3887,7 @@ Saves data that can be validly updated and used across threads or shared between
 
 ```JavaScript
 // Syntax
-misty.Set(string key, string value, [string skillUniqueId], [bool longTermStorage], [int prePauseMs], [int postPauseMs]);
+misty.Set(string key, string value, [bool longTermStorage], [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
 
 Call the `misty.Set()` method to save or update data that's associated either with the current skill or with another skill. To save or update data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Set()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
@@ -3912,8 +3912,8 @@ Arguments
 
 * key (string) - The key name for the data to save.
 * value (string, bool, int, or double) - The data to save. Data Misty saves with the `misty.Set()` method must be one of these types: `string`, `bool`, `int`, or `double`.
-* skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * longTermStorage (boolean) - Optional. Whether this piece of data persists across reboots. To save a piece of data that persists across reboots, you must set the `SkillStorageLifetime` attribute for the skill to `LongTerm` **in addition** to setting the value of this argument to `true`. Defaults to `false`. 
+* skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next comm
 and in the skill. If no command follows this command, `postPauseMs` is not used.
