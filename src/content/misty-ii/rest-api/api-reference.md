@@ -3742,6 +3742,7 @@ Return Values
    * sensorCapabilities - An array listing the sensor capabilities for this robot.
    * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
    * serialNumber - The unique serial number for the robot.
+   * sku - The SKU number for this robot. SKU numbers vary by robot model and color. White Standard Edition SKU: `060-000001`; Black Standared Edition SKU: `060-000002`; White Basic Edition SKU: `060-000003`; White Enhanced Edition SKU: `060-000004`.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
 Example response:

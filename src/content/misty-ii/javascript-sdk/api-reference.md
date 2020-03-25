@@ -4564,7 +4564,8 @@ Returns
    * RobotVersion - The version number for the HomeRobot app running on the robot.
    * SensorCapabilities - An array listing the sensor capabilities for this robot.
    * SensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
-   * SerialNumber - The unique serial number for the robot.
+   * SerialNumber - The unique serial number for this robot.
+   * SKU - The SKU number for this robot. SKU numbers vary by robot model and color. White Standard Edition SKU: `060-000001`; Black Standared Edition SKU: `060-000002`; White Basic Edition SKU: `060-000003`; White Enhanced Edition SKU: `060-000004`.
    * WindowsOSVersion - The version of Windows IoT Core running on the robot.
 
 ### misty.GetHelp
