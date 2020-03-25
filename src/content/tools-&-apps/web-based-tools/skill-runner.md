@@ -115,6 +115,13 @@ To uninstall a skill, select the **Delete** button next to the skill's name.
 **Note:** When you delete a .NET skill, the Skill Runner asks you for the credentials used to access Misty's Windows Device Portal. These credentials are printed on the bottom of your robot, and are the same as the credentials used when [connecting to Misty's file system](../../../misty-ii/robot-misty-ii/#connecting-to-misty-39-s-file-system).
 {{box op="end"}}
 
+### Reloading Skills
+
+Most of the time, Misty loads new or updated skills into her skill system right away. You can usually start a newly installed or updated skill without manually reloading all of the skills on your robot. In some cases, however, the system may install a skill without loading that skill and preparing it to run. (For example, installing a skill before Misty is fully booted can lead to a situation where the skill is saved to the robot's storage without being loaded into the skill system.)
+
+If you think your Misty II has not loaded the most recent version of a skill into her skill system, you can click the **Force Skill Reload** button on the Skill Runner web page to manually reload all of the skills on your robot. This button uses the [`ReloadSkills`](../../../misty-ii/rest-api/api-reference/#reloadskills) operation from Misty's REST API to force your robot to reload all existing JavaScript and .NET skills.
+
+![Force Reload Skills button](/assets/images/skill-runner-force-reload-skills.png)
 
 ### Advanced Options
 
