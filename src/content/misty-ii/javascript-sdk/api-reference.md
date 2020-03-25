@@ -3207,7 +3207,7 @@ Valid resolutions (as `width` x `height`) for AV streaming are: 1920 x 1280, 128
 Misty supports the following modes for AV streaming:
 
 * Misty can transmit a live audio and video data stream to an external media server that you configure to run on the same network as the robot. Misty supports streaming over Real-Time Messaging Protocol (RTMP) or Real Time Streaming Protocol (RTSP). You must create and host the media server yourself and configure the server to publish a stream you can view with a streaming client (like [VLC](https://www.videolan.org/vlc/)). 
-* Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot.
+* Misty can serve an RTSP stream herself, and you can view the stream with a client connected to the same network as the robot. Misty's server can stream to clients that use TCP or UDP to receive AV streaming data.
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** For lowest latency use RTSP instead of RTMP. To decrease latency further, adjust the network caching settings for your streaming client.
@@ -3232,7 +3232,7 @@ Arguments
 * frameRate (int) - Optional. The frame rate at which Misty streams video. You must use a value greater than `1` and less than `30`. Default is `30`.  
 * videoBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed video data. Defaults to `5000000` (5 mbps). Valid values are between `256000` (256 kbps) and `20000000` (20 mbps).  
 * audioBitRate (int) - Optional. The bitrate (in bits per second) at which to encode streamed audio data. Defaults to `128000` (128 kbps). Valid values are between `32000` (32 kbps) and `1000000` (1 mbps). 
-* audioSampleRateHz (int) - Optional. The sample rate (in hz) at which to record audio for the audio stream. Defaults to `44100` (44.1 kHz).
+* audioSampleRateHz (int) - Optional. The sample rate (in hz) at which to record audio for the audio stream. Defaults to `44100` (44.1 kHz). Supported sample rates include: `11025`, `12000`, `16000`, `22050`, `24000`, `32000`, `44100`, and `48000`.
 * userName (string) - Optional. The username a stream must supply to transmit media to your external server. Not all servers require a username and password. You can change whether to require credentials when you set up your server.
 * password (string) - Optional. The password for connecting to your external media server.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
