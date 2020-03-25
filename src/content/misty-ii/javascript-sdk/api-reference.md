@@ -626,24 +626,7 @@ Returns
 
 ### misty.RegisterUserEvent
 
-Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `<robot-ip-address>/api/skills/event` endpoint with the appropriate payload for the callback and/or skill.
-
-Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
-
-```http
-POST <robot-ip-address>/api/skills/event
-```
-
-With a JSON body similar to:
-```JSON
-{
-    "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
-    "EventName": "UserEventName",
-    "Payload": { "mydata": "two" }
-}
-```
-
-The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
+Creates a listener for custom user events. You can trigger a custom event by making a REST call to the [TriggerSkillEvent](../../../misty-ii/rest-api/api-reference/#triggerskillevent) endpoint, or by issuing a [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command from another JavaScript or .NET skill that is running at the same time.
 
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
 
@@ -653,21 +636,36 @@ misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule
 ```
 
 Arguments
-* eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
-* keepAlive (bool) - Optional. By default (`false`) the event is triggered only once. If you pass `true`, you can trigger the event repeatedly. To remove this event, call the `misty.UnregisterEvent()` function in your code.
-* callbackRule (string) - Optional. By default (`Synchronous`) the system runs the triggered callback concurrently with any other running threads. Other values are `Override` and `Abort`. `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back. `Abort` tells the system to ignore the new callback thread if the skill is still doing work on any other threads (including the original thread the callback was called within). 
-* skillToCall (string) - Optional. The unique ID of a skill to call when the event is triggered. Use this value if the callback function is not defined in the same skill as the user event is registered in.
+
+* eventName (string) - The name of the custom event. By default, callback functions for custom user events are given the same name as the event, prefixed with an underscore: `_<eventName>()`. For example, to handle the data that comes with a custom event called `MyUserEvent`, you must declare a callback function with the name `_MyUserEvent()`.
+* keepAlive (bool) - Optional. Whether to keep the event listener active after receiving an event. By default, `keepAlive` is set to `false`, which means the callback only triggers the first time you receive this event in your skill. If you pass `true` for `keepAlive` when you register a listener for the event, you can trigger the event callback repeatedly. When `keepAlive` is `true`, you can still unregister the event listener by calling the [`misty.UnregisterEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-unregisterevent) method in your skill code.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The `UniqueId` of a skill to call when the event is triggered. You only need to use this value when you define the event callback in a separate skill from the skill in which you register the event listener.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ```JavaScript
 // Example
-misty.RegisterUserEvent("EventName", false);
+// Register a listener for events called "MyEvents"
+misty.RegisterUserEvent("MyEvent", true);
+
+// With our event listener created, we can trigger the _MyEvent()
+// callback function by sending a REST request to the TriggerSkillEvent
+// endpoint, or by issuing a TriggerEvent command from a JavaScript or
+// .NET skill that is running at the same time. 
+function _MyEvent(data) {
+    misty.Debug("Event received: " + data.EventName);
+    misty.Debug(JSON.stringify(data));
+    // Do something!
+}
 ```
 
 Returns
 
-* Data sent by the user event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
+* data (JSON) - User event data. Data from user events must be passed into a callback function to be processed and made available for use in your skill. See [Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#triggered-event-callbacks) for more information. In addition to the custom data sent with with the event, user event messages always include the following key value pairs. These key/value pairs exist at the same level as the custom data sent with the event.
+  * Source (string) - The custom name given to the source for this event. You set the value of the `Source` property when you issue a `TriggerSkillEvent` REST request or invoke a `TriggerEvent` command.
+  * EventOriginator (string) - The type of source from which the event originated. This value is `Skill` if the event came from a JavaScript or .NET skill, and it is `REST` if the event came from a call on the `TriggerSkillEvent` endpoint in Misty's REST API.
+  * EventName (string) - The name of this event. You set the value of the `EventName` property issue a `TriggerSkillEvent` REST request or invoke a `TriggerEvent` command.
 
 ### misty.TriggerEvent
 
@@ -682,7 +680,7 @@ Arguments
 
 * eventName (string) - A name of your choice for the custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
 * source (string) - A name of your choice that describes the source of the event.
-* data (string) - The data to send with the event, formatted as a JSON string (for example, using `JSON.stringify({"Data": "Value"})`).
+* data (string) - The data to send with the event, formatted as a JSON string (for example, `JSON.stringify({"Data": "Value"})`).
 * allowedSkills (string) - A comma-separated list of one or more `UniqueId`s for each skill that is allowed to receive this event. To allow all skills to receive this event, use an empty string: `""`. **Note:** To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 
@@ -699,9 +697,26 @@ misty.Debug("Starting skill: Listener");
 misty.RegisterUserEvent("MyEvent", true);
 
 function _MyEvent(data) {
-    misty.Debug("Event received: MyEvent");
+    misty.Debug("Event received: " + data.EventName);
     misty.Debug(JSON.stringify(data));
     // Do something
+}
+```
+
+In addition to the data you pass with the `data` argument, user-created events pass the following key/value pairs into the callback function associated with the event listener:
+
+* Source (string) - The custom name given to the source for this event.
+* EventOriginator (string) - The type of source from which the event originated. The value of the `EventOriginator` property for all events broadcast with the `TriggerEvent` command is `Skill`.
+* EventName (string) - The name of this event, as defined in the `EventName` property.
+
+In the example above, the data object passed into the `_MyEvent()` callback function includes each of these key/value pairs at the same level as the data passed in for the `data` argument. The full object that the `_MyEvent()` callback receives looks like this:
+
+```JSON
+{
+  "Data": "Value",
+  "EventName": "MyEvent",
+  "EventOriginator": "Skill",
+  "Source": "Sender"
 }
 ```
 
