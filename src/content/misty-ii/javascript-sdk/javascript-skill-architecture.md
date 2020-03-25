@@ -171,8 +171,9 @@ Finally, when an event callback is triggered, note that by default it unregister
 
 Using the [`misty.RegisterTimerEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent) method, you can create an event that sends a callback after a certain period of time:
 
-```js
-misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
+```JavaScript
+// Syntax
+misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 By default, that event is triggered once and removed, but you can choose to have it call back until unregistered. To do this, you can specify `true` for the `keepAlive` parameter when registering for the timer event. This causes the event to automatically reset when the callback is triggered.
@@ -210,14 +211,12 @@ With a JSON body similar to:
 
 The `UniqueId` and `EventName` values are required, and they must match the ID of the skill to call and the event name that you registered a listener for in that skill. You should place any payload data you wish to send to the skill in the `Payload` field. You can process this data in the event callback.
 
-Additionally, you can use the [TriggerEvent](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
+Additionally, you can use the [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
 
 ```JavaScript
 // Syntax
 misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
 ```
-
-To trigger user events from a skill, you must invoke the `TriggerSkill` command. You must also register event listeners in any skills you want to receive the event. 
 
 Sending a custom event from a JavaScript skill might look like this:
 
@@ -226,7 +225,7 @@ misty.Debug("Starting skill: Sender");
 misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
 ```
 
-Any JavaScript or .NET skill that registers a listener for the custom `MyEvent` event in this example can receive and handle this event. For example, to handle this event in a separate JavaScript skill, you might use:
+Any JavaScript or .NET skill that registers a listener for the custom event called `MyEvent` in this example can receive and handle this event. For example, to handle this event in a separate JavaScript skill, you might use:
 
 ```JavaScript
 misty.Debug("Starting skill: Listener");

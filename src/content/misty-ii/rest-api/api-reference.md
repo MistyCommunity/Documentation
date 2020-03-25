@@ -425,25 +425,75 @@ Return Values
 ## Event
 
 ### TriggerSkillEvent
-Triggers an event within a skill. The skill must be running already for Misty to trigger the event within the skill.
+
+Broadcasts a custom event message (with custom event data) to event listeners in a currently running JavaScript or .NET skill.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
 
 Parameters
-* UniqueId (string) - As specified in the skill’s JSON meta file, the 128-bit GUID for the skill that holds the event to trigger.
-* EventName (string) - The name of the event to trigger. 
-* Payload (JSON string) -  Any arguments needed for the event.
+
+* Skill (string) - The `UniqueId` for the skill to receive this event. The `UniqueId` for JavaScript skills is defined in the skill's [JSON meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file), and the `UniqueId` for .NET skills is defined as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* EventName (string) - A name of your choosing for this custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
+* Payload (JSON) - The data to send with this event, formatted as a JSON object. This data is passed into the callback for the event listener in the skill that receives this event.
+* Source (string) - A name of your choice that describes the source of this event.
 
 ```json
- {
-  "UniqueId" : "b307c917-beb8-47e8-9bbf-1c57e8cd4d4b",
-  "EventName": "UserEvent",
-  "Payload": "{\"test\":\"two\"}"
+{
+  "Skill" : "63b27a79-67c5-4fc6-9567-8a11545ef084",
+  "EventName": "MyEvent",
+  "Payload": {
+    "CustomKey": "CustomValue",
+    "AnotherKey": "AnotherValue"
+    },
+  "Source": "MyRobotApplication"
 }
 ```
 
 Return Values
+
 * Result (boolean) - Returns `true` if no errors related to this request.
+
+In addition to the data you pass with the `Payload` property, user-created events pass the following key/value pairs into the callback function associated with the event listener:
+
+* Source (string) - The custom name given to the source for this event.
+* EventOriginator (string) - The type of source from which the event originated. The value of the `EventOriginator` property for all events broadcast with the `TriggerSkillEvent` command is `REST`.
+* EventName (string) - The name of this event, as defined in the `EventName` property.
+
+As an example, the following shows how to register a listener for a custom event in a JavaScript skill. 
+
+```JavaScript
+// Register a listener for the custom user event called "MyEvent"
+misty.RegisterUserEvent("MyEvent", true);
+
+/*
+To send an event to this listener from an external device, use:
+
+POST <robot-ip>/api/skills/event
+
+And pass in a JSON payload of (for example):
+
+{
+  "Skill" : "<This Skill's UniqueId>",
+  "EventName": "MyEvent",
+  "Payload": {
+    "CustomKey": "CustomValue",
+    "AnotherKey": "AnotherValue"
+    },
+  "Source": "EventSender"
+}
+*/
+
+// Callback triggers on receiving events named "MyEvent"
+function _MyEvent(data) {
+    misty.Debug("Event received: " + data.EventName); // MyEvent
+    misty.Debug(JSON.stringify(data.CustomKey)); // CustomValue
+    misty.Debug(JSON.stringify(data.AnotherKey)); // AnotherValue
+    misty.Debug(JSON.stringify(data.Source)); // MyRobotApplication
+    misty.Debug(JSON.stringify(data.EventOriginator)); // "REST"
+}
+```
+
+In this example, the `_MyEvent()` callback function parses the event data to print certain values to debug listeners. In your own skills, you can use this event data to do anything you like. For example, you can use it to update the state of your skill, to configure custom settings within a skill, or to trigger certain behaviors.
 
 ## Expression
 
@@ -3692,6 +3742,7 @@ Return Values
    * sensorCapabilities - An array listing the sensor capabilities for this robot.
    * sensoryServiceAppVersion - The version number for the Sensory Service app running on the robot.
    * serialNumber - The unique serial number for the robot.
+   * sku - The SKU number for this robot. SKU numbers vary by robot model and color. White Standard Edition SKU: `060-000001`; Black Standared Edition SKU: `060-000002`; White Basic Edition SKU: `060-000003`; White Enhanced Edition SKU: `060-000004`.
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
 Example response:
