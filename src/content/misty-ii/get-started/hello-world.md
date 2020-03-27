@@ -88,13 +88,21 @@ function _look_around(repeat = true) {
 
 We write the code to move Misty's head inside this `_look_around()` callback function. Misty's neck has three movement axes -- pitch (tilt up/down), roll (tilt left/right), and yaw (turn left/right). You can move Misty's head on any of these axes by using the `misty.MoveHeadDegrees()` method.
 
-The arguments we pass in to the `misty.MoveHeadDegrees()` method tell Misty the positions on each axis (in degrees) to which the robot should move her head, as well as how fast the head movement should be. The value range for `pitch` is `29` (down) to `-40` (up); the range for `roll` is `-40` (left) to `40` (right); and the range for `yaw` is `-81` (right) to `81` (left). When all of these values are 0, Misty is looking straight ahead. The value we pass in for the `velocity` argument is a percentage of the head motors' max velocity, and should be a number from `0`-`100` 
+The first three arguments we pass in to the `misty.MoveHeadDegrees()` method tell Misty the position on each axis (in degrees) to which the robot should move her head. The value range for `pitch` is `29` (down) to `-40` (up); the range for `roll` is `-40` (left) to `40` (right); and the range for `yaw` is `-81` (right) to `81` (left). When all of these values are 0, Misty is looking straight ahead.
+
+Additionally, the `misty.MoveHeadDegrees()` method provides arguments for setting **either** the `velocity` (the speed of the movement as a percentage of the maximum velocity for the motors involved), **or** the `duration` (how long the full movement should take, in seconds).
+
+Using `duration` instead of `velocity` for head movement results in smoother motion, because it ensures that movement along each axis (pitch, roll, and yaw) starts and stops at the same time. Using `duration` tells the system that, regardless of how far the head must travel in each direction, the movement along each axis should take the same amount of time.
+
+By contrast, using `velocity` only tells the motors how quickly to move. If you command Misty's head to move a shorter distance along the `pitch` axis than the `roll` axis, then movement along the `pitch` axis will finish first. When you use the `velocity` argument in your head movement commands, the movement along each axis is unlikely to complete at the same time.
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** For more information about this function, see the [`misty.MoveHeadDegrees()` reference documentation](../../../misty-ii/javascript-sdk/api-reference/#misty-moveheaddegrees).
 {{box op="end"}}
 
-To achieve spontaneous head movement, we use the `getRandomInt()` helper function to return unique values for the `pitch`, `roll`, and `yaw` arguments each time our skill calls the `misty.MoveHeadDegrees()` method. Copy the following `misty.MoveHeadDegrees()` method into your `_look_around()` callback function:
+To achieve spontaneous, smooth head movement, we use the `getRandomInt()` helper function to return unique values for the `pitch`, `roll`, and `yaw` arguments each time our skill calls the `misty.MoveHeadDegrees()` method. We pass in a value of `null` for `velocity` (the fourth argument), and we use `1` (one second) for `duration`.
+
+Copy the following `misty.MoveHeadDegrees()` method into your `_look_around()` callback function:
 
 ```JavaScript
 function _look_around(repeat = true) {
@@ -106,7 +114,8 @@ function _look_around(repeat = true) {
         getRandomInt(-40, 20), // Random pitch position between -40 and 20
         getRandomInt(-30, 30), // Random roll position between -30 and 30
         getRandomInt(-40, 40), // Random yaw position between -40 and 40
-        30); // Head movement velocity. Can increase up to 100.
+        null, // Velocity. Nullable. (We use duration here, instead.)
+        1); // Head movement duration, in seconds.
 }
 ```
 
@@ -124,7 +133,8 @@ function _look_around(repeat = true) {
         getRandomInt(-40, 20), // Random pitch position between -40 and 20
         getRandomInt(-30, 30), // Random roll position between -30 and 30
         getRandomInt(-40, 40), // Random yaw position between -40 and 40
-        30); // Head movement velocity. Can increase up to 100.
+        null, // Velocity. Nullable. (We use duration here, instead.)
+        1); // Head movement duration, in seconds.
 
         // If repeat is set to true, re-registers for the look_around
         // timer event, and Misty moves her head until the skill ends.
@@ -166,7 +176,8 @@ function _look_around(repeat = true) {
         getRandomInt(-40, 20), // Random pitch position between -40 and 20
         getRandomInt(-30, 30), // Random roll position between -30 and 30
         getRandomInt(-40, 40), // Random yaw position between -40 and 40
-        30); // Head movement velocity. Can increase up to 100.
+        null, // Velocity. Nullable. (We use duration here, instead.)
+        1); // Head movement duration, in seconds.
 
         // If repeat is set to true, re-registers for the look_around
         // timer event, and Misty moves her head until the skill ends.
