@@ -728,10 +728,10 @@ The difference from normal event registration happens when we use an optional pa
 misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 ```
 
-We also want to add a return property check above the registration call, to return just the property `PersonName` for use in our callback. Pass in the name of the event first, then the property we want.
+We also want to add a return property check above the registration call, to return just the property `Label` for use in our callback. Pass in the name of the event first, then the property we want.
 
 ```JSON
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+misty.AddReturnProperty("FaceRecognition", "Label");
 ```
 
 Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `FaceRecognition` event subscription).
@@ -743,8 +743,8 @@ Finally, we need to send the command to start face recognition as well. This com
 Putting the pieces together, shown below is first half of the parent skill; the commands relating to face recognition.
 
 ```JavaScript
-// Return only the PersonName property
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+// Return only the Label property
+misty.AddReturnProperty("FaceRecognition", "Label");
 
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
@@ -775,8 +775,8 @@ With both of our event registrations finished, our “parent” skill is complet
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill1.js`.
 
 ```JavaScript
-// Return only the PersonName property
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+// Return only the Label property
+misty.AddReturnProperty("FaceRecognition", "Label");
 
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
@@ -806,17 +806,17 @@ function _FaceRecognition(data) {
 
 Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
 
-Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
+Next, define a variable, `label`, to hold the label of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 
 ```JavaScript
 // Store the name of the detected face
-let personName = data.AdditionalResults[0];
+let label = data.AdditionalResults[0];
 ```
 
-Then, use an if statement to check if `personName` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
+Then, use an if statement to check if `label` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
 
 ```JS
-if (personName == "unknown person") {
+if (label == "unknown person") {
     // Change LED
     misty.ChangeLED(255, 0, 0); // red
     misty.Debug("I don't know you...");
@@ -824,7 +824,7 @@ if (personName == "unknown person") {
 else {
     // Change LED
     misty.ChangeLED(0, 255, 0); // green
-    misty.Debug("Hello there " + personName + "!");
+    misty.Debug("Hello there " + label + "!");
 }
 ```
 
@@ -838,8 +838,8 @@ function _FaceRecognition(data) {
     // Signal that new skill has been triggered.
     misty.Debug("TriggerSkill part 2 has been triggered.");
     // Store the name of the detected face
-    let personName = data.AdditionalResults[0];
-    if (personName == "unknown person") {
+    let label = data.AdditionalResults[0];
+    if (label == "unknown person") {
         // Change LED
         misty.ChangeLED(255, 0, 0); // red
         misty.Debug("I don't know you...");
@@ -847,7 +847,7 @@ function _FaceRecognition(data) {
     else {
         // Change LED
         misty.ChangeLED(0, 255, 0); // green
-        misty.Debug("Hello there " + personName + "!");
+        misty.Debug("Hello there " + label + "!");
     }
 }
 ```
