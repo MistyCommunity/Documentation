@@ -812,7 +812,7 @@ Parameters
 * Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
 * Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
 * TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* TimeMs (int) - The duation (in milliseconds) between each transition. Must be greater than `3`.
+* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
 
 ```JSON
 {
