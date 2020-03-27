@@ -797,16 +797,16 @@ function _FaceRecognition(data) {
 }
 ```
 
-The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"personName"` property. If a detected face cannot be recognized, the value of `"personName"` is `"unknown person"`. If a message does not hold any face data, then `"personName"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"personName"` does not equal any of these values.
+The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"label"` property. If a detected face cannot be recognized, the value of `"label"` is `"unknown person"`. If a message does not hold any face data, then `"label"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"label"` does not equal any of these values.
 
 ```JavaScript
 function _FaceRecognition(data) {
     try { 
-        // Use an if statement to check that personName 
+        // Use an if statement to check that label 
         // does not equal "unknown person", null, or 
-        // undefined. personName is included in the 
+        // undefined. label is included in the 
         // message returned by FaceRecognition WebSocket events.
-        if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
+        if (data.message.label !== "unknown person" && data.message.label !== null && data.message.label !== undefined) {
 
         }
     }
@@ -818,15 +818,15 @@ function _FaceRecognition(data) {
 
 **Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
 
-If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
+If a face is recognized, the value of the `"label"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
 ```JavaScript
 function _FaceRecognition(data) {
     try {
-        if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
+        if (data.message.label !== "unknown person" && data.message.label !== null && data.message.label !== undefined) {
             // If the face is recognized, print a 
             // message to greet the person by name.
-            console.log(`A face was recognized. Hello there ${data.message.personName}!`);
+            console.log(`A face was recognized. Hello there ${data.message.label}!`);
 
             // Unsubscribe from the FaceRecognition WebSocket.
             socket.Unsubscribe("FaceRecognition");
