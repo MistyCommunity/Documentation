@@ -986,7 +986,7 @@ Parameters
 * green2 (byte) - The green RGB color value for the first color (range 0 to 255).
 * blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
 * transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* timeMs (int) - The duation (in milliseconds) between each transition. Must be greater than `3`.
+* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
