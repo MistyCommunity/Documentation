@@ -34,7 +34,7 @@ Follow these steps to send REST requests from the API Explorer to Misty.
 
 When you send a request, Misty's response appears in the [**JSON Response** section](./#json-response) of the API Explorer, as well as in your browser's web console.
 
-The full sequence for sending a request from the API Explorer looks like this: ![API Explorer request](../../../assets/images/api-explorer-send-request-animation.gif)
+The full sequence for sending a request from the API Explorer looks like this: ![API Explorer request](/assets/images/api-explorer-send-request-animation.gif)
 
 ## Using Code Samples
 
@@ -65,7 +65,7 @@ Browse the command list to see the endpoints available on the connected Misty ro
 
 Commands are organized into groups by function. You can also choose sort the list of commands alphabetically. Each command in the list is labeled with the HTTP method used when you send a request to the endpoint associated with that command.
 
-![Command List](../../../assets/images/api-explorer-command-list.png)
+![Command List](/assets/images/api-explorer-command-list.png)
 
 ### Request
 
@@ -75,13 +75,13 @@ The sample code in this section automatically updates when you enter new data in
 
 For information about using this sample code with Misty, see [REST API Code Samples](./#rest-api-code-samples).
 
-![API Explorer Request](../../../assets/images/api-explorer-request.png)
+![API Explorer Request](/assets/images/api-explorer-request.png)
 
 ### Parameters
 
 The **Parameters** section includes fields where you can enter data to send along with your request. When you enter values into these fields, the sample code in the **Request** and **Skill Code** sections automatically update. To send a request to Misty, click the **Send Request** button.
 
-![API Explorer Parameters](../../../assets/images/api-explorer-parameters.png)
+![API Explorer Parameters](/assets/images/api-explorer-parameters.png)
 
 ### JSON Response
 
@@ -90,7 +90,7 @@ To copy the contents of this section to your clipboard, click the **Copy** butto
 
 For more information about the return values for Misty's REST API, see the [REST API reference documentation](../../../misty-ii/reference/rest).
 
-![JSON response](../../../assets/images/api-explorer-json-response.png)
+![JSON response](/assets/images/api-explorer-json-response.png)
 
 ### Skill Code
 
@@ -99,5 +99,5 @@ The **Skill Code** section of the API Explorer shows sample code for using the c
 For information about using this code in your skills, see [On-Robot JavaScript API Code Samples](./#on-robot-javascript-api-code-samples).
 For details about each of the methods in Misty's on-robot JavaScript API, see the [on-robot JavaScript API reference documentation](../../../misty-ii/reference/javascript-api).
 
-![Skill Code section](../../../assets/images/api-explorer-skill-code.png)
+![Skill Code section](/assets/images/api-explorer-skill-code.png)
 
