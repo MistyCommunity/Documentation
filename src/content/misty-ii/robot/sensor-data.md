@@ -292,11 +292,11 @@ represents the following matrix:
 
 When you issue a `StartLocatingDockingStation` command, Misty uses the right infrared (IR) camera in the depth sensor to locate the front four IR reflectors embedded in the docking station. The system uses the location of these reflectors to calculate the pose for the point on the docking station where Misty should be centered to receive the best charge. This point is at the intersection of an imaginary line down the center of the station and the line that connects the two positioning icons on either side.
 
-![Docking station "sweet spot"](../../../../assets/images/docking-station-sweet-spot.png)
+![Docking station "sweet spot"](..//assets/images/docking-station-sweet-spot.png)
 
 When the robot locates the docking station, `ChargerPoseMessage` event listeners receive pose data in the form of a column major homogeneous coordinate matrix. The right IR camera in Misty's depth sensor (from the robot's perspective) is the origin point for all docking station pose data.
 
-![Origin for docking station pose](../../../../assets/images/docking-station-pose-origin.png)
+![Origin for docking station pose](..//assets/images/docking-station-pose-origin.png)
 
 Once you have obtained the X, Y, and Z coordinates for the docking station's pose relative to the front right IR camera (represented by the values at index 12, 13, and 14 in the `homogeneousMatrix` array), you can use dead reckoning to calculate drive commands and navigate the robot onto the charger.
 
