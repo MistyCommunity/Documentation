@@ -17,7 +17,7 @@ You can download and install the extension from the Visual Studio marketplace. S
 
 With the extension enabled, start typing `misty` in a JavaScript code file to start getting autocomplete and command information.
 
-![VSC Extension autocomplete example](../../../assets/images/vsc-plugin-autocomplete.gif)
+![VSC Extension autocomplete example](/assets/images/vsc-plugin-autocomplete.gif)
 
 ## Using Commands
 
@@ -36,7 +36,7 @@ To view and use these commands:
 3. Press **Command+Shift+P** (Mac) or **Control+Shift+P** (Windows).
 4. Type **Misty:** to see the list of commands, and select the command you want to use.
 
-![List of commands in VSC plugin](../../../assets/images/misty-skills-vsc-commands.gif)
+![List of commands in VSC plugin](/assets/images/misty-skills-vsc-commands.gif)
 
 To **upload** a skill:
 

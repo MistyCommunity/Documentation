@@ -27,8 +27,8 @@ The [Command Center](http://sdk.mistyrobotics.com/command-center/) works by send
 Before you connect Misty to an instance of the [Command Center](http://sdk.mistyrobotics.com/command-center/), **make sure your computer and Misty are on the same Wi-Fi network**.
 
 1. [Open up the Command Center](http://sdk.mistyrobotics.com/command-center) in a browser window.
-2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**. ![Connect to Misty](../../../assets/images/command-center-connect-animation.gif)
-3. When Misty is connected, her serial number, battery level, and software version display in the topmost section of the web page.![Device Info](../../../assets/images/command_center_device_info.png)
+2. Enter the IP address of your robot (you can find your robot's IP address in the Misty companion app) and click the **Connect** button. Watch for the text on the **Connect** button to change to **Connected**. ![Connect to Misty](/assets/images/command-center-connect-animation.gif)
+3. When Misty is connected, her serial number, battery level, and software version display in the topmost section of the web page.![Device Info](/assets/images/command_center_device_info.png)
 
 To see more details about your robot, click **Get All Device Info**. Open the web console in your browser window to see the results.
 
@@ -36,7 +36,7 @@ To see more details about your robot, click **Get All Device Info**. Open the we
 
 Use the **Movement** section to send Misty drive commands, drive Misty manually, and to move Misty's head and arms.
 
- ![Movement controls](../../../assets/images/command_center_movement.png)
+ ![Movement controls](/assets/images/command_center_movement.png)
 
 {{box op="start" cssClass="boxed tipBox"}}
 **Tip:** You can use the red **Halt All Motors** button at any time to disable all of Misty's motor controllers.
@@ -64,7 +64,7 @@ Follow these steps to send Misty a **DriveTime** command:
 ### Manual Driving
 
 You can use the **Manual Driving** controls to drive Misty in a variety of directions.
- ![Manual driving controls](../../../assets/images/command_center_manual_drive.png)
+ ![Manual driving controls](/assets/images/command_center_manual_drive.png)
 
 1. Click a directional button to drive Misty in that direction. Misty will continue to drive in that direction until you specify a new direction or send a command to halt or stop driving.
 2. Adjust the **Velocity** slider to change how fast Misty drives.
@@ -74,7 +74,7 @@ You can use the **Manual Driving** controls to drive Misty in a variety of direc
 
 You can use the **Movement** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to change the position of Misty's head and arms.
 
-![Command Center head and arm movement controls](../../../assets/images/command-center-movement-animation.gif)
+![Command Center head and arm movement controls](/assets/images/command-center-movement-animation.gif)
 
 When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/), the position of each slider updates to match the current position of Misty's head and arms. Adjust these sliders and click the associated button to change the position of Misty's head and arms.
 
@@ -86,7 +86,7 @@ When Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command
 
 Misty comes with a number of default system image files that you can display on her screen, as well as default audio files that she can play. Use the **Expression** controls to interact with these assets or to upload and manage your own image and audio files. You can also use this section to change the color of the LED on Misty's chest.
 
-![Expression controls](../../../assets/images/command_center_expression.png)
+![Expression controls](/assets/images/command_center_expression.png)
 
 ### Adding a custom audio or image file to Misty
 
@@ -123,7 +123,7 @@ You can use the controls in the **Image** section to display, download, or delet
 
 You can use the **Perception** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) to interact with Misty's face training and recognition capabilities, to take pictures, and to record audio or record video. Additionally, this section provides an interface for visualizing data from audio localization events.
 
-![Command Center Perception controls](../../../assets/images/command_center_perception.png)
+![Command Center Perception controls](/assets/images/command_center_perception.png)
 
 ### Face Training & Recognition
 
@@ -179,7 +179,7 @@ The new audio file will appear in the list of Misty's audio files in the **Asset
 
 Use the **Audio Localization** controls to have Misty start streaming voice and sound localization data from her microphone array. When you click **Start Recording Voice**, the **Audio Localization Visualization** interface provides a visualization of the location and volume of the noise or spoken voice that Misty can detect.
 
-![Command Center Audio Localization](../../../assets/images/command_center_audio_localization.gif)
+![Command Center Audio Localization](/assets/images/command_center_audio_localization.gif)
 
 For audio localization data, the 0/360 degree heading represents the current direction Misty's head is facing. Misty returns audio localization data relative to this 0/360 degree heading, which appears at the top of the **Audio Localization Visualization**.
 
@@ -217,7 +217,7 @@ The [Sensor & Event Data](../../../misty-ii/coding-misty/remote-command-architec
 
 When you use the [Command Center](http://sdk.mistyrobotics.com/command-center/) to open WebSocket connections, you can view live data from Misty on your screen and in your browser's web console. (How you open the console will vary among browsers and platforms.)
 
-![Command Center sensor data](../../../assets/images/command_center_sensor_data.png)
+![Command Center sensor data](/assets/images/command_center_sensor_data.png)
 
 You can open WebSocket connections to Misty by checking the box next to the sensors you want to stream data from. When you check a box, the [Command Center](http://sdk.mistyrobotics.com/command-center/) connects to Misty's WebSocket server and streams data from the selected sensors.
 
@@ -281,7 +281,7 @@ To stream IMU data from Misty to the [Command Center](http://sdk.mistyrobotics.c
 
 Use the **Advanced Options** modal to customize WebSocket subscriptions and apply filters to the data that WebSockets send. Data you subscribe to using the **Advanced Options** modal streams to the web console in your browser window.
 
-![Advanced Options](../../../assets/images/command_center_advanced_options.png)
+![Advanced Options](/assets/images/command_center_advanced_options.png)
 
 1. Open the **Advanced Options** controls in the **Sensor Data** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. Select a WebSocket to monitor from the **Named Object** list. **Note: Named Object is the only required field.** The other fields are optional:
@@ -309,7 +309,7 @@ ReturnProperty: MentalState.Affect
 
 The Command Center provides access to a **Navigation Module** that you can use to interact with Misty's simultaneous localization and mapping (SLAM) system. Use this module to map a new area with Misty, track her location within a map, and follow a path to a new set of coordinates.
 
-![Command Center Navigation Module](../../../assets/images/command_center_nav_module.png)
+![Command Center Navigation Module](/assets/images/command_center_nav_module.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
@@ -320,7 +320,7 @@ The Command Center provides access to a **Navigation Module** that you can use t
 Follow these steps to launch the Navigation Module from the Command Center:
 
 1. Make sure that your robot is connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
-2. In the **Navigation** section, click **Launch Navigation Module.** ![Command Center Launch Navigation Module](../../../assets/images/command_center_launch_nav_module.png) This opens the module as a new tab in your web browser.
+2. In the **Navigation** section, click **Launch Navigation Module.** ![Command Center Launch Navigation Module](/assets/images/command_center_launch_nav_module.png) This opens the module as a new tab in your web browser.
 
 Once you've launched the module, you can use it to
 * create a new map
@@ -335,11 +335,11 @@ When you generate a map, Misty uses her Occipital Structure Core depth sensor to
 Follow these steps to create a new map with the Navigation Module:
 
 1. Connect Misty to the Command Center and launch the Navigation Module.
-2. Use the movement interface to set Misty's head position and adjust her velocity. ![Nav Module Movement](../../../assets/images/nav_module_movement.png)
+2. Use the movement interface to set Misty's head position and adjust her velocity. ![Nav Module Movement](/assets/images/nav_module_movement.png)
    1. Click **Set Head** to engage Misty's neck motors and position her visor for effective mapping. (For best results, avoid moving Misty's head while generating a map. Instead, use Misty's drive controls to move the entire robot.)
    2. Enter `25` in the **Velocity** field and click **Set**. This sets Misty's speed while mapping to around 25% of max velocity. (For best results, use low speeds (less than or equal to 25% of max velocity) while mapping or tracking.)
 3. Click **Start Mapping** to start the mapping session. Then, wait for Misty to obtain **pose**.
-   1. Having **pose** means Misty knows her current orientation and location (in X,Y coordinates). Misty has pose when the **Misty's Pose** indicator changes from red to white. ![Misty's pose](../../../assets/images/nav_module_pose_indicator.png)
+   1. Having **pose** means Misty knows her current orientation and location (in X,Y coordinates). Misty has pose when the **Misty's Pose** indicator changes from red to white. ![Misty's pose](/assets/images/nav_module_pose_indicator.png)
    1. If Misty does not obtain pose after 10 seconds, try using the movement controls to slowly turn the robot until the pose indicator turns white.
 4. Map the environment. Start by using the **Spin 360** button to rotate Misty slowly in place. Then, drive Misty in straight lines around the room, stopping to spin in place at various points of open space to obtain full coverage of the room.
    1. For best results, use the Navigation Module to observe the occupancy grid as it is formed. Move Misty to grey (unmapped) areas and perform a spin to fill out the map.
@@ -384,7 +384,7 @@ The Navigation Module provides advanced settings for customizing Misty's path fo
 
 The fields in the **Follow Path Advanced Settings** modal allow you to adjust the following parameters:
 
-![Follow Path Advanced Settings](../../../assets/images/nav-module-follow-path-advanced-settings.png)
+![Follow Path Advanced Settings](/assets/images/nav-module-follow-path-advanced-settings.png)
 
 - `Velocity` - A fraction of Misty's max velocity that determines how fast Misty moves when driving straight while following a path. Expects a decimal value greater than 0 and less than 1. Defaults to `0.5` (50% of max velocity).
 - `FullSpinDuration` - Number of seconds it takes for Misty to complete a full spin (360 degrees) while following a path. Determines how fast Misty pivots or spins when changing direction. Defaults to `15`.
@@ -421,7 +421,7 @@ To delete a map:
 
 The **Diagnostics** section provides a stream of diagnostic information about Misty's navigation system.
 
-![Navigation Module Diagnostics Section](../../../assets/images/nav-module-diagnostics.png)
+![Navigation Module Diagnostics Section](/assets/images/nav-module-diagnostics.png)
 
 To stream SLAM navigation diagnostics information:
 
@@ -445,7 +445,7 @@ To perform an update:
 
 1. First make sure that Misty is plugged into a power source and is connected to the internet.
 2. If the [Command Center](http://sdk.mistyrobotics.com/command-center/) is not already connected to your robot: At the top of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window, enter the IP address of your robot (from the Info tab of the Misty companion app) and click the **Connect** button. Look for the message "Connected successfully" to appear at the bottom of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window.
-3. Navigate to the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window and find the **System Update** section. ![Perform system update button](../../../assets/images/command_center_update.png) 
+3. Navigate to the **System** section of the [Command Center](http://sdk.mistyrobotics.com/command-center/) window and find the **System Update** section. ![Perform system update button](/assets/images/command_center_update.png) 
 4. If an update is available, the **Perform System Update** button will be purple (instead of gray). Click the **Perform System Update** button to have Misty begin downloading the update in the background. The download itself may take several minutes to an hour, depending on the speed of your Internet connection. **Note: During the download and update, Misty disables all commands except for `Halt` and `Stop`. It is NOT recommended to send any commands to Misty during the update process.**
 5. The update process may take up to a half hour total and is not complete until Misty restarts and displays a message that the update has been successful.
 
@@ -453,7 +453,7 @@ To perform an update:
 
 If a full system update fails to update every component of your robot, you can perform a targeted update to attempt to update these components individually.
 
-![Targeted update controls](../../../assets/images/command_center_targeted_updates.png)
+![Targeted update controls](/assets/images/command_center_targeted_updates.png)
 
 To perform a targeted update, check the box next to each component to attempt to update. Click **Perform Targeted Updates** to start the update process.
 
@@ -471,7 +471,7 @@ While it’s usually easiest to use the [Misty App](../../../tools-&-apps/mobile
   * On Windows, open the command prompt, enter `ipconfig`, and find the Ethernet adapter and its IP address in the list of results.
 3. Once you have the IP address for the adapter, unplug the USB end of the adapter from your computer and re-plug it into the USB port on the back of your robot. Keep the other end plugged into your router.
 4. Open the [Command Center](http://sdk.mistyrobotics.com/command-center/) and connect to your robot by entering the IP address and clicking **Connect**.
-5. Click the **Wi-Fi** button next to the **Connect** button to open the Wi-Fi connection modal. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](../../../assets/images/command_center_wifi.png)
+5. Click the **Wi-Fi** button next to the **Connect** button to open the Wi-Fi connection modal. Enter your Wi-Fi network credentials here and click **Connect to Wi-Fi.** The process can take a few minutes. ![Connect Wi-Fi UI](/assets/images/command_center_wifi.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Occasionally the IP address for the adapter changes after the first use. If this happens you can use the MAC address printed on the adapter and enter the following commands to obtain the IP address:
@@ -497,5 +497,5 @@ When troubleshooting issues with your Misty II, you may be asked to get a diagno
 1. Make sure Misty is already connected to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 2. Scroll down to the **Sensor Data** section and click **Advanced Options**.
 3. Scroll down to the **Get Diagnostic Report** section at the bottom of the **Advanced Options** modal.
-4. Click the **Run and Download** button to download a compressed `diagnostic.zip` file with your robot's log files and device information. ![Get a report](../../../assets/images/command-center-diagnostic-report.png)
+4. Click the **Run and Download** button to download a compressed `diagnostic.zip` file with your robot's log files and device information. ![Get a report](/assets/images/command-center-diagnostic-report.png)
 5. Locate the downloaded `diagnostic.zip` file on your PC. Send this file to the Misty support team by attaching it in an email to support@mistyrobotics.com.
