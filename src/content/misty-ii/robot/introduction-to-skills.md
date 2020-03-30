@@ -179,7 +179,7 @@ When you are ready to share a skill or application with other developers, you ca
 * License your repository. You can use whichever license you'd like. For more information about choosing a license, see GitHub's article on [Licensing a Repository](https://help.github.com/en/articles/licensing-a-repository).
 * Create a new topic in the [Misty Skills category of the Misty Community forums](https://community.mistyrobotics.com/c/misty-skills).
 * Set the first post in your topic to be a wiki. This will allow you and other contributors to suggest changes to the original post as development on your skill continues.
-   1. To set your post to be a wiki, select the three-dots icon from the menu below the post. ![Discourse Wik Step 1](../../../assets/images/discourse-wiki-step-1.png)
-   2. Select the wrench icon. ![Discourse Wik Step 2](../../../assets/images/discourse-wiki-step-2.png)
-   3. Select the **Make Wiki** option from the menu.![Discourse Wik Step 3](../../../assets/images/discourse-wiki-step-3.png)
+   1. To set your post to be a wiki, select the three-dots icon from the menu below the post. ![Discourse Wik Step 1](/assets/images/discourse-wiki-step-1.png)
+   2. Select the wrench icon. ![Discourse Wik Step 2](/assets/images/discourse-wiki-step-2.png)
+   3. Select the **Make Wiki** option from the menu.![Discourse Wik Step 3](/assets/images/discourse-wiki-step-3.png)
 * Update the original post when you make changes to your code.
