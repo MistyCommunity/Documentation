@@ -757,6 +757,50 @@ LocomotionCommand{
 }
 ```
 
+## PRUMessage
+
+The `PRUMessage` event type provides a stream of information from the firmware associated with Misty's wireless Power Receiving Unit (PRU). 
+
+The PRU receives power from the Power Transmit Unit (PTU) in Misty's wireless charging station, rectifies the power to direct current (DC), and regulates the power at the required voltage for charging Misty's battery. You can use the data from `PRUMessage` events when coding Misty to autonomously move to the position on her docking station where she will receive the best charge, as well as for debugging purposes. 
+
+To receive data from Misty's PRU firmware in your skills and robot applications, you must register a listener for `PRUMessage` events. You can stream `PRUMessage` event data at timed intervals. `PRUMessage` event data includes the following key/value pairs:
+
+* `active` (bool) - Returns `true` when Misty's PRU is actively receiving a current from the PTU in the charging station.
+* `alignment` (int) - Numerical value indicating the alignment of the PRU and PTU charging coils. This value is closer to 100 when Misty's PRU is aligned above the PTU in the robot's wireless charging station. Values closer to 0 indicate Misty's PRU is not aligned well with the PTU in the charging station. (You can expect this value to be near 100 when the arrows on either side of Misty's base are lined up with the arrows on the wireless charging station.)
+* `created` (string) - When the system created this event message.
+* `currentChargeTime` (int) - How long (in hours) the PRU has been commanded to operate. (This is set to 24 hours to prevent the PRU from timing out before Misty's battery is fully charged.) 
+* `firmwareId` (int) - Identification number for the firmware associated with Misty's PRU. 
+* `iout` (int) - How much current (in mA) the PRU is supplying to the battery.
+* `pruLowVout` (bool) - Returns `true` when the output of the PRU regulator is lower than expected. (Primarily used for troubleshooting.)
+* `pruOverPower` (bool) - Returns `true` when the output of the PRU regulator is higher than expected. (Primarily used for troubleshooting.)
+* `pruOverTemperature` (bool) - Returns `true` when the temperature of the PRU is too high. (Primarily used for troubleshooting.) 
+* `pruOverVrect` (bool) - Returns `true` when the rectified voltage is higher than expected. (Primarily used for troubleshooting.)
+* `temperature` (int) - The temperature of the PRU (in degrees Celsius).
+* `vout` (int) - The actual output (in mVolts) of the regulator.
+* `vrect` (int) - The rectified output (in mVolts) the receiving unit supplies to the regulator.
+
+```json
+{
+  "eventName": "PRUMessage",
+  "message": {
+    "active": true,
+    "alignment": 106,
+    "created": "2020-03-30T19:39:44.5329923Z",
+    "currentChargeTime": 24,
+    "firmwareId": 17,
+    "iout": 2104,
+    "pruLowVout": false,
+    "pruOverPower": false,
+    "pruOverTemperature": false,
+    "pruOverVrect": false,
+    "sensorId": "PRU",
+    "temperature": 25,
+    "vout": 9305,
+    "vrect": 23449
+  }
+}
+```
+
 ## SelfState
 
 The ```SelfState``` WebSocket provides a variety of data about Misty’s current internal state, including:
