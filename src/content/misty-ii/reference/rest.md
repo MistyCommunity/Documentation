@@ -691,7 +691,7 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms
 
@@ -724,7 +724,7 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/arms/set

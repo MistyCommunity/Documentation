@@ -733,7 +733,7 @@ Moves one or both of Misty's arms.
 
 When moving Misty's arms, it's helpful to understand their movement limitations.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 Parameters
 * arm (string) - The arm to move. You must use either `left`, `right`, or `both`.
@@ -754,7 +754,7 @@ Moves one or both of Misty's arms. You can use this command to control both arms
 
 When moving Misty's arms, it's helpful to understand their movement limitations.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 Parameters
 * leftArmPosition (double) - Optional. The new position of Misty's left arm. Expects a value of 0-10. 5 points forward, directly in front of the robot.
@@ -776,7 +776,7 @@ Moves one of Misty's arms to a specified position.
 
 When moving Misty's arms, it's helpful to understand their movement limitations.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
@@ -806,7 +806,7 @@ When moving Misty's arms, it's helpful to understand their orientation.
 * At +/- 180 degrees, Misty's arms would face straight back, pointing toward her backpack. Currently, Misty's arms are not configured to move to this position.
 * At +270/-90 degrees, Misty's arms point straight up towards her head, and are perpendicular to the ground. Currently, the upward limit of Misty's arm movement is -29 degrees.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
@@ -831,7 +831,7 @@ Moves one of Misty's arms to a specified location in radians.
 
 When moving Misty's arms, it's helpful to understand their movement limitations.
 
-![Arm movement range](../../../assets/images/arm-movement-range.png)
+![Arm movement range](/assets/images/arm-movement-range.png)
 
 ```JavaScript
 // Syntax
