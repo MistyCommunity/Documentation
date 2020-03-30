@@ -25,7 +25,7 @@ Follow this guide to learn:
 
 **Before getting started**, power on your robot and place Misty on the black foam block that arrived in her box. While Misty is designed to automatically detect obstacles and ledges, placing her on this foam block will ensure that she doesn’t accidentally roll off the table while you're coding.
 
-![Misty sits on her block stand](../../../assets/images/misty-stand.gif)
+![Misty sits on her block stand](/assets/images/misty-stand.gif)
 
 ## Sending Basic Commands
 
@@ -43,18 +43,18 @@ Follow these steps to start using the Command Center:
 Once connected, you can experiment with Misty's functionality by interacting with different elements of the Command Center. Here are a few things to try:
 
 * Use the **Expression** section to change the color of Misty's chest LED, show a different image on her display, and have her play a sound.
-  * Use the color picker or type in different RGB values and click the **Change LED** button. For example, if you wanted Misty's LED to be purple, use **Red**: `101`; **Green**: `73`; and **Blue**: `157`. ![Change LED animation](../../../assets/images/command-center-change-led-animation.gif)
-  * Change Misty's eyes by choosing a different file from the **Change Display Image** menu. For example, try changing her eyes to `e_JoyGoofy2.jpg` or `e_Surprise.jpg`. ![Change display image animation](../../../assets/images/command-center-display-image-animation.gif)
-  * Play a sound by choosing a file from the **Play Audio File** menu, like `s_Boredom.wav` or `s_Sleepy.wav`.![Play audio animation](../../../assets/images/command-center-play-audio-animation.gif)
-* Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](../../../assets/images/command-center-movement-animation.gif)
+  * Use the color picker or type in different RGB values and click the **Change LED** button. For example, if you wanted Misty's LED to be purple, use **Red**: `101`; **Green**: `73`; and **Blue**: `157`. ![Change LED animation](/assets/images/command-center-change-led-animation.gif)
+  * Change Misty's eyes by choosing a different file from the **Change Display Image** menu. For example, try changing her eyes to `e_JoyGoofy2.jpg` or `e_Surprise.jpg`. ![Change display image animation](/assets/images/command-center-display-image-animation.gif)
+  * Play a sound by choosing a file from the **Play Audio File** menu, like `s_Boredom.wav` or `s_Sleepy.wav`.![Play audio animation](/assets/images/command-center-play-audio-animation.gif)
+* Use the **Movement** section to move Misty's head and arms. ![Head and arm movement controls](/assets/images/command-center-movement-animation.gif)
   * Move Misty's head by moving the sliders under **Head Movement**. Set a new **Pitch**, **Yaw**, or **Roll** position, and then click the **Set** button.
   * Move Misty's arms by moving the left or right slider and clicking the **Rotate Left Arm** or **Rotate Right Arm** button.
-* To prepare Misty for the Hello World tutorial series, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](../../../assets/images/command-center-face-training-animation.gif)
+* To prepare Misty for the Hello World tutorial series, use the **Perception** section to train Misty to recognize your face. ![Face Training interface](/assets/images/command-center-face-training-animation.gif)
   1. To make sure Misty's head is positioned for effective face training, use the **Pitch**, **Yaw** and **Roll** commands under the **Movement** section to align Misty’s gaze with yours. Then, in the **Perception** section, go to **Face Training** and type your name in the **Name to Train** field. Make sure to enter a single word without spaces.
   2. Click the **Start Face Training** button. Wait 10-15 seconds for face training to complete. The main Command Center window displays pop-up status messages during the face training process.
   3. When face training is complete, you can click the **Get Learned Faces** button to see the labels for people Misty can recognize. Check for your name to make sure Misty learned your face.
 * Use Misty's camera to take a picture.
-  * Use the head movement controls to point Misty's visor at something you'd like to photograph. In the **4K Camera** section, click the **Take + Display Photo** button to see what Misty’s sees. ![Take Picture controls](../../../assets/images/command_center_take_photo.png)
+  * Use the head movement controls to point Misty's visor at something you'd like to photograph. In the **4K Camera** section, click the **Take + Display Photo** button to see what Misty’s sees. ![Take Picture controls](/assets/images/command_center_take_photo.png)
 
 ## Exploring Misty's API
 
@@ -65,10 +65,10 @@ Follow these steps to start learning about the API Explorer:
 1. Follow the link at the top of the Command Center to open up the [API Explorer](http://sdk.mistyrobotics.com/api-explorer) web page. If Misty is still connected to the Command Center when you do this, this connection carries over to the API Explorer, and there's no need to reconnect. If not, you'll need to use Misty's IP address to connect your robot to the API Explorer.
 2. Start by changing the color of Misty's chest LED. Open the **Expression** group in the left-hand side of the page and select the **ChangeLED** command.
 3. Under the **Parameters** section, add a value between `0` and `255` in the **Red**, **Green**, and **Blue** fields. For example, if you want her LED to be fuschia, use **Red**: `204`, **Green**: `0`, **Blue**: `204`.
-4. Click **Send Request** to send the command and change the LED. The full sequence looks like this: ![API Explorer ChangeLED animation](../../../assets/images/api-explorer-send-request-animation.gif)
+4. Click **Send Request** to send the command and change the LED. The full sequence looks like this: ![API Explorer ChangeLED animation](/assets/images/api-explorer-send-request-animation.gif)
 5. Next let’s play an audio clip from Misty's built-in speakers. Select the **Expression** group from the list on the left-hand side of the page, and click on the **PlayAudioClip** command. 
 6. Enter the file name for one of Misty's default system audio files into the **FileName** field. Try using `s_Joy3.wav,`,
-`s_Amazement.wav`, or ` s_Annoyance.wav`. Set the volume to a number between `10` and `100`, and then click **Send Request**. ![API Explorer play audio clip parameters](../../../assets/images/api_explorer_playAudio_params.png)
+`s_Amazement.wav`, or ` s_Annoyance.wav`. Set the volume to a number between `10` and `100`, and then click **Send Request**. ![API Explorer play audio clip parameters](/assets/images/api_explorer_playAudio_params.png)
 1. Lastly, let’s change Misty's eyes. Select the **ChangeDisplayImage** command from the list of commands. Enter `e_Disgust.jpg`, `e_Admiration.jpg`, or `e_Fear.jpg` into the **FileName** field, and click **Send Request**.
 
 ## Uploading Skills with Skill Runner
