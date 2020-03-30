@@ -206,7 +206,7 @@ The **Audio Localization Visualization** shows the following information:
 
 ## Sensor Data
 
-Misty sends real-time data from her sensors and on-board events to the [Command Center](http://sdk.mistyrobotics.com/command-center/) via WebSocket connections. You can use these WebSockets to receive:
+Misty sends real-time data from her sensors and onboard events to the [Command Center](http://sdk.mistyrobotics.com/command-center/) via WebSocket connections. You can use these WebSockets to receive:
 
 * time-of-flight sensor data
 * bump sensor data

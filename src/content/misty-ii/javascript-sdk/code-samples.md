@@ -199,7 +199,7 @@ The code samples in this section show how to use the `misty.SendExternalRequest(
 
 ### externalRequest_getAudio
 
-This sample shows how to code Misty to get an audio file from an external resource. In this case, Misty saves the audio file to her local storage and plays it back through her on-board speakers.
+This sample shows how to code Misty to get an audio file from an external resource. In this case, Misty saves the audio file to her local storage and plays it back through her onboard speakers.
 
 ```JavaScript
 // The URL of the resource to which we send our external request.

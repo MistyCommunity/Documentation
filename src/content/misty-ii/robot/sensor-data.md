@@ -1302,6 +1302,17 @@ Sample `SourceFocusConfigMessage` response data:
 }
 ```
 
+## TextToSpeechComplete
+
+Misty raises a `TextToSpeechComplete` event when when an onboard text-to-speech utterance finishes playing or is interrupted.
+
+To receive `TextToSpeechComplete` event messages in your skills and robot applications, you must register a listener for `TextToSpeechComplete` events. Additionally, to enable `TextToSpeechComplete` events for a given utterance, you must set an `UtteranceId` value for that utterance when you call the `Speak` command.
+
+A `TextToSpeechComplete` event message includes the following key/value pairs:
+* `Error` (boolean) - This value is `true` if Misty's text-to-speech engine threw an error **or** if playback was interrupted by a `StopSpeaking` command.
+* `Interrupted` (boolean) - This value is `true` if playback was interrupted by a `StopSpeaking` command before Misty reached the end of the utterance.
+* `UtteranceId` (string) - The identifier of the utterance that raised this event. You set the `UtteranceId` for a given utterance when you invoke the `Speak` command. Misty does not raise `TextToSpeechComplete` events for utterances that do not have an `UtteranceId`.
+
 ## TimeOfFlight
 
 Misty has four edge and four range time-of-flight sensors that provide a single stream of raw proximity data. These sensors send `TimeOfFlight` messages that you can subscribe to in your skills and robot applications. 
