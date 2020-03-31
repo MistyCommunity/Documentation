@@ -216,6 +216,26 @@ public IList<BumpSensorPosition> DisengagedSensors
 }
 ```
 
+## BumpSensorSetting
+
+The hazards system settings for one of Misty's bump sensors.
+
+*Serializable*
+
+### BumpSensorSetting Properties
+<!-- TODO: add link -->
+* `BumpSensorPosition` (`BumpSensorPosition`) - The position of the bump sensor associated with this setting.
+
+```csharp
+public BumpSensorPosition BumpSensorPosition { get; set; }
+```
+
+* `Enabled` (bool) - Whether this bump sensor is enabled.
+
+```csharp
+public bool Enabled { get; set; }
+```
+
 ## CameraDetails
 
 <!-- TODO: Add more information about the properties listed here. -->
@@ -352,13 +372,227 @@ public IList<float> Image { get; set; }
 
 ## ExposureAndGainDetails
 
+Information about the current exposure and gain levels for the cameras in Misty's Structure Core sensor.
+
+*Serializable*
+
+### ExposureAndGainDetails Properties
+
+* `Exposure` (float) - Current exposure level (in seconds).
+
+```csharp
+public float Exposure { get; set; }
+```
+
+* `Gain` (float) - Current gain level (in dB).
+
+```csharp
+public float Gain { get; set; }
+```
+
 ## FaceTrainingDetails
+
+Information about a face training request.
+
+*Serializable*
+
+### FaceTrainingDetails Properties
+
+* `Message` (string) - A message about the face training request.
+
+```csharp
+public string Message { get; set; }
+```
+<!-- TODO: Add link to MessageType enum -->
+* `MessageType` (`MessageType`) - The type of message (`Status`, `Warn`, or `Error`).
+
+```csharp
+public FaceTrainingMessageType MessageType { get; set; }
+```
+
+## HazardSettingDetails
+
+Information about the current hazards system settings for Misty's time-of-flight (ToF) and bump sensors.
+
+*Serializable*
+
+### HazardSettingDetails Properties
+<!-- TODO: add link -->
+* `BumpSensorSettings` (`IList<BumpSensorSetting>`) - A list of Misty's bump sensors, and whether each sensor is enabled in the hazards system.
+
+```csharp
+public IList<BumpSensorSetting> BumpSensorSettings { get; set; }
+```
+<!-- TODO: add link -->
+* `TimeOfFlightSensorSettings` (`IList<TimeOfFlightSensorSetting>`) - A list of Misty's time-of-flight sensors, and the distance threshold that triggers a hazard response for each sensor. If the distance threshold for a sensor is 0, that sensor is disabled in the hazards system.
+
+```csharp
+public IList<TimeOfFlightSensorSetting> TimeOfFlightSensorSettings { get; set; }
+```
+
+## HazardSettings
+
+Data for changing the hazard system settings for Misty's bump and time-of-flight (ToF) and bump sensors.
+
+*Serializable*
+
+### HazardSettings Properties
+
+* `RevertToDefault` (bool) - If `true`, sets Misty to use the default hazards system settings, and ignores all other `HazardSettings` fields.
+
+```csharp
+public bool RevertToDefault { get; set; }
+```
+
+* `DisableTimeOfFlights` (bool) - If `true`, disables hazards for all time-of-flight sensors by setting the distance threshold for each sensor to 0, and ignores other time-of-flight fields.
+
+```csharp
+public bool DisableTimeOfFlights { get; set; }
+```
+
+* `DisableBumpSensors` (bool) - If `true`, disables hazards for all bump sensors, and ignores other bump sensor fields.
+
+```csharp
+public bool DisableBumpSensors { get; set; }
+```
+
+* `BumpSensorsEnabled` ([`IList<BumpSensorSetting>`](./#bumpsensorsetting)) - A list for turning hazards on or off for each of Misty's bump sensors.
+
+```csharp
+public IList<BumpSensorSetting> BumpSensorsEnabled { get; set; }
+```
+<!-- TODO: add link -->
+* `TimeOfFlightThresholds` [`IList<TimeOfFlightSensorSetting`) - A list for setting the minimum distance threshold to trigger a hazard state for each of Misty's time-of-flight sensors. Time-of-flight sensors with a distance threshold of 0 are disabled in the hazards system.
+
+```csharp
+public IList<TimeOfFlightSensorSetting> TimeOfFlightThresholds { get; set; }
+```
 
 ## ImageDetails
 
+Details about a system or user-uploaded image asset.
+
+*Serializable*
+
+### ImageDetails Properties
+
+* `Name` (string) - The name of the file, with the file type extension.
+
+```csharp
+public string Name { get; set; }
+```
+
+* `Height` (double) - Image height (in pixels).
+
+```csharp
+public double Height { get; set; } 
+```
+
+* `Width` (double) - Image width (in pixels).
+
+```csharp
+public double Width { get; set; }
+```
+
+* `SystemAsset` (bool) - Whether the image is one of Misty's default system assets. For example, `SystemAsset` is `true` for each image in the set of eye assets that arrive with Misty. 
+
+```csharp
+public bool SystemAsset { get; set; }
+```
+
 ## ImageFile
 
+Information about a requested image file.
+
+*Serializable*
+
+### ImageFileProperties
+
+* `Name` (string) - The name of the file, with the file type extension.
+
+```csharp
+public string Name { get; set; }
+```
+
+* `Height` (double) - Image height (in pixels).
+
+```csharp
+public double Height { get; set; } 
+```
+
+* `Width` (double) - Image width (in pixels).
+
+```csharp
+public double Width { get; set; }
+```
+
+* `SystemAsset` (bool) - Whether the image is one of Misty's default system assets. For example, `SystemAsset` is `true` for each image in the set of eye assets that arrive with Misty. 
+
+```csharp
+public bool SystemAsset { get; set; }
+```
+
+* `ContentType` (string) - The type and format of the image file.
+
+```csharp
+public string ContentType { get; set; }
+```
+
+* `Base64` (string) - A string containing the Base64-encoded image data (if the image was requested in Base64).
+
+```csharp
+public string Base64 { get; set; }
+```
+
+<!-- TODO: link? -->
+* `Image` (`IEnumerable<byte>`) - The byte array of the image data (if the image was **not** requested in Base64).
+
+```csharp
+[JsonConverter(typeof(ByteArrayConverter))]
+public IEnumerable<byte> Image { get; set; }
+```
+
 ## INativeRobotSkill
+
+Configuration attributes and other details for a .NET skill. 
+
+* `AllowedCleanupTimeInMs` (uint) - The amount of time (in milliseconds) given to perform cleanup tasks when a skill is cancelled or times out. When a skill ends, the system cannot restart that skill until after this time has elapsed. Default is 2000. Maximum is 10000.
+
+```csharp
+uint AllowedCleanupTimeInMs { get; set; }
+```
+
+* `UniqueId` (Guid) - The unique id associated with this skill. You cannot start a skill from the robot unless that skill has a valid Guid associated with this property.
+ 
+```csharp
+Guid UniqueId { get; }
+```
+
+* `Name` (string) - A name of your choosing for the skill. The Skill Runner web page displays this name for the skill when connected to your robot.
+
+```csharp
+string Name { get; }
+```
+
+* `Description` (string) - An optional description for your skill.
+
+```csharp
+string Description { get; set; }
+```
+<!-- TODO: add link -->
+* `BroadcastMode` (`BroadcastMode`) - Setting that determines the content and frequency of messages this skill broadcasts to `SkillData` event listeners.
+
+```csharp
+BroadcastMode BroadCastMode { get; set; }
+```
+
+* `StartupRules` (`IList<NativeStartupRule>`) - 
+* `TimeoutInSeconds` (int) - 
+* `SharedStorageLifetime` (`SkillStorageLifetime`) - 
+* `ReadPermissions` (`IList<string>`) - 
+* `WritePermissions` (`IList<string>`) - 
+* `StartPermissions` (`IList<string>`) - 
+* `TriggerPermissions` (`IList<string>`) - 
 
 ## INativeSkill
 
