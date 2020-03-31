@@ -554,7 +554,9 @@ public IEnumerable<byte> Image { get; set; }
 
 ## INativeRobotSkill
 
-Configuration attributes and other details for a .NET skill. 
+Configuration attributes and other details for a .NET skill. Your skill sends this information to Misty when the robot loads the skill.
+
+### INativeRobotSkill Properties
 
 * `AllowedCleanupTimeInMs` (uint) - The amount of time (in milliseconds) given to perform cleanup tasks when a skill is cancelled or times out. When a skill ends, the system cannot restart that skill until after this time has elapsed. Default is 2000. Maximum is 10000.
 
@@ -562,7 +564,7 @@ Configuration attributes and other details for a .NET skill.
 uint AllowedCleanupTimeInMs { get; set; }
 ```
 
-* `UniqueId` (Guid) - The unique id associated with this skill. You cannot start a skill from the robot unless that skill has a valid Guid associated with this property.
+* `UniqueId` (Guid) - A unique identifier associated with this skill. You cannot start a skill from the robot unless that skill has a valid Guid associated with this `UniqueId` property.
  
 ```csharp
 Guid UniqueId { get; }
@@ -574,7 +576,7 @@ Guid UniqueId { get; }
 string Name { get; }
 ```
 
-* `Description` (string) - An optional description for your skill.
+* `Description` (string) - Optional text description of the skill.
 
 ```csharp
 string Description { get; set; }
@@ -585,14 +587,48 @@ string Description { get; set; }
 ```csharp
 BroadcastMode BroadCastMode { get; set; }
 ```
+<!-- TODO: add link -->
+* `StartupRules` (`IList<NativeStartupRule>`) - Setting that determines how a skill can start. 
 
-* `StartupRules` (`IList<NativeStartupRule>`) - 
-* `TimeoutInSeconds` (int) - 
-* `SharedStorageLifetime` (`SkillStorageLifetime`) - 
-* `ReadPermissions` (`IList<string>`) - 
-* `WritePermissions` (`IList<string>`) - 
-* `StartPermissions` (`IList<string>`) - 
-* `TriggerPermissions` (`IList<string>`) - 
+```csharp
+IList<NativeStartupRule> StartupRules { get; set; }
+```
+
+* `TimeoutInSeconds` (int) - How long (in seconds) this skill will run before it times out. Default is 600 seconds (10 minutes).
+
+```csharp
+int TimeoutInSeconds { get; set; }
+```
+<!-- TODO: add link -->
+* `SharedStorageLifetime` (`SkillStorageLifetime`) - Setting that determines how long the system saves the shared data this skill creates.
+
+```csharp
+SkillStorageLifetime SharedStorageLifetime { get; set; }
+```
+
+* `ReadPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to read the shared data this skill creates. If an empty list, any skill can read this skill's shared data. If an empty Guid, no other skills can read this skill's shared data. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can read this skill's shared data. A skill can always read the data it writes to its own shared data store.
+
+```csharp
+IList<string> ReadPermissions { get; set; }
+```
+
+* `WritePermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to create, update, and remove the data in this skill's shared data store. If empty, any skill can write to this skill's shared data store. If an empty Guid, no other skills can write to this skill's shared data store. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can write to the data in this skills shared data store. A skill can always write to its own shared data store.
+
+```csharp
+IList<string> WritePermissions { get; set; }
+```
+
+* `StartPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to start or cancel this skill. If empty, any skill can start or cancel this skill. If an empty Guid, no other skill can start or cancel this skill. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can start or stop this skill.
+
+```csharp
+IList<string> StartPermissions { get; set; }
+```
+
+* `TriggerPermissions` (`IList<string>`) -  A list of `UniqueId`s for each skill that is allowed to trigger user events in this skill. If empty, all other skills can trigger user events in this skill. If an empty Guid, no other skills can trigger user events in this skill. If the list includes or more `UniqueId`s, only those skills can trigger user events within this skill. A skill can always trigger user events in itself.
+
+```csharp
+IList<string> TriggerPermissions { get; set; }
+```
 
 ## INativeSkill
 
