@@ -1348,7 +1348,7 @@ Sample `SourceFocusConfigMessage` response data:
 
 ## TextToSpeechComplete
 
-Misty raises a `TextToSpeechComplete` event when when an onboard text-to-speech utterance finishes playing or is interrupted.
+Misty raises a `TextToSpeechComplete` event when an onboard text-to-speech utterance finishes playing or is interrupted.
 
 To receive `TextToSpeechComplete` event messages in your skills and robot applications, you must register a listener for `TextToSpeechComplete` events. Additionally, to enable `TextToSpeechComplete` events for a given utterance, you must set an `UtteranceId` value for that utterance when you call the `Speak` command.
 
