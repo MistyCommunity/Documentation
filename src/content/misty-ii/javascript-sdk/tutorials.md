@@ -116,7 +116,7 @@ misty.Debug("ending skill helloworld_timeofflight");
 
 Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Time-of-Flight).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Time-of-Flight).
 
 ```JavaScript
 // Print a message to indicate the skill has started
@@ -210,7 +210,7 @@ Note: All of this logic needs to be contained within `_GetAudioList()` to ensure
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Play%20Audio).
+See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Play%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -304,7 +304,7 @@ else {
 
 Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Record%20Audio).
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Record%20Audio).
 
 ```JavaScript
 // Print a debug message to indicate the skill has started
@@ -419,7 +419,7 @@ function _FaceRecognitionTimeout() {
 
 Save the code file with the name `HelloWorld_FaceDetection.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Face%20Detection).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Face%20Detection).
 
 ```JavaScript
 
@@ -521,7 +521,7 @@ Using timed events, we have told Misty to change her chest LED to a random color
 
 Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Timer%20Events).
+See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Timer%20Events).
 
 ```JavaScript
 
@@ -657,7 +657,7 @@ function _SendExternalRequest(data) {
 
 Save the code file with the name `HelloWorld_ExternalRequest.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-You can also [download the code for this skill from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20External%20Requests).
+You can also [download the code for this skill from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/External%20Requests).
 
 ## Trigger Skill
 
@@ -728,10 +728,10 @@ The difference from normal event registration happens when we use an optional pa
 misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 ```
 
-We also want to add a return property check above the registration call, to return just the property `PersonName` for use in our callback. Pass in the name of the event first, then the property we want.
+We also want to add a return property check above the registration call, to return just the property `Label` for use in our callback. Pass in the name of the event first, then the property we want.
 
 ```JSON
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+misty.AddReturnProperty("FaceRecognition", "Label");
 ```
 
 Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `FaceRecognition` event subscription).
@@ -743,8 +743,8 @@ Finally, we need to send the command to start face recognition as well. This com
 Putting the pieces together, shown below is first half of the parent skill; the commands relating to face recognition.
 
 ```JavaScript
-// Return only the PersonName property
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+// Return only the Label property
+misty.AddReturnProperty("FaceRecognition", "Label");
 
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
@@ -775,8 +775,8 @@ With both of our event registrations finished, our “parent” skill is complet
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill1.js`.
 
 ```JavaScript
-// Return only the PersonName property
-misty.AddReturnProperty("FaceRecognition", "PersonName");
+// Return only the Label property
+misty.AddReturnProperty("FaceRecognition", "Label");
 
 // Register for FaceRecognition events.
 // For the callback, pass in the GUID for
@@ -806,17 +806,17 @@ function _FaceRecognition(data) {
 
 Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
 
-Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
+Next, define a variable, `label`, to hold the label of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 
 ```JavaScript
 // Store the name of the detected face
-let personName = data.AdditionalResults[0];
+let label = data.AdditionalResults[0];
 ```
 
-Then, use an if statement to check if `personName` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
+Then, use an if statement to check if `label` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
 
 ```JS
-if (personName == "unknown person") {
+if (label == "unknown person") {
     // Change LED
     misty.ChangeLED(255, 0, 0); // red
     misty.Debug("I don't know you...");
@@ -824,7 +824,7 @@ if (personName == "unknown person") {
 else {
     // Change LED
     misty.ChangeLED(0, 255, 0); // green
-    misty.Debug("Hello there " + personName + "!");
+    misty.Debug("Hello there " + label + "!");
 }
 ```
 
@@ -838,8 +838,8 @@ function _FaceRecognition(data) {
     // Signal that new skill has been triggered.
     misty.Debug("TriggerSkill part 2 has been triggered.");
     // Store the name of the detected face
-    let personName = data.AdditionalResults[0];
-    if (personName == "unknown person") {
+    let label = data.AdditionalResults[0];
+    if (label == "unknown person") {
         // Change LED
         misty.ChangeLED(255, 0, 0); // red
         misty.Debug("I don't know you...");
@@ -847,7 +847,7 @@ function _FaceRecognition(data) {
     else {
         // Change LED
         misty.ChangeLED(0, 255, 0); // green
-        misty.Debug("Hello there " + personName + "!");
+        misty.Debug("Hello there " + label + "!");
     }
 }
 ```
@@ -915,7 +915,7 @@ function _BackTOF(data) {
 
 Congratulations! Triggering callbacks across skills is a valuable tool you can add to your Misty-programming toolkit. Save the code files, and see the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
-[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Trigger%20Skill)
+[Download the code files for this tutorial from GitHub.](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Trigger%20Skill)
 
 ## Head & Arm Movement
 
@@ -1067,7 +1067,7 @@ her arms and ends skill execution.
 
 Save the code file with the name `HelloWorld_HeadArms.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Head%20%26%20Arm%20Movement).
+See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Head%20%26%20Arm%20Movement).
 
 ```JavaScript
 // debug message to indicate the skill has started
@@ -1299,7 +1299,7 @@ When this skill runs, Misty retrieves the list of audio clips in her local stora
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill). 
 
-See the complete JavaScript code below or [download the code files from GitHub](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Bump%20Sensors).
+See the complete JavaScript code below or [download the code files from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Bump%20Sensors).
 
 ```JavaScript
 misty.Debug("HelloWorld_BumpSensors is running")

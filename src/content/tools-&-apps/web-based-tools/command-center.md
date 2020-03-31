@@ -165,6 +165,11 @@ Use the **Wide-Angle Vision Camera** controls to take a black-and-white photo wi
 * Click **Take + Display Photo** to take a picture and display it in your browser
 * Click **Take + Download Photo** to download the picture to your computer.
 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To take wide-angle pictures, you must have a Misty II Standard or Misty II Enhanced Edition. The Misty II Basic Edition does not include the Occipital Structure Core depth sensor, and can't take wide-angle pictures. [Learn more about the different models of Misty II](../../../misty-ii/robot/misty-ii/#misty-ii-specs).
+{{box op="end"}}
+
 ### Recording Audio
 
 Use the **Record Audio** controls to have Misty record an audio file with her microphone array. Follow these steps to have Misty record an audio file:
@@ -312,7 +317,9 @@ The Command Center provides access to a **Navigation Module** that you can use t
 ![Command Center Navigation Module](/assets/images/command_center_nav_module.png)
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
+**Note:** To use the Navigation Module, you must have a Misty II Standard or Misty II Enhanced Edition. The Navigation Module is not functional with the Misty II Basic Edition. [Learn more about the different models of Misty II](../../../misty-ii/robot/misty-ii/#misty-ii-specs).
+
+Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.
 {{box op="end"}}
 
 ### Launching the Navigation Module

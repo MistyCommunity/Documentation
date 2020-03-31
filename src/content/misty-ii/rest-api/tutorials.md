@@ -110,7 +110,7 @@ When the page loads, it sends a `ChangeLED` command to Misty, and a message abou
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Changing%20Misty's%20LED) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Changing%20Misty's%20LED) from GitHub.
 
 ## Using Sensors, WebSockets, and Locomotion
 
@@ -123,7 +123,7 @@ Before you write any code, connect Misty to your home network and make sure you 
 
 ### Setting Up Your Project
 
-In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+In addition to Axios, this project uses the `lightSocket.js` helper tool to simplify the process of subscribing to Misty’s WebSocket streams. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new .html document. Give it a title, and include references to `lightSocket.js` and a content delivery network (CDN) for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -448,7 +448,7 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Using%20Sensors%2C%20WebSockets%2C%20and%20Locomotion) from GitHub.
 
 ## Exploring Computer Vision
 
@@ -797,16 +797,16 @@ function _FaceRecognition(data) {
 }
 ```
 
-The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"personName"` property. If a detected face cannot be recognized, the value of `"personName"` is `"unknown person"`. If a message does not hold any face data, then `"personName"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"personName"` does not equal any of these values.
+The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"label"` property. If a detected face cannot be recognized, the value of `"label"` is `"unknown person"`. If a message does not hold any face data, then `"label"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"label"` does not equal any of these values.
 
 ```JavaScript
 function _FaceRecognition(data) {
     try { 
-        // Use an if statement to check that personName 
+        // Use an if statement to check that label 
         // does not equal "unknown person", null, or 
-        // undefined. personName is included in the 
+        // undefined. label is included in the 
         // message returned by FaceRecognition WebSocket events.
-        if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
+        if (data.message.label !== "unknown person" && data.message.label !== null && data.message.label !== undefined) {
 
         }
     }
@@ -818,15 +818,15 @@ function _FaceRecognition(data) {
 
 **Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
 
-If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
+If a face is recognized, the value of the `"label"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
 ```JavaScript
 function _FaceRecognition(data) {
     try {
-        if (data.message.personName !== "unknown person" && data.message.personName !== null && data.message.personName !== undefined) {
+        if (data.message.label !== "unknown person" && data.message.label !== null && data.message.label !== undefined) {
             // If the face is recognized, print a 
             // message to greet the person by name.
-            console.log(`A face was recognized. Hello there ${data.message.personName}!`);
+            console.log(`A face was recognized. Hello there ${data.message.label}!`);
 
             // Unsubscribe from the FaceRecognition WebSocket.
             socket.Unsubscribe("FaceRecognition");
@@ -858,7 +858,7 @@ When you load the `.html` file in your browser, the program:
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Exploring%20Computer%20Vision) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Exploring%20Computer%20Vision) from GitHub.
 
 ## Taking Pictures
 
@@ -869,7 +869,7 @@ This tutorial describes how to write a remote-running program for Misty that tak
 * how to control the flow of a program to trigger commands when specific environmental circumstances are met
 
 ### Setting Up Your Project
-This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/SampleCode/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
+This project uses the Axios library and the `lightSocket.js` helper tool to handle requests and simplify the process of subscribing to Misty’s WebSocket connections. You can download this tool from our [GitHub repository](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript). Save the `lightSocket.js` file to a “tools” or “assets” folder in your project.
 
 To set up your project, create a new HTML document. Give it a title and include references to `lightSocket.js` and a CDN for the Axios library in the `<head>` section. We write the code for commanding Misty within `<script>` tags in the `<body>` section of this document.
 
@@ -1246,4 +1246,4 @@ socket.Connect();
 
 ### Full Sample
 
-Download the [full .html document](https://github.com/MistyCommunity/Tutorials/tree/master/Tutorial%20-%20Taking%20Pictures) from GitHub.
+Download the [full .html document](https://github.com/MistyCommunity/REST-API/tree/master/Tutorials/Taking%20Pictures) from GitHub.

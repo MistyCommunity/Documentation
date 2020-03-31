@@ -167,27 +167,36 @@ Finally, when an event callback is triggered, note that by default it unregister
 * You can re-register the event in the event callback function.
 * To keep the event alive and not unregister on a callback, you can pass `true` for the `keepAlive` parameter when you register the event.
 
-### Timed or Triggered Event Callbacks
-Using the `RegisterTimerEvent()` function, you can create an event that sends a callback after a certain period of time:
+### Timed Event Callbacks
 
-```js
-misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
+Using the [`misty.RegisterTimerEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registertimerevent) method, you can create an event that sends a callback after a certain period of time:
+
+```JavaScript
+// Syntax
+misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
 By default, that event is triggered once and removed, but you can choose to have it call back until unregistered. To do this, you can specify `true` for the `keepAlive` parameter when registering for the timer event. This causes the event to automatically reset when the callback is triggered.
 
 For example, you can set the `callbackTimeInMs` parameter to 5 seconds and specify `keepAlive` to be `true`. Then, after the callback is triggered, the timer resets and the callback will be called again every 5 seconds until the timer event is unregistered with `UnregisterEvent` or is automatically unregistered when the skill ends.
 
-You can also create a triggered event to call back to the skill when a specific command is called. That event is triggered once and removed, but you can immediately re-register as needed in the callback:
+### Triggered Event Callbacks
 
-```js
-misty.RegisterUserEvent(string eventName, string callback);
+You can also register a listener for custom user events by using the [`misty.RegisterUserEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registeruserevent) method.
+
+```JavaScript
+// Syntax
+misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
 
-You can also trigger an event by making a REST call to the event endpoint with a POST command:
+To trigger a user event, you can:
+* issue a POST request to the endpoint for the `TriggerSkillEvent` command, or
+* invoke the `TriggerEvent` command from a JavaScript or .NET skill.
+
+To trigger a user event with Misty's REST API, issue a POST request to the endpoint for the [`TriggerSkillEvent`](../../../misty-ii/rest-api/api-reference/#triggerskillevent) command:
 
 ```html
-POST <robot-ip-address>api/coding-misty/event
+POST <robot-ip-address>api/skills/event
 ```
 
 With a JSON body similar to:
@@ -200,7 +209,36 @@ With a JSON body similar to:
 }
 ```
 
-The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
+The `UniqueId` and `EventName` values are required, and they must match the ID of the skill to call and the event name that you registered a listener for in that skill. You should place any payload data you wish to send to the skill in the `Payload` field. You can process this data in the event callback.
+
+Additionally, you can use the [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
+
+```JavaScript
+// Syntax
+misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
+```
+
+Sending a custom event from a JavaScript skill might look like this:
+
+```JavaScript
+misty.Debug("Starting skill: Sender");
+misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
+```
+
+Any JavaScript or .NET skill that registers a listener for the custom event called `MyEvent` in this example can receive and handle this event. For example, to handle this event in a separate JavaScript skill, you might use:
+
+```JavaScript
+misty.Debug("Starting skill: Listener");
+misty.RegisterUserEvent("MyEvent", true);
+
+function _MyEvent(data) {
+    misty.Debug("Event received: MyEvent");
+    misty.Debug(JSON.stringify(data));
+    // Do something
+}
+```
+
+To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
 
 ## Data Handling
 
@@ -244,24 +282,26 @@ In Misty's JavaScript SDK, the syntax for invoking the `Set` command is as follo
 
 ```js
 // Syntax
-misty.Set(string key, string value, [bool longTermStorage]);
+misty.Set(string key, string value, [bool longTermStorage], [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
+
+You can call the `misty.Set()` method to save or update data that's associated with the current skill, or you can use the `skillUniqueId` argument to modify data that's associated with another skill. To save or update data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Set()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
 Values you save with the [`misty.Set()`](../../../misty-ii/javascript-sdk/api-reference/#misty-set) method must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
-When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
-
-```JavaScript
-misty.Set("key", "my long term data", true);
-```
-
-By default, data you save with the `misty.Set()` method is cleared from Misty's memory when the robot reboots. To change this behavior, you must include an additional `SkillStorageLifetime` attribute in the [meta file](./#meta-file) for your skill. The value you assign to the `SkillStorageLifetime` attribute determines how long the data you save for a particular skill remains on the robot.
-
-You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
+By default, the data you save with the `misty.Set()` method clears from Misty's memory when Misty reboots. To enable long term storage, you must include an additional `SkillStorageLifetime` attribute in the skill's meta file. This attribute determines how long Misty can store data associated with a particular skill. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
 
 * `Skill` - The data clears when the skill stops running.
 * `Reboot` - The data clears the next time Misty reboots (default).
-* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](../../../misty-ii/javascript-sdk/api-reference/#misty-remove) command.
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the [`misty.Remove()`](./#misty-remove) command. 
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** To save a piece of data that persists across reboots, you must:
+
+* Set the `SkillStorageLifetime` attribute to `LongTerm` in the meta file for the skill to which the data belongs.
+* Call the `misty.Set()` method with a value of `true` for the `longTermStorage` argument. If you fail to declare that a piece of data should be saved to long term storage when you call the `misty.Set()` method, that data will be cleared when Misty reboots, even if you have enabled long term storage in the meta file for your skill.
+* Call the `misty.Set()` argument from within the skill with which to associate the data.
+{{box op="end"}}
 
 You can safely omit the `SkillStorageLifetime` key from the meta file if you do not want to modify the default `Reboot` setting.
 
@@ -294,15 +334,10 @@ You must use the `Get` command to access the data associated with a particular k
 
 ```JavaScript
 // Syntax
-misty.Get(string key, [int prePauseMs], [int postPauseMs]);
+misty.Get(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
 
-It is helpful to understand how the system manages instances where two (or more) skills read and write data to the same key.
-
-* Any keys a skill creates with the `Set` command are associated in Misty's database with the `UniqueId` (or `SkillId`) for that skill. When a skill uses `Get` or `Set` to retrieve or update a particular key, the system automatically filters the data the skill can access by using the `SkillId`s associated with each key in the database.
-* If a skill does not have read or write permissions for other skills that use the same keys, then the skill can only return and modify the values associated with the keys it has created.
-* If a skill grants read or write permissions to other skills that use the same keys **after** those skills have already assigned values to those keys on the robot's database, then those skills are not guaranteed to return the data associated with the original skill.
-* To avoid situations where the system returns data associated with the wrong skill, it is a good practice to use unique key names for the data you want to share and update across skills. Set values for these keys in a "parent" skill (that runs first) to grant read and write access to "child" skills (that run later).
+You can call the `misty.Get()` method to access data created by the current skill, or you can use the `skillUniqueId` argument to access data associated with another skill. To read data from another skill, that skill must grant *read permissions* to the skill that calls the `misty.Get()` method.
 
 ## Command Types
 
@@ -323,9 +358,7 @@ All of the event command types require you to implement a callback to be notifie
 
 * **Sensor Events.** These commands (such as `RegisterEvent` and `AddPropertyTest`) allow you to be notified when sensor data that meets your criteria is available from Misty. See the [Sensor Event Callbacks](./#sensor-event-callbacks) section for more usage details.
 * **Timed Events.** Using the `RegisterTimerEvent` command, you can create timed events that call back to the skill after a certain period of time.
-* **Triggered Events.** With the `RegisterUserEvent` command, you can also create a triggered event to call back to the skill when an specific command is called. See the [Timed or Triggered Event Callbacks](./#timed-or-triggered-event-callbacks) section for more details on using user-defined event callbacks.
-
-<!-- TODO: Add link to Timed or Triggered Event Callbacks section -->
+* **Triggered Events.** With the `TriggerEvent` and `RegisterUserEvent` commands, you can create custom event messages  that trigger event callbacks in other JavaScript or .NET skills. See the [Timed or Triggered Event Callbacks](./#timed-or-triggered-event-callbacks) section for more details on using user-defined event callbacks.
 
 ### Helper Commands
 
@@ -459,6 +492,15 @@ Each `meta` file includes the following attributes:
     "WriteToLog": false,
 ```
 
+`SkillStorageLifetime` (string) - Optional. Determines how long the system saves the shared data this skill creates.
+* `Skill` - The data clears when the skill stops running.
+* `Reboot` - The data clears the next time Misty reboots (default).
+* `LongTerm` - The data persists across reboots and remains available until removed from the robot with the `DeleteSharedData` (.NET) or `misty.Remove()` (JavaScript) command.
+
+```JSON
+    "SkillStorageLifetime": "LongTerm"
+```
+
 `ReadPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to read the data this skill creates with the `misty.Set()` method.
 
 ```JSON
@@ -468,12 +510,30 @@ Each `meta` file includes the following attributes:
     ],
 ```
 
-`WritePermissions` (array) - A list of `SkillId`s for each skill that is allowed to change the data this skill creates with the `misty.Set()` method.
+`WritePermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to change the data this skill creates with the `misty.Set()` method.
 
 ```JSON
     "WritePermissions": [
         "d43ae072-720c-469e-8b58-5cdbf4a7721a"
     ]
+```
+
+`StartPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to start or cancel this skill. If the array is empty, any other skill can start or cancel this skill. If the array contains an empty string (`""`), only this skill can cancel itself. If the array contains one or more `SkillId`s, only those skills (and this skill) can start or cancel this skill.
+
+```JSON
+    "StartPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
+```
+
+`TriggerPermissions` (array) - Optional. A list of `SkillId`s for each skill that is allowed to trigger user events in this skill. If empty, **all** skills can trigger events in this skill. If the array contains an empty string (`""`), **only this skill** can only trigger user events within itself. If the array contains one or more `SkillId`s, only those skills (and this skill) can trigger user events within this skill.
+
+```JSON
+    "TriggerPermissions": [
+        "d7f88ecf-6538-49c0-a89b-55ae4adcb5c4",
+        "c43cd2e1-70ab-4130-b2e0-027d5bda42b8"
+    ],
 ```
 
 `Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the meta file for a skill, we can assign the following object to the `Parameters` property:

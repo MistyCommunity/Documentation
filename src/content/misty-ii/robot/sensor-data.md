@@ -768,6 +768,7 @@ The ```SelfState``` WebSocket provides a variety of data about Misty’s current
 * `robotRunState` - Provides information about Misty's current run state. Misty's `currentState` is `Loading` when the system is booting up; `Running` when the system has fully booted and is not updating; and `Updating` when the system is installing an update.
 * `slamStatus` - The current status of Misty's simultaneous localization and mapping (SLAM) system. `SlamStatus` event messages can also be subscribed to independently. See the [`SlamStatus` docs](./#slamstatus) for more information.
 
+The `location`, `occupancyGridCellMeters`, `occupancyGridCell`, and `slamStatus` attributes of this event type are not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This event type is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this event type, but recognize that it may behave unpredictably at this time.
@@ -1163,6 +1164,8 @@ The system triggers a new `SkillSystemStateChange` event each time you add, star
 ## SlamStatus
 
 Misty's `SlamStatus` event messages provide information about the current status of Misty's simultaneous localization and mapping (SLAM) system.
+
+This event type is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty’s SLAM capabilities are an alpha feature. Experiment with mapping, but recognize that Misty’s ability to create maps and track within them is unreliable at this time.

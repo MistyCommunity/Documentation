@@ -48,7 +48,6 @@ The API Explorer generates code samples for Misty's REST API in JavaScript that 
 
 You can use the API Explorer to generate code samples for many of the methods in Misty's on-robot JavaScript API. These code samples appear in the [**Skill Code** section](./#skill-code) of the request form.
 
-
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Code samples for "Get"-type commands also include examples of the [callback function required to handle the data](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) that Misty returns.
 {{box op="end"}}

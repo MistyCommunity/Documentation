@@ -9,7 +9,7 @@ order: 2
 
 This document provides code samples for Misty's JavaScript SDK. Each sample shows how to use a different element of the robot's functionality in a JavaScript skill. You can run many of these samples on your robot without any modification, or you can refer to these samples when coding similar functionality in your own JavaScript skills for Misty II.
 
-To run the code samples from this page on your robot, you can [download the skill files for each sample from the Misty Community SampleCode repo on GitHub](https://github.com/MistyCommunity/SampleCode/tree/master/JavaScript%20SDK%20Code%20Samples). Install the skill files on your robot by [uploading them to Misty via the Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner/#uploading-a-new-skill) web tool. Alternately, refer to these code samples (or copy and paste them into your own skills) when working on similar functionality in your own skill development.
+To run the code samples from this page on your robot, you can [download the skill files for each sample from the Misty Community JavaScript-SDK repository on GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Sample%20Code). Install the skill files on your robot by [uploading them to Misty via the Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner/#uploading-a-new-skill) web tool. Alternately, refer to these code samples (or copy and paste them into your own skills) when working on similar functionality in your own skill development.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This collection of code samples will grow as we add new features and functionality to the Misty platform. If you can't find a sample you're looking for, or if you'd like to request a sample that doesn't exist yet, you can let us know by posting in the [Community Forums](https://community.mistyrobotics.com/).
@@ -41,9 +41,9 @@ misty.StartFaceDetection();
 // Sets up our FaceRecognition event listener.
 function registerFaceDetection() {
     // Creates a property test for FaceDetect event messages to check
-    // whether the message has a "PersonName" value before passing
+    // whether the message has a "Label" value before passing
     // the event message into the callback.
-    misty.AddPropertyTest("FaceDetect", "PersonName", "exists", "", "string");
+    misty.AddPropertyTest("FaceDetect", "Label", "exists", "", "string");
     // Registers a new event listener for FaceRecognition events. (We
     // call this event listener FaceDetect, but you can use any name
     // you like. Giving event listeners a custom name means you can
@@ -114,9 +114,9 @@ misty.StartFaceRecognition();
 // Sets up our FaceRecognition event listener.
 function registerFaceRec() {
     // Creates a property test for FaceRec event messages to check
-    // whether the message has a "PersonName" value before passing
+    // whether the message has a "Label" value before passing
     // the event message into the callback.
-    misty.AddPropertyTest("FaceRec", "PersonName", "exists", "", "string");
+    misty.AddPropertyTest("FaceRec", "Label", "exists", "", "string");
     // Registers a new event listener for FaceRecognition events. (We
     // call this event listener FaceRec, but you can use any name
     // you like. Giving event listeners a custom name means you can
@@ -131,7 +131,7 @@ function registerFaceRec() {
 // Defines how Misty should respond to FaceRec event messages. Data
 // from each FaceRec event is passed into this callback function.
 function _FaceRec(data) {
-    // Gets the value of the PersonName property in the FaceRecognition
+    // Gets the value of the Label property in the FaceRecognition
     // event message.
     var faceDetected = data.PropertyTestResults[0].PropertyValue;
 
@@ -217,7 +217,7 @@ misty.SendExternalRequest("GET", url, null, null, "{}", true, true, "downloadAud
 This sample shows how to code Misty to get data from an external web API. In this case, Misty sends a request to the [Weatherstack API](https://weatherstack.com/)
 and parses the response to print a message with information about the current weather to `SkillData` event listeners.
 
-This sample makes use of the `params` field in the JSON meta file. We store the Weatherstack API key and the name of a city in the `params` field of the meta file ([shared on GitHub here](https://github.com/MistyCommunity/SampleCode/blob/master/JavaScript%20SDK%20Code%20Samples/externalRequest_getData/externalRequest_getData.json)) to make it easier for other developers to update the skill with their own unique information. Before you run this skill, you'll need to replace the `key` and `city` values in the `externalRequest_getData.json` file with your own Weatherstack access key and the name of the city in which you live. You can get a Weatherstack API access key for free by [signing up for an account on their website](https://weatherstack.com/signup/free).
+This sample makes use of the `params` field in the JSON meta file. We store the Weatherstack API key and the name of a city in the `params` field of the meta file ([shared on GitHub here](https://github.com/MistyCommunity/JavaScript-SDK/blob/master/Sample%20Code/externalRequest_getData/externalRequest_getData.json)) to make it easier for other developers to update the skill with their own unique information. Before you run this skill, you'll need to replace the `key` and `city` values in the `externalRequest_getData.json` file with your own Weatherstack access key and the name of the city in which you live. You can get a Weatherstack API access key for free by [signing up for an account on their website](https://weatherstack.com/signup/free).
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Storing sensitive data (like API keys and credentials) in
