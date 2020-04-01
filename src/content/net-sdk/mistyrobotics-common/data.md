@@ -630,11 +630,29 @@ IList<string> StartPermissions { get; set; }
 IList<string> TriggerPermissions { get; set; }
 ```
 
-## INativeSkill
+<!-- TODO: Document this? -->
+<!-- ## INativeSkill -->
 
-## MapCell
+<!-- ## MapCell -->
+<!-- TODO: document this? -->
 
 ## MapDetails
+
+Information about a map.
+
+### MapDetails Properties
+
+* `Key` (string) - The map's unique key. Map keys are formatted as timestamps in UTC (for example, `Map_20190911_21.47.16.UTC`). You cannot change the value of the `Key` associated with a map.
+
+```csharp
+public string Key { get; set; }
+```
+
+* `Name` (string) - The customizable string label for the map. You can change the value of the `Name` associated with a map.
+
+```csharp
+public string Name { get; set; }
+```
 
 ## MentalStateDetails
 
