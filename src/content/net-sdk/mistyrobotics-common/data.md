@@ -554,7 +554,9 @@ public IEnumerable<byte> Image { get; set; }
 
 ## INativeRobotSkill
 
-Configuration attributes and other details for a .NET skill. Your skill sends this information to Misty when the robot loads the skill.
+Interface for the [`NativeRobotSkill`](./#nativerobotskill) class. Configuration attributes and other details for a .NET skill. Your skill sends this information to Misty when the robot loads the skill.
+
+*Serializable*
 
 ### INativeRobotSkill Properties
 
@@ -640,6 +642,8 @@ IList<string> TriggerPermissions { get; set; }
 
 Information about a map.
 
+*Serializable*
+
 ### MapDetails Properties
 
 * `Key` (string) - The map's unique key. Map keys are formatted as timestamps in UTC (for example, `Map_20190911_21.47.16.UTC`). You cannot change the value of the `Key` associated with a map.
@@ -654,11 +658,149 @@ public string Key { get; set; }
 public string Name { get; set; }
 ```
 
-## MentalStateDetails
-
+<!-- TODO: not implemented -->
+<!-- ## MentalStateDetails -->
+<!-- TODO: review NativeRobotSkill vs. INativeRobotSkill -->
 ## NativeRobotSkill
 
+Configuration attributes and other details for a .NET skill. Your skill sends this information to Misty when the robot loads the skill.
+
+*Serializable*
+
+### NativeRobotSkill Properties
+
+* `AllowedCleanupTimeInMs` (uint) - The amount of time (in milliseconds) given to perform cleanup tasks when a skill is cancelled or times out. When a skill ends, the system cannot restart that skill until after this time has elapsed. Default is 2000. Maximum is 10000.
+
+```csharp
+private uint _allowedCleanupTimeMs = 2000;
+
+public uint AllowedCleanupTimeInMs
+{
+    get
+    {
+        return _allowedCleanupTimeMs;
+    }
+    set
+    {
+        _allowedCleanupTimeMs = value <= 10000 ? value : 10000;
+    }
+}
+```
+
+* `UniqueId` (Guid) - A unique identifier associated with this skill. You cannot start a skill from the robot unless that skill has a valid Guid associated with this `UniqueId` property.
+ 
+```csharp
+public Guid UniqueId { get; private set; }
+```
+
+* `Name` (string) - A name of your choosing for the skill. The Skill Runner web page displays this name for the skill when connected to your robot.
+
+```csharp
+public string Name { get; private set; }
+```
+
+* `Description` (string) - Optional text description of the skill.
+
+```csharp
+public string Description { get; set; }
+```
+<!-- TODO: add link -->
+* `BroadcastMode` (`BroadcastMode`) - Setting that determines the content and frequency of messages this skill broadcasts to `SkillData` event listeners.
+
+```csharp
+public BroadcastMode BroadCastMode { get; set; } = BroadcastMode.Off;
+```
+<!-- TODO: add link -->
+* `StartupRules` (`IList<NativeStartupRule>`) - Setting that determines how a skill can start. 
+
+```csharp
+public IList<NativeStartupRule> StartupRules { get; set; } = new List<NativeStartupRule> { NativeStartupRule.Manual };
+```
+
+* `TimeoutInSeconds` (int) - How long (in seconds) this skill will run before it times out. Default is 600 seconds (10 minutes).
+
+```csharp
+private int _timeout = 600; // 10 minute timeout
+
+public int TimeoutInSeconds
+{
+    get
+    {
+        return _timeout;
+    }
+    set
+    {
+        if(value > int.MaxValue)
+        {
+            _timeout = int.MaxValue;
+        }
+        else if(value < 0)
+        {
+            _timeout = 0;
+        }
+        else
+        {
+            _timeout = value;
+        }
+    }
+}
+```
+<!-- TODO: add link -->
+* `SharedStorageLifetime` (`SkillStorageLifetime`) - Setting that determines how long the system saves the shared data this skill creates.
+
+```csharp
+public SkillStorageLifetime SharedStorageLifetime { get; set; } = SkillStorageLifetime.LongTerm
+```
+
+* `ReadPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to read the shared data this skill creates. If an empty list, any skill can read this skill's shared data. If an empty Guid, no other skills can read this skill's shared data. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can read this skill's shared data. A skill can always read the data it writes to its own shared data store.
+
+```csharp
+public IList<string> ReadPermissions { get; set; }
+```
+
+* `WritePermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to create, update, and remove the data in this skill's shared data store. If empty, any skill can write to this skill's shared data store. If an empty Guid, no other skills can write to this skill's shared data store. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can write to the data in this skills shared data store. A skill can always write to its own shared data store.
+
+```csharp
+public IList<string> WritePermissions { get; set; }
+```
+
+* `StartPermissions` (`IList<string>`) - A list of `UniqueId`s for each skill that is allowed to start or cancel this skill. If empty, any skill can start or cancel this skill. If an empty Guid, no other skill can start or cancel this skill. If the list includes one or more `UniqueId`s, only the skills associated with those `UniqueId`s can start or stop this skill.
+
+```csharp
+public IList<string> StartPermissions { get; set; }
+```
+
+* `TriggerPermissions` (`IList<string>`) -  A list of `UniqueId`s for each skill that is allowed to trigger user events in this skill. If empty, all other skills can trigger user events in this skill. If an empty Guid, no other skills can trigger user events in this skill. If the list includes or more `UniqueId`s, only those skills can trigger user events within this skill. A skill can always trigger user events in itself.
+
+```csharp
+public IList<string> TriggerPermissions { get; set; }
+```
+
 ## NativeValidation
+
+Generic .NET Validation class. Validations are used to filter event messages from the robot. Generally, you should use event specific validations.
+
+*Serializable*
+
+### NativeValidation Properties
+
+* `Name` (string) - The name of the field to validate against.
+
+```csharp
+public string Name { get; set; }
+```
+
+* `Value` (object) - The value to validate against.
+
+```csharp
+public object Value { get; set; }
+```
+<!-- TODO: add link -->
+* `Comparison` (`ComparisonOperator`) - The operator to use when comparing the value.
+
+```csharp
+public ComparisonOperator Compariso { get; set; } = ComparisonOperator.Equal;
+```
 
 ## RecordedVideo
 
