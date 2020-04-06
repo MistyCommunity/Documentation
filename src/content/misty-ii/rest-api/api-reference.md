@@ -2126,23 +2126,25 @@ Parameters
 Return Values
 
 * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
-  * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
-  * 0x0001: `Initializing` - The SLAM system is initializing.
-  * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
-  * 0x0004: `Exploring` - The SLAM system is mapping.
-  * 0x0008: `Tracking` - The SLAM system is tracking.
-  * 0x0010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
-  * 0x0020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
-  * 0x0040: `Rebooting` - The SLAM system is rebooting.
-  * 0x0080: `HasPose` - The SLAM system has obtained pose.
-  * 0x0100: `LostPose` - The SLAM system has lost pose after having obtained it.
-  * 0x0200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
-  * 0x0400: `Error` - There is an error with the SLAM system or with the depth sensor.
-  * 0x0800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
-  * 0x1000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
-  * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
-  * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
-  * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x00000: `Uninitialized` - The SLAM system is not yet initialized.
+  * 0x00001: `Initializing` - The SLAM system is initializing.
+  * 0x00002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
+  * 0x00004: `Exploring` - The SLAM system is mapping.
+  * 0x00008: `Tracking` - The SLAM system is tracking.
+  * 0x00010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
+  * 0x00020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
+  * 0x00040: `Rebooting` - The SLAM system is rebooting.
+  * 0x00080: `HasPose` - The SLAM system has obtained pose.
+  * 0x00100: `LostPose` - The SLAM system has lost pose after having obtained it.
+  * 0x00200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
+  * 0x00400: `Error` - There is an error with the SLAM system or with the depth sensor.
+  * 0x00800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
+  * 0x01000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
+  * 0x02000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
+  * 0x04000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
+  * 0x08000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`

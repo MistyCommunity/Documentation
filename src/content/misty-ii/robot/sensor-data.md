@@ -1246,6 +1246,8 @@ This event type is not functional with the Misty II Basic Edition.
   * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
   * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
   * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`
