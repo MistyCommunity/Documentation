@@ -64,7 +64,21 @@ ActuatorPosition {
 
 ## AudioPlayComplete
 
-`AudioPlayComplete` WebSocket data is sent every time Misty finishes playing an audio file. It is not sent at timed intervals.
+The `AudioPlayComplete` event type provides information about stopped or completed audio playback. Misty raises an `AudioPlayComplete` event for an audio source in the following situations:
+
+* when an audio source finishes playing
+* when Misty receives a `StopAudio` command
+* when Misty interrupts paused or active playback by starting to play audio from a different source
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Text-to-speech utterances that you create with Misty's onboard text-to-speech engine (for example, with the `Speak` command) do not raise `AudioPlayComplete` events. To be notified that an onboard text-to-speech utterance is complete, you must register a listener for [`TextToSpeechComplete`](./#texttospeechcomplete) events, instead. 
+{{box op="end"}}
+
+An `AudioPlayComplete` event message includes the following key/value pairs:
+
+* created (string) - The date and time that audio playback completed.
+* metaData (object) - An object with details about the audio source associated with this event. Includes:
+  * name (string) - The filename or URL of the audio source associated with this event.
 
 ```JSON
 AudioPlayComplete {
@@ -72,10 +86,7 @@ AudioPlayComplete {
     "message":{
         "created":"2019-04-08T20:54:36.7051135Z",
         "metaData":{
-            "directory":"Idle",
-            "duration":0,
-            "name":"002-Ahhh.wav",
-            "vad":[0,0,-0.5]
+            "name":"s_Awe.wav",
         }
     }
 }
