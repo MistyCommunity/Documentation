@@ -756,7 +756,6 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
 
 Parameters
 
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 - FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
 - Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
