@@ -4327,7 +4327,11 @@ Return Values:
 
 ### SetDefaultVolume
 
-Sets the default loudness of Misty's speakers for audio playback.
+Sets the default volume of Misty's speakers for audio playback and onboard text-to-speech.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While changing Misty's default volume during audio playback **does** change the volume of the currently playing audio, changing the volume while Misty is playing an utterance created with the `Speak` command does **not** change the volume for that utterance. However, Misty **does** use the newly set default volume the next time she runs a `Speak` command.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
 
