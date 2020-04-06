@@ -2723,7 +2723,7 @@ Starts Misty locating the position and orientation (pose) of the docking station
 
 ```JavaScript
 // Syntax
-misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
+misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [bool enableAutoExposure], [int prePauseMs], [int postPauseMs]);
 ```
 
 This command is not functional with the Misty II Basic Edition.
@@ -2744,6 +2744,7 @@ Arguments
 
 * startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
 * enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* enableAutoExposure (bool) - Optional. Whether Misty should automatically adjust the exposure for the IR cameras during docking station location. Default is `true`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
