@@ -290,11 +290,12 @@ Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatte
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
-- FileName (string) - The name of the audio file to upload.
-- Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
-- File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
+
+* FileName (string) - The name of the audio file to upload.
+* Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
+* File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+* OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -306,9 +307,16 @@ Parameters
 ```
 
 Return Values
+
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`PauseAudio`](./#pauseaudio)
 
 ### SaveImage
 
@@ -748,26 +756,83 @@ Sample response data for a `GetBlinkSettings` request:
 }
 ```
 
+### PauseAudio
+
+Pauses audio playback.
+
+To resume playback, issue a [`PlayAudio`](./#playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+If you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. When this happens, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+If you pause playback from a live audio stream for more than a few seconds, the buffer becomes too large and Misty will not not resume playback from the paused point. Misty starts a new connection to the stream the next time you issue a command to play audio from that source.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/pause
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this command.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
+
 ### PlayAudio
 
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
 
 Parameters
 
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
 - Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
 ```json
+// Examples:
+// Plays an audio asset from Misty's local storage
 {
   "FileName": "s_Amazement.wav"
+}
+
+// Plays an RTSP audio stream
+{
+  "FileName": "rtsp://<streaming-url>"
+}
+
+// Plays the live audio feed for a radio station
+{
+  "FileName": "http://audio.kuer.org:8000/high"
+}
+
+// Plays an audio file hosted on the web
+{
+  "FileName": "https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3"
 }
 ```
 
 Return Values
 
 * Result (string) - Returns a string with any errors related to this command.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
 
 ### RemoveBlinkMappings
 
@@ -793,6 +858,27 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
+### StopAudio
+
+Stops audio playback. When you use this command, the system raises an `AudioPlayComplete` event for the stopped audio source.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: &lt;robot-ip-address&gt;/api/audio/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+* [`PauseAudio`](./#pauseaudio)
+* [`PlayAudio`](./#playaudio)
+* [`SaveAudio`](./#saveaudio)
 
 ### TransitionLED
 
