@@ -3821,7 +3821,7 @@ Call the `misty.Get()` method to access data created by the current skill, or to
 
 Arguments
 
-* key (string) - The key name for the data to return.
+* key (string) - The key name for the data to return. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical in Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the data to obtain. If `null` or empty, obtains the value for the `key` associated with the skill that calls the `misty.Get()` method. **Note:** In order to obtain data that's associated with another skill, that skill must [grant *read permissions* to the skill that calls the `misty.Get()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -3968,7 +3968,7 @@ Call the `misty.Remove()` method to delete keys associated with the current skil
 
 Arguments
 
-* key (string) - The key name of the data to remove.
+* key (string) - The key name of the data to remove. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the key to remove. If `null` or empty, Misty removes the key associated with the skill that calls the `misty.Remove()` method. **Note:** In order to delete data that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Remove()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -4028,7 +4028,7 @@ By default, the data you save with the `misty.Set()` method clears from Misty's 
 
 Arguments
 
-* key (string) - The key name for the data to save.
+* key (string) - The key name for the data to save. Keys are **not** case-sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * value (string, bool, int, or double) - The data to save. Data Misty saves with the `misty.Set()` method must be one of these types: `string`, `bool`, `int`, or `double`.
 * longTermStorage (boolean) - Optional. Whether this piece of data persists across reboots. To save a piece of data that persists across reboots, you must set the `SkillStorageLifetime` attribute for the skill to `LongTerm` **in addition** to setting the value of this argument to `true`. Defaults to `false`. 
 * skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
