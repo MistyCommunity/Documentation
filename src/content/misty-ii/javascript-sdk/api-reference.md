@@ -946,53 +946,82 @@ Returns
   * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
   * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
-### misty.PlayAudio
 
-Plays an audio clip that has been previously saved to Misty's storage.
+### misty.PauseAudio
 
-```JavaScript
+Pauses audio playback.
+
+```javascript
 // Syntax
-misty.PlayAudio(string fileName, [int volume], [int prePauseMs], [int postPauseMs]);
+misty.PauseAudio([int prePauseMs], [int postPauseMs]);
 ```
+
+To resume playback, issue a [`misty.PlayAudio()`](./#misty-playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+If you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. When this happens, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+If you pause playback from a live audio stream for more than a few seconds, the buffer becomes too large and Misty will not not resume playback from the paused point. Misty starts a new connection to the stream the next time you issue a command to play audio from that source.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
-* fileName (string) - The name of the file to play.
-* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+* None
+
+```javascript
 // Example
-misty.PlayAudio("s_Sadness.wav", 100);
+misty.PauseAudio();
 ```
 
-### misty.TransitionLED
+Related Commands
 
-Sets Misty's LED to transition between two colors.
+* [`misty.PlayAudio()`](./#misty-playaudio)
+* [`misty.StopAudio()`](./#misty-stopaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
 
-```JavaScript
+### misty.PlayAudio
+
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
+
+```javascript
 // Syntax
-misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+misty.PlayAudio(string fileName, int volume, [int prePauseMs], [int postPauseMs]);
 ```
 
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
-Parameters
+Arguments
 
-* red (byte) - The red RGB color value for the first color (range 0 to 255).
-* green (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
+* Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
-misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
+```javascript
+// Examples
+
+// Plays an audio asset from Misty's local storage
+misty.PlayAudio("s_Amazement.wav");
+
+// Plays an RTSP audio stream
+misty.PlayAudio("rtsp://<streaming-url>");
+
+// Plays the live audio feed for a radio station
+misty.PlayAudio("http://audio.kuer.org:8000/high")
+
+// Plays an audio file hosted on the web
+misty.PlayAudio("https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3");
 ```
+
+Related Commands
+
+* [`misty.PauseAudio()`](./#misty-pauseaudio)
+* [`misty.StopAudio()`](./#misty-stopaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
 
 ### misty.RemoveBlinkMappings
 
@@ -1448,6 +1477,37 @@ Arguments
 misty.Speak("Hello, world!");
 ```
 
+### misty.StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+```JavaScript
+// Syntax
+misty.StopAudio([int prePauseMs], [int postPauseMs]);
+```
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`misty.Speak()`](./#misty-speak) command. To stop an onboard text-to-speech utterance, you must use the [`misty.StopSpeaking()`](./#misty-stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.StopAudio();
+```
+
+Related Commands
+
+* [`misty.PauseAudio()`](./#misty-pauseaudio)
+* [`misty.PlayAudio()`](./#misty-playaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
+
 ### misty.StopSpeaking
 
 Stops Misty speaking the currently playing text-to-speech utterance.
@@ -1469,6 +1529,34 @@ Arguments
 ```JavaScript
 // Example
 misty.StopSpeaking()
+```
+
+### misty.TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+```JavaScript
+// Syntax
+misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+```
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Parameters
+
+* red (byte) - The red RGB color value for the first color (range 0 to 255).
+* green (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
 ```
 
 ## External Requests

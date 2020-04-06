@@ -858,66 +858,6 @@ Return values
 
 * Result (string) - Returns `true` if no errors related to this request.
 
-### StopAudio
-
-Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
-
-This command does **not** stop playback of text-to-speech utterances that you create with the [`Speak`](./#speak) command.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-Endpoint: &lt;robot-ip-address&gt;/api/audio/stop
-
-Parameters
-
-* None
-
-Return Values
-
-* Result (string) - Returns `true` if no errors related to this request.
-
-* [`PauseAudio`](./#pauseaudio)
-* [`PlayAudio`](./#playaudio)
-* [`SaveAudio`](./#saveaudio)
-
-### TransitionLED
-
-Sets Misty's LED to transition between two colors.
-
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
-
-Parameters
-
-* Red (byte) - The red RGB color value for the first color (range 0 to 255).
-* Green (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
-
-```JSON
-{
-	"Red": 255,
-	"Green": 0,
-	"Blue": 0,
-	"Red2": 0,
-	"Green2": 255,
-	"Blue2": 0,
-	"TransitionType": "Breathe",
-	"TimeMS": 500
-}
-```
-
-Return values
-
-* Result (string) - Returns `true` if no errors related to this request.
-
 ### SetBlinking
 
 Turns Misty's eye blinking behavior on or off.
@@ -1370,6 +1310,32 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`Speak`](./#speak) command. To stop an onboard text-to-speech utterance, you must use the [`StopSpeaking`](./#stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: &lt;robot-ip-address&gt;/api/audio/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`PlayAudio`](./#playaudio)
+* [`SaveAudio`](./#saveaudio)
+
 ### StopSpeaking
 
 Stops Misty speaking the currently playing text-to-speech utterance.
@@ -1387,6 +1353,42 @@ Parameters
 Returns
 
 * Result (boolean) - Returns `true` if no errors related to this command.
+
+### TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
+
+Parameters
+
+* Red (byte) - The red RGB color value for the first color (range 0 to 255).
+* Green (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+
+```JSON
+{
+	"Red": 255,
+	"Green": 0,
+	"Blue": 0,
+	"Red2": 0,
+	"Green2": 255,
+	"Blue2": 0,
+	"TransitionType": "Breathe",
+	"TimeMS": 500
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ## External Requests
 
