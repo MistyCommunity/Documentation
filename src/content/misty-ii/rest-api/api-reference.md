@@ -860,7 +860,9 @@ Return values
 
 ### StopAudio
 
-Stops audio playback. When you use this command, the system raises an `AudioPlayComplete` event for the stopped audio source.
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+This command does **not** stop playback of text-to-speech utterances that you create with the [`Speak`](./#speak) command.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
