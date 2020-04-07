@@ -46,6 +46,13 @@ This is the current version of Misty's software.
 
 * [2020.04.07 Release Notes](https://community.mistyrobotics.com/t/2020-04-07-system-update/2720)
 
+| Device Information  | Misty II |  Misty I |
+|---|---|---|
+| `robotVersion`  | 1.16.0.10487 |  1.1.14.0 |
+| `hardwareInfo.mcBoard.firmware`  | 1.16.0.247 |  1.1.14.3 |
+| `hardwareInfo.rtcBoard.firmware` | 1.16.0.247 |  1.1.14.3 |
+| `sensoryServicesAppVersion`  | 1.16.0 |  1.1.14.3 |
+
 ### 2020.03.31
 
 * [2020.03.31 Release Notes](https://community.mistyrobotics.com/t/2020-03-31-system-update/2709)
