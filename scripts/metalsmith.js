@@ -290,7 +290,7 @@ exports.metalsmith = function() {
     // Rename files so that about.html is converted into about/index.html
     .use(permalinks({
       relative: false
-    }));
+    }))
 
   return metalsmith;
 };
