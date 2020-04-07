@@ -40,11 +40,16 @@ You can check the software versions on your Misty by sending a request to the en
 
 ## Release History
 
-### 2020.03.31
+### 2020.04.07
 
 This is the current version of Misty's software.
 
+* [2020.04.07 Release Notes](https://community.mistyrobotics.com/t/2020-04-07-system-update/2720)
+
+### 2020.03.31
+
 * [2020.03.31 Release Notes](https://community.mistyrobotics.com/t/2020-03-31-system-update/2709)
+* View the [developer documentation](/v1.15.1.10476) for this version of the robot's software.
 
 | Device Information  | Misty II |  Misty I |
 |---|---|---|
