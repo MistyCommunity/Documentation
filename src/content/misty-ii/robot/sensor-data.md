@@ -64,7 +64,21 @@ ActuatorPosition {
 
 ## AudioPlayComplete
 
-`AudioPlayComplete` WebSocket data is sent every time Misty finishes playing an audio file. It is not sent at timed intervals.
+The `AudioPlayComplete` event type provides information about stopped or completed audio playback. Misty raises an `AudioPlayComplete` event for an audio source in the following situations:
+
+* when an audio source finishes playing
+* when Misty receives a `StopAudio` command
+* when Misty interrupts paused or active playback by starting to play audio from a different source
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Text-to-speech utterances that you create with Misty's onboard text-to-speech engine (for example, with the `Speak` command) do not raise `AudioPlayComplete` events. To be notified that an onboard text-to-speech utterance is complete, you must register a listener for [`TextToSpeechComplete`](./#texttospeechcomplete) events, instead. 
+{{box op="end"}}
+
+An `AudioPlayComplete` event message includes the following key/value pairs:
+
+* created (string) - The date and time that audio playback completed.
+* metaData (object) - An object with details about the audio source associated with this event. Includes:
+  * name (string) - The filename or URL of the audio source associated with this event.
 
 ```JSON
 AudioPlayComplete {
@@ -72,10 +86,7 @@ AudioPlayComplete {
     "message":{
         "created":"2019-04-08T20:54:36.7051135Z",
         "metaData":{
-            "directory":"Idle",
-            "duration":0,
-            "name":"002-Ahhh.wav",
-            "vad":[0,0,-0.5]
+            "name":"s_Awe.wav",
         }
     }
 }
@@ -235,7 +246,7 @@ To use information about the pose of Misty's docking station in your skills and 
 `ChargerPoseMessage` events include the following key/value pairs:
 
 * created (string) - Timestamp describing when the robot created the message.
-* homogenousMatrix (array) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is a rotation matrix. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
+* homogenousMatrix (array) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is the rotation matrix that corresponds to the docking station's orientation, following the XYZ Euler angle convention. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
 * sensorId (string) - The ID of the sensor associated with this message.
 
 ```JSON
@@ -1235,6 +1246,8 @@ This event type is not functional with the Misty II Basic Edition.
   * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
   * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
   * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`

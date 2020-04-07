@@ -287,6 +287,8 @@ misty.Set(string key, string value, [bool longTermStorage], [string skillUniqueI
 
 You can call the `misty.Set()` method to save or update data that's associated with the current skill, or you can use the `skillUniqueId` argument to modify data that's associated with another skill. To save or update data that's associated with another skill, that skill must grant *write permissions* to the skill that calls the `misty.Set()` method. You declare write permissions by updating the `WritePermissions` attribute in a skill's meta file. Learn more about [Reading and Writing Data Across Skills](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 
+The keys to which you write data with the `misty.Set()` command are **not** case-sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
+
 Values you save with the [`misty.Set()`](../../../misty-ii/javascript-sdk/api-reference/#misty-set) method must be a string, boolean, integer, or double. If you want to use `misty.Set()` to store a JavaScript object, you can serialize the data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`.
 
 By default, the data you save with the `misty.Set()` method clears from Misty's memory when Misty reboots. To enable long term storage, you must include an additional `SkillStorageLifetime` attribute in the skill's meta file. This attribute determines how long Misty can store data associated with a particular skill. You can set the value of `SkillStorageLifetime` to `Skill`, `Reboot`, or `LongTerm`.
@@ -330,7 +332,7 @@ As an example of how this works, the sample `ReadPermissions` and `WritePermissi
     ]
 ```
 
-You must use the `Get` command to access the data associated with a particular key. In Misty's JavaScript SDK, the syntax for invoking the `Get` command is as follows:
+You must use the `Get` command to access the data associated with a particular key. Keys are **not** case sensitive. In Misty's JavaScript SDK, the syntax for invoking the `Get` command is as follows:
 
 ```JavaScript
 // Syntax

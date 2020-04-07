@@ -946,53 +946,82 @@ Returns
   * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
   * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
-### misty.PlayAudio
 
-Plays an audio clip that has been previously saved to Misty's storage.
+### misty.PauseAudio
 
-```JavaScript
+Pauses audio playback.
+
+```javascript
 // Syntax
-misty.PlayAudio(string fileName, [int volume], [int prePauseMs], [int postPauseMs]);
+misty.PauseAudio([int prePauseMs], [int postPauseMs]);
 ```
+
+To resume playback, issue a [`misty.PlayAudio()`](./#misty-playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+When you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. This causes the system to raise an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+When you pause audio playback for a live stream, Misty does not resume playback from the paused location. Instead, when you issue a `misty.PlayAudio()` command to resume playback for that stream, Misty starts playing from the point in the stream that is currently live.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
-* fileName (string) - The name of the file to play.
-* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+* None
+
+```javascript
 // Example
-misty.PlayAudio("s_Sadness.wav", 100);
+misty.PauseAudio();
 ```
 
-### misty.TransitionLED
+Related Commands
 
-Sets Misty's LED to transition between two colors.
+* [`misty.PlayAudio()`](./#misty-playaudio)
+* [`misty.StopAudio()`](./#misty-stopaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
 
-```JavaScript
+### misty.PlayAudio
+
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
+
+```javascript
 // Syntax
-misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+misty.PlayAudio(string fileName, int volume, [int prePauseMs], [int postPauseMs]);
 ```
 
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
-Parameters
+Arguments
 
-* red (byte) - The red RGB color value for the first color (range 0 to 255).
-* green (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
+* Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
-misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
+```javascript
+// Examples
+
+// Plays an audio asset from Misty's local storage
+misty.PlayAudio("s_Amazement.wav");
+
+// Plays an RTSP audio stream
+misty.PlayAudio("rtsp://<streaming-url>");
+
+// Plays the live audio feed for a radio station
+misty.PlayAudio("http://audio.kuer.org:8000/high")
+
+// Plays an audio file hosted on the web
+misty.PlayAudio("https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3");
 ```
+
+Related Commands
+
+* [`misty.PauseAudio()`](./#misty-pauseaudio)
+* [`misty.StopAudio()`](./#misty-stopaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
 
 ### misty.RemoveBlinkMappings
 
@@ -1448,6 +1477,37 @@ Arguments
 misty.Speak("Hello, world!");
 ```
 
+### misty.StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+```JavaScript
+// Syntax
+misty.StopAudio([int prePauseMs], [int postPauseMs]);
+```
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`misty.Speak()`](./#misty-speak) command. To stop an onboard text-to-speech utterance, you must use the [`misty.StopSpeaking()`](./#misty-stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+// Example
+misty.StopAudio();
+```
+
+Related Commands
+
+* [`misty.PauseAudio()`](./#misty-pauseaudio)
+* [`misty.PlayAudio()`](./#misty-playaudio)
+* [`misty.SaveAudio()`](./#misty-saveaudio)
+
 ### misty.StopSpeaking
 
 Stops Misty speaking the currently playing text-to-speech utterance.
@@ -1469,6 +1529,34 @@ Arguments
 ```JavaScript
 // Example
 misty.StopSpeaking()
+```
+
+### misty.TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+```JavaScript
+// Syntax
+misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+```
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Parameters
+
+* red (byte) - The red RGB color value for the first color (range 0 to 255).
+* green (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```JavaScript
+misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
 ```
 
 ## External Requests
@@ -2415,6 +2503,8 @@ Returns
     * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
     * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
     * 0x8000: `Streaming` - The SLAM system is streaming.
+    * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+    * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
   * `StatusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
   * `RunMode` (string) - Current status of the navigation system. Possible values are:
     * `Uninitialized`
@@ -2633,7 +2723,7 @@ Starts Misty locating the position and orientation (pose) of the docking station
 
 ```JavaScript
 // Syntax
-misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
+misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [bool enableAutoExposure], [int prePauseMs], [int postPauseMs]);
 ```
 
 This command is not functional with the Misty II Basic Edition.
@@ -2654,6 +2744,7 @@ Arguments
 
 * startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
 * enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* enableAutoExposure (bool) - Optional. Whether Misty should automatically adjust the exposure for the IR cameras during docking station location. Default is `true`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -3730,7 +3821,7 @@ Call the `misty.Get()` method to access data created by the current skill, or to
 
 Arguments
 
-* key (string) - The key name for the data to return.
+* key (string) - The key name for the data to return. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical in Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the data to obtain. If `null` or empty, obtains the value for the `key` associated with the skill that calls the `misty.Get()` method. **Note:** In order to obtain data that's associated with another skill, that skill must [grant *read permissions* to the skill that calls the `misty.Get()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -3877,7 +3968,7 @@ Call the `misty.Remove()` method to delete keys associated with the current skil
 
 Arguments
 
-* key (string) - The key name of the data to remove.
+* key (string) - The key name of the data to remove. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the key to remove. If `null` or empty, Misty removes the key associated with the skill that calls the `misty.Remove()` method. **Note:** In order to delete data that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Remove()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
@@ -3937,7 +4028,7 @@ By default, the data you save with the `misty.Set()` method clears from Misty's 
 
 Arguments
 
-* key (string) - The key name for the data to save.
+* key (string) - The key name for the data to save. Keys are **not** case-sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * value (string, bool, int, or double) - The data to save. Data Misty saves with the `misty.Set()` method must be one of these types: `string`, `bool`, `int`, or `double`.
 * longTermStorage (boolean) - Optional. Whether this piece of data persists across reboots. To save a piece of data that persists across reboots, you must set the `SkillStorageLifetime` attribute for the skill to `LongTerm` **in addition** to setting the value of this argument to `true`. Defaults to `false`. 
 * skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
@@ -4927,12 +5018,17 @@ misty.RestartRobot(false, true);
 
 ### misty.SetDefaultVolume
 
-Sets the default loudness of Misty's speakers for audio playback.
+Sets the default volume of Misty's speakers for audio playback and onboard text-to-speech.
+
 
 ```JavaScript
 // Syntax
 misty.SetDefaultVolume(int volume, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While changing Misty's default volume during audio playback **does** change the volume of the currently playing audio, changing the volume while Misty is playing an utterance created with the `Speak` command does **not** change the volume for that utterance. However, Misty **does** use the newly set default volume the next time she runs a `Speak` command.
+{{box op="end"}}
 
 Arguments
 

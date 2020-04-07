@@ -290,11 +290,12 @@ Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatte
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
-- FileName (string) - The name of the audio file to upload.
-- Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
-- File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
+
+* FileName (string) - The name of the audio file to upload.
+* Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
+* File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+* OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -306,9 +307,16 @@ Parameters
 ```
 
 Return Values
+
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`PauseAudio`](./#pauseaudio)
 
 ### SaveImage
 
@@ -748,27 +756,83 @@ Sample response data for a `GetBlinkSettings` request:
 }
 ```
 
+### PauseAudio
+
+Pauses audio playback.
+
+To resume playback, issue a [`PlayAudio`](./#playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+When you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. This causes the system to raise an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+When you pause audio playback for a live stream, Misty does not resume playback from the paused location. Instead, when you issue a `PlayAudio` command to resume playback for that stream, Misty starts playing from the point in the stream that is currently live.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/pause
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this command.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
+
 ### PlayAudio
 
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
 
 Parameters
 
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
 - Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
 ```json
+// Examples:
+// Plays an audio asset from Misty's local storage
 {
   "FileName": "s_Amazement.wav"
+}
+
+// Plays an RTSP audio stream
+{
+  "FileName": "rtsp://<streaming-url>"
+}
+
+// Plays the live audio feed for a radio station
+{
+  "FileName": "http://audio.kuer.org:8000/high"
+}
+
+// Plays an audio file hosted on the web
+{
+  "FileName": "https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3"
 }
 ```
 
 Return Values
 
 * Result (string) - Returns a string with any errors related to this command.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
 
 ### RemoveBlinkMappings
 
@@ -787,43 +851,6 @@ Parameters
 ```JSON
 {
   "BlinkImages": ["Relaxed.png", "Protected.png"]
-}
-```
-
-Return values
-
-* Result (string) - Returns `true` if no errors related to this request.
-
-
-### TransitionLED
-
-Sets Misty's LED to transition between two colors.
-
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
-
-Parameters
-
-* Red (byte) - The red RGB color value for the first color (range 0 to 255).
-* Green (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
-
-```JSON
-{
-	"Red": 255,
-	"Green": 0,
-	"Blue": 0,
-	"Red2": 0,
-	"Green2": 255,
-	"Blue2": 0,
-	"TransitionType": "Breathe",
-	"TimeMS": 500
 }
 ```
 
@@ -1283,6 +1310,32 @@ Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
 
+### StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`Speak`](./#speak) command. To stop an onboard text-to-speech utterance, you must use the [`StopSpeaking`](./#stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: &lt;robot-ip-address&gt;/api/audio/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`PlayAudio`](./#playaudio)
+* [`SaveAudio`](./#saveaudio)
+
 ### StopSpeaking
 
 Stops Misty speaking the currently playing text-to-speech utterance.
@@ -1300,6 +1353,42 @@ Parameters
 Returns
 
 * Result (boolean) - Returns `true` if no errors related to this command.
+
+### TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
+
+Parameters
+
+* Red (byte) - The red RGB color value for the first color (range 0 to 255).
+* Green (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+
+```JSON
+{
+	"Red": 255,
+	"Green": 0,
+	"Blue": 0,
+	"Red2": 0,
+	"Green2": 255,
+	"Blue2": 0,
+	"TransitionType": "Breathe",
+	"TimeMS": 500
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ## External Requests
 
@@ -2037,23 +2126,25 @@ Parameters
 Return Values
 
 * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
-  * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
-  * 0x0001: `Initializing` - The SLAM system is initializing.
-  * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
-  * 0x0004: `Exploring` - The SLAM system is mapping.
-  * 0x0008: `Tracking` - The SLAM system is tracking.
-  * 0x0010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
-  * 0x0020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
-  * 0x0040: `Rebooting` - The SLAM system is rebooting.
-  * 0x0080: `HasPose` - The SLAM system has obtained pose.
-  * 0x0100: `LostPose` - The SLAM system has lost pose after having obtained it.
-  * 0x0200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
-  * 0x0400: `Error` - There is an error with the SLAM system or with the depth sensor.
-  * 0x0800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
-  * 0x1000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
-  * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
-  * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
-  * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x00000: `Uninitialized` - The SLAM system is not yet initialized.
+  * 0x00001: `Initializing` - The SLAM system is initializing.
+  * 0x00002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
+  * 0x00004: `Exploring` - The SLAM system is mapping.
+  * 0x00008: `Tracking` - The SLAM system is tracking.
+  * 0x00010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
+  * 0x00020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
+  * 0x00040: `Rebooting` - The SLAM system is rebooting.
+  * 0x00080: `HasPose` - The SLAM system has obtained pose.
+  * 0x00100: `LostPose` - The SLAM system has lost pose after having obtained it.
+  * 0x00200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
+  * 0x00400: `Error` - There is an error with the SLAM system or with the depth sensor.
+  * 0x00800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
+  * 0x01000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
+  * 0x02000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
+  * 0x04000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
+  * 0x08000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`
@@ -2264,8 +2355,9 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/start
 
 Parameters
 
-* startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
-* enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* StartStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* EnableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* EnableAutoExposure (bool) - Optional. Whether Misty should automatically adjust the exposure for the IR cameras during docking station location. Default is `true`.
 
 Return Values
 
@@ -4235,7 +4327,11 @@ Return Values:
 
 ### SetDefaultVolume
 
-Sets the default loudness of Misty's speakers for audio playback.
+Sets the default volume of Misty's speakers for audio playback and onboard text-to-speech.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While changing Misty's default volume during audio playback **does** change the volume of the currently playing audio, changing the volume while Misty is playing an utterance created with the `Speak` command does **not** change the volume for that utterance. However, Misty **does** use the newly set default volume the next time she runs a `Speak` command.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
 
