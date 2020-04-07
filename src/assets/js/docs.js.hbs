@@ -231,7 +231,7 @@ Created by Zach Supalla.
     lunr.tokenizer.separator = /[\s\-.]+/;
     lunr.Pipeline.registerFunction(Docs._removeEmptyTokens, 'removeEmptyTokens');
 
-    $.getJSON('/search-index.json', function(data) {
+    $.getJSON('/v1.15.1.10476/search-index.json', function(data) {
       var store = data.store;
       var idx = lunr.Index.load(data.index);
       $('input.search-box').keyup(function() {
@@ -390,7 +390,7 @@ Created by Zach Supalla.
     var niceResults = fiveResults.map(function(r) {
       var resultInfo = store[r.ref];
       var nr = {};
-      nr.link = r.ref;
+      nr.link = "v1.15.1.10476/" + r.ref;
       nr.title = resultInfo.title;
       nr.device = resultInfo.device;
       nr.collection = Docs.titleize(resultInfo.collection);
