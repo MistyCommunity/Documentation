@@ -958,9 +958,9 @@ misty.PauseAudio([int prePauseMs], [int postPauseMs]);
 
 To resume playback, issue a [`misty.PlayAudio()`](./#misty-playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
 
-If you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. When this happens, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+When you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. This causes the system to raise an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
 
-If you pause playback from a live audio stream for more than a few seconds, the buffer becomes too large and Misty will not not resume playback from the paused point. Misty starts a new connection to the stream the next time you issue a command to play audio from that source.
+When you pause audio playback for a live stream, Misty does not resume playback from the paused location. Instead, when you issue a `misty.PlayAudio()` command to resume playback for that stream, Misty starts playing from the point in the stream that is currently live.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
