@@ -7,13 +7,31 @@ order: 5
 
 # {{title}}
 
-This document provides information about Misty's available event types. Use these event types to get live updates with data from Misty's sensors and other system services.
+The code you write for Misty allows the robot to autonomously react to input from her surroundings. To enable this autonomy, you must create *event driven* skills and robot applications. This means writing applications with logic that listens for and responds to incoming environmental data.
 
-To receive event messages, you can register event listeners in your skill code. You can also subscribe to event messages from a remote device by connecting to Misty's WebSocket server.
+## Events Overview
 
-When you register for event messages, you can:
-* filter out unwanted data by specifying which property values an event message should include
-* apply conditions to receive messages only when the property values for an event meet specific criteria
+Misty's software provides an interface for processing event data in on-device skills as well as remote-running robot applications. This event data is associated with a number of different *event types*. The data for these event types comes from many different sources, including:
+
+* Misty's sensors (such as capacitive touch sensors, bump sensors, and time-of-flight sensors)
+* external hardware (such as the Misty Arduino-compatible backpack)
+* internal, sensor-enabled processes (such as face recognition, key phrase recognition, and the robot's hazards system)
+* Misty's software (such as messages from the robot's skill system)
+* your own skills and applications (such as skill debug messages and custom event triggers)
+
+To receive event messages, you must create *event listeners* in the code for your skills and robot applications. We sometimes refer to this process as *registering for an event*. When you create an event listener, you can:
+
+* filter out unwanted data by specifying which *properties* an event message should include
+* apply *event conditions* and *validations*, or rules that define what kind of data an event listener can receive from a particular event type
+* set a *debounce* value, or how frequently a particular event type should send event messages (this is useful for event types that provide a constant stream of new data, instead of sending data just once when a particular event occurs)
+
+The process for creating an event listener, receiving event data, and handling that data in your code depends on whether you are building an on-device skill or a remote-running robot application that communicates with Misty over a wireless network. Additionally, the implementation details for registering event listeners differ between Misty's JavaScript and .NET SDKs.
+
+For instructions and examples that show how to use event data across the different ways you can code Misty, see the following:
+
+* To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-data-from-misty)
+* To learn about registering event listeners in JavaScript skills, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks)
+* To learn about using event data in .NET skills, see [Registering & Unregistering Events](../../../misty-ii/net-sdk/net-skill-architecture/#registering-amp-unregistering-events)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#setwebsocketversion) to switch versions.
@@ -25,6 +43,7 @@ When you register for event messages, you can:
 To avoid this, we recommend using **property tests**/**event conditions** when you register event listeners for event types that report data from more than one sensor. This allows you to configure a listener to handle messages only from one specific sensor in a group. You can register multiple event listeners - each with unique property tests - for  any single event type. In this manner, you can create a group of event listeners for a single event type, where each listener is assigned to trigger an event callback only on receiving messages from one specific sensor associated with that event type.
 {{box op="end"}}
 
+The rest of the topics on this page describe how to use the data associated with each of Misty's event types. 
 
 ## ActuatorPosition
 
