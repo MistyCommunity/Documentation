@@ -45,14 +45,14 @@ When you use Misty's on-robot JavaScript API, your code runs locally on your rob
 
 The syntax for using a command in Misty's JavaScript API is:
 
-```JS
+```javascript
 misty.<COMMAND>(parameters);
 ```
 
 So, for example, to change the color of Misty’s logo LED, you would call the
 `misty.ChangeLED()` command like this:
 
-```JS
+```javascript
 misty.ChangeLED(255, 0, 0);
 ```
 

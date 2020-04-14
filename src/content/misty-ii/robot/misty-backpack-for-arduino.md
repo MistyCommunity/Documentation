@@ -119,7 +119,7 @@ To read serial data, you must register for [`SerialMessage`](../../../misty-ii/r
 
 The following example demonstrates how to handle serial messages in a JavaScript skill. By default, the data for `SerialMessage` events is processed by a `_SerialMessage()` callback function. You define how this callback handles the message in your skill code.
 
-```JavaScript
+```javascript
 // Return the value of the "SerialMessage" property  in the
 // SerialMessage data object
 misty.AddReturnProperty("SerialMessage", "SerialMessage");
@@ -144,7 +144,7 @@ function _SerialMessage(data) {
 
 Use the [`WriteSerial`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) command in your skill code to send messages from Misty to an external development board. (The `WriteSerial` command is available in Misty's REST API, JavaScript SDK, and .NET SDK libraries.)
 
-```JavaScript
+```javascript
 // JavaScript SDK Example
 misty.WriteSerial("Hey, board! This is a message from Misty.");
 ```

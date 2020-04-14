@@ -28,7 +28,7 @@ In this sample, we use the `misty.RegisterEvent()` method from Misty's JavaScrip
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Sets Misty's arms and head to a neutral position, and prints a debug
 // message that the movement is underway.
 misty.Debug("Moving arms and head to neutral position");
@@ -101,7 +101,7 @@ In this sample, we use the `misty.RegisterEvent()` method from Misty's JavaScrip
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 / This block sets Misty's arms and head to a neutral position, and
 // prints a debug message that the movement is underway.
 misty.Debug("Moving arms and head to neutral position");
@@ -180,7 +180,7 @@ call the `misty.RegisterEvent()` method.
 ### takePicture
 This sample shows how to code Misty to take a picture with her RGB camera, save the picture to her local storage, and show it on her display. We also have Misty play her default camera shutter sound, so you can hear (as well as see) when she's taken the picture.
 
-```JavaScript
+```javascript
 // Plays Misty's her camera shutter sound at 100% of max volume. This
 // sound is one of Misty's default system audio files.
 misty.PlayAudio("s_SystemCameraShutter.wav", 100);
@@ -201,7 +201,7 @@ The code samples in this section show how to use the `misty.SendExternalRequest(
 
 This sample shows how to code Misty to get an audio file from an external resource. In this case, Misty saves the audio file to her local storage and plays it back through her onboard speakers.
 
-```JavaScript
+```javascript
 // The URL of the resource to which we send our external request.
 // In this example, the resource hosted at this URL is an ominous
 // recording of a self-destruction countdown. (We promise your robot
@@ -227,7 +227,7 @@ to remove private or sensitive information from your skill files before
 sharing them on GitHub, in the Misty Community, or elsewhere online.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Sends a request to the Weatherstack API, using parameters from the
 // skill's JSON meta file to fill out the key and city in the resource
 // URL. In your skill code, you can reference any values assigned to
@@ -275,7 +275,7 @@ This sample shows one option for coding Misty to drive in a circle.
 **Note:** The `circleDrive()` function in this sample expects Misty's heading (yaw value from `IMU`) to be 0 when it runs. Misty's heading is set to 0 when Misty boots up; however, because this heading updates continuously as Misty moves around, we can't be sure what the heading will be when you run this sample. To work around this, the first call on the `misty.DriveArc()` method in this sample rotates Misty back to a heading of 0.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Rotates Misty back to an absolute heading of 0 over 4000ms
 misty.DriveArc(0, 0.0, 4000, false);
 // Pauses skill execution for 4000ms (when rotation is complete)
@@ -315,7 +315,7 @@ In this sample, we use the `misty.RegisterEvent()` method from Misty's JavaScrip
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Changes LED to white
 misty.ChangeLED(255, 255, 255);
 
@@ -403,7 +403,7 @@ When Misty sends an audio localization event message, that message data gets pas
 **Note:** For audio localization events, the direction Misty's head is facing is her 0/360 degrees. The system calculates the degree of arrival speech relative to this position. We start this sample by positioning Misty's head to face the same direction as her body, but keep in mind that this won't always be the case.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Prepares Misty to start listening for audio.
 misty.MoveHeadDegrees(-15, 0, 0, 50);
 registerAudioLocalization();
@@ -463,7 +463,7 @@ When Misty sends a `BumpSensor` event message, that message data gets passed int
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Tells the system to print the value of the sensorName property
 // in the AdditionalResults array that comes back with "Bumped"
 // event messages. This value tells us which sensor a Bumped event
@@ -541,7 +541,7 @@ When Misty sends a `TouchSensor` event message, that message data gets passed in
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Tells the system to print the value of the sensorPosition property
 // in the AdditionalResults array that comes back with "Touched"
 // event messages. This value tells us which sensor a Touched event
@@ -623,7 +623,7 @@ You can use property tests any time you register a new event listener. In this s
 **Note:** To test this code, start the skill without any obstacles in front of Misty's front center time-of-flight sensor. Then, slowly bring your hand closer to the front of Misty's base. When the front center sensor detects that your hand is closer than 0.15 cm, Misty's LED should change to red.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Creates a property test for FrontTOF event messages to check
 // whether the value of the SensorPosition property is equal to
 // "Center". The FrontTOF listener ignores any TimeOfFlight messages
@@ -676,7 +676,7 @@ function _FrontTOF(data) {
 
 This sample shows how to use the `misty.RegisterTimerEvent()` method to create a timer event in your skill code. Here, we use this method to change the color of Misty's LED to a new, random color once every second.
 
-```JavaScript
+```javascript
 // A helper function that returns a random value between min and max.
 // In this sample, we use this to randomize the values we pass into
 // the misty.ChangeLED() command.
@@ -709,7 +709,7 @@ In this sample, we use two methods from Misty's JavaScript API to register for t
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 // Creates a property test for TOF event messages to check whether the
 // value of the type property is "range". (This TOF listener ignores
 // any messages sent by Misty's "edge" (downward-facing) sensors).
@@ -761,7 +761,7 @@ You must start key phrase recognition before Misty can send `KeyPhraseRecognized
 **Note:** We left a lot of comments in this sample for developers who are new to the Misty platform. Feel free to ignore these comments if you already know the basics of coding JavaScript skills for Misty.
 {{box op="end"}}
 
-```JavaScript
+```javascript
 detectWakeWord();
 
 // Sets up wake word detection
@@ -814,7 +814,7 @@ In this sample, we use two methods from Misty's JavaScript API to register for i
 
 For an example of the code that runs on the microcontroller to send messages to Misty, see the [Misty (Arduino Compatible) Backpack topic](https://docs.mistyrobotics.com/misty-ii/robot/misty-ii/#misty-arduino-compatible-backpack) in the developer documentation.
 
-```JavaScript
+```javascript
 subscribeToBackpackData();
 
 // Sets up our SerialMessage event listener.

@@ -46,21 +46,21 @@ To send a request using the Fetch API, we call the `fetch()` method inside `<scr
 
 The base URL for all requests in Misty's REST API is as follows:
 
-```JS
+```javascript
 // base URL
 <robot-ip-address>/api/
 ```
 
 To invoke a Misty command, we append the endpoint for that command to this base URL. For example, to get a list of the images stored on Misty, we use the `/images/list` endpoint. For a robot with an IP of `192.168.7.183`, the full `GetImageList` resource URL looks like this:
 
-```JS
+```javascript
 // GetImageList example URL
 192.168.7.183/api/images/list
 ```
 
 When we use the `fetch()` method to send a GET request, we pass in the full command URL as the `resource`. Then, we specify the request method in the object we pass in for the `init` argument. For example, setting up the `fetch()` method to send a request to the `GetImageList` endpoint would look like this:
 
-```JS
+```javascript
 fetch('http://192.168.7.33/api/images/list', {
   method: 'GET'
   })
@@ -70,7 +70,7 @@ Next, we use a `Promise` to handle the request and response data. (The details o
 
 Our full `GetImageList` request looks like this:
 
-```JS
+```javascript
 Promise.race([
 	fetch('http://192.168.7.33/api/images/list', {
 		method: 'GET'
@@ -83,7 +83,7 @@ Promise.race([
 
 Here’s another example of using the Fetch API with `Promises` to send a GET request to Misty, this time to obtain Misty's device information:
 
-```JavaScript
+```javascript
 Promise.race([
 	fetch('http://192.168.7.33/api/device', {
 		method: 'GET'
