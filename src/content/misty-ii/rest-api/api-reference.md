@@ -4343,7 +4343,7 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging levels. Use this operation to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
 
 Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
 

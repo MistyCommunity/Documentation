@@ -19,7 +19,7 @@ Misty's software provides an interface for processing event data in on-device sk
 * Misty's software (such as messages from the robot's skill system)
 * your own skills and applications (such as skill debug messages and custom event triggers)
 
-To receive event messages, you must create *event listeners* in the code for your skills and robot applications. We sometimes refer to this process as *registering for an event*. When you create an event listener, you can:
+To receive event messages, you must create *event listeners* in the code for your skills and robot applications. We sometimes refer to the process of creating an event listener as *registering for an event*. When you register for an event, you can:
 
 * filter out unwanted data by specifying which *properties* an event message should include
 * apply *event conditions* and *validations*, or rules that define what kind of data an event listener can receive from a particular event type
