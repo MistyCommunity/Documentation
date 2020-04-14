@@ -181,7 +181,7 @@ _imageList = (await _misty.GetImageListAsync())?.Data;
 
 ## Repeating Actions
 
-As you build skills for Misty, you may wish to program her to repeat a set of actions. There are a few patterns you can use to accomplish this. The following examples show two different techniques for coding Misty to change the color of her chest LED on a loop. The first example uses a `while` loop, and the second uses a timer to trigger a callback to invokes the relevant command. Note that these examples assume the robot interface is assigned to a local variable called `_misty`.
+As you build skills for Misty, you may wish to program her to repeat a set of actions. There are a few patterns you can use to accomplish this. The following examples show two different techniques for coding Misty to change the color of her chest LED on a loop. The first example uses a `while` loop, and the second uses a timer to trigger a callback to invoke the relevant command. Note that these examples assume the robot interface is assigned to a local variable called `_misty`.
 
 ### Using while and Wait
 
