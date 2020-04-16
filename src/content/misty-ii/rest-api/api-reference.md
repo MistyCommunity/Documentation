@@ -2655,7 +2655,7 @@ To programmatically obtain live data streams back from Misty that include face d
 
 ### CancelFaceTraining
 
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `CancelFaceTraining` command unless you want to abort a training that is in progress.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
@@ -2760,8 +2760,8 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
-* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
+* Name (string) - Optional. The filename of the video recording to download. If not supplied, defaults to `misty_video`.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Defaults to `false`.
 
 ```json
 {
@@ -2774,7 +2774,7 @@ Return Values
 
 If `Base64` is `null`, `false`, or not supplied, returns the `.mp4` video file to your browser or REST client. Otherwise, returns the following:
 
-* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. It includes the following key/value pairs:
+* Result (object) - An object containing video data and meta information about the file. Note that Misty only returns this object if you pass `true` for the `Base64` parameter. Includes the following key/value pairs:
   * base64 (string) - A string containing the Base64-encoded video data.
   * contentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
   * name (string) - The name of the video file.
@@ -2902,7 +2902,7 @@ Return Values
 
 Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
 
-This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `CancelFaceTraining`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
 
@@ -2924,7 +2924,7 @@ Return Values
 
 Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
-When you are done having Misty recognize faces, call StopFaceRecognition.
+When you are done having Misty recognize faces, call `StopFaceRecognition`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
 
@@ -4343,9 +4343,9 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's local and remote logging levels. Use this operation to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging levels. Use this method to determine which log message types the system writes to the local log file and to the remote Misty Robotics logging database.
 
-Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
+Changing the log level applies a filter on the type of message the system writes to a given location. Log message types include:
 
 * **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.

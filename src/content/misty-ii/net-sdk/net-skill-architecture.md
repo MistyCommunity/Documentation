@@ -13,21 +13,21 @@ This article provides an overview of some of the basic building blocks of a .NET
 
 ### `IMistySkill`
 
-Your .NET skill must implement the `IMistySkill` skill template interface. We use this interface to load the connection between Misty and the background task that wraps our skill, to set the name of the skill as it appears in the Skill Runner web page, and to define what should happen when the skill starts and stops.
+Each .NET skill must implement the `IMistySkill` interface. This interface loads the connection between Misty and the background task that runs the skill code, sets the name of the skill as it appears in the Skill Runner web page, and defines what happens when the skill starts and stops.
 
 ```csharp
 namespace MySkill
 {
     public class MySkill : IMistySkill
     {
-        // Place class members here
+        // Insert skill code here
     }
 }
 ```
 
 ### `IRobotMessenger`
 
-In your skill class, you must instantiate a variable to hold the `IRobotMessenger` interface. You use this variable to issue commands in your skill code. You can name this variable anything you like.
+Within the skill class, you must also instantiate a variable to hold the `IRobotMessenger` interface. We use this interface to issue commands to the robot from our .NET skill code.
 
 ```csharp
 // Instantiate a local variable to hold the Misty Robot interface. In
@@ -37,7 +37,8 @@ private IRobotMessenger _misty
 
 ### `NativeRobotSkill`
 
-You must also implement a new `NativeRobotSkill`. The constructor for this class requires two parameters:
+Each .NET skill must also implement a new `NativeRobotSkill`. The constructor for this class requires two parameters:
+
 * a name for the skill (used in the Skill Runner web page)
 * a unique GUID (used by Misty to identify your skill)
 
@@ -47,7 +48,8 @@ In this example, we pass in a name of `MySkill` and set a unique GUID.
 public NativeRobotSkill Skill { get; private set; } = new NativeRobotSkill("MySkill", "07b7b656-8d3e-4b94-9fa1-c9a010cfdc9b");
 ```
 
-When you implement a new `NativeRobotSkill`, you can set values for the following properties:
+The complete list of required and optional properties for the `NativeRobotSkill` class includes:
+
 * `AllowedCleanupTimeInMs` (uint) - Optional. The amount of time given to perform cleanup tasks when a skill is cancelled or times out. Depending on this value, there may be some delay before you can restart a skill after it cancels or times out. Defaults to 2000 milliseconds. Maximum value is 10000 milliseconds.
 * `UniqueId` (Guid) - Required. The unique GUID that Misty uses to identify your skill.
 * `Name` (string) - Required. The name of the skill. Appears in the Skill Runner web page.
@@ -71,7 +73,7 @@ When you implement a new `NativeRobotSkill`, you can set values for the followin
 
 ### `LoadRobotConnection`
 
-Your skill must also call the `LoadRobotConnection()` method to configure the robot messenger interface when the skill starts. We use the same variable to which we assigned the `IRobotMessenger` interface above:
+Each .NET skill must also call the `LoadRobotConnection()` method. This method configures the robot messenger interface when the skill starts. For example:
 
 ```csharp
 public void LoadRobotConnection(IRobotMessenger robotInterface)
@@ -82,7 +84,7 @@ public void LoadRobotConnection(IRobotMessenger robotInterface)
 
 ### `OnStart`
 
-The `OnStart()` method is called when your skill receives a message from Misty (or a user) to start the skill. In most cases, you will write the majority of your skill code inside the body of the `OnStart()` method.
+The `OnStart()` method includes the code that runs when your background task receives a message from the robot or a user to start the skill (for example, when you send a request to start the skill from the Skill Runner web page). In many cases, the majority of your skill code exists inside the body of the `OnStart()` method.
 
 ```csharp
 public void OnStart(object sender, IDictionary<string, object> parameters)
@@ -93,12 +95,12 @@ public void OnStart(object sender, IDictionary<string, object> parameters)
 ```
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** The `OnStart()` method accepts an optional `parameters` argument. This argument is associated with an optional function of the **Skill Runner** web page that allows you to send a payload of key/value pairs to Misty when you issue a command to start a skill. The payload you send this way is populated into your skill code through the `parameters` argument.
+**Tip:** The `OnStart()` method accepts an optional `parameters` argument. This argument populates your skill with the optional payload of key/value pairs that you can send to Misty when you issue a command to start a skill.
 {{box op="end"}}
 
 ### `OnCancel`
 
-The `OnCancel()` method runs when your skill receives a cancellation message (for example, when you stop the skill from the Skill Runner web page). Use this method to stop any ongoing processes and return the robot to a default state before the skill shuts down. Your .NET skills are allowed a default cleanup time of 2 seconds. You can change this time by passing in a different value for `AllowedCleanupTimeInMs` when you [implement a new `NativeRobotSkill`](./#nativerobotskill).
+The `OnCancel()` method runs when your skill receives a cancellation message (for example, when you send a request to stop the skill from the Skill Runner web page). Use this method to stop any ongoing processes and return the robot to a default state before the skill shuts down. By default, each .NET skill has 2 seconds to clean up any running processes. You can increase or decrease this time time by passing in a custom value for the `AllowedCleanupTimeInMs` property when you implement the [`NativeRobotSkill`](./#nativerobotskill) class.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Any registered events are automatically unregistered when a skill cancels.
@@ -113,7 +115,7 @@ public void OnCancel(object sender, IDictionary<string, object> parameters)
 
 ### `OnTimeout`
 
-The `OnTimeout()` method is called when the skill times out. As with `OnCancel()`, you can use the `OnTimeout()` method to return the robot to a default state.
+The `OnTimeout()` method runs when the skill times out. As with `OnCancel()`, you can use the `OnTimeout()` method to return the robot to a default state.
 
 ```csharp
 public void OnTimeout(object sender, IDictionary<string, object> parameters)
@@ -124,7 +126,7 @@ public void OnTimeout(object sender, IDictionary<string, object> parameters)
 
 ### `OnPause`
 
-The `OnPause()` method is called when the skill is paused. You can use this method to save any states and other items such that a call to the `OnResume()` method starts the skill where it left off. After the actions in this method are complete, the robot shuts down the task. If you choose not to use this functionality, you can use the `OnPause()` method to cancel the skill.
+The `OnPause()` method runs when the skill is paused. You can use this method to save any states and other items such that a call to the `OnResume()` method starts the skill where it left off. After the actions in this method are complete, the robot shuts down the task. If you choose not to use this functionality, you can use the `OnPause()` method to cancel the skill.
 
 ```csharp
 public void OnPause(object sender, IDictionary<string, object> parameters)

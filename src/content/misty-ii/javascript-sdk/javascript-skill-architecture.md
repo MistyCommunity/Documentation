@@ -103,71 +103,117 @@ function _GetAudioList(callbackData) {
 
 ### Sensor Event Callbacks
 
-For event callback functions, you set an event name (`eventName`) of your choice at the time you register for the event using the `misty.RegisterEvent()` function. The name of the callback function name is set automatically to be the same as your event name, prefixed with an underscore. The `messageType` value is whatever the predefined `Type` property value is for the data stream [as listed here](../../../misty-ii/robot/sensor-data).
+To process data from a specific [event type](../../../misty-ii/robot/sensor-data) in your JavaScript skill code, you must:
 
-The `misty.RegisterEvent()` function has the following form:
+* create a listener for the event type by calling the [`misty.RegisterEvent()`](../../../misty-ii/javascript-sdk/api-reference/#misty-registerevent) method
+* define a callback function for handling the data this event listener receives
+
+The `misty.RegisterEvent()` function has the following syntax:
 
 ```javascript
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive], [string callbackRule], [string skillToCall]);
 ```
 
-So at its most simple, registering to receive callback data for a `SelfState` event might look like:
+* The `eventName` value is a name of your choosing for this particular event listener. By default, the name of the callback function that handles data for this event listener is set to be the same as this event name, prefixed with an underscore (for example, `_<eventName>()`). So, if you create a listener for [`BumpSensor`](../../../misty-ii/robot/sensor-data/#bumpsensor) events, and you call that listener `BumpEvent`, then you must declare a callback function `_BumpEvent()` to handle that data in your skill code.
+* The `messageType` value is the label for the event that your listener will stream data from, as listed in the [Event Types documentation](../../../misty-ii/robot/sensor-data).
+* The `debounce` value sets the frequency in milliseconds with which event data is sent.
+* The `keepAlive` value sets whether the event listener should remain registered after the first callback triggers. Set this value to `true` to keep a listener active, or set it to `false` to unregister the event listener after it receives the first message.
+
+With this in mind, registering a callback function to receive callback data for a `BumpSensor` event might look like this:
 
 ```javascript
-misty.RegisterEvent("UpdatedAwareness", "SelfState", 1000, true);
+// Registers a listener for BumpSensor events
+misty.RegisterEvent("BumpedState", "BumpSensor", 100, true);
 ```
 
-Note that the `misty.RegisterEvent()` command may optionally be set up with callback rules and a skill to trigger for the callback instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
+Optionally, you can set up the `misty.RegisterEvent()` method with callback rules and a skill to trigger for the callback, instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
 
 * `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
-* `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in, once the callback comes back.
+* `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in once the callback comes back.
 * `Abort` tells the system to ignore the new callback thread if the skill is still doing work on the original thread the callback was called within. For event callbacks, the new callback is ignored until all current processes are finished running, then the event is processed the next time it is sent.
 
-Before registering an event callback, you can use the `AddPropertyTest()` command to create one or more property comparison tests to specify the event data that the system sends:
+When you declare your event callback function, you must give it a single parameter to store the event data. In your callback function, you can access all of the key/value pairs associated with the event message in the `PropertyParent` object at `<dataParameter>.PropertyTestResults[0].PropertyParent`.
+
+**Note:** In JavaScript skills, the key names in event messages are always camel case (for example, `IsContacted` instead of `isContacted`).
+
+As an example, the callback function for a basic `BumpedState` event might be:
+
+```javascript
+function _BumpedState(data) {
+    // Prints a stringified JSON object with all key/value
+    // pairs from the event message
+    misty.Debug(JSON.stringify(data.PropertyTestResults[0].PropertyParent));
+
+    // Prints the value of the IsContacted key
+    misty.Debug(data.PropertyTestResults[0].PropertyParent.IsContacted);
+}
+```
+
+Before registering an event listener, you can use the [`misty.AddPropertyTest()`](../../../misty-ii/javascript-sdk/api-reference/#misty-addpropertytest) method to create one or more property comparison tests to specify the event data that the system sends. The syntax for this method is as follows:
 
 ```javascript
 AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType);
 ```
 
-**Note:** If you do not specify a property test, the system returns the full data object for the event. 
-
-You can also use the `AddReturnProperty()` command to add any additional return property fields you may need:
+You can also use the [`misty.AddReturnProperty()`](../../../misty-ii/javascript-sdk/api-reference/#misty-addreturnproperty) method to include the values for specific attributes of an event message in the `AdditionalResults` array that comes back with the data object:
 
 ```javascript
 misty.AddReturnProperty(string eventName, string eventProperty);
 ```
 
-An event callback function must have one parameter to store the data returned through the callback, so an example of an event callback might be:
+You can add multiple return properties to the same event. The order of values in the `AdditionalResults` array matches the order in which you added those properties to the event in your skill code. For an example of how this works, see how the following code adds return properties to a `BumpSensor` event:
 
 ```javascript
-function _UpdatedAwareness(callbackData) {
-    //do work with data
+// Add the value of the sensorName and isContacted properties of
+// BumpSensor event to the data you want to receive with "Bumped"
+// event messages
+misty.AddReturnProperty("Bumped", "sensorName");
+misty.AddReturnProperty("Bumped", "isContacted");
+// Register for BumpSensor events
+misty.RegisterEvent("Bumped", "BumpSensor", 50 ,true);
+
+// Callback function for the Bumped event listener
+function _Bumped(data) {
+     // The value of sensorName is at index 0
+     var sensor = data.AdditionalResults[0]
+     // The value of isContacted is at index 1
+     var isContacted = data.AdditionalResults[1]
+     misty.Debug("Sensor: " + sensor + ", is contacted: " + isContacted)
 }
 ```
 
-Putting these together, an example of registering events with property comparison tests (based on the direction of Misty’s movement) might look like this:
+Putting these together, an example of registering events with property comparison tests (based on the direction of Misty’s movement) might look like this: 
 
 ```javascript
 function RegisterEvents(goingForward) {
      
     if (goingForward) {
-        misty.UnregisterEvent("BackTOF");   	
+        // Unregister BackTof event listeners
+        misty.UnregisterEvent("BackTOF");
+        // Check that sensor is not rear-facing	
         misty.AddPropertyTest("FrontTOF", "SensorPosition", "!==", "Back", "string");
+        // Check that distance is less than or equal to 0.6
         misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.6, "double");
+        // Register the FrontTOF event listener
         misty.RegisterEvent("FrontTOF", "TimeOfFlight", 100, false);
     }
-    else {  	
+    else {
+        // Unregister FrontTOF event listeners
         misty.UnregisterEvent("FrontTOF");
+        // Check that sensor IS rear-facing
         misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
+        // Check that distance is less than or equal to 0.6
         misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<=", 0.6, "double");
+        // Register the BackTOF event listener
         misty.RegisterEvent("BackTOF", "TimeOfFlight", 100, false);
     }
 }
 ```
 
-Finally, when an event callback is triggered, note that by default it unregisters the callback to prevent more commands from overriding the initial call, which can become an issue with fast-triggering events. To handle this, you have two choices:
-* You can re-register the event in the event callback function.
-* To keep the event alive and not unregister on a callback, you can pass `true` for the `keepAlive` parameter when you register the event.
+Note, also, that when an event callback is triggered, the skill system unregisters the event listener that triggered the callback to prevent more commands from overriding the initial call. (This can become an issue with fast-triggering events.) To handle this default behavior, you have two choices:
+
+* you can re-register the event listener by issuing another `misty.RegisterEvent()` command **inside** the logic of the callback function for that event listener
+* you can keep the event alive (and **not** unregister on a callback) by passing in `true` for the `keepAlive` parameter when you register the event listener
 
 ### Timed Event Callbacks
 
