@@ -2886,7 +2886,7 @@ Return Values
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
-When you are done having Misty detect faces, call StopFaceDetection.
+When you are done having Misty detect faces, call `StopFaceDetection`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
 
