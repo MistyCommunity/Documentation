@@ -15,7 +15,7 @@ This article provides an overview of developing skills for Misty. It describes h
 
 At a high level, there are two ways to code your Misty II:
 
-* You can build a **skill** using Misty's [JavaScript](../../../misty-ii/javascript-sdk/javascript-skill-architecture) or [.NET](../../../misty-ii/net-sdk/overview) SDK. A skill runs directly on the robot, alongside Misty's own software.
+* You can build a **skill** using Misty's [JavaScript](../../../misty-ii/javascript-sdk/javascript-skill-architecture) or [.NET](../../../misty-ii/dotnet-sdk/overview) SDK. A skill runs directly on the robot, alongside Misty's own software.
 * You can build a robot **application** using Misty's [REST API](../../rest-api/overview). The distinction between an application and a skill is that the code for an application runs on an external device (like your desktop browser or on a Raspberry Pi) and not onboard the robot.
 
 While you can build many different types of skills and robot applications, most involve some combination of the following:
@@ -94,7 +94,7 @@ Misty II's .NET SDK provides tools for building, debugging, and deploying skills
 * Use external libraries in your skill code
 * Test code before deployment by simulating input from sensors and other robot data
 
-You build a .NET skill for Misty by wrapping your C# skill code in a background application and deploying the application to Misty's Windows 10 IoT Core device. Your skill code implements the interface and methods for issuing commands and getting data from the robot. You can read more about the architecture of a .NET skill in the [.NET Skill Architecture documentation](../../../misty-ii/net-sdk/net-skill-architecture/).
+You build a .NET skill for Misty by wrapping your C# skill code in a background application and deploying the application to Misty's Windows 10 IoT Core device. Your skill code implements the interface and methods for issuing commands and getting data from the robot. You can read more about the architecture of a .NET skill in the [.NET Skill Architecture documentation](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/).
 
 Currently, Misty's .NET SDK includes the following libraries and templates:
 
@@ -118,9 +118,9 @@ In addition to methods for using Misty's robot capabilities, Misty's .NET SDK li
 
 Follow these links to learn more about coding with Misty's .NET SDK:
 
-* [Overview](../../../misty-ii/net-sdk/overview)
-* [Getting Started](../../../misty-ii/net-sdk/getting-started)
-* [Architecture](../../../misty-ii/net-sdk/net-skill-architecture)
+* [Overview](../../../misty-ii/dotnet-sdk/overview)
+* [Getting Started](../../../misty-ii/dotnet-sdk/getting-started)
+* [Architecture](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture)
 
 Like JavaScript skills, .NET skills run locally on Misty II. Consider using the .NET SDK when:
 

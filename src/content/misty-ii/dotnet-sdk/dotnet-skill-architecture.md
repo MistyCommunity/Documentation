@@ -236,7 +236,7 @@ private void HeartbeatCallback(object data)
 
 ## Data Handling
 
-Most of the skills you write for Misty require you to determine how Misty should react to information she gathers from her sensors and from third-party APIs. The topics in this section describe techniques you can use to can access, filter, and validate sensor and event data in your skill code, using examples from the [`InteractiveMistySkill`](../sample-project/#interactivemistyskill) and [`ForceDriving`](../../../misty-ii/net-sdk/sample-project/#forcedriving) sample skills.
+Most of the skills you write for Misty require you to determine how Misty should react to information she gathers from her sensors and from third-party APIs. The topics in this section describe techniques you can use to can access, filter, and validate sensor and event data in your skill code, using examples from the [`InteractiveMistySkill`](../sample-project/#interactivemistyskill) and [`ForceDriving`](../../../misty-ii/dotnet-sdk/sample-project/#forcedriving) sample skills.
 
 ### Registering & Unregistering Events
 
@@ -414,7 +414,7 @@ The Window's file system uses *known folders* with specific access restrictions 
 
 When using files in these known folders in your .NET skill, you must access them using the `Windows.Storage` interface. Using the `System.IO` interface results in permission denied restrictions.
 
-The following example shows how to access a `.json` file in the Documents known folder in a project created with the skill template. It assumes you created your project using the [C# skill template.](../../../misty-ii/net-sdk/getting-started/#using-the-c-skill-template)
+The following example shows how to access a `.json` file in the Documents known folder in a project created with the skill template. It assumes you created your project using the [C# skill template.](../../../misty-ii/dotnet-sdk/getting-started/#using-the-c-skill-template)
 
 Start by including a `documentsLibrary` line in the `Capabilities` section of the `Package.appxmanifest` file for your project:
 
