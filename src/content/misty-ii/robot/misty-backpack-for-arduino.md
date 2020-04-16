@@ -98,7 +98,7 @@ When you write code for Misty's Arduino-compatible backpack (or any other Arduin
 **Tip:** For runnable examples of .ino sketches and JavaScript skill code for serial communication, see the [`serialReadWrite` sample code](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Sample%20Code/serialReadWrite) on GitHub.
 {{box op="end"}}
 
-In the `setup()` function for your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to `9600` baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty. We recommend formatting data you send as a JSON string to make it easier to parse in your skill code. Here's an example:
+In the `setup()` function for your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to `9600` baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty. For greatest flexibility in handling, we typically recommend formatting this data as a JSON string. Here's an example:
 
 ```c++
 void setup() {
@@ -108,6 +108,7 @@ void setup() {
 void loop() {
     delay(1000);
     Serial.println("{\"message\":\"Hello, Misty! This is your backpack talking.\"}");
+}
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -141,7 +142,7 @@ function _SerialMessage(data) {
 }
 ```
 
-Use the [`WriteSerial`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) command in your skill code to send messages from Misty to an external development board. (The `WriteSerial` command is available in Misty's REST API, JavaScript SDK, and .NET SDK libraries.)
+Finally, you can use the [`WriteSerial`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) command in your skill code to send messages from Misty to an external development board. (The `WriteSerial` command is available in Misty's REST API, JavaScript SDK, and .NET SDK libraries.)
 
 ```javascript
 // JavaScript SDK example

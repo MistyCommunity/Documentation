@@ -304,17 +304,17 @@ Returns
 
 ### misty.GetVideoRecording
 
-Obtains a video recording that Misty has created.
+Gets the Base64 data for a video that Misty has created.
 
 ```javascript
 // Syntax
 misty.GetVideoRecording([string name], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#misty-getvideo) command.
+You can only use this command to download videos that Misty recorded. To get videos that you or another user has uploaded, use the [`GetVideo`](./#misty-getvideo) command.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+**Tip:** Misty records videos in .mp4 format. Video recordings have a maximum resolution of 3840 x 2160 pixels and can be up to 3 minutes long. A single video file can be up to 225 MB and can take several minutes to download.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -327,7 +327,7 @@ You can only use this command to obtain Misty's video recordings. To obtain user
 
 Arguments
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+* Name (string) - Optional. The filename of the video. If not supplied, defaults to `misty_video`.
 * callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideoRecording()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
@@ -348,9 +348,9 @@ function _GetVideoRecording(data) {
 
 Returns
 
-* Result (object) - An object with the Base64-encoded video data and other information about the file. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (object) - An object containing video data and other information about the file. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
   * Base64 (string) - A string containing the Base64-encoded video data.
-  * ContentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * ContentType (string) - The type and format of the video returned. For all videos that Misty creates, the content type should be `video/mp4`.
   * Name (string) - The name of the video file.
 
 ### misty.SaveAudio

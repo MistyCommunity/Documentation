@@ -7,27 +7,25 @@ order: 5
 
 # {{title}}
 
-The code you write for Misty allows the robot to autonomously react to input from her surroundings. To enable this autonomy, you must create *event driven* skills and robot applications. This means writing applications with logic that listens for and responds to incoming environmental data.
+Your code enables Misty to autonomously react to her surroundings. To enable this autonomy, you must create skills and robot applications that are driven by **events**, with logic that listens for and responds to incoming environmental data.
 
 ## Events Overview
 
-Misty's software provides an interface for processing event data in on-device skills as well as remote-running robot applications. This event data is associated with a number of different *event types*. The data for these event types comes from many different sources, including:
+Event data is associated with different event types. The data for these event types comes from many different sources, including:
 
-* Misty's sensors (such as capacitive touch sensors, bump sensors, and time-of-flight sensors)
-* external hardware (such as the Misty Arduino-compatible backpack)
-* internal, sensor-enabled processes (such as face recognition, key phrase recognition, and the robot's hazards system)
-* Misty's software (such as messages from the robot's skill system)
-* your own skills and applications (such as skill debug messages and custom event triggers)
+* Misty's sensors, such as capacitive touch sensors, bump sensors, and time-of-flight sensors
+* external hardware, such as the Misty Arduino-compatible backpack
+* internal, sensor-enabled processes, such as face recognition, key phrase recognition, and the robot's hazards system
+* Misty's software, such as messages from the robot's skill system
+* your own skills and applications, such as skill debug messages and custom event triggers
 
-To receive event messages, you must create *event listeners* in the code for your skills and robot applications. We sometimes refer to the process of creating an event listener as *registering for an event*. When you register for an event, you can:
+To receive event messages, you must create event listeners. We sometimes refer to the process of creating an event listener as *registering for an event*. When you register for an event, you can:
 
-* filter out unwanted data by specifying which *properties* an event message should include
-* apply *event conditions* and *validations*, or rules that define what kind of data an event listener can receive from a particular event type
-* set a *debounce* value, or how frequently a particular event type should send event messages (this is useful for event types that provide a constant stream of new data, instead of sending data just once when a particular event occurs)
+* filter out unwanted data by specifying which **properties** an event message should include
+* apply **event conditions** and **validations**, or rules that define what kind of data an event listener can receive from a particular event type
+* set a **debounce** value, or how frequently a particular event type should send event messages (this is useful for event types that provide a constant stream of new data, instead of sending data just once when a particular event occurs)
 
-The process for creating an event listener, receiving event data, and handling that data in your code depends on whether you are building an on-device skill or a remote-running robot application that communicates with Misty over a wireless network. Additionally, the implementation details for registering event listeners differ between Misty's JavaScript and .NET SDKs.
-
-For instructions and examples that show how to use event data across the different ways you can code Misty, see the following:
+The process for creating an event listener, receiving event data, and handling that data in your code depends on whether you are building an on-device skill or a remote-running robot application that communicates with Misty over a wireless network. Additionally, the implementation details for registering event listeners differ between Misty's JavaScript and .NET SDKs. For instructions and examples that show how to use event data across the different ways you can code Misty, see the following:
 
 * To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-data-from-misty)
 * To learn about registering event listeners in JavaScript skills, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks)
