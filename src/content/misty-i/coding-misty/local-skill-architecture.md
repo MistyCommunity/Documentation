@@ -33,31 +33,31 @@ You can read this architecture section to understand the details of how to use M
 
 In Misty's on-robot JavaScript API, the syntax for using a command is:
 
-```JavaScript
+```javascript
 misty.<COMMAND>(parameters);
 ```
 
 So, for example, to change the color of Misty’s logo LED, you would call the `ChangeLED()` command like this:
 
-```JS
+```javascript
 misty.ChangeLED(255, 0, 0);
 ```
 
 Most commands in the JavaScript API also allow you to pass in optional "pre-pause" and "post-pause" values, to add delays before the command is run or after. When we show a command, optional parameters are inside brackets. So the `Drive()` command is represented as:
 
-```JS
+```javascript
 misty.Drive(double linearVelocity, double angularVelocity, [int prePauseMs], [int postPauseMs]);
 ```
 
 If you use a given optional parameter (such as `postPauseMs`), you must place a value in any preceding optional parameter (such as `prePauseMs`). For example:
 
-```JS
+```javascript
 misty.Drive(50, 10, 0, 1000);
 ```
 
 An example of using the optional pre- and post-pause parameters with the `Drive()` command might be:
 
-```JS
+```javascript
 misty.Drive(50, 10, 500, 1000);
 misty.Stop();
 ```
@@ -81,7 +81,7 @@ For "get" callback functions, the callback name is by default set to be  `_<COMM
 
 A "get" callback function must have exactly one parameter. That parameter holds the data returned through the callback. Note that when you use Misty's on-robot JavaScript API the callback returns data as an object, not as a JSON string value. An example use of a callback to obtain an audio list and play a random sound is as follows:
 
-```JS
+```javascript
 StartMySkill();
 
 function StartMySkill() {
@@ -108,13 +108,13 @@ For event callback functions, you set an event name (`eventName`) of your choice
 
 The `misty.RegisterEvent()` function has the following form:
 
-```js
+```javascript
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive], [string callbackRule], [string skillToCall]);
 ```
 
 So at its most simple, registering to receive callback data for a `SelfState` event might look like:
 
-```js
+```javascript
 misty.RegisterEvent("UpdatedAwareness", "SelfState", 1000, true);
 ```
 
@@ -125,7 +125,7 @@ Note that the `misty.RegisterEvent()` command may optionally be set up with call
 
 Before registering an event callback, you can use the `AddPropertyTest()` command to create one or more property comparison tests to specify the event data that the system sends:
 
-```js
+```javascript
 AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType);
 ```
 
@@ -133,13 +133,13 @@ AddPropertyTest(string eventName, string property, string inequality, string val
 
 You can also use the `AddReturnProperty()` command to add any additional return property fields you may need:
 
-```js
+```javascript
 misty.AddReturnProperty(string eventName, string eventProperty);
 ```
 
 An event callback function must have one parameter to store the data returned through the callback, so an example of an event callback might be:
 
-```js
+```javascript
 function _UpdatedAwareness(callbackData) {
     //do work with data
 }
@@ -147,7 +147,7 @@ function _UpdatedAwareness(callbackData) {
 
 Putting these together, an example of registering events with property comparison tests (based on the direction of Misty’s movement) might look like this:
 
-```js
+```javascript
 function RegisterEvents(goingForward) {
      
     if (goingForward) {
@@ -172,7 +172,7 @@ Finally, when an event callback is triggered, note that by default it unregister
 ### Timed or Triggered Event Callbacks
 Using the `RegisterTimerEvent()` function, you can create an event that sends a callback after a certain period of time:
 
-```js
+```javascript
 misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, bool keepAlive);
 ```
 
@@ -182,7 +182,7 @@ For example, you can set the `callbackTimeInMs` parameter to 5 seconds and speci
 
 You can also create a triggered event to call back to the skill when a specific command is called. That event is triggered once and removed, but you can immediately re-register as needed in the callback:
 
-```js
+```javascript
 misty.RegisterUserEvent(string eventName, string callback);
 ```
 
@@ -217,7 +217,7 @@ Note that the value of a global variable is only preserved going forward. That i
 
 In this example, `_imageCount` is declared and used as a global variable:
 
-```js
+```javascript
 _imageCount = 72;
 
 StartSkill();
@@ -238,7 +238,7 @@ function _GetImageList(response) {
 
 In cases where you need persistent data that can be (a) validly updated across threads and/or (b) shared between skills, you need to use the cross-skill `misty.Set()` command:
 
-```js
+```javascript
 // Syntax
 misty.Set(string key, string value, [bool longTermStorage]);
 ```
@@ -247,7 +247,7 @@ Data saved with `misty.Set()` must be a string, boolean, integer, or double. If 
 
 When you call `misty.Set()`, pass in `true` for the `longTermStorage` argument to keep that data available after the skill stops running:
 
-```JavaScript
+```javascript
 misty.Set("key", "my long term data", true);
 ```
 
@@ -354,7 +354,7 @@ The `meta` file includes the following parameters:
 * `WriteToLog` (boolean) - If `true`, data passed to `misty.Debug()` messages in this skill also write to Misty's internal log file.
 * `Parameters` (object) - An object with key/value pairs for additional data you want to use in the skill. You can access these values in your skill code via the global `_params` variable. For example, in the code file for a skill, we could create a global variable named `_global` that would hold the value `"bar"`, which was set in the `meta` sample above:
 
-```js
+```javascript
 _global = _params.foo;
 // Sends a debug message with the string "bar"
 misty.Debug(_global)
@@ -365,7 +365,7 @@ misty.Debug(_global)
 ### Code File
 The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
 
-```js
+```javascript
 misty.Debug("Hello, World!");
 misty.ChangeLED(0, 255, 0);
 ```
@@ -374,7 +374,7 @@ Most skills that use the on-robot JavaScript API include callback functions and 
 
 In the sample skill code file below, an event callback function is used to handle sensor data from one of Misty’s time-of-flight sensors:
 
-```js
+```javascript
 // Debug message to indicate the skill has started
 misty.Debug("Starting my skill");
 

@@ -469,7 +469,7 @@ In addition to the data you pass with the `Payload` property, user-created event
 
 As an example, the following shows how to register a listener for a custom event in a JavaScript skill. 
 
-```JavaScript
+```javascript
 // Register a listener for the custom user event called "MyEvent"
 misty.RegisterUserEvent("MyEvent", true);
 
@@ -715,7 +715,7 @@ Returns:
 
 Sample response data for a `GetBlinkSettings` request:
 
-```JSON
+```json
 {
     "result": {
         "blinkImages": {
@@ -848,7 +848,7 @@ Parameters
 
 * BlinkImages (array) - The list of images to remove blink mappings from.
 
-```JSON
+```json
 {
   "BlinkImages": ["Relaxed.png", "Protected.png"]
 }
@@ -876,7 +876,7 @@ Parameters
 
 * Blink (bool) - Passing in `true` turns blinking on, and passing in `false` turns blinking off. By default, blinking turns on when Misty starts up.
 
-```JSON
+```json
 {
   "Blink": true
 }
@@ -907,7 +907,7 @@ Parameters
 * ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
 * RevertToDefault (boolean) - Optional. Use `true` to revert Misty's blink settings to the default configuration. Use `false` (or leave blank) to continue using your custom settings.
 
-```JSON
+```json
 {
   "BlinkImages": "e_SystemLogoPrompt.jpg=e_Sleepy4.jpg,e_SystemGearPrompt.jpg=e_Sleepy3.jpg,MyPic.jpg=e_Sleepy4.jpg",
   "OpenEyeMinMs" : 1000,
@@ -950,7 +950,7 @@ Parameters
 
 * On (bool) - Turns the flashlight on (`true`) or off (`false`).
 
-```JSON
+```json
 {
   "On": true
 }
@@ -1298,7 +1298,7 @@ Parameters
 * Flush (bool) - Optional. Whether to flush all previously enqueued `Speak` commands. Default is `false`.
 * UtteranceId (string) - Optional. An identifier of your choosing for this instance of the `Speak` command. You must set a value for `UtteranceId` in order to receive a [`TextToSpeechComplete`](../../../misty-ii/robot/sensor-data/#texttospeechcomplete) event when Misty stops speaking this utterance.
 
-```JSON
+```json
 { 
   "Text": "<speak>You say, <phoneme alphabet=\"XSAMPA\" ph=\"pI`kA:n\">pecan</phoneme>. I say, <phoneme alphabet=\"XSAMPA\" ph=\"pi.k{n\">pecan</phoneme>. </speak>",
   "Flush": false,
@@ -1373,7 +1373,7 @@ Parameters
 * TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
 * TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
 
-```JSON
+```json
 {
 	"Red": 255,
 	"Green": 0,
@@ -1416,7 +1416,7 @@ Parameters
 * FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
 * ContentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 
-```JSON
+```json
 {
   "Method": "GET",
   "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
@@ -1485,7 +1485,7 @@ Parameters
 * TimeMs (double) -  The duration (in milliseconds) that Misty drives.
 * Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
 
-```JSON
+```json
 {
   "Heading": 90,
   "Radius": 1,
@@ -1498,7 +1498,7 @@ Return Values:
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": "true",
   "status": "Success"
@@ -1507,7 +1507,7 @@ Example JSON response for a successful request:
 
 Example JSON response for a failed request:
 
-```JSON
+```json
 {
   "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
   "status": "Failed"
@@ -1535,7 +1535,7 @@ Parameters
 * TimeMs (double) - The duration (in milliseconds) that Misty should drive.
 * Reverse (boolean) - If `true`, Misty drives in reverse. Default is `false`.
 
-```JSON
+```json
 {
   "Heading": 90,
   "Distance": 1,
@@ -1549,7 +1549,7 @@ Return Values
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": "true",
   "status": "Success"
@@ -1558,7 +1558,7 @@ Example JSON response for a successful request:
 
 Example JSON response for a failed request:
 
-```JSON
+```json
 {
   "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
   "status": "Failed"
@@ -1650,7 +1650,7 @@ Parameters
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
-```JSON
+```json
 {
   "Arm": "left",
   "Position": -90,
@@ -1683,7 +1683,7 @@ Parameters
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
-```JSON
+```json
 {
   "LeftArmPosition": 90,
   "RightArmPosition": 90,
@@ -1776,7 +1776,7 @@ Parameters
 
 * Key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
 
-```JSON
+```json
 {
   "key": "Map_20190912_21.16.32.UTC",
 }
@@ -1861,7 +1861,7 @@ Return Values
     * sensorName (string) - The name of this time-of-flight sensor. One of the following: `TOF_Right`, `TOF_Center`, `TOF_Left`, `TOF_Back`, `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`.
     * threshold (double) - The minimum distance (in meters) that triggers a hazard state for this time-of-flight sensor. A `threshold` value of `0` means hazards are disabled for this sensor.
 
-```JSON
+```json
 // Example Response:
 {
     "result": {
@@ -1973,7 +1973,7 @@ Return Values
 
 * result (string) - The unique key associated with the currently active map.
 
-```JSON
+```json
 {
     "result": "Map_20190912_21.16.32.UTC",
     "status": "Success"
@@ -2002,7 +2002,7 @@ Return Values
   * exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
   * gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
 
-```JSON
+```json
 {
     "result": {
         "exposure": 0.014468,
@@ -2030,7 +2030,7 @@ Return Values
   * key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
   * name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#renameslammap) command.
 
-```JSON
+```json
 {
   "result": [
     {
@@ -2068,7 +2068,7 @@ Return Values
 
 * result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
 
-```JSON
+```json
 {
   "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
   "status": "Success"
@@ -2199,7 +2199,7 @@ Return Values
   * exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
   * gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
 
-```JSON
+```json
 {
     "result": {
         "exposure": 0.007987,
@@ -2222,7 +2222,7 @@ Parameters
 * Key (string) - The unique `key` value of the map to rename.
 * Name (string) - A new `name` value for the map.
 
-```JSON
+```json
 {
   "Key": "Map_20190912_21.16.32.UTC",
   "Name": "KitchenMap3"
@@ -2265,7 +2265,7 @@ Parameters
 
 * Key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
 
-```JSON
+```json
 {
   "key": "Map_20190912_21.16.32.UTC",
 }
@@ -2294,7 +2294,7 @@ Parameters
 * Exposure (double) - Exposure levels for the infrared cameras in the depth sensor (in seconds). Range: `0.001` - `0.033`.
 * Gain (integer) - Gain levels for the infrared cameras in the depth sensor (in dB). Range: `0` - `3`.
 
-```JSON
+```json
 {
   "Exposure": 0.014468,
   "Gain": 3
@@ -2322,7 +2322,7 @@ Parameters
 * Exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
 * Gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
 
-```JSON
+```json
 {
   "Exposure": 0.007987,
   "Gain": 2
@@ -2619,7 +2619,7 @@ Parameters:
   * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
   * threshold (double) - The minimum distance (in meters) that triggers a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
 
-```JSON
+```json
 // Example JSON payload. Sets bump and time-of-flight hazard settings
 // to their current default values.
 {
@@ -2655,7 +2655,7 @@ To programmatically obtain live data streams back from Misty that include face d
 
 ### CancelFaceTraining
 
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `CancelFaceTraining` command unless you want to abort a training that is in progress.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
@@ -2760,8 +2760,8 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
-* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
+* Name (string) - Optional. The filename of the video recording to download. If not supplied, defaults to `misty_video`.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Defaults to `false`.
 
 ```json
 {
@@ -2774,7 +2774,7 @@ Return Values
 
 If `Base64` is `null`, `false`, or not supplied, returns the `.mp4` video file to your browser or REST client. Otherwise, returns the following:
 
-* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. It includes the following key/value pairs:
+* Result (object) - An object containing video data and meta information about the file. Note that Misty only returns this object if you pass `true` for the `Base64` parameter. Includes the following key/value pairs:
   * base64 (string) - A string containing the Base64-encoded video data.
   * contentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
   * name (string) - The name of the video file.
@@ -2812,7 +2812,7 @@ Parameters
 * OldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
 * NewName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
 
-```JSON
+```json
 {
   "OldName": "oldVideoRecordingName",
   "NewName": "newVideoRecordingName"
@@ -2867,7 +2867,7 @@ Parameters
 * UserName (string) - Optional. The username a stream must supply to transmit media to your external server. Not all servers require a username and password. You can change whether to require credentials when you set up your server.
 * Password (string) - Optional. The password for connecting to your external media server.
 
-```JSON
+```json
 // This example sets Misty up to act as her own media server. Connect
 // to this stream from a client on the same network as Misty. The URL
 // for this stream would be: rtsp://<robot-ip-address>:1936
@@ -2902,7 +2902,7 @@ Return Values
 
 Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
 
-This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `CancelFaceTraining`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
 
@@ -2924,7 +2924,7 @@ Return Values
 
 Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
-When you are done having Misty recognize faces, call StopFaceRecognition.
+When you are done having Misty recognize faces, call `StopFaceRecognition`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
 
@@ -3242,7 +3242,7 @@ Return Values
   - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
   - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
 
-```JSON
+```json
 // SAMPLE RESULT
 "result":[  
     {  
@@ -3403,7 +3403,7 @@ Parameters
 
 * NetworkId (string) - The name of the network to connect to.
 
-```JSON
+```json
 {
   "NetworkID": "MyNetworkName"
 }
@@ -3671,7 +3671,7 @@ Parameters
 
 * NetworkId (string) - Optional. The network to remove from Misty’s list of saved networks.
 
-```JSON
+```json
 {
   "NetworkId": "NetworkToForget"
 }
@@ -3769,7 +3769,7 @@ Return Values
 
 Sample response data:
 
-```JSON
+```json
 {
  "result": {
   "chargePercent": null,
@@ -3858,7 +3858,7 @@ Return Values
 
 Example response:
 
-```JSON
+```json
 {
   "result": {
     "androidHardwareId": "2d41343ad7a9c631",
@@ -4002,7 +4002,7 @@ Return Values
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": [
     {
@@ -4141,7 +4141,7 @@ Return Values
 * allowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
 * lastUpdateAttempt (string) - Timestamp for the last update attempt.
 
-```JSON
+```json
 {
     "result": {
         "allowRobotUpdates": true,
@@ -4343,9 +4343,9 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging levels. Use this method to determine which log message types the system writes to the local log file and to the remote Misty Robotics logging database.
 
-Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
+Changing the log level applies a filter on the type of message the system writes to a given location. Log message types include:
 
 * **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.
@@ -4459,7 +4459,7 @@ Parameters:
 * KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
 * KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
 
-```JSON
+```json
 {
   "LedEnabled": false,
   "KeyPhraseEnabled": true,
@@ -4484,7 +4484,7 @@ Parameters
 
 * version (string): The version of Misty's WebSocket system to use. Accepts `Current` or `Deprecated`.
 
-```JSON
+```json
 {
   "version": "Current"
 }

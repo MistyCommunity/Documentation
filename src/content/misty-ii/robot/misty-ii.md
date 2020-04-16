@@ -364,7 +364,7 @@ Follow these steps to create the configuration file and upload it to Misty. Use 
 
 1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents. You can omit key/value pairs for the attributes you don't want to change.
 
-```JSON
+```json
 {
     "misty_settings": {
         "keyphrase": "HeySnapdragon",

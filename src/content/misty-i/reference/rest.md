@@ -383,7 +383,7 @@ Parameters
 * Apply (bool) - A value of `true` or `false` indicating whether to immediately use a media asset once it has been saved to Misty's local storage. Use `true` to immediately play an audio asset or display an image asset on Misty's screen. Note that to successfully apply a media asset, you must also pass `true` for the `saveAssetToRobot` parameter.
 * FileName (string) - The name to give the saved file, including the appropriate file type extension.
 
-```JSON
+```json
 {
   "Method": "GET",
   "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
@@ -1164,7 +1164,7 @@ Return Values
   - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
   - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
 
-```JSON
+```json
 // SAMPLE RESULT
 "result":[  
     {  
@@ -1290,7 +1290,7 @@ Parameters
 
 * NetworkId (string) - The name of the network to connect to.
 
-```JSON
+```json
 {
   "NetworkID": "MyNetworkName"
 }
@@ -1310,7 +1310,7 @@ Parameters
 
 * NetworkId (string) - Optional. The network to remove from Misty’s list of saved networks.
 
-```JSON
+```json
 {
   "NetworkId": "NetworkToForget"
 }
@@ -1421,7 +1421,7 @@ Return Values
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": [
     {
@@ -1723,7 +1723,7 @@ Parameters
 
 * version (string): The version of Misty's WebSocket system to use. Accepts `Current` or `Deprecated`.
 
-```JSON
+```json
 {
   "version": "Current"
 }

@@ -46,14 +46,14 @@ When you build a skill with Misty's JavaScript SDK, your code runs locally on yo
 
 The syntax for using a command in Misty's JavaScript API is:
 
-```JS
+```javascript
 misty.<COMMAND>(parameters);
 ```
 
 So, for example, to change the color of Misty’s logo LED, you would call the
 `misty.ChangeLED()` command like this:
 
-```JS
+```javascript
 misty.ChangeLED(255, 0, 0);
 ```
 

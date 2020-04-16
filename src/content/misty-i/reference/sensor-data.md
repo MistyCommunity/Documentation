@@ -299,7 +299,7 @@ The `BatteryCharge` data stream provides information about the state of Misty's 
 
 Sample `BatteryCharge` data:
 
-```JSON
+```json
 BatteryCharge {
     "eventName": "BatteryCharge",
     "message": {
@@ -324,7 +324,7 @@ BatteryCharge {
 
 `AudioPlayComplete` WebSocket data is sent every time Misty finishes playing an audio file. It is not sent at timed intervals.
 
-```JSON
+```json
 AudioPlayComplete {
     "eventName":"AudioPlayComplete",
     "message":{
@@ -354,7 +354,7 @@ When you connect Misty to the Skill Runner to start and stop skills, the web pag
 **SkillData Message Examples**
 
 This sample shows the `SkillData` message sent when a skill executes the `misty.Debug()` command with the string `"Hello, world!"`:
-```JSON
+```json
 {
   "eventName": "SkillData",
   "message": {
@@ -370,7 +370,7 @@ This sample shows the `SkillData` message sent when a skill executes the `misty.
 
 This sample shows the `SkillData` message sent when a skill executes a `misty.SendExternalRequest()` command. The `message.data` object provides information about the values passed in for the command's arguments.
 
-```JSON
+```json
 {
   "eventName": "SkillData",
   "message": {
@@ -402,7 +402,7 @@ To subscribe to `SkillData` events, you open a WebSocket connection to Misty and
 
 This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/docs/web/api/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
 
-```JavaScript
+```javascript
 //Misty's IP address
 const ip = "<robot-ip-address>";
 
@@ -436,7 +436,7 @@ streamSkillData();
 
 Before you close the WebSocket connection, send a message to unsubscribe to `SkillData` events. You cannot set up a `SkillData` subscription when there is an open subscription with the same `EventName` you are trying to subscribe to.
 
-```JavaScript
+```javascript
 ws.send(JSON.stringify(
     {
     "Operation": "unsubscribe",
