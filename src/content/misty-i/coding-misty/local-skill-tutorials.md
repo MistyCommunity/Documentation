@@ -206,7 +206,9 @@ Finally, we call another Misty command, `PlayAudio()`, and pass in the random fi
 misty.PlayAudio(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** All of this logic must be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
+{{box op="end"}}
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
@@ -801,15 +803,17 @@ misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
 misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
 ```
 
-As discussed above, the first “child” skill handles face recognition events. We start by defining a function for the callback (automatically named `_<Event>`) and passing in an argument to hold the data from the event. Within the callback, send a debug message to notify the user that the new skill has been triggered.
+As discussed above, the first "child" skill handles face recognition events. We start by defining a function for the callback (automatically named `_<Event>`) and passing in an argument to hold the data from the event. Within the callback, send a debug message to notify the user that the new skill has been triggered.
 
 ```javascript
 function _FaceRecognition(data) {
-   misty.Debug(“TriggerSkill part 2 has been triggered.”);
+   misty.Debug("TriggerSkill part 2 has been triggered.");
 }
 ```
 
-Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+{{box op="end"}}
 
 Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 

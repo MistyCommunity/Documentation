@@ -206,7 +206,9 @@ Finally, we call another Misty command, `PlayAudio()`, and pass in the random fi
 misty.PlayAudio(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** All of this logic needs to be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated.
+{{box op="end"}} 
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill).
 
@@ -804,9 +806,11 @@ function _FaceRecognition(data) {
 }
 ```
 
-Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our "parent" skill, this skill starts automatically when the event callback is triggered.
+{{box op="end"}}
 
-Next, define a variable, `label`, to hold the label of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
+Next, define a variable, `label`, to hold the label of the face detected (or `"unknown person"` if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 
 ```javascript
 // Store the name of the detected face
@@ -1295,7 +1299,9 @@ function _BumpSensor(data) {
 
 When this skill runs, Misty retrieves the list of audio clips in her local storage and associates the names of four audio files with unique global variables. She then registers for bump sensor events. Each time an event occurs, Misty determines which bump sensor was pressed and plays the sound associated with that sensor.
 
-**Note:** By default on-robot JavaScript skills timeout after 300 seconds, so this skill automatically stops executing after 5 minutes. This duration can be changed by changing the value of the `TimeoutInSeconds` property in the meta file. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** By default on-robot JavaScript skills timeout after 300 seconds, so this skill automatically stops executing after 5 minutes. This duration can be changed by changing the value of the `TimeoutInSeconds` property in the meta file.
+{{box op="end"}} 
 
 Save the code file with the name `HelloWorld_BumpSensors.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#loading-amp-running-a-javascript-skill). 
 

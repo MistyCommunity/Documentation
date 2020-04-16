@@ -9,7 +9,9 @@ order: 1
 
 Use Misty's on-robot JavaScript API to write skills that run locally on your robot. To learn about the architecture of this API, see [On-Robot JavaScript API Architecture](../../../misty-i/coding-misty/local-skill-architecture).
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+{{box op="end"}}
 
 ## Asset
 
@@ -35,14 +37,17 @@ misty.DeleteAudio("DeleteMe.wav");
 ```
 
 ### misty.DeleteImage
-Enables you to remove an image file from Misty that you have previously saved to her storage.
 
-**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
+Enables you to remove an image file from Misty that you have previously saved to her storage.
 
 ```javascript
 // Syntax
 misty.DeleteImage(string fileName, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
+{{box op="end"}}
 
 Arguments
 
@@ -59,12 +64,14 @@ misty.DeleteImage("DeleteMe.png");
 
 Lists all audio files (default system files and user-added files) currently stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 // Syntax
 misty.GetAudioList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -88,15 +95,19 @@ Returns
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 ### misty.GetImage
-Obtains a system or user-uploaded image file currently stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains a system or user-uploaded image file currently stored on Misty.
 
 ```javascript
 misty.GetImage(string fileName, [string callback], [bool base64 = true], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-Arguments  
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
 * fileName (string) - The name of the image file to get, including its file type extension.
 * base64 (boolean) - Optional. Passing in `true` returns the image data as a Base64 string. Passing in `false` returns the image. Defaults to `true`. 
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -111,14 +122,17 @@ misty.GetImage("Angry.png", true);
 ```
 
 ### misty.GetImageList
-Obtains a list of the images stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains a list of the images stored on Misty.
 
 ```javascript
 // Syntax
 misty.GetImageList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -256,9 +270,12 @@ misty.AddReturnProperty("EventName", "DistanceInMeters");
 
 
 ### misty.RegisterEvent - ALPHA
+
 Register to receive messages with live event data from one of Misty's sensors. 
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#sensor-event-callbacks).
+{{box op="end"}}
 
 ```javascript
 // Syntax
@@ -313,16 +330,20 @@ Returns
 
 
 ### misty.RegisterTimerEvent - ALPHA
-Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../../../misty-i/coding-misty/local-skill-tutorials/#timer-events).
 
-**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#timed-or-triggered-event-callbacks).
+Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../../../misty-i/coding-misty/local-skill-tutorials/#timer-events).
 
 ```javascript
 // Syntax
 misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#timed-or-triggered-event-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
 * callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
 * keepAlive (boolean) -  Optional. By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `misty.UnregisterEvent()` function in your code.
@@ -341,7 +362,13 @@ Returns
 * Data sent by the timed event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Timed or Triggered Event Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#timed-or-triggered-event-callbacks).
 
 ### misty.RegisterUserEvent - ALPHA
+
 Creates an event that calls a callback function at a point of your choosing. You trigger the event by making a REST call to the `<robot-ip-address>/api/skills/event` endpoint with the appropriate payload for the callback and/or skill.
+
+```javascript
+// Syntax
+misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
 
 Once you register the event with `misty.RegisterUserEvent()`, to trigger the event you must make a REST call to the event endpoint with a POST command:
 
@@ -360,12 +387,9 @@ With a JSON body similar to:
 
 The `UniqueId` and `EventName` values are required and must match the ID of the skill to call and the event name you used in that skill. You should place any payload data you wish to send to the skill in the `Payload` field.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#timed-or-triggered-event-callbacks).
-
-```javascript
-// Syntax
-misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
-```
+{{box op="end"}}
 
 Arguments
 * eventName (string) - The name for the event. Note that the name you give to this event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyUserEvent`, your callback function must use the name `_MyUserEvent`. 
@@ -490,14 +514,17 @@ misty.PlayAudio("Play.wav", 100);
 
 Sends an HTTP request from Misty to an external server. You use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
-**Note:** In most cases, the external server's response to requests sent from the robot must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command is given the same name as the command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../../../misty-i/coding-misty/local-skill-tutorials/#external-requests) tutorial.
-
 ```javascript
 // Syntax
 misty.SendExternalRequest(string method, string resource, [string authorizationType], [string token], [string arguments], [bool save], [bool applyAssetAfterSaving], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** In most cases, the external server's response to requests sent from the robot must be passed into a callback function to be processed and made available for use in your skills. By default, the callback function for this command is given the same name as the command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by `misty.SendExternalRequest()`, see the [External Requests](../../../misty-i/coding-misty/local-skill-tutorials/#external-requests) tutorial.
+{{box op="end"}}
+
 Arguments
+
 * method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
 * resourceURL (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
 * authorizationType (string) - The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
@@ -748,11 +775,14 @@ misty.Stop();
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you are mapping with a **Misty I**, please be aware of the following:
+
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="end"}}
 
 ### misty.StartSlamStreaming
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
@@ -794,18 +824,22 @@ misty.StopSlamStreaming();
 ```
 
 ### misty.TakeDepthPicture
+
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
-
-**Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```javascript
 // Syntax
 misty.TakeDepthPicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`_<COMMAND>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -825,16 +859,19 @@ Returns
   - width (integer) - The width of the matrix.
 
 ### misty.TakeFisheyePicture
+
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
-
-**Note:** Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 
 ```javascript
 // Syntax
 misty.TakeFisheyePicture([bool base64 = true], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+Make sure to use `misty.StartSlamStreaming()` to open the data stream from Misty's depth sensor before using this command. Mapping or tracking does not need to be active to use this command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 * base64 (boolean) - Optional. Sending a request with `true` returns the image data as a Base64 string. Defaults to `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for Base64 to obtain the image data, then pass the returned image data to `misty.SaveImage()`.
@@ -884,20 +921,22 @@ misty.FollowPath("100:250,125:275...");
 
 Obtains occupancy grid data for the most recent map Misty has generated. 
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+```javascript
+// Syntax
+misty.GetMap([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
 
-**Note:** To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. 
 
 Misty’s maps are squares that are constructed around her initial physical location when she starts mapping. When a map is complete, it is a square with Misty’s starting point at the center.
 
 The occupancy grid for the map is represented by a two-dimensional matrix. Each element in the occupancy grid represents an individual cell of space. The value of each element (0, 1, 2, or 3) indicates the nature of the space in those cells (respectively: "unknown", "open", "occupied", or "covered").
 
 Each cell corresponds to a pair of X,Y coordinates that you can use with the `misty.FollowPath()`, `misty.DriveToLocation()`, and `misty.GetSlamPath()` commands. The first cell in the first array of the occupancy grid is the origin point (0,0) for the map. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
-
-```javascript
-// Syntax
-misty.GetMap([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
-```
 
 Arguments
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -927,16 +966,21 @@ Returns
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-**Important!** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
-
 ```javascript
 // Syntax
 misty.GetSlamPath(double X, double Y, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Make sure to call `misty.StartTracking()` to start Misty tracking her location before using this command, and call `misty.StopTracking()` to stop Misty tracking her location after using this command.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * X (double) - The X coordinate of the destination.
 * Y (double) - The Y coordinate of the destination.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
@@ -955,9 +999,12 @@ Returns
 * Result (array) - An array containing integer pairs. Each pair specifies the X,Y coordinates for a waypoint on the path. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.GetSlamStatus - ALPHA
+
 Obtains values representing Misty's current activity and sensor status.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 ```javascript
 // Syntax
@@ -1025,20 +1072,25 @@ misty.ResetSlam();
 ```
 
 ### misty.StartMapping - ALPHA
-Starts Misty mapping an area.
 
-**Note:** If you are mapping with a **Misty I**, please be aware of the following:
-* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
-* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
-* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
-* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+Starts Misty mapping an area.
 
 ```javascript
 // Syntax
 misty.StartMapping([int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you are mapping with a **Misty I**, please be aware of the following:
+
+* The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
+* Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
+* Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
+* Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="end"}}
+
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -1160,16 +1212,20 @@ misty.ForgetFace("John");
 ```
 
 ### misty.GetKnownFaces
-Obtains a list of the names of faces on which Misty has been successfully trained.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains a list of the names of faces on which Misty has been successfully trained.
 
 ```javascript
 // Syntax
 misty.GetKnownFaces([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1318,14 +1374,16 @@ misty.StopRecordingAudio();
 
 Takes a photo with Misty’s 4K camera.
 
-**Note:** When you call the `misty.TakePicture()` command immediately after using the camera to record a video, there may be a few seconds delay before Misty takes the photograph.
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 // Syntax
 misty.TakePicture([bool base64 = true], [string fileName], [int width], [int height], [bool displayOnScreen = false], [bool overwriteExisting = false], [string callback = _TakePicture()], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+When you call the `misty.TakePicture()` command immediately after using the camera to record a video, there may be a few seconds delay before Misty takes the photograph.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1356,18 +1414,21 @@ Returns
    * Width (integer) - The width of the image in pixels.
 
 ### misty.StartRecordingVideo - BETA
+
 Starts recording video with Misty's 4K Camera. Misty records videos in MP4 format at a resolution of 1080 × 1920 pixels.
-
-Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
-
-Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, use the [`GetRecordedVideo`](../../../misty-i/reference/rest/#getrecordedvideo-beta) REST command.
-
-**Note:** When you call the `misty.StartRecordingVideo()` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
 
 ```javascript
 // Syntax
 misty.StartRecordingVideo([int prePauseMs], [int postPauseMs])
 ```
+
+Use `misty.StopRecordingVideo()` to stop recording a video. Video recordings cannot be longer than 10 seconds. Misty stops recording automatically if a video reaches 10 seconds before you call `misty.StopRecordingVideo()`.
+
+Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording. To download a video from your robot, use the [`GetRecordedVideo`](../../../misty-i/reference/rest/#getrecordedvideo-beta) REST command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When you call the `misty.StartRecordingVideo()` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
+{{box op="end"}}
 
 Arguments
 
@@ -1436,12 +1497,14 @@ misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
 
 Obtains a list of the skills currently running on Misty.
 
-**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 //Syntax
 misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int PostPause])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1490,14 +1553,16 @@ misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 
 Publishes a string to subscribers of the `SkillData` named object. Use this method to print debug messages to the console in your web browser when you use Skill Runner.
 
-You can think of `misty.Debug()` as the Misty version of `console.log()`. When you use Skill Runner to run a skill, the web page subscribes to the `SkillData` named object via Misty's WebSocket connection. This allows Misty to print error messages, debug messages, and other skill data to the console in your web browser. Use `misty.Debug()` to print your own messages to the console.
-
-**Note:** Data you pass into the `misty.Debug()` message must be a string. To send a data object, you can serialize your data into a string and parse it out on the client side of the `SkillData` subscription. If `BroadcastMode` is set to `off` in the meta file for a skill, the skill does not publish debug data.
-
 ```javascript
 // Syntax
 misty.Debug(string data, [int prePauseMs], [int postPauseMs]);
 ```
+
+You can think of `misty.Debug()` as the Misty version of `console.log()`. When you use Skill Runner to run a skill, the web page subscribes to the `SkillData` named object via Misty's WebSocket connection. This allows Misty to print error messages, debug messages, and other skill data to the console in your web browser. Use `misty.Debug()` to print your own messages to the console.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Data you pass into the `misty.Debug()` message must be a string. To send a data object, you can serialize your data into a string and parse it out on the client side of the `SkillData` subscription. If `BroadcastMode` is set to `off` in the meta file for a skill, the skill does not publish debug data.
+{{box op="end"}}
 
 Arguments
 
@@ -1727,15 +1792,17 @@ misty.ForgetWifi("MyHomeWifi")
 
 Obtains a list of local WiFi networks and basic information regarding each.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
-
 ```javascript
 // Syntax
 misty.GetAvailableWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1754,18 +1821,21 @@ Returns
    * SignalStrength (integer) - A numeric value for the strength of the network.
    * IsSecure (boolean) - Returns `true` if the network is secure. Otherwise, `false`.
 
-<!-- misty.GetBatteryLevel -->
 ### misty.GetBatteryLevel
-Obtains Misty's current battery level, along with other information about the battery.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains Misty's current battery level, along with other information about the battery.
 
 ```javascript
 // Syntax
 misty.GetBatteryLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1797,16 +1867,20 @@ Returns
   * voltage (double)
 
 ### misty.GetDeviceInformation
-Obtains device-related information for the robot.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains device-related information for the robot.
 
 ```javascript
 // Syntax
 misty.GetDeviceInformation([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
@@ -1835,16 +1909,20 @@ Returns
    * windowsOSVersion - The version of Windows IoT Core running on the robot.
 
 ### misty.GetHelp
-Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
 
 ```javascript
 // Syntax
 misty.GetHelp([string endpointName], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetAudioList"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -1865,12 +1943,14 @@ Returns
 
 Obtains the robot's most recent log files. Note that log file data is stored for a maximum of 7 days.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 // Syntax
 misty.GetLogFile([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called. 
@@ -1940,7 +2020,10 @@ If Misty's log level is set to `Info`:
 | Error  |    &#x2713;      |&#x2713;             |
 | Remote |    &#x2713;      |&#x2713;             |
 
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -1963,12 +2046,14 @@ Returns
 
 Obtains Misty's list of saved network IDs.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 // Syntax
 misty.GetSavedWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -2014,14 +2099,18 @@ Example JSON object for a saved WiFi network:
 
 Obtains information about a specified WebSocket class. Calling `misty.GetWebsocketNames()` without specifying a class returns information about all of Misty’s available WebSocket connections.
 
-**Note:** For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-i/reference/sensor-data/).
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
-
 ```javascript
 // Syntax
 misty.GetSavedWifiNetworks([string websocketClass], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-i/reference/sensor-data/).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-i/coding-misty/local-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Parameters
 

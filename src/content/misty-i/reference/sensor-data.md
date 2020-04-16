@@ -99,13 +99,17 @@ The ```SelfState``` WebSocket provides a variety of data about Misty’s current
 * SLAM status
 * sensor messages
 
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** There are a number of fields in the WebSocket data structure that are reserved for future use and which may be empty or contain ```null``` data:
+
 * ```Acceleration```
 * ```BumpedState```
 * ```CurrentGoal```
 * ```MentalState```
 * ```Personality```
 * ```PhysiologicalBehavior```
+{{box op="end"}}
 
 ```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
 

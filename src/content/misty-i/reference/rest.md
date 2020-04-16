@@ -11,7 +11,9 @@ With the REST API, you can send commands to Misty from a REST client or browser.
 
 To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../coding-misty/remote-command-architecture#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [REST-API repository on GitHub](https://github.com/MistyCommunity/REST-API) for sample code and tutorials.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+{{box op="end"}}
 
 ## URL & Message Formats
 
@@ -43,13 +45,17 @@ If there is an issue, Misty returns an HTTP error code and error message.
 Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
 
 ### DeleteAudio
+
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -63,13 +69,17 @@ Return Values
 
 
 ### DeleteImage
-Enables you to remove an image file from Misty that you have previously uploaded.
 
+Removes an image file from Misty that you have previously uploaded.
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -82,20 +92,26 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### GetAudioFile
+
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not include payloads, the query parameter for this request must be included in the URL.
+{{box op="end"}}
+
 Parameters  
-**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
-- FileName (string): The name of the audio file to get, including its file type extension.
+
+* FileName (string): The name of the audio file to get, including its file type extension.
 
 ```markup
 http://<robot-ip-address>/api/audio?FileName=ExampleAudio.mp3
 ```
 
 Return Values
-- An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
+
+* An audio file that plays in your browser or REST client. You can save the file by manually downloading it either from your browser or from a REST client such as Postman.
 
 ### GetAudioList
 Lists all audio files (default system files and user-uploaded files) currently stored on Misty.
@@ -119,11 +135,14 @@ Example:
 
 `http://<robot-ip-address>/api/images?FileName=happy.png&Base64=false`
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameter for this request must be included in the URL.
+{{box op="end"}}
+
 Parameters
 
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
-- FileName (string) - The name of the image file to get, including the file type extension.
-- Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
+* FileName (string) - The name of the image file to get, including the file type extension.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
 
 ```json
 {
@@ -133,12 +152,13 @@ Parameters
 ```
 
 Return Values
-- Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
-  - base64 (string) - A string containing the Base64-encoded image data.
-  - format (string) - The type and format of the image returned.
-  - height (integer) - The height of the image in pixels.
-  - name (string) - The name of the image.
-  - width (integer) - The width of the image in pixels.
+
+* Result (object) - An object containing image data and meta information. This object is only sent if you pass `true` for Base64.
+  * base64 (string) - A string containing the Base64-encoded image data.
+  * format (string) - The type and format of the image returned.
+  * height (integer) - The height of the image in pixels.
+  * name (string) - The name of the image.
+  * width (integer) - The width of the image in pixels.
 
 ```json
 {
@@ -192,13 +212,17 @@ Return Values
 
 
 ### SaveAudio (Audio File)
+
 Saves an audio file to Misty. Maximum size is 3 MB.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+{{box op="end"}}
 
 Parameters
+
 - File (object) - The audio file to save to Misty. This command accepts all audio format types, however Misty currently cannot play OGG files.
 - FileName (string) - Optional. The name the file will have on Misty. Must include the file type extension. If unspecified, the audio file will be saved with the same name as the source file.
 - ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
@@ -211,15 +235,19 @@ Return Values
 
 
 ### SaveImage (Byte Array String)
+
 Saves an image to Misty in the form of a byte array string. Optionally, proportionately reduces the size of the saved image.
 
 Valid image file types are .jpg, .jpeg, .gif, .png. Maximum file size is 3 MB.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the image file to upload.
 * DataAsByteArrayString (string) - The image data, passed as a string containing a byte array.
 * Width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `Width` and `Height`. Note that if you supply disproportionate values for `Width` and `Height`, the system uses the proportionately smaller of the two values to resize the image. 
@@ -249,9 +277,13 @@ Return Values
 
 Saves an image file to Misty. Optionally, proportionately reduces the size of the saved image.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+{{box op="end"}}
 
-**Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Be sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest).
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
@@ -511,7 +543,9 @@ Parameters
 }
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Due to normal variations in the range of head motion available to each robot, the minimum and maximum values for your Misty may differ slightly from the values listed here.
+{{box op="end"}}
 
 **Value Ranges (By Unit) for Each Direction of Head Movement**
 
@@ -551,12 +585,14 @@ Return Values
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you are mapping with a **Misty I**, please be aware of the following:
 
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="end"}}
 
 ### StartSlamStreaming
 
@@ -610,14 +646,21 @@ Return Values
 ```
 
 ### TakeFisheyePicture
+
 Takes a photo using Misty’s Occipital Structure Core depth sensor.
 
-**Important!** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Make sure to use `StartSlamStreaming` to open the data stream from Misty's depth sensor before using this command, and use `StopSlamStreaming` to close the data stream after using this command.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye?Base64=&lt;bool&gt;
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameter for this request must be included in the URL.
+{{box op="end"}}
+
 Parameters  
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
+
 - Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `true`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
 
 Return Values
@@ -647,6 +690,7 @@ Drives to a designated waypoint.
 Endpoint: POST &lt;robot-ip-address&gt;/api/drive/coordinates
 
 Parameters
+
 * Destination (string) - A colon-separated integer pair that represents the X and Y coordinates of the destination. **Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
 
 ```json
@@ -708,19 +752,27 @@ Return Values
 
 "SLAM" refers to simultaneous localization and mapping. This is a robot's ability to both create a map of the world and know where they are in it at the same time. Misty's SLAM capabilities and hardware are under development. For a step-by-step mapping exercise, see the instructions with the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#navigation-alpha).
 
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you are mapping with a **Misty I**, please be aware of the following:
+
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="end"}}
 
 ### GetSlamPath - ALPHA
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the path parameter of `FollowPath` for Misty to follow this path to the desired location.
 
-**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** `GetMap` obtains the occupancy grid for the most recent map Misty has generated. Use this grid to determine the X and Y coordinates of the destination. The X coordinate of a given cell is the index of the array for the cell. The Y coordinate of a cell is the index of that cell within its array.
+{{box op="end"}} 
 
-**Important!** Make sure to use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You must use `StartTracking` before using this command to have Misty start tracking her location, and use `StopTracking` to have her stop tracking her location after she arrives at the specified location.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/slam/path
 
@@ -802,11 +854,14 @@ Return Values
 
 Starts Misty mapping an area.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you are mapping with a **Misty I** or **Misty II prototype**, please be aware of the following:
+
 * The USB cable connecting the headboard to the Occipital Structure Core depth sensor is known to fail in some Misty prototypes. This can cause intermittent or non-working mapping and localization functionality.
 * Misty prototypes can only create and store one map at a time, and a map must be created in a single mapping session.
 * Mapping a large room with many obstacles can consume all of the memory resources on the processor used for mapping and crash the device.
 * Some Misty I and some Misty II prototypes may generate inaccurate maps due to depth sensor calibration flaws.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
 
@@ -1020,7 +1075,9 @@ Return Values
 
 Takes a photo with Misty’s 4K camera. Optionally, saves the photo to Misty and proportionately reduces the size of the photo.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you call the `TakePicture` command immediately after using the RGB camera to record a video, there may be a few seconds delay before Misty takes the photograph.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/rgb
 
@@ -1063,7 +1120,9 @@ Return Values
 
 Downloads Misty's most recent video recording to your browser or REST client.
 
-**Note:** Misty records videos in MP4 format at a resolution of 1080x1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
+{{box op="start" cssClass="boxed noteBox"}}
+Misty records videos in .mp4 format at a resolution of 1080 x 1920 pixels. A single video may be larger than 10 megabytes and can take several seconds to download.
+{{box op="end"}}
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/video
 
@@ -1082,7 +1141,9 @@ Use the `StopRecordingVideo` command to stop recording a video. Video recordings
 
 Misty only saves the most recent video recording to her local storage. Recordings are saved with the filename `MistyVideo.mp4`, and this file is overwritten with each new recording.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** When you call the `StartRecordingVideo` command immediately after using the RGB camera to take a picture, there may be a few seconds delay before Misty starts recording.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/video/record/start
 
@@ -1214,9 +1275,12 @@ Return Values
 
 
 ### SaveSkillToRobot
+
 Uploads a skill to the robot and makes it immediately available for the robot to run.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
@@ -1254,22 +1318,25 @@ Parameters
 Return Values
 * Result (boolean) - Returns `true` if no errors related to this request.
 
-<!-- ReloadSkills --> 
 ### ReloadSkills - ALPHA
+
 Makes all previously uploaded skills available for the robot to run and updates any skills that have been edited. **Note:** The `ReloadSkills` command runs immediately, but there may be a significant delay after the call completes before all skills are fully loaded onto the robot if there are many to load.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills/reload
 
 Parameters
+
 * (None)
 
 Return Values
+
 * Result (boolean) - Returns `true` if no errors related to this request. 
 
 
 ## System
 
 ### ClearDisplayText
+
 Force-clears an error message from Misty’s display. **Note:** This command is provided as a convenience. You should not typically need to call `ClearDisplayText`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/text/clear
@@ -1540,7 +1607,9 @@ Return Values
 
 Obtains information about a specified WebSocket class. Calling `GetWebsocketNames` with no parameters returns information about all of Misty’s available WebSocket connections.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** For examples of subscribing to WebSocket data, see the sample skills in the MistyCommunity GitHub repo. For more detailed information about each of Misty’s WebSocket connections, see [Sensor & Skill Data Types](../../../misty-i/reference/sensor-data/).
+{{box op="end"}}
  
 Endpoint: 
 
@@ -1606,7 +1675,9 @@ Return Values
 
 Attempts to install updates for specified components of your robot. 
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Only use this command when a system update fails to update every component of your robot. Always attempt a full system update before using this command. The version numbers for individual components are returned by the `GetDeviceInformation` command. You can make sure individual components are up-to-date by comparing these version numbers to the most recent release notes on the [Misty Community](https://community.mistyrobotics.com/) site.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/system/update/component
 
