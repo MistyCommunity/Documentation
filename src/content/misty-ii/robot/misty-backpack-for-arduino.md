@@ -108,6 +108,7 @@ void setup() {
 void loop() {
     delay(1000);
     Serial.println("{\"message\":\"Hello, Misty! This is your backpack talking.\"}");
+}
 ```
 
 {{box op="start" cssClass="boxed noteBox"}}
