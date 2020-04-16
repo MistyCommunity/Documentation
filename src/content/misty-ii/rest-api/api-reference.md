@@ -2744,12 +2744,12 @@ Return Values
 
 ### GetVideoRecording
 
-Obtains a video recording that Misty has created.
+Downloads a video that Misty has created. Optionally, returns the video data as a Base64 string.
 
-You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
+You can only use this command to download videos that Misty recorded. To get videos that you or another user has uploaded, use the [`GetVideo`](./#getvideo) command.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+**Tip:** Misty records videos in .mp4 format. Video recordings have a maximum resolution of 3840 x 2160 pixels and can be up to 3 minutes long. A single video file can be up to 225 MB and can take several minutes to download.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -2760,7 +2760,7 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, defaults to `misty_video`.
+* Name (string) - Optional. The filename of the video to download. If not supplied, defaults to `misty_video`.
 * Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Defaults to `false`.
 
 ```json
@@ -2772,11 +2772,11 @@ Parameters
 
 Return Values
 
-If `Base64` is `null`, `false`, or not supplied, returns the `.mp4` video file to your browser or REST client. Otherwise, returns the following:
+If `Base64` is `null`, `false`, or not supplied, downloads the .mp4 video file to your browser or REST client. Otherwise, returns the following:
 
 * Result (object) - An object containing video data and meta information about the file. Note that Misty only returns this object if you pass `true` for the `Base64` parameter. Includes the following key/value pairs:
   * base64 (string) - A string containing the Base64-encoded video data.
-  * contentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * contentType (string) - The type and format of the video returned. For all videos that Misty creates, the content type should be `video/mp4`.
   * name (string) - The name of the video file.
 
 ### GetVideoRecordingsList
