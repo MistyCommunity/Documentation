@@ -142,7 +142,7 @@ function _SerialMessage(data) {
 }
 ```
 
-Use the [`WriteSerial`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) command in your skill code to send messages from Misty to an external development board. (The `WriteSerial` command is available in Misty's REST API, JavaScript SDK, and .NET SDK libraries.)
+Finally, you can use the [`WriteSerial`](../../../misty-ii/javascript-sdk/api-reference/#misty-writeserial) command in your skill code to send messages from Misty to an external development board. (The `WriteSerial` command is available in Misty's REST API, JavaScript SDK, and .NET SDK libraries.)
 
 ```javascript
 // JavaScript SDK example
