@@ -31,7 +31,7 @@ For instructions and examples that show how to use event data across the differe
 
 * To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-data-from-misty)
 * To learn about registering event listeners in JavaScript skills, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks)
-* To learn about using event data in .NET skills, see [Registering & Unregistering Events](../../../misty-ii/net-sdk/net-skill-architecture/#registering-amp-unregistering-events)
+* To learn about using event data in .NET skills, see [Registering & Unregistering Events](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#registering-amp-unregistering-events)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#setwebsocketversion) to switch versions.

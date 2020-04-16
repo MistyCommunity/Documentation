@@ -60,7 +60,7 @@ To update the code for an existing skill, or to associate new image and audio as
 
 ### Uploading a .NET Skill
 
-To install a .NET skill using the Skill Runner web page, you must have access to the skill's app package. [Follow these steps to create the app package](../../../misty-ii/net-sdk/getting-started/#creating-a-net-skill-app-package). Then, use the instructions below to upload the app package to your robot. 
+To install a .NET skill using the Skill Runner web page, you must have access to the skill's app package. [Follow these steps to create the app package](../../../misty-ii/dotnet-sdk/getting-started/#creating-a-net-skill-app-package). Then, use the instructions below to upload the app package to your robot. 
 
 1. If you haven't done so already, compress the entire app package directory into a .zip file.
 2. Make sure your robot is powered on, fully-booted, and connected to the same Wi-Fi network as your computer.

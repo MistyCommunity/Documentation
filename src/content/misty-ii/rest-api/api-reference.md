@@ -440,7 +440,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
 
 Parameters
 
-* Skill (string) - The `UniqueId` for the skill to receive this event. The `UniqueId` for JavaScript skills is defined in the skill's [JSON meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file), and the `UniqueId` for .NET skills is defined as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* Skill (string) - The `UniqueId` for the skill to receive this event. The `UniqueId` for JavaScript skills is defined in the skill's [JSON meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file), and the `UniqueId` for .NET skills is defined as a property of the [`NativeRobotSkill`](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#nativerobotskill) class.
 * EventName (string) - A name of your choosing for this custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
 * Payload (JSON) - The data to send with this event, formatted as a JSON object. This data is passed into the callback for the event listener in the skill that receives this event.
 * Source (string) - A name of your choice that describes the source of this event.
@@ -2886,7 +2886,7 @@ Return Values
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
-When you are done having Misty detect faces, call StopFaceDetection.
+When you are done having Misty detect faces, call `StopFaceDetection`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
 

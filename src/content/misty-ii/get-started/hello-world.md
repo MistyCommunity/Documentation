@@ -10,7 +10,7 @@ order: 2
 Welcome to the Misty II Hello World tutorial series! The topics on this page provide a series of brief tutorials on how to write and upload a JavaScript skill that brings Misty (and your code) to life. Once you've completed the series, you'll have the knowledge required to start coding more complicated skills for your Misty II.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** This tutorial series provides an introduction to Misty's JavaScript SDK. To learn about Misty's .NET SDK, see the [.NET SDK Getting Started guide](../../../misty-ii/net-sdk/getting-started/). 
+**Note:** This tutorial series provides an introduction to Misty's JavaScript SDK. To learn about Misty's .NET SDK, see the [.NET SDK Getting Started guide](../../../misty-ii/dotnet-sdk/getting-started/). 
 {{box op="end"}}
 
 
