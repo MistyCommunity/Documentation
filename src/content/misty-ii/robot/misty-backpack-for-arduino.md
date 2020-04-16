@@ -98,7 +98,7 @@ When you write code for Misty's Arduino-compatible backpack (or any other Arduin
 **Tip:** For runnable examples of .ino sketches and JavaScript skill code for serial communication, see the [`serialReadWrite` sample code](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Sample%20Code/serialReadWrite) on GitHub.
 {{box op="end"}}
 
-In the `setup()` function for your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to `9600` baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty. We recommend formatting data you send as a JSON string to make it easier to parse in your skill code. Here's an example:
+In the `setup()` function for your sketch, use the [`Serial.begin()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/begin) function to set the data transfer rate to `9600` baud. Then, in the `loop()` function, use [`Serial.println()`](https://www.arduino.cc/reference/en/language/functions/communication/serial/println) to send data to Misty. For greatest flexibility in handling, we typically recommend formatting this data as a JSON string. Here's an example:
 
 ```c++
 void setup() {
