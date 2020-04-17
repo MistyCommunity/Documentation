@@ -128,9 +128,9 @@ misty.RegisterEvent("BumpedState", "BumpSensor", 100, true);
 
 Optionally, you can set up the `misty.RegisterEvent()` method with callback rules and a skill to trigger for the callback, instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
 
-* `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
-* `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in once the callback comes back.
-* `Abort` tells the system to ignore the new callback thread if the skill is still doing work on the original thread the callback was called within. For event callbacks, the new callback is ignored until all current processes are finished running, then the event is processed the next time it is sent.
+* `Synchronous` tells the system to run the new callback thread, to and **continue running** any other threads the skill has started.
+* `Override` tells the system to run the new callback thread, but to **stop running** commands on any other threads, including the thread in which the callback was called. The system only runs the thread in which the callback was triggered after the callback returns.
+* `Abort` tells the system to **ignore the new callback thread**, if the skill is still doing work on the original thread in which the callback was called. For event callbacks, the new callback is ignored until all processes in the original thread complete. Then, the event is processed the next time it is sent.
 
 When you declare your event callback function, you must give it a single parameter to store the event data. In your callback function, you can access all of the key/value pairs associated with the event message in the `PropertyParent` object at `<dataParameter>.PropertyTestResults[0].PropertyParent`.
 

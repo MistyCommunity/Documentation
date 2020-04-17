@@ -991,7 +991,7 @@ socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [r
 
 When you call `socket.Subscribe()`, pass `"FaceRecognition"` for the `eventName` argument, pass `"FaceRecognition"` for `msgType`, pass `1000` for `debounceMS`, and pass `"_FaceRecognition"` for `eventCallback`. Pass `null` for all other arguments. 
 
-```javascriptvascript
+```javascript
 /* CALLBACKS */
 
 async function openCallback() {

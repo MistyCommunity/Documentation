@@ -168,7 +168,8 @@ Return Values
    * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio assets. If `false`, a user created the file.
 
 ### GetImage
-Obtains a system or user-uploaded image file currently stored on Misty
+
+Obtains a system or user-uploaded image file.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
 
@@ -298,7 +299,7 @@ Return Values
 
 ### SaveAudio
 
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as .wav, .mp3, .wma, and .aac.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
@@ -428,7 +429,7 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
+Misty can also receive data through the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/serial
 
