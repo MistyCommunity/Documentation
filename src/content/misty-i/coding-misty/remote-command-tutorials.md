@@ -266,7 +266,9 @@ function openCallback() {
 }
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can learn more about `DriveTime` and how the parameters affect Misty’s movement in the API section of this documentation.
+{{box op="end"}}
 
 Pass the URL for the `DriveTime` command along with this `data` object to the `axios.post()` method. Use a `then()` method to handle a successful response and `catch()` to handle any errors.
 
@@ -513,7 +515,9 @@ const you = "<your-name>"
 let onList = false;
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Avoid hard-coding name values like this in real-world applications of Misty skills. Instead, create a form in the browser where users can type and send their names to Misty.
+{{box op="end"}}
 
 #### Opening a Connection
 
@@ -815,7 +819,9 @@ function _FaceRecognition(data) {
 }
 ```
 
-**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`.
+{{box op="end"}}
 
 If a face is recognized, the value of the `"personName"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
@@ -985,7 +991,7 @@ socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [r
 
 When you call `socket.Subscribe()`, pass `"FaceRecognition"` for the `eventName` argument, pass `"FaceRecognition"` for `msgType`, pass `1000` for `debounceMS`, and pass `"_FaceRecognition"` for `eventCallback`. Pass `null` for all other arguments. 
 
-```javascriptvascript
+```javascript
 /* CALLBACKS */
 
 async function openCallback() {

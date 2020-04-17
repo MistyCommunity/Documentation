@@ -10,7 +10,8 @@ order: 1
 The Misty App is a mobile app for Android and iOS devices that you can use to set up Misty's Wi-Fi connection. You can also use the app to drive Misty and see information about her software. You can download the Misty App from the [App Store (iOS)](https://apps.apple.com/us/app/misty-app/id1296946424) or [Google Play (Android)](https://play.google.com/store/apps/details?id=com.mistyrobotics.Companion&hl=en_US).
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** 
+**Note:**
+
 * It's not generally recommended for multiple users to each use a separate instance of the Misty companion app to connect and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, they will need to take turns sending commands, or Misty may appear to respond unpredictably.
 * When using the Misty companion app, **make sure your phone and Misty are on the same Wi-Fi network**.
 {{box op="end"}}

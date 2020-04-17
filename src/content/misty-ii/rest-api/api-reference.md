@@ -11,7 +11,9 @@ With the REST API, you can send commands to Misty from a REST client or browser.
 
 To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [REST-API repository on GitHub](https://github.com/MistyCommunity/REST-API) for sample code and tutorials.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
+{{box op="end"}}
 
 ## URL & Message Formats
 
@@ -54,9 +56,12 @@ For most GET requests, the value for `result` is the response data from Misty. F
 Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
 
 ### DeleteAudio
+
 Enables you to remove an audio file from Misty that you have previously uploaded.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
 
@@ -77,7 +82,9 @@ Return Values
 
 Deletes an image file from Misty's storage.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
 
@@ -123,11 +130,14 @@ Return Values
 
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName=&lt;name-of-audio-file.extension&gt;
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not include payloads, the query parameters for this request must be included in the URL.
+{{box op="end"}}
 
 Parameters
 
-**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
 - Base64 (boolean): Optional. Sending a request with `true` returns the audio file data as a downloadable Base64 string. Sending a request with `false` returns the audio file to your browser or REST client. Defaults to `false`.
 
@@ -158,7 +168,8 @@ Return Values
    * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio assets. If `false`, a user created the file.
 
 ### GetImage
-Obtains a system or user-uploaded image file currently stored on Misty
+
+Obtains a system or user-uploaded image file.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
 
@@ -166,9 +177,12 @@ Example:
 
 `http://<robot-ip-address>/api/images?FileName=happy.png&Base64=false`
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameter for this request must be included in the URL.
+{{box op="end"}}
+
 Parameters
 
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string) - The name of the image file to get, including the file type extension.
 - Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
 
@@ -285,7 +299,7 @@ Return Values
 
 ### SaveAudio
 
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as .wav, .mp3, .wma, and .aac.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
@@ -324,11 +338,14 @@ Saves an image to Misty. Optionally, proportionately reduces the size of the sav
 
 Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Maximum file size is 3 MB.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the image file to upload.
 * Data (string) - The image data, passed as a base64 string. You must either supply a value for `Data` **or** specify a `File` to upload.
 * File (object) - The image file to save to Misty. Valid image file types are `jpg`, `.jpeg`, `.gif`, and `.png`. **Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
@@ -412,7 +429,7 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
+Misty can also receive data through the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/serial
 
@@ -1227,7 +1244,7 @@ Pauses speech.
 
 **`<break>` Supported Attributes**
 
-**Note:** Use one of these attributes, but not both.
+Use **either** the `time` or `stringth` attribute, but not both.
 
 - `time`: milliseconds of pause
 - `strength`: 
@@ -2537,17 +2554,20 @@ This command is not functional with the Misty II Basic Edition.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye
 
-Parameters
-
-- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
-
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen here:
-
 ```markup
 <robot-ip-address>/api/cameras/fisheye?Base64=false
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameters for this request must be included in the URL.
+{{box op="end"}}
+
+Parameters
+
+- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
+
 Return Values
+
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
     - base64 (string) - A string containing the Base64-encoded image data.
     - contentType (string) - The type and format of the image returned.
@@ -3335,7 +3355,9 @@ Return Values
 ### SaveSkillToRobot
 Uploads a skill to the robot and makes it immediately available for the robot to run.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
@@ -3381,8 +3403,6 @@ Return Values
 ### ClearErrorText
 
 Force-clears an error message from Misty’s display. 
-
-**Note:** This command is provided as a convenience. You should not typically need to call `ClearErrorText`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/text/error/clear <br>
 **Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/text/clear

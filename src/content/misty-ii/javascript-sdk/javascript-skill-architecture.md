@@ -128,13 +128,15 @@ misty.RegisterEvent("BumpedState", "BumpSensor", 100, true);
 
 Optionally, you can set up the `misty.RegisterEvent()` method with callback rules and a skill to trigger for the callback, instead of calling back into the same skill. The available callback rules are `Synchronous`, `Override`, and `Abort`.
 
-* `Synchronous` tells the system to run the new callback thread and to continue running any other threads the skill has started.
-* `Override` tells the system to run the new callback thread but to stop running commands on any other threads, including the thread the callback was called within. The system only runs the thread the callback was triggered in once the callback comes back.
-* `Abort` tells the system to ignore the new callback thread if the skill is still doing work on the original thread the callback was called within. For event callbacks, the new callback is ignored until all current processes are finished running, then the event is processed the next time it is sent.
+* `Synchronous` tells the system to run the new callback thread, to and **continue running** any other threads the skill has started.
+* `Override` tells the system to run the new callback thread, but to **stop running** commands on any other threads, including the thread in which the callback was called. The system only runs the thread in which the callback was triggered after the callback returns.
+* `Abort` tells the system to **ignore the new callback thread**, if the skill is still doing work on the original thread in which the callback was called. For event callbacks, the new callback is ignored until all processes in the original thread complete. Then, the event is processed the next time it is sent.
 
 When you declare your event callback function, you must give it a single parameter to store the event data. In your callback function, you can access all of the key/value pairs associated with the event message in the `PropertyParent` object at `<dataParameter>.PropertyTestResults[0].PropertyParent`.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** In JavaScript skills, the key names in event messages are always camel case (for example, `IsContacted` instead of `isContacted`).
+{{box op="end"}}
 
 As an example, the callback function for a basic `BumpedState` event might be:
 
@@ -416,7 +418,7 @@ The system supplies the following types of helper commands to assist you in writ
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `misty.Set()`, `misty.Get()`, `misty.Remove()`, `misty.Keys()`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
 * **External Data.** Another type of helper command allows your skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../../../misty-ii/javascript-sdk/tutorials/#external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
-* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference). Note: An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
+* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../../misty-ii/javascript-sdk/api-reference). **Note:** An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
 
@@ -736,8 +738,12 @@ POST http://<robot-ip-address>/api/skills/cancel
 {}
 ```
 
-**Important!** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. You can change this duration by providing a different `TimeoutInSeconds` value in the `meta` file. This value determines how many seconds elapse before the skill cancels. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Skills running on the robot are subject to a default timeout of 5 minutes. After 5 minutes the skill will cancel, even if it is performing actions or waiting on callbacks. You can change this duration by providing a different `TimeoutInSeconds` value in the `meta` file. This value determines how many seconds elapse before the skill cancels. In addition, if a skill is not performing any actions nor waiting on any commands, it will automatically cancel after 5 seconds.
+{{box op="end"}}
 
-It's possible to prevent this automatic cancellation by using an infinite loop in your code, but doing so can cause Misty to continue executing your skill in the background even after the skill times out or is explicitly cancelled. Currently, you can address this by including an additional `ForceCancelSkill` key in the `meta` file for the skill and setting its value to     `true`. When you do this, issuing a `CancelSkill` command forces the skill to cancel via a thrown exception and stops all background execution of the skill.
+It's possible to prevent this automatic cancellation by using an infinite loop in your code, but doing so can cause Misty to continue executing your skill in the background even after the skill times out or is explicitly cancelled. Currently, you can address this by including an additional `ForceCancelSkill` key in the `meta` file for the skill and setting its value to `true`. When you do this, issuing a `CancelSkill` command forces the skill to cancel via a thrown exception and stops all background execution of the skill.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Cancelling a skill that has a `true` value for `ForceCancelSkill` in the `meta` puts Misty into a state where she may not be able to start new skills for up to 30 seconds. We recommend excluding the `ForceCancelSkill` parameter from the `meta` file for skills without infinite running logic, and avoiding this kind logic where possible.
+{{box op="end"}}

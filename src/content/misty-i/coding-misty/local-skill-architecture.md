@@ -129,7 +129,9 @@ Before registering an event callback, you can use the `AddPropertyTest()` comman
 AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you do not specify a property test, the system returns the full data object for the event. 
+{{box op="end"}}
 
 You can also use the `AddReturnProperty()` command to add any additional return property fields you may need:
 
@@ -289,7 +291,7 @@ The system supplies the following types of helper commands to assist you in writ
 
 * **Persistent Data.** To create data that persists across skills, you must use one of the following helper commands to save (set) that data to the robot or to get that data from the robot: `misty.Set()`, `misty.Get()`, `misty.Remove()`, `misty.Keys()`. Persistent data must be saved as one of these types: `string`, `bool`, `int`, or `double`. Alternately, you can serialize your data into a string using `JSON.stringify()` and parse it out again using `JSON.parse()`. Currently, any data saved to the robot this way is not automatically deleted and by default may be used across multiple skills. **Important!** Data stored via the `Set()` command does not persist across a reboot of the robot at this time.
 * **External Data.** Another type of helper command allows your skill to use data from the Internet. The `SendExternalRequest()` command allows you to obtain remote data and optionally save it to the robot and/or use it immediately. See the [External Requests](../../coding-misty/local-skill-tutorials/#external-requests) tutorial for an example of using this functionality. <!--TODO: Add link to sendexternalrequest tutorial-->
-* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../reference/javascript-api). Note: An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
+* **Pausing and Debugging.** There are a few additional helper commands you can use to help with your skill: `misty.Pause()`, `misty.RandomPause()`, `misty.Debug()`, `misty.CancelSkill()`, and `misty.Publish()`. These commands are described in the [On-Robot JavaScript API reference documentation](../../reference/javascript-api). **Note:** An on-robot skill must have `BroadcastMode` set to `Verbose`, `Debug`, or `All` in the meta file for debug statements to be broadcast. By default, debug statements are set to `Off`.
 
 ### Skill Management Commands
 
@@ -360,9 +362,12 @@ _global = _params.foo;
 misty.Debug(_global)
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** The `WriteToLog` value is optional. Any example meta files in this documentation may include additional key/value pairs that are not currently in active use and may change in the future.
+{{box op="end"}}
 
 ### Code File
+
 The `.js` code file contains the running code for your on-robot skill. A valid JavaScript code file can be even shorter than a corresponding JSON `meta` file. Here’s an example of a complete, very simple code file for an on-robot skill:
 
 ```javascript
@@ -498,4 +503,6 @@ POST http://<robot-ip-address>/api/skills/cancel
 
 It's possible to prevent this automatic cancellation by using an infinite loop in your code, but doing so can cause Misty to continue executing your skill in the background even after the skill times out or is explicitly cancelled. Currently, you can address this by including an additional `ForceCancelSkill` key in the `meta` file for the skill and setting its value to     `true`. When you do this, issuing a `CancelSkill` command forces the skill to cancel via a thrown exception and stops all background execution of the skill.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Cancelling a skill that has a `true` value for `ForceCancelSkill` in the `meta` puts Misty into a state where she may not be able to start new skills for up to 30 seconds. We recommend excluding the `ForceCancelSkill` parameter from the `meta` file for skills without infinite running logic, and avoiding this kind logic where possible.
+{{box op="end"}}
