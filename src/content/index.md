@@ -7,7 +7,9 @@ order: 1
 
 <h1>Docs Home</h1>
 
-When you write code for Misty, you can quickly build skills that make use of the unique characteristics of an autonomous, roaming robot with personality.
+Welcome to the Misty Robotics developer documentation!
+
+When you write code for Misty, you can quickly build skills and controller applications that make use of the unique characteristics of an autonomous, roaming robot with personality.
 
 What’s a skill? A skill is code you write to make Misty do something. When you write a skill, you:
 
@@ -24,3 +26,5 @@ At a high level, there are three approaches you can take when you write code for
 * You can write a skill using Misty's [**JavaScript SDK**](./misty-ii/coding-misty/javascript-sdk-architecture). You write code for Misty's on-robot JavaScript API and upload it to the robot. This code runs internally on Misty and can interact with external data, such as cloud calls and non-Misty API calls.
 * You can write a skill using Misty's [**.NET SDK (Beta)**](./misty-ii/dotnet-sdk/overview). Skills you write with Misty's .NET SDK assemble into background tasks that run alongside Misty's own software on Windows IoT Core.
 * You can write a robot application using Misty's [**REST API & WebSocket connections**](./misty-ii/rest-api/overview). With this approach, your code runs on an external device (say, in desktop browser or on a Raspberry Pi) and not onboard the robot.
+
+Can't find what you're looking for in the developer documentation? Post your question to the [Misty Community Forums](https://community.mistyrobotics.com/)!
