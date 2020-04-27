@@ -209,7 +209,7 @@ When you open a connection to Misty's WebSocket server, you can send a subscript
 * `ReturnProperty` (string) - An individual event property to include in the event message. Supports nested properties via dot notation (for example, `"MentalState.Affect.Valence`"). Use `null` to include all event properties in the event message.
 * `EventConditions` (array) - Optional. A set of rules about the kind of event messages this subscription can receive. If not included, this subscription receives all messages from the specified event type. Use event conditions to filter out unwanted event messages. Alternatively, use them to specify which sensor you want to receive data from, in cases where you are subscribing to an event type that gets data from more than one sensor. Each object in the `EventConditions` array creates a new conditional statement that each event message must pass in order to be sent to this subscription. Your subscribe message can include as many event conditions as you like. Each object in the `EventConditions` array should have the following key/value pairs:
   * `Property` (string) - The event property to check. The value of this property is compared to the `Value` key below, using the comparison operator passed in for the `Inequality` key.
-  * `Inequality` (string) - The comparison operator to use in the conditional check, passed in as a string. Accepts `=>`, `==`, `!==`, `>`, `<`, `>=`, `exists`, `empty`, or `delta`.
+  * `Inequality` (string) - The comparison operator to use in the conditional check, passed in as a string. Accepts `=>`, `=`, `!=`, `>`, `<`, `>=`, `exists`, `empty`, or `delta`.
   * `Value` (string) - The value to check against.
 
 To demonstrate, let's examine the first block of code from the [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample. In this sample we create an object called `subscribeMsg` to send to Misty when we open our WebSocket connection. This object creates a new subscription to `TimeOfFlight` event messages. This subscription is named `FrontCenterTimeOfFlight`, and it only receives messages when the value of the `SensorId` property is equal to `toffc` (meaning the message is from the front center time-of-flight sensor).
@@ -261,14 +261,14 @@ To send a `subscribe` or `unsubscribe` message, we must open a WebSocket connect
 In our [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample code, we begin by assigning Misty's IP address to a variable:
 
 ```javascript
-var ip = <robot-ip-address>
+var ip = "<robot-ip-address>"
 var socket;
 ```
 
 We use this IP address to declare the function that manages our WebSocket connection.
 
 ```javascript
-var ip = <robot-ip-address>
+var ip = "<robot-ip-address>"
 var socket;
 
 function startTimeOfFlight() {
@@ -280,7 +280,7 @@ function startTimeOfFlight() {
 When the socket opens, we send the subscribe message from the [example above](./#formatting-the-subscribe-message):
 
 ```javascript
-var ip = <robot-ip-address>
+var ip = "<robot-ip-address>"
 var socket;
 
 function startTimeOfFlight() {
@@ -297,7 +297,7 @@ function startTimeOfFlight() {
 The [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample code prints ten `TimeOfFlight` event messages, and then closes the WebSocket. To do this, we instantiate a `messageCount` counter variable to increment with each new message. We then use the `socket.onmessage()` function to write the logic that determines what should happen when the app gets data from Misty. When the value of `messageCount` is 10, we send the unsubscribe message from [the example above](./#formatting-the-unsubscribe-message) and close the WebSocket connection.
 
 ```javascript
-var ip = <robot-ip-address>
+var ip = "<robot-ip-address>"
 var socket;
 var messageCount = 0;
 
@@ -333,7 +333,7 @@ function startTimeOfFlight() {
 Finally, we add some error handling and ask the app to log a message when the connection is closed:
 
 ```javascript
-var ip = <robot-ip-address>
+var ip = "<robot-ip-address>"
 var socket;
 var messageCount = 0;
 
@@ -355,7 +355,7 @@ function startTimeOfFlight() {
       messageCount += 1;
       console.log(message);
       if (messageCount == 10) {
-     	socket.send(unsubMsg);
+        socket.send(unsubMsg);
         socket.close();
       }
     };
