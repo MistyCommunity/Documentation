@@ -140,7 +140,7 @@ Writing a robot application with Misty's REST API typically involves two things:
 * getting data from Misty's sensors via WebSocket connections
 * sending requests to Misty's REST API endpoints
 
-The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-ii/rest-api/overview/#sending-commands-to-misty).
+The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-ii/rest-api/overview/#sending-requests-to-misty).
 
 Code you write for Misty's REST API runs on a device outside Misty to send requests over your local Wi-Fi network. This can introduce some latency between the moment your skill sends a request and Misty's execution of the associated command.
 

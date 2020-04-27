@@ -2,7 +2,7 @@
 title: Tutorials
 layout: coding.hbs
 columns: three
-order: 2
+order: 3
 ---
 
 # {{title}}
@@ -195,7 +195,7 @@ The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscr
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](../../rest-api/overview/#subscribing-amp-unsubscribing-to-a-websocket). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
+Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](../../rest-api/overview/#using-mistys-websocket-server). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
 
 To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` method on `socket`. Pass the following for each parameter:
 
@@ -984,7 +984,7 @@ async function openCallback() {
 }
 ```
 
-Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#connecting-to-misty-with-lightsocket-js).
+Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#using-the-lightsocket-helper-tool).
 
 ```javascript
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
