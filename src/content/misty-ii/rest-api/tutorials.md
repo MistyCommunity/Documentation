@@ -195,7 +195,7 @@ The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscr
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](../../rest-api/overview/#using-mistys-websocket-server). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
+Note that these parameters correlate with the values required in the subscribe message you send when you open a WebSocket without LightSocket, described in the documentation [here](../../rest-api/overview/#using-mistys-websocket-server). `LightSocket` simplifies the process by taking your parameters and generating a properly formatted subscribe message.
 
 To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` method on `socket`. Pass the following for each parameter:
 
