@@ -27,7 +27,7 @@ To receive event messages, you must create event listeners. We sometimes refer t
 
 The process for creating an event listener, receiving event data, and handling that data in your code depends on whether you are building an on-device skill or a remote-running robot application that communicates with Misty over a wireless network. Additionally, the implementation details for registering event listeners differ between Misty's JavaScript and .NET SDKs. For instructions and examples that show how to use event data across the different ways you can code Misty, see the following:
 
-* To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-data-from-misty)
+* To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-live-data-from-misty)
 * To learn about registering event listeners in JavaScript skills, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks)
 * To learn about using event data in .NET skills, see [Registering & Unregistering Events](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#registering-amp-unregistering-events)
 

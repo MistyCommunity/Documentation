@@ -216,7 +216,7 @@ Misty sends real-time data from her sensors and onboard events to the [Command C
 * actuator position data
 * drive encoder data
 
-The [Sensor & Event Data](../../../misty-ii/rest-api/overview/#subscribing-amp-unsubscribing-to-a-websocket) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/rest-api/tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
+The [Sensor & Event Data](../../../misty-ii/rest-api/overview/#using-mistys-websocket-server) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/rest-api/tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
 
 ### Opening a WebSocket
 

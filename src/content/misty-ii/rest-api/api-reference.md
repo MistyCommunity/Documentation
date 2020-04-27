@@ -2,54 +2,32 @@
 title: API Reference
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
 
-With the REST API, you can send commands to Misty from a REST client or browser. There is also a community maintained [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) available for the Misty REST API.
+Welcome to the reference documentation for Misty's REST API. You can use this API to build applications that control Misty II via HTTP requests.
 
-To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [REST-API repository on GitHub](https://github.com/MistyCommunity/REST-API) for sample code and tutorials.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you haven't used Misty's REST API before, you can learn the basics of making API requests in the [REST API Overview](../../../misty-ii/rest-api/overview).
+{{box op="end"}}
+  
+The topics on this page provide information about each operation you can perform with Misty's REST API, including:
+
+* controlling Misty's display, LED, flashlight, speakers, and cameras
+* driving Misty
+* using face training, detection, and recognition
+* moving Misty's head and arms
+* using Misty's simultaneous localization and mapping (SLAM) capabilities
+* communicating with external hardware via UART serial
+* managing JavaScript and .NET skills
+* uploading and downloading image, video, and audio assets
+* getting device information and changing Misty's settings
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
 {{box op="end"}}
-
-## URL & Message Formats
-
-Use the following URL format when sending commands to the robot:
-
-```markup
-http://<robot-ip-address>/api/<Endpoint>
-```
-
-Misty uses JSON to format REST API data. Use this format when creating the payload:
-
-
-```json
-{
-  "key0": "value0",
-  "key1": "value1",
-  "key2": "value2"
-}
-```
-
-The `Content-Type` for all POST requests should be `application/json`, unless otherwise specified in this documentation.
-
-All successful commands return a status and the result of the call.
-
-```json
-{
-  "result": true,
-  "status": "Success"
-}
-```
-
-A `status` of `"Success"` indicates Misty received and was able to process the request. A status of `"Failed
-"` indicates there was a problem, and is typically paired with an `error` string instead of a `result` value.
-
-For most GET requests, the value for `result` is the response data from Misty. For example, when you send a request to the `GetImageList` endpoint, the value for `result` is an array of JSON-formatted objects with information about each image saved to Misty's local storage. Alternately, for most POST and DELETE requests, `result` returns a boolean value indicating whether the command was successful.
-
 
 ## Asset
 
@@ -57,15 +35,16 @@ Misty comes with a set of default images that you can display onscreen and sound
 
 ### DeleteAudio
 
-Enables you to remove an audio file from Misty that you have previously uploaded.
+Deletes an audio file.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
+**Note:** This command cannot delete Misty's default system audio files.
 {{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -75,20 +54,21 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### DeleteImage
 
-Deletes an image file from Misty's storage.
+Deletes an image file.
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
+**Note:** This command cannot delete Misty's default image files.
 {{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -124,7 +104,6 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
 
 ### GetAudioFile
 
@@ -1453,7 +1432,7 @@ The following commands allow you to programmatically drive and stop Misty and mo
 
 If you want to directly drive Misty, you can use her [companion app](../../../tools-&-apps/mobile/misty-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../rest-api/overview#using-mistys-websocket-server) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -2671,7 +2650,7 @@ The following commands allow you to programmatically take pictures, record sound
 
 Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#perception).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-live-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### CancelFaceTraining
 

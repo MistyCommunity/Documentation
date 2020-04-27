@@ -99,7 +99,7 @@ Writing a skill with Misty's REST API typically involves two things:
 * getting data from Misty's sensors via WebSocket connections
 * sending requests to Misty's REST API endpoints
 
-The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-i/coding-misty/remote-command-architecture/#sending-commands-to-misty).
+The structure and syntax for sending requests to Misty's REST API endpoints depends on the programming language and libraries you use to write your skill. For an example of sending requests with JavaScript from your web browser, see [Sending Commands to Misty](https://docs.mistyrobotics.com/misty-i/coding-misty/remote-command-architecture/#sending-requests-to-misty).
 
 #### When Should I Use Misty's REST API?
 

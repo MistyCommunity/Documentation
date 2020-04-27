@@ -7,54 +7,131 @@ order: 1
 
 # {{title}}
 
-In addition to writing skills with Misty's JavaScript and .NET SDKs, you can also write robot applications for Misty using her powerful REST API.
+In addition to writing skills with Misty's JavaScript and .NET SDKs, you can also write powerful, remote-running robot applications using Misty's REST API and WebSocket server. 
 
-Writing a robot application with Misty's REST API typically involves two things: getting data from Misty via WebSocket connections and sending commands to the robot over a local network. The documentation in this article walks through both sides of this process.
+Writing a robot application with Misty's REST API typically involves two things:
+
+* [sending requests](./#sending-requests-to-misty) to Misty's REST API endpoints
+* [getting live data](./#getting-live-data-from-misty) from Misty's sensors and other event types via WebSocket connections
+
+The topics below provide the information you need to perform those tasks in your robot applications. For information about each individual API request, see the [REST API reference documentation](../../../misty-ii/rest-api/api-reference). For information about the individual event types you can subscribe to, see the [Event Types documentation](../../../misty-ii/robot/sensor-data). 
+
+## Sending Requests to Misty
+
+The topics in this section explain how to use Misty's REST API to control Misty II, change her settings, and manage her data. This documentation assumes you're already familiar with the basic concepts of using a REST API. If you've never used a REST API, we recommend learning the fundamentals before you continue.
+
+### What You Need
+
+To use Misty's REST API, you need:
+
+* a Misty II robot, powered on and connected to your local area network
+* a way to send HTTP requests - for example, by writing HTTP client code, or by [using the API Explorer](./#using-the-api-explorer) or a REST client tool on a laptop connected to the same network as Misty
 
 {{box op="start" cssClass="boxed noteBox"}}
-**Note:** The examples in this topic are written in JavaScript. Example requests use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), and example WebSocket connections use the `lightSocket.js` helper library to simplify subscribing to Misty’s WebSocket connections. You can also use the community owned [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) or a REST client such as [Postman](https://www.getpostman.com/downloads/) to send Misty commands.
+**Note:** Misty's REST API does not use keys or credentials to authorize requests. Any device that can discover Misty's IP address and send HTTP requests can send Misty commands and stream data from Misty's WebSocket server. Keep this in mind when using Misty on your local network or exposing Misty's IP address to the world wide web.
 {{box op="end"}}
 
-## Sending Commands to Misty
+### Base URL
 
-Misty's REST API includes commands for:
+The base URL for all requests in this API is `<robot-ip-address>/api/`. For example:
 
-* Display, LED, and flashlight control
-* Audio control
-* Face detection, training, and recognition
-* Locomotion
-* Simultaneous localization and mapping (SLAM)
-* Head and arm movement
-* System configuration and information
-
-The [Misty Community REST-API repository on GitHub](https://github.com/MistyCommunity/REST-API) contains a variety of sample robot applications that you can use to test and adapt into your own custom uses.
-
-Additionally, we supply a helper tool called `lightSocket.js` that streamlines opening, connecting, and subscribing to Misty's WebSocket server to receive event messages from the robot. [Download `lightSocket.js` from GitHub](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript).
-
-### Using the Fetch API
-
-Most modern web browsers provide native support for the Fetch API. When you use the Fetch API, you can code a remote-running robot application by embedding a few lines of JavaScript in an `HTML` file and loading that file in your web browser.
-
-To send a request using the Fetch API, we call the `fetch()` method inside `<script>` tags in an `HTML` file. The `fetch()` method takes two arguments:
-
-* `resource` (string): Defines the resource to fetch. When using Misty's REST API, resources are hosted at `<robot-ip-address>/api/<command-endpoint>`
-* `init` (object): Optional. An object that defines custom settings to use with the request. In our examples, we use this object to define the HTTP method and any additional parameters to send in the body of the request.
-
-{{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Learn more about the `fetch()` method in the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch).
-{{box op="end"}}
-
-The base URL for all requests in Misty's REST API is as follows:
-
-```javascript
-// base URL
-<robot-ip-address>/api/
+```markup
+http://<robot-ip-address>/api/<Endpoint>
 ```
 
-To invoke a Misty command, we append the endpoint for that command to this base URL. For example, to get a list of the images stored on Misty, we use the `/images/list` endpoint. For a robot with an IP of `192.168.7.183`, the full `GetImageList` resource URL looks like this:
+Replace `<robot-ip-address>` with one of the following:
 
-```javascript
-// GetImageList example URL
+* Misty's Wi-Fi IP address. Find this IP address by connecting your robot to the [Misty App](../../../tools-&-apps/mobile/misty-app).
+* The IP address for a USB-to-Ethernet adapter connected to the USB port on Misty's back. The other end of this adapter must be connected to your router.
+
+### Methods
+
+Misty's REST API supports GET, POST, and DELETE methods.
+
+* GET requests return data from Misty or download one of Misty's image, audio, or video files to your REST client.
+* POST requests upload data to Misty, change system settings, or make Misty do something (for example, drive, move her head, or play a sound).
+* DELETE requests uninstall skills, delete one of Misty's image, audio, or video files, or clear system settings.
+
+### Requests
+
+POST and DELETE requests in Misty's REST API expect a JSON payload. For example:
+
+```json
+{
+  "key0": "value0",
+  "key1": "value1",
+  "key2": "value2"
+}
+```
+
+GET requests do not accept JSON payloads, and query parameters must be included in the URL for the request. To send query parameters with a GET request:
+
+* append a new query parameter to the endpoint with `?`
+* assign a value to a query parameter with `=`
+* add another query parameter with `&`
+
+For example, a request to the endpoint for the [`TakePicture`](../../../misty-ii/rest-api/api-reference/#takepicture) command might look like this:
+
+```markup
+http://192.138.7.193/api/?base64=true&filename=MyPicture
+```
+
+Unless otherwise specified in this documentation:
+
+* Misty's API expects the `Content-Type` header for POST and DELETE requests to be `application/json`
+* the order of key/value pairs in the JSON payload for POST and DELETE requests does not matter
+* the order of query parameters in the URL for GET requests does not matter
+* for all request types, value strings are case sensitive, and parameter strings are not
+
+### Responses
+
+All successful requests return a JSON object with the `status` and `result` of the call.
+
+```json
+{
+  "result": true,
+  "status": "Success"
+}
+```
+
+A `status` of `Success` indicates Misty received and was able to process the request. A status of `Failed` indicates a problem, and is typically paired with an `error` string (instead of a `result` value).
+
+For most GET requests, the `result` key holds the response data. For example, when you send a request to the `GetImageList` endpoint, the value for `result` is an array of JSON-formatted objects with information about each image saved to Misty's local storage. Alternately, for most POST and DELETE requests, `result` returns a boolean value indicating whether the command was successful.
+
+All requests return a response code with an accompanying status. These include:
+
+| Response Code | Status              | Meaning                                                                             |
+|---------------|---------------------|-------------------------------------------------------------------------------------|
+| 200           | `Ok`                | The request is valid.                                                               |
+| 400           | `BadArgument`       | The request has an invalid payload or query parameter.                              |
+| 404           | `NotFound`          | A command was not found at this endpoint.                                           |
+| 500           | `Exception`         | Misty threw an exception and failed to handle the request.                          |
+| 503           | `ServiceUnavailable`| The operation cannot be performed because Misty's software or firmware is updating. |
+
+Additionally, each request returns a `Misty-Command-Version` field in the response header. The value of this field indicates whether the command is considered to be `Alpha`, `Beta`, or `Current`. Commands that are `Current` are considered to be stable. Commands that are `Alpha` and `Beta` are likely to change as Misty's software matures. 
+
+### Using the API Explorer
+
+You can use the [Misty Robotics API Explorer](http://sdk.mistyrobotics.com/api-explorer/index.html) to send custom requests to all of the endpoints from Misty's REST API in real-time.
+
+The API Explorer generates runnable HTTP-client code samples in JavaScript. These samples use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Additionally, if a REST endpoint has a matching method in Misty's JavaScript API (most do), the API Explorer generates a runnable sample that you can use with Misty's JavaScript SDK.
+
+For more information, see the [API Explorer documentation](../../../tools-&-apps/web-based-tools/api-explorer).
+
+### Example
+
+This section walks through each step in writing the code to send Misty a request from your web browser using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). To run this code, place the samples below inside `<script>` tags in an .html file, and open that file in your web browser.
+
+To send an HTTP request with the Fetch API, we call the [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch) method. This method takes two arguments:
+
+* `resource` (string): The URL for the request. When using Misty's REST API, resources are hosted at `<robot-ip-address>/api/<Endpoint>`.
+* `init` (object): An optional argument that defines custom settings to use with the request. In this example, we use this argument to define the HTTP method and any additional parameters to send in the body of the request.
+
+To send a request to Misty, we append the endpoint for the request to the [base URL](./#base-url). For example, to get a list of the images stored on Misty, we send a request to the `/images/list` endpoint to call the [`GetImageList`](./#getimagelist) command.
+
+For a robot with an IP of `192.168.7.183`, the full resource URL for the `GetImageList` endpoint is as follows:
+
+```markup
 192.168.7.183/api/images/list
 ```
 
@@ -62,13 +139,17 @@ When we use the `fetch()` method to send a GET request, we pass in the full comm
 
 ```javascript
 fetch('http://192.168.7.33/api/images/list', {
-  method: 'GET'
+    method: 'GET'
   })
 ```
 
-Next, we use a `Promise` to handle the request and response data. (The details of using `Promises` are beyond the scope of this documentation; for more details on how to use them in your code, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).) We use [`Promise.race()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) to return a new `Promise` with our call on the `fetch()` method. We then handle the response data by printing it to the console in our web browser.
+Next, we use a `Promise` to handle the request and response data. We use [`Promise.race()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race) to return a new `Promise` with our call on the `fetch()` method. We then handle the response data by printing it to the console in our web browser.
 
-Our full `GetImageList` request looks like this:
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** The details of using `Promises` are beyond the scope of this documentation. For more information about using `Promises` in your code, see the [MDN web documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+{{box op="end"}}
+
+When we implement the `Promise`, our full `GetImageList` request looks like this. When we load our .html page, the script retrieves Misty's list of images and prints that list to the developer console in our web browser.
 
 ```javascript
 Promise.race([
@@ -81,22 +162,11 @@ Promise.race([
 .then(jsonData => console.log(jsonData))
 ```
 
-Here’s another example of using the Fetch API with `Promises` to send a GET request to Misty, this time to obtain Misty's device information:
+To send a POST request with the Fetch API, we must define a `body` parameter in the `init` object for the `fetch()` method. This `body` is the JSON payload to send along with our request.
 
-```javascript
-Promise.race([
-	fetch('http://192.168.7.33/api/device', {
-		method: 'GET'
-	}),
-	new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 10000))
-])
-.then(response => response.json())
-.then(jsonData => console.log(jsonData))
-```
+For example, to change Misty's LED, we send a POST request to the `/led` endpoint to invoke the [`ChangeLED`](./#changeled) command. The payload for this request includes key/value pairs for the `red`, `green`, and `blue` RGB values for the new color. 
 
-You will also want to send POST requests to the robot. For a POST request, in order to send data along with the request, define a `body` parameter in the `init` object when you call the `fetch()` method. Set the value of the `body` parameter to be a string with the JSON data to send with your request.
-
-For example, we can send a POST request to the `ChangeLED` endpoint to change the color of Misty's chest LED to blue. The `ChangeLED` command accepts as parameters RGB values for `red`, `green`, and `blue`. If there are no errors, the response data returns `true`, and we can log a success message. When we use the Fetch API, our POST request (and the JSON data we send along with it) looks like this:
+When the following code runs, Misty changes her LED to blue, and the response data prints to the developer console in our web browser:
 
 ```javascript
 Promise.race([
@@ -110,59 +180,49 @@ Promise.race([
 .then(jsonData => console.log(jsonData))
 ```
 
+## Getting Live Data from Misty
+
+In addition to getting data via HTTP requests, you can use live data from Misty's sensors and other [event types](../../../misty-ii/robot/sensor-data) in your remote-running robot application by connecting to Misty's WebSocket server. A WebSocket connection provides a live, continuously updating stream of data from Misty.
+
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** The API Explorer web tool provides examples of using the Fetch API to send requests to all of Misty's available REST endpoints. To use these examples in your code, connect your robot to the [API Explorer](http://sdk.mistyrobotics.com/api-explorer/). Then, copy the example requests you want to use and paste them into `<script>` tags in an `HTML` file. Open this file in your web browser to send the requests to your robot.
+**Tip:** You can directly observe WebSocket data in your web browser's developer console by connecting your robot to the [Command Center](../../../tools-&-apps/web-based-tools/command-center). However, to use WebSocket data in a robot application, you'll need to subscribe to it programmatically in your code.
 {{box op="end"}}
 
-## Getting Data from Misty
+The sections below use the [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) code sample from the [MistyCommunity GitHub organization](https://github.com/MistyCommunity) to demonstrate how to create a WebSocket connection and subscribe to data from a particular event type. Refer to this section to learn how to use Misty's WebSocket server to register for events in your own remote-running code.
 
-A WebSocket connection provides a live, continuously updating stream of data from Misty. When you subscribe to a WebSocket, you can get data for your robot ranging from distance information to face detection events to movement and more.
+### Using Misty's WebSocket Server
 
-You can directly observe WebSocket data in your browser's JavaScript console by connecting your robot to the [Command Center](../../../tools-&-apps/web-based-tools/command-center). However, to use WebSocket data in a robot application, you'll need to subscribe to it programmatically in your code.
+To connect to Misty's WebSocket server, use the URL `ws://<robot-ip-address>/pubsub`. Replace `<robot-ip-address>` with the address of the robot from which to stream data. For example:
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** For the most current version of the `tofApp.js` sample code, always check our [GitHub repo](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight/tofApp.js).
-{{box op="end"}}
+```markup
+ws://192.168.7.183/pubsub
+```
 
-### Subscribing & Unsubscribing to a WebSocket
+### Formatting the Subscribe Message
 
-To subscribe to a WebSocket data stream, you must first open the WebSocket. Then, send a message to specify the exact data you want to receive. 
+When you open a connection to Misty's WebSocket server, you can send a subscription message to receive event messages from a particular [event type](../../../misty-ii/robot/sensor-data). You must send this subscription message as a stringified JSON object with the following key/value pairs:
 
-The URL address for Misty's WebSocket server is `ws://<robot-ip-address>/pubsub`. Replace `<robot-ip-address>` with the address of the robot from which to stream data. For some WebSocket data, you must also send a REST command to the robot to enable the systems that start generating that data.
+* `Operation` (string) - Use `subscribe` to create a subscription to data from a particular event type. Use `unsubscribe` to end an existing subscription.
+* `Type` (string) - The event type that you want to stream data from. See the list of event types in the [Event Types](../../../misty-ii/robot/sensor-data) documentation.
+* `DebounceMs` (int) - How frequently (in milliseconds) to send new event data. Defaults to 250ms. **Note:** Some event types do not provide a constant stream of new data. Instead, these event types send an event message when a particular event occurs (for example, when a bump sensor is pressed.)
+* `EventName` (string) - A name of your choosing for the subscription. You can create multiple subscriptions to the same event type, each with their own unique event name.
+* `ReturnProperty` (string) - An individual event property to include in the event message. Supports nested properties via dot notation (for example, `"MentalState.Affect.Valence`"). Use `null` to include all event properties in the event message.
+* `EventConditions` (array) - Optional. A set of rules about the kind of event messages this subscription can receive. If not included, this subscription receives all messages from the specified event type. Use event conditions to filter out unwanted event messages. Alternatively, use them to specify which sensor you want to receive data from, in cases where you are subscribing to an event type that gets data from more than one sensor. Each object in the `EventConditions` array creates a new conditional statement that each event message must pass in order to be sent to this subscription. Your subscribe message can include as many event conditions as you like. Each object in the `EventConditions` array should have the following key/value pairs:
+  * `Property` (string) - The event property to check. The value of this property is compared to the `Value` key below, using the comparison operator passed in for the `Inequality` key.
+  * `Inequality` (string) - The comparison operator to use in the conditional check, passed in as a string. Accepts `=>`, `=`, `!=`, `>`, `<`, `>=`, `exists`, `empty`, or `delta`.
+  * `Value` (string) - The value to check against.
 
-This section walks through the process of subscribing to WebSocket data programmatically, using the `tofApp.js` from the MistyCommunity GitHub. You can download this JavaScript sample [from the MistyCommunity/REST-API repository](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight).
-
-The first thing the `tofApp.js` sample does is to construct the message that subscribes to the exact WebSocket data we want. 
-
-The `Type` property is the name of the desired event type (or data stream) to receive messages from. Misty's available event types are described in detail in the [Event Types](../../../misty-ii/robot/sensor-data) documentation. You can subscribe to each of these event types via a WebSocket connection.
-
-The optional `DebounceMs` value specifies how frequently the data is sent. For time-of-flight data, if you don't specify a value, by default the data is sent every 250ms. In this case, we've set it to be sent every 100ms.
-
-The `EventName` property is a name you specify for how your code will refer to this particular WebSocket instance. It can be any name you like.
-
-`Message` and `ReturnProperty` are optional values.
-
-For time-of-flight subscriptions, you must also include `EventConditions`. You can use event conditions to specify which sensor(s) to stream data from, in cases where the event type streams messages from multiple sensors. Specify the `sensorId` of the time-of-flight sensor to get messages from (`toffr`, `toffl`, `toffc`, `toffr`, or [another `sensorId`](https://docs.mistyrobotics.com/misty-ii/reference/sensor-data/#time-of-flight-sensor-details)). This sample code subscribes to the front center time-of-flight sensor -- `toffc` -- only.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** For the time-of-flight sensor data that the `tofApp.js` sample uses, sending a REST command is not required, because Misty's time-of-flight sensors are always streaming data.
-{{box op="end"}}
-
-After creating the `subscribe` message, the sample also creates an `unsubscribe` message. When it's no longer needed, unsubscribing from a WebSocket data stream is a good practice to avoid creating performance issues. The `unsubscribe` message will be sent when the skill is done using the data.
+To demonstrate, let's examine the first block of code from the [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample. In this sample we create an object called `subscribeMsg` to send to Misty when we open our WebSocket connection. This object creates a new subscription to `TimeOfFlight` event messages. This subscription is named `FrontCenterTimeOfFlight`, and it only receives messages when the value of the `SensorId` property is equal to `toffc` (meaning the message is from the front center time-of-flight sensor).
 
 ```javascript
-//Use this variable to hold the IP address for the robot.
-var ip = "<robot-ip-address>";
-
 //Create a message to subscribe to the desired WebSocket data.
 var subscribeMsg = {
-  "Operation": "subscribe",
-  "Type": "TimeOfFlight",
-  "DebounceMs": 100,
-  "EventName": "FrontCenterTimeOfFlight",
-  "Message": "",
-  "ReturnProperty": null,
-  "EventConditions": [
+  "Operation": "subscribe", // create a new subscription
+  "Type": "TimeOfFlight", // event type to subscribe to
+  "DebounceMs": 100, // send data every 100 milliseconds
+  "EventName": "FrontCenterTimeOfFlight", // name of this subscription
+  "ReturnProperty": null, 
+  "EventConditions": [ // Only send messages where SensorId = toffc
     {
       "Property": "SensorId",
       "Inequality": "=",
@@ -171,48 +231,89 @@ var subscribeMsg = {
   ]
 };
 
+var subMsg = JSON.stringify(subscribeMsg);
+```
+
+This subscription starts to get messages immediately, because Misty's time-of-flight sensors are always streaming data. Other event types (for example, [`FaceRecognition`](../../../misty-ii/robot/sensor-data/#facerecognition)) do not start sending data until you start the process that enables that data to be sent (for example, by sending a [`StartFaceRecognition`](../../../misty-ii/rest-api/api-reference/#startfacerecognition) command.)
+
+### Formatting the Unsubscribe Message
+
+When you are done using data from a particular subscription, you should send a message to unsubscribe from that event. Leaving unused subscriptions open can lead to performance issues.
+
+To unsubscribe from an event, send a message with an `Operation` value of `unsubscribe`. Pass in the name of the subscription to end as the value for the `EventName` property. 
+
+For example, the unsubscribe message for the `FrontCenterTimeOfFlight` event in our [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample looks like this:
+
+```javascript
 //Create a message to unsubscribe to the data when done.
 var unsubscribeMsg = {
   "Operation": "unsubscribe",
   "EventName": "FrontCenterTimeOfFlight",
-  "Message": ""
 };
 
-//Format the messages as JSON objects.
-var subMsg = JSON.stringify(subscribeMsg);
 var unsubMsg = JSON.stringify(unsubscribeMsg);
 ```
 
-After constructing the messages, they are formatted as JSON objects, so they are ready to send once the WebSocket is open.
-
 ### Opening & Closing a WebSocket
 
-Having constructed the `subscribe` and `unsubscribe` messages, the `tofApp.js` sample next attempts to open a WebSocket connection. Once the WebSocket is open, it sends the JSON-formatted "subscribe" message.
+To send a `subscribe` or `unsubscribe` message, we must open a WebSocket connection to Misty. Once this connection is open, we can use it to send data to and read data from Misty's WebSocket server. The remainder of this topic uses examples from the [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample code to demonstrate the basics of opening and closing a connection to Misty's WebSocket server.
 
-Once you've successfully subscribed to a data stream, you can use the `socket.onmessage()` function to handle the data received back from the robot. In this example, we handle the received data by logging it to the console. For a real robot application, you could instead parse the event data and write a conditional function based on a particular property value. This is how you code Misty to react to event data in useful and interesting ways.
-
-In the sample, after a specified number of messages are received, we unsubscribe to the data stream and close the WebSocket connection. Alternately, because a given WebSocket could be used for multiple data subscriptions, you could keep the WebSocket open after unsubscribing and only close it when you are done running the application.
+In our [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample code, we begin by assigning Misty's IP address to a variable:
 
 ```javascript
-//Set the initial WebSocket message count to 0, as we're
-//only keeping this WebSocket open for 10 messages total.
-var messageCount = 0;
+var ip = "<robot-ip-address>"
+var socket;
+```
 
+We use this IP address to declare the function that manages our WebSocket connection.
+
+```javascript
+var ip = "<robot-ip-address>"
 var socket;
 
 function startTimeOfFlight() {
-    //Create a new WebSocket connection to the robot.
+  // Create a new WebSocket connection to the robot.
+  socket = new WebSocket("ws://" + ip + "/pubsub");
+};
+```
+
+When the socket opens, we send the subscribe message from the [example above](./#formatting-the-subscribe-message):
+
+```javascript
+var ip = "<robot-ip-address>"
+var socket;
+
+function startTimeOfFlight() {
+    // Create a new WebSocket connection to the robot.
     socket = new WebSocket("ws://" + ip + "/pubsub");
 
-    //When the WebSocket's open, send the subscribe message.
+    // When the WebSocket's open, send the subscribe message.
+    socket.onopen = function(event) {
+      console.log("WebSocket opened.");
+      socket.send(subMsg);
+    };
+};
+```
+The [`tofApp.js`](https://github.com/MistyCommunity/REST-API/tree/master/Sample%20Code/Time%20of%20Flight) sample code prints ten `TimeOfFlight` event messages, and then closes the WebSocket. To do this, we instantiate a `messageCount` counter variable to increment with each new message. We then use the `socket.onmessage()` function to write the logic that determines what should happen when the app gets data from Misty. When the value of `messageCount` is 10, we send the unsubscribe message from [the example above](./#formatting-the-unsubscribe-message) and close the WebSocket connection.
+
+```javascript
+var ip = "<robot-ip-address>"
+var socket;
+var messageCount = 0;
+
+function startTimeOfFlight() {
+    // Create a new WebSocket connection to the robot.
+    socket = new WebSocket("ws://" + ip + "/pubsub");
+
+    // When the WebSocket's open, send the subscribe message.
     socket.onopen = function(event) {
       console.log("WebSocket opened.");
       socket.send(subMsg);
     };
 
-    //Handle the WebSocket data from the server.
-    //Send the unsubscribe message when we're done,
-    //then close the socket.
+    // Handle the WebSocket data from the server.
+    // Send the unsubscribe message when we're done,
+    // then close the socket.
     socket.onmessage = function(event) {
       var message = JSON.parse(event.data).message;
       messageCount += 1;
@@ -222,25 +323,62 @@ function startTimeOfFlight() {
         socket.close();
       }
     };
+};
+```
 
-    //Handle any errors that occur.
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Any given WebSocket connection can  be used for multiple data subscriptions. Instead of closing a connection, you can keep it open after sending an unsubscribe message, and only close it when you are done running the application.
+{{box op="end"}}
+
+Finally, we add some error handling and ask the app to log a message when the connection is closed:
+
+```javascript
+var ip = "<robot-ip-address>"
+var socket;
+var messageCount = 0;
+
+function startTimeOfFlight() {
+    // Create a new WebSocket connection to the robot.
+    socket = new WebSocket("ws://" + ip + "/pubsub");
+
+    // When the WebSocket's open, send the subscribe message.
+    socket.onopen = function(event) {
+      console.log("WebSocket opened.");
+      socket.send(subMsg);
+    };
+
+    // Handle the WebSocket data from the server.
+    // Send the unsubscribe message when we're done,
+    // then close the socket.
+    socket.onmessage = function(event) {
+      var message = JSON.parse(event.data).message;
+      messageCount += 1;
+      console.log(message);
+      if (messageCount == 10) {
+        socket.send(unsubMsg);
+        socket.close();
+      }
+    };
+
+    // Handle any errors that occur.
     socket.onerror = function(error) {
       console.log("WebSocket Error: " + error);
     };
 
-    //Do something when the WebSocket is closed.
+    // Do something when the WebSocket is closed.
     socket.onclose = function(event) {
       console.log("WebSocket closed.");
     };
 };
-
 ```
 
-### Connecting to Misty with LightSocket JS
+See the complete [`tofApp.js`](https://github.com/MistyCommunity/REST-API/blob/master/Sample%20Code/Time%20of%20Flight/tofApp.js) code sample on GitHub.
 
-The `lightSocket.js` helper tool streamlines opening, connecting, and subscribing to Misty's WebSocket server to receive event messages from the robot. [Download `lightSocket.js` from GitHub](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript)
+### Using the LightSocket Helper Tool
 
-The `lightSocket.js` file should typically be located in a "tools" or "assets" folder. It’s important to reference the file prior to your application file in your `HTML` page. For example:
+The `lightSocket.js` helper tool streamlines opening, connecting, and subscribing to Misty's WebSocket server to receive event messages from the robot in applications that you run from your web browser. [Download `lightSocket.js` from GitHub](https://github.com/MistyCommunity/REST-API/tree/master/Tools/javascript).
+
+We typically recommend placing the `lightSocket.js` file in a "tools" or "assets" folder at the top level of your project directory. It’s important to reference the file prior to your application file in your .html markup. For example:
 
 ```HTML
 <!-- In your HTML file -->
@@ -248,20 +386,21 @@ The `lightSocket.js` file should typically be located in a "tools" or "assets" f
 <script src="app.js"></script>
 ```
 
-The first step in using `lightSocket.js` is to create an instance of the `LightSocket` class, passing in your robot's IP address. Then, you call the `Connect()` method to open a WebSocket connection.
+The first step in using `lightSocket.js` is to create an instance of the `LightSocket` class, passing in your robot's IP address. Then, call the `socket.Connect()` method to open a WebSocket connection.
 
 ```javascript
 let socket = new LightSocket(ip);
 socket.Connect();
 ```
 
-In order to subscribe to a WebSocket using LightSocket, we call the `Subscribe()` method. The arguments passed to the function correspond to the properties of `subscribeMsg` described in [Subscribing & Unsubscribing to a WebSocket](./#subscribing-amp-unsubscribing-to-a-websocket). See the function below for reference:
+To subscribe to an event via LightSocket, we call the `Subscribe()` method from our new `socket` class. The arguments passed to the function correspond to the properties of the subscribe message described in [Formatting the Subscribe Message](./#formatting-the-subscribe-message). For example:
 
 ```javascript
+// Syntax
 socket.Subscribe = function (eventName, msgType, debounceMs, property, inequality, value, returnProperty, eventCallback)
 ```
 
-Here we create a `TimeOfFlight` WebSocket subscription for the center time-of-flight sensor, and log the data as we receive it:
+Here, we subscribe to `TimeOfFlight` event messages for the center time-of-flight sensor, and log the data as we receive it:
 
 ```javascript
 socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "=", "Center", null, function(data) {
@@ -269,7 +408,7 @@ socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "=
 });
 ```
 
-It's always best practice to unsubscribe to the WebSocket connection after use, so at the end of your script, be sure to call the `Unsubscribe()` method:
+To prevent performance issues, we recommend ending a subscription when you are done using its data. At the end of your script, be sure to call the `Unsubscribe()` method:
 
 ```javascript
 socket.Unsubscribe("CenterTimeOfFlight");
