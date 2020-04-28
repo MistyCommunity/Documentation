@@ -1,146 +1,79 @@
-<div class="header header--white">
-  <div class="header__logo">
-    <a href="https://www.mistyrobotics.com">
-      <img src="https://www.mistyrobotics.com/wp-content/uploads/misty_robotics@2x.png" />
-    </a>
-  </div>
+<div class="bootstrapiso">
+		<nav class="navbar navbar-expand-xl fixed-top">
+			<a class="navbar-brand" href="https://www.mistyrobotics.com">
+				<img id="misty-robotics-logo" src="https://www.mistyrobotics.com/wp-content/themes/mistywptheme/img/misty-robotics-logo.png" alt="Misty Robotics Home">
+  			</a>
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-  <div class="header__nav font-bgr">
-    <div class="header__nav__dropdown header__nav__item">
-      <a class="header__nav__item header__nav__dropdown__item lnk:blk txt:bld" style="padding-right: 0">Products<span class="sub-arrow"><i class="fas fa-chevron-down"></i></span>
-      </a>
-      <div class="header__nav__dropdown__items">
-        <a class="txt:bld" href="https://www.mistyrobotics.com/products-robots/">Robots</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/products-robots-accessories/">Accessories</a>
-      </div>
-    </div>
-    <div class="header__nav__dropdown header__nav__item">
-      <a class="header__nav__item header__nav__dropdown__item lnk:blk txt:bld" style="padding-right: 0">Docs & Resources<span class="sub-arrow"><i class="fas fa-chevron-down"></i></span>
-      </a>
-      <div class="header__nav__dropdown__items">
-        <a class="txt:bld" href="https://www.mistyrobotics.com/platform-overview/">Platform Overview</a>
-        <a class="txt:bld" href="http://sdk.mistyrobotics.com/">Development Tools</a>
-        <a class="txt:bld" href="https://docs.mistyrobotics.com">Documentation</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/blog/category/misty-labs/">Misty Labs</a>
-      </div>
-    </div>
-    <div class="header__nav__dropdown header__nav__item">
-      <a href="#" onclick="return false;" class="header__nav__item header__nav__dropdown__item lnk:blk txt:bld" style="padding-right: 0">Customers & Use Cases<span class="sub-arrow"><i class="fas fa-chevron-down"></i></span>
-      </a>
-      <div class="header__nav__dropdown__items">
-        <a class="txt:bld" href="https://www.mistyrobotics.com/use-case-overview/">Use Case Overview</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/misty-heroes-hall-of-fame/">Customer Heroes</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-eldercare-partner/">Eldercare</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-partner-in-university-education-and-research/">University Education and Research</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-innovation-partner/">Innovation Labs</a>
-        <a class="txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-library-partner/">Libraries</a>
-      </div>
-    </div>
-    <a href="https://community.mistyrobotics.com/" class="header__nav__item lnk:blk txt:bld">Community</a>
-    <a href="https://www.mistyrobotics.com/blog/" class="header__nav__item lnk:blk txt:bld">Blog</a>
-    <a class="button button--purple" href="https://shop.mistyrobotics.com/">Buy Now</a>
-  </div>
-
-  <div class="header__nav__mobile__toggle" onclick="toggleMobileMenu();">
-    <svg class="burger" viewBox="0 0 20 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round">
-        <g id="Mobile-Nav-1" transform="translate(-335.000000, -27.000000)" stroke-width="2.75">
-          <g id="Hamburger" transform="translate(336.000000, 27.000000)">
-            <path d="M0,2 L20,2" id="Line"></path>
-            <path d="M0,7.5 L20,7.5" id="Line-Copy"></path>
-            <path d="M0,13 L20,13" id="Line-Copy-2"></path>
-          </g>
-        </g>
-      </g>
-    </svg>
-    <svg class="close" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="Mobile-Nav-2" transform="translate(-336.000000, -27.000000)" stroke-width="2">
-          <g id="X" transform="translate(337.000000, 28.000000)">
-            <path d="M1.1309627,14.2976087 L14.8690373,0.559534126" id="Line-Copy"></path>
-            <path d="M1.1309627,14.2976087 L14.8690373,0.559534126" id="Line-Copy" transform="translate(8.000000, 7.428571) scale(-1, 1) translate(-8.000000, -7.428571) "></path>
-          </g>
-        </g>
-      </g>
-    </svg>
-  </div>
-
-  <div class="header__nav__mobile font-bgr">
-    <div class="header__nav__mobile__items">
-
-      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onClick="expandMobileSubmenu(this);">
-        Products
-        <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
-            <g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20">
-              <g id="Nav" transform="translate(47.000000, 29.000000)">
-                <g id="Arrow-black" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)">
-                  <polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/products-robots/">Robots</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/products-robots-accessories/">Accessories</a>
-      </div>
-
-      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onClick="expandMobileSubmenu(this);">
-        Docs & Resources
-        <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
-            <g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20">
-              <g id="Nav" transform="translate(47.000000, 29.000000)">
-                <g id="Arrow-black" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)">
-                  <polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/platform-overview/">Platform Overview</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="http://sdk.mistyrobotics.com/">Development Tools</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://docs.mistyrobotics.com">Documentation</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/blog/category/misty-labs/">Misty Labs</a>
-      </div>
-
-      <div class="header__nav__dropdown header__nav__item lnk:blk txt:bld" onClick="expandMobileSubmenu(this);">
-        Customers & Use Cases
-        <svg width="11px" height="7px" viewBox="0 0 11 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <g id="Home,-Misty,-About,-Community" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
-            <g id="Desktop-Home-Sticky-Nav" transform="translate(-1284.000000, -41.000000)" stroke-width="2" stroke="#231F20">
-              <g id="Nav" transform="translate(47.000000, 29.000000)">
-                <g id="Arrow-black" transform="translate(1243.000000, 13.000000) rotate(-90.000000) translate(-1243.000000, -13.000000) translate(1237.000000, 7.000000)">
-                  <polyline id="Rectangle-2" transform="translate(5.656854, 5.656854) rotate(-45.000000) translate(-5.656854, -5.656854) " points="2.65685425 8.65685425 2.65685425 2.65685425 2.65685425 2.65685425 8.65685425 2.65685425"></polyline>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/use-case-overview/">Use Case Overview</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/misty-heroes-hall-of-fame/">Customer Heroes</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-eldercare-partner/">Eldercare</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-partner-in-university-education-and-research/">University Education and Research</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-innovation-partner/">Innovation Labs</a>
-        <a class="header__nav__item header__nav__item--sub lnk:blk txt:bld" href="https://www.mistyrobotics.com/misty-ii-your-library-partner/">Libraries</a>
-      </div>
-    </div>
-
-      <a href="https://community.mistyrobotics.com/" class="header__nav__item lnk:blk txt:bld">Community</a>
-      <a href="https://www.mistyrobotics.com/blog" class="header__nav__item lnk:blk txt:bld">Blog</a>
-    
-    
-    <div class="nav-cta">
-      <a class="button button--blue" href="https://shop.mistyrobotics.com/">Buy Now</a>
-    </div>
-  </div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<!-- Dynamic Menu Start -->
+				<ul id=" " class="navbar-nav ml-auto"><li class="nav-item"><a href="https://www.mistyrobotics.com/" class="nav-link">Home</a></li>
+<li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	<a href="https://www.mistyrobotics.com/products/misty-ii/" class="dropdown-item">Misty II</a>
+	<a href="https://www.mistyrobotics.com/products/misty-ii/accessories/" class="dropdown-item">Accessories</a>
+	<a href="https://www.mistyrobotics.com/products/solutions-hub/" class="dropdown-item">Solutions Hub</a>
 </div>
+</li>
+<li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Docs &amp; Resources</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	<a href="https://www.mistyrobotics.com/docs-and-resources/platform-overview/" class="dropdown-item">Platform Overview</a>
+	<a href="http://sdk.mistyrobotics.com/" class="dropdown-item">Development Tools</a>
+	<a href="https://docs.mistyrobotics.com/" class="dropdown-item">Documentation</a>
+	<a href="https://www.mistyrobotics.com/blog/category/misty-labs/" class="dropdown-item">Misty Labs</a>
+</div>
+</li>
+<li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Use Cases</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	<a href="https://www.mistyrobotics.com/use-cases/use-case-overview/" class="dropdown-item">Use Case Overview</a>
+	<a href="https://www.mistyrobotics.com/use-cases/robot-for-covid-19-coronavirus-safety-wellness/" class="dropdown-item">COVID-19 Safety and Wellness</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-a-partner-in-socially-assistive-therapy/" class="dropdown-item">Socially Assistive Therapy</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-your-eldercare-partner/" class="dropdown-item">Eldercare</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-childrens-hospital-care-team/" class="dropdown-item">Children’s Hospitals</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-your-partner-in-university-education-and-research/" class="dropdown-item">University Education and Research</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-your-innovation-partner/" class="dropdown-item">Innovation Labs</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-ii-your-library-partner/" class="dropdown-item">Libraries</a>
+	<a href="https://www.mistyrobotics.com/use-cases/misty-heroes-hall-of-fame/" class="dropdown-item">Customer Heroes</a>
+</div>
+</li>
+<li class="nav-item"><a href="https://community.mistyrobotics.com/" class="nav-link">Community</a></li>
+<li class="nav-item"><a href="https://www.mistyrobotics.com/blog/" class="nav-link">Blog</a></li>
+</ul>				<!-- Dynamic Menu End -->
+				<a href="https://shop.mistyrobotics.com"><button type="button" id="menu-button-buy-now" class="btn btn-primary navbar-btn">Buy Now</button></a>
+  			</div>
+		</nav>
+		
+		<script type="text/javascript">
+			const $dropdown = jQuery(".dropdown");
+			const $dropdownToggle = jQuery(".dropdown-toggle");
+			const $dropdownMenu = jQuery(".dropdown-menu");
+			const showClass = "show";
+
+			jQuery(window).on("load resize", function() {
+				if (this.matchMedia("(min-width: 768px)").matches) {
+					$dropdown.hover(
+					function() {
+						const $this = jQuery(this);
+						$this.addClass(showClass);
+						$this.find($dropdownToggle).attr("aria-expanded", "true");
+						$this.find($dropdownMenu).addClass(showClass);
+		      			},
+			  		function() {
+			  			const $this = jQuery(this);
+			  			$this.removeClass(showClass);
+			  			$this.find($dropdownToggle).attr("aria-expanded", "false");
+			  			$this.find($dropdownMenu).removeClass(showClass);
+		      			}
+			  		);
+		  		} else {
+		  			$dropdown.off("mouseenter mouseleave");
+	  				}
+				});
+		</script>
+	</div>
 
 <div class='docs-header'>
 
