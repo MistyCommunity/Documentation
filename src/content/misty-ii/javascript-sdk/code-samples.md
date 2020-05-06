@@ -186,11 +186,11 @@ This sample shows how to code Misty to take a picture with her RGB camera, save 
 misty.PlayAudio("s_SystemCameraShutter.wav", 100);
 
 // Takes a picture and saves it with the name "photoSaveTest".
-// Sets the width of the picture to 375 and the height to 812. The
+// Sets the width of the picture to 320 and the height to 240. The
 // first boolean argument tells Misty to save the picture, and the
 // second tells Misty to show the picture on her display as soon as
 // it's been saved to her local storage.
-misty.TakePicture("photoSaveTest", 375, 812, true, true);
+misty.TakePicture("photoSaveTest", 320, 240, true, true);
 ```
 
 ## External Requests
