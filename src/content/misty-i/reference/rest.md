@@ -375,6 +375,7 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### PlayAudio
+
 Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
