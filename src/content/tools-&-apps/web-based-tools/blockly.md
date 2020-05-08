@@ -9,7 +9,9 @@ order: 4
 
 Blockly is a block-based, visual programming language editor that runs in your browser.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** We recommend the following browsers for running Blockly with Misty: Chrome, Safari, Firefox, and Microsoft Edge (latest versions).
+{{box op="end"}}
 
 ![Blockly](/assets/images/blockly_1.png)
 
@@ -31,7 +33,9 @@ The following controls are available on Misty's Blockly editor.
 
 Follow the steps below to set up Blockly with Misty.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** It's not generally recommended for multiple users to each use a separate instance of Blockly to connect with and send commands to a single Misty robot. If more than one person does connect to Misty at the same time, as in a class or group development environment, people will need to take turns sending commands, or Misty may appear to respond unpredictably.
+{{box op="end"}}
 
 **Important!** Blockly does not display the complete collection of Misty’s command blocks until after you establish a Wi-Fi connection between Blockly and your robot. If you notice missing command blocks, follow the steps below to make sure a connection exists between your robot and Blockly.
 
@@ -47,10 +51,14 @@ Follow the steps below to set up Blockly with Misty.
 
 Try the following quick "programs" to start controlling Misty with Blockly.
 
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** After clicking **Run**, there may be a short delay before Misty initially reacts. When multiple block commands are run in a row, by default there is no delay between commands. You can use the "Pause" block to add a delay between commands when running multiple commands in a row.
+{{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** **Abort** stops the project after the current block completes and before the next block begins; it doesn't stop the actions of the current block.
-
+{{box op="end"}}
 
 ### Change the Color of Misty's LED
 
@@ -59,19 +67,22 @@ Want to change the light behind the logo on Misty's chest? Try this.
 1. Choose the "ChangeLEDColor" block and click to select a color.
 2. Click **Run**.
 
-
 ### Change the Image on Misty's Face
 
 Are Misty's eyes looking a bit tired? Try uploading your own image to Misty's screen. It's a two-part process, but each part is very easy!
 
-_Note: Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this._
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty's screen is 480 x 272 pixels in size. Because Misty does not adjust the scaling of images, for best results use an image with proportions similar to this.
+{{box op="end"}}
 
 First:
+
 1. Choose the "SaveFileToRobot" block.
 2. Add the "BrowseToImageFile" block. When you click on this block, you can select an image file on your computer to upload onto Misty. Valid image file types are .jpg, .jpeg, .gif, .png. and the maximum file size is 3 MB.
 3. Click **Run**.
 
 Then:
+
 1. Choose the "ChangeDisplayImage" block.
 2. Add the "ListFilesAvailable" block and select your file.
 3. Click **Run**.
@@ -280,15 +291,15 @@ Browse for a file on your computer. Connect this with a "SaveFileToRobot" block 
 Parameters
 * File: When you click on this block, a browse file dialog is displayed to allow for file selection. Valid image file types are .jpg, .jpeg, .gif, .png.
 
-
-
 ## Locomotion Commands
+
 Use these commands to drive Misty forward and backward, straight or in a curve, or stop.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Before using any locomotion commands, have Misty on a flat surface with plenty of room to move. It's also a good idea to experiment with small velocity values before getting her going at full speed.
+{{box op="end"}}
 
 ![Misty Blockly - locomotion commands](/assets/images/blockly_locomotion_commands2.png)
-
 
 ### Drive
 Drives Misty forward or backward at a given speed. **Important!** The "Drive" block cannot be the final block in a project. "Drive" **must** be followed by "Stop" or some other block.

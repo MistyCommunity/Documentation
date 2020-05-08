@@ -2,7 +2,7 @@
 title: API Reference
 layout: coding.hbs
 columns: three
-order: 4
+order: 3
 ---
 
 # {{title}}
@@ -22,7 +22,7 @@ Misty comes with a set of default images that you can display onscreen and sound
 
 Enables you to remove an audio file from Misty that you have previously saved. **Note:** You can only delete audio files that you have saved to Misty. You cannot remove Misty's default system audio files.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DeleteAudio(string fileName, [int prePauseMs], [int postPauseMs]);
 ```
@@ -32,20 +32,23 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.DeleteAudio("DeleteMe.wav");
 ```
 
 ### misty.DeleteImage
-Enables you to remove an image file from Misty that you have previously saved to her storage.
 
-**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
+Removes an image file from Misty's storage.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DeleteImage(string fileName, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** You can only delete image files that you have previously saved to Misty's storage. You cannot remove Misty's default system image files.
+{{box op="end"}}
 
 Arguments
 
@@ -53,7 +56,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.DeleteImage("DeleteMe.png");
 ```
@@ -62,7 +65,7 @@ misty.DeleteImage("DeleteMe.png");
 
 Deletes a user-uploaded video file from Misty's storage.
 
-```js
+```javascript
 // Syntax
 misty.DeleteVideo(string fileName, [int prePauseMs], [int postPauseMs]);
 ```
@@ -75,7 +78,7 @@ Arguments
 
 * fileName (string) - The name of the video file to delete, with the file type extension.
 
-```js
+```javascript
 // Example
 misty.DeleteVideo("MyVid.mp4");
 ```
@@ -84,13 +87,17 @@ misty.DeleteVideo("MyVid.mp4");
 
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetAudioFile()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
+// Syntax
 misty.GetAudioFile(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-Arguments  
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetAudioFile()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
+Arguments
+
 * fileName (string) - The name of the audio file to get, including its file type extension.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If blank, the system passes data into the default `_GetAudioFile()` callback function.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`.
@@ -98,7 +105,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetAudioFile("001-EeeeeeE.wav", false);
 
@@ -117,12 +124,14 @@ function _GetAudioFile(data)
 
 Lists all audio files (default system files and user-added files) currently stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetAudioList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -132,7 +141,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetAudioList();
 
@@ -148,13 +157,17 @@ Returns
    * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio files. If `false`, a user created the file.
 
 ### misty.GetImage
-Obtains a system or user-uploaded image file currently stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains a system or user-uploaded image file.
 
-```JavaScript
+```javascript
+// Syntax
 misty.GetImage(string fileName, [string callback], [bool base64 = true], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the onrobot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -166,7 +179,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetImage("Angry.png");
 
@@ -186,14 +199,17 @@ Returns
   - Base64 (string) - A string containing the Base64-encoded image data.
 
 ### misty.GetImageList
+
 Obtains a list of the images stored on Misty.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetImageList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -203,7 +219,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetImageList();
 ```
@@ -220,7 +236,7 @@ Returns
 
 Obtains the Base64-encoded data for a user-uploaded video file currently stored on Misty.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetVideo(string fileName, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -240,7 +256,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 
 misty.GetVideo("MyVid.mp4");
@@ -263,7 +279,7 @@ Returns
 
 Obtains a list of the user-uploaded video assets saved to Misty's storage. 
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetVideoList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -284,7 +300,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 misty.GetVideoList();
 
@@ -304,17 +320,17 @@ Returns
 
 ### misty.GetVideoRecording
 
-Obtains a video recording that Misty has created.
+Gets the Base64 data for a video that Misty has created.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetVideoRecording([string name], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#misty-getvideo) command.
+You can only use this command to download videos that Misty recorded. To get videos that you or another user has uploaded, use the [`GetVideo`](./#misty-getvideo) command.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+**Tip:** Misty records videos in .mp4 format. Video recordings have a maximum resolution of 3840 x 2160 pixels and can be up to 3 minutes long. A single video file can be up to 225 MB and can take several minutes to download.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -327,14 +343,14 @@ You can only use this command to obtain Misty's video recordings. To obtain user
 
 Arguments
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
+* Name (string) - Optional. The filename of the video. If not supplied, defaults to `misty_video`.
 * callback (string) - Optional. The name of the callback function to call when the returned data is received. If empty, a callback function with the default name (`_GetVideoRecording()`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of the skill to trigger for the callback function, if the callback is not defined in the current skill. 
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetVideoRecording("Feb1000");
 
@@ -348,16 +364,16 @@ function _GetVideoRecording(data) {
 
 Returns
 
-* Result (object) - An object with the Base64-encoded video data and other information about the file. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (object) - An object containing video data and other information about the file. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Includes the following key/value pairs:
   * Base64 (string) - A string containing the Base64-encoded video data.
-  * ContentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * ContentType (string) - The type and format of the video returned. For all videos that Misty creates, the content type should be `video/mp4`.
   * Name (string) - The name of the video file.
 
 ### misty.SaveAudio
 
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as .wav .mp3, .wma, and .aac.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SaveAudio(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs])
 ```
@@ -371,23 +387,24 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SaveAudio("Filename.wav", "137,80,78,71,13,1...", false, false);
 ```
 
-
 ### misty.SaveImage
-Saves an image to Misty in the form of a base64 string. Optionally, proportionately reduces the size of the saved image.
 
-Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+Saves an image to Misty. Optionally, proportionately reduces the size of the saved image.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SaveImage(string fileName, string data, [int width], [int height], [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]
 ```
 
+Valid image file types are .jpg, .jpeg, .gif, and .png. Maximum file size is 3 MB. **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+
 Arguments
+
 * fileName (string) - The name of the image file to save.
 * data (string) - A Base64-encoded string of the image data.
 * width (integer) - Optional. A whole number greater than 0 specifying the desired image width (in pixels). **Important:** To reduce the size of an image you must supply values for both `width` and `height`. Note that if you supply disproportionate values for `width` and `height`, the system uses the proportionately smaller of the two values to resize the image.
@@ -397,7 +414,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false);
 ```
@@ -406,12 +423,12 @@ misty.SaveImage("Filename.jpg", "137,80,78,71,13,1...", 500, 1000, false, false)
 
 Saves a video to Misty. 
 
-```JS
+```javascript
 // Syntax
 misty.SaveVideo(string fileName, string data, [bool immediatelyApply], [bool overwriteExisting], [int prePauseMs], [int postPauseMs]);
 ```
 
-Accepted video file types are `.mp4` and `.wmv`. Maximum file size is 6 MB
+Accepted video file types are .mp4 and .wmv. Maximum file size is 6 MB
 
 Arguments
 
@@ -428,12 +445,14 @@ Arguments
 
 Obtains a list of the most recent messages Misty has received through the universal asynchronous receiver-transmitter (UART) serial port on her back. This list of messages clears each time the system reboots.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSerialSensorValues([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetSerialSensorValues()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -445,25 +464,26 @@ Arguments
 
 Returns
 
-- Result (array) - A list of string values, where each value is a message Misty received through the UART serial port on her back. Messages are sequenced in reverse chronological order, with the most recent message being the last value in the array. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+* Result (array) - A list of string values, where each value is a message Misty received through the UART serial port on her back. Messages are sequenced in reverse chronological order, with the most recent message being the last value in the array. Data this command returns must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
 
 ### misty.WriteSerial
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
-
-```JavaScript
+```javascript
 // Syntax
 misty.WriteSerial(string message, [int prePauseMs], [int postPauseMs])
 ```
 
+Misty can also receive data through the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
+
 Arguments
+
 * message (string) - The data Misty sends to the UART serial port, passed as a string value.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.WriteSerial("your-data");
 ```
@@ -475,7 +495,7 @@ misty.WriteSerial("your-data");
 Creates a property comparison test to specify which data the system sends for a registered event. Use property tests to filter unwanted data out of event messages.
 
 
-```JavaScript
+```javascript
 // Syntax
 misty.AddPropertyTest(string eventName, string property, string inequality, string valueAsString, string valueType, [int prePauseMs], [int postPauseMs]);
 ```
@@ -489,7 +509,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.AddPropertyTest("EventName", "SensorPosition", "==", "Back", "string");
 ```
@@ -498,16 +518,28 @@ misty.AddPropertyTest("EventName", "SensorPosition", "==", "Back", "string");
 
 Adds an additional return property field for a registered event.
 
-```JavaScript
+```javascript
 // Syntax
 misty.AddReturnProperty(string eventName, string eventProperty, [int prePauseMs], [int postPauseMs]);
 ```
 
-Use the `misty.AddReturnProperty()` method to add the values of specific properties from an event message to the data object passed to the callback function for the event. When the event callback handles the data object for an event, the data object includes the values of any properties added with `misty.AddReturnProperty()` in an array called `AdditionalResults`.
+Use the `misty.AddReturnProperty()` method to add the values of specific properties from an event message to the data object passed to the callback function for the event. When the event callback handles the data object for an event, that data includes the values of any properties added with `misty.AddReturnProperty()` in an `AdditionalResults` array.
+
+Arguments
+
+* eventName (string) - The name of the event to add a return property field for.
+* eventProperty (string) - The additional property to return.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+// Example
+misty.AddReturnProperty("EventName", "DistanceInMeters");
+```
 
 You can add multiple return properties to the same event. The order of values in the `AdditionalResults` array matches the order in which you added those properties to the event in your skill code. For an example of how this works, see how the following code adds return properties to a `BumpSensor` event:
 
-```JavaScript
+```javascript
 // Add the value of the sensorName and isContacted properties of
 // BumpSensor event to the data you want to receive with "Bumped"
 // event messages
@@ -525,30 +557,21 @@ function _Bumped(data) {
 }
 ```
 
-Arguments
-* eventName (string) - The name of the event to add a return property field for.
-* eventProperty (string) - The additional property to return.
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
-
-```JavaScript
-// Example
-misty.AddReturnProperty("EventName", "DistanceInMeters");
-```
-
-
 ### misty.RegisterEvent
 
-Register to receive messages with live event data from one of Misty's sensors. 
+Creates a listener that receives live data from one of Misty's [event types](../../../misty-ii/robot/sensor-data). 
 
-**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * eventName (string) - Sets an event name (of your choice) for the registered event. The name of the callback function is set automatically to be the same as your event name, prefixed with an underscore (`_<eventName>`). 
 * messageType (string) - The name of the data stream to register for events from. Matches the predefined `Type` property value for the data stream as listed [here](../../../misty-ii/robot/sensor-data).
 * debounce (integer) - Sets the frequency in milliseconds with which event data is sent. 
@@ -558,7 +581,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.RegisterEvent("EventName", "TimeOfFlight", 1000, false);
 ```
@@ -571,7 +594,7 @@ Returns
 
 Registers for an event and applies a filter to event messages. Events you register for with the `misty.RegisterSimpleEvent()` command only return messages for events that pass the property comparison test you specify in the command's arguments.
 
-```JavaScript
+```javascript
 // Syntax
 misty.RegisterSimpleEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string property], [string inequality], [string valueAsString], [string valueType], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -594,19 +617,23 @@ Returns
 
 * Data sent by the registered event. Event data must be passed into a callback function to be processed and made available for use in your skill. For more information, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks).
 
-
 ### misty.RegisterTimerEvent
 
-Creates an event that calls a callback function after a specified period of time. For an example of using this function, see the [Timer Event tutorial](../../../misty-ii/javascript-sdk/tutorials/#timer-events).
+Creates an event that invokes a callback function after a set duration.
 
-**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.RegisterTimerEvent(string eventName, int callbackTimeInMs, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+You can use the `misty.RegisterTimerEvent()` method to implement looping behavior patterns, or to trigger logic just once after a set period of time. For an example, see the [Timer Event tutorial](../../../misty-ii/javascript-sdk/tutorials/#timer-events).
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * eventName (string) - The name for the timer event. Note that the name you give to this timer event determines the name automatically assigned to your related callback function. That is, the system sets the name of the callback function to be the same as this event name, prefixed with an underscore (`_<eventName>`). For example, for an event name of `MyTimerEvent`, your callback function must use the name `_MyTimerEvent`. 
 * callbackTimeInMs (integer) - The amount of time in milliseconds to wait before the system calls the callback function. For example, passing a value of 3000 causes the system to wait 3 seconds.
 * keepAlive (boolean) -  Optional. By default (`false`) this timer event calls your callback only once. If you pass `true`, your callback function is called in a loop, with a frequency determined by `callbackTimeInMs`. To end the loop, call the `misty.UnregisterEvent()` function in your code.
@@ -615,7 +642,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.RegisterTimerEvent("EventName", 5000, false);
 ```
@@ -628,12 +655,14 @@ Returns
 
 Creates a listener for custom user events. You can trigger a custom event by making a REST call to the [TriggerSkillEvent](../../../misty-ii/rest-api/api-reference/#triggerskillevent) endpoint, or by issuing a [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command from another JavaScript or .NET skill that is running at the same time.
 
-**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.RegisterUserEvent(string eventName, [bool keepAlive], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Event data must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for this command are given the same name as the correlated event, prefixed with an underscore: `_<eventName>`. For more on handling event data, see [Timed or Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#timed-or-triggered-event-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -644,7 +673,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 // Register a listener for events called "MyEvents"
 misty.RegisterUserEvent("MyEvent", true);
@@ -664,14 +693,14 @@ Returns
 
 * data (JSON) - User event data. Data from user events must be passed into a callback function to be processed and made available for use in your skill. See [Triggered Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#triggered-event-callbacks) for more information. In addition to the custom data sent with with the event, user event messages always include the following key value pairs. These key/value pairs exist at the same level as the custom data sent with the event.
   * Source (string) - The custom name given to the source for this event. You set the value of the `Source` property when you issue a `TriggerSkillEvent` REST request or invoke a `TriggerEvent` command.
-  * EventOriginator (string) - The type of source from which the event originated. This value is `Skill` if the event came from a JavaScript or .NET skill, and it is `REST` if the event came from a call on the `TriggerSkillEvent` endpoint in Misty's REST API.
+  * EventOriginator (string) - The event's origin. This value is `Skill` if the event came from a JavaScript or .NET skill, and it is `REST` if the event came from a call on the `TriggerSkillEvent` endpoint in Misty's REST API.
   * EventName (string) - The name of this event. You set the value of the `EventName` property issue a `TriggerSkillEvent` REST request or invoke a `TriggerEvent` command.
 
 ### misty.TriggerEvent
 
 Broadcasts a custom event message (with custom event data) to event listeners in the current skill, and to listeners in other JavaScript or .NET skills that are running at the same time.
 
-```JavaScript
+```javascript
 // Syntax
 misty.TriggerEvent(string eventName, string source, string data, [string allowedSkills], [int prePauseMs], [int postPauseMs])
 ```
@@ -681,50 +710,52 @@ Arguments
 * eventName (string) - A name of your choice for the custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
 * source (string) - A name of your choice that describes the source of the event.
 * data (string) - The data to send with the event, formatted as a JSON string (for example, `JSON.stringify({"Data": "Value"})`).
-* allowedSkills (string) - A comma-separated list of one or more `UniqueId`s for each skill that is allowed to receive this event. To allow all skills to receive this event, use an empty string: `""`. **Note:** To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* allowedSkills (string) - A comma-separated list of one or more `UniqueId`s for each skill that is allowed to receive this event. To allow all skills to receive this event, use an empty string: `""`. **Note:** To receive events created with the `TriggerEvent` command, you must include the `UniqueId` of the broadcasting skill in the `TriggerPermissions` attribute for the listening skill. Alternatively, omitting the `TriggerPermissions` attribute from the meta data for a skill allows that skill to receive events from any running skills. With Misty's JavaScript SDK, you configure the `TriggerPermissions` attribute in the skill's JSON [meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file). With Misty's .NET SDK, you configure the `TriggerPermissions` attribute as a property of the [`NativeRobotSkill`](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#nativerobotskill) class.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used. 
 
-```JavaScript
-// Example
+Additionally, user-created events pass the following key/value pairs into the event callback, at the same level as the data passed in for the `data` argument:
 
-// For the "broadcasting" skill:
+* Source (string) - The custom name given to the source for this event.
+* EventOriginator (string) - The event's origin. The value of the `EventOriginator` property for all events broadcast with the `TriggerEvent` command is `Skill`.
+* EventName (string) - The name of this event, as defined in the `EventName` property.
+
+```json
+{
+  "Data": "Value", // Data string
+  "EventName": "MyEvent", // Name of the event
+  "EventOriginator": "Skill", // Where the event came from
+  "Source": "Sender" // Event source
+}
+```
+
+This example demonstrates how to broadcast a custom event called `MyEvent`:
+
+```javascript
+// Example "broadcasting" skill:
 misty.Debug("Starting skill: Sender");
 misty.TriggerEvent("MyEvent", "Sender", JSON.stringify({"Data": "Value"}), "");
+```
 
-// For the "listening" skill:
+And this example demonstrates how to register for the custom event in the previous example:
+
+```javascript
+// Example "listening" skill:
 misty.Debug("Starting skill: Listener");
 misty.RegisterUserEvent("MyEvent", true);
 
 function _MyEvent(data) {
-    misty.Debug("Event received: " + data.EventName);
-    misty.Debug(JSON.stringify(data));
+    misty.Debug("Event received: " + data.EventName); // "MyEvent"
+    misty.Debug(JSON.stringify(data)); // event data
     // Do something
-}
-```
-
-In addition to the data you pass with the `data` argument, user-created events pass the following key/value pairs into the callback function associated with the event listener:
-
-* Source (string) - The custom name given to the source for this event.
-* EventOriginator (string) - The type of source from which the event originated. The value of the `EventOriginator` property for all events broadcast with the `TriggerEvent` command is `Skill`.
-* EventName (string) - The name of this event, as defined in the `EventName` property.
-
-In the example above, the data object passed into the `_MyEvent()` callback function includes each of these key/value pairs at the same level as the data passed in for the `data` argument. The full object that the `_MyEvent()` callback receives looks like this:
-
-```JSON
-{
-  "Data": "Value",
-  "EventName": "MyEvent",
-  "EventOriginator": "Skill",
-  "Source": "Sender"
 }
 ```
 
 ### misty.UnregisterAllEvents
 
-Unregisters from all events for the skill in which this command is called.
+Unregisters all events in the skill from which this command is called.
 
-```JavaScript
+```javascript
 // Syntax
 misty.UnregisterAllEvents([int prePauseMs], [int postPauseMs])
 ```
@@ -733,16 +764,16 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.UnregisterAllEvents();
 ```
 
 ### misty.UnregisterEvent
 
-Unregisters from a specified event.
+Unregisters a specific event.
 
-```JavaScript
+```javascript
 // Syntax
 misty.UnregisterEvent(string eventName, [int prePauseMs], [int postPauseMs]);
 ```
@@ -752,7 +783,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.UnregisterEvent("EventName");
 ```
@@ -763,19 +794,20 @@ misty.UnregisterEvent("EventName");
 
 Changes the color of the LED light behind the logo on Misty's torso.
 
-```JavaScript
+```javascript
 // Syntax
 misty.ChangeLED(int red, int green, int blue, [int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
+
 * Red (integer) - A value between 0 and 255 specifying the red RGB color.
 * Green (integer) - A value between 0 and 255 specifying the green RGB color.
 * Blue (integer) - A value between 0 and 255 specifying the blue RGB color.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ChangeLED(0, 0, 0);
 ```
@@ -784,12 +816,12 @@ misty.ChangeLED(0, 0, 0);
 
 Displays an image on Misty's screen. You can use the [`SaveImage`](../../../misty-ii/rest-api/api-reference/#saveimage) command in Misty's REST API to upload images to Misty.
 
-By default, images you display with the `misty.DisplayImage()` method draw on the `DefaultImageLayer`. To display an image on a custom layer, use the [`misty.DisplayLayerImage()`](./#misty-displaylayerimage) method. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
-
-```JavaScript
+```javascript
 // Syntax
 misty.DisplayImage(string fileName, [double alpha], [int prePauseMs], [int postPauseMs])
 ```
+
+By default, images you display with the `misty.DisplayImage()` method draw on the `DefaultImageLayer`. To display an image on a custom layer, use the [`misty.DisplayLayerImage()`](./#misty-displaylayerimage) method. For more information about layers, see [Using Misty's Display](../../../misty-ii/robot/misty-ii/#using-misty-39-s-display).
 
 Arguments
 
@@ -802,7 +834,7 @@ Arguments
 
 Displays an image on Misty's screen.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DisplayImage(string fileName, [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
 ```
@@ -823,7 +855,7 @@ Arguments
 * prePauseMsMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.DisplayImage("e_Amazement.jpg");
 ```
@@ -832,7 +864,7 @@ misty.DisplayImage("e_Amazement.jpg");
 
 Displays text on Misty's screen.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DisplayText(string text, [string layer], [int prePauseMs], [int postPauseMs]);
 ```
@@ -857,7 +889,7 @@ misty.DisplayText("Hello, world", "MyTextLayer");
 
 Plays a video on Misty's screen.
 
-```js
+```javascript
 // Syntax
 misty.DisplayVideo(string fileName, [string layer], [bool isUrl], [int prePauseMs], [int postPauseMs])
 ```
@@ -882,7 +914,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 misty.DisplayVideo("VideoAssetFilename.mp4", "MyVideoLayer");
 ```
@@ -891,7 +923,7 @@ misty.DisplayVideo("VideoAssetFilename.mp4", "MyVideoLayer");
 
 Displays a webpage on Misty's display.
 
-```js
+```javascript
 // Syntax
 misty.DisplayWebView(string URL, [string layer], [int prePauseMs], [int postPauseMs]);
 ```
@@ -909,7 +941,7 @@ Arguments
 * URL (string) - The URL for the web page to display.
 * layer (string) - Optional. The display layer to create or update with this command. If `null` or not supplied, the webview displays on the default webview layer (named `DefaultWebViewLayer`). 
 
-```js
+```javascript
 // Example
 misty.DisplayWebView("https://mistyrobotics.com");
 ```
@@ -918,7 +950,7 @@ misty.DisplayWebView("https://mistyrobotics.com");
 
 Obtains the current settings for Misty's blinking behavior. To change these settings, use the [`misty.SetBlinkSettings()`](./#misty-setblinksettings) method.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetBlinkSettings([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
@@ -927,7 +959,9 @@ misty.GetBlinkSettings([string callback], [string callbackRule = "synchronous"],
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetBlinkSettings()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -946,59 +980,76 @@ Returns
   * ClosedEyeMinMs (integer) - The minimum duration that Misty's eyes stay closed while blinking.
   * ClosedEyeMaxMs (integer) - The maximum duration that Misty's eyes stay closed while blinking.
 
-### misty.PlayAudio
 
-Plays an audio clip that has been previously saved to Misty's storage.
+### misty.PauseAudio
 
-```JavaScript
+Pauses audio playback.
+
+```javascript
 // Syntax
-misty.PlayAudio(string fileName, [int volume], [int prePauseMs], [int postPauseMs]);
+misty.PauseAudio([int prePauseMs], [int postPauseMs]);
 ```
+
+To resume playback, issue a [`misty.PlayAudio()`](./#misty-playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+When you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. This causes the system to raise an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+When you pause audio playback for a live stream, Misty does not resume playback from the paused location. Instead, when you issue a `misty.PlayAudio()` command to resume playback for that stream, Misty starts playing from the point in the stream that is currently live.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 Arguments
-* fileName (string) - The name of the file to play.
-* volume (integer) - Optional. A value between 0 and 100  for the loudness of the audio clip. 0 is silent, and 100 is full volume. By default, the system volume is set to 100.
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+* None
+
+```javascript
 // Example
-misty.PlayAudio("s_Sadness.wav", 100);
+misty.PauseAudio();
 ```
 
-### misty.TransitionLED
+### misty.PlayAudio
 
-Sets Misty's LED to transition between two colors.
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
 
-```JavaScript
+```javascript
 // Syntax
-misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+misty.PlayAudio(string fileName, int volume, [int prePauseMs], [int postPauseMs]);
 ```
 
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
-Parameters
+Arguments
 
-* red (byte) - The red RGB color value for the first color (range 0 to 255).
-* green (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
+* Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
-misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
+```javascript
+// Examples
+
+// Plays an audio asset from Misty's local storage
+misty.PlayAudio("s_Amazement.wav");
+
+// Plays an RTSP audio stream
+misty.PlayAudio("rtsp://<streaming-url>");
+
+// Plays the live audio feed for a radio station
+misty.PlayAudio("http://audio.kuer.org:8000/high")
+
+// Plays an audio file hosted on the web
+misty.PlayAudio("https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3");
 ```
 
 ### misty.RemoveBlinkMappings
 
 Removes blink mappings from one or more image assets.
 
-```JS
+```javascript
 misty.RemoveBlinkMappings(string blinkImages, [int prePauseMs], [int postPauseMs]);
 ```
 
@@ -1016,7 +1067,7 @@ Arguments
 
 Turns Misty's eye blinking behavior on or off.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetBlinking(bool blink, [int prePauseMs], [int postPauseMs]);
 ```
@@ -1035,7 +1086,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetBlinking(true);
 ```
@@ -1070,7 +1121,7 @@ Arguments
 
 Adjusts general display settings. Currently, this command is only used to revert the display settings, redraw the default image display layer, and set the image to Misty's default startup eyes.
 
-```js
+```javascript
 misty.SetDisplaySettings(bool revertToDefault, [int postPauseMs], [int prePauseMs]);
 ```
 
@@ -1082,7 +1133,7 @@ Arguments
 
 * revertToDefault (boolean) - If `true`, deletes all display layers, and re-draws the default image display layer with Misty's default startup eyes.
 
-```js
+```javascript
 // Example
 misty.SetDisplaySettings(true);
 ```
@@ -1091,7 +1142,7 @@ misty.SetDisplaySettings(true);
 
 Turns the LED flashlight on Misty's head on or off.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetFlashlight(bool on, [int prePauseMs], [int postPauseMs]);
 ```
@@ -1100,7 +1151,7 @@ Parameters
 
 * on (bool) - Turns the flashlight on (`true`) or off (`false`).
 
-```JavaScript
+```javascript
 // Example
 misty.SetFlashlight(true);
 ```
@@ -1109,7 +1160,7 @@ misty.SetFlashlight(true);
 
 Updates settings for an image display layer.
 
-```js
+```javascript
 // Syntax
 misty.SetImageDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [bool placeOnTop], [int rotation], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1137,7 +1188,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time n milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 // Makes the image layer called "MyImageLayer" invisible
 misty.SetImageDisplaySettings("MyImageLayer", null, false, false);
@@ -1147,7 +1198,7 @@ misty.SetImageDisplaySettings("MyImageLayer", null, false, false);
 
 Updates settings for a text display layer.
 
-```js
+```javascript
 // Syntax
 misty.SetTextDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int size], [int weight], [bool wrap], [string horizontalAlignment], [string verticalAlignment], [string style], [int red], [int green], [int blue], [int width], [int height], [bool placeOnTop], [string fontFamily], [int rotation], [int padLeft], [int padTop], [int padRight], [int padBottom], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1190,7 +1241,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 // Makes the text layer called "MyTextLayer" invisible
 misty.SetTextDisplaySettings("MyTextLayer", null, false, false);
@@ -1201,7 +1252,7 @@ misty.SetTextDisplaySettings("MyTextLayer", null, false, false);
 
 Updates settings for a video display layer.
 
-```js
+```javascript
 // Syntax
 misty.SetVideoDisplaySettings(layer string, [bool revertToDefault], [bool deleted], [bool visible], [double opacity], [int width], [int height], [string stretch], [int rotation], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [bool repeat], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1230,7 +1281,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 // Makes the video layer called "MyVideoLayer" invisible
 misty.SetVideoDisplaySettings("MyVideoLayer", null, false, false);
@@ -1240,7 +1291,7 @@ misty.SetVideoDisplaySettings("MyVideoLayer", null, false, false);
 
 Updates settings for a webview display layer.
 
-```JavaScript
+```javascript
 misty.SetWebViewDisplaySettings(string layer, [bool revertToDefault], [bool deleted], [bool visible], [int width], [int height], [string stretch], [bool placeOnTop], [string horizontalAlignment], [string verticalAlignment], [int prePauseMs], [int postPauseMs]);
 ```
 
@@ -1275,7 +1326,7 @@ misty.SetWebViewDisplaySettings("MyWebViewLayer", null, false, false);
 
 Starts Misty speaking text using her onboard text-to-speech engine.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Speak(string text, [bool flush = "false"], [string utteranceId], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1371,7 +1422,7 @@ Pauses speech.
 
 **`<break>` Supported Attributes**
 
-**Note:** Use one of these attributes, but not both.
+Use **either** the `time` or `strength` attribute, but not both.
 
 - `time`: milliseconds of pause
 - `strength`: 
@@ -1442,17 +1493,42 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.Speak("Hello, world!");
+```
+
+### misty.StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+```javascript
+// Syntax
+misty.StopAudio([int prePauseMs], [int postPauseMs]);
+```
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`misty.Speak()`](./#misty-speak) command. To stop an onboard text-to-speech utterance, you must use the [`misty.StopSpeaking()`](./#misty-stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+// Example
+misty.StopAudio();
 ```
 
 ### misty.StopSpeaking
 
 Stops Misty speaking the currently playing text-to-speech utterance.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopSpeaking([int prePauseMs], [int postPauseMs])
 ```
@@ -1466,9 +1542,37 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopSpeaking()
+```
+
+### misty.TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+```javascript
+// Syntax
+misty.TransitionLED(byte red, byte green, byte blue, byte red2, byte green2, byte blue2, string transitionType, int timeMs, [int prePauseMs], [int postPauseMs]);
+```
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Parameters
+
+* red (byte) - The red RGB color value for the first color (range 0 to 255).
+* green (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* transitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* timeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+misty.TransitionLED(255, 0, 0, 0, 255, 0, "Breathe", 300)
 ```
 
 ## External Requests
@@ -1477,7 +1581,7 @@ misty.StopSpeaking()
 
 Sends an HTTP request from Misty to an external server. You can use `misty.SendExternalRequest()` to access resources that are available via Uniform Resource Identifiers (URIs), such as cloud-based APIs or data stored on a server in another location.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SendExternalRequest(string method, string resourceURL, [string authorizationType], [string token], [string arguments], [bool save], [bool apply], [string fileName], [string contentType], [string callback], [string callbackRule], [string skillToCal], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1491,6 +1595,7 @@ This command is currently in **Alpha**, and related hardware, firmware, or softw
 {{box op="end"}}
 
 Arguments
+
 * method (string) - The [HTTP request method](https://developer.mozilla.org/en-US/docs/web/HTTP/Methods) (e.g. `GET`, `POST`, etc.) indicating the action to perform for the resource.
 * resource (string) - The full Uniform Resource Identifier of the resource, i.e. `"http://soundbible.com/grab.php?id=1949&type=mp3"`.
 * authorizationType (string) - Optional. The authentication type required to access the resource, i.e. `"OAuth 1.0"`, `"OAuth 2.0"`, or `"Bearer Token"`. Use `null` if no authentication is required.
@@ -1512,9 +1617,14 @@ Returns
 
 ## Movement
 
-<!-- misty.Drive --> 
 ### misty.Drive
+
 Drives Misty forward or backward at a specific speed until cancelled. Call `misty.Stop()` to cancel driving. 
+
+```javascript
+// Syntax
+misty.Drive(double linearVelocity, double angularVelocity, [int prePauseMs], [int postPauseMs]);
+```
 
 When using the `misty.Drive()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
 
@@ -1524,18 +1634,13 @@ When using the `misty.Drive()` command, it helps to understand how linear veloci
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
 
-```JavaScript
-// Syntax
-misty.Drive(double linearVelocity, double angularVelocity, [int prePauseMs], [int postPauseMs]);
-```
-
 Arguments
 * linearVelocity (double) - A percent value that sets the speed for Misty when she drives in a straight line. Default value range is from -100 (full speed backward) to 100 (full speed forward).
 * angularVelocity (double) - A percent value that sets the speed and direction of Misty's rotation. Default value range is from -100 (full speed rotation clockwise) to 100 (full speed rotation counter-clockwise). **Note:** For best results when using angular velocity, we encourage you to experiment with using small positive and negative values to observe the effect on Misty's movement.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Drive(0, 0);
 ```
@@ -1544,7 +1649,7 @@ misty.Drive(0, 0);
 
 Drives Misty in an arc. Misty continues driving until her current heading matches the desired absolute heading passed into this command.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DriveArc(double heading, double radius, double timeMs, [bool reverse], [int prePauseMs], [int postPauseMs])
 ```
@@ -1564,7 +1669,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 // Misty drives in an arc with a 1m radius for 5 
 // seconds to obtain an absolute heading of 180 degrees
@@ -1575,7 +1680,7 @@ misty.DriveArc(180, 1, 5000, false)
 
 Drives Misty forward or backward in a straight line. While driving, Misty continuously adjusts her current heading to maintain the desired absolute heading.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DriveHeading(double heading, double distance, double timeMs, bool reverse, [int prePauseMs], [int postPauseMs])
 ```
@@ -1598,7 +1703,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 // Misty drives forward 0.5m over 4 seconds and
 // maintains an absolute heading of 90 degrees
@@ -1606,7 +1711,13 @@ misty.DriveHeading(90, 0.5, 4000, false);
 ```
 
 ### misty.DriveTime
+
 Drives Misty forward or backward at a set speed, with a given rotation, for a specified amount of time.
+
+```javascript
+// Syntax
+misty.DriveTime(double linearVelocity, double angularVelocity, int timeMs, [double degree], [int prePauseMs], [int postPauseMs]);
+```
 
 When using the `misty.DriveTime()` command, it helps to understand how linear velocity (speed in a straight line) and angular velocity (speed and direction of rotation) work together:
 
@@ -1615,11 +1726,6 @@ When using the `misty.DriveTime()` command, it helps to understand how linear ve
 * Linear velocity (0) and angular velocity (-100) = rotating clockwise at full speed.
 * Linear velocity (0) and angular velocity (100) = rotating counter-clockwise at full speed.
 * Linear velocity (non-zero) and angular velocity (non-zero) = Misty drives in a curve.
-
-```JavaScript
-// Syntax
-misty.DriveTime(double linearVelocity, double angularVelocity, int timeMs, [double degree], [int prePauseMs], [int postPauseMs]);
-```
 
 Arguments
 
@@ -1630,7 +1736,7 @@ Arguments
 - prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.DriveTime(0, 0, 0);
 ```
@@ -1638,7 +1744,7 @@ misty.DriveTime(0, 0, 0);
 ### misty.DriveTrack
 Drives Misty left, right, forward, or backward, depending on the track speeds specified for the individual tracks.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DriveTrack(double leftTrackSpeed, double rightTrackSpeed, [int prePauseMs], [int postPauseMs])
 ```
@@ -1649,7 +1755,7 @@ Arguments
 - prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.DriveTrack(0, 0);
 ```
@@ -1658,7 +1764,7 @@ misty.DriveTrack(0, 0);
 
 Stops all motor controllers, including drive motor, head/neck, and arm.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Halt([int prePauseMs], [int postPauseMs])
 ```
@@ -1667,7 +1773,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Halt();
 ```
@@ -1676,7 +1782,7 @@ misty.Halt();
 
 Moves one or both of Misty's arms.
 
-```js
+```javascript
 // Syntax
 misty.MoveArm(string arm, double position, [double velocity], [double duration], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1703,7 +1809,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 misty.MoveArm("both", 0, 100);
 ```
@@ -1712,7 +1818,7 @@ misty.MoveArm("both", 0, 100);
 
 Moves one of Misty's arms to a specified location in degrees.
 
-```JavaScript
+```javascript
 // Syntax
 misty.MoveArmDegrees(string arm, double degrees, [double velocity], [double duration], [int prePauseMs], [int postPauseMs])
 ```
@@ -1740,7 +1846,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.MoveArmDegrees("right", -90, 50);
 ```
@@ -1749,7 +1855,7 @@ misty.MoveArmDegrees("right", -90, 50);
 
 Moves one of Misty's arms to a specified location in radians.
 
-```JavaScript
+```javascript
 // Syntax
 misty.MoveArmRadians(string arm, double radians, [double velocity], [double duration], [int prePauseMs], [int postPauseMs])
 ```
@@ -1767,7 +1873,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.MoveArmRadians("left", -1.5708, 50);
 ```
@@ -1777,7 +1883,7 @@ misty.MoveArmRadians("left", -1.5708, 50);
 
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
 
-```JS
+```javascript
 // Syntax
 misty.MoveArms(double leftArmPosition, double rightArmPosition, [double leftArmVelocity], [double rightArmvelocity], [double duration], [double prePauseMs], [double postPauseMs]);
 ```
@@ -1805,7 +1911,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 misty.MoveArms(0, 0, 100, 100);
 ```
@@ -1814,7 +1920,7 @@ misty.MoveArms(0, 0, 100, 100);
 
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
 
-```JS
+```javascript
 // Syntax
 misty.MoveArmsDegrees(double leftArmPosition, double rightArmPosition, [double leftArmVelocity], [double rightArmvelocity], [double duration], [double prePauseMs], [double postPauseMs]);
 ```
@@ -1842,7 +1948,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 misty.MoveArmsDegrees(0, 0, 100, 100);
 ```
@@ -1851,7 +1957,7 @@ misty.MoveArmsDegrees(0, 0, 100, 100);
 
 Moves one or both of Misty's arms. You can use this command to control both arms simultaneously or one at a time.
 
-```JS
+```javascript
 // Syntax
 misty.MoveArmsRadians(double leftArmPosition, double rightArmPosition, [double leftArmVelocity], [double rightArmvelocity], [double duration], [double prePauseMs], [double postPauseMs]);
 ```
@@ -1872,7 +1978,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 misty.MoveArmsRadians(-1.5708, -1.5708, 100, 100);
 ```
@@ -1881,7 +1987,7 @@ misty.MoveArmsRadians(-1.5708, -1.5708, 100, 100);
 
 Moves Misty's head to a new position along its pitch, roll, and yaw axes.
 
-```JavaScript
+```javascript
 // Syntax
 misty.MoveHead(double pitch, double roll, double yaw, [double velocity], [double duration], [string units], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1912,7 +2018,7 @@ Arguments
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 
-```JS
+```javascript
 // Misty looks straight ahead
 misty.MoveHead(0, 0, 0, 100);
 ```
@@ -1920,7 +2026,7 @@ misty.MoveHead(0, 0, 0, 100);
 ### misty.MoveHeadDegrees
 Moves Misty's head in one of three axes (tilt, turn, or up-down). For information about the range of movement in each direction, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
-```JavaScript
+```javascript
 // Syntax
 misty.MoveHeadDegrees(double pitch, double roll, double yaw, [double velocity], [double duration], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1939,7 +2045,7 @@ Arguments
 - prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 - postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.MoveHeadDegrees(10, 10, 10, 100);
 ```
@@ -1948,7 +2054,7 @@ misty.MoveHeadDegrees(10, 10, 10, 100);
 
 Moves Misty's head in one of three axes (tilt, turn, or up-down). For information about the range of movement in each direction, see [Coordinate System & Movement Ranges.](../../../misty-ii/robot/misty-ii/#coordinate-system-amp-movement-ranges)
 
-```JavaScript
+```javascript
 // Syntax
 misty.MoveHeadRadians(double pitch, double roll, double yaw, [double velocity], [double duration], [int prePauseMs], [int postPauseMs]);
 ```
@@ -1967,24 +2073,26 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.MoveHeadRadians(0.5708, 0.5708, 1.5708, 100);
 ```
 
 ### misty.Stop
+
 Stops Misty's movement.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Stop([int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Stop();
 ```
@@ -2013,7 +2121,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 misty.DeleteSlamMap("Map_20190912_21.16.32.UTC");
 ```
@@ -2022,7 +2130,7 @@ misty.DeleteSlamMap("Map_20190912_21.16.32.UTC");
 
 Drives Misty on a path defined by coordinates you specify. Note that Misty must have a map and be actively tracking before starting to follow a path. Misty will not be able to successfully follow a path if unmapped obstacles are in her way.
 
-```JavaScript
+```javascript
 // Syntax
 misty.FollowPath(string path, [int prePauseMs], [int postPauseMs]);
 ```
@@ -2039,7 +2147,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.FollowPath("4:3,8:8,10:15");
 ```
@@ -2048,12 +2156,12 @@ misty.FollowPath("4:3,8:8,10:15");
 
 Obtains the occupancy grid data for Misty's currently active map.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetMap([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-This command is not functional with the Misty II Basic Edition
+This command is not functional with the Misty II Basic Edition.
 
 To obtain a valid response from `misty.GetMap()`, Misty must first have successfully generated a map. To change the currently active map, use the [`SetCurrentSlamMap`](../../../misty-ii/rest-api/api-reference/#setcurrentslammap) command in Misty's REST API.
 
@@ -2079,7 +2187,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetMap();
 ```
@@ -2096,12 +2204,11 @@ Returns
   * Size (integer) - The total number of map cells represented in the grid array. Multiply this number by the value of meters per cell to calculate the area of the map in square meters.
   * Width (integer) - The width of the occupancy grid matrix (in number of cells). 
 
-
 ### misty.GetCurrentSlamMap
 
 Obtains the key for the currently active map.
 
-```js
+```javascript
 // Syntax
 misty.GetCurrentSlamMap([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2120,7 +2227,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.GetCurrentSlamMap();
@@ -2140,7 +2247,7 @@ Returns
 
 Obtains the current hazards system settings for Misty's time-of-flight and bump sensors.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetHazardSettings([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2161,8 +2268,8 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
-// Syntax
+```javascript
+// Example
 misty.GetHazardSettings();
 
 function _GetHazardSettings(data) {
@@ -2171,6 +2278,7 @@ function _GetHazardSettings(data) {
 ```
 
 Returns
+
 * Result (object) - Describes the current hazards system settings for Misty's time-of-flight and bump sensors. Includes the following key/value pairs:
   * BumpSensors (array) - An array of objects that describe whether each bump sensor is enabled or disabled. Each object in the `bumpSensors` array includes the following key/value pairs:
     * Enabled (boolean) - Hazards are enabled for this bump sensor if `true`, and are disabled if `false`.
@@ -2183,12 +2291,12 @@ Returns
 
 Obtains the current exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamIrExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-This command is not functional with the Misty II Basic Edition
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty does not return valid values for exposure and gain if you invoke this command when the SLAM system is not streaming. To start SLAM streaming, issue a [`StartSlamStreaming`](../../../misty-ii/javascript-sdk/api-reference/#misty-startslamstreaming) command.
@@ -2206,7 +2314,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 misty.StartSlamStreaming();
 misty.Pause(1000);
@@ -2229,7 +2337,7 @@ Returns
 
 Obtains a list of keys and names for Misty's existing maps.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamMaps([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2248,7 +2356,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.GetSlamMaps();
@@ -2267,7 +2375,7 @@ Returns
   * Key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
   * Name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#misty-renameslammap) command.
 
-```JSON
+```json
 {
   "Result": [
     {
@@ -2286,7 +2394,7 @@ Returns
 
 Obtains diagnostic information about Misty's navigation system.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamNavigationDiagnostics([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2319,7 +2427,7 @@ Returns
 
 Obtain a path from Misty’s current location to a specified set of X,Y coordinates. Pass the waypoints this command returns to the `path` parameter of `misty.FollowPath()` for Misty to follow this path to the desired location.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamPath(double X, double Y, [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2346,7 +2454,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetSlamPath(100, 250);
 ```
@@ -2359,7 +2467,7 @@ Returns
 
 Obtains values representing the current activity and status of Misty's SLAM system. Check these values for information about the current status of Misty's depth sensor, the SLAM system, and to see information relevant to any ongoing mapping or tracking activities.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamStatus([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
@@ -2384,7 +2492,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.GetSlamStatus();
@@ -2396,6 +2504,7 @@ function _GetSlamStatus(data) {
 ```
 
 Returns
+
 * Result (object) - A data object with the following key-value pairs. **Note:** With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
   * `Status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `SensorStatus` and `RunMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `StatusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
     * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
@@ -2415,6 +2524,8 @@ Returns
     * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
     * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
     * 0x8000: `Streaming` - The SLAM system is streaming.
+    * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+    * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
   * `StatusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
   * `RunMode` (string) - Current status of the navigation system. Possible values are:
     * `Uninitialized`
@@ -2450,7 +2561,7 @@ Returns
 
 Obtains the current exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetSlamVisibleExposureAndGain([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -2473,7 +2584,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 misty.StartSlamStreaming();
 misty.Pause(1000);
@@ -2492,7 +2603,7 @@ Returns
   * Exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
   * Gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
 
-```JSON
+```json
 {
    "Result": {
       "Exposure": 0.007987,
@@ -2505,7 +2616,7 @@ Returns
 
 Renames an existing map.
 
-```js
+```javascript
 // Syntax
 misty.RenameSlamMap(string key, string name, [int prePauseMs], [int postPauseMs]);
 ```
@@ -2519,7 +2630,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 misty.RenameSlamMap("Map_20190912_21.16.06.UTC", "NewName");
 ```
@@ -2528,7 +2639,7 @@ misty.RenameSlamMap("Map_20190912_21.16.06.UTC", "NewName");
 
 Resets Misty's SLAM sensors.
 
-```JavaScript
+```javascript
 // Syntax
 misty.ResetSlam([int prePauseMs], [int postPauseMs]);
 ```
@@ -2544,16 +2655,16 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ResetSlam();
 ```
 
 ### misty.SetCurrentSlamMap
 
-Sets a map to be Misty's currently active map for tracking and relocalization.
+Sets a map to be the active map for tracking and relocalization.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetCurrentSlamMap(string key, [int prePauseMs], [int postPauseMs]);
 ```
@@ -2562,11 +2673,11 @@ This command is not functional with the Misty II Basic Edition.
 
 Arguments
 
-* key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
+* key (string) - The unique `key` of the map to make active. **Note:** This command does not work when passed the value for the `name` associated with a map.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetCurrentSlamMap("Map_20190912_21.16.06.UTC");
 ```
@@ -2575,7 +2686,7 @@ misty.SetCurrentSlamMap("Map_20190912_21.16.06.UTC");
 
 Sets the exposure and gain settings for the infrared cameras in the Occipital Structure Core depth sensor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetSlamIrExposureAndGain(double exposure, int gain, [int prePauseMs], [int postPauseMs]);
 ```
@@ -2595,7 +2706,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetSlamIrExposureAndGain(0.014468, 3);
 ```
@@ -2604,7 +2715,7 @@ misty.SetSlamIrExposureAndGain(0.014468, 3);
 
 Sets the exposure and gain settings for the fisheye camera in the Occipital Structure Core depth sensor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetSlamVisibleExposureAndGain(double exposure, double gain, [int prePauseMs], [int postPauseMs]);
 ```
@@ -2622,7 +2733,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetSlamVisibleExposureAndGain(0.007987, 2);
 ```
@@ -2631,9 +2742,9 @@ misty.SetSlamVisibleExposureAndGain(0.007987, 2);
 
 Starts Misty locating the position and orientation (pose) of the docking station.
 
-```JavaScript
+```javascript
 // Syntax
-misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [int prePauseMs], [int postPauseMs]);
+misty.StartLocatingDockingStation([int startStreamingTimeout], [int enableIrTimeout], [bool enableAutoExposure], [int prePauseMs], [int postPauseMs]);
 ```
 
 This command is not functional with the Misty II Basic Edition.
@@ -2654,6 +2765,7 @@ Arguments
 
 * startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
 * enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* enableAutoExposure (bool) - Optional. Whether Misty should automatically adjust the exposure for the IR cameras during docking station location. Default is `true`.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
@@ -2661,7 +2773,7 @@ Arguments
 
 Starts Misty mapping an area.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartMapping([int prePauseMs], [int postPauseMs]);
 ```
@@ -2681,7 +2793,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartMapping();
 ```
@@ -2690,21 +2802,23 @@ misty.StartMapping();
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartSlamStreaming([int prePauseMs], [int postPauseMs]);
 ```
 
-This command is not functional with the Misty II Basic Editi
+This command is not functional with the Misty II Basic Edition.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** Always use `misty.StopSlamStreaming()` to close the depth sensor data stream after sending commands that use Misty's Occipital Structure Core depth sensor. Calling `misty.StopSlamStreaming()` turns off the laser in the depth sensor and lowers Misty's power consumption.
+{{box op="end"}}
 
 Arguments
 
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartSlamStreaming();
 ```
@@ -2713,7 +2827,7 @@ misty.StartSlamStreaming();
 
 Starts Misty tracking her location.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartTracking([int prePauseMs], [int postPauseMs]);
 ```
@@ -2728,7 +2842,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartTracking();
 ```
@@ -2737,12 +2851,12 @@ misty.StartTracking();
 
 Stops Misty locating the docking station.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopLocatingDockingStation([int stopStreamingTimeout], [int disableIrTimeout], [int prePauseMs], [int postPauseMs])
 ```
 
-This command is not functional with the Misty II Basic Editi
+This command is not functional with the Misty II Basic Edition.
 
 For more information about locating the docking station, see the documentation for the [`StartLocatingDockingStation`](./#misty-startlocatingdockingstation) command and the [`ChargerPoseMessage`](../../../misty-ii/robot/sensor-data/#chargerposemessage) event type.
 
@@ -2761,7 +2875,7 @@ Arguments
 
 Stops Misty mapping an area.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopMapping([int prePauseMs], [int postPauseMs]);
 ```
@@ -2778,7 +2892,7 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
 command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopMapping();
 ```
@@ -2787,7 +2901,7 @@ misty.StopMapping();
 
 Closes the data stream from the Occipital Structure Core depth sensor. Calling this command turns off the laser in the depth sensor and lowers Misty's power consumption.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopSlamStreaming([int prePauseMs], [int postPauseMs]);
 ```
@@ -2802,7 +2916,7 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this 
 command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopSlamStreaming();
 ```
@@ -2811,7 +2925,7 @@ misty.StopSlamStreaming();
 
 Stops Misty tracking her location.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopTracking([int prePauseMs], [int postPauseMs]);
 ```
@@ -2827,7 +2941,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopTracking();
 ```
@@ -2836,12 +2950,12 @@ misty.StopTracking();
 
 Provides the current distance of objects from Misty’s Occipital Structure Core depth sensor. Note that depending on the scene being viewed, the sensor may return a large proportion of "unknown" values in the form of `NaN` ("not a number") values.
 
-```JavaScript
+```javascript
 // Syntax
 misty.TakeDepthPicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
-This command is not functional with the Misty II Basic Edition
+This command is not functional with the Misty II Basic Edition.
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_TakeDepthPicture()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -2855,7 +2969,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.TakeDepthPicture();
 ```
@@ -2871,7 +2985,7 @@ Returns
 
 Takes a photo using the camera on Misty’s Occipital Structure Core depth sensor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.TakeFisheyePicture([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
@@ -2890,7 +3004,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.TakeFisheyePicture();
 
@@ -2903,19 +3017,19 @@ function _TakeFisheyePicture(data) {
 
 Returns
 
-- Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
-  - Base64 (string) - A string containing the Base64-encoded image data.
-  - ContentType (string) - The type and format of the image returned. For pictures you take with the fisheye camera, this is `image/png`.
-  - Height (integer) - The height of the picture in pixels.
-  - Name (string) - The name of the picture. For pictures you take with the fisheye camera, this value is `OccipitalVisibleImage`.
-  - Width (integer) - The width of the picture in pixels.
-  - SystemAsset (bool) - Whether the image is a one of Misty's default system assets. For pictures you take with Misty's fisheye camera, this value is `false`.
+* Result (object) -  An object containing image data and meta information. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information.
+  * Base64 (string) - A string containing the Base64-encoded image data.
+  * ContentType (string) - The type and format of the image returned. For pictures you take with the fisheye camera, this is `image/png`.
+  * Height (integer) - The height of the picture in pixels.
+  * Name (string) - The name of the picture. For pictures you take with the fisheye camera, this value is `OccipitalVisibleImage`.
+  * Width (integer) - The width of the picture in pixels.
+  * SystemAsset (bool) - Whether the image is a one of Misty's default system assets. For pictures you take with Misty's fisheye camera, this value is `false`.
 
 ### misty.UpdateHazardSettings
 
 Changes the hazard system settings for Misty's bump and time-of-flight sensors. Use this command to enable or disable hazard triggers for all bump or time-of-flight sensors, or to adjust the hazard trigger settings for each sensor individually.
 
-```JavaScript
+```javascript
 // Syntax
 misty.UpdateHazardSettings(bool revertToDefault, [bool disableTimeOfFlights], [bool disableBumpSensors], [string bumpSensorsEnabled], [string timeOfFlightThresholds], [int prePauseMs], [int postPauseMs])
 ```
@@ -2966,7 +3080,7 @@ Arguments:
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 // Disables front right and rear right bump sensors
@@ -2996,12 +3110,12 @@ The following commands allow you to programmatically take pictures, record sound
 
 Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#perception).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-live-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### misty.CancelFaceTraining
 Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `misty.CancelFaceTraining()` command unless you want to abort a training that is in progress.
 
-```JavaScript
+```javascript
 // Syntax
 misty.CancelFaceTraining([int prePauseMs], [int postPauseMs]);
 ```
@@ -3010,7 +3124,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.CancelFaceTraining();
 ```
@@ -3019,7 +3133,7 @@ misty.CancelFaceTraining();
 
 Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
-```js
+```javascript
 // Syntax
 misty.CaptureSpeech([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
 ```
@@ -3036,7 +3150,6 @@ Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecor
 **Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
 {{box op="end"}}
 
-
 Arguments
 
 * RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
@@ -3046,7 +3159,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 
 // This sample illustrates using speech capture in a JavaScript skill
@@ -3092,7 +3205,7 @@ function _VoiceRecord(data) {
 
 Deletes a video recording.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DeleteVideoRecording(string name, [int prePause], [int postPause]);
 ```
@@ -3105,7 +3218,7 @@ Arguments
 
 * name (string) - The filename of the video to delete. Does not include the filetype extension.
 
-```JavaScript
+```javascript
 // Example
 misty.DeleteVideoRecording("misty_video");
 ```
@@ -3114,7 +3227,7 @@ misty.DeleteVideoRecording("misty_video");
 
 Removes records of trained faces from Misty's memory.
 
-```JavaScript
+```javascript
 // Syntax
 misty.ForgetFaces(string FaceId, [int prePauseMs], [int postPauseMs]);
 ```
@@ -3123,7 +3236,7 @@ Arguments
 
 * FaceId (string) - The ID of the face to remove. If `null`, clears all trained faces from Misty's memory.
 
-```JavaScript
+```javascript
 // Example
 misty.ForgetFaces("John");
 ```
@@ -3131,21 +3244,24 @@ misty.ForgetFaces("John");
 ### misty.GetKnownFaces
 Obtains a list of the names of faces on which Misty has been successfully trained.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetKnownFaces([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetKnownFaces();
 ```
@@ -3158,7 +3274,7 @@ Returns
 
 Obtains a list of filenames for each video recording saved to Misty's local storage.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetVideoRecordingsList([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3179,7 +3295,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.GetVideoRecordingsList();
@@ -3198,7 +3314,7 @@ Returns
 
 Renames an existing video recording.
 
-```JavaScript
+```javascript
 misty.RenameVideoRecording(string oldName, string newName, [int prePauseMs], [int postPauseMs]);
 ```
 
@@ -3211,7 +3327,7 @@ Arguments
 * oldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
 * newName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
 
-```JavaScript
+```javascript
 // Example
 misty.RenameVideoRecording("MyOldName", "MyNewName");
 ```
@@ -3220,7 +3336,7 @@ misty.RenameVideoRecording("MyOldName", "MyNewName");
 
 Starts Misty streaming audio and video from her microphones and RGB camera to an external source.
 
-```JavaScript
+```javascript
 //Syntax
 misty.StartAvStreaming(string URL, [int width], [int height], [int frameRate], [int videoBitRate], [int audioBitRate], [int audioSampleRate], [string userName], [string passWord], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3265,7 +3381,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 // Sets Misty up to act as her own media server. Connect to this stream
@@ -3278,18 +3394,18 @@ misty.StartAvStreaming("rtspd:1936", 640, 480);
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
-When you are done having Misty detect faces, call `misty.StopFaceDetection()`.
-
-```JavaScript
+```javascript
 // Syntax
 misty.StartFaceDetection([int prePauseMs], [int postPauseMs]);
 ```
+
+When you are done having Misty detect faces, call [`misty.StopFaceDetection()`](./#misty-stopfacedetection).
 
 Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartFaceDetection();
 ```
@@ -3299,7 +3415,7 @@ Directs Misty to recognize a face she sees, if it is among those she has previou
 
 When you are done having Misty recognize faces, call `misty.StopFaceRecognition()`.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartFaceRecognition([int prePauseMs], [int postPauseMs]);
 ```
@@ -3308,7 +3424,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartFaceRecognition();
 ```
@@ -3319,7 +3435,7 @@ Starts Misty learning a face and assigns a name to that face.
 
 This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `misty.CancelFaceTraining()`.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartFaceTraining(string faceId, [int prePauseMs], [int postPauseMs]);
 ```
@@ -3329,7 +3445,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartFaceTraining("My_Face");
 ```
@@ -3338,7 +3454,7 @@ misty.StartFaceTraining("My_Face");
 
 Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
 
-```js
+```javascript
 // Syntax
 misty.StartKeyPhraseRecognition([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
@@ -3370,7 +3486,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 
 // The following illustrates how to use key phrase recognition in a
@@ -3443,7 +3559,7 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 
 Starts Misty recording audio. Misty saves audio recordings to her local storage as .wav files. To stop recording, you must call the `misty.StopRecordingAudio()` method.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartRecordingAudio(string filename, [int prePauseMs], [int postPauseMs]);
 ```
@@ -3464,7 +3580,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StartRecordingAudio("RecordingExample.wav");
 ```
@@ -3473,7 +3589,7 @@ misty.StartRecordingAudio("RecordingExample.wav");
 
 Starts recording video with Misty's 4K Camera.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StartRecordingVideo([string fileName], [bool mute], [int duration], [int width], [int height], [int prePauseMs], [int postPauseMs])
 ```
@@ -3505,7 +3621,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 // Records a 60-second video at recording resolution
@@ -3517,7 +3633,7 @@ misty.StartRecordingVideo("MyVideo", false, 60);
 
 Stops Misty streaming audio and video.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopAvStreaming([int prePauseMs], [int postPauseMs]);
 ```
@@ -3531,7 +3647,7 @@ Arguments
 
 Stops Misty's detection of faces in her line of vision.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopFaceDetection([int prePauseMs], [int postPauseMs]);
 ```
@@ -3540,15 +3656,16 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopFaceDetection();
 ```
 
 ### misty.StopFaceRecognition
+
 Stops the process of Misty recognizing a face she sees.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopFaceRecognition([int prePauseMs], [int postPauseMs])
 ```
@@ -3557,7 +3674,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopFaceRecognition();
 ```
@@ -3566,7 +3683,7 @@ misty.StopFaceRecognition();
 
 Stops Misty listening for the "Hey, Misty!" key phrase.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopKeyPhraseRecognition([int prePauseMs], [int postPauseMs]);
 ```
@@ -3577,18 +3694,20 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 ### misty.StopRecordingAudio
+
 Directs Misty to stop the current audio recording and saves the recording to the robot under the `fileName` name specified in the call to `misty.StartRecordingAudio()`. Use this command after calling the `misty.StartRecordingAudio()` command. If you do not call `misty.StopRecordingAudio()`, Misty automatically stops recording after 60 seconds.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopRecordingAudio([int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopRecordingAudio();
 ```
@@ -3597,7 +3716,7 @@ misty.StopRecordingAudio();
 
 Stops recording video with Misty's 4K camera.
 
-```JavaScript
+```javascript
 // Syntax
 misty.StopRecordingVideo([int prePauseMs], [int postPauseMs]);
 ```
@@ -3613,7 +3732,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.StopRecordingVideo();
 ```
@@ -3622,7 +3741,7 @@ misty.StopRecordingVideo();
 
 Takes a picture with Misty’s RGB camera. Optionally, saves the picture to Misty's local storage.
 
-```JavaScript
+```javascript
 // Syntax
 misty.TakePicture([string fileName], [int width], [int height], [bool displayOnScreen = false], [bool overwriteExisting = false], [string callback = _TakePicture()], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3657,7 +3776,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.TakePicture("newImage", 1600, 1200, false, true);
 ```
@@ -3677,7 +3796,7 @@ Returns
 
 Cancel execution a specified skill.
 
-```JavaScript
+```javascript
 // Syntax
 misty.CancelSkill(string skill, [int prePauseMs], [int postPauseMs])
 ```
@@ -3688,23 +3807,27 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.CancelSkill("c3f9b33b-d895-48cf-8f15-cdcf5a866bde");
 ```
 
 ### misty.Debug
 
-Publishes a string to subscribers of the `SkillData` named object. Use this method to print debug messages to the console in your web browser when you use Skill Runner.
+Publishes a debug message to `SkillData` event listeners.
 
-You can think of `misty.Debug()` as the Misty version of `console.log()`. When you use Skill Runner to run a skill, the web page subscribes to the `SkillData` named object via Misty's WebSocket connection. This allows Misty to print error messages, debug messages, and other skill data to the console in your web browser. Use `misty.Debug()` to print your own messages to the console.
-
-**Note:** Data you pass into the `misty.Debug()` message must be a string. To send a data object, you can serialize your data into a string and parse it out on the client side of the `SkillData` subscription. If `BroadcastMode` is set to `off` in the meta file for a skill, the skill does not publish debug data.
-
-```JavaScript
+```javascript
 // Syntax
 misty.Debug(string data, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** When you run a skill with the [Skill Runner](http://sdk.mistyrobotics.com/skill-runner/) tool, the web page subscribes to the `SkillData` event type via Misty's WebSocket server. This allows Misty to print error messages, debug messages, and other skill data to the console in your web browser. Use `misty.Debug()` to print your own messages to the console.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed tipBox"}}
+**Tip:** Data you pass in to the `misty.Debug()` message must be a string. To send a data object, you can serialize your data into a string and parse it out on the client side of the `SkillData` subscription. If `BroadcastMode` is set to `off` in the meta file for a skill, the skill does not publish debug data.
+{{box op="end"}}
 
 Arguments
 
@@ -3712,7 +3835,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Debug("Message")
 ```
@@ -3721,7 +3844,7 @@ misty.Debug("Message")
 
 Returns data that a skill has saved to Misty's database with the `misty.Set()` method.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Get(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3730,12 +3853,12 @@ Call the `misty.Get()` method to access data created by the current skill, or to
 
 Arguments
 
-* key (string) - The key name for the data to return.
+* key (string) - The key name for the data to return. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical in Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the data to obtain. If `null` or empty, obtains the value for the `key` associated with the skill that calls the `misty.Get()` method. **Note:** In order to obtain data that's associated with another skill, that skill must [grant *read permissions* to the skill that calls the `misty.Get()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Get("Key");
 ```
@@ -3744,17 +3867,18 @@ Returns
 
 * value (string, boolean, integer, or double) - The data associated with the specified key.
 
-
 ### misty.GetRunningSkills
 
 Obtains a list of the skills currently running on Misty.
 
-**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 //Syntax
 misty.GetRunningSkills([string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With local skills, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -3764,7 +3888,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 //Example
 misty.GetRunningSkills();
 
@@ -3785,7 +3909,7 @@ Returns
 
 Obtains a list of all existing keys for the long term data associated with a particular skill.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Keys([string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3798,7 +3922,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Keys();
 ```
@@ -3811,36 +3935,37 @@ Returns
 
 Pause skill execution for a specified number of milliseconds.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Pause(int prePauseMs)
 ```
 
 Arguments
+
 * prePauseMs (integer) - The duration in milliseconds to pause skill execution.
 
-```JavaScript
+```javascript
 // Example
 misty.Pause(1000);
 ```
 
 ### misty.Publish
 
-Writes data to the robot's internal log.
+Writes a message to Misty's log file.
 
-Note that `misty.Publish()` writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the Command Center to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../../misty-ii/rest-api/api-reference/#getlogfile) command.
-
-```JavaScript
+```javascript
 // Syntax
 misty.Publish(string name, string data)
 ```
+
+The `misty.Publish()` method writes data to the robot's internal log file, even when called in a skill with the value of `WriteToLog` set to `False` in its meta file. You can use the Command Center to download your robot's log files, or send a GET request to the REST endpoint for the [`GetLogFile`](../../../misty-ii/rest-api/api-reference/#getlogfile) command.
 
 Arguments
 
 * name (string) - A name for the data to write to the robot's log.
 * data (string, integer, double, or boolean) - The data to write to the robot's log. To write an object, you must serialize your data into a string using `JSON.stringify()`.ƒ
 
-```JavaScript
+```javascript
 // Example
 misty.Publish("data-name", "data-value");
 ```
@@ -3849,26 +3974,25 @@ misty.Publish("data-name", "data-value");
 
 Pause skill execution for a random duration.
 
-```JavaScript
+```javascript
 // Syntax
 misty.RandomPause(int minimumDelay, int maximumDelay)
 ```
 
 Arguments
+
 * minimumDelay (integer) - The minimum duration in milliseconds to pause skill execution.
 * maximumDelay (integer) - The maximum duration in milliseconds to pause skill execution. 
 
-```JavaScript
+```javascript
 // Example
 misty.RandomPause(1000, 2000);
 ```
-
-
 ### misty.Remove
 
 Removes data that has been saved to the robot under a specific key with the `misty.Set()` method. 
 
-```JavaScript
+```javascript
 // Syntax
 misty.Remove(string key, [string skillUniqueId], [int prePauseMs], [int postPauseMs])
 ```
@@ -3877,12 +4001,12 @@ Call the `misty.Remove()` method to delete keys associated with the current skil
 
 Arguments
 
-* key (string) - The key name of the data to remove.
+* key (string) - The key name of the data to remove. Keys are **not** case sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * skillUniqueId (string) - Optional. The Unique ID of the skill associated with the key to remove. If `null` or empty, Misty removes the key associated with the skill that calls the `misty.Remove()` method. **Note:** In order to delete data that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Remove()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.Remove("Key");
 ```
@@ -3891,7 +4015,7 @@ misty.Remove("Key");
 
 Immediately runs a previously uploaded skill.
 
-```JavaScript
+```javascript
 // Syntax
 misty.RunSkill(string skill, [string method], [int prePauseMs], [int postPauseMs])
 ```
@@ -3903,7 +4027,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 ```
@@ -3912,7 +4036,7 @@ misty.RunSkill("bb20ff02-edac-475c-af0c-a06e81e5dc50");
 
 Saves data that can be validly updated and used across threads or shared between skills.
 
-```JavaScript
+```javascript
 // Syntax
 misty.Set(string key, string value, [bool longTermStorage], [string skillUniqueId], [int prePauseMs], [int postPauseMs]);
 ```
@@ -3937,7 +4061,7 @@ By default, the data you save with the `misty.Set()` method clears from Misty's 
 
 Arguments
 
-* key (string) - The key name for the data to save.
+* key (string) - The key name for the data to save. Keys are **not** case-sensitive. (For example, the `key` values `myKey`, `MyKey`, `mykey`, and `MYKEY` are identical to Misty's shared skill database.)
 * value (string, bool, int, or double) - The data to save. Data Misty saves with the `misty.Set()` method must be one of these types: `string`, `bool`, `int`, or `double`.
 * longTermStorage (boolean) - Optional. Whether this piece of data persists across reboots. To save a piece of data that persists across reboots, you must set the `SkillStorageLifetime` attribute for the skill to `LongTerm` **in addition** to setting the value of this argument to `true`. Defaults to `false`. 
 * skillUniqueId (string) - Optional. The Unique ID of the skill to associate this data with. If `null` or empty, Misty associates the data with the skill that calls the `misty.Set` method. **Note:** In order to save new data (or update existing data) that's associated with another skill, that skill must [grant *write permissions* to the skill that calls the `misty.Set()` method](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#reading-and-writing-data-across-skills).
@@ -3951,7 +4075,7 @@ and in the skill. If no command follows this command, `postPauseMs` is not used.
 
 Changes the robot's settings to allow Misty II to automatically install system updates. Misty is configured to automatically download and install system updates by default. To prevent system updates, you must issue a `PreventRobotUpdates` command.
 
-```js
+```javascript
 // Syntax
 misty.AllowRobotUpdates([int prePauseMs], [int postPauseMs]);
 ```
@@ -3969,13 +4093,16 @@ Arguments
 
 Describes whether the audio service running on Misty's 820 processor is currently enabled.
 
-```JS
+```javascript
 // Syntax
 misty.AudioServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_AudioServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 
 For more information about enabling and disabling the audio service, see the [`DisableAudioService`](./#misty-disableaudioservice) command description.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_AudioServiceEnabled()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -3985,7 +4112,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
+```javascript
 // Example
 
 misty.AudioServiceEnabled();
@@ -4003,7 +4130,7 @@ Returns
 
 Describes whether the audio and video (AV) streaming service that runs on Misty's 820 processor is currently enabled.
 
-```JavaScript
+```javascript
 // Syntax
 misty.AvStreamingServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -4030,7 +4157,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.AvStreamingServiceEnabled();
@@ -4050,7 +4177,7 @@ Returns
 
 Describes whether the camera service running on Misty's 820 processor is currently enabled.
 
-```JavaScript
+```javascript
 // Syntax
 misty.CameraServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -4073,7 +4200,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 
 misty.CameraServiceEnabled();
@@ -4090,23 +4217,22 @@ Returns
 ### misty.ClearDisplayText
 
 {{box op="start" cssClass="boxed warningBox"}}
-**Deprecation Notice:** This command has been deprecated in favor of [`misty.ClearErrorText()`](./#misty-clearerrortext) and will be removed from Misty's JavaScript API in a future release.
+**Deprecation Notice:** This command has been deprecated and will be removed from Misty's JavaScript API in a future release. Use [`misty.ClearErrorText()`](./#misty-clearerrortext) instead.
 {{box op="end"}}
 
 Force-clears an error message from Misty’s display. 
 
-**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearDisplayText()`.
-
-```JavaScript
+```javascript
 // Syntax
 misty.ClearDisplayText ([int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ClearDisplayText();
 ```
@@ -4115,18 +4241,17 @@ misty.ClearDisplayText();
 
 Force-clears an error message from Misty’s display. 
 
-**Note:** This command is provided as a convenience. You should not typically need to call `misty.ClearErrorText()`.
-
-```JavaScript
+```javascript
 // Syntax
 misty.ClearErrorText ([int prePauseMs], [int postPauseMs])
 ```
 
 Arguments
+
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ClearErrorText();
 ```
@@ -4135,7 +4260,7 @@ misty.ClearErrorText();
 
 Connects Misty to a saved Wi-Fi network.
 
-```JavaScript
+```javascript
 // Syntax
 misty.ConnectToSavedWifi(string networkId, [int prePauseMs], [int postPauseMs])
 ```
@@ -4146,7 +4271,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ConnectToSavedWifi("MyHomeWifi")
 ```
@@ -4155,7 +4280,8 @@ misty.ConnectToSavedWifi("MyHomeWifi")
 
 Disables the audio service running on Misty's 820 processor.
 
-```JS
+```javascript
+// Syntax
 misty.DisableAudioService([int prePauseMs], [int postPauseMs]);
 ```
 
@@ -4194,7 +4320,7 @@ Arguments
 
 Disables the audio and video (AV) streaming service running on Misty's 820 processor.
 
-```JavaScript
+```javascript
 // Syntax
 misty.DisableAvStreamingService([int prePauseMs], [int postPauseMs]);
 ```
@@ -4223,7 +4349,8 @@ Arguments
 
 Disables the camera service running on Misty's 820 processor.
 
-```JS
+```javascript
+// Syntax
 misty.DisableCameraService([int prePauseMs], [int postPauseMs]);
 ```
 
@@ -4270,7 +4397,8 @@ Arguments
 
 Disables the SLAM service running on Misty's 820 processor.
 
-```JS
+```javascript
+// Syntax
 misty.DisableSlamService([int prePauseMs], [int postPauseMs]);
 ```
 
@@ -4322,7 +4450,7 @@ Arguments
 
 Enables the audio service running on Misty's 820 processor.
 
-```JS
+```javascript
 // Syntax
 misty.EnableAudioService([int prePauseMs], [int postPauseMs]);
 ```
@@ -4338,7 +4466,7 @@ Arguments
 
 Enables the audio and video (AV) streaming service running on Misty's 820 processor.
 
-```JS
+```javascript
 // Syntax
 misty.EnableAvStreamingService([int prePauseMs], [int postPauseMs]);
 ```
@@ -4362,7 +4490,7 @@ Arguments
 
 Enables the camera service running on Misty's 820 processor.
 
-```JS
+```javascript
 // Syntax
 misty.EnableCameraService([int prePauseMs], [int postPauseMs]);
 ```
@@ -4382,7 +4510,7 @@ Arguments
 
 Enables the SLAM service running on Misty's 820 processor.
 
-```JS
+```javascript
 // Syntax
 misty.EnableSlamService([int prePauseMs], [int postPauseMs]);
 ```
@@ -4400,7 +4528,7 @@ Arguments
 
 Deletes information about a Wi-Fi network from Misty’s list of saved networks. If you call this method without any arguments, Misty deletes information for all of her saved networks.
 
-```JavaScript
+```javascript
 // Syntax
 misty.ForgetWifi(string networkId, [int prePauseMs], [int postPauseMs])
 ```
@@ -4411,7 +4539,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.ForgetWifi("MyHomeWifi")
 ```
@@ -4420,22 +4548,24 @@ misty.ForgetWifi("MyHomeWifi")
 
 Obtains a list of local WiFi networks and basic information regarding each.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetAvailableWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetAvailableWifiNetworks();
 ```
@@ -4451,21 +4581,24 @@ Returns
 
 Obtains Misty's current battery level, along with other information about the battery.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetBatteryLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 ///Example
 misty.GetBatteryLevel()
 
@@ -4500,15 +4633,14 @@ Returns
 
 Obtains current properties and settings for Misty's 4K camera.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetCameraData()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-{{box op="end"}}
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetCameraData([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore (in this case, `_GetCameraData()`). For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -4518,7 +4650,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```js
+```javascript
 // Example
 
 // Requests camera data and passes it into _GetCameraDataCallback()
@@ -4548,12 +4680,14 @@ Returns
 
 Obtains device-related information for the robot.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetDeviceInformation([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -4563,7 +4697,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 //Example
 
 // Use GetDeviceInformation to get robot's IP address
@@ -4596,16 +4730,20 @@ Returns
    * WindowsOSVersion - The version of Windows IoT Core running on the robot.
 
 ### misty.GetHelp
-Obtains information about a specified API command. Calling `misty.GetHelp()` with no parameters returns a list of all the API commands that are available.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+Obtains information about a specified API command. Calling `misty.GetHelp()` with no arguments returns a list of all the API commands that are available.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetHelp([string endpointName], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
+
 Arguments
+
 * endpointName (string) - Optional. A command in `"Api.<COMMAND>"` format eg: `"Api.GetAudioList"`. If no command name is specified, calling `misty.GetHelp()` returns a list of all  API commands.
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, the default callback function (`<_CommandName>`) is called.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
@@ -4613,7 +4751,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetHelp();
 ```
@@ -4624,29 +4762,32 @@ Returns
 
 ### misty.GetLogFile
 
-Obtains log file data.
+Gets data from Misty's logs.
 
 Pulls up to 3MB of the most recent log data from log files up to 14 days old. Log data returns in ascending order by date and time. If all log data exceeds 3MB, the oldest entry returned may be truncated.
+
+```javascript
+// Syntax
+misty.GetLogFile([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
+```
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** Misty stores log files only for the most recent 14 day period. Log files from before this period are automatically cleared from the robot's local storage.
 {{box op="end"}}
 
-With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetLogFile()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
-// Syntax
-misty.GetLogFile([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
-```
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_GetLogFile()`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
+
 * callback (string) - Optional. The name of the callback function to call when the data returned by this command is ready. If empty, results are passed into the default `_GetLogFile()` callback function.
 * callbackRule (string) - Optional. The callback rule for this command. Available callback rules are `"synchronous"`, `"override"`, and `"abort"`. Defaults to `"synchronous"`. For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
 * skillToCall (string) - Optional. The unique id of a skill to trigger for the callback, instead of calling back into the same skill.
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetLogFile();
 
@@ -4662,9 +4803,9 @@ Returns
 
 ### misty.GetLogLevel
 
-Obtains the current local and remote log level.
+Obtains the current local and remote log levels.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetLogLevel([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -4708,7 +4849,9 @@ If the log level is set to `Info`:
 | Error  |    &#x2713;      |&#x2713;             |
 
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -4718,7 +4861,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 //Example
 misty.GetLogLevel()
 
@@ -4740,7 +4883,7 @@ Returns
 
 Obtains the robot's update settings and a timestamp for the last update attempt.
 
-```JavaScript
+```javascript
 // Syntax
 misty.GetRobotUpdateSettings([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -4769,12 +4912,14 @@ Returns
 
 Obtains Misty's list of saved network IDs.
 
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetSavedWifiNetworks([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Arguments
 
@@ -4784,7 +4929,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetSavedWifiNetworks();
 
@@ -4800,7 +4945,7 @@ Returns
 
 Example JSON object for a saved WiFi network:
 
-```JSON
+```json
 {
    "bssid": null,
    "detailedState": null,
@@ -4820,14 +4965,18 @@ Example JSON object for a saved WiFi network:
 
 Obtains information about a specified WebSocket class. Calling `misty.GetWebsocketNames()` without specifying a class returns information about all of Misty’s available WebSocket connections.
 
-**Note:** For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/robot/sensor-data/).
-
-**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
-
-```JavaScript
+```javascript
 // Syntax
 misty.GetSavedWifiNetworks([string websocketClass], [string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For more detailed information about each of Misty’s WebSocket connections, see [Event Types](../../../misty-ii/robot/sensor-data/).
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** With the on-robot JavaScript API, data returned by this and other "Get" type commands must be passed into a callback function to be processed and made available for use in your skill. By default, callback functions for "Get" type commands are given the same name as the correlated command, prefixed with an underscore: `_<COMMAND>`. For more on handling data returned by "Get" type commands, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+{{box op="end"}}
 
 Parameters
 
@@ -4838,7 +4987,7 @@ Parameters
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.GetWebsocketNames("");
 
@@ -4858,7 +5007,7 @@ Returns
 
 Attempts to install updates for specified components of your robot. 
 
-```JavaScript
+```javascript
 // Syntax
 misty.PerformTargetedUpdate(string components, [int prePauseMs], [int postPauseMs]);
 ```
@@ -4873,7 +5022,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.PerformTargetedUpdate("MC,SensoryServices,RT");
 ```
@@ -4882,7 +5031,7 @@ misty.PerformTargetedUpdate("MC,SensoryServices,RT");
 
 Changes the robot's settings to prevent Misty II from automatically installing system updates. To re-enable system updates, you must issue an `AllowRobotUpdates` command.
 
-```js
+```javascript
 // Example
 misty.PreventRobotUpdates([int prePauseMs], [int postPauseMs]);
 ```
@@ -4910,7 +5059,8 @@ Arguments
 
 Restarts Misty's 410 or 820 processor.
 
-```JS
+```javascript
+// Syntax
 misty.RestartRobot([bool core], [bool sensoryServices], [int prePauseMs], [int postPauseMs]);
 ```
 
@@ -4921,18 +5071,24 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JS
-misty.RestartRobot(false, true);
+```javascript
+// Example
+// Restarts the 410 and the 820
+misty.RestartRobot(true, true);
 ```
 
 ### misty.SetDefaultVolume
 
-Sets the default loudness of Misty's speakers for audio playback.
+Sets the default volume of Misty's speakers for audio playback and onboard text-to-speech.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetDefaultVolume(int volume, [int prePauseMs], [int postPauseMs]);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While changing Misty's default volume during audio playback **does** change the volume of the currently playing audio, changing the volume while Misty is playing an utterance created with the `Speak` command does **not** change the volume for that utterance. However, Misty **does** use the newly set default volume the next time she runs a `Speak` command.
+{{box op="end"}}
 
 Arguments
 
@@ -4940,16 +5096,21 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetDefaultVolume(100);
 ```
 
 ### misty.SetLogLevel
 
-Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging levels. Use this method to determine which log message types the system writes to the local log file and to the remote Misty Robotics logging database.
 
-Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
+```javascript
+// Syntax
+misty.SetLogLevel(string localLogLevel, string remoteLogLevel, [int prePauseMs], [int postPauseMs]);
+```
+
+Changing the log level applies a filter on the type of message the system writes to a given location. Log message types include:
 
 * **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.
@@ -4957,6 +5118,7 @@ Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info)
 * **Error** messages include information the system writes when it encounters an issue that it cannot recover from or handle gracefully. They may also include an exception message. In Misty's local log file, Error-type messages are flagged with the `ERR` label.
 
 Each logged statement includes a timestamp, a flag indicating the level of the message, the serial number for the robot that created the statement, and a label indicating which part of the system sent the message. In addition to these details, the system always logs the following information remotely for each log message, regardless of the log level you set:
+
 * Product SKU
 * Robot serial number (unique for each Misty II robot)
 * The robot's "friendly name"
@@ -5000,18 +5162,14 @@ If the log level is set to `Info`:
 | Warn   |          |              |
 | Error  |    &#x2713;      |&#x2713;             |
 
-```JavaScript
-// Syntax
-misty.SetLogLevel(string localLogLevel, string remoteLogLevel, [int prePauseMs], [int postPauseMs]);
-```
-
 Arguments
+
 * localLogLevel (string) - The level to set for Misty's local logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
 * remoteLogLevel (string) - The level to set for Misty's remote logs. Accepts `Debug`, `Info`, `Warn`, `Error`, or `None`.
 * prePause (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetLogLevel("Debug", "Info");
 ```
@@ -5020,7 +5178,7 @@ misty.SetLogLevel("Debug", "Info");
 
 Connects Misty to a specified Wi-Fi source.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetNetworkConnection(string networkName, string password, [int prePauseMs], [int postPauseMs])
 ```
@@ -5032,7 +5190,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
 ```
@@ -5041,7 +5199,7 @@ misty.SetNetworkConnection("myWiFiNetwork", "myWiFiPassword")
 
 Changes the settings for Misty's default hardware notifications.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SetNotificationSettings([bool revertToDefault], [bool LEDEnabled], [bool keyPhraseEnabled], [string keyPhraseFile], [int prePauseMs], [int postPauseMs])
 ```
@@ -5079,7 +5237,7 @@ Arguments
 
 Describes whether the SLAM service running on Misty's 820 processor is currently enabled.
 
-```JavaScript
+```javascript
 // Syntax
 misty.SlamServiceEnabled([string callback], [string callbackRule = "synchronous"], [string skillToCall], [int prePauseMs], [int postPauseMs]);
 ```
@@ -5100,7 +5258,7 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-```JavaScript
+```javascript
 // Example
 
 misty.SlamServiceEnabled();
@@ -5119,7 +5277,7 @@ Returns
 
 Starts Misty II broadcasting its own wireless network.
 
-```js
+```javascript
 // Syntax
 misty.StartWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
@@ -5151,7 +5309,7 @@ Arguments
 
 Stops Misty II broadcasting its own wireless network.
 
-```JS
+```javascript
 // Syntax
 misty.StopWifiHotspot([int prePauseMs], [int postPauseMs]);
 ```
@@ -5171,14 +5329,14 @@ Arguments
 
 Translates a given string and set of arguments to invoke a command from Misty's API.
 
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-```JavaScript
+```javascript
 // Syntax
 misty.ConvertIntentToCommand(string command, [string argument]...);
 ```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** As an alpha feature, the `misty.ConvertIntentToCommand()` method is in active development, and it may not always produce the expected result. You can expect this method to be modified and improved with future updates to Misty's software.
@@ -5191,7 +5349,7 @@ Arguments:
 
 When passing in values for more than one argument, you must pass in the value for each argument as a unique string. As an example, the following invokes Misty's `ChangeLED` command with unique values for the `red`, `green`, and `blue` arguments to change Misty's chest LED color.
 
-```JavaScript
+```javascript
 // Invokes the ChangeLED command
 misty.ConvertIntentToCommand("ChangeLED", "0", "255", "0");
 ```

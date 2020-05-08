@@ -46,19 +46,19 @@ The `.json` file includes fields that set certain specifications for your skill.
 
 To issue any command to Misty in the local environment, we call methods on the `misty` object. Start by writing a debug message so we’re notified when the skill is started. To do this, call `misty.Debug()` and pass in a meaningful message. These messages will show up in your browser’s JavaScript console if you’re using the [Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner/) tool to run the skill.
 
-```JavaScript
+```javascript
 misty.Debug("starting skill helloworld_timeofflight");
 ```
 
 Now let’s use the very simple `misty.ChangeLED()` function to control the color of your robot’s chest LED. The method takes three arguments, which correspond to the RGB parameters required to specify the LED color as described [here](https://docs.mistyrobotics.com/misty-i/reference/rest/#changeled). The code below will turn the LED green (for go!)
 
-```JavaScript
+```javascript
 misty.ChangeLED(0, 255, 0);
 ```
 
 Then, we issue one of Misty’s drive commands, `misty.DriveTime()`. The `misty.DriveTime()` command accepts three parameters: `linearVelocity`, `angularVelocity`, and `time`. You can learn more about how these parameters will affect Misty’s movement in the documentation. In this case, we want Misty to drive forward slowly in a straight line for 10 seconds, so we set `linearVelocity` = 50, `angularVelocity` = 0, and `time` = 10000 (the unit of measure for this parameter is milliseconds).
 
-```JavaScript
+```javascript
 misty.DriveTime(50, 0, 10000);
 ```
 
@@ -66,31 +66,31 @@ We’ve instructed Misty to drive forward for 10 seconds and come to a stop. But
 
 Once we have subscribed to `TimeOfFlight`, we’ll receive event data back from Misty telling us how far objects are away from her. See the template for registering for an event here:
 
-```JavaScript
+```javascript
 misty.RegisterEvent(string eventName, string messageType, int debounce, [bool keepAlive = false], [string callbackRule = “synchronous”], [string skillToCall = null]);
 ```
 
 We call `misty.RegisterEvent()` and pass in the name we want to designate for the event (`"FrontTOF"`), the name of the WebSocket stream we are subscribing to (`"TimeOFFlight"`), and the debounce time in milliseconds (`250`). By default, when a callback triggers for an event, the event is automatically unregistered. Make sure your register event method matches the code snippet below.
 
-```JavaScript
+```javascript
 misty.RegisterEvent("FrontTOF", "TimeOfFlight", 250);
 ```
 
 Before we register to the event in our code, we can add property comparison tests to filter the data we receive. In this example, the first property test checks that we are only looking at data from the time-of-flight sensor we’re concerned with. The field we’re testing is `SensorPosition` and we’re checking that the data received is only coming from the time-of-flight sensor in the front center of Misty’s base, pointing in her direction of travel. Therefore, we only let through messages where `SensorPosition == Center`.
 
-```JavaScript
+```javascript
 misty.AddPropertyTest("FrontTOF", "SensorPosition", "==", "Center", "string");
 ```
 
 The second property test ensures we are only looking at data where the distance to the object detected is less than 0.2m. We don’t want our skill to react to things further away than about 6 inches.
 
-```JavaScript
+```javascript
 misty.AddPropertyTest("FrontTOF", "DistanceInMeters", "<=", 0.2, "double");
 ```
 
 Whenever we subscribe to an event, we receive the data back within a callback function. This function is triggered whenever messages are sent that pass the property tests. The callback is automatically given the name `_<event>`. So in this case, the callback name is automatically set to `_FrontTOF()`. The data is passed directly into the callback and can accessed through an argument passed into `_FrontTOF()`, which we’ll call `data`.
 
-```JavaScript
+```javascript
 function _FrontTOF(data) {
 
 }
@@ -98,7 +98,7 @@ function _FrontTOF(data) {
 
 Once we receive the data via the callback, we can access the distance the object was detected and the sensor position it was detected at.
 
-```JavaScript
+```javascript
 function _FrontTOF(data) {
    let frontTOF = data.PropertyTestResults[0].PropertyParent;
    misty.Debug(“Distance: ” + frontTOF.DistanceInMeters);
@@ -108,7 +108,7 @@ function _FrontTOF(data) {
 
 Call `misty.Stop()` to issue a stop command to Misty, then `misty.ChangeLED()` and pass in the values `(255, 0, 0)` to turn the LED red (for stop!) and log a message to notify us that the skill has finished.
 
-```JavaScript
+```javascript
 misty.Stop();
 misty.ChangeLED(255, 0, 0);
 misty.Debug("ending skill helloworld_timeofflight");
@@ -118,7 +118,7 @@ Save the code file with the name `HelloWorld_TimeOfFlight.js`. See the documenta
 
 See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Time-of-Flight).
 
-```JavaScript
+```javascript
 // Print a message to indicate the skill has started
 misty.Debug("starting skill helloworld_timeofflight");
 
@@ -172,13 +172,13 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 We start by creating a debug message so we’re notified when the skill starts. Then we call the `GetAudioList()` method to fetch the list of audio files currently stored on the robot.
 
-```JavaScript
+```javascript
 misty.GetAudioList();
 ```
 
 Each command’s callback is automatically set to be `_<COMMAND>`. When the data is returned, the callback runs.
 
-```JavaScript
+```javascript
 function _GetAudioList(data) { 
 
 }
@@ -186,7 +186,7 @@ function _GetAudioList(data) {
 
 We should check if the data has been received successfully (e.g. is not empty or null) with an `if` statement. The array of audio file data will be located in the callback response under `Result`. Let’s save this to a variable: `audioArr`. Then, we use the JavaScript methods `Math.random()` and `Math.floor()` to generate a random whole number from 0 and one less than the length of the audio list:
 
-```JavaScript
+```javascript
 if(data) {
     let audioArr = data.Result;
     let randNum = Math.floor(Math.random() * audioArr.length);
@@ -202,17 +202,19 @@ misty.Debug(randSound);
 
 Finally, we call another Misty command, `PlayAudio()`, and pass in the random file name to play the audio clip. 
 
-```JavaScript
+```javascript
 misty.PlayAudio(randSound);
 ```
 
-Note: All of this logic needs to be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** All of this logic must be contained within `_GetAudioList()` to ensure that it does not run until the audio list has been populated. 
+{{box op="end"}}
 
 Save the code file with the name `HelloWorld_PlayAudio.js`. See the documentation on using [Misty Skill Runner](../../../tools-&-apps/web-based-tools/skill-runner) or the REST API to [load your skill data onto Misty and run the skill from the browser](../../coding-misty/local-skill-architecture/#loading-amp-running-an-on-robot-skill).
 
 See the full JavaScript code file below or [download the code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Play%20Audio).
 
-```JavaScript
+```javascript
 // Print a debug message to indicate the skill has started
 misty.Debug("starting skill helloworld_playaudio");
 
@@ -264,7 +266,7 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 Start by calling `StartRecordingAudio()` to tell the microphone to start recording. Pass in the name you want to assign to the resulting audio clip. Use `Pause()` to establish a duration for how long you want the recording to last, then call `StopRecordingAudio()` to halt the recording process and save the clip. Call `Pause()` again for 2000ms to give Misty time to save the recording.
 
-```JavaScript
+```javascript
    misty.StartRecordingAudio("RecordingExample.wav");
    misty.Pause(5000);
    misty.StopRecordingAudio();
@@ -273,7 +275,7 @@ Start by calling `StartRecordingAudio()` to tell the microphone to start recordi
 
 Once the clip has been saved, check that the recording was saved correctly. To do this, call `GetAudioList()`. As mentioned in previous tutorials, the callback function (automatically named `_<COMMAND>`) will run once the data is ready to be received.
 
-```JavaScript
+```javascript
 misty.GetAudioList();
 function _GetAudioList(data) {
 
@@ -282,7 +284,7 @@ function _GetAudioList(data) {
 
 Now that we have the data, we want to check that our recording shows up in the list. Once way to do this is to create a boolean variable to indicate whether the list contains the file. Then, loop through the list and check if the name of any of the audio files match the name of your recording. If it does, change the boolean from `false` to `true`. **Note:** This logic needs to be contained within the callback, as it uses the data received from the `GetAudioList()` command.
 
-```JavaScript
+```javascript
 let containsNewFile = false;
 for (let i = 0; i < audioArr.length; i++) {
    if (audioArr[i].Name === "RecordingExample.wav") {
@@ -293,7 +295,7 @@ for (let i = 0; i < audioArr.length; i++) {
 
 If the list contains the recording, we can call `PlayAudio()` to play the recording and end the program. Otherwise, use `Debug()` to print an error message, as something went wrong with the process.
 
-```JavaScript
+```javascript
 if (containsNewFile) {
    misty.PlayAudio("RecordingExample.wav", 100, 500);
 }
@@ -306,7 +308,7 @@ Save the code file with the name `HelloWorld_RecordAudio.js`. See the documentat
 
 See the complete JavaScript code below or [download the code for this tutorial from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Record%20Audio).
 
-```JavaScript
+```javascript
 // Print a debug message to indicate the skill has started
 misty.Debug("starting skill helloworld_recordaudio");
 
@@ -378,19 +380,19 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 In order to tell if Misty has detected a face, we register an event to receive data from computer vision events. Call `misty.RegisterEvent()` and pass in a name for the event (this example uses `"FaceRecognition"` to keep it simple), the data stream we are subscribing to (`"FaceRecognition"`), and a value specifying how frequently we want to receive data (in this case, every `250` milliseconds).
 
-```JavaScript
+```javascript
 misty.RegisterEvent("FaceRecognition", "FaceRecognition", 250);
 ```
 
 Now that we have the event set up, we can send the command to start face detection. This command is different in that it initiates the process for Misty to start _looking_ for a face, while the event is only set up to trigger if a face is _detected_. Both parts are necessary to handle skills that include face detection.
 
-```JavaScript
+```javascript
 misty.StartFaceDetection();
 ```
 
 Within the callback (automatically named `_FaceRecognition()`) we should log a debug message to indicate that a face has been detected, send a command to play an audio clip, and another to change the LED. Then we can send a command to stop face detection. Once the code in this callback finishes, the skill will automatically end after 5 seconds of inactivity.
 
-```JavaScript
+```javascript
 function _FaceRecognition() {
    misty.Debug("Face detected!”);
 
@@ -402,13 +404,13 @@ function _FaceRecognition() {
 
 With what we have so far, the skill will run indefinitely if no face is detected. To make the skill more complete, we need to write code to handle this “no face” situation. To accomplish this, let’s register for a timer event to trigger if no face was detected after 15 seconds. We register for this event just after we register for `"FaceRecognition"` in our `misty.RegisterEvent()` method.
 
-```JavaScript
+```javascript
 misty.RegisterTimerEvent("FaceRecognitionTimeout", 15000);
 ```
 
 Then within the callback (again, automatically named `_FaceRecognitionTimeout()`), we log a debug message to indicate the timeout was called, turn the LED off, and send the command to stop face detection. After this command has been issued, Misty will be inactive and the skill will automatically end after 5 seconds. 
 
-```JavaScript
+```javascript
 function _FaceRecognitionTimeout() {
    misty.Debug("face detection timeout called, it's taking too long...");
 
@@ -421,7 +423,7 @@ Save the code file with the name `HelloWorld_FaceDetection.js`. See the document
 
 See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Face%20Detection).
 
-```JavaScript
+```javascript
 
 misty.Debug("starting skill helloworld_facedetection");
 
@@ -480,20 +482,20 @@ Create a new `.json` meta file for this skill. Set the value of `Name` to `"Hell
 
 When registering for a timed event use the `misty.RegisterTimerEvent()` method, we pass in the name of the event we want to create, the amount of time (in ms) we want Misty to wait before triggering the callback function, and we set the `keepAlive` parameter to `true` in order to have the event trigger the callback automatically every 3 seconds until it is unregistered. After the line of code to register for the timer event, we send our first command to change Misty’s LED to white below the timer event. This will turn the LED on for the first 3 seconds our skill runs, before the first callback is fired.
 
-```JavaScript
+```javascript
 misty.RegisterTimerEvent("TimerEvent", 3000, true);
 misty.ChangeLED(255, 255, 255); // white
 ```
 
 Define a global variable to track the amount of callbacks that have been triggered. In order for the data to persist across new threads created by callbacks, prefix the name of the variable with an underscore. Initialize the value of the variable as `0`. Declare it above the `misty.RegisterTimerEvent()` method. **Note:** Do not include a type when creating global variables.
 
-```JavaScript
+```javascript
 _count = 0;
 ```
 
 In the callback function (automatically named `_TimerEvent()`) start by checking if the value of `_count` is less than `5` using an `if...then` statement. If so, increment `_count` by one to keep track of the amount of times we are changing the LED. Then, generate three random values between `0` and `255` and pass them in to `misty.ChangeLED()` to trigger a change in Misty’s chest LED.
 
-```JavaScript
+```javascript
 if (_count < 5) {
     _ count = _count + 1;
 
@@ -509,7 +511,7 @@ else {
 
 The `else` statement will trigger once the value of `_count` has reached `5`. At this point, we want the skill to end. Start by unregistering for the timer event by calling `misty.UnregisterEvent()` and passing in the name designated for the event. Then turn the LED off by passing in zero values for `misty.ChangeLED()` and log a debug message.
 
-```JavaScript
+```javascript
 else {
     misty.UnregisterEvent("TimerEvent");
     misty.ChangeLED(0, 0, 0); // off
@@ -523,7 +525,7 @@ Save the code file with the name `HelloWorld_TimerEvent.js`. See the documentati
 
 See the complete JavaScript code below or [download the tutorial code from GitHub](https://github.com/MistyCommunity/JavaScript-SDK/tree/master/Tutorials/Timer%20Events).
 
-```JavaScript
+```javascript
 
 misty.Debug("starting skill helloworld_timerevent");
 
@@ -564,7 +566,7 @@ In this tutorial, we write a skill that fetches an audio file from an external r
 
 Create a new `.json` meta file for this skill. Copy and paste the code from the example to fill out the parameters. Save this file with the name `HelloWorld_ExternalRequest.json`.
 
-```JSON
+```json
 {
     "Name": "HelloWorld_ExternalRequest",
     "UniqueId": "523c7187-706e-4313-a657-0fa11d8bbdd4",
@@ -583,7 +585,7 @@ Create a new `.json` meta file for this skill. Copy and paste the code from the 
 
 The brief code file makes use of the `misty.SendExternalRequest()` method. The `misty.SendExternalRequest()` prototype is as follows:
 
-```JavaScript
+```javascript
 misty.SendExternalRequest(string method, string resourceURL, string authorizationType, string token, string returnType, string jsonArgs, bool saveAssetToRobot, bool applyAssetAfterSaving, string fileName, [string callback], [string callbackRule], [string skillToCallOnCallback], [int prePauseMs], [int postPauseMs]);
 ```
 
@@ -609,7 +611,7 @@ The optional `callback`, `callbackRule`, and `skillToCallOnCallback` parameters 
 
 The final form of `misty.SendExternalRequest()` in this tutorial is:
 
-```JavaScript
+```javascript
 misty.SendExternalRequest(
     "GET", /*method*/
     "http://soundbible.com/grab.php?id=1949&type=mp3", /*resourceURL*/
@@ -630,7 +632,7 @@ misty.SendExternalRequest(
 
 When the response is ready, Misty receives the file, saves it to local storage, and immediately plays through her built-in speakers. The final step is to have Misty send us a debug message to indicate skill execution is complete:
 
-```JavaScript
+```javascript
 // Debug message to indicate the skill is complete
 misty.Debug("The skill is complete!!")
 ```
@@ -639,7 +641,7 @@ Save the code file with the name `HelloWorld_ExternalRequest.js`. See the docume
 
 See the complete JavaScript code below.
 
-```JavaScript
+```javascript
 misty.Debug("Starting skill HelloWorld_ExternalRequest");
 
 // Get and play an audio file hosted on soundbible.com.
@@ -674,7 +676,7 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 
 `HelloWorld_TriggerSkill1.json`:
 
-```JSON
+```json
 {
     "Name": "HelloWorld_TriggerSkill1",
     "UniqueId": "01190e52-3d72-4a9c-ba26-ea483fbdbdea",
@@ -691,7 +693,7 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 `HelloWorld_TriggerSkill2.json`:
 
 
-```JSON
+```json
 {
     "Name": "HelloWorld_TriggerSkill2",
     "UniqueId": "28c7cb66-91d4-4c8f-a8af-bb667ce18099",
@@ -707,7 +709,7 @@ This tutorial covers a total of three skills, so there are a total of three `.js
 
 `HelloWorld_TriggerSkill3.json`:
 
-```JSON
+```json
 {
     "Name": "HelloWorld_TriggerSkill3",
     "UniqueId": "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5",
@@ -729,25 +731,25 @@ We start by calling the `misty.RegisterEvent()` command. In it, we register for 
 
 The difference from normal event registration happens when we use an optional parameter (`skillToCall`) to designate which skill we want the `FaceRecognition` event to trigger. We do that by providing by the GUID of that skill. In this case the face recognition event is going to trigger the `HelloWorld_TriggerSkill2.js` skill, so we provide the GUID for _that_ skill here. In this case, it’s `28c7cb66-91d4-4c8f-a8af-bb667ce18099`.
 
-```JavaScript
+```javascript
 misty.RegisterEvent("FaceRecognition", "FaceRecognition", 5000, true, "Synchronous", "28c7cb66-91d4-4c8f-a8af-bb667ce18099");
 ```
 
 We also want to add a return property check above the registration call, to return just the property `PersonName` for use in our callback. Pass in the name of the event first, then the property we want.
 
-```JSON
+```json
 misty.AddReturnProperty("FaceRecognition", "PersonName");
 ```
 
 Finally, we need to send the command to start face recognition as well. This command tells Misty to start looking for a face to recognize (in tandem with the   `FaceRecognition` event subscription).
 
-```JavaScript
+```javascript
  misty.StartFaceRecognition();
 ```
 
 Putting the pieces together, shown below is first half of the parent skill; the commands relating to face recognition.
 
-```JavaScript
+```javascript
 // Return only the PersonName property
 misty.AddReturnProperty("FaceRecognition", "PersonName");
 
@@ -763,7 +765,7 @@ Next, we want to register for another event, `BackTOF`. This event triggers when
 
 Start by calling `RegisterEvent` and registering for `TimeOfFlight` as `BackTOF`. Pass in `5000` for `debounceMS`, set `keepAlive` to `true`, and specify the callback rule as `Synchronous`. Similar to our previous registration, pass in the GUID for our third skill for the last parameter (in our case, `f6cc6095-ae40-4507-a9ef-4c7638bf3ad5). Above our registration call, add two property tests to confirm we’re only receiving data from our rear-facing time of flight sensor and that the distance an object is detected is less than 0.5 meters. 
 
-```JavaScript
+```javascript
 // Return data only from rear-facing TOF sensors
 misty.AddPropertyTest("BackTOF", "SensorPosition", "==", "Back", "string");
 // Return data only when an object is closer than 0.5m
@@ -779,7 +781,7 @@ With both of our event registrations finished, our “parent” skill is complet
 
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill1.js`.
 
-```JavaScript
+```javascript
 // Return only the PersonName property
 misty.AddReturnProperty("FaceRecognition", "PersonName");
 
@@ -801,26 +803,28 @@ misty.AddPropertyTest("BackTOF", "DistanceInMeters", "<", 0.5, "double");
 misty.RegisterEvent("BackTOF", "TimeOfFlight", 5000, true, "Synchronous", "f6cc6095-ae40-4507-a9ef-4c7638bf3ad5");
 ```
 
-As discussed above, the first “child” skill handles face recognition events. We start by defining a function for the callback (automatically named `_<Event>`) and passing in an argument to hold the data from the event. Within the callback, send a debug message to notify the user that the new skill has been triggered.
+As discussed above, the first "child" skill handles face recognition events. We start by defining a function for the callback (automatically named `_<Event>`) and passing in an argument to hold the data from the event. Within the callback, send a debug message to notify the user that the new skill has been triggered.
 
-```JavaScript
+```javascript
 function _FaceRecognition(data) {
-   misty.Debug(“TriggerSkill part 2 has been triggered.”);
+   misty.Debug("TriggerSkill part 2 has been triggered.");
 }
 ```
 
-Note: Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because we designated the GUID for _this_ skill (`HelloWorld_TriggerSkill2.js`) as the skill to call back in the registration call for `FaceRecognition` within our “parent” skill, this skill starts automatically when the event callback is triggered.
+{{box op="end"}}
 
 Next, define a variable, `personName` to hold the name of the face detected (or “unknown person” if the face was not recognized). You can access this information within `data.AdditionalResults`. 
 
-```JavaScript
+```javascript
 // Store the name of the detected face
 let personName = data.AdditionalResults[0];
 ```
 
 Then, use an if statement to check if `personName` is equal to unknown person. If so, the face was not recognized. In this case, we want to send a command to change the LED to red and send a debug message from Misty saying “I don’t know you…”. Otherwise, the face was recognized, and we send a command to change the LED to green and send a debug message greeting the user by name.
 
-```JS
+```javascript
 if (personName == "unknown person") {
     // Change LED
     misty.ChangeLED(255, 0, 0); // red
@@ -837,7 +841,7 @@ You’ll remember that earlier when we registered for our face recognition event
 
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill2.js`.
 
-```JavaScript
+```javascript
 // callback for face recognition event
 function _FaceRecognition(data) {
     // Signal that new skill has been triggered.
@@ -859,7 +863,7 @@ function _FaceRecognition(data) {
 
 The third skill is designated for our time-of-flight event. Start by defining a function for the callback for `BackTOF`. Pass in an argument to access the data. Then, within the callback write a debug message indicating that skill number three has been triggered.
 
-```JS
+```javascript
 // TimeOfFlight callback
 function _BackTOF(data) {
     // Signal that new skill has been triggered
@@ -869,14 +873,14 @@ function _BackTOF(data) {
 
 Define a variable `distance` to hold the value of the distance an object was detected. We can access this from our property test results (contained in the response). Dig into the results to locate the value we want.
 
-```JS
+```javascript
 // Store the distance of the detected object
 let distance = data.PropertyTestResults[1].PropertyParent.DistanceInMeters;
 ```
 
 Then, use an `if` statement to check that the distance is less than `0.1m`. If so, play an “irritated” sounding audio clip, send a debug message indicating the distance an object detected was ‘too close’, and have Misty drive forward a short distance. Otherwise, send a command to play a ‘happy’ sounding clip, and send a debug message indicating the object is far enough away (it isn’t invading Misty’s personal space).
 
-```JS
+```javascript
 if (distance < 0.1) {
     // Play irritated audio clip
     misty.PlayAudio("002-Ahhh.wav", 100);
@@ -895,7 +899,7 @@ Just like before in our second skill, we specified the callback to trigger once 
 
 For reference, here is the entire skill file for `HelloWorld_TriggerSkill3.js`.
 
-```JS
+```javascript
 // TimeOfFlight callback
 function _BackTOF(data) {
     // Signal that new skill has been triggered

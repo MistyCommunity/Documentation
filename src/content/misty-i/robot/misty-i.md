@@ -11,12 +11,16 @@ Welcome! Your Misty I Developer Edition Prototype robot has been hand-built by t
 
 For safety and care during shipping, your robot arrives with a couple of items disconnected and with the final pieces of the case removed. Please start here for some quick words of advice on setting her up. You can also [watch this video](https://youtu.be/ROqzzQRf2qI) to see the setup process directly.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Important:** While future versions of Misty will be much tougher, it’s important that you handle your Misty I Developer Edition Prototype robot with care. When carrying Misty, support the entire robot from the front and back, below the main chassis between the two tracks.
+{{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** To avoid the risk of driving Misty off a high surface, we recommend either working with the robot on the floor or temporarily elevating the wheels so the robot cannot drive. To do this, you can either place a couple of books underneath Misty between the wheels or use this handy [stand for Misty I](https://github.com/MistyCommunity/assets/blob/master/M1_Robot_Stand.STL) that you can 3D print.
-
+{{box op="end"}}
 
 ## What's in the Box?
+
 Aside from Misty herself, there are a few things to look for in her packaging:
 
 * battery
@@ -25,10 +29,12 @@ Aside from Misty herself, there are a few things to look for in her packaging:
 * USB-to-Ethernet adapter
 * FTDI cable
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Please keep all the original packaging for Misty. In case you need to ship her in the future, this packaging has been specially designed to protect these hand-built prototypes.
-
+{{box op="end"}}
 
 ## Connecting the Battery
+
 While Misty's case is open is the ideal time to connect up your robot's battery. **Before doing so, please read the following important notes:**
 
  * Always use the battery that came with Misty.
@@ -47,10 +53,12 @@ To connect Misty's battery:
 
 Once you've plugged in the battery, you can assemble Misty's case and connect the Occipital Structure Core depth sensor.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you want to charge the robot while it’s turned on, you’ll need to **first** let the robot fully boot up, **then** plug the power adaptor into the robot’s back.
-
+{{box op="end"}}
 
 ## Assembling Misty's Case
+
 Now that the battery is connected, you can put together the finishing pieces of Misty's case:
 
 1. Undo the two small bolts that attach the plastic logo plate to the front of Misty's chest. Remove the plate and set it and the bolts aside. ![removing the logo plate](/assets/images/faceplate_removal.jpg)
@@ -65,16 +73,23 @@ The Occipital Structure Core depth sensor is your Misty robot's main way of mapp
 1. Tucked behind Misty's faceplate, find the black USB cable with a loose end. ![loose Occipital cable](/assets/images/occipital_cable_loose.jpg)
 2. Connect the loose end of the cable into the sensor's open USB port on Misty's right side. Make sure you feel a click when inserting the cable, to ensure it is fully seated. ![Occipital cable attached](/assets/images/occipital_cable_attached.jpg)
 
-**Note**: When the Occipital Structure Core depth sensor is starting up, the LED in the depth sensor will flash blue and red for up to 10 seconds. Once the depth sensor is fully online, the LED should be solid blue. When the depth sensor's firmware is updating, the LED will flash red and blue for about a minute then reboot. If the depth sensor LED appears solid red, there is an error. If the LED remains red after restarting the robot, please contact support for assistance.
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** When the Occipital Structure Core depth sensor is starting up, the LED in the depth sensor will flash blue and red for up to 10 seconds. Once the depth sensor is fully online, the LED should be solid blue. When the depth sensor's firmware is updating, the LED will flash red and blue for about a minute then reboot. If the depth sensor LED appears solid red, there is an error. If the LED remains red after restarting the robot, please contact support for assistance.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Important!** There is a laser sensor located in the Occipital Structure Core depth sensor, above the right side of Misty's display screen. Never stare directly into the laser. Do not directly touch the laser or remove the protective cover over the laser. Oils on your finger can cause the light to disperse into your eyes and increase the risk of physical damage. ![Misty laser warning](/assets/images/do_not_touch_laser.jpg)
+{{box op="end"}}
 
 Now that you've put your robot together, you can set up Misty's internet connection with the [Misty App](../../../tools-&-apps/mobile/misty-app/).
 
 
 ## Cleaning the Time-of-Flight Sensors
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note**: This is **not** something you need to do with your robot on arrival or perhaps ever, but it's good to know about, just in case.
+{{box op="end"}}
 
 A Misty I Developer Edition Prototype robot has a total of four time-of-flight sensors: three on the front and one on the back. These sensors obtain distance data for objects in Misty's environment and allow her to avoid obstacles as she moves. ![time-of-flight sensors](/assets/images/tof_sensors.jpg)
 
@@ -119,8 +134,9 @@ We recommend powering up Misty on the floor, if possible, to avoid the risk of d
 3. Misty's eyes should appear on screen, beginning in a closed state. The eyes gradually open more fully. ![closed eyes](/assets/images/blink.jpg)
 4. When the eyes appear fully open, Misty is done booting up. This should take a little more than a minute. **Important! If after a few minutes, Misty's eyes still do not appear fully open, contact technical support for assistance.**  ![fully open eyes](/assets/images/open.jpg)
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If you want to charge the robot while it’s turned on, you’ll need to **first** let the robot fully boot up, **then** plug the power adaptor into the robot’s back.
-
+{{box op="end"}}
 
 ### Restarting Misty
 
@@ -129,15 +145,21 @@ We recommend powering up Misty on the floor, if possible, to avoid the risk of d
 3. Turn on the power switch on Misty's back again.
 4. Once you see the blue LED light and Misty's eyes fully re-open, you're ready.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** If Misty is charging during a restart, after she has fully restarted you must unplug the adaptor from the power port on her back, then plug it back in again for charging to continue.
+{{box op="end"}}
 
 ### Turning Misty Off
 
 Just turn off the power switch on Misty’s back.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** There is no graceful shutdown at this time. When Misty’s battery gets below about 7 volts she abruptly powers down.
+{{box op="end"}}
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** At this time, critical updates of Misty's underlying operating system platforms (e.g. Windows IoT Core) may occur without warning. If you see an image of gears on Misty's screen, be aware that she is going through a system update.
+{{box op="end"}}
 
 ## System Updates
 

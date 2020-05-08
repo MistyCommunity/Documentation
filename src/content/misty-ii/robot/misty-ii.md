@@ -304,7 +304,7 @@ You can now use adb to communicate with your robot's Android device.
 
 You can connect to adb with the IP address for a USB-to-Ethernet adapter by following these steps:
 
-1. [Follow these instructions](../../../misty-ii/net-sdk/getting-started/#connecting-to-misty-39-s-410-ip-address) to get an IP address for connecting to Misty's 410 processor. This requires a USB-to-Ethernet adapter, which does not arrive with Misty and must be purchased separately.
+1. [Follow these instructions](../../../misty-ii/dotnet-sdk/getting-started/#connecting-to-misty-39-s-410-ip-address) to get an IP address for connecting to Misty's 410 processor. This requires a USB-to-Ethernet adapter, which does not arrive with Misty and must be purchased separately.
 2. Connect the USB end of the adapter to the port on your robot's back.
 3. Open a new command prompt / terminal window.
 4. Enter `ssh -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
@@ -364,7 +364,7 @@ Follow these steps to create the configuration file and upload it to Misty. Use 
 
 1. Create a file called `audio_config.json` on your computer with the following (case-sensitive) contents. You can omit key/value pairs for the attributes you don't want to change.
 
-```JSON
+```json
 {
     "misty_settings": {
         "keyphrase": "HeySnapdragon",

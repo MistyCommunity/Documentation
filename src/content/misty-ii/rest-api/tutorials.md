@@ -2,7 +2,7 @@
 title: Tutorials
 layout: coding.hbs
 columns: three
-order: 2
+order: 3
 ---
 
 # {{title}}
@@ -39,7 +39,7 @@ Alternately, you can download a compressed version of the Axios library to inclu
 
 Within `<script>` tags in the `<body>` of your .html document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We’ll reference this variable throughout the program to send commands to Misty. 
 
-```JavaScript
+```javascript
 // Declare a constant variable.
 // Set its value to your robot's IP address.
 const ip = "<robotipaddress>";
@@ -50,7 +50,7 @@ When we send a command to change Misty’s LED color, we need to communicate wha
 
 Create an object called `data` to send with the POST request. Create a property for each color parameter, and set the value of each property to an integer between `0` and `255`. The RGB values in the example change Misty’s chest LED to hot pink.
 
-```JavaScript
+```javascript
 // Create a data object to send with the POST request. 
 // Set values for each RGB color property.
 let data = {
@@ -66,7 +66,7 @@ Now we’re ready to write the code to send the command to Misty. We do this by 
 
 The REST API endpoint for the `ChangeLED` command is `http://<robotipaddress>/api/led`. In your code, call `axios.post()` and pass a string with this endpoint as the first parameter. Use the previously defined variable `ip` to populate the `<robotipaddress>` section of the URL. Pass the `data` object for the second parameter.
 
-```JavaScript
+```javascript
 // Call axios.post(). Pass the URL of the ChangeLED 
 // endpoint as the first parameter and the data object 
 // as the second.
@@ -75,7 +75,7 @@ axios.post("http://" + ip + "/api/led", data)
 
 Because Axios is promise based, we need to use a `then()` method after calling `axios.post()`. This method returns a promise and triggers a callback function if the promise is fulfilled. We pass a callback function to `then()` to interpret information from the return values of the POST call and print a message to the console about whether the request was a failure or success.
 
-```JavaScript
+```javascript
 // Use a then() method after calling axios.post(). 
 // Pass in a callback function to interpret the return 
 // values of the call and to print a message to the console 
@@ -88,7 +88,7 @@ axios.post("http://" + ip + "/api/led", data)
 
 We use a `catch()` method after `then()`, which triggers if the promise is rejected. Pass a callback function to `catch()` to print to the console any errors returned by the request.
 
-```JavaScript
+```javascript
 // Use a catch() method after then(). catch() triggers 
 // if the promise is rejected. Pass a callback to catch() 
 // to print any errors to the console.
@@ -149,7 +149,7 @@ To set up your project, create a new .html document. Give it a title, and includ
 
 Within `<script>` tags in the `<body>` of your document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We use this variable to send commands to Misty.
 
-```JavaScript
+```javascript
 // Declare a constant variable and set its 
 // value to a string with your robot’s IP address.
 const ip = "<robotipaddress>";
@@ -159,7 +159,7 @@ const ip = "<robotipaddress>";
 
 Create a new instance of `LightSocket`  called `socket`. The `socket` instance takes as parameters the IP address of your robot and two optional callback functions. The first callback triggers when a connection is opened, and the second triggers when it’s closed. Pass `ip` and a function called `openCallback()` to the new instance of `LightSocket`. Below these declarations, declare the `openCallback()` function.
 
-```JavaScript
+```javascript
 // Create a new instance of LightSocket called 
 // socket. Pass as arguments the ip variable and 
 // a function named openCallback.
@@ -191,11 +191,11 @@ The `TimeOfFlight` WebSocket sends data from the time-of-flight (TOF) sensors ar
 
 The instance of `LightSocket` we’ve created (called `socket`) uses the `Subscribe()` method to subscribe to WebSocket connections. The `Subscribe()` method takes 8 parameters.
 
-```JavaScript
+```javascript
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
-Note that many of these parameters correlate with the values required in `subscribeMsg`, described in the documentation [here](../../rest-api/overview/#subscribing-amp-unsubscribing-to-a-websocket). `LightSocket` uses the parameters you pass to it to generate a message similar to this.
+Note that these parameters correlate with the values required in the subscribe message you send when you open a WebSocket without LightSocket, described in the documentation [here](../../rest-api/overview/#using-mistys-websocket-server). `LightSocket` simplifies the process by taking your parameters and generating a properly formatted subscribe message.
 
 To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` method on `socket`. Pass the following for each parameter:
 
@@ -209,7 +209,7 @@ To subscribe to the data stream from `TimeOfFlight`, call the `Subscribe()` meth
 8. The parameter `eventCallback` is for the callback function that triggers when WebSocket data is received. Name this function `_centerTimeOfFlight()` to correspond to the name we provided for this event.  The **Callbacks** section of this tutorial describes how to write the code for this function.
 
 
-```JavaScript
+```javascript
 function openCallback() {
 
     // Print a message when the connection is opened.
@@ -229,7 +229,7 @@ The `LocomotionCommand` WebSocket sends data every time the robot’s linear or 
 
 As with `TimeOfFlight`, we need to pass eight parameters to `socket.Subscribe()` to receive data from `LocomotionCommand`. However, because we only want to know whether Misty’s movement has changed, we don’t need to filter our results to specific event properties. We only need to pass arguments for `eventName` (`"LocomotionCommand"`), the WebSocket name (also `"LocomotionCommand"`), and the `eventCallback` function, which we call `_locomotionCommand()`. Enter `null` for all of the other parameters.
 
-```JavaScript
+```javascript
 function openCallback() {
 
     socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
@@ -250,7 +250,7 @@ After we’ve subscribed to these WebSockets, we issue the command for Misty to 
 * Set `AngularVelocity` to `0`, so Misty drives straight without turning.
 * Set `TimeMS` to `5000` to specify that Misty should drive for five seconds. 
 
-```JavaScript
+```javascript
 function openCallback() {
 
     socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
@@ -267,11 +267,13 @@ function openCallback() {
 }
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** You can learn more about `DriveTime` and how the parameters affect Misty’s movement in the API section of this documentation.
+{{box op="end"}}
 
 Pass the URL for the `DriveTime` command along with this `data` object to the `axios.post()` method. Use a `then()` method to handle a successful response and `catch()` to handle any errors.
 
-```JavaScript
+```javascript
 function openCallback() {
 
     socket.Subscribe("CenterTimeOfFlight", "TimeOfFlight", 100, "SensorPosition", "==", "Center", null, _centerTimeOfFlight);
@@ -307,7 +309,7 @@ Start with `_centerTimeOfFlight()`, the callback function passed to `socket.Subs
 
 We define our callbacks above the section where we define our commands. Create a function called `_centerTimeOfFlight()` with a single parameter called `data`. This parameter represents the data passed to Misty when the `CenterTimeOfFlight` event triggers.
 
-```JavaScript
+```javascript
 /* CALLBACKS */
 
 // Define the callback function for handling 
@@ -319,7 +321,7 @@ let _centerTimeOfFlight = function (data) {
 
 When you subscribe to an event, some messages come through that don’t contain event data. These are typically registration or error messages. To ignore these messages, place the code for our callback function in `try` and `catch` statements. 
 
-```JavaScript
+```javascript
 let _centerTimeOfFlight = function (data) {
     // Use try and catch statements to handle 
     // exceptions and unimportant messages 
@@ -335,7 +337,7 @@ let _centerTimeOfFlight = function (data) {
 
 Inside the `try` statement, instantiate a `distance` variable. `distance` stores a value representing the distance from Misty in meters an object has been detected by her front center time-of-flight sensor. This value is stored in the `data` response at `data.message.distanceInMeters`. Log `distance` to the console.
 
-```JavaScript
+```javascript
 let _centerTimeOfFlight = function (data) {
     try {
         // Create a distance variable to store 
@@ -354,7 +356,7 @@ We only want Misty to stop when `distance` is a very small value, indicating she
 
 If `distance` is a value less than `0.2`, use Axios to issue a POST request to the endpoint for the `Stop` command: `"http://" + ip + "/api/drive/stop"`. This endpoint does not require parameters, so we can omit the second parameter of `axios.post()`. Use `then()` and `catch()` to log successful responses and catch potential errors.
 
-```JavaScript
+```javascript
 let _centerTimeOfFlight = function (data) {
     try {
         let distance = data.message.distanceInMeters;
@@ -388,7 +390,7 @@ The purpose of the `_locomotionCommand()` callback function is to “clean up”
 
 The `LocomotionCommand` event sends data whenever linear or angular velocity changes, including when Misty starts moving when the program starts. We want to unsubscribe from WebSocket connections when Misty stops **and** the value of `LinearVelocity` is `0`. Declare a function called `_locomotionCommand()`, and pass it a parameter for the `data` received by the `LocomotionCommand` WebSocket. We only want to unsubscribe when Misty stops, so we add the condition that `linearVelocity` should be `0` to an `if` statement. As with the `_centerTimeOfFlight()` callback, place this condition inside a `try` statement, and place a `catch` statement to handle exceptions at the end of the function.
 
-```JavaScript
+```javascript
 // Define the callback function passed in
 // the subscription to LocomotionCommand events
 let _locomotionCommand = function (data) {
@@ -409,7 +411,7 @@ let _locomotionCommand = function (data) {
 
 If `data.message.linearVelocity === 0`, the program should unsubscribe from the WebSocket connections we’ve opened. Write commands to unsubscribe from the `DriveTime` and `LocomotionCommand` WebSocket connections, and log a message to the console so you can verify that this only happens when `linearVelocity` is indeed `0`.
 
-```JavaScript
+```javascript
 let _locomotionCommand = function (data) {
     try {
         if (data.message.linearVelocity === 0) {
@@ -429,7 +431,7 @@ let _locomotionCommand = function (data) {
 
 At the bottom of the script, call `socket.Connect()`. When the connection is established, the `openCallback()` function executes to subscribe to WebSocket connections and send Misty a `DriveTime` command. Data received through WebSocket connections is passed to the `_centerTimeOfFlight()` and `_locomotionCommand()` callback functions.
 
-```JavaScript
+```javascript
 // Open the connection to your robot. 
 // When the connection is established, 
 // the openCallback function executes 
@@ -488,7 +490,7 @@ To set up your project, create a new .html document. Give it a title, and includ
 
 Within `<script>` tags in the `<body>` of your document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We use this variable to send commands to Misty.
 
-```JavaScript
+```javascript
 
 /* GLOBALS */
 
@@ -500,7 +502,7 @@ const ip = "<robotipaddress>"
 
 Create a global constant called `you` and assign it to a string with your name. Initialize an additional global variable called `onList` with the value `false`. We use these variables to check and indicate whether the user (`you`) is found on Misty’s list of learned faces.
 
-```JavaScript
+```javascript
 /* GLOBALS */
 
 const ip = "<robotipaddress>"
@@ -514,13 +516,15 @@ const you = "<your-name>"
 let onList = false;
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Avoid hard-coding name values like this in real-world applications of Misty skills. Instead, create a form in the browser where users can type and send their names to Misty.
+{{box op="end"}}
 
 #### Opening a Connection
 
 Beneath these global variable declarations, declare a new instance of  `LightSocket` called `socket`. This instance of `LightSocket` takes as parameters your robot’s IP address and callback functions that trigger when the connection opens or closes. Pass `ip` as the first argument, and specify a parameter for the open callback function named `openCallback()`.  Below this declaration, declare the `openCallback()` function with the prefix `async` to indicate it is an asynchronous function.
 
-```JavaScript
+```javascript
 
 // Create a new instance of LightSocket called 
 // socket. Pass as arguments the ip variable 
@@ -541,7 +545,7 @@ async function openCallback() {
 
 A subscription to the `FaceRecognition` WebSocket may already be active if the skill has run multiple times in quick succession, or if the program crashed before reaching completion. To handle this, pass `"FaceRecognition"` to `socket.Unsubscribe()` at the beginning of the `openCallback()` function. This unsubscribes from any existing `FaceRecognition` WebSocket connections to avoid issues caused by multiple attempts to subscribe to the same event.
 
-```JavaScript
+```javascript
 
 async function openCallback() {
     // Unsubscribe from any existing FaceRecognition 
@@ -553,7 +557,7 @@ async function openCallback() {
 
 Next, the program should pause to give Misty time to register and execute the command. Do this by defining a helper function called `sleep()`.  The `sleep()` function creates and returns a promise that resolves when `setTimeout()` expires after a designated number of milliseconds. Declare this function at the top of your script so other parts of the program can access it. Inside the `openCallback()` function, call the `sleep()` function and pass in a value of `3000`. Prefix `sleep()` with `await` to indicate that `openCallback()` should pause execution of the event loop until the promise has been resolved.
 
-```JavaScript
+```javascript
 
 /* TIMEOUT */
 
@@ -577,7 +581,7 @@ async function openCallback() {
 
 Next, check if the name stored in `you` is included on the list of faces Misty already knows. Inside `openCallback()`, use Axios to issue a GET request to the endpoint for the [`GetKnownFaces`](../../rest-api/api-reference/#getknownfaces) command: `"http://" + ip + "/api/faces".`
 
-```JavaScript
+```javascript
 async function openCallback() {
     socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
@@ -590,7 +594,7 @@ async function openCallback() {
 
 This request returns a list of the names of faces Misty has already been trained to recognize. We pass a callback function to a `then()` method to parse the response to the `GetKnownFaces` request, and check whether the name stored in `you` exists in Misty’s list of known faces. Start by storing the list returned by the response in a variable called `faceArr`. Print `faceArr` to the console.
 
-```JavaScript
+```javascript
 async function openCallback() {
     socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
@@ -608,7 +612,7 @@ async function openCallback() {
 
 The next step is to loop through the `faceArr` array and compare the name of each learned face to the value of `you`. If a match is found, we update the value of the global `onList` variable to `true`. Create a `for` loop to check each item in `faceArr` against `you`. Inside this loop, use an `if` statement to update the value of the `onList` variable to `true` if a match is found.
 
-```JavaScript
+```javascript
 async function openCallback() {
     socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
@@ -633,7 +637,7 @@ async function openCallback() {
 
 At this point the program takes one of two paths. If `onList` becomes `true`, Misty should start facial recognition to identify the user in her field of vision and greet them by name. Otherwise, Misty should start facial training, so she can learn the user’s face and recognize them in the future. Set aside a section of the script for `/* COMMANDS */` and declare two new functions, `startFaceRecognition()` and `startFaceTraining()`, for each of these paths. Use the prefix `async` when you declare the `startFaceTraining()` function to indicate the function is asynchronous.
 
-```JavaScript
+```javascript
 /* COMMANDS */
 
 // Define the function that executes 
@@ -654,7 +658,7 @@ async function startFaceTraining() {
 
 In either case, we need to subscribe to the [`FaceRecognition`](../../../misty-ii/robot/sensor-data/#facerecognition) WebSocket to receive facial data from Misty. In the `openCallback()` function, after the `for` loop has checked through the list of returned faces, call `socket.Subscribe()`. As described in the second tutorial above, `socket.Subscribe()` accepts eight parameters. Pass `"FaceRecognition"` for the `eventName` and `msgType` parameters. Set `debounceMs` to `200`, and pass a callback function named `_FaceRecognition()` for the `callback` parameter. There is no need to define event conditions for this data stream; pass `null` for all other arguments.
 
-```JavaScript
+```javascript
 async function openCallback() {
     socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
@@ -683,7 +687,7 @@ async function openCallback() {
 
 After subscribing to `FaceRecognition`, write an `if...else` statement to execute `startFaceRecognition()` if `onList` is `true`, and to execute `startFaceTraining()` if `onList` is `false`. In each condition, print a message to the console to state whether the program found the user on the list.
 
-```JavaScript
+```javascript
 async function openCallback() {
     socket.Unsubscribe("FaceRecognition");
     await sleep(3000);
@@ -721,7 +725,7 @@ Within the `startFaceRecognition()` function, print a message to the console tha
 
 This command tells Misty to start the occipital camera so she can match the face in her field of vision with a name on her list of known faces. Because this is a `FaceRecognition` event, the callback for the `FaceRecognition` WebSocket triggers as this data comes in. If the face is recognized, the name of the recognized person is included in the WebSocket data message. Instructions for handling these messages are included in the **Callbacks** section of this tutorial.
 
-```JavaScript
+```javascript
 function startFaceRecognition() {
     // Print a message to the console that Misty 
     // is “starting face recognition”. Then, use 
@@ -734,7 +738,7 @@ function startFaceRecognition() {
 
 In `startFaceTraining()`, log a message to the console that Misty is “starting face training”. Then use Axios to send a POST request to the endpoint for the `StartFaceTraining` command: `"http://" + ip + "api/faces/training/start"`. This command tells Misty to use her occipital camera to learn the user’s face and pair it with a `FaceID` so she can recognize it in the future. Send a data object along with the request that includes the key `FaceId` with the value `you` to attach the name stored in `you` to the learned face.  
 
-```JavaScript
+```javascript
 async function startFaceTraining() {
     // Print a message to the console that Misty 
     // is “starting face training”. Then use Axios 
@@ -747,7 +751,7 @@ async function startFaceTraining() {
 
 To give Misty time to learn the user’s face, use the helper function `sleep()` to pause execution of the program. Below the POST command, call `sleep()` and pass in the value `20000` for 20 seconds. This gives Misty plenty of time to finish the facial training process. Prefix `sleep()` with the keyword `await`. 
 
-```JavaScript
+```javascript
 async function startFaceTraining() {
     console.log("starting face training");
     axios.post("http://" + ip + "/api/faces/training/start", { FaceId: you });
@@ -764,7 +768,7 @@ async function startFaceTraining() {
 
 When Misty is done learning the face, we want her to try to recognize it. Below `sleep()`, log a message to the console that face training is complete. Then, use Axios to send a POST request to the endpoint for the `StartFaceRecognition` command.
 
-```JavaScript
+```javascript
 async function startFaceTraining() {
     console.log("starting face training");
     axios.post("http://" + ip + "/api/faces/training/start", { FaceId: you });
@@ -781,7 +785,7 @@ async function startFaceTraining() {
 
 Data sent through the `FaceRecognition` event subscription is passed to the `_FaceRecognition()` callback function. As discussed in previous tutorials, WebSocket connections sometimes send registration and error messages that do not contain event data. To handle messages unrelated to `FaceRecognition` events, wrap the code for the `_FaceRecognition()` callback inside `try` and `catch` statements. As seen in the example, you can print caught errors to the console by passing `e` to the `catch` statement, but this is not necessary for the program to execute successfully.
 
-```JavaScript
+```javascript
 // Define the callback function for handling  
 // FaceRecognition event data.
 function _FaceRecognition(data) { 
@@ -799,7 +803,7 @@ function _FaceRecognition(data) {
 
 The `_FaceRecognition()` callback triggers any time the occipital camera gathers relevant data. Messages come in regardless of whether Misty recognizes a face she detects. The message returned by the `FaceRecognition` WebSocket includes a `"label"` property. If a detected face cannot be recognized, the value of `"label"` is `"unknown person"`. If a message does not hold any face data, then `"label"` doesn’t exist or is `undefined`. In the `_FaceRecognition()` callback function, use an `if` statement to check that `"label"` does not equal any of these values.
 
-```JavaScript
+```javascript
 function _FaceRecognition(data) {
     try { 
         // Use an if statement to check that label 
@@ -816,11 +820,13 @@ function _FaceRecognition(data) {
 }
 ```
 
-**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`. The decision is yours!
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This program does not handle the case where the value of `you` is on the list of known faces, but does not match the face of the person in Misty’s field of vision. This tutorial is designed to introduce the basics of face commands and `FaceRecognition` events, and does not address how to handle issues such as the above. This kind of edge case could be handled in a number of ways. For example, you could have Misty print a message that the face does not match the value stored in `you`, and then command her to learn the new face and assign it a numeric value for `FaceID`. Alternately, you could have Misty start face training and include a form in your .html document to allow the user to pass a new value for `FaceID`.
+{{box op="end"}}
 
 If a face is recognized, the value of the `"label"` property is the name of the recognized person. In our case, this should also be the string stored in `you`. Inside the `if` statement, write code to print a message to greet the recognized face, unsubscribe from `"FaceRecognition"`, and issue a POST request to the endpoint for the command to `StopFacialRecognition`: `"http://" + ip + "/api/faces/recognition/stop"`.
 
-```JavaScript
+```javascript
 function _FaceRecognition(data) {
     try {
         if (data.message.label !== "unknown person" && data.message.label !== null && data.message.label !== undefined) {
@@ -843,7 +849,7 @@ function _FaceRecognition(data) {
 
 At the bottom of the script, call `socket.Connect()`. When the connection is established, the `openCallback()` function executes and the process begins.
 
-```JavaScript
+```javascript
 // Open the connection to your robot.
 // When the connection is established,
 // the openCallback function executes.
@@ -894,7 +900,7 @@ To set up your project, create a new HTML document. Give it a title and include 
 ### Writing the Code
 Within `<script>` tags in the `<body>` of your document, declare a constant variable `ip` and set its value to a string with your robot’s IP address. We use this variable to send commands to Misty. Other global variables are declared later in the project.
 
-```js
+```javascript
 /* GLOBAL */
 
 // Declare a constant variable.
@@ -916,7 +922,7 @@ function sleep(ms) {
 
 Create an new instance of `LightSocket`  called `socket`. This instance of `LightSocket` takes as parameters the IP address of your robot and two optional callback functions (the first triggers when a connection is opened, and the second triggers when it’s closed). Pass the `ip` variable and a function called `openCallback()` to `socket` as the first and second parameters. 
 
-```js
+```javascript
 /* GLOBALS */
 
 const ip = "<robotipaddress>";
@@ -929,7 +935,7 @@ let socket = new LightSocket(ip, openCallback);
 
 Declare the `openCallback()` function. Prefix the definition of `openCallback()` with the keyword `async()` to declare it as an asynchronous function and enable the use of the `sleep()` function.
 
-```js
+```javascript
 /* CALLBACKS */
 
 // Define the openCallback() function.
@@ -941,7 +947,7 @@ async function openCallback() {
 
 To keep track of whether we are currently subscribed to a `FaceRecognition` event, declare a global variable called `subscribed` near the global `ip` variable. 
 
-```js
+```javascript
 /* GLOBALS */
 
 const ip = "<robotipaddress>";
@@ -954,7 +960,7 @@ let subscribed;
 
 Set the value of `subscribed` to `false` in the beginning of the `openCallback()` function. 
 
-```js
+```javascript
 /* CALLBACKS */
 
 async function openCallback() {
@@ -966,7 +972,7 @@ Each time a picture is taken, we unsubscribe from the `FaceRecognition` WebSocke
 
 Inside `openCallback()`, call `socket.Unsubscribe()` and pass in the `"FaceRecognition"` event name. After unsubscribing, call `sleep()` (prefixed with the keyword `await`) and pass in the value `8000`. This tells  the program to pause for 8 seconds, which is how long we want Misty to wait before re-subscribing to `FaceRecognition` and sending more face detection event data.
 
-```js
+```javascript
 /* CALLBACKS */
 
 async function openCallback() {
@@ -978,15 +984,15 @@ async function openCallback() {
 }
 ```
 
-Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#connecting-to-misty-with-lightsocket-js).
+Next, call `socket.Subscribe()`. The `socket.Subscribe()` method takes eight arguments. For more information about what each of these arguments does, see the documentation on using the `lightSocket.js` tool [here](../../rest-api/overview/#using-the-lightsocket-helper-tool).
 
-```js
+```javascript
 socket.Subscribe(eventName, msgType, debounceMs, property, inequality, value, [returnProperty], [eventCallback])
 ```
 
 When you call `socket.Subscribe()`, pass `"FaceRecognition"` for the `eventName` argument, pass `"FaceRecognition"` for `msgType`, pass `1000` for `debounceMS`, and pass `"_FaceRecognition"` for `eventCallback`. Pass `null` for all other arguments. 
 
-```js
+```javascript
 /* CALLBACKS */
 
 async function openCallback() {
@@ -1002,7 +1008,7 @@ async function openCallback() {
 
 Use the keyword `async` to define the `_FaceRecognition()` callback that runs when a `FaceRecognition` event triggers. This function takes a `data` argument, which holds the data from the event message. Write code to print a message to the console each time the callback triggers, including the message response data.
 
-```js
+```javascript
 // Define the _FaceRecognition() callback function.
 // This function handles FaceRecognition event data.
 async function _FaceRecognition(data) {
@@ -1012,7 +1018,7 @@ async function _FaceRecognition(data) {
 
 When we establish a connection, we want to update the value of `subscribed` to reflect that we are subscribed to the event. Use an `if` statement to check if `subscribed` is `false`. If it is, set it to `true`.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     // Update subscribed to true
@@ -1024,7 +1030,7 @@ async function _FaceRecognition(data) {
 
 As Misty takes pictures of the faces she recognizes, we unsubscribe and re-subscribe to "FaceRecognition". However, because it’s okay for face detection to remain active even when we are not subscribed to `"FaceRecognition"` event messages, we only need to send the command to start face detection once.  We can accomplish this by using a global variable called `firstTime` that we initialize with a value of `true`.
 
-```js
+```javascript
 /* GLOBALS */
 const ip = "<robotipaddress>";
 // Set firstTime to true. This variable tracks
@@ -1037,7 +1043,7 @@ let socket = new LightSocket(ip, openCallback);
 
 When the callback triggers, use an `if` statement to check if `firstTime` is `true`. If it is, send a POST request to the endpoint for the `StartFaceDetection` command. Use `catch()` to handle and log any errors you receive when sending the command. Set `firstTime` to `false` and leave it that way for the remainder of the program’s execution.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1059,7 +1065,7 @@ async function _FaceRecognition(data) {
 
 The first message we receive when we subscribe to the `FaceRecognition` WebSocket is a registration message that does not contain data relevant to our program. When the `_FaceRecognition()` callback triggers for the first time, we want to send the command to start face detection, but we want to prevent execution of the rest of the code to avoid processing this registration message. To do this, within the `if` statement checking the value of `subscribed`, use `return` to exit the callback and take no further action. 
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1086,7 +1092,7 @@ To have Misty take a picture, use `axios.get()` to send a GET request to the end
 * Set `DisplayOnScreen` to `false`. We don’t want Misty to display these photos on her screen after she takes them. 
 * Set `OverwriteExisting` to `true` so Misty overwrites any old images that have the same name as newly captured photos.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1119,7 +1125,7 @@ async function _FaceRecognition(data) {
 
 Use a `then()` method to log the response, as well as a message indicating the image has been saved with the specified file name.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1153,7 +1159,7 @@ async function _FaceRecognition(data) {
 
 We define `fileName` above this GET request. For this project, we want Misty to take pictures and save them with the date and time the photo was taken. To accomplish this, we use the JavaScript built-in [`Date`](https://developer.mozilla.org/en-US/docs/web/JavaScript/Reference/Global_Objects/Date) object. Instantiate a new `Date` object, then call the method `toLocaleString()` to convert the date and time into a string. Windows systems omit certain characters from file names, so we need to use the `replace()` method and pass in some regular expressions to modify the string to an acceptable format and make it easier to read. (**Note:** This code is okay to leave in your program if you are running it on a Mac or Unix system.) These regular expressions replace semicolons with periods, replace spaces with underscores, remove commas, and append the file name with `"_Face"` to indicate that these are images of faces.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1190,7 +1196,7 @@ async function _FaceRecognition(data) {
 
 After the GET request, call `openCallback()` to start the process over again. To catch and log errors, wrap a `try, catch` statement around the code block that defines the value of `fileName`, makes the GET request, and repeats the call to `openCallback()`.
 
-```js
+```javascript
 async function _FaceRecognition(data) {
     console.log("CV callback called: ", data);
     if (!subscribed) {
@@ -1233,7 +1239,7 @@ async function _FaceRecognition(data) {
 
 At the end of the program, call `socket.Connect()` to open the connection to the websocket.
 
-```js
+```javascript
 socket.Connect();
 ```
 

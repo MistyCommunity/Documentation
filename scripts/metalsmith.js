@@ -169,7 +169,7 @@ exports.metalsmith = function() {
           'get-started',
           'robot',
           'javascript-sdk',
-          'net-sdk',
+          'dotnet-sdk',
           'rest-api'
         ]
       },
@@ -251,7 +251,11 @@ exports.metalsmith = function() {
           "/misty-ii/coding-misty/remote-command-tutorials": "/misty-ii/rest-api/tutorials",
           "/misty-ii/reference/rest": "/misty-ii/rest-api/api-reference",
           "/misty-ii/reference/javascript-api": "/misty-ii/javascript-sdk/api-reference",
-          "/misty-ii/javascript-sdk/overview": "/misty-ii/javascript-sdk/javascript-skill-architecture"
+          "/misty-ii/javascript-sdk/overview": "/misty-ii/javascript-sdk/javascript-skill-architecture",
+          "/misty-ii/net-sdk/getting-started": "/misty-ii/dotnet-sdk/getting-started",
+          "/misty-ii/net-sdk/net-skill-architecture": "/misty-ii/dotnet-sdk/dotnet-skill-architecture",
+          "/misty-ii/net-sdk/overview": "/misty-ii/dotnet-sdk/overview",
+          "/misty-ii/net-sdk/sample-project": "/misty-ii/dotnet-sdk/sample-project"
         },
       }
     ))
@@ -299,7 +303,7 @@ exports.metalsmith = function() {
     // Rename files so that about.html is converted into about/index.html
     .use(permalinks({
       relative: false
-    }));
+    }))
 
   return metalsmith;
 };

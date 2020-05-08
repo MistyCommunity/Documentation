@@ -7,13 +7,29 @@ order: 5
 
 # {{title}}
 
-This document provides information about Misty's available event types. Use these event types to get live updates with data from Misty's sensors and other system services.
+Your code enables Misty to autonomously react to her surroundings. To enable this autonomy, you must create skills and robot applications that are driven by **events**, with logic that listens for and responds to incoming environmental data.
 
-To receive event messages, you can register event listeners in your skill code. You can also subscribe to event messages from a remote device by connecting to Misty's WebSocket server.
+## Events Overview
 
-When you register for event messages, you can:
-* filter out unwanted data by specifying which property values an event message should include
-* apply conditions to receive messages only when the property values for an event meet specific criteria
+Event data is associated with different event types. The data for these event types comes from many different sources, including:
+
+* Misty's sensors, such as capacitive touch sensors, bump sensors, and time-of-flight sensors
+* external hardware, such as the Misty Arduino-compatible backpack
+* internal, sensor-enabled processes, such as face recognition, key phrase recognition, and the robot's hazards system
+* Misty's software, such as messages from the robot's skill system
+* your own skills and applications, such as skill debug messages and custom event triggers
+
+To receive event messages, you must create event listeners. We sometimes refer to the process of creating an event listener as *registering for an event*. When you register for an event, you can:
+
+* filter out unwanted data by specifying which **properties** an event message should include
+* apply **event conditions** and **validations**, or rules that define what kind of data an event listener can receive from a particular event type
+* set a **debounce** value, or how frequently a particular event type should send event messages (this is useful for event types that provide a constant stream of new data, instead of sending data just once when a particular event occurs)
+
+The process for creating an event listener, receiving event data, and handling that data in your code depends on whether you are building an on-device skill or a remote-running robot application that communicates with Misty over a wireless network. Additionally, the implementation details for registering event listeners differ between Misty's JavaScript and .NET SDKs. For instructions and examples that show how to use event data across the different ways you can code Misty, see the following:
+
+* To learn about using Misty's WebSocket server to stream event data to remote-running applications, see [Getting Data from Misty](../../../misty-ii/rest-api/overview/#getting-live-data-from-misty)
+* To learn about registering event listeners in JavaScript skills, see [Sensor Event Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#sensor-event-callbacks)
+* To learn about using event data in .NET skills, see [Registering & Unregistering Events](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#registering-amp-unregistering-events)
 
 {{box op="start" cssClass="boxed noteBox"}}
 **Note:** If your Misty is using the `Current` version of Misty's WebSocket system, WebSocket event messages do not include `SensorName` or `Type` key/value pairs. Use Misty's [GetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#getwebsocketversion) command to find out which version your robot is using, and use [SetWebsocketVersion](../../../misty-ii/rest-api/api-reference/#setwebsocketversion) to switch versions.
@@ -25,6 +41,7 @@ When you register for event messages, you can:
 To avoid this, we recommend using **property tests**/**event conditions** when you register event listeners for event types that report data from more than one sensor. This allows you to configure a listener to handle messages only from one specific sensor in a group. You can register multiple event listeners - each with unique property tests - for  any single event type. In this manner, you can create a group of event listeners for a single event type, where each listener is assigned to trigger an event callback only on receiving messages from one specific sensor associated with that event type.
 {{box op="end"}}
 
+The rest of the topics on this page describe how to use the data associated with each of Misty's event types. 
 
 ## ActuatorPosition
 
@@ -34,7 +51,7 @@ In the `ActuatorPosition` data object, the value of the `sensorName` property is
 
 When you subscribe to the `ActuatorPosition` data stream, you should specify which actuator you want to receive messages about. For example, the following sample code shows how to use a property comparison test to get data from the sensor for the actuator responsible for controlling the movement of Misty's right arm with the on-robot JavaScript API:
 
-```JavaScript
+```javascript
 // Register for ActuatorPosition data for the actuator for Misty's right arm
 misty.AddPropertyTest("ActuatorPosition", "sensorName", "==", "Actuator_RightArm", "string");
 misty.RegisterEvent("ActuatorPosition", "ActuatorPosition", 1000, true);
@@ -47,7 +64,7 @@ function _ActuatorPosition(data) {
 
 Sample `ActuatorPosition` data:
 
-```JSON
+```json
 ActuatorPosition {
     "eventName": "ActuatorPosition",
     "message": {
@@ -64,18 +81,29 @@ ActuatorPosition {
 
 ## AudioPlayComplete
 
-`AudioPlayComplete` WebSocket data is sent every time Misty finishes playing an audio file. It is not sent at timed intervals.
+The `AudioPlayComplete` event type provides information about stopped or completed audio playback. Misty raises an `AudioPlayComplete` event for an audio source in the following situations:
 
-```JSON
+* when an audio source finishes playing
+* when Misty receives a `StopAudio` command
+* when Misty interrupts paused or active playback by starting to play audio from a different source
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Text-to-speech utterances that you create with Misty's onboard text-to-speech engine (for example, with the `Speak` command) do not raise `AudioPlayComplete` events. To be notified that an onboard text-to-speech utterance is complete, you must register a listener for [`TextToSpeechComplete`](./#texttospeechcomplete) events, instead. 
+{{box op="end"}}
+
+An `AudioPlayComplete` event message includes the following key/value pairs:
+
+* created (string) - The date and time that audio playback completed.
+* metaData (object) - An object with details about the audio source associated with this event. Includes:
+  * name (string) - The filename or URL of the audio source associated with this event.
+
+```json
 AudioPlayComplete {
     "eventName":"AudioPlayComplete",
     "message":{
         "created":"2019-04-08T20:54:36.7051135Z",
         "metaData":{
-            "directory":"Idle",
-            "duration":0,
-            "name":"002-Ahhh.wav",
-            "vad":[0,0,-0.5]
+            "name":"s_Awe.wav",
         }
     }
 }
@@ -104,7 +132,7 @@ The `BatteryCharge` event type provides a stream of information about the curren
 
 Sample `BatteryCharge` data:
 
-```JSON
+```json
 {
   "eventName": "BatteryChargeEvent",
   "message": {
@@ -130,7 +158,7 @@ For an example that shows how to register for and use data from `BumpSensor` eve
 
 Sample `BumpSensor` data:
 
-```JSON
+```json
 BumpSensor {
     "eventName": "BumpSensor",
     "message": {
@@ -235,10 +263,10 @@ To use information about the pose of Misty's docking station in your skills and 
 `ChargerPoseMessage` events include the following key/value pairs:
 
 * created (string) - Timestamp describing when the robot created the message.
-* homogenousMatrix (array) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is a rotation matrix. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
+* homogenousMatrix (array) - The docking station's position and orientation (pose) relative to the robot's right infrared (IR) camera, represented as a column major 4x4 homogeneous coordinate matrix. The 3x3 matrix of values in the upper left is the rotation matrix that corresponds to the docking station's orientation, following the XYZ Euler angle convention. The three values in the upper right represent the X, Y, and Z coordinates (in meters) at the point on the docking station over which Misty should be centered in order to receive a charge. The origin (0, 0, 0) point of this data is the front right IR camera in Misty's depth sensor. All data is relative to the depth sensor's frame of reference (Z is forward, X is to the right, and Y is down).
 * sensorId (string) - The ID of the sensor associated with this message.
 
-```JSON
+```json
 /*
 The HomogeneousMatrix array represents the pose of the docking station
 as column major 4x4 homogeneous coordinate matrix, relative to the
@@ -315,7 +343,7 @@ The `DriveEncoders` data stream provides information about the angular velocity 
 
 Sample `DriveEncoders` sensor data:
 
-```JSON
+```json
 {
   "eventName": "DriveEncodersEvent",
   "message": {
@@ -378,7 +406,7 @@ In addition to `created` and `sensorId` fields, `FaceTraining` messages include 
 * `message` (string) - A message from Misty's computer vision service with information about the status of the face training process. Includes `Error` messages (i.e. when the face training process times out, or when it can't be started because face training is already underway or the value passed in for the `FaceId` argument is already in use), `Warning` messages (i.e. if Misty detects no faces, more than one face, or if the detected face is too far away), and `Status` messages (i.e. which phase of training is currently underway).
 * `messageType` (string) - A type label for the sent message (i.e. `Warning`, `Error`, or `Status`).
 
-```JSON
+```json
 // Sample FaceTraining event message
 {
   "eventName":"FaceTraining",
@@ -416,7 +444,7 @@ Each `HazardNotification` event message includes the following properties:
 
 In the following example of a `HazardNotification` event message, the `TOF_DownBackLeft` and `TOF_DownBackRight` time-of-flight sensors are both in a hazard state.
 
-```JSON
+```json
 {
   "eventName": "HazardNotification",
   "message": {
@@ -569,7 +597,7 @@ You can subscribe to `HazardNotification` event messages to receive notification
 
 The following code provides an example of registering for `HazardNotification` events in a skill running on Misty using her JavaScript API. In this code, we add return properties for `BumpSensorsHazardState` and `TimeOfFlightSensorsHazardState`. This allows us to parse `HazardNotification` event messages in a callback to understand which sensors are in a hazard state. This example uses `HazardNotification` messages to turn Misty's chest LED white when it's safe for her to drive, and red when Misty is in a hazard state. We populate an array with the names of the sensors that are in a hazard state, and we print that array to `SkillData` event listeners with the `misty.Debug()` method.
 
-```JavaScript
+```javascript
 misty.Debug("HazardNotification skill starting!");
 
 // White LED means it's safe to drive
@@ -629,7 +657,7 @@ The IMU data stream provides information from Misty's Inertial Measurement Unit 
 * `yAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `y` axis. A positive value means Misty is accelerating to her left, and a negative value means she is accelerating to her right.
 * `zAcceleration` (double) - The force (in meters per second squared) currently applied to Misty along her `z` axis. A positive value means Misty is accelerating up, and a negative value means Misty is accelerating down. When Misty is set on a level surface, this value should be a negative number that indicates the force of gravity on Misty's IMU sensor.
 
-```JSON
+```json
 IMU {
     "eventName": "IMU",
     "message": {
@@ -672,7 +700,7 @@ Misty sends `KeyPhraseRecognized` event messages when she recognizes the "Hey, M
 
 `KeyPhraseRecognized` event messages include a `confidence` value that rates system's confidence in having heard the key phrase.
 
-```JSON
+```json
 {
     "eventName":"KeyPhraseRecognizedEvent",
     "message": {
@@ -703,7 +731,7 @@ You must start key phrase recognition before Misty can send `KeyPhraseRecognized
 
 As an example of how to use this functionality in your skill code, the following has Misty play a sound and wave when she hears the key phrase.
 
-```JavaScript
+```javascript
 StartKeyPhraseRecognition();
 
 function StartKeyPhraseRecognition() {
@@ -779,7 +807,7 @@ To receive data from Misty's PRU firmware in your skills and robot applications,
 * `vout` (int) - The actual output (in mVolts) of the regulator.
 * `vrect` (int) - The rectified output (in mVolts) the receiving unit supplies to the regulator.
 
-```json
+```javascripton
 {
   "eventName": "PRUMessage",
   "message": {
@@ -829,7 +857,7 @@ There are a number of fields in the event message data structure that are reserv
 ```SelfState``` WebSocket messages are sent even if the data has not changed, as the data is sent via timed updates, instead of being triggered by events. The ```SelfState``` WebSocket can send data as frequently as every 100ms, though it is set by default to 250ms. To avoid having to handle excess data, you can change the message frequency for the WebSocket with the ```DebounceMs``` field, as shown in the ```lightSocket.js``` JavaScript helper.
 
 Sample SelfState data:
-```JSON
+```json
 {
   "eventName": "SelfState",
   "message": {
@@ -1056,7 +1084,7 @@ Serial.println("{\"temperature\":\""+String(<temp_value>)+"\",\"pressure\":\""+S
 
 Handle this data with Misty's on-robot JavaScript API by registering for `SerialMessage` events. Add `SerialMessage` as an additional return property, and parse the data in the `_SerialMessage()` callback that triggers when the data is ready.
 
-```JavaScript
+```javascript
 // MISTY 
 
 // Register for SerialMessage events and add SerialMessage as a return property
@@ -1090,7 +1118,7 @@ When you connect Misty to the Skill Runner to start and stop skills, the web pag
 **SkillData Message Examples**
 
 This sample shows the `SkillData` message sent when a skill executes the `misty.Debug()` command with the string `"Hello, world!"`:
-```JSON
+```json
 {
   "eventName": "SkillData",
   "message": {
@@ -1106,7 +1134,7 @@ This sample shows the `SkillData` message sent when a skill executes the `misty.
 
 This sample shows the `SkillData` message sent when a skill executes a `misty.SendExternalRequest()` command. The `message.data` object provides information about the values passed in for the command's arguments.
 
-```JSON
+```json
 {
   "eventName": "SkillData",
   "message": {
@@ -1138,7 +1166,7 @@ To subscribe to `SkillData` events, you open a WebSocket connection to Misty and
 
 This example shows how to subscribe to `SkillData` events in a web page using the [WebSocket API](https://developer.mozilla.org/en-US/docs/web/API/WebSockets_API). In the example, `SkillData` messages print to the web browser's console.
 
-```JavaScript
+```javascript
 //Misty's IP address
 const ip = "<robot-ip-address>";
 
@@ -1172,7 +1200,7 @@ streamSkillData();
 
 Before you close the WebSocket connection, send a message to unsubscribe to `SkillData` events. You cannot set up a `SkillData` subscription when there is an open subscription with the same `EventName` you are trying to subscribe to.
 
-```JavaScript
+```javascript
 ws.send(JSON.stringify(
     {
     "Operation": "unsubscribe",
@@ -1193,7 +1221,7 @@ The system triggers a new `SkillSystemStateChange` event each time you add, star
 * name - The name of the skill that triggered the `SkillSystemStateChange` event.
 * timestamp - When this event occurred.
 
-```JSON
+```json
 {
   "eventName": "SkillSystemStateChange",
   "message": {
@@ -1235,6 +1263,8 @@ This event type is not functional with the Misty II Basic Edition.
   * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
   * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
   * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`
@@ -1273,7 +1303,7 @@ This event type is not functional with the Misty II Basic Edition.
 
 Example `SlamStatus` event message:
 
-```JSON
+```json
 {
     "eventName":"SlamStatus",
     "message": {
@@ -1306,7 +1336,7 @@ Audio localization messages include the following data:
 
 Sample `SourceTrackDataMessage` response data:
 
-```JSON
+```json
 {
   "eventName": "SourceTrackDataMessageEvent",
   "message": {
@@ -1335,7 +1365,7 @@ This event type is currently in **Beta**, and related hardware, firmware, or sof
 
 Sample `SourceFocusConfigMessage` response data:
 
-```JSON
+```json
 {
   "eventName": "SourceFocusConfigMessageEvent",
   "message": {
@@ -1373,7 +1403,7 @@ A `TimeOfFlight` event message includes the following key/value pairs:
 * `status` - A status code from the sensor that provides additional context for the distance reading in a `TimeOfFlight` event message. At the macro level, `0` indicates the distance reading is valid; `100` codes are warnings (the system has low confidence in the value); and `200` codes are errors (the distance value is not reliable and should probably be discarded). Status codes are different for edge and range time-of-flight sensors. For a list of status codes and their descriptions, see the [Time-of-Flight Status Codes](./#time-of-flight-status-codes) section below.
 * `type` - A string value indicating whether this message comes from a `Range` or `Edge` time-of-flight sensor. See the [Time-of-Flight Sensor Details](./#time-of-flight-sensor-details) table for a list of which sensors belong in each category.
 
-```JSON
+```json
 // Example message from Misty's front-right "edge" time-of-flight sensor
 {
   "eventName": "TimeOfFlight",
@@ -1466,7 +1496,7 @@ The value for `isContacted` is a boolean indicating whether the sensor was touch
 
 Sample `TouchSensor` data:
 
-```JSON
+```json
 TouchSensor{  
     "eventName":"TouchSensor",
     "message":{  
@@ -1576,7 +1606,7 @@ The `VoiceRecord` event type provides information about the speech capture recor
 * filename (string) - The filename the system used to save the captured speech recording. 
 * errorMessage (string) - A message with more detailed information about what may have prevented the successful creation of a speech recording. 
 
-```JSON
+```json
 {
   "eventName":"VoiceRecord",
   "message": {
@@ -1598,7 +1628,7 @@ The ```WorldState``` named object exists to provide information about things Mis
 **Note:** The `WorldState` event type is currently in **Alpha** and can't be used for much at this time. Many of the properties Misty sends in `WorldState` event messages are reserved for future use, and may have `null` or invalid values.
 {{box op="end"}}
 
-```JSON
+```json
 {
   "eventName": "WorldState",
   "message": {

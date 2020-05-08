@@ -2,65 +2,49 @@
 title: API Reference
 layout: coding.hbs
 columns: three
-order: 3
+order: 2
 ---
 
 # {{title}}
 
-With the REST API, you can send commands to Misty from a REST client or browser. There is also a community maintained [Python wrapper](https://github.com/MistyCommunity/Wrapper-Python) available for the Misty REST API.
+Welcome to the reference documentation for Misty's REST API. You can use this API to build applications that control Misty II via HTTP requests.
 
-To create skills for Misty, you'll need to send commands to Misty and get data back from Misty. To send commands to Misty, you can call the REST API. To get live updating data back from Misty, you'll need to use a [WebSocket connection](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket). You can visit the [REST-API repository on GitHub](https://github.com/MistyCommunity/REST-API) for sample code and tutorials.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** If you haven't used Misty's REST API before, you can learn the basics of making API requests in the [REST API Overview](../../../misty-ii/rest-api/overview).
+{{box op="end"}}
+  
+The topics on this page provide information about each operation you can perform with Misty's REST API, including:
 
+* controlling Misty's display, LED, flashlight, speakers, and cameras
+* driving Misty
+* using face training, detection, and recognition
+* moving Misty's head and arms
+* using Misty's simultaneous localization and mapping (SLAM) capabilities
+* communicating with external hardware via UART serial
+* managing JavaScript and .NET skills
+* uploading and downloading image, video, and audio assets
+* getting device information and changing Misty's settings
+
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Not all of Misty's API is equally complete. You may see some commands labeled "Beta" or "Alpha" because the related hardware, firmware, or software is still under development. Feel free to use these commands, but realize they may behave unpredictably at this time.
-
-## URL & Message Formats
-
-Use the following URL format when sending commands to the robot:
-
-```markup
-http://<robot-ip-address>/api/<Endpoint>
-```
-
-Misty uses JSON to format REST API data. Use this format when creating the payload:
-
-
-```json
-{
-  "key0": "value0",
-  "key1": "value1",
-  "key2": "value2"
-}
-```
-
-The `Content-Type` for all POST requests should be `application/json`, unless otherwise specified in this documentation.
-
-All successful commands return a status and the result of the call.
-
-```json
-{
-  "result": true,
-  "status": "Success"
-}
-```
-
-A `status` of `"Success"` indicates Misty received and was able to process the request. A status of `"Failed
-"` indicates there was a problem, and is typically paired with an `error` string instead of a `result` value.
-
-For most GET requests, the value for `result` is the response data from Misty. For example, when you send a request to the `GetImageList` endpoint, the value for `result` is an array of JSON-formatted objects with information about each image saved to Misty's local storage. Alternately, for most POST and DELETE requests, `result` returns a boolean value indicating whether the command was successful.
-
+{{box op="end"}}
 
 ## Asset
 
 Misty comes with a set of default images that you can display onscreen and sounds that you can play through her speakers. We encourage you to get creative and use your own image and audio assets in your skills.
 
 ### DeleteAudio
-Enables you to remove an audio file from Misty that you have previously uploaded.
 
-**Note:** You can only delete audio files that you have previously uploaded to Misty. You cannot remove Misty's default system audio files.
+Deletes an audio file.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command cannot delete Misty's default system audio files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/audio
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -70,18 +54,21 @@ Parameters
 ```
 
 Return Values
-* Result (boolean) - Returns `true` if there are no errors related to this command.
 
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### DeleteImage
 
-Deletes an image file from Misty's storage.
+Deletes an image file.
 
-**Note:** You can only delete image files that you have previously uploaded to Misty. You cannot remove Misty's default system image files.
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command cannot delete Misty's default image files.
+{{box op="end"}}
 
 Endpoint: DELETE &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the file to delete, including its file type extension.
 
 ```json
@@ -118,16 +105,18 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-
 ### GetAudioFile
 
 Obtains a system or user-uploaded audio file currently stored on Misty.
 
-Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName={name-of-audio-file.extension}
+Endpoint: GET &lt;robot-ip-address&gt;/api/audio?FileName=&lt;name-of-audio-file.extension&gt;
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not include payloads, the query parameters for this request must be included in the URL.
+{{box op="end"}}
 
 Parameters
 
-**Note:** Because GET requests do not include payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string): The name of the audio file to get, including its file type extension.
 - Base64 (boolean): Optional. Sending a request with `true` returns the audio file data as a downloadable Base64 string. Sending a request with `false` returns the audio file to your browser or REST client. Defaults to `false`.
 
@@ -158,7 +147,8 @@ Return Values
    * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio assets. If `false`, a user created the file.
 
 ### GetImage
-Obtains a system or user-uploaded image file currently stored on Misty
+
+Obtains a system or user-uploaded image file.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/images?FileName=&lt;name-of-image-file.extension&gt;
 
@@ -166,9 +156,12 @@ Example:
 
 `http://<robot-ip-address>/api/images?FileName=happy.png&Base64=false`
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameter for this request must be included in the URL.
+{{box op="end"}}
+
 Parameters
 
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen above.
 - FileName (string) - The name of the image file to get, including the file type extension.
 - Base64 (boolean) - Optional. Sending a request with `true` returns the image data as a downloadable Base64 string. Sending a request with `false` displays the image in your browser or REST client immediately after the image is taken. Default is `true`.
 
@@ -285,16 +278,17 @@ Return Values
 
 ### SaveAudio
 
-Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as `.wav`, `.mp3`, `.wma`, and `.aac`.
+Saves an audio file to Misty. Maximum size is 3 MB. Accepts audio files formatted as .wav, .mp3, .wma, and .aac.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio
 
 Parameters
-- FileName (string) - The name of the audio file to upload.
-- Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
-- File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
-- ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
-- OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
+
+* FileName (string) - The name of the audio file to upload.
+* Data (string) - The audio data, passed as a string containing base64 data. You must either supply a value for `Data` **or** specify a `File` to upload.
+* File (object) - The audio file to save to Misty. Valid audio file types are `.wav`, `.mp3`, `.wma`, and `.aac`. **Note:** If uploading a file instead base64 data for the asset, make sure to set the `content-type` in the header of the POST call to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data). Uploading files to Misty this way does _not_ work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
+* ImmediatelyApply (boolean) - Optional. A value of `true` tells Misty to immediately play the uploaded audio file, while a value of `false` tells Misty not to play the file.
+* OverwriteExisting (boolean) - Optional. A value of `true` means the uploaded file should overwrite a file with the same name, if one currently exists on Misty. A value of `false` means the uploaded file should not overwrite any existing files on Misty.
 
 ```json
 {
@@ -306,9 +300,16 @@ Parameters
 ```
 
 Return Values
+
 * Result (array) - Returns an array of information about the audio file, with the following fields:
    * Name (string) - The name of the file that was saved.
    * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`PauseAudio`](./#pauseaudio)
 
 ### SaveImage
 
@@ -316,11 +317,14 @@ Saves an image to Misty. Optionally, proportionately reduces the size of the sav
 
 Valid image file types are `.jpg`, `.jpeg`, `.gif`, `.png`. Maximum file size is 3 MB.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** Images can be reduced in size but not enlarged. Because Misty does not adjust the proportions of images, for best results use an image with proportions similar to her screen (480 x 272 pixels).
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/images
 
 Parameters
+
 * FileName (string) - The name of the image file to upload.
 * Data (string) - The image data, passed as a base64 string. You must either supply a value for `Data` **or** specify a `File` to upload.
 * File (object) - The image file to save to Misty. Valid image file types are `jpg`, `.jpeg`, `.gif`, and `.png`. **Note:** Make sure to set the content-type in the header of the POST call to `multipart/form-data`. Uploading files to Misty this way does not work with JQuery’s AJAX, but does work with XHR (XMLHttpRequest). You must either supply a value for `Data` **or** specify a `File` to upload.
@@ -404,7 +408,7 @@ Return Values
 
 Sends data to Misty's universal asynchronous receiver-transmitter (UART) serial port. Use this command to send data from Misty to an external device connected to the port.
 
-Note that Misty can also receive data a connected device sends to the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
+Misty can also receive data through the UART serial port. To use this data you must subscribe to [`SerialMessage`](../../../misty-ii/robot/sensor-data/#serialmessage) events.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/serial
 
@@ -432,7 +436,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/skills/event
 
 Parameters
 
-* Skill (string) - The `UniqueId` for the skill to receive this event. The `UniqueId` for JavaScript skills is defined in the skill's [JSON meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file), and the `UniqueId` for .NET skills is defined as a property of the [`NativeRobotSkill`](../../../misty-ii/net-sdk/net-skill-architecture/#nativerobotskill) class.
+* Skill (string) - The `UniqueId` for the skill to receive this event. The `UniqueId` for JavaScript skills is defined in the skill's [JSON meta file](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#meta-file), and the `UniqueId` for .NET skills is defined as a property of the [`NativeRobotSkill`](../../../misty-ii/dotnet-sdk/dotnet-skill-architecture/#nativerobotskill) class.
 * EventName (string) - A name of your choosing for this custom event. Use this name to register listeners for this event in JavaScript and .NET skills.
 * Payload (JSON) - The data to send with this event, formatted as a JSON object. This data is passed into the callback for the event listener in the skill that receives this event.
 * Source (string) - A name of your choice that describes the source of this event.
@@ -461,7 +465,7 @@ In addition to the data you pass with the `Payload` property, user-created event
 
 As an example, the following shows how to register a listener for a custom event in a JavaScript skill. 
 
-```JavaScript
+```javascript
 // Register a listener for the custom user event called "MyEvent"
 misty.RegisterUserEvent("MyEvent", true);
 
@@ -707,7 +711,7 @@ Returns:
 
 Sample response data for a `GetBlinkSettings` request:
 
-```JSON
+```json
 {
     "result": {
         "blinkImages": {
@@ -748,27 +752,83 @@ Sample response data for a `GetBlinkSettings` request:
 }
 ```
 
+### PauseAudio
+
+Pauses audio playback.
+
+To resume playback, issue a [`PlayAudio`](./#playaudio) command with the filename or URL of the paused audio source as the value for the `FileName` parameter.
+
+When you pause audio playback and then issue a command to play audio from a different source, Misty considers playback from the paused source to be complete. This causes the system to raise an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the paused source. The next time Misty plays audio from that source, playback starts at the beginning.
+
+When you pause audio playback for a live stream, Misty does not resume playback from the paused location. Instead, when you issue a `PlayAudio` command to resume playback for that stream, Misty starts playing from the point in the stream that is currently live.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/pause
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this command.
+
+Related Commands
+
+* [`PlayAudio`](./#playaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
+
 ### PlayAudio
 
-Plays an audio file that has been previously uploaded to Misty. Use `SaveAudio` to upload audio files to Misty.
+Starts playing one of the audio assets saved to Misty's local storage, **or** starts playing audio from an HTTP, HTTPS, or RTSP URL.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** For streaming audio with RTSP, Misty supports a subset of [Android's supported audio formats](https://developer.android.com/guide/topics/media/media-formats#audio-formats). For best results, we recommend setting up your RTSP stream to use a format of AAC and a container format of MPEG-4/MOV or MPEG-TS.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/play
 
 Parameters
 
-- AssetId (string) - The ID of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
-- FileName (string) - The name of the file to play. You must pass a value for either the `AssetId` or `FileName` parameter.
+- FileName (string) - **Option 1**: The filename (with type extension) of an audio file saved on Misty's local storage (for example, `s_Awe.wav`). **Option 2:** The HTTP/HTTPS/RTSP URL of an external audio source. You can use this option to play audio files that are hosted on the web, or to stream audio over the internet or your local area network (for example, from an RTSP stream).
 - Volume (integer) - Optional. A value between 0 and 100 for the loudness of the audio clip. 0 is silent, and 100 is full volume. Defaults to `null`.
 
 ```json
+// Examples:
+// Plays an audio asset from Misty's local storage
 {
   "FileName": "s_Amazement.wav"
+}
+
+// Plays an RTSP audio stream
+{
+  "FileName": "rtsp://<streaming-url>"
+}
+
+// Plays the live audio feed for a radio station
+{
+  "FileName": "http://audio.kuer.org:8000/high"
+}
+
+// Plays an audio file hosted on the web
+{
+  "FileName": "https://ia802609.us.archive.org/9/items/Free_20s_Jazz_Collection/Eubie_Blake-Charleston_Rag_11KHz_64kb.mp3"
 }
 ```
 
 Return Values
 
 * Result (string) - Returns a string with any errors related to this command.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`StopAudio`](./#stopaudio)
+* [`SaveAudio`](./#saveaudio)
 
 ### RemoveBlinkMappings
 
@@ -784,46 +844,9 @@ Parameters
 
 * BlinkImages (array) - The list of images to remove blink mappings from.
 
-```JSON
+```json
 {
   "BlinkImages": ["Relaxed.png", "Protected.png"]
-}
-```
-
-Return values
-
-* Result (string) - Returns `true` if no errors related to this request.
-
-
-### TransitionLED
-
-Sets Misty's LED to transition between two colors.
-
-When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
-
-Parameters
-
-* Red (byte) - The red RGB color value for the first color (range 0 to 255).
-* Green (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
-* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
-* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
-* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
-* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
-* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
-
-```JSON
-{
-	"Red": 255,
-	"Green": 0,
-	"Blue": 0,
-	"Red2": 0,
-	"Green2": 255,
-	"Blue2": 0,
-	"TransitionType": "Breathe",
-	"TimeMS": 500
 }
 ```
 
@@ -849,7 +872,7 @@ Parameters
 
 * Blink (bool) - Passing in `true` turns blinking on, and passing in `false` turns blinking off. By default, blinking turns on when Misty starts up.
 
-```JSON
+```json
 {
   "Blink": true
 }
@@ -880,7 +903,7 @@ Parameters
 * ClosedEyeMaxMs (integer) - Optional. Sets the maximum duration that Misty's eyes stay closed while blinking.
 * RevertToDefault (boolean) - Optional. Use `true` to revert Misty's blink settings to the default configuration. Use `false` (or leave blank) to continue using your custom settings.
 
-```JSON
+```json
 {
   "BlinkImages": "e_SystemLogoPrompt.jpg=e_Sleepy4.jpg,e_SystemGearPrompt.jpg=e_Sleepy3.jpg,MyPic.jpg=e_Sleepy4.jpg",
   "OpenEyeMinMs" : 1000,
@@ -923,7 +946,7 @@ Parameters
 
 * On (bool) - Turns the flashlight on (`true`) or off (`false`).
 
-```JSON
+```json
 {
   "On": true
 }
@@ -1200,7 +1223,7 @@ Pauses speech.
 
 **`<break>` Supported Attributes**
 
-**Note:** Use one of these attributes, but not both.
+Use **either** the `time` or `stringth` attribute, but not both.
 
 - `time`: milliseconds of pause
 - `strength`: 
@@ -1271,7 +1294,7 @@ Parameters
 * Flush (bool) - Optional. Whether to flush all previously enqueued `Speak` commands. Default is `false`.
 * UtteranceId (string) - Optional. An identifier of your choosing for this instance of the `Speak` command. You must set a value for `UtteranceId` in order to receive a [`TextToSpeechComplete`](../../../misty-ii/robot/sensor-data/#texttospeechcomplete) event when Misty stops speaking this utterance.
 
-```JSON
+```json
 { 
   "Text": "<speak>You say, <phoneme alphabet=\"XSAMPA\" ph=\"pI`kA:n\">pecan</phoneme>. I say, <phoneme alphabet=\"XSAMPA\" ph=\"pi.k{n\">pecan</phoneme>. </speak>",
   "Flush": false,
@@ -1282,6 +1305,32 @@ Parameters
 Returns
 
 * Result (array) - Returns `true` if no errors related to this command.
+
+### StopAudio
+
+Stops audio playback. When you use this command, the system raises an [`AudioPlayComplete`](../../../misty-ii/robot/sensor-data/#audioplaycomplete) event for the stopped audio source.
+
+This command does **not** stop playback of onboard text-to-speech utterances that you create with the [`Speak`](./#speak) command. To stop an onboard text-to-speech utterance, you must use the [`StopSpeaking`](./#stopspeaking) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: &lt;robot-ip-address&gt;/api/audio/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (string) - Returns `true` if no errors related to this request.
+
+Related Commands
+
+* [`PauseAudio`](./#pauseaudio)
+* [`PlayAudio`](./#playaudio)
+* [`SaveAudio`](./#saveaudio)
 
 ### StopSpeaking
 
@@ -1300,6 +1349,42 @@ Parameters
 Returns
 
 * Result (boolean) - Returns `true` if no errors related to this command.
+
+### TransitionLED
+
+Sets Misty's LED to transition between two colors.
+
+When you use this command, Misty will continue the transition you specify until she is powered off or receives another command to change or transition her LED.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/led/transition
+
+Parameters
+
+* Red (byte) - The red RGB color value for the first color (range 0 to 255).
+* Green (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue (byte) - The blue RGB color value for the first color (range 0 to 255).
+* Red2 (byte) - The red RGB color value for the second color (range 0 to 255).
+* Green2 (byte) - The green RGB color value for the first color (range 0 to 255).
+* Blue2 (byte) - The blue RGB color value for the first color (range 0 to 255).
+* TransitionType (string) - The transition type to use. Case sensitive. Accepts `Blink` (continuously blinks LED between the specified colors), `Breathe` (continuously fades LED between the specified colors), and `TransitOnce` (blinks LED from first color to second color only once). 
+* TimeMs (int) - The duration (in milliseconds) between each transition. Must be greater than `3`.
+
+```json
+{
+	"Red": 255,
+	"Green": 0,
+	"Blue": 0,
+	"Red2": 0,
+	"Green2": 255,
+	"Blue2": 0,
+	"TransitionType": "Breathe",
+	"TimeMS": 500
+}
+```
+
+Return values
+
+* Result (string) - Returns `true` if no errors related to this request.
 
 ## External Requests
 
@@ -1327,7 +1412,7 @@ Parameters
 * FileName (string) - Optional. The name to give the saved file, including the appropriate file type extension.
 * ContentType (string) - Optional. The content type of the data you are sending with the request. Defaults to `"application/json"`.
 
-```JSON
+```json
 {
   "Method": "GET",
   "Resource": "http://soundbible.com/grab.php?id=1949%26type=mp3",
@@ -1347,7 +1432,7 @@ The following commands allow you to programmatically drive and stop Misty and mo
 
 If you want to directly drive Misty, you can use her [companion app](../../../tools-&-apps/mobile/misty-app).
 
-To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../rest-api/overview#subscribing-amp-unsubscribing-to-a-websocket) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include movement, position, and proximity data, you can [subscribe](../../rest-api/overview#using-mistys-websocket-server) to her LocomotionCommand, HaltCommand, TimeOfFlight, and SelfState [WebSockets](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### Drive
 Drives Misty forward or backward at a specific speed until cancelled.
@@ -1396,7 +1481,7 @@ Parameters
 * TimeMs (double) -  The duration (in milliseconds) that Misty drives.
 * Reverse (boolean) - Optional. If `true`, Misty drives in reverse. Default is `false`.
 
-```JSON
+```json
 {
   "Heading": 90,
   "Radius": 1,
@@ -1409,7 +1494,7 @@ Return Values:
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": "true",
   "status": "Success"
@@ -1418,7 +1503,7 @@ Example JSON response for a successful request:
 
 Example JSON response for a failed request:
 
-```JSON
+```json
 {
   "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
   "status": "Failed"
@@ -1446,7 +1531,7 @@ Parameters
 * TimeMs (double) - The duration (in milliseconds) that Misty should drive.
 * Reverse (boolean) - If `true`, Misty drives in reverse. Default is `false`.
 
-```JSON
+```json
 {
   "Heading": 90,
   "Distance": 1,
@@ -1460,7 +1545,7 @@ Return Values
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": "true",
   "status": "Success"
@@ -1469,7 +1554,7 @@ Example JSON response for a successful request:
 
 Example JSON response for a failed request:
 
-```JSON
+```json
 {
   "error": "Cannot drive  - Missing required double parameter 'Heading'. - Missing required double parameter 'Distance'. - Missing required double parameter 'TimeMs'.",
   "status": "Failed"
@@ -1561,7 +1646,7 @@ Parameters
 * Velocity (double) - Optional. A value of 0 to 100, specifying the speed with which the arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
-```JSON
+```json
 {
   "Arm": "left",
   "Position": -90,
@@ -1594,7 +1679,7 @@ Parameters
 * RightArmVelocity (double) - Optional. A value of 0 to 100, specifying the speed with which the right arm should move. Defaults to `null`.
 * Units (string) - Optional. A string value of `degrees`, `radians`, or `position` that determines which unit to use in moving Misty's arms.
 
-```JSON
+```json
 {
   "LeftArmPosition": 90,
   "RightArmPosition": 90,
@@ -1687,7 +1772,7 @@ Parameters
 
 * Key (string) - The unique `key` value of the map to delete. **Note:** This command does not work when passed the value for the `name` associated with a map.
 
-```JSON
+```json
 {
   "key": "Map_20190912_21.16.32.UTC",
 }
@@ -1772,7 +1857,7 @@ Return Values
     * sensorName (string) - The name of this time-of-flight sensor. One of the following: `TOF_Right`, `TOF_Center`, `TOF_Left`, `TOF_Back`, `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`.
     * threshold (double) - The minimum distance (in meters) that triggers a hazard state for this time-of-flight sensor. A `threshold` value of `0` means hazards are disabled for this sensor.
 
-```JSON
+```json
 // Example Response:
 {
     "result": {
@@ -1884,7 +1969,7 @@ Return Values
 
 * result (string) - The unique key associated with the currently active map.
 
-```JSON
+```json
 {
     "result": "Map_20190912_21.16.32.UTC",
     "status": "Success"
@@ -1913,7 +1998,7 @@ Return Values
   * exposure (double) - The current exposure levels for the infrared cameras in the depth sensor (in seconds).
   * gain (integer) - The current gain levels for the infrared cameras in the depth sensor (in dB).
 
-```JSON
+```json
 {
     "result": {
         "exposure": 0.014468,
@@ -1941,7 +2026,7 @@ Return Values
   * key (string) - The map's unique key value. Keys are date timestamps in UTC (i.e. `Map_20190911_21.47.16.UTC`). The key for a map cannot be changed.
   * name (string) - A customizable string label for the map. When you create a map, the system saves the map with a name value that is the same as the map's key value. To change a map's name, use the [`RenameSlamMap`](./#renameslammap) command.
 
-```JSON
+```json
 {
   "result": [
     {
@@ -1979,7 +2064,7 @@ Return Values
 
 * result (string) - A stringified JSON object with diagnostic information about the current status of Misty's SLAM system.
 
-```JSON
+```json
 {
   "result": "{\n    \"Navigation\": \"Report\",\n    \"trackingInfo\": {\n        \"numKeyFrames\": 0,\n        \"numKeyPoints\": 0,\n        \"numMapPoints\": 0,\n        \"numTrackedPoints\": 0,\n        \"occupancyGridSize\": [0, 0],\n        \"usingImuProcessModel\": false\n    }\n}",
   "status": "Success"
@@ -2037,23 +2122,25 @@ Parameters
 Return Values
 
 * `status` (int) - Number that describes the current status of the SLAM system. This number updates with information from the `sensorStatus` and `runMode` fields, as well as with other events that occur during a SLAM session. Note that this number represents several status codes simultaneously. You can convert this number to a binary value to see whether the bit field for a given status code is on (`1`) or off (`0`). As an example, the status code `33028` converts to a binary value of `1000000100000100`. In this binary value, the 3rd, 9th, and 16th bits are flipped. Those bits correspond to the status codes for `Exploring`, `LostPose`, and `Streaming`, respectively. (Note that the system also returns the string fields for all current status codes to the `statusList` array that comes back with a `GetSlamStatus` response.) The following hexadecimal values correspond to bit fields for each possible status code:
-  * 0x0000: `Uninitialized` - The SLAM system is not yet initialized.
-  * 0x0001: `Initializing` - The SLAM system is initializing.
-  * 0x0002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
-  * 0x0004: `Exploring` - The SLAM system is mapping.
-  * 0x0008: `Tracking` - The SLAM system is tracking.
-  * 0x0010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
-  * 0x0020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
-  * 0x0040: `Rebooting` - The SLAM system is rebooting.
-  * 0x0080: `HasPose` - The SLAM system has obtained pose.
-  * 0x0100: `LostPose` - The SLAM system has lost pose after having obtained it.
-  * 0x0200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
-  * 0x0400: `Error` - There is an error with the SLAM system or with the depth sensor.
-  * 0x0800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
-  * 0x1000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
-  * 0x2000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
-  * 0x4000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
-  * 0x8000: `Streaming` - The SLAM system is streaming.
+  * 0x00000: `Uninitialized` - The SLAM system is not yet initialized.
+  * 0x00001: `Initializing` - The SLAM system is initializing.
+  * 0x00002: `Ready` - Misty's depth sensor and the SLAM system are ready to start mapping and tracking.
+  * 0x00004: `Exploring` - The SLAM system is mapping.
+  * 0x00008: `Tracking` - The SLAM system is tracking.
+  * 0x00010: `Recording` - The SLAM system is recording an `.occ` file to Misty's local storage.
+  * 0x00020: `Resetting` - The SLAM system is in the process of shutting down and resetting.
+  * 0x00040: `Rebooting` - The SLAM system is rebooting.
+  * 0x00080: `HasPose` - The SLAM system has obtained pose.
+  * 0x00100: `LostPose` - The SLAM system has lost pose after having obtained it.
+  * 0x00200: `Exporting_Map` - The SLAM system is exporting a map after mapping is complete.
+  * 0x00400: `Error` - There is an error with the SLAM system or with the depth sensor.
+  * 0x00800: `Error_Sensor_Not_Connected` - The depth sensor is not connected.
+  * 0x01000: `Error_Sensor_No_Permission` - The system does not have permission to use the depth sensor.
+  * 0x02000: `Error_Sensor_Cant_Open` - The system cannot open the depth sensor for communication.
+  * 0x04000: `Error_Error_Power_Down_Robot` - Unrecoverable error. Power down the robot and restart.
+  * 0x08000: `Streaming` - The SLAM system is streaming.
+  * 0x10000: `Docking_Station_Detector_Enabled` - The docking station detector is enabled.
+  * 0x20000: `Docking_Station_Detector_Processing` - The docking station detector is processing frames.
 * `statusList` (array) - A list of the string values that describe the current status of the SLAM system. Can contain any of the values represented by the `status` field.
 * `runMode` (string) - Current status of the navigation system. Possible values are:
   * `Uninitialized`
@@ -2108,7 +2195,7 @@ Return Values
   * exposure (double) - The current exposure levels for the fisheye camera in the depth sensor (in seconds).
   * gain (integer) - The current gain levels for the fisheye camera in the depth sensor (in dB).
 
-```JSON
+```json
 {
     "result": {
         "exposure": 0.007987,
@@ -2131,7 +2218,7 @@ Parameters
 * Key (string) - The unique `key` value of the map to rename.
 * Name (string) - A new `name` value for the map.
 
-```JSON
+```json
 {
   "Key": "Map_20190912_21.16.32.UTC",
   "Name": "KitchenMap3"
@@ -2174,7 +2261,7 @@ Parameters
 
 * Key (string) - The unique `key` of the map to make currently active. **Note:** This command does not work when passed the value for the `name` associated with a map.
 
-```JSON
+```json
 {
   "key": "Map_20190912_21.16.32.UTC",
 }
@@ -2203,7 +2290,7 @@ Parameters
 * Exposure (double) - Exposure levels for the infrared cameras in the depth sensor (in seconds). Range: `0.001` - `0.033`.
 * Gain (integer) - Gain levels for the infrared cameras in the depth sensor (in dB). Range: `0` - `3`.
 
-```JSON
+```json
 {
   "Exposure": 0.014468,
   "Gain": 3
@@ -2231,7 +2318,7 @@ Parameters
 * Exposure (double) - Exposure levels for the fisheye camera in the depth sensor (in seconds). Range: `0.001` - `0.033`
 * Gain (integer) - Gain levels for the fisheye camera in the depth sensor (in dB). Range: `1` - `8`
 
-```JSON
+```json
 {
   "Exposure": 0.007987,
   "Gain": 2
@@ -2264,8 +2351,9 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/docking/start
 
 Parameters
 
-* startStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
-* enableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* StartStreamingTimeout (int) - Optional. The number of one second intervals that must elapse with streaming stopped before the `StartLocatingDockingStation` command fails. The system checks the status of the streaming service this many times, with a pause of one second between each check. If streaming doesn't start before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* EnableIrTimeout (int) - Optional. The number of one second intervals that must elapse with infrared (IR) disabled before the `StartLocatingDockingStation` command fails. The system checks the status of the IR sensors this many times, with a pause of one second between each check. If the IR sensors are not enabled before these status checks complete, then the `StartLocatingDockingStation` command fails. Passing `null`, no value, or a value of less than or equal to 0 causes the system to use the default value of 5 seconds.
+* EnableAutoExposure (bool) - Optional. Whether Misty should automatically adjust the exposure for the IR cameras during docking station location. Default is `true`.
 
 Return Values
 
@@ -2445,17 +2533,20 @@ This command is not functional with the Misty II Basic Edition.
 
 Endpoint: GET &lt;robot-ip-address&gt;/api/cameras/fisheye
 
-Parameters
-
-- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
-
-**Note:** Because GET requests do not contain payloads, the parameter for this request must be included in the URL as seen here:
-
 ```markup
 <robot-ip-address>/api/cameras/fisheye?Base64=false
 ```
 
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Because GET requests do not contain payloads, the query parameters for this request must be included in the URL.
+{{box op="end"}}
+
+Parameters
+
+- Base64 (boolean) - Sending a request with `true` returns the image data as a downloadable Base64 string, while sending a request of `false` displays the photo in your browser or REST client immediately after it is taken. Default is `false`. **Note:** Images generated by this command are not saved in Misty's memory. To save an image to your robot for later use, pass `true` for `Base64` to obtain the image data, download the image file, then call `SaveImage` to upload and save the image to Misty.
+
 Return Values
+
 - Result (object) -  An object containing image data and meta information. This object is only sent if you pass `true` for `Base64`.
     - base64 (string) - A string containing the Base64-encoded image data.
     - contentType (string) - The type and format of the image returned.
@@ -2527,7 +2618,7 @@ Parameters:
   * sensorName (string) - The name of one of Misty's time-of-flight sensors. Expects `TOF_DownFrontRight`, `TOF_DownFrontLeft`, `TOF_DownBackRight`, `TOF_DownBackLeft`, `TOF_Right`, `TOF_Left`, `TOF_Center`, or `TOF_Back`.
   * threshold (double) - The minimum distance (in meters) that triggers a hazard state for the correlated time-of-flight sensor. Setting the threshold to 0 for any sensor disables hazards for that sensor. Default threshold settings are listed in the table above.
 
-```JSON
+```json
 // Example JSON payload. Sets bump and time-of-flight hazard settings
 // to their current default values.
 {
@@ -2559,11 +2650,11 @@ The following commands allow you to programmatically take pictures, record sound
 
 Like most of us, Misty sees faces best in a well-lit area. If you want to directly experiment with face recognition commands, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#perception).
 
-To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
+To programmatically obtain live data streams back from Misty that include face detection and recognition data, you can [subscribe](../../rest-api/overview/#getting-live-data-from-misty) to her FaceRecognition [WebSocket](../../../misty-ii/robot/sensor-data). To directly observe this data, you can use the [Command Center](../../../tools-&-apps/web-based-tools/command-center/#opening-a-websocket).
 
 ### CancelFaceTraining
 
-Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the CancelFaceTraining command unless you want to abort a training that is in progress.
+Halts face training that is currently in progress. A face training session stops automatically, so you do not need to use the `CancelFaceTraining` command unless you want to abort a training that is in progress.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/cancel
 
@@ -2652,12 +2743,12 @@ Return Values
 
 ### GetVideoRecording
 
-Obtains a video recording that Misty has created.
+Downloads a video that Misty has created. Optionally, returns the video data as a Base64 string.
 
-You can only use this command to obtain Misty's video recordings. To obtain user-uploaded video assets, use the [`GetVideo`](./#getvideo) command.
+You can only use this command to download videos that Misty recorded. To get videos that you or another user has uploaded, use the [`GetVideo`](./#getvideo) command.
 
 {{box op="start" cssClass="boxed tipBox"}}
-**Tip:** Misty records videos in `.mp4` format. Video recordings can be up to 3840 x 2160 pixels in resolution, and can be up to 3 minutes in length. A single video file can be up to 225 megabytes. Larger video files may take a long time to download (for example, it may take about 2 minutes to download the largest, 225 megabyte recording).
+**Tip:** Misty records videos in .mp4 format. Video recordings have a maximum resolution of 3840 x 2160 pixels and can be up to 3 minutes long. A single video file can be up to 225 MB and can take several minutes to download.
 {{box op="end"}}
 
 {{box op="start" cssClass="boxed noteBox"}}
@@ -2668,8 +2759,8 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/videos/recordings
 
 Parameters
 
-* Name (string) - Optional. The filename of the video recording to download. If not supplied, the default filename of `misty_video` is used.
-* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Default is `false`.
+* Name (string) - Optional. The filename of the video to download. If not supplied, defaults to `misty_video`.
+* Base64 (boolean) - Optional. Sending a request with `true` returns the video data as a Base64-encoded string. Sending a request with `false` downloads the video file to your REST client. Defaults to `false`.
 
 ```json
 {
@@ -2680,11 +2771,11 @@ Parameters
 
 Return Values
 
-If `Base64` is `null`, `false`, or not supplied, returns the `.mp4` video file to your browser or REST client. Otherwise, returns the following:
+If `Base64` is `null`, `false`, or not supplied, downloads the .mp4 video file to your browser or REST client. Otherwise, returns the following:
 
-* Result (object) - An object containing video data and meta information about the file. Note that this object is only sent if you pass `true` for the `Base64` parameter. It includes the following key/value pairs:
+* Result (object) - An object containing video data and meta information about the file. Note that Misty only returns this object if you pass `true` for the `Base64` parameter. Includes the following key/value pairs:
   * base64 (string) - A string containing the Base64-encoded video data.
-  * contentType (string) - The type and format of the video returned. For all video recordings that Misty creates, the content type should be `video/mp4`.
+  * contentType (string) - The type and format of the video returned. For all videos that Misty creates, the content type should be `video/mp4`.
   * name (string) - The name of the video file.
 
 ### GetVideoRecordingsList
@@ -2720,7 +2811,7 @@ Parameters
 * OldName (string) - The current (old) filename of the video recording to rename, without the file type extension.
 * NewName (string) - The new filename to associate with the video recording, without the file type extension. The name of a video recording can only include uppercase and lowercase alphanumeric characters, hyphens, and underscores (`[a-zA-Z0-9_-]`). Do not supply a file type extension; the system automatically uses the `.mp4` extension for Misty's video recordings. 
 
-```JSON
+```json
 {
   "OldName": "oldVideoRecordingName",
   "NewName": "newVideoRecordingName"
@@ -2775,7 +2866,7 @@ Parameters
 * UserName (string) - Optional. The username a stream must supply to transmit media to your external server. Not all servers require a username and password. You can change whether to require credentials when you set up your server.
 * Password (string) - Optional. The password for connecting to your external media server.
 
-```JSON
+```json
 // This example sets Misty up to act as her own media server. Connect
 // to this stream from a client on the same network as Misty. The URL
 // for this stream would be: rtsp://<robot-ip-address>:1936
@@ -2794,7 +2885,7 @@ Return Values
 
 Initiates Misty's detection of faces in her line of vision. This command assigns each detected face a random ID.
 
-When you are done having Misty detect faces, call StopFaceDetection.
+When you are done having Misty detect faces, call `StopFaceDetection`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/detection/start
 
@@ -2810,7 +2901,7 @@ Return Values
 
 Trains Misty to recognize a specific face and applies a user-assigned ID to that face.
 
-This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call CancelFaceTraining.
+This process should take less than 15 seconds and will automatically stop when complete. To halt an in-progress face training, you can call `CancelFaceTraining`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/training/start
 
@@ -2832,7 +2923,7 @@ Return Values
 
 Directs Misty to recognize a face she sees, if it is among those she already knows. To use this command, you previously must have used either the `StartFaceDetection` command or the `StartFaceTraining` command to detect and store one or more face IDs in Misty's memory.
 
-When you are done having Misty recognize faces, call StopFaceRecognition.
+When you are done having Misty recognize faces, call `StopFaceRecognition`.
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/start
 
@@ -3150,7 +3241,7 @@ Return Values
   - startupArguments (object) - An object with key-value pairs for each startup argument in the skill's meta file.
   - uniqueId (string) - The unique id of the skill as it appears in the skill's meta file.
 
-```JSON
+```json
 // SAMPLE RESULT
 "result":[  
     {  
@@ -3243,7 +3334,9 @@ Return Values
 ### SaveSkillToRobot
 Uploads a skill to the robot and makes it immediately available for the robot to run.
 
+{{box op="start" cssClass="boxed noteBox"}}
 **Note:** To send a file with this request, make sure to set the `content-type` in the header of the `POST` call to `multipart/form-data`.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/skills
 
@@ -3290,8 +3383,6 @@ Return Values
 
 Force-clears an error message from Misty’s display. 
 
-**Note:** This command is provided as a convenience. You should not typically need to call `ClearErrorText`.
-
 Endpoint: POST &lt;robot-ip-address&gt;/api/text/error/clear <br>
 **Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/text/clear
 
@@ -3311,7 +3402,7 @@ Parameters
 
 * NetworkId (string) - The name of the network to connect to.
 
-```JSON
+```json
 {
   "NetworkID": "MyNetworkName"
 }
@@ -3579,7 +3670,7 @@ Parameters
 
 * NetworkId (string) - Optional. The network to remove from Misty’s list of saved networks.
 
-```JSON
+```json
 {
   "NetworkId": "NetworkToForget"
 }
@@ -3677,7 +3768,7 @@ Return Values
 
 Sample response data:
 
-```JSON
+```json
 {
  "result": {
   "chargePercent": null,
@@ -3766,7 +3857,7 @@ Return Values
 
 Example response:
 
-```JSON
+```json
 {
   "result": {
     "androidHardwareId": "2d41343ad7a9c631",
@@ -3910,7 +4001,7 @@ Return Values
 
 Example JSON response for a successful request:
 
-```JSON
+```json
 {
   "result": [
     {
@@ -4049,7 +4140,7 @@ Return Values
 * allowRobotUpdates (bool) - Indicates whether Misty is currently set to prevent or allow automatic system updates.
 * lastUpdateAttempt (string) - Timestamp for the last update attempt.
 
-```JSON
+```json
 {
     "result": {
         "allowRobotUpdates": true,
@@ -4235,7 +4326,11 @@ Return Values:
 
 ### SetDefaultVolume
 
-Sets the default loudness of Misty's speakers for audio playback.
+Sets the default volume of Misty's speakers for audio playback and onboard text-to-speech.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** While changing Misty's default volume during audio playback **does** change the volume of the currently playing audio, changing the volume while Misty is playing an utterance created with the `Speak` command does **not** change the volume for that utterance. However, Misty **does** use the newly set default volume the next time she runs a `Speak` command.
+{{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/volume
 
@@ -4247,9 +4342,9 @@ Return Values
 
 ### SetLogLevel
 
-Sets Misty's local and remote logging level. Use this to determine which messages the system writes to the local log file and to the remote logging database owned by Misty Robotics. The purpose of collecting this data remotely is to service debugging by Misty's engineering and support teams.
+Sets Misty's local and remote logging levels. Use this method to determine which log message types the system writes to the local log file and to the remote Misty Robotics logging database.
 
-Each message in Misty's local log file is labeled as `DBG` (Debug), `INF` (Info), `WRN` (Warn), or `ERR` (Error). For a brief description of the information associated with each message type, see the following list:
+Changing the log level applies a filter on the type of message the system writes to a given location. Log message types include:
 
 * **Debug** messages include information the system writes to assist with systems and skill debugging. Debug messages can provide details about the WebSocket connections Misty establishes, events she triggers, skills she runs or cancels, and internal services she starts or stops. Debug-type messages are flagged in Misty's local log file with the `DBG` label.
 * **Info** messages include system-defined routine application runtime information. They can also include details about the commands Misty executes, values from event messages, and information about Misty's network environment (like her current IP address). In Misty's local log file, Info-type messages are prefaced with the `INF` label. **Note:** In the current version of Misty's software, the system logs the occurrence of a command and whether it has been successful. It does not log such details as the parameters passed into the command, or the data returned in response messages for those commands. In earlier software versions, Misty published more details about command usage to her remote logs. To avoid logging details about parameters passed into a command or the data in the command's response, make sure you have the [most recent version of Misty's software](../../../misty-ii/robot/system-updates/#release-history) installed.
@@ -4363,7 +4458,7 @@ Parameters:
 * KeyPhraseEnabled (bool) - Optional. Enables (`true`) or disables (`false`) the wake word audio notification.
 * KeyPhraseFile (string) - Optional. The filename of an audio file on Misty's system that the robot should play for wake word notifications.
 
-```JSON
+```json
 {
   "LedEnabled": false,
   "KeyPhraseEnabled": true,
@@ -4388,7 +4483,7 @@ Parameters
 
 * version (string): The version of Misty's WebSocket system to use. Accepts `Current` or `Deprecated`.
 
-```JSON
+```json
 {
   "version": "Current"
 }

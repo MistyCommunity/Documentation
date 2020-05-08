@@ -106,7 +106,7 @@ Follow these steps to upload an image, video, or audio file to Misty:
 
 You can use the controls in the **Audio** section to play, download, or delete the audio files on Misty. The list of audio files currently on Misty automatically populates in the **Audio** section when Misty connects to the [Command Center](http://sdk.mistyrobotics.com/command-center/).
 
-* **To have Misty play an audio file**, choose the file to play from the list and click the **Play on Robot** button.
+* **To have Misty play an audio file**, choose the file to play from the list and click the **Play on Robot** button. Use the **Pause** and **Stop** buttons to pause or stop Misty's audio playback. **Note:** These buttons do **not** pause or stop audio playback in your web browser. 
 * **To play an audio file in your web browser**, choose the file to play from the list and click the **Play in Browser** button
 * **To download an audio file from Misty to your computer**, choose the file to download from the list and click the purple download button.
 * **To delete an audio file from Misty**, choose the file to delete from the list and click the red delete button. **Note:** You can only delete audio or image files that you have previously uploaded to Misty.The [Command Center](http://sdk.mistyrobotics.com/command-center/) returns an error to the console in your web browser if you attempt to remove one of Misty's default system files.
@@ -216,7 +216,7 @@ Misty sends real-time data from her sensors and onboard events to the [Command C
 * actuator position data
 * drive encoder data
 
-The [Sensor & Event Data](../../../misty-ii/rest-api/overview/#subscribing-amp-unsubscribing-to-a-websocket) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/rest-api/tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
+The [Sensor & Event Data](../../../misty-ii/rest-api/overview/#using-mistys-websocket-server) section of this documentation describes the data Misty sends over WebSocket connections in detail. See [Misty's REST API tutorials](../../../misty-ii/rest-api/tutorials) for examples of programmatically subscribing to WebSocket data to code Misty.
 
 ### Opening a WebSocket
 
