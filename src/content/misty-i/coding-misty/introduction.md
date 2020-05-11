@@ -7,6 +7,8 @@ order: 1
 
 # {{title}}
 
+
+
 This article provides an overview of developing skills for Misty. It describes how Misty works with your code, and it explores some of the differences between developing for Misty and developing for other platforms. It also provides guidelines for sharing skills and collaborating with other developers in the [Misty Community](https://community.mistyrobotics.com).
 
 ---
