@@ -204,8 +204,8 @@ Return Values
 * Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
    * Height (integer) - the height of the image file
    * Name (string) - the name of the image file
+   * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio files. If `false`, a user created the file.
    * Width (integer) - the width of the image file
-   * userAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 ### GetVideo
 
