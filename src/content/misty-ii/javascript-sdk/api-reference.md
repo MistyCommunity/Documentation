@@ -229,8 +229,8 @@ Returns
 * Result (array) - Returns an array containing one element for each image currently stored on Misty. With Misty's on-robot JavaScript API, data returned by this command must be passed into a callback function to be processed and made available for use in your skill. See ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks) for more information. Each element in the array contains the following:
    * Height (integer) - The height of the image file.
    * Name (string) - The name of the image file.
+   * SystemAsset (boolean) - If `true`, the file is one of Misty's default system audio files. If `false`, a user created the file.
    * Width (integer) - The width of the image file.
-   * UserAddedAsset (boolean) - If `true`, the file was added by the user. If `false`, the file is one of Misty's system files.
 
 ### misty.GetVideo
 
