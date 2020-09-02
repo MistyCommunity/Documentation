@@ -307,8 +307,8 @@ You can connect to adb with the IP address for a USB-to-Ethernet adapter by foll
 1. [Follow these instructions](../../../misty-ii/dotnet-sdk/getting-started/#connecting-to-misty-39-s-410-ip-address) to get an IP address for connecting to Misty's 410 processor. This requires a USB-to-Ethernet adapter, which does not arrive with Misty and must be purchased separately.
 2. Connect the USB end of the adapter to the port on your robot's back.
 3. Open a new command prompt / terminal window.
-4. Enter `ssh -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
-   * **Note:** If you get an error that indicates ssh is using an obsolete cypher, your robot may be using an older version of Windows IoT. You can get around the issue by entering the following: `ssh -c aes256-cbc -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
+4. Enter `sudo ssh -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
+   * **Note:** If you get an error that indicates ssh is using an obsolete cypher, your robot may be using an older version of Windows IoT. You can get around the issue by entering the following: `sudo ssh -c aes256-cbc -L 127.0.0.1:5555:10.10.10.100:5555 administrator@<USB-ETH-IP>`
 5. Enter your robot's Windows administrator password to log in to the 410 via ssh. The Windows administrator password is [printed on the sticker underneath your robot](../../../misty-ii/robot/misty-ii/#connecting-to-misty-39-s-file-system).
 6. Keep this connection established and open a second command line / terminal window. Enter: `adb connect 127.0.0.1:5555`
 
