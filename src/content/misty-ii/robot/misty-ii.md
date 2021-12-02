@@ -352,6 +352,8 @@ Connecting to adb over Wi-Fi is now disabled by default. You can connect to adb 
 
 ## Configuring Misty's Wake Word & Voice Activity Detection Engine
 
+### Built in
+
 You can create an audio configuration file on Misty's 820 processor to change the robot's default wake word from "Hey, Misty" to "Hey, Snapdragon". You can also use this file to set Misty to use the WebRTC voice activity detection (VAD) engine for speech capture activities, instead of her default VAD engine.
 
 {{box op="start" cssClass="boxed tipBox"}}
@@ -382,6 +384,24 @@ You can revert Misty to use her default wake word or VAD engine by updating the 
 2. Open a new command prompt / terminal window and enter the following:
    1. `adb shell`
    2. `rm sdcard/audio/audio_config.json`
+
+### Azure Wake Word
+
+Using similar steps as above, you can also update your Misty to use an Azure wake word file.
+
+1. Create an Azure wake word file using your Azure subscription.
+2. Name the  file `misty.table` and place it in the `/sdcard/audio/` directory of Misty's 820 processor.
+3. Add or update the `audio_config.json` file to:
+```json
+{
+    "misty_settings": {
+        "keyphrase_engine": "MS",
+        "keyphrase_engine_configuration": {
+            "keyphrase": "/sdcard/audio/misty.table"
+        }
+    }
+}
+```
 
 ## Connecting to Misty's File System
 
@@ -440,17 +460,7 @@ This table provides more information about the specifications for each Misty II 
       </td>
       <td><strong>Enhanced Edition</strong>
       </td>
-   </tr>
-   <tr>
-      <td>Price
-      </td>
-      <td>$1,999 MSRP
-      </td>
-      <td>$2,999 MSRP
-      </td>
-      <td>$3,299 MSRP
-      </td>
-   </tr>
+   </tr>  
    <tr>
       <td>Size
       </td>
@@ -502,13 +512,13 @@ This table provides more information about the specifications for each Misty II 
    <tr>
       <td>Programmability
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools. 
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools. 
    <br><br>
    <strong>Note: </strong>API commands, event types, data, and tools that make use of the depth sensor are not functional with the Misty II Basic Edition. 
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools.
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools.
       </td>
    </tr>
    <tr>

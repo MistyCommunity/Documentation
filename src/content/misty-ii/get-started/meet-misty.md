@@ -97,6 +97,47 @@ If you get stuck or have questions while developing for and interacting with you
 * For **questions about coding Misty**, post in the Community Forums first. This gives other developers – in addition to all of the Misty staff – the ability to jump in and help. The [Support](https://community.mistyrobotics.com/c/support), [Feature Requests](https://community.mistyrobotics.com/c/wishlist), and [Bug](https://community.mistyrobotics.com/c/bugs) categories (in particular) are monitored for immediate response from 9am-6pm Mountain Time on weekdays and from 9am-4pm Mountain Time on weekends.
 * For **customer support** – for example, for shipping questions, or issues with Misty's general functionality – email us at support@mistyrobotics.com. Our email support hours are 9 AM to 5 PM MST Monday through Friday.
 
+## Enterprise Wifi
+
+In certain situations, due to wifi settings, using the normal wifi connection process will not work. In those cases you can try the enterprise wifi steps.
+
+Enterprise wifi onboarding is facilitated by using a USB thumbdrive.
+
+1. This is done by creating a folder called 'misty' on the root of a FAT formatted USB drive.
+2. Into that folder, you add a JSON formatted text file named enterprisewifi.txt with the format:
+```json
+{
+	"SSID": "THE-SSID",
+	"Identity": "THE-USERNAME",
+	"Password": "THE-PASSWORD",
+	"EapMethod": "{NONE},{PEAP},{TLS},{TTLS},{PWD},{SIM},{AKA},{AKA_PRIME},{UNAUTH_TLS}",
+	"Phase2Method": "{NONE},{PAP},{MSCHAP},{MSCHAPV2},{GTC},{SIM},{AKA},{AKA_PRIME}",
+	"AltSubjectMatch": "THE-ALT-SUBJECT-MATCH",
+	"AnonymousIdentity": "THE-ANONYMOUS-IDENTITY",
+	"DomainSuffixMatch": "THE-DOMAIN-SUFFIX",
+	"Realm": "THE-REALM",
+	"KeyManagementMethods": [
+		"{None},{WPA_PSK},{WPA_EAP},{IEEE8021X},{WPA2_PSK},{OSEN},{FT_PSK},{SAE},{OWE},{SUITE_B_192},{WPA_PSK_SHA256},{WPA_EAP_SHA256}",
+		"{None},{WPA_PSK},{WPA_EAP},{IEEE8021X},{WPA2_PSK},{OSEN},{FT_PSK},{SAE},{OWE},{SUITE_B_192},{WPA_PSK_SHA256},{WPA_EAP_SHA256}",
+		...
+		"{None},{WPA_PSK},{WPA_EAP},{IEEE8021X},{WPA2_PSK},{OSEN},{FT_PSK},{SAE},{OWE},{SUITE_B_192},{WPA_PSK_SHA256},{WPA_EAP_SHA256}"
+	]
+}
+```
+3. The wifi file should be configured to match the requirements of the network. The underlying system is Android, with the configuration options listed here.
+4. When the USB drive is inserted, the robot will connect to the wifi after a minute or so. After that, it should produce a text file in the misty directory with the IP address.
+
+The enterprisewifi.txt file is JSON formatted, so you can run it through any JSON validator prior to testing it. 
+
+When you look at the sample file there are a couple of things to be aware of:
+
+* Values provided for EapMethod, Phase2Method, and KeyManagementMethods represent the valid options
+* KeyManagementMethods represents an array of values
+
+Should things go awry, you'd want to pull log files from the robot to see what went wrong. Upon insertion, the robot should push logs to the USB drive. 
+
+With respect to captive networks, we don't have any support for a captive portal (i.e. a page where you have to enter some details to enter the network). Misty is very much more of an Iot device in this way than a smartphone.
+
 ## Additional Resources
 
 You can find sample code, tools, wrappers, CAD files for Misty's exterior parts and mounting points, and other useful resources for building with Misty in the [MistyCommunity organization](https://github.com/MistyCommunity) on GitHub. For a curated collection of templates, skills, and robot applications from the community of Misty II developers, see [MistySampleSkills](https://github.com/MistySampleSkills/) on GitHub.

@@ -30,7 +30,7 @@ For example, you might code Misty to do the following:
 * respond with sound and movement when you touch her on the head or chin
 * patrol an area to capture photos, videos, and audio recordings while reporting changes in the environment
 
-The first step in coding Misty is deciding what you want the robot to do. Then, you can choose to whether to use Misty's JavaScript SDK, her .NET SDK (Beta), or her REST API. When you're ready, you can share your code with other developers in the Misty Community.
+The first step in coding Misty is deciding what you want the robot to do. Then, you can choose to whether to use Misty's JavaScript SDK, her .NET SDK, or her REST API. When you're ready, you can share your code with other developers in the Misty Community.
 
 ## SDKs and APIs
 
@@ -98,9 +98,9 @@ You build a .NET skill for Misty by wrapping your C# skill code in a background 
 
 Currently, Misty's .NET SDK includes the following libraries and templates:
 
-* [Misty Skill Extension](https://marketplace.visualstudio.com/items?itemName=MistyRobotics.MistySkillExtension) (Beta) - A Visual Studio extension that contains project templates for C# skills. When you create a new project with this template, Visual Studio automatically installs the Misty Robotics SDK libraries for use in your skill.
-* [MistyRobotics.SDK](https://www.nuget.org/packages/MistyRobotics.SDK) (Beta) - Library used to build .NET skills for Misty
-* [MistyRobotics.Common](https://www.nuget.org/packages/MistyRobotics.Common) (Beta) - Library with types and data objects commonly used across Misty's .NET skill projects
+* [Misty Skill Extension](https://marketplace.visualstudio.com/items?itemName=MistyRobotics.MistySkillExtension) - A Visual Studio extension that contains project templates for C# skills. When you create a new project with this template, Visual Studio automatically installs the Misty Robotics SDK libraries for use in your skill.
+* [MistyRobotics.SDK](https://www.nuget.org/packages/MistyRobotics.SDK) - Library used to build .NET skills for Misty
+* [MistyRobotics.Common](https://www.nuget.org/packages/MistyRobotics.Common) - Library with types and data objects commonly used across Misty's .NET skill projects
 * [MistyRobotics.Tools](https://www.nuget.org/packages/MistyRobotics.Tools) (Beta) - Library with optional tools for programming Misty
 
 {{box op="start" cssClass="boxed noteBox"}}

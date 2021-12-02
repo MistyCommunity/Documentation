@@ -2738,6 +2738,49 @@ Arguments
 misty.SetSlamVisibleExposureAndGain(0.007987, 2);
 ```
 
+### misty.StartArTagDetector
+
+Starts Misty locating the position and values of Ar Tags.
+
+```javascript
+// Syntax
+misty.StartArTagDetector(int dictionary, double tagSizeMm);
+```
+
+When you issue a `StartArTagDetector` command, Misty will start streaming `ArTagDetection` events when an appropriate tag is seen.
+
+To receive those events, you must also register for the [`ArTagDetection`](../../../misty-ii/robot/sensor-data/#artagdetection) event type.
+
+Ar Tag detection consumes extra resources, so when you are done using the events, you should call the [`StopArTagDetector`](../../../misty-ii/javascript-sdk/api-reference/#stopartagdetector) command.
+
+Arguments
+
+* dictionary (int) - The Ar Tag dictionary to use.
+* tagSizeMm (double) -  The size of the printed tags. Used in assessing distance.
+
+The available dictionary codes are as follows:
+  4X4_50 = 0
+  4X4_100 = 1
+  4X4_250 = 2
+  4X4_1000 = 3
+  5X5_50 = 4
+  5X5_100 = 5
+  5X5_250 = 6
+  5X5_1000 = 7
+  6X6_50 = 8
+  6X6_100 = 9
+  6X6_250 = 10
+  6X6_1000 = 11
+  7X7_50 = 12
+  7X7_100 = 13
+  7X7_250 = 14
+  7X7_1000 = 15
+  ARUCO_ORIGINAL = 16
+  APRILTAG_16h5 = 17
+  APRILTAG_25h9 = 18
+  APRILTAG_36h10 = 19
+  APRILTAG_36h11 = 20
+
 ### misty.StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
@@ -2798,6 +2841,115 @@ Arguments
 misty.StartMapping();
 ```
 
+### misty.StartObjectDetector
+
+Starts Misty locating the position and type of objects.
+
+```javascript
+// Syntax
+misty.StartObjectDetector(double minimumConfidence, int modelId, int maximumTrackerHistory);
+```
+
+When you issue a `StartObjectDetector` command, Misty will start streaming `ObjectDetection` events when an appropriate object is seen.
+
+To receive those events, you must also register for the [`ObjectDetection`](../../../misty-ii/robot/sensor-data/#objectdetection) event type.
+
+Object detection consumes extra resources, so when you are done using the events, you should call the [`StopObjectDetector`](../../../misty-ii/javascript-sdk/api-reference/#stopobjectdetector) command.
+
+Arguments
+
+* minimumConfidence (double) - The minimum confidence to trigger sending an event. From 0 to 1.0.
+* modelId (int) -  The TensorFlow Lite object model to use. Valid model ids are 0-3.
+* maximumTrackerHistory (int) -  How long to hold previous object history across frames.
+
+The TensorFlow Lite model id options are:
+  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
+  1 = ssd_mobilenet_v1_quantized (2018/06/29)
+  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
+  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
+
+The known objects are:
+  person,
+  bicycle,
+  car,
+  motorcycle,
+  airplane,
+  bus,
+  train,
+  truck,
+  boat,
+  traffic_light,
+  fire_hydrant,
+  stop_sign,
+  parking_meter,
+  bench,
+  bird,
+  cat,
+  dog,
+  horse,
+  sheep,
+  cow,
+  elephant,
+  bear,
+  zebra,
+  giraffe,
+  backpack,
+  umbrella,
+  handbag,
+  tie,
+  suitcase,
+  frisbee,
+  skis,
+  snowboard,
+  sports_ball,
+  kite,
+  baseball_bat,
+  baseball_glove,
+  skateboard,
+  surfboard,
+  tennis_racket,
+  bottle,
+  wine_glass,
+  cup,
+  fork,
+  knife,
+  spoon,
+  bowl,
+  banana,
+  apple,
+  sandwich,
+  orange,
+  broccoli,
+  carrot,
+  hot_dog,
+  pizza,
+  donut,
+  cake,
+  chair,
+  couch,
+  potted_plant,
+  bed,
+  dining_table,
+  toilet,
+  tv,
+  laptop,
+  mouse,
+  remote,
+  keyboard,
+  cell_phone,
+  microwave,
+  oven,
+  toaster,
+  sink,
+  refrigerator,
+  book,
+  clock,
+  vase,
+  scissors,
+  teddy_bear,
+  hair_drier,
+  toothbrush	
+
 ### misty.StartSlamStreaming
 
 Opens the data stream from the Occipital Structure Core depth sensor, so you can obtain image and depth data when Misty is not actively tracking or mapping.
@@ -2845,6 +2997,15 @@ Arguments
 ```javascript
 // Example
 misty.StartTracking();
+```
+
+### misty.StopArTagDetector
+
+Stop Misty locating the position and values of Ar Tags.
+
+```javascript
+// Syntax
+misty.StopArTagDetector();
 ```
 
 ### misty.StopLocatingDockingStation
@@ -2895,6 +3056,15 @@ command, `postPauseMs` is not used.
 ```javascript
 // Example
 misty.StopMapping();
+```
+
+### misty.StopObjectDetector
+
+Stop Misty locating the position and type of objects.
+
+```javascript
+// Syntax
+misty.StopObjectDetector();
 ```
 
 ### misty.StopSlamStreaming
@@ -3131,7 +3301,7 @@ misty.CancelFaceTraining();
 
 ### misty.CaptureSpeech
 
-Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
+Starts capturing speech in a new audio recording. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
 
 ```javascript
 // Syntax
@@ -3193,6 +3363,80 @@ function _VoiceRecord(data) {
    if (success = true) {
       misty.Debug("Successfully captured speech! Listen closely...")
       misty.PlayAudio(filename);
+   }
+   // Otherwise, print the error message
+   else {
+      misty.Debug("Error: " + errorCode + ". " + errorMessage);
+   }
+}
+```
+
+### misty.CaptureSpeechVosk
+
+Starts capturing speech in a new audio recording and process it using the onboard Vosk ASR. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+```javascript
+// Syntax
+misty.CaptureSpeechVosk([bool requireKeyPhrase], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [int prePauseMs], [int postPauseMs])
+```
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` argument.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording. This event will contain the SpeechRecognitionResult field with the results of the Vosk ASR processing.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (Note that Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is `true`, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+// Example
+
+// This sample illustrates using speech capture in a JavaScript skill
+
+/* Event Listeners */
+
+// Registers a listener for VoiceRecord event messages, and adds return
+// properties to event listener so that we get all this data in the
+// _VoiceRecord callback.
+misty.AddReturnProperty("VoiceRecord", "Filename");
+misty.AddReturnProperty("VoiceRecord", "Success");
+misty.AddReturnProperty("VoiceRecord", "ErrorCode");
+misty.AddReturnProperty("VoiceRecord", "ErrorMessage");
+misty.AddReturnProperty("SpeechRecognitionResult", "SpeechRecognitionResult");
+misty.RegisterEvent("VoiceRecord", "VoiceRecord", 0, false);
+
+// Misty starts listening for key phrase. When recognized, Misty
+// starts a new speech recording.
+misty.CaptureSpeechVosk(true);
+
+/* Callbacks */
+
+// Triggers when Misty finishes capturing a speech recording
+function _VoiceRecord(data) {
+   // Get data from AdditionalResults array
+   var filename = data.AdditionalResults[0];
+   var success = data.AdditionalResults[1];
+   var errorCode = data.AdditionalResults[2];
+   var errorMessage = data.AdditionalResults[3];
+   var speechRecognitionResult = data.AdditionalResults[4];
+
+   // If speech capture is successful, tell us what we said
+   if (success = true) {
+      misty.Debug("Successfully processed speech! Listen closely...")
+      misty.Speak("You said " + speechRecognitionResult)
    }
    // Otherwise, print the error message
    else {
@@ -3452,7 +3696,7 @@ misty.StartFaceTraining("My_Face");
 
 ### misty.StartKeyPhraseRecognition
 
-Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
+Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording with any speech she detects after recognizing the key phrase. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
 
 ```javascript
 // Syntax
@@ -3554,6 +3798,114 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
 4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
 {{box op="end"}}
+
+### misty.StartKeyPhraseRecognitionVosk
+
+Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording and process any speech she detects after recognizing the key phrase. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+```javascript
+// Syntax
+misty.StartKeyPhraseRecognitionVosk([bool captureSpeech], [bool overwriteExisting], [int maxSpeechLength], [int silenceTimeout], [string callback], [string callbackRule], [string skillToCall], [int prePauseMs], [int postPauseMs])
+```
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` argument.
+
+There are two event types associated with key phrase recognition:
+
+* Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
+* Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Arguments
+
+* captureSpeech (bool) - Optional. If `true`, Misty starts recording speech after recognizing the "Hey, Misty" key phrase. By default, Misty saves speech recordings under the filename `capture_heymisty.wav`. Defaults to `true`.
+* overwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the filename `capture_heymisty.wav`. If false, Misty saves the speech recording under a unique, timestamped filename: `capture_heymisty_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* maxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* silenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* callback (string) - Optional. The name of the callback function to call when Misty successfully invokes the `StartKeyPhraseRecognitionVosk` command. If empty, a callback function with the default name (`_StartKeyPhraseRecognitionVosk()`) is called.
+* callbackRule (string) - Optional. The callback rule for this command. Available callback rules are "synchronous", "override", and "abort". Defaults to "synchronous". For a description of callback rules, see ["Get" Data Callbacks](../../../misty-ii/javascript-sdk/javascript-skill-architecture/#-quot-get-quot-data-callbacks).
+* skillToCall (string) - Optional. The unique ID of the skill to trigger for the callback function, if the callback is not defined in the current skill.
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+```javascript
+// Example
+
+// The following illustrates how to use key phrase recognition in a
+// JavaScript skill for Misty II
+
+/* Event Listeners */
+
+// Registers a listener for VoiceRecord event messages, and adds return
+// properties to event listener so that we get all this data in the
+// _VoiceRecord callback.
+misty.AddReturnProperty("VoiceRecord", "Filename");
+misty.AddReturnProperty("VoiceRecord", "Success");
+misty.AddReturnProperty("VoiceRecord", "ErrorCode");
+misty.AddReturnProperty("VoiceRecord", "ErrorMessage");
+misty.AddReturnProperty("SpeechRecognitionResult", "SpeechRecognitionResult");
+misty.RegisterEvent("VoiceRecord", "VoiceRecord", 10, false);
+
+// Registers a listener for KeyPhraseRecognized event messages
+misty.RegisterEvent("KeyPhraseRecognized", "KeyPhraseRecognized", 10, false);
+
+misty.StartKeyPhraseRecognitionVosk();
+
+/* Callbacks */
+
+// Triggers when misty hears the key phrase
+function _KeyPhraseRecognized() {
+   misty.Debug("Key phrase recognized! Now listening for speech.");
+}
+
+// Triggers when Misty starts listening for the key phrase 
+function _StartKeyPhraseRecognitionVosk() {
+   misty.Debug("Now listening for the key phrase.");
+}
+
+// Triggers when Misty finishes capturing a speech recording
+function _VoiceRecord(data) {
+   // Get data from AdditionalResults array
+   var filename = data.AdditionalResults[0];
+   var success = data.AdditionalResults[1];
+   var errorCode = data.AdditionalResults[2];
+   var errorMessage = data.AdditionalResults[3];
+   var speechRecognitionResult = data.AdditionalResults[4];
+
+   // If speech capture is successful, tell us and play the recording
+   if (success = true) {
+      misty.Debug("Successfully processed speech! Listen closely...")
+      misty.Speak("You said " + speechRecognitionResult)
+   }
+   // Otherwise, print the error message
+   else {
+      misty.Debug("Error: " + errorCode + ". " + errorMessage);
+   }
+}
+```
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes**
+
+* When you issue a `misty.StartKeyPhraseRecognitionVosk()` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model ("Hey, Misty!"). Misty does **not** create or save audio recordings until **after** she recognizes the key phrase.
+* Because Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time, she stops listening for the key phrase when issued a separate command to start recording audio. To have Misty start listening for the key phrase after capturing speech, you must issue another `misty.StartKeyPhraseRecognition()` command.
+* When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `,misty.StartKeyPhraseRecognitionVosk()` command.
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+
+1. Invoke the `misty.StartKeyPhraseRecognitionVosk()` command. If needed, use the optional parameters to configure Misty's speech capture settings.
+2. Register an event listener for `KeyPhraseRecognized` event messages to trigger a callback function when Misty recognizes the key phrase.
+3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording and Vosk ASR data.
+4. Write the code to handle what Misty should do when she receives the event.
+{{box op="end"}}
+
 
 ### misty.StartRecordingAudio
 
