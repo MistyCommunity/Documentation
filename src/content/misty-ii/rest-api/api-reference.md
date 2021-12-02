@@ -2904,6 +2904,40 @@ Return Values
 
 * Result (bool) - Returns `true` if no issues related to this command.
 
+
+### CaptureSpeechAzure
+
+Starts capturing speech in a new audio recording. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/captureazure
+
+Parameters
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (**Note:** Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is true, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav` Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* CaptureFile (bool) - Optional. If true, creates an audio file.
+* SpeechRecognitionLanguage (string) - The spoken language.
+* AzureSpeechKey (string) - The subscription key.
+* AzureSpeechRegion (string) - The subscription region.
+
+Return Values
+
+* Result (bool) - Returns `true` if no issues related to this command.
+
 ### CaptureSpeechVosk
 
 Starts capturing speech in a new audio recording and process it using the onboard Vosk ASR. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
@@ -3219,6 +3253,60 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
 4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
 {{box op="end"}}
+
+
+
+### StartKeyPhraseRecognitionAzure
+
+Starts Misty listening for the Azure key phrase. Additionally, configures Misty to record speech she detects after recognizing the key phrase. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` parameter.
+
+There are two event types associated with key phrase recognition:
+
+* Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
+* Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/startazure
+
+Parameters
+
+* CaptureSpeech (bool) - Optional. If `true`, Misty starts recording speech after recognizing the "Hey, Misty" key phrase. By default, Misty saves speech recordings under the filename `capture_HeyMisty.wav`. Defaults to `true`.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a VoiceRecord event with a message that Misty did not detect the end of the recorded speech. Range: 500 to 20000. Defaults to 7500 (7.5 seconds).  
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the filename `capture_HeyMisty.wav`. If `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_HeyMisty_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on the robot's 820 processor.
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* CaptureFile (bool) - Optional. If true, creates an audio file.
+* SpeechRecognitionLanguage (string) - The spoken language.
+* AzureSpeechKey (string) - The subscription key.
+* AzureSpeechRegion (string) - The subscription region.
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes**
+
+* When you issue a `StartKeyPhraseRecognitionAzure` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model ("Hey, Misty!"). Misty does **not** create or save audio recordings until **after** she recognizes the key phrase.
+* Because Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time, she stops listening for the key phrase when issued a separate command to start recording audio. To have Misty start listening for the key phrase after capturing speech, you must issue another `StartKeyPhraseRecognitionAzure` command.
+* When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `StartKeyPhraseRecognitionAzure` command.
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+
+1. Invoke the `StartKeyPhraseRecognitionAzure` command. If needed, use the optional parameters to configure Misty's speech capture settings.
+2. Register an event listener for `KeyPhraseRecognized` event messages to trigger a callback function when Misty recognizes the key phrase.
+3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
+4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
+{{box op="end"}}
+
 
 ### StartKeyPhraseRecognitionVosk
 
