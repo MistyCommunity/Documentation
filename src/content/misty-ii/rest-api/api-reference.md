@@ -2329,55 +2329,6 @@ Return Values
 
 * result (boolean) - Returns `true` if no errors related to this command.
 
-### StartArTagDetector
-
-Starts Misty locating the position and values of Ar Tags.
-
-When you issue a `StartArTagDetector` command, Misty will start streaming `ArTagDetection` events when an appropriate tag is seen.
-
-To receive those events, you must also register for the [`ArTagDetection`](../../../misty-ii/robot/sensor-data/#artagdetection) event type.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/artags/detection/start
-
-Parameters
-
-* Dictionary (int) - The Ar Tag dictionary to use.
-* TagSizeMm (double) -  The size of the printed tags. Used in assessing distance.
-
-```json
-{ 
-  "Dictionary" : 7,
-  "TagSizeMm" : 144
-}
-```
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-The available dictionary codes are as follows:
-  4X4_50 = 0
-  4X4_100 = 1
-  4X4_250 = 2
-  4X4_1000 = 3
-  5X5_50 = 4
-  5X5_100 = 5
-  5X5_250 = 6
-  5X5_1000 = 7
-  6X6_50 = 8
-  6X6_100 = 9
-  6X6_250 = 10
-  6X6_1000 = 11
-  7X7_50 = 12
-  7X7_100 = 13
-  7X7_250 = 14
-  7X7_1000 = 15
-  ARUCO_ORIGINAL = 16
-  APRILTAG_16h5 = 17
-  APRILTAG_25h9 = 18
-  APRILTAG_36h10 = 19
-  APRILTAG_36h11 = 20
-
 ### StartLocatingDockingStation
 
 Starts Misty locating the position and orientation (pose) of the docking station.
@@ -2427,124 +2378,6 @@ Parameters
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
-
-### StartObjectDetector
-
-Starts Misty locating the position and type of objects.
-
-When you issue a `StartObjectDetector` command, Misty will start streaming `ObjectDetection` events when an appropriate object is seen.
-
-To receive those events, you must also register for the [`ObjectDetection`](../../../misty-ii/robot/sensor-data/#objectdetection) event type.
-
-Object detection consumes extra resources, so when you are done using the events, you should call the [`StopObjectDetector`](../../../misty-ii/rest-api/api-reference/#stopobjectdetector) command.
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/objects/detection/start
-
-Parameters
-
-* MinimumConfidence (double) - The minimum confidence to trigger sending an event. From 0 to 1.0.
-* ModelId (int) -  The TensorFlow Lite object model to use. Valid model ids are 0-3.
-* MaximumTrackerHistory (int) -  How long to hold previous object history across frames.
-
-```json
-{ 
-  "MinimumConfidence" : 0.6,
-  "ModelId" : 0,
-	"MaxTrackerHistory" : 5 
-}
-```
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
-The TensorFlow Lite model id options are:
-  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
-  1 = ssd_mobilenet_v1_quantized (2018/06/29)
-  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
-  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
-
-The known objects are:
-  person,
-  bicycle,
-  car,
-  motorcycle,
-  airplane,
-  bus,
-  train,
-  truck,
-  boat,
-  traffic_light,
-  fire_hydrant,
-  stop_sign,
-  parking_meter,
-  bench,
-  bird,
-  cat,
-  dog,
-  horse,
-  sheep,
-  cow,
-  elephant,
-  bear,
-  zebra,
-  giraffe,
-  backpack,
-  umbrella,
-  handbag,
-  tie,
-  suitcase,
-  frisbee,
-  skis,
-  snowboard,
-  sports_ball,
-  kite,
-  baseball_bat,
-  baseball_glove,
-  skateboard,
-  surfboard,
-  tennis_racket,
-  bottle,
-  wine_glass,
-  cup,
-  fork,
-  knife,
-  spoon,
-  bowl,
-  banana,
-  apple,
-  sandwich,
-  orange,
-  broccoli,
-  carrot,
-  hot_dog,
-  pizza,
-  donut,
-  cake,
-  chair,
-  couch,
-  potted_plant,
-  bed,
-  dining_table,
-  toilet,
-  tv,
-  laptop,
-  mouse,
-  remote,
-  keyboard,
-  cell_phone,
-  microwave,
-  oven,
-  toaster,
-  sink,
-  refrigerator,
-  book,
-  clock,
-  vase,
-  scissors,
-  teddy_bear,
-  hair_drier,
-  toothbrush	
 
 ### StartSlamStreaming
 
@@ -3094,6 +2927,55 @@ Return Values
 
 * Result (boolean) - Returns `true` if no errors related to this command.
 
+### StartArTagDetector
+
+Starts Misty locating the position and values of Ar Tags.
+
+When you issue a `StartArTagDetector` command, Misty will start streaming `ArTagDetection` events when an appropriate tag is seen.
+
+To receive those events, you must also register for the [`ArTagDetection`](../../../misty-ii/robot/sensor-data/#artagdetection) event type.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/artags/detection/start
+
+Parameters
+
+* Dictionary (int) - The Ar Tag dictionary to use.
+* TagSizeMm (double) -  The size of the printed tags. Used in assessing distance.
+
+```json
+{ 
+  "Dictionary" : 7,
+  "TagSizeMm" : 144
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+The available dictionary codes are as follows:
+  4X4_50 = 0
+  4X4_100 = 1
+  4X4_250 = 2
+  4X4_1000 = 3
+  5X5_50 = 4
+  5X5_100 = 5
+  5X5_250 = 6
+  5X5_1000 = 7
+  6X6_50 = 8
+  6X6_100 = 9
+  6X6_250 = 10
+  6X6_1000 = 11
+  7X7_50 = 12
+  7X7_100 = 13
+  7X7_250 = 14
+  7X7_1000 = 15
+  ARUCO_ORIGINAL = 16
+  APRILTAG_16h5 = 17
+  APRILTAG_25h9 = 18
+  APRILTAG_36h10 = 19
+  APRILTAG_36h11 = 20
+
 ### StartAvStreaming
 
 Starts Misty streaming audio and video from her microphones and RGB camera to an external source.
@@ -3355,6 +3237,124 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
 4. Write the code to handle what Misty should do when she recognizes the event.
 {{box op="end"}}
+
+### StartObjectDetector
+
+Starts Misty locating the position and type of objects.
+
+When you issue a `StartObjectDetector` command, Misty will start streaming `ObjectDetection` events when an appropriate object is seen.
+
+To receive those events, you must also register for the [`ObjectDetection`](../../../misty-ii/robot/sensor-data/#objectdetection) event type.
+
+Object detection consumes extra resources, so when you are done using the events, you should call the [`StopObjectDetector`](../../../misty-ii/rest-api/api-reference/#stopobjectdetector) command.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/objects/detection/start
+
+Parameters
+
+* MinimumConfidence (double) - The minimum confidence to trigger sending an event. From 0 to 1.0.
+* ModelId (int) -  The TensorFlow Lite object model to use. Valid model ids are 0-3.
+* MaximumTrackerHistory (int) -  How long to hold previous object history across frames.
+
+```json
+{ 
+  "MinimumConfidence" : 0.6,
+  "ModelId" : 0,
+	"MaxTrackerHistory" : 5 
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+The TensorFlow Lite model id options are:
+  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
+  1 = ssd_mobilenet_v1_quantized (2018/06/29)
+  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
+  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
+
+The known objects are:
+  person,
+  bicycle,
+  car,
+  motorcycle,
+  airplane,
+  bus,
+  train,
+  truck,
+  boat,
+  traffic_light,
+  fire_hydrant,
+  stop_sign,
+  parking_meter,
+  bench,
+  bird,
+  cat,
+  dog,
+  horse,
+  sheep,
+  cow,
+  elephant,
+  bear,
+  zebra,
+  giraffe,
+  backpack,
+  umbrella,
+  handbag,
+  tie,
+  suitcase,
+  frisbee,
+  skis,
+  snowboard,
+  sports_ball,
+  kite,
+  baseball_bat,
+  baseball_glove,
+  skateboard,
+  surfboard,
+  tennis_racket,
+  bottle,
+  wine_glass,
+  cup,
+  fork,
+  knife,
+  spoon,
+  bowl,
+  banana,
+  apple,
+  sandwich,
+  orange,
+  broccoli,
+  carrot,
+  hot_dog,
+  pizza,
+  donut,
+  cake,
+  chair,
+  couch,
+  potted_plant,
+  bed,
+  dining_table,
+  toilet,
+  tv,
+  laptop,
+  mouse,
+  remote,
+  keyboard,
+  cell_phone,
+  microwave,
+  oven,
+  toaster,
+  sink,
+  refrigerator,
+  book,
+  clock,
+  vase,
+  scissors,
+  teddy_bear,
+  hair_drier,
+  toothbrush	
 
 ### StartRecordingAudio
 
