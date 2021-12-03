@@ -198,7 +198,7 @@ Obtains a list of the images currently stored on Misty.
 Endpoint: GET &lt;robot-ip-address&gt;/api/images/list
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (array) - Returns an array containing one element for each image currently stored on Misty. Each element contains the following:
@@ -2117,7 +2117,7 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/slam/status
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -2243,7 +2243,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/reset
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -2374,7 +2374,7 @@ This command is not functional with the Misty II Basic Edition.
 Endpoint: POST &lt;robot-ip-address&gt;/api/slam/map/start
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -2411,7 +2411,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/start
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -2492,7 +2492,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/slam/track/stop
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -2668,7 +2668,7 @@ Return Values
 
 ### CaptureSpeech
 
-Starts capturing speech in a new audio recording. Misty's chest LED pulses blue when she is recording audio or listening for the key phrase.
+Starts capturing speech in a new audio recording. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
 
 Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
 
@@ -2683,6 +2683,69 @@ Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecor
 {{box op="end"}}
 
 Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/capture
+
+Parameters
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (**Note:** Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is true, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav` Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+
+Return Values
+
+* Result (bool) - Returns `true` if no issues related to this command.
+
+
+### CaptureSpeechAzure
+
+Starts capturing speech in a new audio recording. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/captureazure
+
+Parameters
+
+* RequireKeyPhrase (bool) - Optional. If `true`, Misty waits to start recording speech until she recognizes the key phrase. If `false`, Misty immediately starts recording speech. Defaults to `true`. 
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the default speech capture filename. (**Note:** Misty saves speech recordings she captures with this command under one of two default filenames: `capture_HeyMisty.wav` when `RequireKeyPhrase` is true, or `capture_Dialogue.wav` when `RequireKeyPhrase` is `false`.) If `OverwriteExisting` is `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_{HeyMisty or Dialogue}_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav` Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on her 820 processor.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a `VoiceRecord` event with a message that Misty did not detect the end of the recorded speech. Range: `500` to `20000`. Defaults to `7500` (7.5 seconds).
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* CaptureFile (bool) - Optional. If true, creates an audio file.
+* SpeechRecognitionLanguage (string) - The spoken language.
+* AzureSpeechKey (string) - The subscription key.
+* AzureSpeechRegion (string) - The subscription region.
+
+Return Values
+
+* Result (bool) - Returns `true` if no issues related to this command.
+
+### CaptureSpeechVosk
+
+Starts capturing speech in a new audio recording and process it using the onboard Vosk ASR. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording by using the `MaxSpeechLength` parameter.
+
+Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures and processes a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/speech/capturevosk
 
 Parameters
 
@@ -2821,6 +2884,55 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if no errors related to this command.
+
+### StartArTagDetector
+
+Starts Misty locating the position and values of Ar Tags.
+
+When you issue a `StartArTagDetector` command, Misty will start streaming `ArTagDetection` events when an appropriate tag is seen.
+
+To receive those events, you must also register for the [`ArTagDetection`](../../../misty-ii/robot/sensor-data/#artagdetection) event type.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/artags/detection/start
+
+Parameters
+
+* Dictionary (int) - The Ar Tag dictionary to use.
+* TagSizeMm (double) -  The size of the printed tags. Used in assessing distance.
+```json
+{ 
+  "Dictionary" : 7,
+  "TagSizeMm" : 144
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+The available dictionary codes are as follows:
+  
+* 4X4_50 = 0
+* 4X4_100 = 1
+* 4X4_250 = 2
+* 4X4_1000 = 3
+* 5X5_50 = 4
+* 5X5_100 = 5
+* 5X5_250 = 6
+* 5X5_1000 = 7
+* 6X6_50 = 8
+* 6X6_100 = 9
+* 6X6_250 = 10
+* 6X6_1000 = 11
+* 7X7_50 = 12
+* 7X7_100 = 13
+* 7X7_250 = 14
+* 7X7_1000 = 15
+* ARUCO_ORIGINAL = 16
+* APRILTAG_16h5 = 17
+* APRILTAG_25h9 = 18
+* APRILTAG_36h10 = 19
+* APRILTAG_36h11 = 20		
 
 ### StartAvStreaming
 
@@ -2982,6 +3094,226 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
 {{box op="end"}}
 
+
+
+### StartKeyPhraseRecognitionAzure
+
+Starts Misty listening for the Azure key phrase. Additionally, configures Misty to record speech she detects after recognizing the key phrase. Misty's chest LED blinks blue when she is recording audio or listening for the key phrase.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` parameter.
+
+There are two event types associated with key phrase recognition:
+
+* Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
+* Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/startazure
+
+Parameters
+
+* CaptureSpeech (bool) - Optional. If `true`, Misty starts recording speech after recognizing the "Hey, Misty" key phrase. By default, Misty saves speech recordings under the filename `capture_HeyMisty.wav`. Defaults to `true`.
+* MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a VoiceRecord event with a message that Misty did not detect the end of the recorded speech. Range: 500 to 20000. Defaults to 7500 (7.5 seconds).  
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the filename `capture_HeyMisty.wav`. If `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_HeyMisty_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on the robot's 820 processor.
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+* CaptureFile (bool) - Optional. If true, creates an audio file.
+* SpeechRecognitionLanguage (string) - The spoken language.
+* AzureSpeechKey (string) - The subscription key.
+* AzureSpeechRegion (string) - The subscription region.
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes**
+
+* When you issue a `StartKeyPhraseRecognitionAzure` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model ("Hey, Misty!"). Misty does **not** create or save audio recordings until **after** she recognizes the key phrase.
+* Because Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time, she stops listening for the key phrase when issued a separate command to start recording audio. To have Misty start listening for the key phrase after capturing speech, you must issue another `StartKeyPhraseRecognitionAzure` command.
+* When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `StartKeyPhraseRecognitionAzure` command.
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+
+1. Invoke the `StartKeyPhraseRecognitionAzure` command. If needed, use the optional parameters to configure Misty's speech capture settings.
+2. Register an event listener for `KeyPhraseRecognized` event messages to trigger a callback function when Misty recognizes the key phrase.
+3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
+4. Write the code to handle what Misty should do when she recognizes the key phrase and captures a speech recording. For example, you might have Misty send the captured speech off to a third-party service for additional processing.
+{{box op="end"}}
+
+
+### StartKeyPhraseRecognitionVosk
+
+Starts Misty listening for the "Hey, Misty!" key phrase and configures Misty to capture a recording and process any speech she detects after recognizing the key phrase. By default, Misty's chest LED pulses blue when she is recording audio or listening for the key phrase. Misty's head tally light also turns on when she is recording audio or video.
+
+Misty waits to start recording until she detects speech. She then records until she detects the end of the utterance. By default, Misty records an utterance up to 7.5 seconds in length. You can adjust the maximum duration of a speech recording with the `MaxSpeechLength` parameter.
+
+There are two event types associated with key phrase recognition:
+
+* Misty triggers a [`KeyPhraseRecognized`](../../../misty-ii/robot/sensor-data/#keyphraserecognized) event each time she recognizes the "Hey, Misty" key phrase.
+* Misty triggers a [`VoiceRecord`](../../../misty-ii/robot/sensor-data/#voicerecord) event when she captures a speech recording.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** Misty cannot use her microphones for wake word detection or recording speech while actively streaming audio and video.
+{{box op="end"}}
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Beta**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/audio/keyphrase/startvosk
+
+Parameters
+
+* CaptureSpeech (bool) - Optional. If `true`, Misty starts recording speech after recognizing the "Hey, Misty" key phrase. By default, Misty saves speech recordings under the filename `capture_HeyMisty.wav`. Defaults to `true`.
+*  MaxSpeechLength (int) - Optional. The maximum duration (in milliseconds) of the speech recording. If the length of an utterance exceeds this duration, Misty stops recording after the duration has elapsed, and the system triggers a VoiceRecord event with a message that Misty did not detect the end of the recorded speech. Range: 500 to 20000. Defaults to 7500 (7.5 seconds).  
+* OverwriteExisting (bool) - Optional. If `true`, the captured speech recording overwrites any existing recording saved under the filename `capture_HeyMisty.wav`. If `false`, Misty saves the speech recording under a unique, timestamped filename: `capture_HeyMisty_{Day}-{Month}-{Year}-{Hour}-{Minute}.wav`. Defaults to `true`. **Note:** If you program Misty to save each unique speech recording, you should occasionally delete unused recordings to prevent them from filling the memory on the robot's 820 processor.
+* SilenceTimeout (int) - Optional. The maximum duration (in milliseconds) of silence that can precede speech before the speech capture mechanism times out. If Misty does not detect speech before the `SilenceTimeout` duration elapses, she stops listening for speech and triggers a `VoiceRecord` event with a message that she did not detect the beginning of speech. Range: `500` to `10000`. Defaults to `5000` (5 seconds).
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Notes**
+
+* When you issue a `StartKeyPhraseRecognitionVosk` command, Misty listens for the key phrase by continuously sampling audio from the environment and comparing that audio to her trained key phrase model ("Hey, Misty!"). Misty does **not** create or save audio recordings until **after** she recognizes the key phrase.
+* Because Misty cannot record audio and listen for the "Hey, Misty!" key phrase at the same time, she stops listening for the key phrase when issued a separate command to start recording audio. To have Misty start listening for the key phrase after capturing speech, you must issue another `StartKeyPhraseRecognitionVosk` command.
+* When Misty recognizes the key phrase, she automatically stops listening for key phrase events. In order to start Misty listening for the key phrase again, you need to issue another `StartKeyPhraseRecognitionVosk` command.
+
+Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
+
+1. Invoke the `StartKeyPhraseRecognitionVosk` command. If needed, use the optional parameters to configure Misty's speech capture settings.
+2. Register an event listener for `KeyPhraseRecognized` event messages to trigger a callback function when Misty recognizes the key phrase.
+3. Register an event listener for `VoiceRecord` event messages to trigger a callback function when Misty captures a speech recording.
+4. Write the code to handle what Misty should do when she recognizes the event.
+{{box op="end"}}
+
+### StartObjectDetector
+
+Starts Misty locating the position and type of objects.
+
+When you issue a `StartObjectDetector` command, Misty will start streaming `ObjectDetection` events when an appropriate object is seen.
+
+To receive those events, you must also register for the [`ObjectDetection`](../../../misty-ii/robot/sensor-data/#objectdetection) event type.
+
+Object detection consumes extra resources, so when you are done using the events, you should call the [`StopObjectDetector`](../../../misty-ii/rest-api/api-reference/#stopobjectdetector) command.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/objects/detection/start
+
+Parameters
+
+* MinimumConfidence (double) - The minimum confidence to trigger sending an event. From 0 to 1.0.
+* ModelId (int) -  The TensorFlow Lite object model to use. Valid model ids are 0-3.
+* MaximumTrackerHistory (int) -  How long to hold previous object history across frames.
+```json
+{ 
+  "MinimumConfidence" : 0.6,
+  "ModelId" : 0,
+	"MaxTrackerHistory" : 5 
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+The TensorFlow Lite model id options are:
+*  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
+*  1 = ssd_mobilenet_v1_quantized (2018/06/29)
+*  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
+*  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
+
+The known objects are:
+
+  person,
+  bicycle,
+  car,
+  motorcycle,
+  airplane,
+  bus,
+  train,
+  truck,
+  boat,
+  traffic_light,
+  fire_hydrant,
+  stop_sign,
+  parking_meter,
+  bench,
+  bird,
+  cat,
+  dog,
+  horse,
+  sheep,
+  cow,
+  elephant,
+  bear,
+  zebra,
+  giraffe,
+  backpack,
+  umbrella,
+  handbag,
+  tie,
+  suitcase,
+  frisbee,
+  skis,
+  snowboard,
+  sports_ball,
+  kite,
+  baseball_bat,
+  baseball_glove,
+  skateboard,
+  surfboard,
+  tennis_racket,
+  bottle,
+  wine_glass,
+  cup,
+  fork,
+  knife,
+  spoon,
+  bowl,
+  banana,
+  apple,
+  sandwich,
+  orange,
+  broccoli,
+  carrot,
+  hot_dog,
+  pizza,
+  donut,
+  cake,
+  chair,
+  couch,
+  potted_plant,
+  bed,
+  dining_table,
+  toilet,
+  tv,
+  laptop,
+  mouse,
+  remote,
+  keyboard,
+  cell_phone,
+  microwave,
+  oven,
+  toaster,
+  sink,
+  refrigerator,
+  book,
+  clock,
+  vase,
+  scissors,
+  teddy_bear,
+  hair_drier,
+  and toothbrush.
+
 ### StartRecordingAudio
 
 Starts Misty recording audio. Misty saves audio recordings to her local storage as .wav files. To stop recording, you must call the `StopRecordingAudio` command.
@@ -3051,6 +3383,62 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StartVideoStreaming
+
+Starts Misty video streaming.
+
+To use the websocket, you can connect to it from a browser using:
+
+ws://&lt;robot-ip-address&gt;:&lt;port&gt;
+
+You can find an example of it's use by connecting to your robot from http://sdk.mistyrobotics.com/stem/index.html, and then selecting the Robot Senses button.
+
+Video streaming consumes extra resources, so when you are done using the stream, you should call the [`StopVideoStreaming`](../../../misty-ii/rest-api/api-reference/#stopvideostreaming) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videostreaming/start
+
+Parameters
+
+* Port (int) - Optional. The websocket port. Must be between 1024 and 65535, default is 5678.
+* Rotation (int) - Optional. Stream rotation. Must be between 0 and 180, default is 0.
+* Width (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
+* Height (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
+* Quality (int) - Optional. Image quality, which can affect performance. Must be between 1 and 100. Default is 100.
+* Overlay (bool) - Optional. Whether to add overlay information, like face tracking, to the stream. Default is false.
+
+```json
+{ 
+  "Port" : 5678,
+  "Rotation" : 0,
+	"Width" : 0,
+  "Height" : 0,
+  "Quality" : 100, 
+  "Overlay" : false
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StopArTagDetector
+
+Stop Misty locating the position and values of Ar Tags.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/artags/detection/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 ### StopAvStreaming
 
 Stops Misty streaming audio and video.
@@ -3086,7 +3474,7 @@ Stops the process of Misty recognizing a face she sees.
 Endpoint: POST &lt;robot-ip-address&gt;/api/faces/recognition/stop
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -3105,6 +3493,19 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
+### StopObjectDetector
+
+Stop Misty locating the position and types of objects.
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/objects/detection/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
 
 ### StopRecordingAudio
 Directs Misty to stop the current audio recording. You must use this command after calling the `StartRecordingAudio` command. If you do not call `StopRecordingAudio`, Misty automatically stops recording after 60 seconds.
@@ -3137,6 +3538,26 @@ Parameters
 Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
+
+
+### StopVideoStreaming
+
+Stops Misty video streaming.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videostreaming/stop
+
+Parameters
+
+* None
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
 
 ### TakePicture
 
@@ -3231,7 +3652,7 @@ Endpoint: GET &lt;robot-ip-address&gt;/api/skills/running
 
 Parameters
 
-- None
+* None
 
 Return Values
 
@@ -3387,7 +3808,7 @@ Endpoint: POST &lt;robot-ip-address&gt;/api/text/error/clear <br>
 **Deprecated Endpoint**: POST &lt;robot-ip-address&gt;/api/text/clear
 
 Parameters
-- None
+* None
 
 Return Values
 - Result (boolean) - Returns `true` if there are no errors related to this command.
@@ -3744,7 +4165,7 @@ Obtains Misty's current battery level, along with other information about the ba
 Endpoint: GET &lt;robot-ip-address&gt;/api/battery
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (object) - An object with information about the status of Misty's battery. Includes the following properties:
@@ -3834,7 +4255,7 @@ Obtains device-related information for the robot.
 Endpoint: GET &lt;robot-ip-address&gt;/api/device
 
 Parameters
-- None
+* None
 
 Return Values
 * Result (object) - An object containing information about the robot, with the following fields.

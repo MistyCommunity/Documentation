@@ -34,7 +34,7 @@ TimeOfFlight{
 }
 ```
 
-## FaceRecognition (Beta)
+## FaceRecognition
 
 You can subscribe to the ```FaceRecognition``` WebSocket to obtain data on both face detection and face recognition events.
 

@@ -79,6 +79,81 @@ ActuatorPosition {
 }
 ```
 
+## ArTagDetection
+
+The `ArTagDetection` event type provides information about the value and position of AR Tags. `ArTagDetection` data is sent at timed intervals you define when you register for `ArTagDetection` messages, when a tag is within view of the camera.
+
+To receive `ArTagDetection` events  in your skills and robot applications, you must **both** issue a [`StartArTagDetector`](../../../misty-ii/rest-api/api-reference/#startartagdetector) command **and** register a listener for the `ArTagDetection` event type.
+
+When starting the detection, you must specify the Ar Tag dictionary id and the tag size in milimeters, where the dictionary options are:
+
+* 4X4_50 = 0
+* 4X4_100 = 1
+* 4X4_250 = 2
+* 4X4_1000 = 3
+* 5X5_50 = 4
+* 5X5_100 = 5
+* 5X5_250 = 6
+* 5X5_1000 = 7
+* 6X6_50 = 8
+* 6X6_100 = 9
+* 6X6_250 = 10
+* 6X6_1000 = 11
+* 7X7_50 = 12
+* 7X7_100 = 13
+* 7X7_250 = 14
+* 7X7_1000 = 15
+* ARUCO_ORIGINAL = 16
+* APRILTAG_16h5 = 17
+* APRILTAG_25h9 = 18
+* APRILTAG_36h10 = 19
+* APRILTAG_36h11 = 20		
+
+The following sample code shows how to start and register for the `ArTagDetection` event:
+```javascript
+// Start Ar Tag Detection with the specified Ar tag dictionary and tag size in milimeters.
+misty.StartArTagDetector(7, 144);
+// Register for ArTagDetection messages
+misty.RegisterEvent("ArTagDetection", "ArTagDetection", 1000, true);
+
+// Callback function that triggers each time ArTagDetection data is sent
+function _ArTagDetection_(data) {
+// Do something with the data
+}
+```
+
+Sample `ArTagDetection` data:
+
+```json
+{
+	"eventName": "ArTagDetection",
+	"message": {
+		"created": "2021-12-01T19:16:21.0132435Z",
+		"dictionary": 7,
+		"homogeneousMatrix": 
+      [
+        0.9958855, 
+        0.01890551, 
+        0.08862634, 
+        0, 0.0283857826, 
+        -0.993857861, 
+        -0.106961422, 
+        0, 
+        0.08605983, 
+        0.109037064, 
+        -0.9903053, 
+        0, 
+        0.0346132144, 
+        -0.0768907145, 
+        0.285792977, 
+        1
+      ],
+		"sensorId": "cv",
+		"tagId": 996
+	}
+}
+```
+
 ## AudioPlayComplete
 
 The `AudioPlayComplete` event type provides information about stopped or completed audio playback. Misty raises an `AudioPlayComplete` event for an audio source in the following situations:
@@ -337,6 +412,34 @@ Once you have obtained the X, Y, and Z coordinates for the docking station's pos
 {{box op="end"}}
 
 
+## CriticalStatusMessage
+
+The `CriticalStatusMessage` event type provides information about issues and critical status changes seen on the robot. `CriticalStatusMessage` data is sent every time the status changes.
+
+```javascript
+// Register for CriticalStatusMessage data
+misty.RegisterEvent("CriticalStatusMessage", "CriticalStatusMessage", 0, true);
+
+// Callback function that triggers each time CriticalStatusMessage data is sent
+function _CriticalStatusMessage_(data) {
+// Do something with the data
+}
+```
+
+Sample `CriticalStatusMessage` data:
+
+```json
+CriticalStatusMessage {
+    "eventName": "CriticalStatusMessage",
+    "message": {
+        "message": "Starting Update... ",
+        "statuscode": "RobotUpdating",
+        "timestamp": "2019-01-09T20:15:39.0870356Z"        
+    },
+    "type":"CriticalStatusMessage"
+}
+```
+
 ## DriveEncoders
 
 The `DriveEncoders` data stream provides information about the angular velocity (in degrees per second) and rotation (in degrees) for Misty's left and right encoders. `DriveEncoders` data is sent at timed intervals you define when you register for `DriveEncoders` messages.
@@ -356,7 +459,6 @@ Sample `DriveEncoders` sensor data:
   }
 }
 ```
-
 
 ## FaceRecognition
 
@@ -782,6 +884,135 @@ LocomotionCommand{
 		"ValueIndex":0
 	},
 	"Type":"LocomotionCommand"
+}
+```
+
+## ObjectDetection
+
+The `ObjectDetection` event type provides information about the type and position of objects. `ObjectDetection` data is sent at timed intervals you define when you register for `ObjectDetection` messages, when a valid object is within view of the camera.
+
+To receive `ObjectDetection` events  in your skills and robot applications, you must **both** issue a [`StartObjectDetector`](../../../misty-ii/rest-api/api-reference/#startobjectdetector) command **and** register a listener for the `ObjectDetection` event type.
+
+When starting the detection, you must specify the minimum confidence, the model id, and the max object tracking history. The higher the tracking history, the more likely the object will be treated as the same object across frames, but it also uses more memory and can be slower. Currently, valid model ids are 0-3 and each process the objects slightly differently using TensorFlow Lite.
+
+The known objects are:
+
+  person,
+  bicycle,
+  car,
+  motorcycle,
+  airplane,
+  bus,
+  train,
+  truck,
+  boat,
+  traffic_light,
+  fire_hydrant,
+  stop_sign,
+  parking_meter,
+  bench,
+  bird,
+  cat,
+  dog,
+  horse,
+  sheep,
+  cow,
+  elephant,
+  bear,
+  zebra,
+  giraffe,
+  backpack,
+  umbrella,
+  handbag,
+  tie,
+  suitcase,
+  frisbee,
+  skis,
+  snowboard,
+  sports_ball,
+  kite,
+  baseball_bat,
+  baseball_glove,
+  skateboard,
+  surfboard,
+  tennis_racket,
+  bottle,
+  wine_glass,
+  cup,
+  fork,
+  knife,
+  spoon,
+  bowl,
+  banana,
+  apple,
+  sandwich,
+  orange,
+  broccoli,
+  carrot,
+  hot_dog,
+  pizza,
+  donut,
+  cake,
+  chair,
+  couch,
+  potted_plant,
+  bed,
+  dining_table,
+  toilet,
+  tv,
+  laptop,
+  mouse,
+  remote,
+  keyboard,
+  cell_phone,
+  microwave,
+  oven,
+  toaster,
+  sink,
+  refrigerator,
+  book,
+  clock,
+  vase,
+  scissors,
+  teddy_bear,
+  hair_drier,
+  and toothbrush.
+
+The following sample code shows how to start and register for the `ObjectDetection` event:
+
+```javascript
+
+// Start object detection with the minimum confidence, model id, and tracking history.
+misty.StartObjectDetector(0.65, 0, 5);
+
+// Register for ObjectDetection messages
+misty.RegisterEvent("ObjectDetection", "ObjectDetection", 1000, true);
+
+// Callback function that triggers each time ObjectDetection data is sent
+function _ObjectDetection_(data) {
+// Do something with the data
+}
+```
+
+Sample `ObjectDetection` data:
+
+```json
+{
+	"eventName": "ObjectDetection",
+	"message": {
+		"confidence": 0.8139669,
+		"created": "2021-12-01T19:58:55.7851953Z",
+		"description": "tv",
+		"id": 0,
+		"imageLocationBottom": 280.026581,
+		"imageLocationLeft": 0.497694016,
+		"imageLocationRight": 165.202759,
+		"imageLocationTop": 147.299713,
+		"labelId": 72,
+		"pitch": 0.202373847,
+		"sensorId": "cv",
+		"yaw": -0.217731148
+	}
 }
 ```
 
