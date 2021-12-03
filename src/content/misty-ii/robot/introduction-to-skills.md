@@ -30,7 +30,7 @@ For example, you might code Misty to do the following:
 * respond with sound and movement when you touch her on the head or chin
 * patrol an area to capture photos, videos, and audio recordings while reporting changes in the environment
 
-The first step in coding Misty is deciding what you want the robot to do. Then, you can choose to whether to use Misty's JavaScript SDK, her .NET SDK, or her REST API. When you're ready, you can share your code with other developers in the Misty Community.
+The first step in coding Misty is deciding what you want the robot to do. Then, you can choose to whether to use Misty's JavaScript SDK, her .NET SDK (Beta), or her REST API. When you're ready, you can share your code with other developers in the Misty Community.
 
 ## SDKs and APIs
 
