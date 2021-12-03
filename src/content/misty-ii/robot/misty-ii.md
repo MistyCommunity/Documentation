@@ -512,13 +512,13 @@ This table provides more information about the specifications for each Misty II 
    <tr>
       <td>Programmability
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools. 
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools. 
    <br><br>
    <strong>Note: </strong>API commands, event types, data, and tools that make use of the depth sensor are not functional with the Misty II Basic Edition. 
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools.
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
       </td>
-      <td>Compatible with Misty's JavaScript SDK, .NET SDK, REST API, and web-based tools.
+      <td>Compatible with Misty's JavaScript SDK, .NET SDK (Beta), REST API, and web-based tools.
       </td>
    </tr>
    <tr>
