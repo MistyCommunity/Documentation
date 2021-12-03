@@ -2899,7 +2899,6 @@ Parameters
 
 * Dictionary (int) - The Ar Tag dictionary to use.
 * TagSizeMm (double) -  The size of the printed tags. Used in assessing distance.
-
 ```json
 { 
   "Dictionary" : 7,
@@ -2912,27 +2911,28 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 The available dictionary codes are as follows:
-  4X4_50 = 0
-  4X4_100 = 1
-  4X4_250 = 2
-  4X4_1000 = 3
-  5X5_50 = 4
-  5X5_100 = 5
-  5X5_250 = 6
-  5X5_1000 = 7
-  6X6_50 = 8
-  6X6_100 = 9
-  6X6_250 = 10
-  6X6_1000 = 11
-  7X7_50 = 12
-  7X7_100 = 13
-  7X7_250 = 14
-  7X7_1000 = 15
-  ARUCO_ORIGINAL = 16
-  APRILTAG_16h5 = 17
-  APRILTAG_25h9 = 18
-  APRILTAG_36h10 = 19
-  APRILTAG_36h11 = 20
+  
+* 4X4_50 = 0
+* 4X4_100 = 1
+* 4X4_250 = 2
+* 4X4_1000 = 3
+* 5X5_50 = 4
+* 5X5_100 = 5
+* 5X5_250 = 6
+* 5X5_1000 = 7
+* 6X6_50 = 8
+* 6X6_100 = 9
+* 6X6_250 = 10
+* 6X6_1000 = 11
+* 7X7_50 = 12
+* 7X7_100 = 13
+* 7X7_250 = 14
+* 7X7_1000 = 15
+* ARUCO_ORIGINAL = 16
+* APRILTAG_16h5 = 17
+* APRILTAG_25h9 = 18
+* APRILTAG_36h10 = 19
+* APRILTAG_36h11 = 20		
 
 ### StartAvStreaming
 
@@ -3213,7 +3213,6 @@ Parameters
 * MinimumConfidence (double) - The minimum confidence to trigger sending an event. From 0 to 1.0.
 * ModelId (int) -  The TensorFlow Lite object model to use. Valid model ids are 0-3.
 * MaximumTrackerHistory (int) -  How long to hold previous object history across frames.
-
 ```json
 { 
   "MinimumConfidence" : 0.6,
@@ -3227,12 +3226,13 @@ Return Values
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
 The TensorFlow Lite model id options are:
-  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
-  1 = ssd_mobilenet_v1_quantized (2018/06/29)
-  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
-  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
+*  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
+*  1 = ssd_mobilenet_v1_quantized (2018/06/29)
+*  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
+*  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
 
 The known objects are:
+
   person,
   bicycle,
   car,
@@ -3312,7 +3312,7 @@ The known objects are:
   scissors,
   teddy_bear,
   hair_drier,
-  toothbrush	
+  and toothbrush.
 
 ### StartRecordingAudio
 

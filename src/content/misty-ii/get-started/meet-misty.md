@@ -136,7 +136,7 @@ When you look at the sample file there are a couple of things to be aware of:
 
 Should things go awry, you'd want to pull log files from the robot to see what went wrong. Upon insertion, the robot should push logs to the USB drive. 
 
-With respect to captive networks, we don't have any support for a captive portal (i.e. a page where you have to enter some details to enter the network). Misty is very much more of an Iot device in this way than a smartphone.
+With respect to captive networks, we currently don't have any support for a captive portal (i.e. a page where you have to enter some details to enter the network).
 
 ## Additional Resources
 

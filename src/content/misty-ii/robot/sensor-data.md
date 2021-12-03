@@ -86,32 +86,31 @@ The `ArTagDetection` event type provides information about the value and positio
 To receive `ArTagDetection` events  in your skills and robot applications, you must **both** issue a [`StartArTagDetector`](../../../misty-ii/rest-api/api-reference/#startartagdetector) command **and** register a listener for the `ArTagDetection` event type.
 
 When starting the detection, you must specify the Ar Tag dictionary id and the tag size in milimeters, where the dictionary options are:
-  4X4_50 = 0
-  4X4_100 = 1
-  4X4_250 = 2
-  4X4_1000 = 3
-  5X5_50 = 4
-  5X5_100 = 5
-  5X5_250 = 6
-  5X5_1000 = 7
-  6X6_50 = 8
-  6X6_100 = 9
-  6X6_250 = 10
-  6X6_1000 = 11
-  7X7_50 = 12
-  7X7_100 = 13
-  7X7_250 = 14
-  7X7_1000 = 15
-  ARUCO_ORIGINAL = 16
-  APRILTAG_16h5 = 17
-  APRILTAG_25h9 = 18
-  APRILTAG_36h10 = 19
-  APRILTAG_36h11 = 20		
+
+* 4X4_50 = 0
+* 4X4_100 = 1
+* 4X4_250 = 2
+* 4X4_1000 = 3
+* 5X5_50 = 4
+* 5X5_100 = 5
+* 5X5_250 = 6
+* 5X5_1000 = 7
+* 6X6_50 = 8
+* 6X6_100 = 9
+* 6X6_250 = 10
+* 6X6_1000 = 11
+* 7X7_50 = 12
+* 7X7_100 = 13
+* 7X7_250 = 14
+* 7X7_1000 = 15
+* ARUCO_ORIGINAL = 16
+* APRILTAG_16h5 = 17
+* APRILTAG_25h9 = 18
+* APRILTAG_36h10 = 19
+* APRILTAG_36h11 = 20		
 
 The following sample code shows how to start and register for the `ArTagDetection` event:
-
 ```javascript
-
 // Start Ar Tag Detection with the specified Ar tag dictionary and tag size in milimeters.
 misty.StartArTagDetector(7, 144);
 // Register for ArTagDetection messages
@@ -897,6 +896,7 @@ To receive `ObjectDetection` events  in your skills and robot applications, you 
 When starting the detection, you must specify the minimum confidence, the model id, and the max object tracking history. The higher the tracking history, the more likely the object will be treated as the same object across frames, but it also uses more memory and can be slower. Currently, valid model ids are 0-3 and each process the objects slightly differently using TensorFlow Lite.
 
 The known objects are:
+
   person,
   bicycle,
   car,
@@ -976,7 +976,7 @@ The known objects are:
   scissors,
   teddy_bear,
   hair_drier,
-  toothbrush	
+  and toothbrush.
 
 The following sample code shows how to start and register for the `ObjectDetection` event:
 

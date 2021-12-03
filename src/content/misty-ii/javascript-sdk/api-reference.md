@@ -3486,7 +3486,6 @@ misty.RenameVideoRecording("MyOldName", "MyNewName");
 ### misty.StartArTagDetector
 
 Starts Misty locating the position and values of Ar Tags.
-
 ```javascript
 // Syntax
 misty.StartArTagDetector(int dictionary, double tagSizeMm, [int prePauseMs], [int postPauseMs]);
@@ -3506,27 +3505,28 @@ Arguments
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
 The available dictionary codes are as follows:
-  4X4_50 = 0
-  4X4_100 = 1
-  4X4_250 = 2
-  4X4_1000 = 3
-  5X5_50 = 4
-  5X5_100 = 5
-  5X5_250 = 6
-  5X5_1000 = 7
-  6X6_50 = 8
-  6X6_100 = 9
-  6X6_250 = 10
-  6X6_1000 = 11
-  7X7_50 = 12
-  7X7_100 = 13
-  7X7_250 = 14
-  7X7_1000 = 15
-  ARUCO_ORIGINAL = 16
-  APRILTAG_16h5 = 17
-  APRILTAG_25h9 = 18
-  APRILTAG_36h10 = 19
-  APRILTAG_36h11 = 20
+  
+* 4X4_50 = 0
+* 4X4_100 = 1
+* 4X4_250 = 2
+* 4X4_1000 = 3
+* 5X5_50 = 4
+* 5X5_100 = 5
+* 5X5_250 = 6
+* 5X5_1000 = 7
+* 6X6_50 = 8
+* 6X6_100 = 9
+* 6X6_250 = 10
+* 6X6_1000 = 11
+* 7X7_50 = 12
+* 7X7_100 = 13
+* 7X7_250 = 14
+* 7X7_1000 = 15
+* ARUCO_ORIGINAL = 16
+* APRILTAG_16h5 = 17
+* APRILTAG_25h9 = 18
+* APRILTAG_36h10 = 19
+* APRILTAG_36h11 = 20		
 
 ### misty.StartAvStreaming
 
@@ -3971,7 +3971,6 @@ Follow these steps to code Misty to respond to the "Hey, Misty!" key phrase:
 ### misty.StartObjectDetector
 
 Starts Misty locating the position and type of objects.
-
 ```javascript
 // Syntax
 misty.StartObjectDetector(double minimumConfidence, int modelId, int maximumTrackerHistory, [int prePauseMs], [int postPauseMs]));
@@ -3990,12 +3989,13 @@ Arguments
 * maximumTrackerHistory (int) -  How long to hold previous object history across frames.
 
 The TensorFlow Lite model id options are:
-  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
-  1 = ssd_mobilenet_v1_quantized (2018/06/29)
-  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
-  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
+*  0 = ssd_mobilenet_v3_large_coco (2020/01/14)
+*  1 = ssd_mobilenet_v1_quantized (2018/06/29)
+*  2 = ssd_mobilenet_v2_mnasfpn_coco (2020/05/18)
+*  3 = ssd_mobilenet_v3_small_coco (2020/01/14)
 
 The known objects are:
+
   person,
   bicycle,
   car,
@@ -4075,7 +4075,7 @@ The known objects are:
   scissors,
   teddy_bear,
   hair_drier,
-  toothbrush	
+  and toothbrush.
 
 ### misty.StartRecordingAudio
 
