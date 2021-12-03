@@ -2417,48 +2417,6 @@ Return Values
 
 * Result (boolean) - Returns `true` if there are no errors related to this command.
 
-### StartVideoStreaming
-
-Starts Misty video streaming.
-
-To use the websocket, you can connect to it from a browser using:
-
-ws://&lt;robot-ip-address&gt;:&lt;port&gt;
-
-You can find an example of it's use by connecting to your robot from http://sdk.mistyrobotics.com/stem/index.html, and then selecting the Robot Senses button.
-
-Video streaming consumes extra resources, so when you are done using the stream, you should call the [`StopVideoStreaming`](../../../misty-ii/rest-api/api-reference/#stopvideostreaming) command.
-
-{{box op="start" cssClass="boxed noteBox"}}
-**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
-{{box op="end"}}
-
-Endpoint: POST &lt;robot-ip-address&gt;/api/videostreaming/start
-
-Parameters
-
-* Port (int) - Optional. The websocket port. Must be between 1024 and 65535, default is 5678.
-* Rotation (int) - Optional. Stream rotation. Must be between 0 and 180, default is 0.
-* Width (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
-* Height (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
-* Quality (int) - Optional. Image quality, which can affect performance. Must be between 1 and 100. Default is 100.
-* Overlay (bool) - Optional. Whether to add overlay information, like face tracking, to the stream. Default is false.
-
-```json
-{ 
-  "Port" : 5678,
-  "Rotation" : 0,
-	"Width" : 0,
-  "Height" : 0,
-  "Quality" : 100, 
-  "Overlay" : false
-}
-```
-
-Return Values
-
-* Result (boolean) - Returns `true` if there are no errors related to this command.
-
 ### StopLocatingDockingStation
 
 Stops Misty locating the docking station.
@@ -3418,6 +3376,48 @@ Parameters
 	"Duration": 60,
 	"Width": 1920,
 	"Height": 1080
+}
+```
+
+Return Values
+
+* Result (boolean) - Returns `true` if there are no errors related to this command.
+
+### StartVideoStreaming
+
+Starts Misty video streaming.
+
+To use the websocket, you can connect to it from a browser using:
+
+ws://&lt;robot-ip-address&gt;:&lt;port&gt;
+
+You can find an example of it's use by connecting to your robot from http://sdk.mistyrobotics.com/stem/index.html, and then selecting the Robot Senses button.
+
+Video streaming consumes extra resources, so when you are done using the stream, you should call the [`StopVideoStreaming`](../../../misty-ii/rest-api/api-reference/#stopvideostreaming) command.
+
+{{box op="start" cssClass="boxed noteBox"}}
+**Note:** This command is currently in **Alpha**, and related hardware, firmware, or software is still under development. Feel free to use this command, but recognize that it may behave unpredictably at this time.
+{{box op="end"}}
+
+Endpoint: POST &lt;robot-ip-address&gt;/api/videostreaming/start
+
+Parameters
+
+* Port (int) - Optional. The websocket port. Must be between 1024 and 65535, default is 5678.
+* Rotation (int) - Optional. Stream rotation. Must be between 0 and 180, default is 0.
+* Width (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
+* Height (int) - Optional. Must be between 200 and 1600. Default is 0 and does not adjust the image.
+* Quality (int) - Optional. Image quality, which can affect performance. Must be between 1 and 100. Default is 100.
+* Overlay (bool) - Optional. Whether to add overlay information, like face tracking, to the stream. Default is false.
+
+```json
+{ 
+  "Port" : 5678,
+  "Rotation" : 0,
+	"Width" : 0,
+  "Height" : 0,
+  "Quality" : 100, 
+  "Overlay" : false
 }
 ```
 

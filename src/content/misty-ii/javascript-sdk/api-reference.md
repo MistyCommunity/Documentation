@@ -4165,8 +4165,6 @@ Arguments
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
 
-
-
 ### misty.StopAvStreaming
 
 Stops Misty streaming audio and video.
@@ -4180,22 +4178,6 @@ Arguments
 
 * prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
 * postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
-
-  
-### misty.StopObjectDetector
-
-Stop Misty locating the position and type of objects.
-
-```javascript
-// Syntax
-misty.StopObjectDetector([int prePauseMs], [int postPauseMs]);
-```
-
-Arguments
-
-* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
-* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
-
 
 ### misty.StopFaceDetection
 
@@ -4240,6 +4222,20 @@ Stops Misty listening for the "Hey, Misty!" key phrase.
 ```javascript
 // Syntax
 misty.StopKeyPhraseRecognition([int prePauseMs], [int postPauseMs]);
+```
+
+Arguments
+
+* prePauseMs (integer) - Optional. The length of time in milliseconds to wait before executing this command.
+* postPauseMs (integer) - Optional. The length of time in milliseconds to wait between executing this command and executing the next command in the skill. If no command follows this command, `postPauseMs` is not used.
+
+### misty.StopObjectDetector
+
+Stop Misty locating the position and type of objects.
+
+```javascript
+// Syntax
+misty.StopObjectDetector([int prePauseMs], [int postPauseMs]);
 ```
 
 Arguments
