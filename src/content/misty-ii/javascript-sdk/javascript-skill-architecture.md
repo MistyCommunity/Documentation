@@ -261,7 +261,7 @@ With a JSON body similar to:
 
 The `UniqueId` and `EventName` values are required, and they must match the ID of the skill to call and the event name that you registered a listener for in that skill. You should place any payload data you wish to send to the skill in the `Payload` field. You can process this data in the event callback.
 
-Additionally, you can use the [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK (Beta).
+Additionally, you can use the [`TriggerEvent`](../../../misty-ii/javascript-sdk/api-reference/#misty-triggerevent) command to trigger custom event callbacks in the current skill, or in any other skills that are running at the same time. You can trigger (and register listeners for) custom events with Misty's JavaScript and .NET SDK.
 
 ```javascript
 // Syntax
