@@ -33,7 +33,7 @@
     "hoek": ">=4.2.1",
     "lodash": "^4.17.15",
     "lunr": "^0.7.2",
-    "marked": "^0.7.0",
+    "marked": "^4.0.10",
     "metalsmith": "^2.3.0",
     "metalsmith-autotoc": "git://github.com/spark/metalsmith-autotoc",
     "metalsmith-clean-css": "^5.0.1",
