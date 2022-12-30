@@ -57,7 +57,7 @@
     "metalsmith-serve": "0.0.7",
     "metalsmith-watch": "^1.0.1",
     "mime": ">=1.4.1",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "prettify": "^0.1.7",
     "randomatic": ">=3.0.0",
     "sshpk": ">=1.13.2",
